@@ -1,0 +1,42 @@
+{
+    "ietf-interfaces:interfaces":{
+        "interface": [
+            {
+                "name": "eth/0/0",
+                "description": "ENG",
+                "type": "iana-if-type:ethernetCsmacd",
+                "enabled": true
+            }
+        ],
+        "interface": [
+            {
+                "name": "eth/0/1",
+                "description": "MKT",
+                "type": "iana-if-type:ethernetCsmacd",
+                "enabled": true
+            }
+        ]
+    },
+    "ietf-routing:routing": {
+        "control-plane-protocols": {
+            "control-plane-protocol": [
+                {
+                    "type": "ietf-isis:isis",
+                    "name": "default",
+                    "ietf-isis:isis": {
+                        "area-address": [
+                            "00"
+                        ],
+                        "interfaces": {
+                            "interface": [
+                                {
+                                    "name": "eth/0/0"
+                                }
+                            ]
+                        }
+                    }
+                }
+            ]
+        }
+    }
+}

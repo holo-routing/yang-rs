@@ -1,0 +1,34 @@
+name: CI
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Install libyang2
+      run: |
+        sudo apt-get install cmake libpcre3-dev
+        git clone https://github.com/CESNET/libyang.git
+        cd libyang
+        git checkout de8d5cc7b9bf4fcce1007c8ff3d04d6000cdd081
+        mkdir build
+        cd build
+        cmake -DENABLE_BUILD_TESTS=OFF -DCMAKE_BUILD_TYPE:String="Release" ..
+        make
+        sudo make install
+        sudo ldconfig
+    - name: Build
+      run: cargo build --verbose
+    - name: Run tests
+      run: cargo test --jobs 1 --verbose

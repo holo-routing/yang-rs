@@ -1,0 +1,81 @@
+use std::fs::File;
+use yang2::context::{Context, ContextFlags};
+use yang2::data::{
+    Data, DataFormat, DataParserFlags, DataPrinterFlags, DataTree,
+    DataValidationFlags,
+};
+
+static SEARCH_DIR: &str = "./assets/yang/";
+
+enum Operation {
+    MODIFY(&'static str, Option<&'static str>),
+    DELETE(&'static str),
+}
+
+fn main() -> std::io::Result<()> {
+    // Initialize context.
+    let ctx = Context::new(SEARCH_DIR, ContextFlags::NO_YANGLIBRARY)
+        .expect("Failed to create context");
+
+    // Load YANG modules.
+    for module_name in &["ietf-interfaces", "iana-if-type"] {
+        ctx.load_module(module_name, None)
+            .expect("Failed to load module");
+    }
+
+    // Parse data tree from JSON file.
+    let mut dtree = DataTree::parse_file(
+        &ctx,
+        File::open("./assets/data/interfaces.json")?,
+        DataFormat::JSON,
+        DataParserFlags::NO_VALIDATION,
+        DataValidationFlags::empty(),
+    )
+    .expect("Failed to parse data tree");
+
+    // Modify data tree.
+    let changes = [
+        Operation::DELETE(
+            "/ietf-interfaces:interfaces/interface[name='eth/0/0']",
+        ),
+        Operation::MODIFY(
+            "/ietf-interfaces:interfaces/interface[name='eth/0/1']/description",
+            Some("HR"),
+        ),
+        Operation::MODIFY(
+            "/ietf-interfaces:interfaces/interface[name='eth/0/2']/description",
+            Some("MGMT"),
+        ),
+        Operation::MODIFY(
+            "/ietf-interfaces:interfaces/interface[name='eth/0/2']/type",
+            Some("iana-if-type:ethernetCsmacd"),
+        ),
+        Operation::MODIFY(
+            "/ietf-interfaces:interfaces/interface[name='eth/0/2']/enabled",
+            Some("true"),
+        ),
+    ];
+    for change in &changes {
+        match change {
+            Operation::MODIFY(xpath, value) => {
+                dtree
+                    .new_path(xpath, *value)
+                    .expect("Failed to edit data tree");
+            }
+            Operation::DELETE(xpath) => {
+                dtree.remove(xpath).expect("Failed to edit data tree")
+            }
+        };
+    }
+
+    // Print the modified data tree.
+    dtree
+        .print_file(
+            std::io::stdout(),
+            DataFormat::JSON,
+            DataPrinterFlags::WD_ALL | DataPrinterFlags::WITH_SIBLINGS,
+        )
+        .expect("Failed to print data tree");
+
+    Ok(())
+}

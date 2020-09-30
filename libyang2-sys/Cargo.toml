@@ -1,0 +1,12 @@
+[package]
+name = "libyang2-sys"
+version = "0.1.0"
+authors = ["Renato Westphal <renato@opensourcerouting.org>"]
+edition = "2018"
+license = "MIT"
+categories = ["external-ffi-bindings"]
+
+[dependencies]
+
+[build-dependencies]
+bindgen = "0.55.0"

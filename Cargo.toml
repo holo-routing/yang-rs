@@ -12,7 +12,7 @@ categories = ["parser-implementations"]
 exclude = ["assets/**"]
 
 [dependencies]
-libyang2-sys = { path = "libyang2-sys" }
+libyang2-sys = { path = "libyang2-sys", version = "0.1.0" }
 bitflags = "1.0"
 
 [dev-dependencies]

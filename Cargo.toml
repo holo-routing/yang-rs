@@ -21,3 +21,7 @@ criterion = "0.3.3"
 [[bench]]
 name = "data"
 harness = false
+
+[features]
+default = []
+use_bindgen = ["libyang2-sys/use_bindgen"]

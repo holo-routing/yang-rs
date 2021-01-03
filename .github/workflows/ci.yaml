@@ -29,6 +29,6 @@ jobs:
         sudo make install
         sudo ldconfig
     - name: Build
-      run: cargo build --verbose
+      run: cargo build --features use_bindgen --verbose
     - name: Run tests
-      run: cargo test --jobs 1 --verbose
+      run: cargo test --features use_bindgen --jobs 1 --verbose

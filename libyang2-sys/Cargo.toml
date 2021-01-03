@@ -1,6 +1,6 @@
 [package]
 name = "libyang2-sys"
-version = "0.1.0"
+version = "0.1.1"
 authors = ["Renato Westphal <renato@opensourcerouting.org>"]
 description = "Raw FFI bindings for libyang2"
 edition = "2018"

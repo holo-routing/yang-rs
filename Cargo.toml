@@ -3,6 +3,7 @@ name = "yang2"
 version = "0.1.1"
 authors = ["Renato Westphal <renato@opensourcerouting.org>"]
 description = "libyang2 bindings for Rust"
+keywords = ["yang"]
 edition = "2018"
 license = "MIT"
 repository = "https://github.com/rwestphal/yang2-rs"

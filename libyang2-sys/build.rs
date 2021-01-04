@@ -5,10 +5,11 @@ fn main() {
     let dst = PathBuf::from(env::var("OUT_DIR").unwrap());
     let out_file = dst.join("libyang2.rs");
 
+    println!("cargo:rustc-link-lib=yang");
+
     #[cfg(feature = "use_bindgen")]
     {
         // Generate Rust FFI to libfrr.
-        println!("cargo:rustc-link-lib=yang");
         println!("cargo:rerun-if-changed=wrapper.h");
         let bindings = bindgen::Builder::default()
             .header("wrapper.h")

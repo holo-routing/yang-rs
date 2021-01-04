@@ -157,26 +157,24 @@ fn data_find() {
     let ctx = create_context();
     let dtree1 = parse_json_data(&ctx, JSON_TREE1);
 
-    let found: Vec<String> = dtree1
-        .find("/ietf-interfaces:interfaces/interface")
-        .expect("Failed to lookup data")
-        .map(|dnode| dnode.path().unwrap())
-        .collect();
     assert_eq!(
-        found,
+        dtree1
+            .find("/ietf-interfaces:interfaces/interface")
+            .expect("Failed to lookup data")
+            .map(|dnode| dnode.path().unwrap())
+            .collect::<Vec<String>>(),
         vec![
             "/ietf-interfaces:interfaces/interface[name='eth/0/0']",
             "/ietf-interfaces:interfaces/interface[name='eth/0/1']"
         ]
     );
 
-    let found: Vec<String> = dtree1
-        .find("/ietf-interfaces:interfaces/interface[name='eth/0/0']/*")
-        .expect("Failed to lookup data")
-        .map(|dnode| dnode.path().unwrap())
-        .collect();
     assert_eq!(
-        found,
+        dtree1
+            .find("/ietf-interfaces:interfaces/interface[name='eth/0/0']/*")
+            .expect("Failed to lookup data")
+            .map(|dnode| dnode.path().unwrap())
+            .collect::<Vec<String>>(),
         vec![
             "/ietf-interfaces:interfaces/interface[name='eth/0/0']/name",
             "/ietf-interfaces:interfaces/interface[name='eth/0/0']/description",
@@ -305,12 +303,11 @@ fn data_iterator_traverse() {
     let ctx = create_context();
     let dtree1 = parse_json_data(&ctx, JSON_TREE1);
 
-    let data: Vec<String> = dtree1
-        .traverse()
-        .map(|dnode| dnode.path().unwrap())
-        .collect();
     assert_eq!(
-        data,
+        dtree1
+            .traverse()
+            .map(|dnode| dnode.path().unwrap())
+            .collect::<Vec<String>>(),
         vec![
             "/ietf-interfaces:interfaces",
             "/ietf-interfaces:interfaces/interface[name='eth/0/0']",
@@ -332,17 +329,15 @@ fn data_iterator_ancestors() {
     let ctx = create_context();
     let dtree1 = parse_json_data(&ctx, JSON_TREE1);
 
-    let dnode = dtree1
-        .find_single(
-            "/ietf-interfaces:interfaces/interface[name='eth/0/0']/type",
-        )
-        .expect("Failed to lookup data");
-    let data: Vec<String> = dnode
-        .ancestors()
-        .map(|dnode| dnode.path().unwrap())
-        .collect();
     assert_eq!(
-        data,
+        dtree1
+            .find_single(
+                "/ietf-interfaces:interfaces/interface[name='eth/0/0']/type",
+            )
+            .expect("Failed to lookup data")
+            .ancestors()
+            .map(|dnode| dnode.path().unwrap())
+            .collect::<Vec<String>>(),
         vec![
             "/ietf-interfaces:interfaces/interface[name='eth/0/0']",
             "/ietf-interfaces:interfaces",
@@ -355,15 +350,15 @@ fn data_iterator_siblings() {
     let ctx = create_context();
     let dtree1 = parse_json_data(&ctx, JSON_TREE1);
 
-    let dnode = dtree1
-        .find_single("/ietf-interfaces:interfaces/interface[name='eth/0/0']")
-        .expect("Failed to lookup data");
-    let data: Vec<String> = dnode
-        .siblings()
-        .map(|dnode| dnode.path().unwrap())
-        .collect();
     assert_eq!(
-        data,
+        dtree1
+            .find_single(
+                "/ietf-interfaces:interfaces/interface[name='eth/0/0']"
+            )
+            .expect("Failed to lookup data")
+            .siblings()
+            .map(|dnode| dnode.path().unwrap())
+            .collect::<Vec<String>>(),
         vec!["/ietf-interfaces:interfaces/interface[name='eth/0/1']",]
     );
 }
@@ -373,15 +368,13 @@ fn data_iterator_children() {
     let ctx = create_context();
     let dtree1 = parse_json_data(&ctx, JSON_TREE1);
 
-    let dnode = dtree1
-        .find_single("/ietf-interfaces:interfaces")
-        .expect("Failed to lookup data");
-    let data: Vec<String> = dnode
-        .children()
-        .map(|dnode| dnode.path().unwrap())
-        .collect();
     assert_eq!(
-        data,
+        dtree1
+            .find_single("/ietf-interfaces:interfaces")
+            .expect("Failed to lookup data")
+            .children()
+            .map(|dnode| dnode.path().unwrap())
+            .collect::<Vec<String>>(),
         vec![
             "/ietf-interfaces:interfaces/interface[name='eth/0/0']",
             "/ietf-interfaces:interfaces/interface[name='eth/0/1']",

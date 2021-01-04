@@ -23,20 +23,21 @@ fn schema_find() {
     let ctx = create_context();
     let snode = ctx.traverse().next().unwrap();
 
-    let found: Vec<String> = snode
-        .find("/ietf-interfaces:interfaces/*")
-        .expect("Failed to lookup schema data")
-        .map(|dnode| dnode.path().unwrap())
-        .collect();
-    assert_eq!(found, vec!["/ietf-interfaces:interfaces/interface",]);
-
-    let found: Vec<String> = snode
-        .find("/ietf-interfaces:interfaces/interface/*")
-        .expect("Failed to lookup schema data")
-        .map(|dnode| dnode.path().unwrap())
-        .collect();
     assert_eq!(
-        found,
+        snode
+            .find("/ietf-interfaces:interfaces/*")
+            .expect("Failed to lookup schema data")
+            .map(|dnode| dnode.path().unwrap())
+            .collect::<Vec<String>>(),
+        vec!["/ietf-interfaces:interfaces/interface"]
+    );
+
+    assert_eq!(
+        snode
+            .find("/ietf-interfaces:interfaces/interface/*")
+            .expect("Failed to lookup schema data")
+            .map(|dnode| dnode.path().unwrap())
+            .collect::<Vec<String>>(),
         vec![
             "/ietf-interfaces:interfaces/interface/name",
             "/ietf-interfaces:interfaces/interface/description",
@@ -69,14 +70,13 @@ fn schema_find_single() {
 #[test]
 fn schema_iterator_traverse() {
     let ctx = create_context();
-
     let snode_top = ctx.traverse().next().unwrap();
-    let data: Vec<String> = snode_top
-        .traverse()
-        .map(|snode| snode.path().unwrap())
-        .collect();
+
     assert_eq!(
-        data,
+        snode_top
+            .traverse()
+            .map(|snode| snode.path().unwrap())
+            .collect::<Vec<String>>(),
         vec![
             "/ietf-interfaces:interfaces",
             "/ietf-interfaces:interfaces/interface",
@@ -112,19 +112,15 @@ fn schema_iterator_traverse() {
 #[test]
 fn schema_iterator_ancestors() {
     let ctx = create_context();
-
     let snode_top = ctx.traverse().next().unwrap();
-    let snode = snode_top
-        .find_single(
-            "/ietf-interfaces:interfaces/interface/statistics/discontinuity-time",
-        )
-        .expect("Failed to lookup schema data");
-    let data: Vec<String> = snode
-        .ancestors()
-        .map(|snode| snode.path().unwrap())
-        .collect();
+
     assert_eq!(
-        data,
+        snode_top
+            .find_single("/ietf-interfaces:interfaces/interface/statistics/discontinuity-time")
+            .expect("Failed to lookup schema data")
+            .ancestors()
+            .map(|snode| snode.path().unwrap())
+            .collect::<Vec<String>>(),
         vec![
             "/ietf-interfaces:interfaces/interface/statistics",
             "/ietf-interfaces:interfaces/interface",
@@ -136,17 +132,15 @@ fn schema_iterator_ancestors() {
 #[test]
 fn schema_iterator_siblings() {
     let ctx = create_context();
-
     let snode_top = ctx.traverse().next().unwrap();
-    let snode = snode_top
-        .find_single("/ietf-interfaces:interfaces/interface/name")
-        .expect("Failed to lookup schema data");
-    let data: Vec<String> = snode
-        .siblings()
-        .map(|snode| snode.path().unwrap())
-        .collect();
+
     assert_eq!(
-        data,
+        snode_top
+            .find_single("/ietf-interfaces:interfaces/interface/name")
+            .expect("Failed to lookup schema data")
+            .siblings()
+            .map(|snode| snode.path().unwrap())
+            .collect::<Vec<String>>(),
         vec![
             "/ietf-interfaces:interfaces/interface/description",
             "/ietf-interfaces:interfaces/interface/type",
@@ -165,17 +159,15 @@ fn schema_iterator_siblings() {
 #[test]
 fn schema_iterator_children() {
     let ctx = create_context();
-
     let snode_top = ctx.traverse().next().unwrap();
-    let snode = snode_top
-        .find_single("/ietf-interfaces:interfaces/interface/statistics")
-        .expect("Failed to lookup schema data");
-    let data: Vec<String> = snode
-        .children()
-        .map(|snode| snode.path().unwrap())
-        .collect();
+
     assert_eq!(
-        data,
+        snode_top
+            .find_single("/ietf-interfaces:interfaces/interface/statistics")
+            .expect("Failed to lookup schema data")
+            .children()
+            .map(|snode| snode.path().unwrap())
+            .collect::<Vec<String>>(),
         vec![
             "/ietf-interfaces:interfaces/interface/statistics/discontinuity-time",
             "/ietf-interfaces:interfaces/interface/statistics/in-octets",

@@ -8,6 +8,7 @@
 
 use bitflags::bitflags;
 use std::ffi::CString;
+use std::mem;
 use std::os::unix::io::AsRawFd;
 use std::slice;
 
@@ -55,241 +56,22 @@ bitflags! {
 pub struct SchemaNode<'a> {
     context: &'a Context,
     raw: *mut ffi::lysc_node,
-    kind: SchemaNodeKind<'a>,
+    kind: SchemaNodeKind,
 }
 
 /// YANG schema node kind.
-#[derive(Clone, Debug)]
-pub enum SchemaNodeKind<'a> {
-    Container(SchemaNodeContainer<'a>),
-    Case(SchemaNodeCase<'a>),
-    Choice(SchemaNodeChoice<'a>),
-    Leaf(SchemaNodeLeaf<'a>),
-    LeafList(SchemaNodeLeafList<'a>),
-    List(SchemaNodeList<'a>),
-    AnyData(SchemaNodeAnyData<'a>),
-    Rpc(SchemaNodeRpc<'a>),
-    Action(SchemaNodeAction<'a>),
-    Notification(SchemaNodeNotification<'a>),
-}
-
-/// YANG container schema node.
-#[derive(Clone, Debug)]
-pub struct SchemaNodeContainer<'a> {
-    context: &'a Context,
-    raw: *mut ffi::lysc_node_container,
-}
-
-/// YANG case schema node.
-#[derive(Clone, Debug)]
-pub struct SchemaNodeCase<'a> {
-    context: &'a Context,
-    raw: *mut ffi::lysc_node_case,
-}
-
-/// YANG choice schema node.
-#[derive(Clone, Debug)]
-pub struct SchemaNodeChoice<'a> {
-    context: &'a Context,
-    raw: *mut ffi::lysc_node_choice,
-}
-
-/// YANG leaf schema node.
-#[derive(Clone, Debug)]
-pub struct SchemaNodeLeaf<'a> {
-    context: &'a Context,
-    raw: *mut ffi::lysc_node_leaf,
-}
-
-/// YANG leaf-list schema node.
-#[derive(Clone, Debug)]
-pub struct SchemaNodeLeafList<'a> {
-    context: &'a Context,
-    raw: *mut ffi::lysc_node_leaflist,
-}
-
-/// YANG list schema node.
-#[derive(Clone, Debug)]
-pub struct SchemaNodeList<'a> {
-    context: &'a Context,
-    raw: *mut ffi::lysc_node_list,
-}
-
-/// YANG anydata schema node.
-#[derive(Clone, Debug)]
-pub struct SchemaNodeAnyData<'a> {
-    context: &'a Context,
-    raw: *mut ffi::lysc_node_anydata,
-}
-
-/// YANG RPC schema node.
-#[derive(Clone, Debug)]
-pub struct SchemaNodeRpc<'a> {
-    context: &'a Context,
-    raw: *mut ffi::lysc_action,
-}
-
-/// YANG action schema node.
-#[derive(Clone, Debug)]
-pub struct SchemaNodeAction<'a> {
-    context: &'a Context,
-    raw: *mut ffi::lysc_action,
-}
-
-/// YANG notification schema node.
-#[derive(Clone, Debug)]
-pub struct SchemaNodeNotification<'a> {
-    context: &'a Context,
-    raw: *mut ffi::lysc_notif,
-}
-
-/// Methods common to all schema node types.
-pub trait SchemaNodeCommon {
-    #[doc(hidden)]
-    fn raw(&self) -> *mut ffi::lysc_node;
-
-    #[doc(hidden)]
-    fn check_flag(&self, flag: u32) -> bool {
-        let flags = unsafe { (*self.raw()).flags } as u32;
-        flags & flag != 0
-    }
-
-    /// Context of the schema node.
-    fn context(&self) -> &Context;
-
-    /// Schema node module.
-    fn module(&self) -> SchemaModule {
-        let module = unsafe { (*self.raw()).module };
-        SchemaModule::from_raw(self.context(), module)
-    }
-
-    /// Schema node name.
-    fn name(&self) -> &str {
-        char_ptr_to_str(unsafe { (*self.raw()).name })
-    }
-
-    /// Description statement.
-    fn description(&self) -> Option<&str> {
-        char_ptr_to_opt_str(unsafe { (*self.raw()).dsc })
-    }
-
-    /// Reference statement.
-    fn reference(&self) -> Option<&str> {
-        char_ptr_to_opt_str(unsafe { (*self.raw()).ref_ })
-    }
-
-    // TODO: list of if-feature expressions.
-
-    /// Generate path of the given node.
-    fn path(&self) -> Result<String> {
-        let mut buf: [std::os::raw::c_char; 1024] = [0; 1024];
-
-        let pathtype = ffi::LYSC_PATH_TYPE::LYSC_PATH_LOG;
-        let ret = unsafe {
-            ffi::lysc_path(
-                self.raw(),
-                pathtype,
-                buf.as_mut_ptr(),
-                buf.len() as u64,
-            )
-        };
-        if ret.is_null() {
-            return Err(Error::new(self.context()));
-        }
-
-        Ok(char_ptr_to_string(buf.as_ptr()))
-    }
-
-    /// Evaluate an xpath expression on schema nodes.
-    fn find(&self, xpath: &str) -> Result<Set<SchemaNode>> {
-        let xpath = CString::new(xpath).unwrap();
-        let mut set = std::ptr::null_mut();
-        let set_ptr = &mut set;
-        let options = 0u32;
-
-        let ret = unsafe {
-            ffi::lys_find_xpath(self.raw(), xpath.as_ptr(), options, set_ptr)
-        };
-        if ret != ffi::LY_ERR::LY_SUCCESS {
-            return Err(Error::new(&self.context()));
-        }
-
-        let rnodes_count = unsafe { (*set).count } as usize;
-        let slice = if rnodes_count == 0 {
-            &[]
-        } else {
-            let rnodes = unsafe { (*set).__bindgen_anon_1.snodes };
-            unsafe { slice::from_raw_parts(rnodes, rnodes_count) }
-        };
-
-        Ok(Set::new(self.context(), slice))
-    }
-
-    /// Evaluate an xpath expression on schema nodes. Return an error if more
-    /// than one schema node satisfies the given xpath expression.
-    fn find_single(&self, xpath: &str) -> Result<SchemaNode> {
-        let mut snodes = self.find(xpath)?;
-
-        // Get first element from the iterator.
-        let snode = snodes.next();
-
-        match snode {
-            // Error: more that one node satisfies the xpath query.
-            Some(_) if snodes.next().is_some() => Err(Error {
-                errcode: ffi::LY_ERR::LY_ENOTFOUND,
-                msg: Some(
-                    "Path refers to more than one schema node".to_string(),
-                ),
-                path: Some(xpath.to_string()),
-                apptag: None,
-            }),
-            // Success case.
-            Some(snode) => Ok(snode),
-            // Error: node not found.
-            None => Err(Error {
-                errcode: ffi::LY_ERR::LY_ENOTFOUND,
-                msg: Some("Schema node not found".to_string()),
-                path: Some(xpath.to_string()),
-                apptag: None,
-            }),
-        }
-    }
-
-    /// Set a schema private pointer to a user pointer.
-    ///
-    /// Returns previous private pointer when set.
-    ///
-    /// # Safety
-    ///
-    /// The caller must ensure that the provided pointer is valid.
-    unsafe fn set_private(
-        &self,
-        ptr: *mut std::ffi::c_void,
-    ) -> Result<Option<*const std::ffi::c_void>> {
-        let mut prev = std::ptr::null_mut();
-        let prev_ptr = &mut prev;
-
-        let ret = ffi::lysc_set_private(self.raw(), ptr, prev_ptr);
-        if ret != ffi::LY_ERR::LY_SUCCESS {
-            return Err(Error::new(self.context()));
-        }
-
-        if prev.is_null() {
-            Ok(None)
-        } else {
-            Ok(Some(prev))
-        }
-    }
-
-    /// Get private user data, not used by libyang.
-    fn get_private(&self) -> Option<*mut std::ffi::c_void> {
-        let priv_ = unsafe { (*self.raw()).priv_ };
-        if priv_.is_null() {
-            None
-        } else {
-            Some(priv_)
-        }
-    }
+#[derive(Clone, Copy, Debug, PartialEq)]
+pub enum SchemaNodeKind {
+    Container,
+    Case,
+    Choice,
+    Leaf,
+    LeafList,
+    List,
+    AnyData,
+    Rpc,
+    Action,
+    Notification,
 }
 
 /// YANG must substatement.
@@ -424,25 +206,27 @@ impl<'a> SchemaModule<'a> {
     }
 
     /// Returns an iterator over the list of RPCs.
-    pub fn rpcs(&self) -> Array<SchemaNodeRpc> {
+    pub fn rpcs(&self) -> Array<SchemaNode> {
         let compiled = unsafe { (*self.raw).compiled };
         let rpcs = if compiled.is_null() {
             std::ptr::null()
         } else {
             unsafe { (*compiled).rpcs }
         };
-        Array::new(&self.context, rpcs as *mut _)
+        let ptr_size = mem::size_of::<ffi::lysc_action>();
+        Array::new(&self.context, rpcs as *mut _, ptr_size)
     }
 
     /// Returns an iterator over the list of notifications.
-    pub fn notifications(&self) -> Array<SchemaNodeNotification> {
+    pub fn notifications(&self) -> Array<SchemaNode> {
         let compiled = unsafe { (*self.raw).compiled };
         let notifications = if compiled.is_null() {
             std::ptr::null()
         } else {
             unsafe { (*compiled).notifs }
         };
-        Array::new(&self.context, notifications as *mut _)
+        let ptr_size = mem::size_of::<ffi::lysc_notif>();
+        Array::new(&self.context, notifications as *mut _, ptr_size)
     }
 
     /// Returns an iterator over all data nodes in the schema module
@@ -476,9 +260,438 @@ impl<'a> PartialEq for SchemaModule<'a> {
 // ===== impl SchemaNode =====
 
 impl<'a> SchemaNode<'a> {
-    /// Returns the kind of this schema node.
-    pub fn kind(&self) -> &SchemaNodeKind {
-        &self.kind
+    #[doc(hidden)]
+    fn check_flag(&self, flag: u32) -> bool {
+        let flags = unsafe { (*self.raw).flags } as u32;
+        flags & flag != 0
+    }
+
+    /// Schema node module.
+    pub fn module(&self) -> SchemaModule {
+        let module = unsafe { (*self.raw).module };
+        SchemaModule::from_raw(self.context, module)
+    }
+
+    /// Returns the kind of the schema node.
+    pub fn kind(&self) -> SchemaNodeKind {
+        self.kind
+    }
+
+    /// Schema node name.
+    pub fn name(&self) -> &str {
+        char_ptr_to_str(unsafe { (*self.raw).name })
+    }
+
+    /// Description statement.
+    pub fn description(&self) -> Option<&str> {
+        char_ptr_to_opt_str(unsafe { (*self.raw).dsc })
+    }
+
+    /// Reference statement.
+    pub fn reference(&self) -> Option<&str> {
+        char_ptr_to_opt_str(unsafe { (*self.raw).ref_ })
+    }
+
+    /// Generate path of the node.
+    pub fn path(&self) -> Result<String> {
+        let mut buf: [std::os::raw::c_char; 1024] = [0; 1024];
+
+        let pathtype = ffi::LYSC_PATH_TYPE::LYSC_PATH_LOG;
+        let ret = unsafe {
+            ffi::lysc_path(
+                self.raw,
+                pathtype,
+                buf.as_mut_ptr(),
+                buf.len() as u64,
+            )
+        };
+        if ret.is_null() {
+            return Err(Error::new(self.context));
+        }
+
+        Ok(char_ptr_to_string(buf.as_ptr()))
+    }
+
+    /// Evaluate an xpath expression on the node.
+    pub fn find(&self, xpath: &str) -> Result<Set<SchemaNode>> {
+        let xpath = CString::new(xpath).unwrap();
+        let mut set = std::ptr::null_mut();
+        let set_ptr = &mut set;
+        let options = 0u32;
+
+        let ret = unsafe {
+            ffi::lys_find_xpath(self.raw, xpath.as_ptr(), options, set_ptr)
+        };
+        if ret != ffi::LY_ERR::LY_SUCCESS {
+            return Err(Error::new(&self.context));
+        }
+
+        let rnodes_count = unsafe { (*set).count } as usize;
+        let slice = if rnodes_count == 0 {
+            &[]
+        } else {
+            let rnodes = unsafe { (*set).__bindgen_anon_1.snodes };
+            unsafe { slice::from_raw_parts(rnodes, rnodes_count) }
+        };
+
+        Ok(Set::new(self.context, slice))
+    }
+
+    /// Evaluate an xpath expression on the node. Return an error if more than
+    /// one schema node satisfies the given xpath expression.
+    pub fn find_single(&self, xpath: &str) -> Result<SchemaNode> {
+        let mut snodes = self.find(xpath)?;
+
+        // Get first element from the iterator.
+        let snode = snodes.next();
+
+        match snode {
+            // Error: more that one node satisfies the xpath query.
+            Some(_) if snodes.next().is_some() => Err(Error {
+                errcode: ffi::LY_ERR::LY_ENOTFOUND,
+                msg: Some(
+                    "Path refers to more than one schema node".to_string(),
+                ),
+                path: Some(xpath.to_string()),
+                apptag: None,
+            }),
+            // Success case.
+            Some(snode) => Ok(snode),
+            // Error: node not found.
+            None => Err(Error {
+                errcode: ffi::LY_ERR::LY_ENOTFOUND,
+                msg: Some("Schema node not found".to_string()),
+                path: Some(xpath.to_string()),
+                apptag: None,
+            }),
+        }
+    }
+
+    /// Returns whether the node is a configuration node.
+    pub fn is_config(&self) -> bool {
+        match self.kind {
+            SchemaNodeKind::Container
+            | SchemaNodeKind::Case
+            | SchemaNodeKind::Choice
+            | SchemaNodeKind::Leaf
+            | SchemaNodeKind::LeafList
+            | SchemaNodeKind::List
+            | SchemaNodeKind::AnyData => self.check_flag(ffi::LYS_CONFIG_W),
+            _ => false,
+        }
+    }
+
+    /// Returns whether the node is mandatory.
+    pub fn is_mandatory(&self) -> bool {
+        match self.kind {
+            SchemaNodeKind::Container
+            | SchemaNodeKind::Choice
+            | SchemaNodeKind::Leaf
+            | SchemaNodeKind::LeafList
+            | SchemaNodeKind::List
+            | SchemaNodeKind::AnyData => self.check_flag(ffi::LYS_MAND_TRUE),
+            _ => false,
+        }
+    }
+
+    /// Returns whether the node is a non-presence container.
+    pub fn is_np_container(&self) -> bool {
+        match self.kind {
+            SchemaNodeKind::Container => !self.check_flag(ffi::LYS_PRESENCE),
+            _ => false,
+        }
+    }
+
+    /// Returns whether the node is a list's key.
+    pub fn is_list_key(&self) -> bool {
+        match self.kind {
+            SchemaNodeKind::Leaf => self.check_flag(ffi::LYS_KEY),
+            _ => false,
+        }
+    }
+
+    /// Returns whether the node is a keyless list.
+    pub fn is_keyless_list(&self) -> bool {
+        match self.kind {
+            SchemaNodeKind::List => self.check_flag(ffi::LYS_KEYLESS),
+            _ => false,
+        }
+    }
+
+    /// Returns whether the node is an user-ordered list or leaf-list.
+    pub fn is_user_ordered(&self) -> bool {
+        match self.kind {
+            SchemaNodeKind::LeafList | SchemaNodeKind::List => {
+                self.check_flag(ffi::LYS_ORDBY_USER)
+            }
+            _ => false,
+        }
+    }
+
+    /// Returns whether a default value is set.
+    pub fn has_default(&self) -> bool {
+        match self.kind {
+            SchemaNodeKind::Case
+            | SchemaNodeKind::Leaf
+            | SchemaNodeKind::LeafList => self.check_flag(ffi::LYS_SET_DFLT),
+            _ => false,
+        }
+    }
+
+    /// The default value of the leaf.
+    pub fn default_value(&self) -> Option<&str> {
+        let default = unsafe {
+            match self.kind() {
+                SchemaNodeKind::Leaf => {
+                    (*(*(self.raw as *mut ffi::lysc_node_leaf)).dflt).canonical
+                }
+                _ => return None,
+            }
+        };
+
+        char_ptr_to_opt_str(default)
+    }
+
+    /// The default case of the choice.
+    pub fn default_case(&self) -> Option<SchemaNode> {
+        let default = unsafe {
+            match self.kind() {
+                SchemaNodeKind::Choice => {
+                    (*(self.raw as *mut ffi::lysc_node_choice)).dflt
+                }
+                _ => return None,
+            }
+        };
+
+        SchemaNode::from_raw_opt(&self.context, default as *mut _)
+    }
+
+    // TODO: list of leaf-list default values.
+
+    /// Resolved base type.
+    pub fn base_type(&self) -> Option<ffi::LY_DATA_TYPE::Type> {
+        let ltype = unsafe {
+            match self.kind() {
+                SchemaNodeKind::Leaf => {
+                    (*(self.raw as *mut ffi::lysc_node_leaf)).type_
+                }
+                SchemaNodeKind::LeafList => {
+                    (*(self.raw as *mut ffi::lysc_node_leaflist)).type_
+                }
+                _ => return None,
+            }
+        };
+        Some(unsafe { (*ltype).basetype })
+    }
+
+    /// Units of the leaf(-list)'s type.
+    pub fn units(&self) -> Option<&str> {
+        let units = unsafe {
+            match self.kind() {
+                SchemaNodeKind::Leaf => {
+                    (*(self.raw as *mut ffi::lysc_node_leaf)).units
+                }
+                SchemaNodeKind::LeafList => {
+                    (*(self.raw as *mut ffi::lysc_node_leaflist)).units
+                }
+                _ => return None,
+            }
+        };
+
+        char_ptr_to_opt_str(units)
+    }
+
+    /// The min-elements constraint.
+    pub fn min_elements(&self) -> Option<u32> {
+        let min = unsafe {
+            match self.kind() {
+                SchemaNodeKind::LeafList => {
+                    (*(self.raw as *mut ffi::lysc_node_leaflist)).min
+                }
+                SchemaNodeKind::List => {
+                    (*(self.raw as *mut ffi::lysc_node_list)).min
+                }
+                _ => return None,
+            }
+        };
+
+        if min != 0 {
+            Some(min)
+        } else {
+            None
+        }
+    }
+
+    /// The max-elements constraint.
+    pub fn max_elements(&self) -> Option<u32> {
+        let max = unsafe {
+            match self.kind() {
+                SchemaNodeKind::LeafList => {
+                    (*(self.raw as *mut ffi::lysc_node_leaflist)).max
+                }
+                SchemaNodeKind::List => {
+                    (*(self.raw as *mut ffi::lysc_node_list)).max
+                }
+                _ => return None,
+            }
+        };
+        if max != std::u32::MAX {
+            Some(max)
+        } else {
+            None
+        }
+    }
+
+    /// Array of must restrictions.
+    pub fn musts(&self) -> Option<Array<SchemaStmtMust>> {
+        let array = unsafe {
+            match self.kind() {
+                SchemaNodeKind::Container => {
+                    (*(self.raw as *mut ffi::lysc_node_container)).musts
+                }
+                SchemaNodeKind::Leaf => {
+                    (*(self.raw as *mut ffi::lysc_node_leaf)).musts
+                }
+                SchemaNodeKind::LeafList => {
+                    (*(self.raw as *mut ffi::lysc_node_leaflist)).musts
+                }
+                SchemaNodeKind::List => {
+                    (*(self.raw as *mut ffi::lysc_node_list)).musts
+                }
+                SchemaNodeKind::AnyData => {
+                    (*(self.raw as *mut ffi::lysc_node_anydata)).musts
+                }
+                SchemaNodeKind::Notification => {
+                    (*(self.raw as *mut ffi::lysc_notif)).musts
+                }
+                _ => return None,
+            }
+        };
+
+        let ptr_size = mem::size_of::<ffi::lysc_must>();
+        Some(Array::new(&self.context, array as *mut _, ptr_size))
+    }
+
+    /// Array of when statements.
+    pub fn whens(&self) -> Array<SchemaStmtWhen> {
+        let array = unsafe {
+            match self.kind() {
+                SchemaNodeKind::Container => {
+                    (*(self.raw as *mut ffi::lysc_node_container)).when
+                }
+                SchemaNodeKind::Case => {
+                    (*(self.raw as *mut ffi::lysc_node_case)).when
+                }
+                SchemaNodeKind::Choice => {
+                    (*(self.raw as *mut ffi::lysc_node_choice)).when
+                }
+                SchemaNodeKind::Leaf => {
+                    (*(self.raw as *mut ffi::lysc_node_leaf)).when
+                }
+                SchemaNodeKind::LeafList => {
+                    (*(self.raw as *mut ffi::lysc_node_leaflist)).when
+                }
+                SchemaNodeKind::List => {
+                    (*(self.raw as *mut ffi::lysc_node_list)).when
+                }
+                SchemaNodeKind::AnyData => {
+                    (*(self.raw as *mut ffi::lysc_node_anydata)).when
+                }
+                SchemaNodeKind::Rpc | SchemaNodeKind::Action => {
+                    (*(self.raw as *mut ffi::lysc_action)).when
+                }
+                SchemaNodeKind::Notification => {
+                    (*(self.raw as *mut ffi::lysc_notif)).when
+                }
+            }
+        };
+
+        let ptr_size = mem::size_of::<ffi::lysc_when>();
+        Array::new(&self.context, array as *mut _, ptr_size)
+    }
+
+    // TODO: list of if-feature expressions.
+
+    /// Array of actions.
+    pub fn actions(&self) -> Option<Array<SchemaNode>> {
+        let array = unsafe {
+            match self.kind {
+                SchemaNodeKind::Container => {
+                    (*(self.raw as *mut ffi::lysc_node_container)).actions
+                }
+                SchemaNodeKind::List => {
+                    (*(self.raw as *mut ffi::lysc_node_list)).actions
+                }
+                _ => return None,
+            }
+        };
+
+        let ptr_size = mem::size_of::<ffi::lysc_action>();
+        Some(Array::new(&self.context, array as *mut _, ptr_size))
+    }
+
+    /// Array of notifications.
+    pub fn notifications(&self) -> Option<Array<SchemaNode>> {
+        let array = unsafe {
+            match self.kind {
+                SchemaNodeKind::Container => {
+                    (*(self.raw as *mut ffi::lysc_node_container)).notifs
+                }
+                SchemaNodeKind::List => {
+                    (*(self.raw as *mut ffi::lysc_node_list)).notifs
+                }
+                _ => return None,
+            }
+        };
+
+        let ptr_size = mem::size_of::<ffi::lysc_notif>();
+        Some(Array::new(&self.context, array as *mut _, ptr_size))
+    }
+
+    /// RPC's input. Returns a tuple containing the following:
+    /// * Iterator over the input child nodes;
+    /// * Input's list of must restrictions.
+    pub fn input(
+        &self,
+    ) -> Option<(Siblings<SchemaNode>, Array<SchemaStmtMust>)> {
+        match self.kind {
+            SchemaNodeKind::Rpc | SchemaNodeKind::Action => {
+                let raw = self.raw as *mut ffi::lysc_action;
+                let input = unsafe { (*raw).input };
+                let rnode = input.data;
+                let rmusts = input.musts;
+
+                let node = SchemaNode::from_raw_opt(&self.context, rnode);
+                let nodes = Siblings::new(node);
+                let ptr_size = mem::size_of::<ffi::lysc_must>();
+                let musts = Array::new(&self.context, rmusts, ptr_size);
+                Some((nodes, musts))
+            }
+            _ => None,
+        }
+    }
+
+    /// RPC's output. Returns a tuple containing the following:
+    /// * Iterator over the output child nodes;
+    /// * Output's list of must restrictions.
+    pub fn output(
+        &self,
+    ) -> Option<(Siblings<SchemaNode>, Array<SchemaStmtMust>)> {
+        match self.kind {
+            SchemaNodeKind::Rpc | SchemaNodeKind::Action => {
+                let raw = self.raw as *mut ffi::lysc_action;
+                let output = unsafe { (*raw).output };
+                let rnode = output.data;
+                let rmusts = output.musts;
+
+                let node = SchemaNode::from_raw_opt(&self.context, rnode);
+                let nodes = Siblings::new(node);
+                let ptr_size = mem::size_of::<ffi::lysc_must>();
+                let musts = Array::new(&self.context, rmusts, ptr_size);
+                Some((nodes, musts))
+            }
+            _ => None,
+        }
     }
 
     /// Returns an iterator over the ancestor schema nodes.
@@ -504,16 +717,41 @@ impl<'a> SchemaNode<'a> {
     pub fn traverse(self) -> Traverse<'a, SchemaNode<'a>> {
         Traverse::new(self)
     }
-}
 
-impl<'a> SchemaNodeCommon for SchemaNode<'a> {
-    #[doc(hidden)]
-    fn raw(&self) -> *mut ffi::lysc_node {
-        self.raw as *mut _
+    /// Set a schema private pointer to a user pointer.
+    ///
+    /// Returns previous private pointer when set.
+    ///
+    /// # Safety
+    ///
+    /// The caller must ensure that the provided pointer is valid.
+    pub unsafe fn set_private(
+        &self,
+        ptr: *mut std::ffi::c_void,
+    ) -> Result<Option<*const std::ffi::c_void>> {
+        let mut prev = std::ptr::null_mut();
+        let prev_ptr = &mut prev;
+
+        let ret = ffi::lysc_set_private(self.raw, ptr, prev_ptr);
+        if ret != ffi::LY_ERR::LY_SUCCESS {
+            return Err(Error::new(self.context));
+        }
+
+        if prev.is_null() {
+            Ok(None)
+        } else {
+            Ok(Some(prev))
+        }
     }
 
-    fn context(&self) -> &Context {
-        &self.context
+    /// Get private user data, not used by libyang.
+    pub fn get_private(&self) -> Option<*mut std::ffi::c_void> {
+        let priv_ = unsafe { (*self.raw).priv_ };
+        if priv_.is_null() {
+            None
+        } else {
+            Some(priv_)
+        }
     }
 }
 
@@ -524,50 +762,16 @@ impl<'a> Binding<'a> for SchemaNode<'a> {
     fn from_raw(context: &'a Context, raw: *mut ffi::lysc_node) -> SchemaNode {
         let nodetype = unsafe { (*raw).nodetype } as u32;
         let kind = match nodetype {
-            ffi::LYS_CONTAINER => {
-                SchemaNodeKind::Container(SchemaNodeContainer {
-                    context,
-                    raw: raw as *mut _,
-                })
-            }
-            ffi::LYS_CASE => SchemaNodeKind::Case(SchemaNodeCase {
-                context,
-                raw: raw as *mut _,
-            }),
-            ffi::LYS_CHOICE => SchemaNodeKind::Choice(SchemaNodeChoice {
-                context,
-                raw: raw as *mut _,
-            }),
-            ffi::LYS_LEAF => SchemaNodeKind::Leaf(SchemaNodeLeaf {
-                context,
-                raw: raw as *mut _,
-            }),
-            ffi::LYS_LEAFLIST => SchemaNodeKind::LeafList(SchemaNodeLeafList {
-                context,
-                raw: raw as *mut _,
-            }),
-            ffi::LYS_LIST => SchemaNodeKind::List(SchemaNodeList {
-                context,
-                raw: raw as *mut _,
-            }),
-            ffi::LYS_ANYDATA => SchemaNodeKind::AnyData(SchemaNodeAnyData {
-                context,
-                raw: raw as *mut _,
-            }),
-            ffi::LYS_ACTION => SchemaNodeKind::Action(SchemaNodeAction {
-                context,
-                raw: raw as *mut _,
-            }),
-            ffi::LYS_RPC => SchemaNodeKind::Rpc(SchemaNodeRpc {
-                context,
-                raw: raw as *mut _,
-            }),
-            ffi::LYS_NOTIF => {
-                SchemaNodeKind::Notification(SchemaNodeNotification {
-                    context,
-                    raw: raw as *mut _,
-                })
-            }
+            ffi::LYS_CONTAINER => SchemaNodeKind::Container,
+            ffi::LYS_CASE => SchemaNodeKind::Case,
+            ffi::LYS_CHOICE => SchemaNodeKind::Choice,
+            ffi::LYS_LEAF => SchemaNodeKind::Leaf,
+            ffi::LYS_LEAFLIST => SchemaNodeKind::LeafList,
+            ffi::LYS_LIST => SchemaNodeKind::List,
+            ffi::LYS_ANYDATA => SchemaNodeKind::AnyData,
+            ffi::LYS_ACTION => SchemaNodeKind::Action,
+            ffi::LYS_RPC => SchemaNodeKind::Rpc,
+            ffi::LYS_NOTIF => SchemaNodeKind::Notification,
             _ => panic!("unknown node type"),
         };
         SchemaNode { context, raw, kind }
@@ -586,19 +790,19 @@ impl<'a> NodeIterable<'a> for SchemaNode<'a> {
 
     fn next_sibling(&self) -> Option<SchemaNode<'a>> {
         match self.kind {
-            SchemaNodeKind::Container(_)
-            | SchemaNodeKind::Case(_)
-            | SchemaNodeKind::Choice(_)
-            | SchemaNodeKind::Leaf(_)
-            | SchemaNodeKind::LeafList(_)
-            | SchemaNodeKind::List(_)
-            | SchemaNodeKind::AnyData(_) => {
+            SchemaNodeKind::Container
+            | SchemaNodeKind::Case
+            | SchemaNodeKind::Choice
+            | SchemaNodeKind::Leaf
+            | SchemaNodeKind::LeafList
+            | SchemaNodeKind::List
+            | SchemaNodeKind::AnyData => {
                 let next = unsafe { (&*self.raw).next };
                 SchemaNode::from_raw_opt(&self.context, next)
             }
-            SchemaNodeKind::Rpc(_)
-            | SchemaNodeKind::Action(_)
-            | SchemaNodeKind::Notification(_) => None,
+            SchemaNodeKind::Rpc
+            | SchemaNodeKind::Action
+            | SchemaNodeKind::Notification => None,
         }
     }
 
@@ -611,537 +815,6 @@ impl<'a> NodeIterable<'a> for SchemaNode<'a> {
 impl<'a> PartialEq for SchemaNode<'a> {
     fn eq(&self, other: &SchemaNode) -> bool {
         self.raw == other.raw
-    }
-}
-
-// ===== impl SchemaNodeContainer =====
-
-impl<'a> SchemaNodeContainer<'a> {
-    /// Returns whether this is a configuration node.
-    pub fn config(&self) -> bool {
-        self.check_flag(ffi::LYS_CONFIG_W)
-    }
-
-    /// Returns whether this is a mandatory node.
-    pub fn mandatory(&self) -> bool {
-        self.check_flag(ffi::LYS_MAND_TRUE)
-    }
-
-    /// Returns whether this is a presence container.
-    pub fn presence(&self) -> bool {
-        self.check_flag(ffi::LYS_PRESENCE)
-    }
-
-    /// Array of must restrictions.
-    pub fn musts(&self) -> Array<SchemaStmtMust> {
-        let array = unsafe { (*self.raw).musts };
-        Array::new(&self.context, array)
-    }
-
-    /// Array of when statements.
-    pub fn whens(&self) -> Array<SchemaStmtWhen> {
-        let array = unsafe { (*self.raw).when };
-        Array::new(&self.context, array)
-    }
-
-    /// Array of actions.
-    pub fn actions(&self) -> Array<SchemaNodeAction> {
-        let array = unsafe { (*self.raw).actions };
-        Array::new(&self.context, array)
-    }
-
-    /// Array of notifications.
-    pub fn notifications(&self) -> Array<SchemaNodeNotification> {
-        let array = unsafe { (*self.raw).notifs };
-        Array::new(&self.context, array)
-    }
-}
-
-impl<'a> SchemaNodeCommon for SchemaNodeContainer<'a> {
-    #[doc(hidden)]
-    fn raw(&self) -> *mut ffi::lysc_node {
-        self.raw as *mut _
-    }
-
-    fn context(&self) -> &Context {
-        &self.context
-    }
-}
-
-// ===== impl SchemaNodeCase =====
-
-impl<'a> SchemaNodeCase<'a> {
-    /// Returns whether this is a configuration node.
-    pub fn config(&self) -> bool {
-        self.check_flag(ffi::LYS_CONFIG_W)
-    }
-
-    /// Array of when statements.
-    pub fn whens(&self) -> Array<SchemaStmtWhen> {
-        let array = unsafe { (*self.raw).when };
-        Array::new(&self.context, array)
-    }
-}
-
-impl<'a> SchemaNodeCommon for SchemaNodeCase<'a> {
-    #[doc(hidden)]
-    fn raw(&self) -> *mut ffi::lysc_node {
-        self.raw as *mut _
-    }
-
-    fn context(&self) -> &Context {
-        &self.context
-    }
-}
-
-// ===== impl SchemaNodeChoice =====
-
-impl<'a> SchemaNodeChoice<'a> {
-    /// Returns whether this is a configuration node.
-    pub fn config(&self) -> bool {
-        self.check_flag(ffi::LYS_CONFIG_W)
-    }
-
-    /// Returns whether this is a mandatory node.
-    pub fn mandatory(&self) -> bool {
-        self.check_flag(ffi::LYS_MAND_TRUE)
-    }
-
-    /// The default case of the choice.
-    pub fn default(&self) -> Option<SchemaNode> {
-        let default = unsafe { (*self.raw).dflt } as *mut _;
-        SchemaNode::from_raw_opt(&self.context, default)
-    }
-
-    /// Array of when statements.
-    pub fn whens(&self) -> Array<SchemaStmtWhen> {
-        let array = unsafe { (*self.raw).when };
-        Array::new(&self.context, array)
-    }
-}
-
-impl<'a> SchemaNodeCommon for SchemaNodeChoice<'a> {
-    #[doc(hidden)]
-    fn raw(&self) -> *mut ffi::lysc_node {
-        self.raw as *mut _
-    }
-
-    fn context(&self) -> &Context {
-        &self.context
-    }
-}
-
-// ===== impl SchemaNodeLeaf =====
-
-impl<'a> SchemaNodeLeaf<'a> {
-    /// Returns whether this is a configuration node.
-    pub fn config(&self) -> bool {
-        self.check_flag(ffi::LYS_CONFIG_W)
-    }
-
-    /// Returns whether this is a mandatory node.
-    pub fn mandatory(&self) -> bool {
-        self.check_flag(ffi::LYS_MAND_TRUE)
-    }
-
-    /// Returns whether this leaf is a key of a list.
-    pub fn key(&self) -> bool {
-        self.check_flag(ffi::LYS_KEY)
-    }
-
-    /// Returns whether a default value is set.
-    pub fn has_default(&self) -> bool {
-        self.check_flag(ffi::LYS_SET_DFLT)
-    }
-
-    /// Default value.
-    pub fn default(&self) -> Option<&str> {
-        char_ptr_to_opt_str(unsafe { (*(*self.raw).dflt).canonical })
-    }
-
-    /// Resolved base type.
-    pub fn base_type(&self) -> ffi::LY_DATA_TYPE::Type {
-        unsafe { (*(*self.raw).type_).basetype }
-    }
-
-    /// Units of the leaf's type.
-    pub fn units(&self) -> Option<&str> {
-        char_ptr_to_opt_str(unsafe { (*self.raw).units })
-    }
-
-    /// Array of must restrictions.
-    pub fn musts(&self) -> Array<SchemaStmtMust> {
-        let raw = unsafe { (*self.raw).musts };
-        Array::new(&self.context, raw)
-    }
-
-    /// Array of when statements.
-    pub fn whens(&self) -> Array<SchemaStmtWhen> {
-        let array = unsafe { (*self.raw).when };
-        Array::new(&self.context, array)
-    }
-}
-
-impl<'a> SchemaNodeCommon for SchemaNodeLeaf<'a> {
-    #[doc(hidden)]
-    fn raw(&self) -> *mut ffi::lysc_node {
-        self.raw as *mut _
-    }
-
-    fn context(&self) -> &Context {
-        &self.context
-    }
-}
-
-// ===== impl SchemaNodeLeafList =====
-
-impl<'a> SchemaNodeLeafList<'a> {
-    /// Returns whether this is a configuration node.
-    pub fn config(&self) -> bool {
-        self.check_flag(ffi::LYS_CONFIG_W)
-    }
-
-    /// Returns whether this is a mandatory node.
-    pub fn mandatory(&self) -> bool {
-        self.check_flag(ffi::LYS_MAND_TRUE)
-    }
-
-    /// Examine whether the leaf-list is user-ordered.
-    pub fn user_ordered(&self) -> bool {
-        self.check_flag(ffi::LYS_ORDBY_USER)
-    }
-
-    /// Returns whether a default value is set.
-    pub fn has_default(&self) -> bool {
-        self.check_flag(ffi::LYS_SET_DFLT)
-    }
-
-    // TODO: list of default values.
-
-    /// Resolved base type.
-    pub fn base_type(&self) -> ffi::LY_DATA_TYPE::Type {
-        unsafe { (*(*self.raw).type_).basetype }
-    }
-
-    /// Units of the leaf's type.
-    pub fn units(&self) -> Option<&str> {
-        char_ptr_to_opt_str(unsafe { (*self.raw).units })
-    }
-
-    /// The min-elements constraint.
-    pub fn min_elements(&self) -> Option<u32> {
-        let min = unsafe { (*self.raw).min };
-        if min != 0 {
-            Some(min)
-        } else {
-            None
-        }
-    }
-
-    /// The max-elements constraint.
-    pub fn max_elements(&self) -> Option<u32> {
-        let max = unsafe { (*self.raw).max };
-        if max != std::u32::MAX {
-            Some(max)
-        } else {
-            None
-        }
-    }
-
-    /// Array of must restrictions.
-    pub fn musts(&self) -> Array<SchemaStmtMust> {
-        let raw = unsafe { (*self.raw).musts };
-        Array::new(&self.context, raw)
-    }
-
-    /// Array of when statements.
-    pub fn whens(&self) -> Array<SchemaStmtWhen> {
-        let array = unsafe { (*self.raw).when };
-        Array::new(&self.context, array)
-    }
-}
-
-impl<'a> SchemaNodeCommon for SchemaNodeLeafList<'a> {
-    #[doc(hidden)]
-    fn raw(&self) -> *mut ffi::lysc_node {
-        self.raw as *mut _
-    }
-
-    fn context(&self) -> &Context {
-        &self.context
-    }
-}
-
-// ===== impl SchemaNodeList =====
-
-impl<'a> SchemaNodeList<'a> {
-    /// Returns whether this is a configuration node.
-    pub fn config(&self) -> bool {
-        self.check_flag(ffi::LYS_CONFIG_W)
-    }
-
-    /// Returns whether this is a mandatory node.
-    pub fn mandatory(&self) -> bool {
-        self.check_flag(ffi::LYS_MAND_TRUE)
-    }
-
-    /// Returns whether this is a keyless list.
-    pub fn keyless(&self) -> bool {
-        self.check_flag(ffi::LYS_KEYLESS)
-    }
-
-    /// Examine whether the list is user-ordered.
-    pub fn user_ordered(&self) -> bool {
-        self.check_flag(ffi::LYS_ORDBY_USER)
-    }
-
-    /// The min-elements constraint.
-    pub fn min_elements(&self) -> Option<u32> {
-        let min = unsafe { (*self.raw).min };
-        if min != 0 {
-            Some(min)
-        } else {
-            None
-        }
-    }
-
-    /// The max-elements constraint.
-    pub fn max_elements(&self) -> Option<u32> {
-        let max = unsafe { (*self.raw).max };
-        if max != std::u32::MAX {
-            Some(max)
-        } else {
-            None
-        }
-    }
-
-    /// Array of must restrictions.
-    pub fn musts(&self) -> Array<SchemaStmtMust> {
-        let raw = unsafe { (*self.raw).musts };
-        Array::new(&self.context, raw)
-    }
-
-    /// Array of when statements.
-    pub fn whens(&self) -> Array<SchemaStmtWhen> {
-        let array = unsafe { (*self.raw).when };
-        Array::new(&self.context, array)
-    }
-
-    /// Array of actions.
-    pub fn actions(&self) -> Array<SchemaNodeAction> {
-        let array = unsafe { (*self.raw).actions };
-        Array::new(&self.context, array)
-    }
-
-    /// Array of notifications.
-    pub fn notifications(&self) -> Array<SchemaNodeNotification> {
-        let array = unsafe { (*self.raw).notifs };
-        Array::new(&self.context, array)
-    }
-
-    // TODO: Array of unique nodes.
-}
-
-impl<'a> SchemaNodeCommon for SchemaNodeList<'a> {
-    #[doc(hidden)]
-    fn raw(&self) -> *mut ffi::lysc_node {
-        self.raw as *mut _
-    }
-
-    fn context(&self) -> &Context {
-        &self.context
-    }
-}
-
-// ===== impl SchemaNodeAnyData =====
-
-impl<'a> SchemaNodeAnyData<'a> {
-    /// Returns whether this is a configuration node.
-    pub fn config(&self) -> bool {
-        self.check_flag(ffi::LYS_CONFIG_W)
-    }
-
-    /// Returns whether this is a mandatory node.
-    pub fn mandatory(&self) -> bool {
-        self.check_flag(ffi::LYS_MAND_TRUE)
-    }
-
-    /// Array of must restrictions.
-    pub fn musts(&self) -> Array<SchemaStmtMust> {
-        let raw = unsafe { (*self.raw).musts };
-        Array::new(&self.context, raw)
-    }
-
-    /// Array of when statements.
-    pub fn whens(&self) -> Array<SchemaStmtWhen> {
-        let array = unsafe { (*self.raw).when };
-        Array::new(&self.context, array)
-    }
-}
-
-impl<'a> SchemaNodeCommon for SchemaNodeAnyData<'a> {
-    #[doc(hidden)]
-    fn raw(&self) -> *mut ffi::lysc_node {
-        self.raw as *mut _
-    }
-
-    fn context(&self) -> &Context {
-        &self.context
-    }
-}
-
-// ===== impl SchemaNodeRpc =====
-
-impl<'a> SchemaNodeRpc<'a> {
-    /// RPC's input. Returns a tuple containing the following:
-    /// * Iterator over the input child nodes;
-    /// * Input's list of must restrictions.
-    pub fn input(&self) -> (Siblings<SchemaNode>, Array<SchemaStmtMust>) {
-        let input = unsafe { (*self.raw).input };
-        let rnode = input.data;
-        let rmusts = input.musts;
-
-        let node = SchemaNode::from_raw_opt(&self.context, rnode);
-        let nodes = Siblings::new(node);
-        let musts = Array::new(&self.context, rmusts);
-        (nodes, musts)
-    }
-
-    /// RPC's output. Returns a tuple containing the following:
-    /// * Iterator over the output child nodes;
-    /// * Output's list of must restrictions.
-    pub fn output(&self) -> (Siblings<SchemaNode>, Array<SchemaStmtMust>) {
-        let output = unsafe { (*self.raw).output };
-        let rnode = output.data;
-        let rmusts = output.musts;
-
-        let node = SchemaNode::from_raw_opt(&self.context, rnode);
-        let nodes = Siblings::new(node);
-        let musts = Array::new(&self.context, rmusts);
-        (nodes, musts)
-    }
-}
-
-impl<'a> SchemaNodeCommon for SchemaNodeRpc<'a> {
-    #[doc(hidden)]
-    fn raw(&self) -> *mut ffi::lysc_node {
-        self.raw as *mut _
-    }
-
-    fn context(&self) -> &Context {
-        &self.context
-    }
-}
-
-impl<'a> Binding<'a> for SchemaNodeRpc<'a> {
-    type CType = ffi::lysc_action;
-    type Container = Context;
-
-    fn from_raw(
-        context: &'a Context,
-        raw: *mut ffi::lysc_action,
-    ) -> SchemaNodeRpc {
-        SchemaNodeRpc { context, raw }
-    }
-}
-
-// ===== impl SchemaNodeAction =====
-
-impl<'a> SchemaNodeAction<'a> {
-    /// Action's input. Returns a tuple containing the following:
-    /// * First input child node (linked list);
-    /// * Input's list of must restrictions.
-    pub fn input(&self) -> (Siblings<SchemaNode>, Array<SchemaStmtMust>) {
-        let input = unsafe { (*self.raw).input };
-        let rnode = input.data;
-        let rmusts = input.musts;
-
-        let node = SchemaNode::from_raw_opt(&self.context, rnode);
-        let nodes = Siblings::new(node);
-        let musts = Array::new(&self.context, rmusts);
-        (nodes, musts)
-    }
-
-    /// Action's output. Returns a tuple containing the following:
-    /// * First output child node (linked list);
-    /// * Output's list of must restrictions.
-    pub fn output(&self) -> (Siblings<SchemaNode>, Array<SchemaStmtMust>) {
-        let output = unsafe { (*self.raw).output };
-        let rnode = output.data;
-        let rmusts = output.musts;
-
-        let node = SchemaNode::from_raw_opt(&self.context, rnode);
-        let nodes = Siblings::new(node);
-        let musts = Array::new(&self.context, rmusts);
-        (nodes, musts)
-    }
-
-    /// Array of when statements.
-    pub fn whens(&self) -> Array<SchemaStmtWhen> {
-        let array = unsafe { (*self.raw).when };
-        Array::new(&self.context, array)
-    }
-}
-
-impl<'a> SchemaNodeCommon for SchemaNodeAction<'a> {
-    #[doc(hidden)]
-    fn raw(&self) -> *mut ffi::lysc_node {
-        self.raw as *mut _
-    }
-
-    fn context(&self) -> &Context {
-        &self.context
-    }
-}
-
-impl<'a> Binding<'a> for SchemaNodeAction<'a> {
-    type CType = ffi::lysc_action;
-    type Container = Context;
-
-    fn from_raw(
-        context: &'a Context,
-        raw: *mut ffi::lysc_action,
-    ) -> SchemaNodeAction {
-        SchemaNodeAction { context, raw }
-    }
-}
-
-// ===== impl SchemaNodeNotification =====
-
-impl<'a> SchemaNodeNotification<'a> {
-    /// Array of must restrictions.
-    pub fn musts(&self) -> Array<SchemaStmtMust> {
-        let raw = unsafe { (*self.raw).musts };
-        Array::new(&self.context, raw)
-    }
-
-    /// Array of when statements.
-    pub fn whens(&self) -> Array<SchemaStmtWhen> {
-        let array = unsafe { (*self.raw).when };
-        Array::new(&self.context, array)
-    }
-}
-
-impl<'a> SchemaNodeCommon for SchemaNodeNotification<'a> {
-    #[doc(hidden)]
-    fn raw(&self) -> *mut ffi::lysc_node {
-        self.raw as *mut _
-    }
-
-    fn context(&self) -> &Context {
-        &self.context
-    }
-}
-
-impl<'a> Binding<'a> for SchemaNodeNotification<'a> {
-    type CType = ffi::lysc_notif;
-    type Container = Context;
-
-    fn from_raw(
-        context: &'a Context,
-        raw: *mut ffi::lysc_notif,
-    ) -> SchemaNodeNotification {
-        SchemaNodeNotification { context, raw }
     }
 }
 

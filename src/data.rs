@@ -593,7 +593,7 @@ impl<'a> DataNodeRef<'a> {
     /// Node's value (canonical string representation).
     pub fn value(&self) -> Option<String> {
         match self.schema().kind() {
-            SchemaNodeKind::Leaf(_) | SchemaNodeKind::LeafList(_) => {
+            SchemaNodeKind::Leaf | SchemaNodeKind::LeafList => {
                 let rnode = self.raw as *mut ffi::lyd_node_term;
                 let value = unsafe { (*rnode).value.canonical };
                 char_ptr_to_opt_string(value)

@@ -80,6 +80,7 @@ where
 pub struct Array<'a, S: Binding<'a>> {
     context: &'a Context,
     raw: *mut S::CType,
+    ptr_size: usize,
     count: usize,
 }
 
@@ -263,7 +264,11 @@ impl<'a, S> Array<'a, S>
 where
     S: Binding<'a>,
 {
-    pub fn new(context: &'a Context, raw: *mut S::CType) -> Array<'a, S> {
+    pub fn new(
+        context: &'a Context,
+        raw: *mut S::CType,
+        ptr_size: usize,
+    ) -> Array<'a, S> {
         // Get the number of records in the array (equivalent to
         // LY_ARRAY_COUNT).
         let count = if raw.is_null() {
@@ -275,6 +280,7 @@ where
         Array {
             context,
             raw,
+            ptr_size,
             count,
         }
     }
@@ -290,7 +296,7 @@ where
         if self.count > 0 {
             let next = S::from_raw_opt(&self.context, self.raw);
             self.count -= 1;
-            self.raw = unsafe { (self.raw).add(1) };
+            self.raw = (self.raw as usize + self.ptr_size) as *mut S::CType;
             next
         } else {
             None

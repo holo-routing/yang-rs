@@ -1,6 +1,6 @@
 use libyang2_sys as ffi;
 use yang2::context::{Context, ContextFlags};
-use yang2::schema::{SchemaNodeCommon, SchemaNodeKind};
+use yang2::schema::SchemaNodeKind;
 
 static SEARCH_DIR: &str = "./assets/yang/";
 
@@ -195,35 +195,33 @@ fn schema_node_attributes() {
     let snode = snode_top
         .find_single("/ietf-interfaces:interfaces/interface/enabled")
         .expect("Failed to lookup schema node");
+    assert_eq!(snode.kind(), SchemaNodeKind::Leaf);
     assert_eq!(snode.name(), "enabled");
     assert!(snode.description().is_some());
     assert!(snode.reference().is_some());
-    if let SchemaNodeKind::Leaf(sleaf) = snode.kind() {
-        assert_eq!(sleaf.config(), true);
-        assert_eq!(sleaf.mandatory(), false);
-        assert_eq!(sleaf.default(), Some("true"));
-        assert_eq!(sleaf.base_type(), ffi::LY_DATA_TYPE::LY_TYPE_BOOL);
-        assert!(sleaf.units().is_none());
-        assert!(sleaf.musts().next().is_none());
-        assert!(sleaf.whens().next().is_none());
-    }
+    assert_eq!(snode.is_config(), true);
+    assert_eq!(snode.is_mandatory(), false);
+    assert_eq!(snode.default_value(), Some("true"));
+    assert_eq!(snode.base_type(), Some(ffi::LY_DATA_TYPE::LY_TYPE_BOOL));
+    assert!(snode.units().is_none());
+    assert!(snode.musts().unwrap().count() == 0);
+    assert!(snode.whens().count() == 0);
 
     let snode = snode_top
         .find_single("/ietf-interfaces:interfaces/interface")
         .expect("Failed to lookup schema node");
+    assert_eq!(snode.kind(), SchemaNodeKind::List);
     assert_eq!(snode.name(), "interface");
     assert!(snode.description().is_some());
     assert!(snode.reference().is_none());
-    if let SchemaNodeKind::List(slist) = snode.kind() {
-        assert_eq!(slist.config(), true);
-        assert_eq!(slist.mandatory(), false);
-        assert_eq!(slist.keyless(), false);
-        assert_eq!(slist.user_ordered(), false);
-        assert_eq!(slist.min_elements(), None);
-        assert_eq!(slist.max_elements(), None);
-        assert!(slist.musts().next().is_none());
-        assert!(slist.whens().next().is_none());
-        assert!(slist.actions().next().is_none());
-        assert!(slist.notifications().next().is_none());
-    }
+    assert_eq!(snode.is_config(), true);
+    assert_eq!(snode.is_mandatory(), false);
+    assert_eq!(snode.is_keyless_list(), false);
+    assert_eq!(snode.is_user_ordered(), false);
+    assert_eq!(snode.min_elements(), None);
+    assert_eq!(snode.max_elements(), None);
+    assert!(snode.musts().unwrap().count() == 0);
+    assert!(snode.whens().count() == 0);
+    assert!(snode.actions().unwrap().count() == 0);
+    assert!(snode.notifications().unwrap().count() == 0);
 }

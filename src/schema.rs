@@ -393,6 +393,22 @@ impl<'a> SchemaNode<'a> {
         }
     }
 
+    /// Check type restrictions applicable to the particular leaf/leaf-list with
+    /// the given string value.
+    pub fn value_validate(&self, value: &str) -> bool {
+        let value_len = value.len() as u64;
+        let value = CString::new(value).unwrap();
+        let ret = unsafe {
+            ffi::lys_value_validate(
+                self.context.raw,
+                self.raw,
+                value.as_ptr(),
+                value_len,
+            )
+        };
+        ret == ffi::LY_ERR::LY_SUCCESS
+    }
+
     /// Returns whether the node is a configuration node.
     pub fn is_config(&self) -> bool {
         match self.kind {

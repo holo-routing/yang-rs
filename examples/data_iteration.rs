@@ -30,7 +30,7 @@ fn main() -> std::io::Result<()> {
     // Iterate over all nodes of the data tree.
     println!("Iterating over all data nodes...");
     for dnode in dtree.traverse() {
-        println!("  {}: {:?}", dnode.path().unwrap(), dnode.value());
+        println!("  {}: {:?}", dnode.path(), dnode.value());
     }
 
     // Iterate over all interfaces present in the data tree.
@@ -39,7 +39,7 @@ fn main() -> std::io::Result<()> {
         .find("/ietf-interfaces:interfaces/interface")
         .expect("Failed to find interfaces");
     for dnode in dnodes {
-        println!("  {}: {:?}", dnode.path().unwrap(), dnode.value());
+        println!("  {}: {:?}", dnode.path(), dnode.value());
     }
 
     Ok(())

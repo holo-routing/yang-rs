@@ -80,7 +80,7 @@ fn criterion_benchmark(c: &mut Criterion) {
             |b, _| {
                 b.iter(|| {
                     for dnode in dtree.traverse() {
-                        let path = dnode.path().unwrap();
+                        let path = dnode.path();
                         dtree.find(&path).expect("Failed to find data");
                     }
                 });

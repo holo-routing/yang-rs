@@ -571,8 +571,8 @@ impl<'a> DataNodeRef<'a> {
     }
 
     /// Generate path of the given node.
-    pub fn path(&self) -> Result<String> {
-        let mut buf: [std::os::raw::c_char; 1024] = [0; 1024];
+    pub fn path(&self) -> String {
+        let mut buf: [std::os::raw::c_char; 4096] = [0; 4096];
 
         let pathtype = ffi::LYD_PATH_TYPE::LYD_PATH_LOG;
         let ret = unsafe {
@@ -584,10 +584,10 @@ impl<'a> DataNodeRef<'a> {
             )
         };
         if ret.is_null() {
-            return Err(Error::new(&self.tree.context));
+            panic!("Failed to generate path of the data node");
         }
 
-        Ok(char_ptr_to_string(buf.as_ptr()))
+        char_ptr_to_string(buf.as_ptr())
     }
 
     /// Node's value (canonical string representation).

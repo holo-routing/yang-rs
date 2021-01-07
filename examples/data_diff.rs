@@ -90,7 +90,7 @@ fn main() -> std::io::Result<()> {
 
     println!("Comparing data trees (manual iteration):");
     for (op, dnode) in diff.iter() {
-        println!(" {:?}: {} ({:?})", op, dnode.path().unwrap(), dnode.value());
+        println!(" {:?}: {} ({:?})", op, dnode.path(), dnode.value());
     }
 
     Ok(())

@@ -20,17 +20,17 @@ fn main() -> std::io::Result<()> {
         .traverse()
         .filter(|snode| snode.module().name() == MODULE_NAME)
     {
-        println!("  {}", snode.path().unwrap());
+        println!("  {}", snode.path());
     }
 
     println!("RPCs:");
     for snode in module.rpcs() {
-        println!("  {}", snode.path().unwrap());
+        println!("  {}", snode.path());
     }
 
     println!("Notifications:");
     for snode in module.notifications() {
-        println!("  {}", snode.path().unwrap());
+        println!("  {}", snode.path());
     }
 
     Ok(())

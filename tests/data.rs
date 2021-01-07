@@ -161,7 +161,7 @@ fn data_find() {
         dtree1
             .find("/ietf-interfaces:interfaces/interface")
             .expect("Failed to lookup data")
-            .map(|dnode| dnode.path().unwrap())
+            .map(|dnode| dnode.path())
             .collect::<Vec<String>>(),
         vec![
             "/ietf-interfaces:interfaces/interface[name='eth/0/0']",
@@ -173,7 +173,7 @@ fn data_find() {
         dtree1
             .find("/ietf-interfaces:interfaces/interface[name='eth/0/0']/*")
             .expect("Failed to lookup data")
-            .map(|dnode| dnode.path().unwrap())
+            .map(|dnode| dnode.path())
             .collect::<Vec<String>>(),
         vec![
             "/ietf-interfaces:interfaces/interface[name='eth/0/0']/name",
@@ -306,7 +306,7 @@ fn data_iterator_traverse() {
     assert_eq!(
         dtree1
             .traverse()
-            .map(|dnode| dnode.path().unwrap())
+            .map(|dnode| dnode.path())
             .collect::<Vec<String>>(),
         vec![
             "/ietf-interfaces:interfaces",
@@ -336,7 +336,7 @@ fn data_iterator_ancestors() {
             )
             .expect("Failed to lookup data")
             .ancestors()
-            .map(|dnode| dnode.path().unwrap())
+            .map(|dnode| dnode.path())
             .collect::<Vec<String>>(),
         vec![
             "/ietf-interfaces:interfaces/interface[name='eth/0/0']",
@@ -357,7 +357,7 @@ fn data_iterator_siblings() {
             )
             .expect("Failed to lookup data")
             .siblings()
-            .map(|dnode| dnode.path().unwrap())
+            .map(|dnode| dnode.path())
             .collect::<Vec<String>>(),
         vec!["/ietf-interfaces:interfaces/interface[name='eth/0/1']",]
     );
@@ -373,7 +373,7 @@ fn data_iterator_children() {
             .find_single("/ietf-interfaces:interfaces")
             .expect("Failed to lookup data")
             .children()
-            .map(|dnode| dnode.path().unwrap())
+            .map(|dnode| dnode.path())
             .collect::<Vec<String>>(),
         vec![
             "/ietf-interfaces:interfaces/interface[name='eth/0/0']",

@@ -27,7 +27,7 @@ fn schema_find() {
         snode
             .find("/ietf-interfaces:interfaces/*")
             .expect("Failed to lookup schema data")
-            .map(|dnode| dnode.path().unwrap())
+            .map(|dnode| dnode.path())
             .collect::<Vec<String>>(),
         vec!["/ietf-interfaces:interfaces/interface"]
     );
@@ -36,7 +36,7 @@ fn schema_find() {
         snode
             .find("/ietf-interfaces:interfaces/interface/*")
             .expect("Failed to lookup schema data")
-            .map(|dnode| dnode.path().unwrap())
+            .map(|dnode| dnode.path())
             .collect::<Vec<String>>(),
         vec![
             "/ietf-interfaces:interfaces/interface/name",
@@ -75,7 +75,7 @@ fn schema_iterator_traverse() {
     assert_eq!(
         snode_top
             .traverse()
-            .map(|snode| snode.path().unwrap())
+            .map(|snode| snode.path())
             .collect::<Vec<String>>(),
         vec![
             "/ietf-interfaces:interfaces",
@@ -119,7 +119,7 @@ fn schema_iterator_ancestors() {
             .find_single("/ietf-interfaces:interfaces/interface/statistics/discontinuity-time")
             .expect("Failed to lookup schema data")
             .ancestors()
-            .map(|snode| snode.path().unwrap())
+            .map(|snode| snode.path())
             .collect::<Vec<String>>(),
         vec![
             "/ietf-interfaces:interfaces/interface/statistics",
@@ -139,7 +139,7 @@ fn schema_iterator_siblings() {
             .find_single("/ietf-interfaces:interfaces/interface/name")
             .expect("Failed to lookup schema data")
             .siblings()
-            .map(|snode| snode.path().unwrap())
+            .map(|snode| snode.path())
             .collect::<Vec<String>>(),
         vec![
             "/ietf-interfaces:interfaces/interface/description",
@@ -166,7 +166,7 @@ fn schema_iterator_children() {
             .find_single("/ietf-interfaces:interfaces/interface/statistics")
             .expect("Failed to lookup schema data")
             .children()
-            .map(|snode| snode.path().unwrap())
+            .map(|snode| snode.path())
             .collect::<Vec<String>>(),
         vec![
             "/ietf-interfaces:interfaces/interface/statistics/discontinuity-time",

@@ -293,8 +293,8 @@ impl<'a> SchemaNode<'a> {
     }
 
     /// Generate path of the node.
-    pub fn path(&self) -> Result<String> {
-        let mut buf: [std::os::raw::c_char; 1024] = [0; 1024];
+    pub fn path(&self) -> String {
+        let mut buf: [std::os::raw::c_char; 4096] = [0; 4096];
 
         let pathtype = ffi::LYSC_PATH_TYPE::LYSC_PATH_LOG;
         let ret = unsafe {
@@ -306,10 +306,10 @@ impl<'a> SchemaNode<'a> {
             )
         };
         if ret.is_null() {
-            return Err(Error::new(self.context));
+            panic!("Failed to generate path of the schema node");
         }
 
-        Ok(char_ptr_to_string(buf.as_ptr()))
+        char_ptr_to_string(buf.as_ptr())
     }
 
     /// Evaluate an xpath expression on the node.

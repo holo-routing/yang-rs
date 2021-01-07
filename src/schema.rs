@@ -7,6 +7,8 @@
 //! YANG schema data.
 
 use bitflags::bitflags;
+use num_derive::FromPrimitive;
+use num_traits::FromPrimitive;
 use std::ffi::CString;
 use std::mem;
 use std::os::unix::io::AsRawFd;
@@ -86,6 +88,30 @@ pub struct SchemaStmtMust<'a> {
 pub struct SchemaStmtWhen<'a> {
     context: &'a Context,
     raw: *mut ffi::lysc_when,
+}
+
+#[derive(Copy, Clone, Debug, PartialEq, FromPrimitive)]
+pub enum DataValueType {
+    Unknown = 0,
+    Binary = 1,
+    U8 = 2,
+    U16 = 3,
+    U32 = 4,
+    U64 = 5,
+    String = 6,
+    Bits = 7,
+    Bool = 8,
+    Dec64 = 9,
+    Empty = 10,
+    Enum = 11,
+    IdentityRef = 12,
+    InstanceId = 13,
+    LeafRef = 14,
+    Union = 15,
+    I8 = 16,
+    I16 = 17,
+    I32 = 18,
+    I64 = 19,
 }
 
 // ===== impl SchemaModule =====
@@ -469,7 +495,7 @@ impl<'a> SchemaNode<'a> {
     // TODO: list of leaf-list default values.
 
     /// Resolved base type.
-    pub fn base_type(&self) -> Option<ffi::LY_DATA_TYPE::Type> {
+    pub fn base_type(&self) -> Option<DataValueType> {
         let ltype = unsafe {
             match self.kind() {
                 SchemaNodeKind::Leaf => {
@@ -481,7 +507,8 @@ impl<'a> SchemaNode<'a> {
                 _ => return None,
             }
         };
-        Some(unsafe { (*ltype).basetype })
+        let ltype = unsafe { (*ltype).basetype };
+        Some(DataValueType::from_u32(ltype).unwrap())
     }
 
     /// Units of the leaf(-list)'s type.

@@ -1,6 +1,5 @@
-use libyang2_sys as ffi;
 use yang2::context::{Context, ContextFlags};
-use yang2::schema::SchemaNodeKind;
+use yang2::schema::{DataValueType, SchemaNodeKind};
 
 static SEARCH_DIR: &str = "./assets/yang/";
 
@@ -202,7 +201,7 @@ fn schema_node_attributes() {
     assert_eq!(snode.is_config(), true);
     assert_eq!(snode.is_mandatory(), false);
     assert_eq!(snode.default_value(), Some("true"));
-    assert_eq!(snode.base_type(), Some(ffi::LY_DATA_TYPE::LY_TYPE_BOOL));
+    assert_eq!(snode.base_type(), Some(DataValueType::Bool));
     assert!(snode.units().is_none());
     assert!(snode.musts().unwrap().count() == 0);
     assert!(snode.whens().count() == 0);

@@ -31,4 +31,4 @@ jobs:
     - name: Build
       run: cargo build --features use_bindgen --verbose
     - name: Run tests
-      run: cargo test --features use_bindgen --jobs 1 --verbose
+      run: RUST_TEST_THREADS=1 cargo test --features use_bindgen --verbose

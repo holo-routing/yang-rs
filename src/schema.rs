@@ -363,34 +363,18 @@ impl<'a> SchemaNode<'a> {
         Ok(Set::new(self.context, slice))
     }
 
-    /// Evaluate an xpath expression on the node. Return an error if more than
-    /// one schema node satisfies the given xpath expression.
-    pub fn find_single(&self, xpath: &str) -> Result<SchemaNode> {
-        let mut snodes = self.find(xpath)?;
+    /// Get a schema node based on the given data path (JSON format).
+    pub fn find_single(&self, path: &str) -> Result<SchemaNode> {
+        let path = CString::new(path).unwrap();
 
-        // Get first element from the iterator.
-        let snode = snodes.next();
-
-        match snode {
-            // Error: more that one node satisfies the xpath query.
-            Some(_) if snodes.next().is_some() => Err(Error {
-                errcode: ffi::LY_ERR::LY_ENOTFOUND,
-                msg: Some(
-                    "Path refers to more than one schema node".to_string(),
-                ),
-                path: Some(xpath.to_string()),
-                apptag: None,
-            }),
-            // Success case.
-            Some(snode) => Ok(snode),
-            // Error: node not found.
-            None => Err(Error {
-                errcode: ffi::LY_ERR::LY_ENOTFOUND,
-                msg: Some("Schema node not found".to_string()),
-                path: Some(xpath.to_string()),
-                apptag: None,
-            }),
+        let rnode = unsafe {
+            ffi::lys_find_path(std::ptr::null(), self.raw, path.as_ptr(), 0)
+        };
+        if rnode.is_null() {
+            return Err(Error::new(self.context));
         }
+
+        Ok(SchemaNode::from_raw(self.context, rnode as *mut _))
     }
 
     /// Check type restrictions applicable to the particular leaf/leaf-list with

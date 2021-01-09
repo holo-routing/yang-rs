@@ -363,6 +363,20 @@ impl Context {
     pub fn get_yanglib_id(&self) -> u16 {
         unsafe { ffi::ly_ctx_get_yanglib_id(self.raw) }
     }
+
+    /// Get a schema node based on the given data path (JSON format).
+    pub fn find_single(&self, path: &str) -> Result<SchemaNode> {
+        let path = CString::new(path).unwrap();
+
+        let rnode = unsafe {
+            ffi::lys_find_path(self.raw, std::ptr::null(), path.as_ptr(), 0)
+        };
+        if rnode.is_null() {
+            return Err(Error::new(self));
+        }
+
+        Ok(SchemaNode::from_raw(self, rnode as *mut _))
+    }
 }
 
 impl Drop for Context {

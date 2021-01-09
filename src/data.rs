@@ -607,14 +607,12 @@ impl<'a> DataNodeRef<'a> {
     /// # Safety
     ///
     /// The caller must ensure that the provided pointer is valid.
-    #[allow(dead_code)]
-    unsafe fn set_private(&mut self, ptr: *mut std::ffi::c_void) {
+    pub unsafe fn set_private(&mut self, ptr: *mut std::ffi::c_void) {
         (*self.raw).priv_ = ptr;
     }
 
     /// Get private user data, not used by libyang.
-    #[allow(dead_code)]
-    fn get_private(&self) -> Option<*mut std::ffi::c_void> {
+    pub fn get_private(&self) -> Option<*mut std::ffi::c_void> {
         let priv_ = unsafe { (*self.raw).priv_ };
         if priv_.is_null() {
             None

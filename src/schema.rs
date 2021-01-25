@@ -813,7 +813,7 @@ impl<'a> Binding<'a> for SchemaNode<'a> {
 
 impl<'a> NodeIterable<'a> for SchemaNode<'a> {
     fn parent(&self) -> Option<SchemaNode<'a>> {
-        let parent = unsafe { (&*self.raw).parent };
+        let parent = unsafe { (*self.raw).parent };
         if parent.is_null() {
             None
         } else {
@@ -830,7 +830,7 @@ impl<'a> NodeIterable<'a> for SchemaNode<'a> {
             | SchemaNodeKind::LeafList
             | SchemaNodeKind::List
             | SchemaNodeKind::AnyData => {
-                let next = unsafe { (&*self.raw).next };
+                let next = unsafe { (*self.raw).next };
                 SchemaNode::from_raw_opt(&self.context, next)
             }
             SchemaNodeKind::Rpc

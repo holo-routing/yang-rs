@@ -35,10 +35,10 @@ fn main() -> std::io::Result<()> {
 
     // Iterate over all interfaces present in the data tree.
     println!("Iterating over interfaces only...");
-    let dnodes = dtree
-        .find("/ietf-interfaces:interfaces/interface")
-        .expect("Failed to find interfaces");
-    for dnode in dnodes {
+    for dnode in dtree
+        .find_xpath("/ietf-interfaces:interfaces/interface")
+        .expect("Failed to find interfaces")
+    {
         println!("  {}: {:?}", dnode.path(), dnode.value());
     }
 

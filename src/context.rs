@@ -10,9 +10,10 @@ use bitflags::bitflags;
 use std::ffi::CString;
 use std::os::unix::ffi::OsStrExt;
 use std::path::Path;
+use std::slice;
 
 use crate::error::{Error, Result};
-use crate::iter::SchemaModules;
+use crate::iter::{SchemaModules, Set};
 use crate::schema::{SchemaModule, SchemaNode};
 use crate::utils::Binding;
 use libyang2_sys as ffi;
@@ -364,8 +365,39 @@ impl Context {
         unsafe { ffi::ly_ctx_get_yanglib_id(self.raw) }
     }
 
+    /// Evaluate an xpath expression on schema nodes.
+    pub fn find_xpath(&self, path: &str) -> Result<Set<SchemaNode>> {
+        let path = CString::new(path).unwrap();
+        let mut set = std::ptr::null_mut();
+        let set_ptr = &mut set;
+        let options = 0u32;
+
+        let ret = unsafe {
+            ffi::lys_find_xpath(
+                self.raw,
+                std::ptr::null(),
+                path.as_ptr(),
+                options,
+                set_ptr,
+            )
+        };
+        if ret != ffi::LY_ERR::LY_SUCCESS {
+            return Err(Error::new(self));
+        }
+
+        let rnodes_count = unsafe { (*set).count } as usize;
+        let slice = if rnodes_count == 0 {
+            &[]
+        } else {
+            let rnodes = unsafe { (*set).__bindgen_anon_1.snodes };
+            unsafe { slice::from_raw_parts(rnodes, rnodes_count) }
+        };
+
+        Ok(Set::new(self, slice))
+    }
+
     /// Get a schema node based on the given data path (JSON format).
-    pub fn find_single(&self, path: &str) -> Result<SchemaNode> {
+    pub fn find_path(&self, path: &str) -> Result<SchemaNode> {
         let path = CString::new(path).unwrap();
 
         let rnode = unsafe {

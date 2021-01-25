@@ -153,13 +153,13 @@ fn parse_json_data<'a>(ctx: &'a Context, string: &str) -> DataTree<'a> {
 }
 
 #[test]
-fn data_find() {
+fn data_find_xpath() {
     let ctx = create_context();
     let dtree1 = parse_json_data(&ctx, JSON_TREE1);
 
     assert_eq!(
         dtree1
-            .find("/ietf-interfaces:interfaces/interface")
+            .find_xpath("/ietf-interfaces:interfaces/interface")
             .expect("Failed to lookup data")
             .map(|dnode| dnode.path())
             .collect::<Vec<String>>(),
@@ -171,7 +171,9 @@ fn data_find() {
 
     assert_eq!(
         dtree1
-            .find("/ietf-interfaces:interfaces/interface[name='eth/0/0']/*")
+            .find_xpath(
+                "/ietf-interfaces:interfaces/interface[name='eth/0/0']/*"
+            )
             .expect("Failed to lookup data")
             .map(|dnode| dnode.path())
             .collect::<Vec<String>>(),
@@ -185,15 +187,15 @@ fn data_find() {
 }
 
 #[test]
-fn data_find_single() {
+fn data_find_path() {
     let ctx = create_context();
     let dtree1 = parse_json_data(&ctx, JSON_TREE1);
 
     assert!(dtree1
-        .find_single("/ietf-interfaces:interfaces/interface")
+        .find_path("/ietf-interfaces:interfaces/interface")
         .is_err());
     assert!(dtree1
-        .find_single("/ietf-interfaces:interfaces/interface[name='eth/0/0']")
+        .find_path("/ietf-interfaces:interfaces/interface[name='eth/0/0']")
         .is_ok());
 }
 
@@ -331,7 +333,7 @@ fn data_iterator_ancestors() {
 
     assert_eq!(
         dtree1
-            .find_single(
+            .find_path(
                 "/ietf-interfaces:interfaces/interface[name='eth/0/0']/type",
             )
             .expect("Failed to lookup data")
@@ -352,9 +354,7 @@ fn data_iterator_siblings() {
 
     assert_eq!(
         dtree1
-            .find_single(
-                "/ietf-interfaces:interfaces/interface[name='eth/0/0']"
-            )
+            .find_path("/ietf-interfaces:interfaces/interface[name='eth/0/0']")
             .expect("Failed to lookup data")
             .siblings()
             .map(|dnode| dnode.path())
@@ -370,7 +370,7 @@ fn data_iterator_children() {
 
     assert_eq!(
         dtree1
-            .find_single("/ietf-interfaces:interfaces")
+            .find_path("/ietf-interfaces:interfaces")
             .expect("Failed to lookup data")
             .children()
             .map(|dnode| dnode.path())

@@ -339,7 +339,7 @@ impl<'a> SchemaNode<'a> {
     }
 
     /// Evaluate an xpath expression on the node.
-    pub fn find(&self, xpath: &str) -> Result<Set<SchemaNode>> {
+    pub fn find_xpath(&self, xpath: &str) -> Result<Set<SchemaNode>> {
         let xpath = CString::new(xpath).unwrap();
         let mut set = std::ptr::null_mut();
         let set_ptr = &mut set;
@@ -370,7 +370,7 @@ impl<'a> SchemaNode<'a> {
     }
 
     /// Get a schema node based on the given data path (JSON format).
-    pub fn find_single(&self, path: &str) -> Result<SchemaNode> {
+    pub fn find_path(&self, path: &str) -> Result<SchemaNode> {
         let path = CString::new(path).unwrap();
 
         let rnode = unsafe {

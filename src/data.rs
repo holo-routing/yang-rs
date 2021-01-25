@@ -176,7 +176,7 @@ pub trait Data {
     /// the form `leaf-list[.='val']`, these instances are found using hashes
     /// with constant (*O(1)*) complexity (unless they are defined in
     /// top-level). Other predicates can still follow the aforementioned ones.
-    fn find(&self, xpath: &str) -> Result<Set<DataNodeRef>> {
+    fn find_xpath(&self, xpath: &str) -> Result<Set<DataNodeRef>> {
         let xpath = CString::new(xpath).unwrap();
         let mut set = std::ptr::null_mut();
         let set_ptr = &mut set;
@@ -203,8 +203,22 @@ pub trait Data {
     /// The expected format of the expression is JSON, meaning the first node in
     /// every path must have its module name as prefix or be the special `*`
     /// value for all the nodes.
-    fn find_single(&self, xpath: &str) -> Result<DataNodeRef> {
-        let mut dnodes = self.find(xpath)?;
+    fn find_path(&self, path: &str) -> Result<DataNodeRef> {
+        let path = CString::new(path).unwrap();
+        let mut rnode = std::ptr::null_mut();
+        let rnode_ptr = &mut rnode;
+
+        let ret = unsafe {
+            ffi::lyd_find_path(self.raw(), path.as_ptr(), 0u8, rnode_ptr)
+        };
+        if ret != ffi::LY_ERR::LY_SUCCESS {
+            return Err(Error::new(self.context()));
+        }
+
+        Ok(DataNodeRef::from_raw(self.tree(), rnode as *mut _))
+
+        /*
+        let mut dnodes = self.find_xpath(xpath)?;
 
         // Get first element from the iterator.
         let dnode = dnodes.next();
@@ -227,6 +241,7 @@ pub trait Data {
                 apptag: None,
             }),
         }
+        */
     }
 
     /// Print data tree in the specified format.
@@ -362,10 +377,10 @@ impl<'a> DataTree<'a> {
     /// Returns the first created node (if any).
     pub fn new_path(
         &mut self,
-        xpath: &str,
+        path: &str,
         value: Option<&str>,
     ) -> Result<Option<DataNodeRef>> {
-        let xpath = CString::new(xpath).unwrap();
+        let path = CString::new(path).unwrap();
         let mut rnode = std::ptr::null_mut();
         let rnode_ptr = &mut rnode;
         let value_cstr;
@@ -382,7 +397,7 @@ impl<'a> DataTree<'a> {
             ffi::lyd_new_path(
                 self.raw(),
                 self.context().raw,
-                xpath.as_ptr(),
+                path.as_ptr(),
                 value_ptr,
                 ffi::LYD_NEW_PATH_UPDATE,
                 rnode_ptr,
@@ -396,8 +411,8 @@ impl<'a> DataTree<'a> {
     }
 
     /// Remove a data node.
-    pub fn remove(&mut self, xpath: &str) -> Result<()> {
-        let dnode = self.find_single(xpath)?;
+    pub fn remove(&mut self, path: &str) -> Result<()> {
+        let dnode = self.find_path(path)?;
         unsafe { ffi::lyd_free_tree(dnode.raw) };
         Ok(())
     }

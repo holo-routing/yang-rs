@@ -751,6 +751,11 @@ impl<'a> SchemaNode<'a> {
         Traverse::new(self)
     }
 
+    /// Returns an iterator over the keys of the list.
+    pub fn list_keys(&self) -> impl Iterator<Item = SchemaNode<'a>> {
+        self.children().filter(|snode| snode.is_list_key())
+    }
+
     /// Set a schema private pointer to a user pointer.
     ///
     /// Returns previous private pointer when set.

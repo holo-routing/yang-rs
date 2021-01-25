@@ -1483,7 +1483,7 @@ pub type ly_module_imp_clb = ::std::option::Option<
         mod_name: *const ::std::os::raw::c_char,
         mod_rev: *const ::std::os::raw::c_char,
         submod_name: *const ::std::os::raw::c_char,
-        sub_rev: *const ::std::os::raw::c_char,
+        submod_rev: *const ::std::os::raw::c_char,
         user_data: *mut ::std::os::raw::c_void,
         format: *mut LYS_INFORMAT::Type,
         module_data: *mut *const ::std::os::raw::c_char,
@@ -6229,8 +6229,8 @@ extern "C" {
 }
 pub mod LYD_PATH_TYPE {
     pub type Type = ::std::os::raw::c_uint;
-    pub const LYD_PATH_LOG: Type = 0;
-    pub const LYD_PATH_LOG_NO_LAST_PRED: Type = 1;
+    pub const LYD_PATH_STD: Type = 0;
+    pub const LYD_PATH_STD_NO_LAST_PRED: Type = 1;
 }
 extern "C" {
     pub fn lyd_path(
@@ -6268,6 +6268,14 @@ extern "C" {
         ctx_node: *const lyd_node,
         xpath: *const ::std::os::raw::c_char,
         set: *mut *mut ly_set,
+    ) -> LY_ERR::Type;
+}
+extern "C" {
+    pub fn lyd_find_path(
+        ctx_node: *const lyd_node,
+        path: *const ::std::os::raw::c_char,
+        output: ly_bool,
+        match_: *mut *mut lyd_node,
     ) -> LY_ERR::Type;
 }
 pub mod LYD_VALIDATE_OP {
@@ -11943,6 +11951,7 @@ pub struct lysp_include {
     pub ref_: *const ::std::os::raw::c_char,
     pub exts: *mut lysp_ext_instance,
     pub rev: [::std::os::raw::c_char; 11usize],
+    pub injected: ly_bool,
 }
 #[test]
 fn bindgen_test_layout_lysp_include() {
@@ -12027,6 +12036,19 @@ fn bindgen_test_layout_lysp_include() {
             stringify!(lysp_include),
             "::",
             stringify!(rev)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<lysp_include>())).injected as *const _
+                as usize
+        },
+        51usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(lysp_include),
+            "::",
+            stringify!(injected)
         )
     );
 }
@@ -22537,6 +22559,7 @@ extern "C" {
 }
 extern "C" {
     pub fn lys_find_xpath_atoms(
+        ctx: *const ly_ctx,
         ctx_node: *const lysc_node,
         xpath: *const ::std::os::raw::c_char,
         options: u32,
@@ -22555,6 +22578,7 @@ extern "C" {
 }
 extern "C" {
     pub fn lys_find_xpath(
+        ctx: *const ly_ctx,
         ctx_node: *const lysc_node,
         xpath: *const ::std::os::raw::c_char,
         options: u32,

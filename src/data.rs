@@ -574,7 +574,7 @@ impl<'a> DataNodeRef<'a> {
     pub fn path(&self) -> String {
         let mut buf: [std::os::raw::c_char; 4096] = [0; 4096];
 
-        let pathtype = ffi::LYD_PATH_TYPE::LYD_PATH_LOG;
+        let pathtype = ffi::LYD_PATH_TYPE::LYD_PATH_STD;
         let ret = unsafe {
             ffi::lyd_path(
                 self.raw,

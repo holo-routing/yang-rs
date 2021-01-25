@@ -21,7 +21,7 @@ jobs:
         sudo apt-get install cmake libpcre3-dev
         git clone https://github.com/CESNET/libyang.git
         cd libyang
-        git checkout de8d5cc7b9bf4fcce1007c8ff3d04d6000cdd081
+        git checkout 7edebb499319f9c4d7b87ca00a4683e6f3dd7aab
         mkdir build
         cd build
         cmake -DENABLE_BUILD_TESTS=OFF -DCMAKE_BUILD_TYPE:String="Release" ..

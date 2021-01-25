@@ -346,7 +346,13 @@ impl<'a> SchemaNode<'a> {
         let options = 0u32;
 
         let ret = unsafe {
-            ffi::lys_find_xpath(self.raw, xpath.as_ptr(), options, set_ptr)
+            ffi::lys_find_xpath(
+                std::ptr::null(),
+                self.raw,
+                xpath.as_ptr(),
+                options,
+                set_ptr,
+            )
         };
         if ret != ffi::LY_ERR::LY_SUCCESS {
             return Err(Error::new(&self.context));

@@ -42,6 +42,16 @@ pub enum SchemaOutputFormat {
     TREE = ffi::LYS_OUTFORMAT::LYS_OUT_TREE,
 }
 
+/// Schema path format.
+#[repr(u32)]
+pub enum SchemaPathFormat {
+    /// Descriptive path format used in log messages.
+    LOG = ffi::LYSC_PATH_TYPE::LYSC_PATH_LOG,
+    /// Similar to LOG except that schema-only nodes (choice, case) are
+    /// skipped.
+    DATA = ffi::LYSC_PATH_TYPE::LYSC_PATH_DATA,
+}
+
 bitflags! {
     /// Schema printer flags.
     pub struct SchemaPrinterFlags: u32 {
@@ -319,14 +329,13 @@ impl<'a> SchemaNode<'a> {
     }
 
     /// Generate path of the node.
-    pub fn path(&self) -> String {
+    pub fn path(&self, format: SchemaPathFormat) -> String {
         let mut buf: [std::os::raw::c_char; 4096] = [0; 4096];
 
-        let pathtype = ffi::LYSC_PATH_TYPE::LYSC_PATH_LOG;
         let ret = unsafe {
             ffi::lysc_path(
                 self.raw,
-                pathtype,
+                format as u32,
                 buf.as_mut_ptr(),
                 buf.len() as u64,
             )

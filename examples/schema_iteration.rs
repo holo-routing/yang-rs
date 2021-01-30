@@ -1,4 +1,5 @@
 use yang2::context::{Context, ContextFlags};
+use yang2::schema::SchemaPathFormat;
 
 static SEARCH_DIR: &str = "./assets/yang/";
 static MODULE_NAME: &str = "ietf-isis";
@@ -20,17 +21,17 @@ fn main() -> std::io::Result<()> {
         .traverse()
         .filter(|snode| snode.module().name() == MODULE_NAME)
     {
-        println!("  {}", snode.path());
+        println!("  {}", snode.path(SchemaPathFormat::DATA));
     }
 
     println!("RPCs:");
     for snode in module.rpcs() {
-        println!("  {}", snode.path());
+        println!("  {}", snode.path(SchemaPathFormat::DATA));
     }
 
     println!("Notifications:");
     for snode in module.notifications() {
-        println!("  {}", snode.path());
+        println!("  {}", snode.path(SchemaPathFormat::DATA));
     }
 
     Ok(())

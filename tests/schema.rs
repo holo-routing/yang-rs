@@ -1,5 +1,5 @@
 use yang2::context::{Context, ContextFlags};
-use yang2::schema::{DataValueType, SchemaNodeKind};
+use yang2::schema::{DataValueType, SchemaNodeKind, SchemaPathFormat};
 
 static SEARCH_DIR: &str = "./assets/yang/";
 
@@ -26,7 +26,7 @@ fn schema_find_xpath() {
         snode
             .find_xpath("/ietf-interfaces:interfaces/*")
             .expect("Failed to lookup schema data")
-            .map(|dnode| dnode.path())
+            .map(|dnode| dnode.path(SchemaPathFormat::DATA))
             .collect::<Vec<String>>(),
         vec!["/ietf-interfaces:interfaces/interface"]
     );
@@ -35,7 +35,7 @@ fn schema_find_xpath() {
         snode
             .find_xpath("/ietf-interfaces:interfaces/interface/*")
             .expect("Failed to lookup schema data")
-            .map(|dnode| dnode.path())
+            .map(|dnode| dnode.path(SchemaPathFormat::DATA))
             .collect::<Vec<String>>(),
         vec![
             "/ietf-interfaces:interfaces/interface/name",
@@ -74,7 +74,7 @@ fn schema_iterator_traverse() {
     assert_eq!(
         snode_top
             .traverse()
-            .map(|snode| snode.path())
+            .map(|snode| snode.path(SchemaPathFormat::DATA))
             .collect::<Vec<String>>(),
         vec![
             "/ietf-interfaces:interfaces",
@@ -118,7 +118,7 @@ fn schema_iterator_ancestors() {
             .find_path("/ietf-interfaces:interfaces/interface/statistics/discontinuity-time")
             .expect("Failed to lookup schema data")
             .ancestors()
-            .map(|snode| snode.path())
+            .map(|snode| snode.path(SchemaPathFormat::DATA))
             .collect::<Vec<String>>(),
         vec![
             "/ietf-interfaces:interfaces/interface/statistics",
@@ -138,7 +138,7 @@ fn schema_iterator_siblings() {
             .find_path("/ietf-interfaces:interfaces/interface/name")
             .expect("Failed to lookup schema data")
             .siblings()
-            .map(|snode| snode.path())
+            .map(|snode| snode.path(SchemaPathFormat::DATA))
             .collect::<Vec<String>>(),
         vec![
             "/ietf-interfaces:interfaces/interface/description",
@@ -165,7 +165,7 @@ fn schema_iterator_children() {
             .find_path("/ietf-interfaces:interfaces/interface/statistics")
             .expect("Failed to lookup schema data")
             .children()
-            .map(|snode| snode.path())
+            .map(|snode| snode.path(SchemaPathFormat::DATA))
             .collect::<Vec<String>>(),
         vec![
             "/ietf-interfaces:interfaces/interface/statistics/discontinuity-time",

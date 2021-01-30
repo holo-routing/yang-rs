@@ -435,7 +435,7 @@ impl<'a> DataTree<'a> {
     }
 
     /// Create a copy of the data tree.
-    pub fn duplicate(&self) -> Result<DataTree> {
+    pub fn duplicate(&self) -> Result<DataTree<'a>> {
         let mut dup = std::ptr::null_mut();
         let dup_ptr = &mut dup;
 
@@ -480,7 +480,7 @@ impl<'a> DataTree<'a> {
     /// metadata ('orig-default', 'value', 'orig-value', 'key', 'orig-key')
     /// are used for storing more information about the value in the first
     /// or the second tree.
-    pub fn diff(&self, dtree: &'a DataTree) -> Result<DataDiff<'a>> {
+    pub fn diff(&self, dtree: &DataTree<'a>) -> Result<DataDiff<'a>> {
         let options = 0u16;
         let mut rnode = std::ptr::null_mut();
         let rnode_ptr = &mut rnode;

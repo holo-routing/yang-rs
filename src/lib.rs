@@ -29,3 +29,5 @@ pub mod context;
 pub mod data;
 pub mod iter;
 pub mod schema;
+
+pub use crate::error::Error;

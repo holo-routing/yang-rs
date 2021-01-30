@@ -666,7 +666,6 @@ module ietf-interfaces {
   /*
    * Legacy operational state data nodes
    */
-  /*
   container interfaces-state {
     config false;
     status deprecated;
@@ -1120,5 +1119,4 @@ module ietf-interfaces {
       }
     }
   }
-  */
 }

@@ -249,7 +249,7 @@ impl<'a> SchemaModule<'a> {
         } else {
             unsafe { (*compiled).rpcs }
         };
-        let ptr_size = mem::size_of::<ffi::lysc_action>();
+        let ptr_size = mem::size_of::<ffi::lysc_node_action>();
         Array::new(&self.context, rpcs as *mut _, ptr_size)
     }
 
@@ -261,7 +261,7 @@ impl<'a> SchemaModule<'a> {
         } else {
             unsafe { (*compiled).notifs }
         };
-        let ptr_size = mem::size_of::<ffi::lysc_notif>();
+        let ptr_size = mem::size_of::<ffi::lysc_node_notif>();
         Array::new(&self.context, notifications as *mut _, ptr_size)
     }
 
@@ -604,7 +604,7 @@ impl<'a> SchemaNode<'a> {
                     (*(self.raw as *mut ffi::lysc_node_anydata)).musts
                 }
                 SchemaNodeKind::Notification => {
-                    (*(self.raw as *mut ffi::lysc_notif)).musts
+                    (*(self.raw as *mut ffi::lysc_node_notif)).musts
                 }
                 _ => return None,
             }
@@ -640,10 +640,10 @@ impl<'a> SchemaNode<'a> {
                     (*(self.raw as *mut ffi::lysc_node_anydata)).when
                 }
                 SchemaNodeKind::Rpc | SchemaNodeKind::Action => {
-                    (*(self.raw as *mut ffi::lysc_action)).when
+                    (*(self.raw as *mut ffi::lysc_node_action)).when
                 }
                 SchemaNodeKind::Notification => {
-                    (*(self.raw as *mut ffi::lysc_notif)).when
+                    (*(self.raw as *mut ffi::lysc_node_notif)).when
                 }
             }
         };
@@ -668,7 +668,7 @@ impl<'a> SchemaNode<'a> {
             }
         };
 
-        let ptr_size = mem::size_of::<ffi::lysc_action>();
+        let ptr_size = mem::size_of::<ffi::lysc_node_action>();
         Some(Array::new(&self.context, array as *mut _, ptr_size))
     }
 
@@ -686,7 +686,7 @@ impl<'a> SchemaNode<'a> {
             }
         };
 
-        let ptr_size = mem::size_of::<ffi::lysc_notif>();
+        let ptr_size = mem::size_of::<ffi::lysc_node_notif>();
         Some(Array::new(&self.context, array as *mut _, ptr_size))
     }
 
@@ -698,9 +698,9 @@ impl<'a> SchemaNode<'a> {
     ) -> Option<(Siblings<SchemaNode>, Array<SchemaStmtMust>)> {
         match self.kind {
             SchemaNodeKind::Rpc | SchemaNodeKind::Action => {
-                let raw = self.raw as *mut ffi::lysc_action;
+                let raw = self.raw as *mut ffi::lysc_node_action;
                 let input = unsafe { (*raw).input };
-                let rnode = input.data;
+                let rnode = input.child;
                 let rmusts = input.musts;
 
                 let node = SchemaNode::from_raw_opt(&self.context, rnode);
@@ -721,9 +721,9 @@ impl<'a> SchemaNode<'a> {
     ) -> Option<(Siblings<SchemaNode>, Array<SchemaStmtMust>)> {
         match self.kind {
             SchemaNodeKind::Rpc | SchemaNodeKind::Action => {
-                let raw = self.raw as *mut ffi::lysc_action;
+                let raw = self.raw as *mut ffi::lysc_node_action;
                 let output = unsafe { (*raw).output };
-                let rnode = output.data;
+                let rnode = output.child;
                 let rmusts = output.musts;
 
                 let node = SchemaNode::from_raw_opt(&self.context, rnode);
@@ -767,28 +767,11 @@ impl<'a> SchemaNode<'a> {
 
     /// Set a schema private pointer to a user pointer.
     ///
-    /// Returns previous private pointer when set.
-    ///
     /// # Safety
     ///
     /// The caller must ensure that the provided pointer is valid.
-    pub unsafe fn set_private(
-        &self,
-        ptr: *mut std::ffi::c_void,
-    ) -> Result<Option<*const std::ffi::c_void>> {
-        let mut prev = std::ptr::null_mut();
-        let prev_ptr = &mut prev;
-
-        let ret = ffi::lysc_set_private(self.raw, ptr, prev_ptr);
-        if ret != ffi::LY_ERR::LY_SUCCESS {
-            return Err(Error::new(self.context));
-        }
-
-        if prev.is_null() {
-            Ok(None)
-        } else {
-            Ok(Some(prev))
-        }
+    pub unsafe fn set_private(&self, ptr: *mut std::ffi::c_void) {
+        (*self.raw).priv_ = ptr;
     }
 
     /// Get private user data, not used by libyang.
@@ -854,7 +837,7 @@ impl<'a> NodeIterable<'a> for SchemaNode<'a> {
     }
 
     fn first_child(&self) -> Option<SchemaNode<'a>> {
-        let rchild = unsafe { ffi::lysc_node_children(&*self.raw, 0) };
+        let rchild = unsafe { ffi::lysc_node_child(&*self.raw) };
         SchemaNode::from_raw_opt(&self.context, rchild as *mut _)
     }
 }

@@ -305,7 +305,7 @@ impl<'a> DataTree<'a> {
     /// Create new empty data tree.
     pub fn new(context: &Context) -> Result<DataTree> {
         let mut dtree = DataTree::from_raw(&context, std::ptr::null_mut());
-        dtree.validate(DataValidationFlags::empty())?;
+        dtree.validate(DataValidationFlags::NO_STATE)?;
         Ok(dtree)
     }
 
@@ -657,7 +657,9 @@ impl<'a> Binding<'a> for DataNodeRef<'a> {
 
 impl<'a> NodeIterable<'a> for DataNodeRef<'a> {
     fn parent(&self) -> Option<DataNodeRef<'a>> {
-        let rparent = unsafe { ffi::lyd_parent(self.raw) };
+        // NOTE: can't use lyd_parent() since it's an inline function.
+        let rparent =
+            unsafe { &mut (*(*self.raw).parent).__bindgen_anon_1.node };
         DataNodeRef::from_raw_opt(&self.tree, rparent)
     }
 
@@ -667,7 +669,26 @@ impl<'a> NodeIterable<'a> for DataNodeRef<'a> {
     }
 
     fn first_child(&self) -> Option<DataNodeRef<'a>> {
-        let rchild = unsafe { ffi::lyd_child(self.raw) };
+        // NOTE: can't use lyd_child() since it's an inline function.
+        let snode = unsafe { (*self.raw).schema };
+        if snode.is_null() {
+            let ropaq = self.raw as *mut ffi::lyd_node_opaq;
+            let rchild = unsafe { (*ropaq).child };
+            return DataNodeRef::from_raw_opt(&self.tree, rchild);
+        }
+
+        let nodetype = unsafe { (*snode).nodetype as u32 };
+        let rchild = match nodetype {
+            ffi::LYS_CONTAINER
+            | ffi::LYS_LIST
+            | ffi::LYS_RPC
+            | ffi::LYS_ACTION
+            | ffi::LYS_NOTIF => {
+                let rinner = self.raw as *mut ffi::lyd_node_inner;
+                unsafe { (*rinner).child }
+            }
+            _ => std::ptr::null_mut(),
+        };
         DataNodeRef::from_raw_opt(&self.tree, rchild)
     }
 }

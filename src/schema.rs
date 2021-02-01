@@ -330,7 +330,9 @@ impl<'a> SchemaNode<'a> {
 
     /// Generate path of the node.
     pub fn path(&self, format: SchemaPathFormat) -> String {
-        let mut buf: [std::os::raw::c_char; 4096] = [0; 4096];
+        let buf =
+            std::mem::MaybeUninit::<[std::os::raw::c_char; 4096]>::uninit();
+        let mut buf = unsafe { buf.assume_init() };
 
         let ret = unsafe {
             ffi::lysc_path(

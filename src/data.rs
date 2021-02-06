@@ -216,32 +216,6 @@ pub trait Data {
         }
 
         Ok(DataNodeRef::from_raw(self.tree(), rnode as *mut _))
-
-        /*
-        let mut dnodes = self.find_xpath(xpath)?;
-
-        // Get first element from the iterator.
-        let dnode = dnodes.next();
-
-        match dnode {
-            // Error: more that one node satisfies the xpath query.
-            Some(_) if dnodes.next().is_some() => Err(Error {
-                errcode: ffi::LY_ERR::LY_ENOTFOUND,
-                msg: Some("Path refers to more than one data node".to_string()),
-                path: Some(xpath.to_string()),
-                apptag: None,
-            }),
-            // Success case.
-            Some(dnode) => Ok(dnode),
-            // Error: node not found.
-            None => Err(Error {
-                errcode: ffi::LY_ERR::LY_ENOTFOUND,
-                msg: Some("Data node not found".to_string()),
-                path: Some(xpath.to_string()),
-                apptag: None,
-            }),
-        }
-        */
     }
 
     /// Print data tree in the specified format.

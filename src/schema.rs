@@ -588,68 +588,14 @@ impl<'a> SchemaNode<'a> {
 
     /// Array of must restrictions.
     pub fn musts(&self) -> Option<Array<SchemaStmtMust>> {
-        let array = unsafe {
-            match self.kind() {
-                SchemaNodeKind::Container => {
-                    (*(self.raw as *mut ffi::lysc_node_container)).musts
-                }
-                SchemaNodeKind::Leaf => {
-                    (*(self.raw as *mut ffi::lysc_node_leaf)).musts
-                }
-                SchemaNodeKind::LeafList => {
-                    (*(self.raw as *mut ffi::lysc_node_leaflist)).musts
-                }
-                SchemaNodeKind::List => {
-                    (*(self.raw as *mut ffi::lysc_node_list)).musts
-                }
-                SchemaNodeKind::AnyData => {
-                    (*(self.raw as *mut ffi::lysc_node_anydata)).musts
-                }
-                SchemaNodeKind::Notification => {
-                    (*(self.raw as *mut ffi::lysc_node_notif)).musts
-                }
-                _ => return None,
-            }
-        };
-
+        let array = unsafe { ffi::lysc_node_musts(self.raw) };
         let ptr_size = mem::size_of::<ffi::lysc_must>();
         Some(Array::new(&self.context, array as *mut _, ptr_size))
     }
 
     /// Array of when statements.
     pub fn whens(&self) -> Array<SchemaStmtWhen> {
-        let array = unsafe {
-            match self.kind() {
-                SchemaNodeKind::Container => {
-                    (*(self.raw as *mut ffi::lysc_node_container)).when
-                }
-                SchemaNodeKind::Case => {
-                    (*(self.raw as *mut ffi::lysc_node_case)).when
-                }
-                SchemaNodeKind::Choice => {
-                    (*(self.raw as *mut ffi::lysc_node_choice)).when
-                }
-                SchemaNodeKind::Leaf => {
-                    (*(self.raw as *mut ffi::lysc_node_leaf)).when
-                }
-                SchemaNodeKind::LeafList => {
-                    (*(self.raw as *mut ffi::lysc_node_leaflist)).when
-                }
-                SchemaNodeKind::List => {
-                    (*(self.raw as *mut ffi::lysc_node_list)).when
-                }
-                SchemaNodeKind::AnyData => {
-                    (*(self.raw as *mut ffi::lysc_node_anydata)).when
-                }
-                SchemaNodeKind::Rpc | SchemaNodeKind::Action => {
-                    (*(self.raw as *mut ffi::lysc_node_action)).when
-                }
-                SchemaNodeKind::Notification => {
-                    (*(self.raw as *mut ffi::lysc_node_notif)).when
-                }
-            }
-        };
-
+        let array = unsafe { ffi::lysc_node_when(self.raw) };
         let ptr_size = mem::size_of::<ffi::lysc_when>();
         Array::new(&self.context, array as *mut _, ptr_size)
     }

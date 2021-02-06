@@ -480,6 +480,12 @@ impl<'a> SchemaNode<'a> {
         }
     }
 
+    /// Returns whether the node appears only in the schema tree and not in the
+    /// data tree.
+    pub fn is_schema_only(&self) -> bool {
+        matches!(self.kind(), SchemaNodeKind::Choice | SchemaNodeKind::Case)
+    }
+
     /// Returns whether a default value is set.
     pub fn has_default(&self) -> bool {
         match self.kind {

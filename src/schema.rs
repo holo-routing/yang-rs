@@ -82,6 +82,8 @@ pub enum SchemaNodeKind {
     List,
     AnyData,
     Rpc,
+    Input,
+    Output,
     Action,
     Notification,
 }
@@ -242,27 +244,28 @@ impl<'a> SchemaModule<'a> {
     }
 
     /// Returns an iterator over the list of RPCs.
-    pub fn rpcs(&self) -> Array<SchemaNode> {
+    pub fn rpcs(&self) -> Siblings<'a, SchemaNode<'a>> {
         let compiled = unsafe { (*self.raw).compiled };
-        let rpcs = if compiled.is_null() {
+        let rdata = if compiled.is_null() {
             std::ptr::null()
         } else {
             unsafe { (*compiled).rpcs }
         };
-        let ptr_size = mem::size_of::<ffi::lysc_node_action>();
-        Array::new(&self.context, rpcs as *mut _, ptr_size)
+        let rpcs = SchemaNode::from_raw_opt(&self.context, rdata as *mut _);
+        Siblings::new(rpcs)
     }
 
     /// Returns an iterator over the list of notifications.
-    pub fn notifications(&self) -> Array<SchemaNode> {
+    pub fn notifications(&self) -> Siblings<'a, SchemaNode<'a>> {
         let compiled = unsafe { (*self.raw).compiled };
-        let notifications = if compiled.is_null() {
+        let rdata = if compiled.is_null() {
             std::ptr::null()
         } else {
             unsafe { (*compiled).notifs }
         };
-        let ptr_size = mem::size_of::<ffi::lysc_node_notif>();
-        Array::new(&self.context, notifications as *mut _, ptr_size)
+        let notifications =
+            SchemaNode::from_raw_opt(&self.context, rdata as *mut _);
+        Siblings::new(notifications)
     }
 
     /// Returns an iterator over all data nodes in the schema module
@@ -749,6 +752,8 @@ impl<'a> Binding<'a> for SchemaNode<'a> {
             ffi::LYS_ANYDATA => SchemaNodeKind::AnyData,
             ffi::LYS_ACTION => SchemaNodeKind::Action,
             ffi::LYS_RPC => SchemaNodeKind::Rpc,
+            ffi::LYS_INPUT => SchemaNodeKind::Input,
+            ffi::LYS_OUTPUT => SchemaNodeKind::Output,
             ffi::LYS_NOTIF => SchemaNodeKind::Notification,
             _ => panic!("unknown node type"),
         };
@@ -758,30 +763,13 @@ impl<'a> Binding<'a> for SchemaNode<'a> {
 
 impl<'a> NodeIterable<'a> for SchemaNode<'a> {
     fn parent(&self) -> Option<SchemaNode<'a>> {
-        let parent = unsafe { (*self.raw).parent };
-        if parent.is_null() {
-            None
-        } else {
-            Some(SchemaNode::from_raw(&self.context, parent))
-        }
+        let rparent = unsafe { (*self.raw).parent };
+        SchemaNode::from_raw_opt(&self.context, rparent)
     }
 
     fn next_sibling(&self) -> Option<SchemaNode<'a>> {
-        match self.kind {
-            SchemaNodeKind::Container
-            | SchemaNodeKind::Case
-            | SchemaNodeKind::Choice
-            | SchemaNodeKind::Leaf
-            | SchemaNodeKind::LeafList
-            | SchemaNodeKind::List
-            | SchemaNodeKind::AnyData => {
-                let next = unsafe { (*self.raw).next };
-                SchemaNode::from_raw_opt(&self.context, next)
-            }
-            SchemaNodeKind::Rpc
-            | SchemaNodeKind::Action
-            | SchemaNodeKind::Notification => None,
-        }
+        let rnext = unsafe { (*self.raw).next };
+        SchemaNode::from_raw_opt(&self.context, rnext)
     }
 
     fn first_child(&self) -> Option<SchemaNode<'a>> {

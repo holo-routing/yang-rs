@@ -976,6 +976,7 @@ pub const LYS_SET_RANGE: u32 = 128;
 pub const LYS_SET_TYPE: u32 = 256;
 pub const LYS_SET_REQINST: u32 = 512;
 pub const LYS_SET_DFLT: u32 = 512;
+pub const LYS_SET_PRESENCE: u32 = 512;
 pub const LYS_SET_UNITS: u32 = 1024;
 pub const LYS_SET_CONFIG: u32 = 2048;
 pub const LYS_SINGLEQUOTED: u32 = 256;
@@ -2065,7 +2066,7 @@ extern "C" {
     pub fn lydict_remove(
         ctx: *const ly_ctx,
         value: *const ::std::os::raw::c_char,
-    );
+    ) -> LY_ERR::Type;
 }
 pub type va_list = __builtin_va_list;
 pub type __gnuc_va_list = __builtin_va_list;
@@ -9215,44 +9216,44 @@ pub struct lyxp_expr {
 pub mod ly_stmt {
     pub type Type = ::std::os::raw::c_uint;
     pub const LY_STMT_NONE: Type = 0;
-    pub const LY_STMT_STATUS: Type = 1;
-    pub const LY_STMT_CONFIG: Type = 2;
-    pub const LY_STMT_MANDATORY: Type = 3;
-    pub const LY_STMT_UNITS: Type = 4;
-    pub const LY_STMT_DEFAULT: Type = 5;
-    pub const LY_STMT_TYPE: Type = 6;
-    pub const LY_STMT_ACTION: Type = 7;
-    pub const LY_STMT_ANYDATA: Type = 8;
-    pub const LY_STMT_ANYXML: Type = 9;
-    pub const LY_STMT_ARGUMENT: Type = 10;
-    pub const LY_STMT_AUGMENT: Type = 11;
-    pub const LY_STMT_BASE: Type = 12;
-    pub const LY_STMT_BELONGS_TO: Type = 13;
-    pub const LY_STMT_BIT: Type = 14;
-    pub const LY_STMT_CASE: Type = 15;
-    pub const LY_STMT_CHOICE: Type = 16;
-    pub const LY_STMT_CONTACT: Type = 17;
-    pub const LY_STMT_CONTAINER: Type = 18;
-    pub const LY_STMT_DESCRIPTION: Type = 19;
-    pub const LY_STMT_DEVIATE: Type = 20;
-    pub const LY_STMT_DEVIATION: Type = 21;
-    pub const LY_STMT_ENUM: Type = 22;
-    pub const LY_STMT_ERROR_APP_TAG: Type = 23;
-    pub const LY_STMT_ERROR_MESSAGE: Type = 24;
-    pub const LY_STMT_EXTENSION: Type = 25;
-    pub const LY_STMT_FEATURE: Type = 26;
-    pub const LY_STMT_FRACTION_DIGITS: Type = 27;
-    pub const LY_STMT_GROUPING: Type = 28;
-    pub const LY_STMT_IDENTITY: Type = 29;
-    pub const LY_STMT_IF_FEATURE: Type = 30;
-    pub const LY_STMT_IMPORT: Type = 31;
-    pub const LY_STMT_INCLUDE: Type = 32;
-    pub const LY_STMT_INPUT: Type = 33;
-    pub const LY_STMT_KEY: Type = 34;
-    pub const LY_STMT_LEAF: Type = 35;
-    pub const LY_STMT_LEAF_LIST: Type = 36;
-    pub const LY_STMT_LENGTH: Type = 37;
-    pub const LY_STMT_LIST: Type = 38;
+    pub const LY_STMT_ACTION: Type = 1;
+    pub const LY_STMT_ANYDATA: Type = 2;
+    pub const LY_STMT_ANYXML: Type = 3;
+    pub const LY_STMT_ARGUMENT: Type = 4;
+    pub const LY_STMT_ARG_TEXT: Type = 5;
+    pub const LY_STMT_ARG_VALUE: Type = 6;
+    pub const LY_STMT_AUGMENT: Type = 7;
+    pub const LY_STMT_BASE: Type = 8;
+    pub const LY_STMT_BELONGS_TO: Type = 9;
+    pub const LY_STMT_BIT: Type = 10;
+    pub const LY_STMT_CASE: Type = 11;
+    pub const LY_STMT_CHOICE: Type = 12;
+    pub const LY_STMT_CONFIG: Type = 13;
+    pub const LY_STMT_CONTACT: Type = 14;
+    pub const LY_STMT_CONTAINER: Type = 15;
+    pub const LY_STMT_DEFAULT: Type = 16;
+    pub const LY_STMT_DESCRIPTION: Type = 17;
+    pub const LY_STMT_DEVIATE: Type = 18;
+    pub const LY_STMT_DEVIATION: Type = 19;
+    pub const LY_STMT_ENUM: Type = 20;
+    pub const LY_STMT_ERROR_APP_TAG: Type = 21;
+    pub const LY_STMT_ERROR_MESSAGE: Type = 22;
+    pub const LY_STMT_EXTENSION: Type = 23;
+    pub const LY_STMT_EXTENSION_INSTANCE: Type = 24;
+    pub const LY_STMT_FEATURE: Type = 25;
+    pub const LY_STMT_FRACTION_DIGITS: Type = 26;
+    pub const LY_STMT_GROUPING: Type = 27;
+    pub const LY_STMT_IDENTITY: Type = 28;
+    pub const LY_STMT_IF_FEATURE: Type = 29;
+    pub const LY_STMT_IMPORT: Type = 30;
+    pub const LY_STMT_INCLUDE: Type = 31;
+    pub const LY_STMT_INPUT: Type = 32;
+    pub const LY_STMT_KEY: Type = 33;
+    pub const LY_STMT_LEAF: Type = 34;
+    pub const LY_STMT_LEAF_LIST: Type = 35;
+    pub const LY_STMT_LENGTH: Type = 36;
+    pub const LY_STMT_LIST: Type = 37;
+    pub const LY_STMT_MANDATORY: Type = 38;
     pub const LY_STMT_MAX_ELEMENTS: Type = 39;
     pub const LY_STMT_MIN_ELEMENTS: Type = 40;
     pub const LY_STMT_MODIFIER: Type = 41;
@@ -9275,20 +9276,20 @@ pub mod ly_stmt {
     pub const LY_STMT_REVISION: Type = 58;
     pub const LY_STMT_REVISION_DATE: Type = 59;
     pub const LY_STMT_RPC: Type = 60;
-    pub const LY_STMT_SUBMODULE: Type = 61;
-    pub const LY_STMT_TYPEDEF: Type = 62;
-    pub const LY_STMT_UNIQUE: Type = 63;
-    pub const LY_STMT_USES: Type = 64;
-    pub const LY_STMT_VALUE: Type = 65;
-    pub const LY_STMT_WHEN: Type = 66;
-    pub const LY_STMT_YANG_VERSION: Type = 67;
-    pub const LY_STMT_YIN_ELEMENT: Type = 68;
-    pub const LY_STMT_EXTENSION_INSTANCE: Type = 69;
-    pub const LY_STMT_SYNTAX_SEMICOLON: Type = 70;
-    pub const LY_STMT_SYNTAX_LEFT_BRACE: Type = 71;
-    pub const LY_STMT_SYNTAX_RIGHT_BRACE: Type = 72;
-    pub const LY_STMT_ARG_TEXT: Type = 73;
-    pub const LY_STMT_ARG_VALUE: Type = 74;
+    pub const LY_STMT_STATUS: Type = 61;
+    pub const LY_STMT_SUBMODULE: Type = 62;
+    pub const LY_STMT_SYNTAX_SEMICOLON: Type = 63;
+    pub const LY_STMT_SYNTAX_LEFT_BRACE: Type = 64;
+    pub const LY_STMT_SYNTAX_RIGHT_BRACE: Type = 65;
+    pub const LY_STMT_TYPE: Type = 66;
+    pub const LY_STMT_TYPEDEF: Type = 67;
+    pub const LY_STMT_UNIQUE: Type = 68;
+    pub const LY_STMT_UNITS: Type = 69;
+    pub const LY_STMT_USES: Type = 70;
+    pub const LY_STMT_VALUE: Type = 71;
+    pub const LY_STMT_WHEN: Type = 72;
+    pub const LY_STMT_YANG_VERSION: Type = 73;
+    pub const LY_STMT_YIN_ELEMENT: Type = 74;
 }
 pub mod LYEXT_PARENT {
     pub type Type = ::std::os::raw::c_uint;
@@ -9316,38 +9317,38 @@ extern "C" {
 pub mod LYEXT_SUBSTMT {
     pub type Type = ::std::os::raw::c_uint;
     pub const LYEXT_SUBSTMT_SELF: Type = 0;
-    pub const LYEXT_SUBSTMT_ARGUMENT: Type = 1;
-    pub const LYEXT_SUBSTMT_BASE: Type = 2;
-    pub const LYEXT_SUBSTMT_BELONGSTO: Type = 3;
-    pub const LYEXT_SUBSTMT_CONTACT: Type = 4;
-    pub const LYEXT_SUBSTMT_DEFAULT: Type = 5;
-    pub const LYEXT_SUBSTMT_DESCRIPTION: Type = 6;
-    pub const LYEXT_SUBSTMT_ERRTAG: Type = 7;
-    pub const LYEXT_SUBSTMT_ERRMSG: Type = 8;
-    pub const LYEXT_SUBSTMT_KEY: Type = 9;
-    pub const LYEXT_SUBSTMT_NAMESPACE: Type = 10;
-    pub const LYEXT_SUBSTMT_ORGANIZATION: Type = 11;
-    pub const LYEXT_SUBSTMT_PATH: Type = 12;
-    pub const LYEXT_SUBSTMT_PREFIX: Type = 13;
-    pub const LYEXT_SUBSTMT_PRESENCE: Type = 14;
-    pub const LYEXT_SUBSTMT_REFERENCE: Type = 15;
-    pub const LYEXT_SUBSTMT_REVISIONDATE: Type = 16;
-    pub const LYEXT_SUBSTMT_UNITS: Type = 17;
-    pub const LYEXT_SUBSTMT_VALUE: Type = 18;
-    pub const LYEXT_SUBSTMT_VERSION: Type = 19;
-    pub const LYEXT_SUBSTMT_MODIFIER: Type = 20;
-    pub const LYEXT_SUBSTMT_REQINSTANCE: Type = 21;
-    pub const LYEXT_SUBSTMT_YINELEM: Type = 22;
-    pub const LYEXT_SUBSTMT_CONFIG: Type = 23;
-    pub const LYEXT_SUBSTMT_MANDATORY: Type = 24;
-    pub const LYEXT_SUBSTMT_ORDEREDBY: Type = 25;
-    pub const LYEXT_SUBSTMT_STATUS: Type = 26;
-    pub const LYEXT_SUBSTMT_FRACDIGITS: Type = 27;
-    pub const LYEXT_SUBSTMT_MAX: Type = 28;
-    pub const LYEXT_SUBSTMT_MIN: Type = 29;
-    pub const LYEXT_SUBSTMT_POSITION: Type = 30;
-    pub const LYEXT_SUBSTMT_UNIQUE: Type = 31;
-    pub const LYEXT_SUBSTMT_IFFEATURE: Type = 32;
+    pub const LYEXT_SUBSTMT_ARGUMENT: Type = 4;
+    pub const LYEXT_SUBSTMT_BASE: Type = 8;
+    pub const LYEXT_SUBSTMT_BELONGS_TO: Type = 9;
+    pub const LYEXT_SUBSTMT_CONFIG: Type = 13;
+    pub const LYEXT_SUBSTMT_CONTACT: Type = 14;
+    pub const LYEXT_SUBSTMT_DEFAULT: Type = 16;
+    pub const LYEXT_SUBSTMT_DESCRIPTION: Type = 17;
+    pub const LYEXT_SUBSTMT_ERROR_APP_TAG: Type = 21;
+    pub const LYEXT_SUBSTMT_ERROR_MESSAGE: Type = 22;
+    pub const LYEXT_SUBSTMT_FRACTION_DIGITS: Type = 26;
+    pub const LYEXT_SUBSTMT_IF_FEATURE: Type = 29;
+    pub const LYEXT_SUBSTMT_KEY: Type = 33;
+    pub const LYEXT_SUBSTMT_MANDATORY: Type = 38;
+    pub const LYEXT_SUBSTMT_MAX_ELEMENTS: Type = 39;
+    pub const LYEXT_SUBSTMT_MIN_ELEMENTS: Type = 40;
+    pub const LYEXT_SUBSTMT_MODIFIER: Type = 41;
+    pub const LYEXT_SUBSTMT_NAMESPACE: Type = 44;
+    pub const LYEXT_SUBSTMT_ORDERED_BY: Type = 46;
+    pub const LYEXT_SUBSTMT_ORGANIZATION: Type = 47;
+    pub const LYEXT_SUBSTMT_PATH: Type = 49;
+    pub const LYEXT_SUBSTMT_POSITION: Type = 51;
+    pub const LYEXT_SUBSTMT_PREFIX: Type = 52;
+    pub const LYEXT_SUBSTMT_PRESENCE: Type = 53;
+    pub const LYEXT_SUBSTMT_REFERENCE: Type = 55;
+    pub const LYEXT_SUBSTMT_REQUIRE_INSTANCE: Type = 57;
+    pub const LYEXT_SUBSTMT_REVISION_DATE: Type = 59;
+    pub const LYEXT_SUBSTMT_STATUS: Type = 61;
+    pub const LYEXT_SUBSTMT_UNIQUE: Type = 68;
+    pub const LYEXT_SUBSTMT_UNITS: Type = 69;
+    pub const LYEXT_SUBSTMT_VALUE: Type = 71;
+    pub const LYEXT_SUBSTMT_YANG_VERSION: Type = 73;
+    pub const LYEXT_SUBSTMT_YIN_ELEMENT: Type = 74;
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -24641,6 +24642,12 @@ extern "C" {
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
+    pub fn lyd_any_value_str(
+        any: *const lyd_node,
+        value_str: *mut *mut ::std::os::raw::c_char,
+    ) -> LY_ERR::Type;
+}
+extern "C" {
     pub fn lyd_any_copy_value(
         trg: *mut lyd_node,
         value: *const lyd_node_any_lyd_any_value,
@@ -25412,7 +25419,7 @@ extern "C" {
 extern "C" {
     pub fn ly_set_merge(
         trg: *mut ly_set,
-        src: *mut ly_set,
+        src: *const ly_set,
         list: ly_bool,
         duplicator: ::std::option::Option<
             unsafe extern "C" fn(

@@ -296,9 +296,7 @@ impl Context {
     /// Returns an iterator over all data nodes from all modules in the YANG
     /// context (depth-first search algorithm).
     pub fn traverse(&self) -> impl Iterator<Item = SchemaNode> {
-        self.modules()
-            .flat_map(|module| module.data())
-            .flat_map(|snode| snode.traverse())
+        self.modules().flat_map(|module| module.traverse())
     }
 
     /// Reset cached latest revision information of the schemas in the context.

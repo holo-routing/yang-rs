@@ -181,40 +181,26 @@ where
     fn next(&mut self) -> Option<T> {
         let ret = self.next.clone();
 
-        if let Some(next) = &mut self.next {
+        if let Some(elem) = &mut self.next {
             // Select element for the next run - children first.
-            *next = match next.first_child() {
-                Some(child) => child,
-                None => {
-                    // No children.
-                    if *next == self.start {
-                        self.next = None;
-                        return ret;
-                    }
+            let mut next_elem = elem.first_child().or_else(|| {
+                // No children, try siblings.
+                elem.next_sibling()
+            });
 
-                    // Try siblings.
-                    loop {
-                        match next.next_sibling() {
-                            Some(iter) => break iter,
-                            None => {
-                                // Parent is already processed, go to its
-                                // sibling.
-                                *next = next.parent().unwrap();
-
-                                // If no siblings, go back through parents.
-                                if next.parent() != self.start.parent() {
-                                    continue;
-                                }
-
-                                // We are done, no next element to process.
-                                self.next = None;
-                                return ret;
-                            }
-                        }
-                    }
+            while next_elem.is_none() {
+                // Parent is already processed, go to its sibling.
+                *elem = elem.parent().unwrap();
+                if *elem == self.start {
+                    self.next = None;
+                    return ret;
                 }
+                next_elem = elem.next_sibling();
             }
+
+            *elem = next_elem.unwrap();
         }
+
         ret
     }
 }

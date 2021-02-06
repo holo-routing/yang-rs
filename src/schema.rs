@@ -273,8 +273,12 @@ impl<'a> SchemaModule<'a> {
     ///
     /// NOTE: augmentations (from other modules or from the module itself) are
     /// also iterated over.
-    pub fn traverse(&'a self) -> impl Iterator<Item = SchemaNode<'a>> {
-        self.data().flat_map(|snode| snode.traverse())
+    pub fn traverse(&self) -> impl Iterator<Item = SchemaNode<'a>> {
+        let data = self.data().flat_map(|snode| snode.traverse());
+        let rpcs = self.rpcs().flat_map(|snode| snode.traverse());
+        let notifications =
+            self.notifications().flat_map(|snode| snode.traverse());
+        data.chain(rpcs).chain(notifications)
     }
 }
 
@@ -707,8 +711,8 @@ impl<'a> SchemaNode<'a> {
 
     /// Returns an iterator over all elements in the schema tree (depth-first
     /// search algorithm).
-    pub fn traverse(self) -> Traverse<'a, SchemaNode<'a>> {
-        Traverse::new(self)
+    pub fn traverse(&self) -> Traverse<'a, SchemaNode<'a>> {
+        Traverse::new(self.clone())
     }
 
     /// Returns an iterator over the keys of the list.

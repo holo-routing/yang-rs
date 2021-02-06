@@ -548,8 +548,8 @@ impl<'a> DataNodeRef<'a> {
 
     /// Returns an iterator over all elements in the data tree (depth-first
     /// search algorithm).
-    pub fn traverse(self) -> Traverse<'a, DataNodeRef<'a>> {
-        Traverse::new(self)
+    pub fn traverse(&self) -> Traverse<'a, DataNodeRef<'a>> {
+        Traverse::new(self.clone())
     }
 
     /// Returns an iterator over all metadata associated to this node.

@@ -20,11 +20,9 @@ fn create_context() -> Context {
 #[test]
 fn schema_find_xpath() {
     let ctx = create_context();
-    let snode = ctx.traverse().next().unwrap();
 
     assert_eq!(
-        snode
-            .find_xpath("/ietf-interfaces:interfaces/*")
+        ctx.find_xpath("/ietf-interfaces:interfaces/*")
             .expect("Failed to lookup schema data")
             .map(|dnode| dnode.path(SchemaPathFormat::DATA))
             .collect::<Vec<String>>(),
@@ -32,8 +30,7 @@ fn schema_find_xpath() {
     );
 
     assert_eq!(
-        snode
-            .find_xpath("/ietf-interfaces:interfaces/interface/*")
+        ctx.find_xpath("/ietf-interfaces:interfaces/interface/*")
             .expect("Failed to lookup schema data")
             .map(|dnode| dnode.path(SchemaPathFormat::DATA))
             .collect::<Vec<String>>(),
@@ -56,12 +53,11 @@ fn schema_find_xpath() {
 #[test]
 fn schema_find_path() {
     let ctx = create_context();
-    let snode_top = ctx.traverse().next().unwrap();
 
-    assert!(snode_top
+    assert!(ctx
         .find_path("/ietf-interfaces:interfaces/interface/*")
         .is_err());
-    assert!(snode_top
+    assert!(ctx
         .find_path("/ietf-interfaces:interfaces/interface")
         .is_ok());
 }
@@ -69,10 +65,9 @@ fn schema_find_path() {
 #[test]
 fn schema_iterator_traverse() {
     let ctx = create_context();
-    let snode_top = ctx.traverse().next().unwrap();
 
     assert_eq!(
-        snode_top
+        ctx
             .traverse()
             .map(|snode| snode.path(SchemaPathFormat::DATA))
             .collect::<Vec<String>>(),
@@ -104,6 +99,31 @@ fn schema_iterator_traverse() {
             "/ietf-interfaces:interfaces/interface/statistics/out-multicast-pkts",
             "/ietf-interfaces:interfaces/interface/statistics/out-discards",
             "/ietf-interfaces:interfaces/interface/statistics/out-errors",
+            "/ietf-interfaces:interfaces-state",
+            "/ietf-interfaces:interfaces-state/interface",
+            "/ietf-interfaces:interfaces-state/interface/name",
+            "/ietf-interfaces:interfaces-state/interface/type",
+            "/ietf-interfaces:interfaces-state/interface/oper-status",
+            "/ietf-interfaces:interfaces-state/interface/last-change",
+            "/ietf-interfaces:interfaces-state/interface/phys-address",
+            "/ietf-interfaces:interfaces-state/interface/higher-layer-if",
+            "/ietf-interfaces:interfaces-state/interface/lower-layer-if",
+            "/ietf-interfaces:interfaces-state/interface/speed",
+            "/ietf-interfaces:interfaces-state/interface/statistics",
+            "/ietf-interfaces:interfaces-state/interface/statistics/discontinuity-time",
+            "/ietf-interfaces:interfaces-state/interface/statistics/in-octets",
+            "/ietf-interfaces:interfaces-state/interface/statistics/in-unicast-pkts",
+            "/ietf-interfaces:interfaces-state/interface/statistics/in-broadcast-pkts",
+            "/ietf-interfaces:interfaces-state/interface/statistics/in-multicast-pkts",
+            "/ietf-interfaces:interfaces-state/interface/statistics/in-discards",
+            "/ietf-interfaces:interfaces-state/interface/statistics/in-errors",
+            "/ietf-interfaces:interfaces-state/interface/statistics/in-unknown-protos",
+            "/ietf-interfaces:interfaces-state/interface/statistics/out-octets",
+            "/ietf-interfaces:interfaces-state/interface/statistics/out-unicast-pkts",
+            "/ietf-interfaces:interfaces-state/interface/statistics/out-broadcast-pkts",
+            "/ietf-interfaces:interfaces-state/interface/statistics/out-multicast-pkts",
+            "/ietf-interfaces:interfaces-state/interface/statistics/out-discards",
+            "/ietf-interfaces:interfaces-state/interface/statistics/out-errors"
         ]
     );
 }
@@ -111,10 +131,9 @@ fn schema_iterator_traverse() {
 #[test]
 fn schema_iterator_ancestors() {
     let ctx = create_context();
-    let snode_top = ctx.traverse().next().unwrap();
 
     assert_eq!(
-        snode_top
+        ctx
             .find_path("/ietf-interfaces:interfaces/interface/statistics/discontinuity-time")
             .expect("Failed to lookup schema data")
             .ancestors()
@@ -131,11 +150,9 @@ fn schema_iterator_ancestors() {
 #[test]
 fn schema_iterator_siblings() {
     let ctx = create_context();
-    let snode_top = ctx.traverse().next().unwrap();
 
     assert_eq!(
-        snode_top
-            .find_path("/ietf-interfaces:interfaces/interface/name")
+        ctx.find_path("/ietf-interfaces:interfaces/interface/name")
             .expect("Failed to lookup schema data")
             .siblings()
             .map(|snode| snode.path(SchemaPathFormat::DATA))
@@ -158,10 +175,9 @@ fn schema_iterator_siblings() {
 #[test]
 fn schema_iterator_children() {
     let ctx = create_context();
-    let snode_top = ctx.traverse().next().unwrap();
 
     assert_eq!(
-        snode_top
+        ctx
             .find_path("/ietf-interfaces:interfaces/interface/statistics")
             .expect("Failed to lookup schema data")
             .children()
@@ -189,9 +205,8 @@ fn schema_iterator_children() {
 #[test]
 fn schema_node_attributes() {
     let ctx = create_context();
-    let snode_top = ctx.traverse().next().unwrap();
 
-    let snode = snode_top
+    let snode = ctx
         .find_path("/ietf-interfaces:interfaces/interface/enabled")
         .expect("Failed to lookup schema node");
     assert_eq!(snode.kind(), SchemaNodeKind::Leaf);
@@ -206,7 +221,7 @@ fn schema_node_attributes() {
     assert!(snode.musts().unwrap().count() == 0);
     assert!(snode.whens().count() == 0);
 
-    let snode = snode_top
+    let snode = ctx
         .find_path("/ietf-interfaces:interfaces/interface")
         .expect("Failed to lookup schema node");
     assert_eq!(snode.kind(), SchemaNodeKind::List);

@@ -5,8 +5,10 @@ static SEARCH_DIR: &str = "./assets/yang/";
 
 fn create_context() -> Context {
     // Initialize context.
-    let ctx = Context::new(SEARCH_DIR, ContextFlags::NO_YANGLIBRARY)
+    let ctx = Context::new(ContextFlags::NO_YANGLIBRARY)
         .expect("Failed to create context");
+    ctx.set_searchdir(SEARCH_DIR)
+        .expect("Failed to set YANG search directory");
 
     // Load YANG modules.
     for module_name in &["ietf-interfaces", "iana-if-type"] {

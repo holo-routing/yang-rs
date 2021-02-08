@@ -6,8 +6,10 @@ static MODULE_NAME: &str = "ietf-isis";
 
 fn main() -> std::io::Result<()> {
     // Initialize context.
-    let ctx = Context::new(SEARCH_DIR, ContextFlags::NO_YANGLIBRARY)
+    let ctx = Context::new(ContextFlags::NO_YANGLIBRARY)
         .expect("Failed to create context");
+    ctx.set_searchdir(SEARCH_DIR)
+        .expect("Failed to set YANG search directory");
 
     // Load test module.
     let module = ctx

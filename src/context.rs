@@ -78,18 +78,12 @@ impl Context {
     /// application is supposed to work with a single context in which
     /// libyang is holding all schemas (and other internal information)
     /// according to which the data trees will be processed and validated.
-    pub fn new<P: AsRef<Path>>(
-        search_dir: P,
-        options: ContextFlags,
-    ) -> Result<Context> {
-        let search_dir =
-            CString::new(search_dir.as_ref().as_os_str().as_bytes()).unwrap();
+    pub fn new(options: ContextFlags) -> Result<Context> {
         let mut context = std::ptr::null_mut();
         let ctx_ptr = &mut context;
 
-        let ret = unsafe {
-            ffi::ly_ctx_new(search_dir.as_ptr(), options.bits, ctx_ptr)
-        };
+        let ret =
+            unsafe { ffi::ly_ctx_new(std::ptr::null(), options.bits, ctx_ptr) };
         if ret != ffi::LY_ERR::LY_SUCCESS {
             // Need to construct error structure by hand.
             return Err(Error {

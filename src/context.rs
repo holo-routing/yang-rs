@@ -7,6 +7,7 @@
 //! YANG context.
 
 use bitflags::bitflags;
+use std::collections::HashMap;
 use std::ffi::CString;
 use std::os::unix::ffi::OsStrExt;
 use std::path::Path;
@@ -15,7 +16,7 @@ use std::slice;
 use crate::error::{Error, Result};
 use crate::iter::{SchemaModules, Set};
 use crate::schema::{SchemaModule, SchemaNode};
-use crate::utils::Binding;
+use crate::utils::*;
 use libyang2_sys as ffi;
 
 /// Context of the YANG schemas.
@@ -57,6 +58,18 @@ bitflags! {
         const DISABLE_SEARCHDIR_CWD = ffi::LY_CTX_DISABLE_SEARCHDIR_CWD as u16;
     }
 }
+
+#[derive(Debug, Eq, Hash, PartialEq)]
+pub struct EmbeddedModuleKey {
+    mod_name: &'static str,
+    mod_rev: Option<&'static str>,
+    submod_name: Option<&'static str>,
+    submod_rev: Option<&'static str>,
+}
+
+pub type EmbeddedModules = HashMap<EmbeddedModuleKey, &'static str>;
+
+// ===== impl Context =====
 
 impl Context {
     /// Create libyang context.
@@ -142,6 +155,25 @@ impl Context {
         }
 
         Ok(())
+    }
+
+    /// Set hash map containing embedded YANG modules, which are loaded on
+    /// demand.
+    pub fn set_embedded_modules(&self, modules: &EmbeddedModules) {
+        unsafe {
+            ffi::ly_ctx_set_module_imp_clb(
+                self.raw,
+                Some(ly_module_import_cb),
+                modules as *const _ as *mut std::ffi::c_void,
+            )
+        };
+    }
+
+    /// Remove all embedded modules from the libyang context.
+    pub fn unset_embedded_modules(&self) {
+        unsafe {
+            ffi::ly_ctx_set_module_imp_clb(self.raw, None, std::ptr::null_mut())
+        };
     }
 
     /// Get the currently set context's options.
@@ -413,4 +445,102 @@ impl Drop for Context {
     fn drop(&mut self) {
         unsafe { ffi::ly_ctx_destroy(self.raw, None) };
     }
+}
+
+// ===== impl EmbeddedModuleKey =====
+
+impl EmbeddedModuleKey {
+    pub fn new(
+        mod_name: &'static str,
+        mod_rev: Option<&'static str>,
+        submod_name: Option<&'static str>,
+        submod_rev: Option<&'static str>,
+    ) -> EmbeddedModuleKey {
+        EmbeddedModuleKey {
+            mod_name,
+            mod_rev,
+            submod_name,
+            submod_rev,
+        }
+    }
+}
+
+// ===== helper functions =====
+
+fn find_embedded_module<'a>(
+    modules: &'a EmbeddedModules,
+    mod_name: &'a str,
+    mod_rev: Option<&'a str>,
+    submod_name: Option<&'a str>,
+    submod_rev: Option<&'a str>,
+) -> Option<(&'a EmbeddedModuleKey, &'a &'a str)> {
+    modules.iter().find(|(key, _)| {
+        // Check module name.
+        if *key.mod_name != *mod_name {
+            return false;
+        }
+
+        // Check module revision.
+        if let Some(mod_rev) = &mod_rev {
+            if let Some(emod_rev) = &key.mod_rev {
+                if *emod_rev != *mod_rev {
+                    return false;
+                }
+            }
+        }
+
+        // Check submodule name.
+        if let Some(submod_name) = &submod_name {
+            if let Some(esubmod_name) = &key.submod_name {
+                if *esubmod_name != *submod_name {
+                    return false;
+                }
+            }
+
+            // Check submodule revision.
+            if let Some(submod_rev) = &submod_rev {
+                if let Some(esubmod_rev) = &key.submod_rev {
+                    if *esubmod_rev != *submod_rev {
+                        return false;
+                    }
+                }
+            }
+        }
+
+        true
+    })
+}
+
+unsafe extern "C" fn ly_module_import_cb(
+    mod_name: *const std::os::raw::c_char,
+    mod_rev: *const std::os::raw::c_char,
+    submod_name: *const std::os::raw::c_char,
+    submod_rev: *const std::os::raw::c_char,
+    user_data: *mut std::os::raw::c_void,
+    format: *mut ffi::LYS_INFORMAT::Type,
+    module_data: *mut *const std::os::raw::c_char,
+    _free_module_data: *mut ffi::ly_module_imp_data_free_clb,
+) -> ffi::LY_ERR::Type {
+    let modules = &*(user_data as *const EmbeddedModules);
+    let mod_name = char_ptr_to_str(mod_name);
+    let mod_rev = char_ptr_to_opt_str(mod_rev);
+    let submod_name = char_ptr_to_opt_str(submod_name);
+    let submod_rev = char_ptr_to_opt_str(submod_rev);
+
+    if let Some((_emod_key, emod_data)) = find_embedded_module(
+        modules,
+        mod_name,
+        mod_rev,
+        submod_name,
+        submod_rev,
+    ) {
+        let data = CString::new(*emod_data).unwrap();
+
+        *format = ffi::LYS_INFORMAT::LYS_IN_YANG;
+        *module_data = data.as_ptr();
+        std::mem::forget(data);
+        return ffi::LY_ERR::LY_SUCCESS;
+    }
+
+    ffi::LY_ERR::LY_ENOTFOUND
 }

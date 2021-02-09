@@ -11,6 +11,7 @@ use num_derive::FromPrimitive;
 use num_traits::FromPrimitive;
 use std::ffi::CString;
 use std::mem;
+use std::os::raw::{c_char, c_void};
 use std::os::unix::io::AsRawFd;
 use std::slice;
 
@@ -337,8 +338,7 @@ impl<'a> SchemaNode<'a> {
 
     /// Generate path of the node.
     pub fn path(&self, format: SchemaPathFormat) -> String {
-        let buf =
-            std::mem::MaybeUninit::<[std::os::raw::c_char; 4096]>::uninit();
+        let buf = std::mem::MaybeUninit::<[c_char; 4096]>::uninit();
         let mut buf = unsafe { buf.assume_init() };
 
         let ret = unsafe {
@@ -733,12 +733,12 @@ impl<'a> SchemaNode<'a> {
     /// # Safety
     ///
     /// The caller must ensure that the provided pointer is valid.
-    pub unsafe fn set_private(&self, ptr: *mut std::ffi::c_void) {
+    pub unsafe fn set_private(&self, ptr: *mut c_void) {
         (*self.raw).priv_ = ptr;
     }
 
     /// Get private user data, not used by libyang.
-    pub fn get_private(&self) -> Option<*mut std::ffi::c_void> {
+    pub fn get_private(&self) -> Option<*mut c_void> {
         let priv_ = unsafe { (*self.raw).priv_ };
         if priv_.is_null() {
             None

@@ -8,6 +8,7 @@
 
 use bitflags::bitflags;
 use std::ffi::CString;
+use std::os::raw::{c_char, c_void};
 use std::os::unix::io::AsRawFd;
 use std::slice;
 
@@ -561,7 +562,7 @@ impl<'a> DataNodeRef<'a> {
 
     /// Generate path of the given node.
     pub fn path(&self) -> String {
-        let mut buf: [std::os::raw::c_char; 4096] = [0; 4096];
+        let mut buf: [c_char; 4096] = [0; 4096];
 
         let pathtype = ffi::LYD_PATH_TYPE::LYD_PATH_STD;
         let ret = unsafe {
@@ -596,12 +597,12 @@ impl<'a> DataNodeRef<'a> {
     /// # Safety
     ///
     /// The caller must ensure that the provided pointer is valid.
-    pub unsafe fn set_private(&mut self, ptr: *mut std::ffi::c_void) {
+    pub unsafe fn set_private(&mut self, ptr: *mut c_void) {
         (*self.raw).priv_ = ptr;
     }
 
     /// Get private user data, not used by libyang.
-    pub fn get_private(&self) -> Option<*mut std::ffi::c_void> {
+    pub fn get_private(&self) -> Option<*mut c_void> {
         let priv_ = unsafe { (*self.raw).priv_ };
         if priv_.is_null() {
             None

@@ -9,6 +9,7 @@
 use bitflags::bitflags;
 use std::collections::HashMap;
 use std::ffi::CString;
+use std::os::raw::{c_char, c_void};
 use std::os::unix::ffi::OsStrExt;
 use std::path::Path;
 use std::slice;
@@ -158,7 +159,7 @@ impl Context {
             ffi::ly_ctx_set_module_imp_clb(
                 self.raw,
                 Some(ly_module_import_cb),
-                modules as *const _ as *mut std::ffi::c_void,
+                modules as *const _ as *mut c_void,
             )
         };
     }
@@ -506,13 +507,13 @@ fn find_embedded_module<'a>(
 }
 
 unsafe extern "C" fn ly_module_import_cb(
-    mod_name: *const std::os::raw::c_char,
-    mod_rev: *const std::os::raw::c_char,
-    submod_name: *const std::os::raw::c_char,
-    submod_rev: *const std::os::raw::c_char,
-    user_data: *mut std::os::raw::c_void,
+    mod_name: *const c_char,
+    mod_rev: *const c_char,
+    submod_name: *const c_char,
+    submod_rev: *const c_char,
+    user_data: *mut c_void,
     format: *mut ffi::LYS_INFORMAT::Type,
-    module_data: *mut *const std::os::raw::c_char,
+    module_data: *mut *const c_char,
     _free_module_data: *mut ffi::ly_module_imp_data_free_clb,
 ) -> ffi::LY_ERR::Type {
     let modules = &*(user_data as *const EmbeddedModules);

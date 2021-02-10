@@ -486,6 +486,48 @@ impl<'a> SchemaNode<'a> {
         matches!(self.kind(), SchemaNodeKind::Choice | SchemaNodeKind::Case)
     }
 
+    /// Returns whether the node is in the subtree of an input statement.
+    pub fn is_within_input(&self) -> bool {
+        match self.kind {
+            SchemaNodeKind::Container
+            | SchemaNodeKind::Case
+            | SchemaNodeKind::Choice
+            | SchemaNodeKind::Leaf
+            | SchemaNodeKind::LeafList
+            | SchemaNodeKind::List
+            | SchemaNodeKind::AnyData => self.check_flag(ffi::LYS_IS_INPUT),
+            _ => false,
+        }
+    }
+
+    /// Returns whether the node is in the subtree of an output statement.
+    pub fn is_within_output(&self) -> bool {
+        match self.kind {
+            SchemaNodeKind::Container
+            | SchemaNodeKind::Case
+            | SchemaNodeKind::Choice
+            | SchemaNodeKind::Leaf
+            | SchemaNodeKind::LeafList
+            | SchemaNodeKind::List
+            | SchemaNodeKind::AnyData => self.check_flag(ffi::LYS_IS_OUTPUT),
+            _ => false,
+        }
+    }
+
+    /// Returns whether the node is in the subtree of a notification statement.
+    pub fn is_within_notification(&self) -> bool {
+        match self.kind {
+            SchemaNodeKind::Container
+            | SchemaNodeKind::Case
+            | SchemaNodeKind::Choice
+            | SchemaNodeKind::Leaf
+            | SchemaNodeKind::LeafList
+            | SchemaNodeKind::List
+            | SchemaNodeKind::AnyData => self.check_flag(ffi::LYS_IS_NOTIF),
+            _ => false,
+        }
+    }
+
     /// Returns whether a default value is set.
     pub fn has_default(&self) -> bool {
         match self.kind {

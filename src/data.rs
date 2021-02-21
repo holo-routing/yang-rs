@@ -270,14 +270,6 @@ pub trait Data {
 // ===== impl DataTree =====
 
 impl<'a> DataTree<'a> {
-    /// Returns a reference to the fist data tree top-level node.
-    fn reference(&self) -> DataNodeRef {
-        DataNodeRef {
-            tree: &self,
-            raw: self.raw,
-        }
-    }
-
     /// Create new empty data tree.
     pub fn new(context: &Context) -> Result<DataTree> {
         let mut dtree = DataTree::from_raw(&context, std::ptr::null_mut());
@@ -340,6 +332,14 @@ impl<'a> DataTree<'a> {
         }
 
         Ok(DataTree::from_raw(context, rnode))
+    }
+
+    /// Returns a reference to the fist top-level data node.
+    pub fn reference(&self) -> DataNodeRef {
+        DataNodeRef {
+            tree: &self,
+            raw: self.raw,
+        }
     }
 
     /// Create a new node in the data tree based on a path. Cannot be used for

@@ -322,14 +322,17 @@ impl Context {
     }
 
     /// Get list of loaded modules.
-    pub fn modules(&self) -> SchemaModules {
-        SchemaModules::new(&self)
+    ///
+    /// Internal modules (loaded during the context creation) can be skipped by
+    /// setting "skip_internal" to true.
+    pub fn modules(&self, skip_internal: bool) -> SchemaModules {
+        SchemaModules::new(&self, skip_internal)
     }
 
     /// Returns an iterator over all data nodes from all modules in the YANG
     /// context (depth-first search algorithm).
     pub fn traverse(&self) -> impl Iterator<Item = SchemaNode> {
-        self.modules().flat_map(|module| module.traverse())
+        self.modules(false).flat_map(|module| module.traverse())
     }
 
     /// Reset cached latest revision information of the schemas in the context.

@@ -303,8 +303,12 @@ unsafe impl<'a, S> Sync for Array<'a, S> where S: NodeIterable<'a> {}
 // ===== impl SchemaModules =====
 
 impl<'a> SchemaModules<'a> {
-    pub fn new(context: &'a Context) -> SchemaModules<'a> {
-        let index = 0;
+    pub fn new(context: &'a Context, skip_internal: bool) -> SchemaModules<'a> {
+        let index = if skip_internal {
+            context.internal_module_count()
+        } else {
+            0
+        };
         SchemaModules { context, index }
     }
 }

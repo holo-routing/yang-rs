@@ -247,7 +247,7 @@ pub trait Data {
         &self,
         format: DataFormat,
         options: DataPrinterFlags,
-    ) -> Result<String> {
+    ) -> Result<Option<String>> {
         let mut cstr = std::ptr::null_mut();
         let cstr_ptr = &mut cstr;
 
@@ -263,7 +263,7 @@ pub trait Data {
             return Err(Error::new(self.context()));
         }
 
-        Ok(char_ptr_to_string(cstr))
+        Ok(char_ptr_to_opt_string(cstr))
     }
 }
 
@@ -272,7 +272,10 @@ pub trait Data {
 impl<'a> DataTree<'a> {
     /// Create new empty data tree.
     pub fn new(context: &Context) -> Result<DataTree> {
-        let mut dtree = DataTree::from_raw(&context, std::ptr::null_mut());
+        let mut dtree = DataTree {
+            context: &context,
+            raw: std::ptr::null_mut(),
+        };
         dtree.validate(DataValidationFlags::NO_STATE)?;
         Ok(dtree)
     }
@@ -503,7 +506,11 @@ impl<'a> Binding<'a> for DataTree<'a> {
     type Container = Context;
 
     fn from_raw(context: &'a Context, raw: *mut ffi::lyd_node) -> DataTree {
-        DataTree { context, raw }
+        if raw.is_null() {
+            DataTree::new(context).unwrap()
+        } else {
+            DataTree { context, raw }
+        }
     }
 }
 

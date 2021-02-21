@@ -507,6 +507,9 @@ impl<'a> Binding<'a> for DataTree<'a> {
     }
 }
 
+unsafe impl Send for DataTree<'_> {}
+unsafe impl Sync for DataTree<'_> {}
+
 impl<'a> Drop for DataTree<'a> {
     fn drop(&mut self) {
         unsafe { ffi::lyd_free_all(self.raw) };
@@ -675,6 +678,9 @@ impl<'a> PartialEq for DataNodeRef<'a> {
     }
 }
 
+unsafe impl Send for DataNodeRef<'_> {}
+unsafe impl Sync for DataNodeRef<'_> {}
+
 // ===== impl Metadata =====
 
 impl<'a> Metadata<'a> {
@@ -713,6 +719,9 @@ impl<'a> PartialEq for Metadata<'a> {
         self.raw == other.raw
     }
 }
+
+unsafe impl Send for Metadata<'_> {}
+unsafe impl Sync for Metadata<'_> {}
 
 // ===== impl DataDiff =====
 

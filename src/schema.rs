@@ -304,6 +304,9 @@ impl<'a> PartialEq for SchemaModule<'a> {
     }
 }
 
+unsafe impl Send for SchemaModule<'_> {}
+unsafe impl Sync for SchemaModule<'_> {}
+
 // ===== impl SchemaNode =====
 
 impl<'a> SchemaNode<'a> {
@@ -841,6 +844,9 @@ impl<'a> PartialEq for SchemaNode<'a> {
     }
 }
 
+unsafe impl Send for SchemaNode<'_> {}
+unsafe impl Sync for SchemaNode<'_> {}
+
 // ===== impl SchemaStmtMust =====
 
 impl<'a> SchemaStmtMust<'a> {
@@ -879,6 +885,9 @@ impl<'a> Binding<'a> for SchemaStmtMust<'a> {
     }
 }
 
+unsafe impl Send for SchemaStmtMust<'_> {}
+unsafe impl Sync for SchemaStmtMust<'_> {}
+
 // ===== impl SchemaStmtWhen =====
 
 impl<'a> SchemaStmtWhen<'a> {
@@ -907,3 +916,6 @@ impl<'a> Binding<'a> for SchemaStmtWhen<'a> {
         SchemaStmtWhen { context, raw }
     }
 }
+
+unsafe impl Send for SchemaStmtWhen<'_> {}
+unsafe impl Sync for SchemaStmtWhen<'_> {}

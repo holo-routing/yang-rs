@@ -244,6 +244,9 @@ where
     }
 }
 
+unsafe impl<'a, T> Send for Set<'a, T> where T: NodeIterable<'a> {}
+unsafe impl<'a, T> Sync for Set<'a, T> where T: NodeIterable<'a> {}
+
 // ===== impl Array =====
 
 impl<'a, S> Array<'a, S>
@@ -293,6 +296,9 @@ where
         (0, Some(self.count))
     }
 }
+
+unsafe impl<'a, S> Send for Array<'a, S> where S: NodeIterable<'a> {}
+unsafe impl<'a, S> Sync for Array<'a, S> where S: NodeIterable<'a> {}
 
 // ===== impl SchemaModules =====
 

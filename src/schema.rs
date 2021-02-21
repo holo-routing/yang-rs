@@ -189,6 +189,11 @@ impl<'a> SchemaModule<'a> {
         Ok(())
     }
 
+    /// Return true if the module is implemented, not just imported.
+    pub fn is_implemented(&self) -> bool {
+        unsafe { (*self.raw).implemented != 0 }
+    }
+
     /// Print schema tree in the specified format into a file descriptor.
     pub fn print_file<F: AsRawFd>(
         &self,

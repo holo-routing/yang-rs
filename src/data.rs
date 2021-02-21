@@ -54,7 +54,7 @@ pub struct DataDiff<'a> {
 }
 
 /// YANG data diff operation.
-#[derive(Clone, Debug)]
+#[derive(Clone, Copy, Debug, PartialEq)]
 pub enum DataDiffOp {
     Create,
     Delete,
@@ -63,6 +63,7 @@ pub enum DataDiffOp {
 
 /// Data input/output formats supported by libyang.
 #[repr(u32)]
+#[derive(Clone, Copy, Debug, PartialEq)]
 pub enum DataFormat {
     XML = ffi::LYD_FORMAT::LYD_XML,
     JSON = ffi::LYD_FORMAT::LYD_JSON,

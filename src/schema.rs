@@ -30,6 +30,7 @@ pub struct SchemaModule<'a> {
 
 /// Schema input formats accepted by libyang.
 #[repr(u32)]
+#[derive(Clone, Copy, Debug, PartialEq)]
 pub enum SchemaInputFormat {
     YANG = ffi::LYS_INFORMAT::LYS_IN_YANG,
     YIN = ffi::LYS_INFORMAT::LYS_IN_YIN,
@@ -37,6 +38,7 @@ pub enum SchemaInputFormat {
 
 /// Schema output formats accepted by libyang.
 #[repr(u32)]
+#[derive(Clone, Copy, Debug, PartialEq)]
 pub enum SchemaOutputFormat {
     YANG = ffi::LYS_OUTFORMAT::LYS_OUT_YANG,
     YIN = ffi::LYS_OUTFORMAT::LYS_OUT_YIN,
@@ -45,6 +47,7 @@ pub enum SchemaOutputFormat {
 
 /// Schema path format.
 #[repr(u32)]
+#[derive(Clone, Copy, Debug, PartialEq)]
 pub enum SchemaPathFormat {
     /// Descriptive path format used in log messages.
     LOG = ffi::LYSC_PATH_TYPE::LYSC_PATH_LOG,

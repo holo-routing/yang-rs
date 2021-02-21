@@ -25,7 +25,7 @@ use libyang2_sys as ffi;
 /// [Official C documentation]
 ///
 /// [Official C documentation]: https://netopeer.liberouter.org/doc/libyang/libyang2/html/howto_context.html
-#[derive(Debug)]
+#[derive(Debug, PartialEq)]
 pub struct Context {
     pub(crate) raw: *mut ffi::ly_ctx,
 }

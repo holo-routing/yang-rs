@@ -99,7 +99,10 @@ impl Context {
     }
 
     /// Add the search path into libyang context.
-    pub fn set_searchdir<P: AsRef<Path>>(&self, search_dir: P) -> Result<()> {
+    pub fn set_searchdir<P: AsRef<Path>>(
+        &mut self,
+        search_dir: P,
+    ) -> Result<()> {
         let search_dir =
             CString::new(search_dir.as_ref().as_os_str().as_bytes()).unwrap();
         let ret =
@@ -115,7 +118,10 @@ impl Context {
     ///
     /// To remove the recently added search path(s), use
     /// Context::unset_searchdir_last().
-    pub fn unset_searchdir<P: AsRef<Path>>(&self, search_dir: P) -> Result<()> {
+    pub fn unset_searchdir<P: AsRef<Path>>(
+        &mut self,
+        search_dir: P,
+    ) -> Result<()> {
         let search_dir =
             CString::new(search_dir.as_ref().as_os_str().as_bytes()).unwrap();
         let ret = unsafe {
@@ -129,7 +135,7 @@ impl Context {
     }
 
     /// Clean all search paths from the libyang context.
-    pub fn unset_searchdirs(&self) -> Result<()> {
+    pub fn unset_searchdirs(&mut self) -> Result<()> {
         let ret =
             unsafe { ffi::ly_ctx_unset_searchdir(self.raw, std::ptr::null()) };
         if ret != ffi::LY_ERR::LY_SUCCESS {
@@ -143,7 +149,7 @@ impl Context {
     ///
     /// To remove a specific search path by its value, use
     /// Context::unset_searchdir().
-    pub fn unset_searchdir_last(&self, count: u32) -> Result<()> {
+    pub fn unset_searchdir_last(&mut self, count: u32) -> Result<()> {
         let ret = unsafe { ffi::ly_ctx_unset_searchdir_last(self.raw, count) };
         if ret != ffi::LY_ERR::LY_SUCCESS {
             return Err(Error::new(self));
@@ -154,7 +160,7 @@ impl Context {
 
     /// Set hash map containing embedded YANG modules, which are loaded on
     /// demand.
-    pub fn set_embedded_modules(&self, modules: &EmbeddedModules) {
+    pub fn set_embedded_modules(&mut self, modules: &EmbeddedModules) {
         unsafe {
             ffi::ly_ctx_set_module_imp_clb(
                 self.raw,
@@ -165,7 +171,7 @@ impl Context {
     }
 
     /// Remove all embedded modules from the libyang context.
-    pub fn unset_embedded_modules(&self) {
+    pub fn unset_embedded_modules(&mut self) {
         unsafe {
             ffi::ly_ctx_set_module_imp_clb(self.raw, None, std::ptr::null_mut())
         };
@@ -178,7 +184,7 @@ impl Context {
     }
 
     /// Set some of the context's options.
-    pub fn set_options(&self, options: ContextFlags) -> Result<()> {
+    pub fn set_options(&mut self, options: ContextFlags) -> Result<()> {
         let ret = unsafe { ffi::ly_ctx_set_options(self.raw, options.bits) };
         if ret != ffi::LY_ERR::LY_SUCCESS {
             return Err(Error::new(self));
@@ -188,7 +194,7 @@ impl Context {
     }
 
     /// Unset some of the context's options.
-    pub fn unset_options(&self, options: ContextFlags) -> Result<()> {
+    pub fn unset_options(&mut self, options: ContextFlags) -> Result<()> {
         let ret = unsafe { ffi::ly_ctx_unset_options(self.raw, options.bits) };
         if ret != ffi::LY_ERR::LY_SUCCESS {
             return Err(Error::new(self));
@@ -334,7 +340,7 @@ impl Context {
     /// change. So when it changes, it is necessary to force searching for the
     /// latest revision in case of loading another module, which what this
     /// function does.
-    pub fn reset_latests(&self) {
+    pub fn reset_latests(&mut self) {
         unsafe { ffi::ly_ctx_reset_latests(self.raw) };
     }
 
@@ -356,7 +362,7 @@ impl Context {
     ///
     /// If the revision is not specified, the latest revision is loaded.
     pub fn load_module(
-        &self,
+        &mut self,
         name: &str,
         revision: Option<&str>,
     ) -> Result<SchemaModule> {

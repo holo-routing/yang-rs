@@ -36,7 +36,7 @@ fn criterion_benchmark(c: &mut Criterion) {
     ];
 
     // Initialize context.
-    let ctx = Context::new(ContextFlags::NO_YANGLIBRARY)
+    let mut ctx = Context::new(ContextFlags::NO_YANGLIBRARY)
         .expect("Failed to create context");
     ctx.set_searchdir(SEARCH_DIR)
         .expect("Failed to set YANG search directory");

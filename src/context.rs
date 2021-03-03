@@ -60,6 +60,8 @@ bitflags! {
     }
 }
 
+/// Embedded module key containing the module/submodule name and optional
+/// revision.
 #[derive(Debug, Eq, Hash, PartialEq)]
 pub struct EmbeddedModuleKey {
     mod_name: &'static str,
@@ -68,6 +70,7 @@ pub struct EmbeddedModuleKey {
     submod_rev: Option<&'static str>,
 }
 
+/// A hashmap containing embedded YANG modules.
 pub type EmbeddedModules = HashMap<EmbeddedModuleKey, &'static str>;
 
 // ===== impl Context =====

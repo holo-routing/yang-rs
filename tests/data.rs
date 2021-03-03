@@ -383,3 +383,28 @@ fn data_iterator_children() {
         ]
     );
 }
+
+#[test]
+fn data_is_default() {
+    let ctx = create_context();
+    let dtree2 = parse_json_data(&ctx, JSON_TREE2);
+
+    assert_eq!(
+        dtree2
+            .find_path(
+                "/ietf-interfaces:interfaces/interface[name='eth/0/0']/enabled"
+            )
+            .expect("Failed to lookup data")
+            .is_default(),
+        false,
+    );
+    assert_eq!(
+        dtree2
+            .find_path(
+                "/ietf-interfaces:interfaces/interface[name='eth/0/2']/enabled"
+            )
+            .expect("Failed to lookup data")
+            .is_default(),
+        true,
+    );
+}

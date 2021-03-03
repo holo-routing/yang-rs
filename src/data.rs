@@ -66,8 +66,12 @@ pub enum DataDiffOp {
 #[repr(u32)]
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub enum DataFormat {
+    /// XML instance data format.
     XML = ffi::LYD_FORMAT::LYD_XML,
+    /// JSON instance data format.
     JSON = ffi::LYD_FORMAT::LYD_JSON,
+    /// LYB instance data format.
+    LYB = ffi::LYD_FORMAT::LYD_LYB,
 }
 
 bitflags! {

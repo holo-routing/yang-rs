@@ -62,6 +62,7 @@ pub enum DataDiffOp {
 }
 
 /// Data input/output formats supported by libyang.
+#[allow(clippy::upper_case_acronyms)]
 #[repr(u32)]
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub enum DataFormat {

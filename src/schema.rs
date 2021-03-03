@@ -29,6 +29,7 @@ pub struct SchemaModule<'a> {
 }
 
 /// Schema input formats accepted by libyang.
+#[allow(clippy::upper_case_acronyms)]
 #[repr(u32)]
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub enum SchemaInputFormat {
@@ -37,6 +38,7 @@ pub enum SchemaInputFormat {
 }
 
 /// Schema output formats accepted by libyang.
+#[allow(clippy::upper_case_acronyms)]
 #[repr(u32)]
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub enum SchemaOutputFormat {
@@ -46,6 +48,7 @@ pub enum SchemaOutputFormat {
 }
 
 /// Schema path format.
+#[allow(clippy::upper_case_acronyms)]
 #[repr(u32)]
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub enum SchemaPathFormat {

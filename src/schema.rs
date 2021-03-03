@@ -461,9 +461,7 @@ impl<'a> SchemaNode<'a> {
     /// Returns whether the node is a non-presence container.
     pub fn is_np_container(&self) -> bool {
         match self.kind {
-            SchemaNodeKind::Container => {
-                !self.check_flag(ffi::LYS_SET_PRESENCE)
-            }
+            SchemaNodeKind::Container => !self.check_flag(ffi::LYS_PRESENCE),
             _ => false,
         }
     }

@@ -761,10 +761,20 @@ impl<'a> SchemaNode<'a> {
         Ancestors::new(parent)
     }
 
+    /// Returns an iterator over this schema node and its ancestors.
+    pub fn inclusive_ancestors(&self) -> Ancestors<'a, SchemaNode<'a>> {
+        Ancestors::new(Some(self.clone()))
+    }
+
     /// Returns an iterator over the sibling schema nodes.
     pub fn siblings(&self) -> Siblings<'a, SchemaNode<'a>> {
         let sibling = self.next_sibling();
         Siblings::new(sibling)
+    }
+
+    /// Returns an iterator over this schema node and its siblings.
+    pub fn inclusive_siblings(&self) -> Siblings<'a, SchemaNode<'a>> {
+        Siblings::new(Some(self.clone()))
     }
 
     /// Returns an iterator over the child schema nodes.

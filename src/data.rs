@@ -551,10 +551,20 @@ impl<'a> DataNodeRef<'a> {
         Ancestors::new(parent)
     }
 
+    /// Returns an iterator over this data node and its ancestors.
+    pub fn inclusive_ancestors(&self) -> Ancestors<'a, DataNodeRef<'a>> {
+        Ancestors::new(Some(self.clone()))
+    }
+
     /// Returns an iterator over the sibling data nodes.
     pub fn siblings(&self) -> Siblings<'a, DataNodeRef<'a>> {
         let sibling = self.next_sibling();
         Siblings::new(sibling)
+    }
+
+    /// Returns an iterator over this data node and its siblings.
+    pub fn inclusive_siblings(&self) -> Siblings<'a, DataNodeRef<'a>> {
+        Siblings::new(Some(self.clone()))
     }
 
     /// Returns an iterator over the child data nodes.

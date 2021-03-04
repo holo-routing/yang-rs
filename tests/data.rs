@@ -347,6 +347,21 @@ fn data_iterator_ancestors() {
             "/ietf-interfaces:interfaces",
         ]
     );
+    assert_eq!(
+        dtree1
+            .find_path(
+                "/ietf-interfaces:interfaces/interface[name='eth/0/0']/type",
+            )
+            .expect("Failed to lookup data")
+            .inclusive_ancestors()
+            .map(|dnode| dnode.path())
+            .collect::<Vec<String>>(),
+        vec![
+            "/ietf-interfaces:interfaces/interface[name='eth/0/0']/type",
+            "/ietf-interfaces:interfaces/interface[name='eth/0/0']",
+            "/ietf-interfaces:interfaces",
+        ]
+    );
 }
 
 #[test]
@@ -362,6 +377,18 @@ fn data_iterator_siblings() {
             .map(|dnode| dnode.path())
             .collect::<Vec<String>>(),
         vec!["/ietf-interfaces:interfaces/interface[name='eth/0/1']",]
+    );
+    assert_eq!(
+        dtree1
+            .find_path("/ietf-interfaces:interfaces/interface[name='eth/0/0']")
+            .expect("Failed to lookup data")
+            .inclusive_siblings()
+            .map(|dnode| dnode.path())
+            .collect::<Vec<String>>(),
+        vec![
+            "/ietf-interfaces:interfaces/interface[name='eth/0/0']",
+            "/ietf-interfaces:interfaces/interface[name='eth/0/1']"
+        ]
     );
 }
 

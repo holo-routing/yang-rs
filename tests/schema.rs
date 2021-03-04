@@ -147,6 +147,20 @@ fn schema_iterator_ancestors() {
             "/ietf-interfaces:interfaces",
         ]
     );
+    assert_eq!(
+        ctx
+            .find_path("/ietf-interfaces:interfaces/interface/statistics/discontinuity-time")
+            .expect("Failed to lookup schema data")
+            .inclusive_ancestors()
+            .map(|snode| snode.path(SchemaPathFormat::DATA))
+            .collect::<Vec<String>>(),
+        vec![
+            "/ietf-interfaces:interfaces/interface/statistics/discontinuity-time",
+            "/ietf-interfaces:interfaces/interface/statistics",
+            "/ietf-interfaces:interfaces/interface",
+            "/ietf-interfaces:interfaces",
+        ]
+    );
 }
 
 #[test]
@@ -160,6 +174,26 @@ fn schema_iterator_siblings() {
             .map(|snode| snode.path(SchemaPathFormat::DATA))
             .collect::<Vec<String>>(),
         vec![
+            "/ietf-interfaces:interfaces/interface/description",
+            "/ietf-interfaces:interfaces/interface/type",
+            "/ietf-interfaces:interfaces/interface/enabled",
+            "/ietf-interfaces:interfaces/interface/oper-status",
+            "/ietf-interfaces:interfaces/interface/last-change",
+            "/ietf-interfaces:interfaces/interface/phys-address",
+            "/ietf-interfaces:interfaces/interface/higher-layer-if",
+            "/ietf-interfaces:interfaces/interface/lower-layer-if",
+            "/ietf-interfaces:interfaces/interface/speed",
+            "/ietf-interfaces:interfaces/interface/statistics",
+        ]
+    );
+    assert_eq!(
+        ctx.find_path("/ietf-interfaces:interfaces/interface/name")
+            .expect("Failed to lookup schema data")
+            .inclusive_siblings()
+            .map(|snode| snode.path(SchemaPathFormat::DATA))
+            .collect::<Vec<String>>(),
+        vec![
+            "/ietf-interfaces:interfaces/interface/name",
             "/ietf-interfaces:interfaces/interface/description",
             "/ietf-interfaces:interfaces/interface/type",
             "/ietf-interfaces:interfaces/interface/enabled",

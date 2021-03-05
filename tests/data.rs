@@ -76,7 +76,6 @@ static JSON_MERGE: &str = r###"
             ]
         }
     }"###;
-
 static JSON_DIFF: &str = r###"
     {
       "ietf-interfaces:interfaces": {
@@ -111,8 +110,42 @@ static JSON_DIFF: &str = r###"
           }
         ]
       }
-    }
-"###;
+    }"###;
+static JSON_RDIFF: &str = r###"
+    {
+      "ietf-interfaces:interfaces": {
+        "@": {
+          "yang:operation": "none"
+        },
+        "interface": [
+          {
+            "name": "eth/0/0",
+            "enabled": true,
+            "@enabled": {
+              "yang:operation": "replace",
+              "yang:orig-default": false,
+              "yang:orig-value": "false"
+            }
+          },      {
+            "@": {
+              "yang:operation": "create"
+            },
+            "name": "eth/0/1",
+            "description": "MKT",
+            "type": "iana-if-type:ethernetCsmacd",
+            "enabled": true
+          },      {
+            "@": {
+              "yang:operation": "delete"
+            },
+            "name": "eth/0/2",
+            "description": "MGMT",
+            "type": "iana-if-type:ethernetCsmacd",
+            "enabled": true
+          }
+        ]
+      }
+    }"###;
 
 macro_rules! assert_data_eq {
     ($dtree1:expr, $dtree2:expr) => {
@@ -300,6 +333,18 @@ fn data_diff_apply() {
     dtree1.diff_apply(&diff).expect("Failed to apply diff");
 
     assert_data_eq!(&dtree1, &dtree2);
+}
+
+#[test]
+fn data_diff_reverse() {
+    let ctx = create_context();
+    let dtree1 = parse_json_data(&ctx, JSON_TREE1);
+    let dtree2 = parse_json_data(&ctx, JSON_TREE2);
+    let dtree_rdiff = parse_json_data(&ctx, JSON_RDIFF);
+
+    let diff = dtree1.diff(&dtree2).expect("Failed to compare data trees");
+    let rdiff = diff.reverse().expect("Failed to reverse diff");
+    assert_data_eq!(&rdiff, &dtree_rdiff);
 }
 
 #[test]

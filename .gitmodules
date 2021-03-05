@@ -1,0 +1,3 @@
+[submodule "libyang2-sys/libyang"]
+	path = libyang2-sys/libyang
+	url = https://github.com/CESNET/libyang.git

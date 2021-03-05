@@ -28,3 +28,4 @@ harness = false
 [features]
 default = []
 use_bindgen = ["libyang2-sys/use_bindgen"]
+bundled = ["libyang2-sys/bundled"]

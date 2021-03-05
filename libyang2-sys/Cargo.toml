@@ -13,6 +13,8 @@ categories = ["external-ffi-bindings"]
 
 [build-dependencies]
 bindgen = { version = "0.55.0", optional = true }
+cc = { version = "1.0", features = ["parallel"], optional = true }
+cmake = { version = "0.1", optional = true }
 
 [features]
 # Use pre-generated FFI bindings
@@ -20,3 +22,6 @@ default = []
 # Generate FFI bindings dynamically.
 # For this to work libyang2 needs to be installed in the system.
 use_bindgen = ["bindgen"]
+# Bundle libyang2 C files into a static archive linked to this crate.
+# This removes the libyang2 dynamic link dependency.
+bundled = ["cc", "cmake"]

@@ -465,7 +465,7 @@ impl<'a> DataTree<'a> {
     /// are used for storing more information about the value in the first
     /// or the second tree.
     pub fn diff(&self, dtree: &DataTree<'a>) -> Result<DataDiff<'a>> {
-        let options = 0u16;
+        let options = ffi::LYD_DIFF_DEFAULTS as u16;
         let mut rnode = std::ptr::null_mut();
         let rnode_ptr = &mut rnode;
 

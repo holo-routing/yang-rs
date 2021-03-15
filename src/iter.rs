@@ -183,14 +183,23 @@ where
 
         if let Some(elem) = &mut self.next {
             // Select element for the next run - children first.
-            let mut next_elem = elem.first_child().or_else(|| {
+            let mut next_elem = elem.first_child();
+            if next_elem.is_none() {
+                // Check end condition.
+                if *elem == self.start {
+                    self.next = None;
+                    return ret;
+                }
+
                 // No children, try siblings.
-                elem.next_sibling()
-            });
+                next_elem = elem.next_sibling();
+            }
 
             while next_elem.is_none() {
                 // Parent is already processed, go to its sibling.
                 *elem = elem.parent().unwrap();
+
+                // Check end condition.
                 if *elem == self.start {
                     self.next = None;
                     return ret;

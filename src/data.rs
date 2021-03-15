@@ -579,6 +579,11 @@ impl<'a> DataNodeRef<'a> {
         Traverse::new(self.clone())
     }
 
+    /// Returns an iterator over the keys of the list.
+    pub fn list_keys(&self) -> impl Iterator<Item = DataNodeRef<'a>> {
+        self.children().filter(|dnode| dnode.schema().is_list_key())
+    }
+
     /// Returns an iterator over all metadata associated to this node.
     pub fn meta(&self) -> MetadataList {
         let rmeta = unsafe { (*self.raw).meta };

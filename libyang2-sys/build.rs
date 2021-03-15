@@ -11,7 +11,6 @@ fn main() {
         println!("cargo:rerun-if-changed=wrapper.h");
         let bindings = bindgen::Builder::default()
             .header("wrapper.h")
-            .clang_arg("-DLY_ENABLED_LYD_PRIV")
             .derive_default(true)
             .default_enum_style(bindgen::EnumVariation::ModuleConsts)
             .generate()
@@ -95,7 +94,8 @@ fn main() {
             .file("libyang/src/tree_schema_helpers.c")
             .file("libyang/src/validation.c")
             .file("libyang/src/xml.c")
-            .file("libyang/src/xpath.c");
+            .file("libyang/src/xpath.c")
+            .warnings(false);
 
         build.compile("yang2");
         println!("cargo:root={}", env::var("OUT_DIR").unwrap());

@@ -625,7 +625,12 @@ impl<'a> DataNodeRef<'a> {
 
     /// Check whether a node value equals to its default one.
     pub fn is_default(&self) -> bool {
-        (unsafe { ffi::lyd_is_default(self.raw) }) != 0
+        match self.schema().kind() {
+            SchemaNodeKind::Leaf | SchemaNodeKind::LeafList => {
+                (unsafe { ffi::lyd_is_default(self.raw) }) != 0
+            }
+            _ => false,
+        }
     }
 
     /// Set private user data, not used by libyang.

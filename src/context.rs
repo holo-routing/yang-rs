@@ -208,7 +208,7 @@ impl Context {
 
     /// Get current ID of the modules set.
     pub fn get_module_set_id(&self) -> u16 {
-        unsafe { ffi::ly_ctx_get_module_set_id(self.raw) }
+        unsafe { ffi::ly_ctx_get_change_count(self.raw) }
     }
 
     /// Get YANG module of the given name and revision.
@@ -395,11 +395,6 @@ impl Context {
         }
 
         Ok(SchemaModule::from_raw(self, module as *mut _))
-    }
-
-    /// Get current ID of the modules set.
-    pub fn get_yanglib_id(&self) -> u16 {
-        unsafe { ffi::ly_ctx_get_yanglib_id(self.raw) }
     }
 
     /// Evaluate an xpath expression on schema nodes.

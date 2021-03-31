@@ -25,7 +25,7 @@ fn main() {
         pregen_bindings.push(env::var("CARGO_MANIFEST_DIR").unwrap());
         pregen_bindings.push("pre-generated-bindings");
         pregen_bindings
-            .push("libyang2-a98dcba1031375af1e5b2c18a3d3194f2061c18c.rs");
+            .push("libyang2-0aa1f7090ca814f6df6131a6a7ab77db83f0bc57.rs");
 
         std::fs::copy(&pregen_bindings, &out_file)
             .expect("Unable to copy pre-generated libyang2 bindings");
@@ -50,6 +50,7 @@ fn main() {
         let mut build = cc::Build::new();
         build
             .include(format!("{}/build/compat", cmake_dst.display()))
+            .include(format!("{}/build/src", cmake_dst.display()))
             .include("libyang/src")
             .file("libyang/compat/compat.c")
             .file("libyang/src/common.c")
@@ -67,11 +68,24 @@ fn main() {
             .file("libyang/src/parser_yang.c")
             .file("libyang/src/parser_yin.c")
             .file("libyang/src/path.c")
+            .file("libyang/src/plugins.c")
             .file("libyang/src/plugins_exts.c")
             .file("libyang/src/plugins_exts_metadata.c")
-            //.file("libyang/src/plugins_exts_nacm.c")
+            .file("libyang/src/plugins_exts_nacm.c")
             .file("libyang/src/plugins_exts_yangdata.c")
+            .file("libyang/src/plugins_types_binary.c")
+            .file("libyang/src/plugins_types_bits.c")
+            .file("libyang/src/plugins_types_boolean.c")
             .file("libyang/src/plugins_types.c")
+            .file("libyang/src/plugins_types_decimal64.c")
+            .file("libyang/src/plugins_types_empty.c")
+            .file("libyang/src/plugins_types_enumeration.c")
+            .file("libyang/src/plugins_types_identityref.c")
+            .file("libyang/src/plugins_types_instanceid.c")
+            .file("libyang/src/plugins_types_integer.c")
+            .file("libyang/src/plugins_types_leafref.c")
+            .file("libyang/src/plugins_types_string.c")
+            .file("libyang/src/plugins_types_union.c")
             .file("libyang/src/printer_data.c")
             .file("libyang/src/printer_json.c")
             .file("libyang/src/printer_lyb.c")

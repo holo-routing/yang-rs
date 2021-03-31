@@ -1476,7 +1476,7 @@ extern "C" {
     pub fn ly_ctx_unset_options(ctx: *mut ly_ctx, option: u16) -> LY_ERR::Type;
 }
 extern "C" {
-    pub fn ly_ctx_get_module_set_id(ctx: *const ly_ctx) -> u16;
+    pub fn ly_ctx_get_change_count(ctx: *const ly_ctx) -> u16;
 }
 pub type ly_module_imp_data_free_clb = ::std::option::Option<
     unsafe extern "C" fn(
@@ -1594,12 +1594,11 @@ extern "C" {
     ) -> *const lys_module;
 }
 extern "C" {
-    pub fn ly_ctx_get_yanglib_id(ctx: *const ly_ctx) -> u16;
-}
-extern "C" {
     pub fn ly_ctx_get_yanglib_data(
         ctx: *const ly_ctx,
         root: *mut *mut lyd_node,
+        content_id_format: *const ::std::os::raw::c_char,
+        ...
     ) -> LY_ERR::Type;
 }
 extern "C" {
@@ -9329,6 +9328,13 @@ extern "C" {
 extern "C" {
     pub fn lys_nodetype2stmt(nodetype: u16) -> ly_stmt::Type;
 }
+pub mod ly_stmt_cardinality {
+    pub type Type = ::std::os::raw::c_uint;
+    pub const LY_STMT_CARD_OPT: Type = 0;
+    pub const LY_STMT_CARD_MAND: Type = 1;
+    pub const LY_STMT_CARD_SOME: Type = 2;
+    pub const LY_STMT_CARD_ANY: Type = 3;
+}
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct lysp_import {
@@ -9574,7 +9580,7 @@ impl Default for lysp_include {
 #[derive(Debug, Copy, Clone)]
 pub struct lysp_ext {
     pub name: *const ::std::os::raw::c_char,
-    pub argument: *const ::std::os::raw::c_char,
+    pub argname: *const ::std::os::raw::c_char,
     pub dsc: *const ::std::os::raw::c_char,
     pub ref_: *const ::std::os::raw::c_char,
     pub exts: *mut lysp_ext_instance,
@@ -9607,14 +9613,14 @@ fn bindgen_test_layout_lysp_ext() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<lysp_ext>())).argument as *const _ as usize
+            &(*(::std::ptr::null::<lysp_ext>())).argname as *const _ as usize
         },
         8usize,
         concat!(
             "Offset of field: ",
             stringify!(lysp_ext),
             "::",
-            stringify!(argument)
+            stringify!(argname)
         )
     );
     assert_eq!(
@@ -9817,8 +9823,8 @@ pub struct lysp_ext_instance {
     pub argument: *const ::std::os::raw::c_char,
     pub format: LY_PREFIX_FORMAT::Type,
     pub prefix_data: *mut ::std::os::raw::c_void,
-    pub parent: *mut ::std::os::raw::c_void,
     pub child: *mut lysp_stmt,
+    pub parent: *mut ::std::os::raw::c_void,
     pub parent_stmt: ly_stmt::Type,
     pub parent_stmt_index: u64,
     pub flags: u16,
@@ -9889,7 +9895,7 @@ fn bindgen_test_layout_lysp_ext_instance() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<lysp_ext_instance>())).parent as *const _
+            &(*(::std::ptr::null::<lysp_ext_instance>())).child as *const _
                 as usize
         },
         32usize,
@@ -9897,12 +9903,12 @@ fn bindgen_test_layout_lysp_ext_instance() {
             "Offset of field: ",
             stringify!(lysp_ext_instance),
             "::",
-            stringify!(parent)
+            stringify!(child)
         )
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<lysp_ext_instance>())).child as *const _
+            &(*(::std::ptr::null::<lysp_ext_instance>())).parent as *const _
                 as usize
         },
         40usize,
@@ -9910,7 +9916,7 @@ fn bindgen_test_layout_lysp_ext_instance() {
             "Offset of field: ",
             stringify!(lysp_ext_instance),
             "::",
-            stringify!(child)
+            stringify!(parent)
         )
     );
     assert_eq!(
@@ -16439,9 +16445,9 @@ impl Default for lysc_prefix {
 #[derive(Debug, Copy, Clone)]
 pub struct lysc_ext {
     pub name: *const ::std::os::raw::c_char,
-    pub argument: *const ::std::os::raw::c_char,
+    pub argname: *const ::std::os::raw::c_char,
     pub exts: *mut lysc_ext_instance,
-    pub plugin: *mut lyext_plugin,
+    pub plugin: *mut lyplg_ext,
     pub module: *mut lys_module,
     pub refcount: u32,
     pub flags: u16,
@@ -16472,14 +16478,14 @@ fn bindgen_test_layout_lysc_ext() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<lysc_ext>())).argument as *const _ as usize
+            &(*(::std::ptr::null::<lysc_ext>())).argname as *const _ as usize
         },
         8usize,
         concat!(
             "Offset of field: ",
             stringify!(lysc_ext),
             "::",
-            stringify!(argument)
+            stringify!(argname)
         )
     );
     assert_eq!(
@@ -16544,6 +16550,70 @@ fn bindgen_test_layout_lysc_ext() {
     );
 }
 impl Default for lysc_ext {
+    fn default() -> Self {
+        unsafe { ::std::mem::zeroed() }
+    }
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct lysc_ext_substmt {
+    pub stmt: ly_stmt::Type,
+    pub cardinality: ly_stmt_cardinality::Type,
+    pub storage: *mut ::std::os::raw::c_void,
+}
+#[test]
+fn bindgen_test_layout_lysc_ext_substmt() {
+    assert_eq!(
+        ::std::mem::size_of::<lysc_ext_substmt>(),
+        16usize,
+        concat!("Size of: ", stringify!(lysc_ext_substmt))
+    );
+    assert_eq!(
+        ::std::mem::align_of::<lysc_ext_substmt>(),
+        8usize,
+        concat!("Alignment of ", stringify!(lysc_ext_substmt))
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<lysc_ext_substmt>())).stmt as *const _
+                as usize
+        },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(lysc_ext_substmt),
+            "::",
+            stringify!(stmt)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<lysc_ext_substmt>())).cardinality as *const _
+                as usize
+        },
+        4usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(lysc_ext_substmt),
+            "::",
+            stringify!(cardinality)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<lysc_ext_substmt>())).storage as *const _
+                as usize
+        },
+        8usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(lysc_ext_substmt),
+            "::",
+            stringify!(storage)
+        )
+    );
+}
+impl Default for lysc_ext_substmt {
     fn default() -> Self {
         unsafe { ::std::mem::zeroed() }
     }
@@ -17501,7 +17571,7 @@ impl Default for lysc_must {
 #[derive(Debug, Copy, Clone)]
 pub struct lysc_type {
     pub exts: *mut lysc_ext_instance,
-    pub plugin: *mut lysc_type_plugin,
+    pub plugin: *mut lyplg_type,
     pub basetype: LY_DATA_TYPE::Type,
     pub refcount: u32,
 }
@@ -17575,7 +17645,7 @@ impl Default for lysc_type {
 #[derive(Debug, Copy, Clone)]
 pub struct lysc_type_num {
     pub exts: *mut lysc_ext_instance,
-    pub plugin: *mut lysc_type_plugin,
+    pub plugin: *mut lyplg_type,
     pub basetype: LY_DATA_TYPE::Type,
     pub refcount: u32,
     pub range: *mut lysc_range,
@@ -17665,7 +17735,7 @@ impl Default for lysc_type_num {
 #[derive(Debug, Copy, Clone)]
 pub struct lysc_type_dec {
     pub exts: *mut lysc_ext_instance,
-    pub plugin: *mut lysc_type_plugin,
+    pub plugin: *mut lyplg_type,
     pub basetype: LY_DATA_TYPE::Type,
     pub refcount: u32,
     pub fraction_digits: u8,
@@ -17769,7 +17839,7 @@ impl Default for lysc_type_dec {
 #[derive(Debug, Copy, Clone)]
 pub struct lysc_type_str {
     pub exts: *mut lysc_ext_instance,
-    pub plugin: *mut lysc_type_plugin,
+    pub plugin: *mut lyplg_type,
     pub basetype: LY_DATA_TYPE::Type,
     pub refcount: u32,
     pub length: *mut lysc_range,
@@ -18024,7 +18094,7 @@ impl Default for lysc_type_bitenum_item {
 #[derive(Debug, Copy, Clone)]
 pub struct lysc_type_enum {
     pub exts: *mut lysc_ext_instance,
-    pub plugin: *mut lysc_type_plugin,
+    pub plugin: *mut lyplg_type,
     pub basetype: LY_DATA_TYPE::Type,
     pub refcount: u32,
     pub enums: *mut lysc_type_bitenum_item,
@@ -18115,7 +18185,7 @@ impl Default for lysc_type_enum {
 #[derive(Debug, Copy, Clone)]
 pub struct lysc_type_bits {
     pub exts: *mut lysc_ext_instance,
-    pub plugin: *mut lysc_type_plugin,
+    pub plugin: *mut lyplg_type,
     pub basetype: LY_DATA_TYPE::Type,
     pub refcount: u32,
     pub bits: *mut lysc_type_bitenum_item,
@@ -18205,7 +18275,7 @@ impl Default for lysc_type_bits {
 #[derive(Debug, Copy, Clone)]
 pub struct lysc_type_leafref {
     pub exts: *mut lysc_ext_instance,
-    pub plugin: *mut lysc_type_plugin,
+    pub plugin: *mut lyplg_type,
     pub basetype: LY_DATA_TYPE::Type,
     pub refcount: u32,
     pub path: *mut lyxp_expr,
@@ -18353,7 +18423,7 @@ impl Default for lysc_type_leafref {
 #[derive(Debug, Copy, Clone)]
 pub struct lysc_type_identityref {
     pub exts: *mut lysc_ext_instance,
-    pub plugin: *mut lysc_type_plugin,
+    pub plugin: *mut lyplg_type,
     pub basetype: LY_DATA_TYPE::Type,
     pub refcount: u32,
     pub bases: *mut *mut lysc_ident,
@@ -18445,7 +18515,7 @@ impl Default for lysc_type_identityref {
 #[derive(Debug, Copy, Clone)]
 pub struct lysc_type_instanceid {
     pub exts: *mut lysc_ext_instance,
-    pub plugin: *mut lysc_type_plugin,
+    pub plugin: *mut lyplg_type,
     pub basetype: LY_DATA_TYPE::Type,
     pub refcount: u32,
     pub require_instance: u8,
@@ -18537,7 +18607,7 @@ impl Default for lysc_type_instanceid {
 #[derive(Debug, Copy, Clone)]
 pub struct lysc_type_union {
     pub exts: *mut lysc_ext_instance,
-    pub plugin: *mut lysc_type_plugin,
+    pub plugin: *mut lyplg_type,
     pub basetype: LY_DATA_TYPE::Type,
     pub refcount: u32,
     pub types: *mut *mut lysc_type,
@@ -18629,7 +18699,7 @@ impl Default for lysc_type_union {
 #[derive(Debug, Copy, Clone)]
 pub struct lysc_type_bin {
     pub exts: *mut lysc_ext_instance,
-    pub plugin: *mut lysc_type_plugin,
+    pub plugin: *mut lyplg_type,
     pub basetype: LY_DATA_TYPE::Type,
     pub refcount: u32,
     pub length: *mut lysc_range,
@@ -22310,6 +22380,14 @@ extern "C" {
     ) -> *mut lysp_feature;
 }
 extern "C" {
+    pub fn lysc_ext_substmt(
+        ext: *const lysc_ext_instance,
+        substmt: ly_stmt::Type,
+        instance_p: *mut *mut ::std::os::raw::c_void,
+        cardinality_p: *mut ly_stmt_cardinality::Type,
+    ) -> LY_ERR::Type;
+}
+extern "C" {
     pub fn lys_find_xpath_atoms(
         ctx: *const ly_ctx,
         ctx_node: *const lysc_node,
@@ -24657,11 +24735,26 @@ extern "C" {
     ) -> LY_ERR::Type;
 }
 extern "C" {
+    pub fn lyd_new_ext_inner(
+        ext: *const lysc_ext_instance,
+        name: *const ::std::os::raw::c_char,
+        node: *mut *mut lyd_node,
+    ) -> LY_ERR::Type;
+}
+extern "C" {
     pub fn lyd_new_list(
         parent: *mut lyd_node,
         module: *const lys_module,
         name: *const ::std::os::raw::c_char,
         output: ly_bool,
+        node: *mut *mut lyd_node,
+        ...
+    ) -> LY_ERR::Type;
+}
+extern "C" {
+    pub fn lyd_new_ext_list(
+        ext: *const lysc_ext_instance,
+        name: *const ::std::os::raw::c_char,
         node: *mut *mut lyd_node,
         ...
     ) -> LY_ERR::Type;
@@ -24687,6 +24780,14 @@ extern "C" {
     ) -> LY_ERR::Type;
 }
 extern "C" {
+    pub fn lyd_new_ext_term(
+        ext: *const lysc_ext_instance,
+        name: *const ::std::os::raw::c_char,
+        val_str: *const ::std::os::raw::c_char,
+        node: *mut *mut lyd_node,
+    ) -> LY_ERR::Type;
+}
+extern "C" {
     pub fn lyd_new_any(
         parent: *mut lyd_node,
         module: *const lys_module,
@@ -24695,6 +24796,16 @@ extern "C" {
         use_value: ly_bool,
         value_type: LYD_ANYDATA_VALUETYPE::Type,
         output: ly_bool,
+        node: *mut *mut lyd_node,
+    ) -> LY_ERR::Type;
+}
+extern "C" {
+    pub fn lyd_new_ext_any(
+        ext: *const lysc_ext_instance,
+        name: *const ::std::os::raw::c_char,
+        value: *const ::std::os::raw::c_void,
+        use_value: ly_bool,
+        value_type: LYD_ANYDATA_VALUETYPE::Type,
         node: *mut *mut lyd_node,
     ) -> LY_ERR::Type;
 }
@@ -24778,6 +24889,16 @@ extern "C" {
         options: u32,
         new_parent: *mut *mut lyd_node,
         new_node: *mut *mut lyd_node,
+    ) -> LY_ERR::Type;
+}
+extern "C" {
+    pub fn lyd_new_ext_path(
+        parent: *mut lyd_node,
+        ext: *const lysc_ext_instance,
+        path: *const ::std::os::raw::c_char,
+        value: *const ::std::os::raw::c_void,
+        options: u32,
+        node: *mut *mut lyd_node,
     ) -> LY_ERR::Type;
 }
 extern "C" {
@@ -25595,17 +25716,12 @@ impl Default for __va_list_tag {
 }
 #[repr(C)]
 #[derive(Debug, Default, Copy, Clone)]
-pub struct lyext_plugin {
+pub struct lyplg_ext {
     pub _address: u8,
 }
 #[repr(C)]
 #[derive(Debug, Default, Copy, Clone)]
-pub struct lysc_ext_substmt {
-    pub _address: u8,
-}
-#[repr(C)]
-#[derive(Debug, Default, Copy, Clone)]
-pub struct lysc_type_plugin {
+pub struct lyplg_type {
     pub _address: u8,
 }
 #[repr(C)]

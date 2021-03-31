@@ -113,10 +113,10 @@ pub struct SchemaStmtWhen<'a> {
 pub enum DataValueType {
     Unknown = 0,
     Binary = 1,
-    U8 = 2,
-    U16 = 3,
-    U32 = 4,
-    U64 = 5,
+    Uint8 = 2,
+    Uint16 = 3,
+    Uint32 = 4,
+    Uint64 = 5,
     String = 6,
     Bits = 7,
     Bool = 8,
@@ -127,10 +127,10 @@ pub enum DataValueType {
     InstanceId = 13,
     LeafRef = 14,
     Union = 15,
-    I8 = 16,
-    I16 = 17,
-    I32 = 18,
-    I64 = 19,
+    Int8 = 16,
+    Int16 = 17,
+    Int32 = 18,
+    Int64 = 19,
 }
 
 // ===== impl SchemaModule =====

@@ -155,6 +155,27 @@ bitflags! {
     }
 }
 
+bitflags! {
+    /// Implicit node creation options.
+    ///
+    /// Default behavior:
+    /// - both configuration and state missing implicit nodes are added.
+    /// - for existing RPC/action nodes, input implicit nodes are added.
+    /// - all implicit node types are added (non-presence containers,
+    ///   default leaves, and default leaf-lists).
+    pub struct DataImplicitFlags: u32 {
+        /// Do not add any implicit state nodes.
+        const NO_STATE = ffi::LYD_IMPLICIT_NO_STATE;
+        /// Do not add any implicit config nodes.
+        const NO_CONFIG = ffi::LYD_IMPLICIT_NO_CONFIG;
+        /// For RPC/action nodes, add output implicit nodes instead of input.
+        const OUTPUT = ffi::LYD_IMPLICIT_OUTPUT;
+        /// Do not add any default nodes (leaves/leaf-lists), only non-presence
+        /// containers.
+        const NO_DEFAULTS = ffi::LYD_IMPLICIT_NO_DEFAULTS;
+    }
+}
+
 /// Methods common to data trees, data node references and data diffs.
 pub trait Data {
     #[doc(hidden)]
@@ -446,6 +467,24 @@ impl<'a> DataTree<'a> {
         let options = 0u16;
         let ret = unsafe {
             ffi::lyd_merge_siblings(&mut self.raw, source.raw, options)
+        };
+        if ret != ffi::LY_ERR::LY_SUCCESS {
+            return Err(Error::new(&self.context));
+        }
+
+        Ok(())
+    }
+
+    /// Add any missing implicit nodes. Default nodes with a false "when" are
+    /// not added.
+    pub fn add_implicit(&mut self, options: DataImplicitFlags) -> Result<()> {
+        let ret = unsafe {
+            ffi::lyd_new_implicit_all(
+                &mut self.raw,
+                self.context.raw,
+                options.bits(),
+                std::ptr::null_mut(),
+            )
         };
         if ret != ffi::LY_ERR::LY_SUCCESS {
             return Err(Error::new(&self.context));

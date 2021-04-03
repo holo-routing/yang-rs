@@ -1,7 +1,8 @@
+use std::collections::BTreeSet;
 use yang2::context::{Context, ContextFlags};
 use yang2::data::{
-    Data, DataFormat, DataParserFlags, DataPrinterFlags, DataTree,
-    DataValidationFlags,
+    Data, DataFormat, DataImplicitFlags, DataParserFlags, DataPrinterFlags,
+    DataTree, DataValidationFlags,
 };
 
 static SEARCH_DIR: &str = "./assets/yang/";
@@ -168,7 +169,13 @@ fn create_context() -> Context {
         .expect("Failed to set YANG search directory");
 
     // Load YANG modules.
-    for module_name in &["ietf-interfaces", "iana-if-type"] {
+    for module_name in &[
+        "iana-if-type",
+        "ietf-interfaces",
+        "ietf-ip",
+        "ietf-routing",
+        "ietf-isis",
+    ] {
         ctx.load_module(module_name, None)
             .expect("Failed to load module");
     }
@@ -310,6 +317,61 @@ fn data_merge() {
 
     dtree1.merge(&dtree2).expect("Failed to merge data trees");
     assert_data_eq!(&dtree1, &dtree_merge);
+}
+
+#[test]
+fn data_add_implicit() {
+    let ctx = create_context();
+
+    // Original data tree.
+    let xpath = "/ietf-routing:routing/control-plane-protocols/control-plane-protocol[type='ietf-isis:isis'][name='main']/ietf-isis:isis/area-address";
+    let mut dtree1 = DataTree::new(&ctx).expect("Failed to create data tree");
+    dtree1
+        .new_path(xpath, Some("00"))
+        .expect("Failed to edit data tree");
+
+    // Original data tree with implicit configuration nodes added.
+    let mut dtree2 = dtree1.duplicate().expect("Failed to duplicate data");
+    dtree2
+        .add_implicit(DataImplicitFlags::NO_STATE)
+        .expect("Failed to add implicit nodes");
+
+    // Test implicit config nodes.
+    let dtree1_nodes = dtree1
+        .traverse()
+        .map(|dnode| dnode.path())
+        .collect::<BTreeSet<String>>();
+    let dtree2_nodes = dtree2
+        .traverse()
+        .map(|dnode| dnode.path())
+        .collect::<BTreeSet<String>>();
+    assert_eq!(
+        dtree2_nodes
+            .symmetric_difference(&dtree1_nodes)
+            .collect::<Vec<&String>>(),
+        vec![
+            "/ietf-routing:routing/control-plane-protocols/control-plane-protocol[type='ietf-isis:isis'][name='main']/ietf-isis:isis/authentication",
+            "/ietf-routing:routing/control-plane-protocols/control-plane-protocol[type='ietf-isis:isis'][name='main']/ietf-isis:isis/authentication/level-1",
+            "/ietf-routing:routing/control-plane-protocols/control-plane-protocol[type='ietf-isis:isis'][name='main']/ietf-isis:isis/authentication/level-2",
+            "/ietf-routing:routing/control-plane-protocols/control-plane-protocol[type='ietf-isis:isis'][name='main']/ietf-isis:isis/default-metric",
+            "/ietf-routing:routing/control-plane-protocols/control-plane-protocol[type='ietf-isis:isis'][name='main']/ietf-isis:isis/default-metric/level-1",
+            "/ietf-routing:routing/control-plane-protocols/control-plane-protocol[type='ietf-isis:isis'][name='main']/ietf-isis:isis/default-metric/level-2",
+            "/ietf-routing:routing/control-plane-protocols/control-plane-protocol[type='ietf-isis:isis'][name='main']/ietf-isis:isis/default-metric/value",
+            "/ietf-routing:routing/control-plane-protocols/control-plane-protocol[type='ietf-isis:isis'][name='main']/ietf-isis:isis/interfaces",
+            "/ietf-routing:routing/control-plane-protocols/control-plane-protocol[type='ietf-isis:isis'][name='main']/ietf-isis:isis/level-type",
+            "/ietf-routing:routing/control-plane-protocols/control-plane-protocol[type='ietf-isis:isis'][name='main']/ietf-isis:isis/lsp-mtu",
+            "/ietf-routing:routing/control-plane-protocols/control-plane-protocol[type='ietf-isis:isis'][name='main']/ietf-isis:isis/metric-type",
+            "/ietf-routing:routing/control-plane-protocols/control-plane-protocol[type='ietf-isis:isis'][name='main']/ietf-isis:isis/metric-type/level-1",
+            "/ietf-routing:routing/control-plane-protocols/control-plane-protocol[type='ietf-isis:isis'][name='main']/ietf-isis:isis/metric-type/level-2",
+            "/ietf-routing:routing/control-plane-protocols/control-plane-protocol[type='ietf-isis:isis'][name='main']/ietf-isis:isis/metric-type/value",
+            "/ietf-routing:routing/control-plane-protocols/control-plane-protocol[type='ietf-isis:isis'][name='main']/ietf-isis:isis/mpls",
+            "/ietf-routing:routing/control-plane-protocols/control-plane-protocol[type='ietf-isis:isis'][name='main']/ietf-isis:isis/mpls/ldp",
+            "/ietf-routing:routing/control-plane-protocols/control-plane-protocol[type='ietf-isis:isis'][name='main']/ietf-isis:isis/overload",
+            "/ietf-routing:routing/control-plane-protocols/control-plane-protocol[type='ietf-isis:isis'][name='main']/ietf-isis:isis/overload/status",
+            "/ietf-routing:routing/control-plane-protocols/control-plane-protocol[type='ietf-isis:isis'][name='main']/ietf-isis:isis/preference",
+            "/ietf-routing:routing/control-plane-protocols/control-plane-protocol[type='ietf-isis:isis'][name='main']/ietf-isis:isis/spf-control",
+        ]
+    );
 }
 
 #[test]

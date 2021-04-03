@@ -412,6 +412,9 @@ impl<'a> DataTree<'a> {
             return Err(Error::new(self.context()));
         }
 
+        // Update top-level sibling.
+        self.raw = unsafe { ffi::lyd_first_sibling(self.raw) };
+
         Ok(DataNodeRef::from_raw_opt(self.tree(), rnode))
     }
 
@@ -489,6 +492,9 @@ impl<'a> DataTree<'a> {
         if ret != ffi::LY_ERR::LY_SUCCESS {
             return Err(Error::new(&self.context));
         }
+
+        // Update top-level sibling.
+        self.raw = unsafe { ffi::lyd_first_sibling(self.raw) };
 
         Ok(())
     }

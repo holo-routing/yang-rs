@@ -5,7 +5,7 @@ use yang2::data::{Data, DataTree, DataValidationFlags};
 static SEARCH_DIR: &str = "./assets/yang/";
 
 fn data_generate(ctx: &Context, interfaces: u32) -> DataTree {
-    let mut dtree = DataTree::new(ctx).expect("Failed to create data tree");
+    let mut dtree = DataTree::new(ctx);
 
     for i in 1..=interfaces {
         let changes = [

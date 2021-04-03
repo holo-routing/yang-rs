@@ -325,7 +325,7 @@ fn data_add_implicit() {
 
     // Original data tree.
     let xpath = "/ietf-routing:routing/control-plane-protocols/control-plane-protocol[type='ietf-isis:isis'][name='main']/ietf-isis:isis/area-address";
-    let mut dtree1 = DataTree::new(&ctx).expect("Failed to create data tree");
+    let mut dtree1 = DataTree::new(&ctx);
     dtree1
         .new_path(xpath, Some("00"))
         .expect("Failed to edit data tree");
@@ -350,6 +350,7 @@ fn data_add_implicit() {
             .symmetric_difference(&dtree1_nodes)
             .collect::<Vec<&String>>(),
         vec![
+            "/ietf-interfaces:interfaces",
             "/ietf-routing:routing/control-plane-protocols/control-plane-protocol[type='ietf-isis:isis'][name='main']/ietf-isis:isis/authentication",
             "/ietf-routing:routing/control-plane-protocols/control-plane-protocol[type='ietf-isis:isis'][name='main']/ietf-isis:isis/authentication/level-1",
             "/ietf-routing:routing/control-plane-protocols/control-plane-protocol[type='ietf-isis:isis'][name='main']/ietf-isis:isis/authentication/level-2",
@@ -370,6 +371,7 @@ fn data_add_implicit() {
             "/ietf-routing:routing/control-plane-protocols/control-plane-protocol[type='ietf-isis:isis'][name='main']/ietf-isis:isis/overload/status",
             "/ietf-routing:routing/control-plane-protocols/control-plane-protocol[type='ietf-isis:isis'][name='main']/ietf-isis:isis/preference",
             "/ietf-routing:routing/control-plane-protocols/control-plane-protocol[type='ietf-isis:isis'][name='main']/ietf-isis:isis/spf-control",
+            "/ietf-routing:routing/ribs",
         ]
     );
 }

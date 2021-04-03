@@ -297,13 +297,11 @@ pub trait Data {
 
 impl<'a> DataTree<'a> {
     /// Create new empty data tree.
-    pub fn new(context: &Context) -> Result<DataTree> {
-        let mut dtree = DataTree {
+    pub fn new(context: &Context) -> DataTree {
+        DataTree {
             context: &context,
             raw: std::ptr::null_mut(),
-        };
-        dtree.validate(DataValidationFlags::NO_STATE)?;
-        Ok(dtree)
+        }
     }
 
     /// Parse (and validate) input data as a YANG data tree.
@@ -363,30 +361,40 @@ impl<'a> DataTree<'a> {
         Ok(DataTree::from_raw(context, rnode))
     }
 
-    /// Returns a reference to the fist top-level data node.
-    pub fn reference(&self) -> DataNodeRef {
-        DataNodeRef {
-            tree: &self,
-            raw: self.raw,
+    /// Returns a reference to the fist top-level data node, unless the data
+    /// tree is empty.
+    pub fn reference(&self) -> Option<DataNodeRef> {
+        if self.raw.is_null() {
+            None
+        } else {
+            Some(DataNodeRef {
+                tree: &self,
+                raw: self.raw,
+            })
         }
     }
 
-    /// Create a new node in the data tree based on a path. Cannot be used for
-    /// anyxml/anydata nodes.
+    /// Create a new node or modify existing one in the data tree based on a
+    /// path.
     ///
-    /// If 'xpath' points to a list key and the list instance does not exist,
-    /// the key value from the predicate is used and 'value' is ignored. Also,
+    /// If path points to a list key and the list instance does not exist,
+    /// the key value from the predicate is used and value is ignored. Also,
     /// if a leaf-list is being created and both a predicate is defined in
-    /// 'xpath' and 'value' is set, the predicate is preferred.
+    /// path and value is set, the predicate is preferred.
     ///
-    /// Returns the first created node (if any).
+    /// For key-less lists and state leaf-lists, positional predicates can be
+    /// used. If no preciate is used for these nodes, they are always created.
+    ///
+    /// Returns the last created or modified node (if any).
     pub fn new_path(
         &mut self,
         path: &str,
         value: Option<&str>,
     ) -> Result<Option<DataNodeRef>> {
         let path = CString::new(path).unwrap();
+        let mut rnode_root = std::ptr::null_mut();
         let mut rnode = std::ptr::null_mut();
+        let rnode_root_ptr = &mut rnode_root;
         let rnode_ptr = &mut rnode;
         let value_cstr;
 
@@ -399,12 +407,14 @@ impl<'a> DataTree<'a> {
         };
 
         let ret = unsafe {
-            ffi::lyd_new_path(
+            ffi::lyd_new_path2(
                 self.raw(),
                 self.context().raw,
                 path.as_ptr(),
-                value_ptr,
+                value_ptr as *const c_void,
+                ffi::LYD_ANYDATA_VALUETYPE::LYD_ANYDATA_STRING,
                 ffi::LYD_NEW_PATH_UPDATE,
+                rnode_root_ptr,
                 rnode_ptr,
             )
         };
@@ -413,7 +423,11 @@ impl<'a> DataTree<'a> {
         }
 
         // Update top-level sibling.
-        self.raw = unsafe { ffi::lyd_first_sibling(self.raw) };
+        if self.raw.is_null() {
+            self.raw = unsafe { ffi::lyd_first_sibling(rnode_root) };
+        } else {
+            self.raw = unsafe { ffi::lyd_first_sibling(self.raw) };
+        }
 
         Ok(DataNodeRef::from_raw_opt(self.tree(), rnode))
     }
@@ -447,6 +461,11 @@ impl<'a> DataTree<'a> {
         let mut dup = std::ptr::null_mut();
         let dup_ptr = &mut dup;
 
+        // Special handling for empty data trees.
+        if self.raw.is_null() {
+            return Ok(DataTree::from_raw(&self.context, std::ptr::null_mut()));
+        }
+
         let options = ffi::LYD_DUP_RECURSIVE | ffi::LYD_DUP_WITH_FLAGS;
         let ret = unsafe {
             ffi::lyd_dup_siblings(
@@ -466,13 +485,18 @@ impl<'a> DataTree<'a> {
     /// Merge the source data tree into the target data tree. Merge may not be
     /// complete until validation is called on the resulting data tree (data
     /// from more cases may be present, default and non-default values).
-    pub fn merge(&mut self, source: &DataTree) -> Result<()> {
-        let options = 0u16;
-        let ret = unsafe {
-            ffi::lyd_merge_siblings(&mut self.raw, source.raw, options)
-        };
-        if ret != ffi::LY_ERR::LY_SUCCESS {
-            return Err(Error::new(&self.context));
+    pub fn merge(&mut self, source: &DataTree<'a>) -> Result<()> {
+        // Special handling for empty data trees.
+        if self.raw.is_null() {
+            *self = source.duplicate()?;
+        } else {
+            let options = 0u16;
+            let ret = unsafe {
+                ffi::lyd_merge_siblings(&mut self.raw, source.raw, options)
+            };
+            if ret != ffi::LY_ERR::LY_SUCCESS {
+                return Err(Error::new(&self.context));
+            }
         }
 
         Ok(())
@@ -540,7 +564,7 @@ impl<'a> DataTree<'a> {
     /// Returns an iterator over all elements in the data tree and its sibling
     /// trees (depth-first search algorithm).
     pub fn traverse(&'a self) -> impl Iterator<Item = DataNodeRef<'a>> {
-        let top = Siblings::new(Some(self.reference()));
+        let top = Siblings::new(self.reference());
         top.flat_map(|dnode| dnode.traverse())
     }
 }
@@ -556,11 +580,7 @@ impl<'a> Binding<'a> for DataTree<'a> {
     type Container = Context;
 
     fn from_raw(context: &'a Context, raw: *mut ffi::lyd_node) -> DataTree {
-        if raw.is_null() {
-            DataTree::new(context).unwrap()
-        } else {
-            DataTree { context, raw }
-        }
+        DataTree { context, raw }
     }
 }
 

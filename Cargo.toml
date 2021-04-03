@@ -1,6 +1,6 @@
 [package]
 name = "yang2"
-version = "0.1.7"
+version = "0.1.8"
 authors = ["Renato Westphal <renato@opensourcerouting.org>"]
 description = "libyang2 bindings for Rust"
 keywords = ["yang", "libyang"]
@@ -13,7 +13,7 @@ categories = ["parser-implementations"]
 exclude = ["assets/**"]
 
 [dependencies]
-libyang2-sys = { path = "libyang2-sys", version = "0.1.6" }
+libyang2-sys = { path = "libyang2-sys", version = "0.1.7" }
 bitflags = "1.0"
 num-traits = "0.2"
 num-derive = "0.3"

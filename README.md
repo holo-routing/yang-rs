@@ -33,6 +33,13 @@ yang2 = "0.1"
 * Automatic resource management
 * Zero-cost abstractions
 
+## Feature flags
+By default, yang2-rs uses pre-generated FFI bindings and uses dynamic linking to load libyang2. The following feature flags, however, can be used to change that behavior:
+* **bundled**: instructs cargo to download and build libyang2 from the sources. The resulting objects are grouped into a static archive linked to this crate. This feature can be used when having a libyang2 dynamic link dependency isn't desirable.
+  * Additional build requirements: *cc 1.0*, *cmake 0.1*, a C compiler and CMake.
+* **use_bindgen**: generate new C FFI bindings dynamically instead of using the pre-generated ones. Useful when updating this crate to use newer libyang2 versions.
+  * Additional build requirements: *bindgen 0.55.0*
+
 ## Example
 
 A basic example that parses and validates JSON instance data, and then converts

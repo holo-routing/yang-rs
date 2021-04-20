@@ -1,4 +1,5 @@
 use std::collections::BTreeSet;
+use std::sync::Arc;
 use yang2::context::{Context, ContextFlags};
 use yang2::data::{
     Data, DataFormat, DataImplicitFlags, DataParserFlags, DataPrinterFlags,
@@ -161,7 +162,7 @@ macro_rules! assert_data_eq {
     };
 }
 
-fn create_context() -> Context {
+fn create_context() -> Arc<Context> {
     // Initialize context.
     let mut ctx = Context::new(ContextFlags::NO_YANGLIBRARY)
         .expect("Failed to create context");
@@ -180,10 +181,10 @@ fn create_context() -> Context {
             .expect("Failed to load module");
     }
 
-    ctx
+    Arc::new(ctx)
 }
 
-fn parse_json_data<'a>(ctx: &'a Context, string: &str) -> DataTree<'a> {
+fn parse_json_data(ctx: &Arc<Context>, string: &str) -> DataTree {
     DataTree::parse_string(
         &ctx,
         string,

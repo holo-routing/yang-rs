@@ -11,6 +11,7 @@ use std::ffi::CString;
 use std::os::raw::{c_char, c_void};
 use std::os::unix::io::AsRawFd;
 use std::slice;
+use std::sync::Arc;
 
 use crate::context::Context;
 use crate::error::{Error, Result};
@@ -23,15 +24,15 @@ use libyang2_sys as ffi;
 
 /// YANG data tree.
 #[derive(Debug)]
-pub struct DataTree<'a> {
-    context: &'a Context,
+pub struct DataTree {
+    context: Arc<Context>,
     raw: *mut ffi::lyd_node,
 }
 
 /// YANG data node reference.
 #[derive(Clone, Debug)]
 pub struct DataNodeRef<'a> {
-    tree: &'a DataTree<'a>,
+    tree: &'a DataTree,
     raw: *mut ffi::lyd_node,
 }
 
@@ -49,8 +50,8 @@ pub struct Metadata<'a> {
 
 /// YANG data tree diff.
 #[derive(Debug)]
-pub struct DataDiff<'a> {
-    tree: DataTree<'a>,
+pub struct DataDiff {
+    tree: DataTree,
 }
 
 /// YANG data diff operation.
@@ -295,18 +296,18 @@ pub trait Data {
 
 // ===== impl DataTree =====
 
-impl<'a> DataTree<'a> {
+impl DataTree {
     /// Create new empty data tree.
-    pub fn new(context: &Context) -> DataTree {
+    pub fn new(context: &Arc<Context>) -> DataTree {
         DataTree {
-            context: &context,
+            context: context.clone(),
             raw: std::ptr::null_mut(),
         }
     }
 
     /// Parse (and validate) input data as a YANG data tree.
     pub fn parse_file<F: AsRawFd>(
-        context: &Context,
+        context: &Arc<Context>,
         fd: F,
         format: DataFormat,
         parser_options: DataParserFlags,
@@ -334,12 +335,12 @@ impl<'a> DataTree<'a> {
 
     /// Parse (and validate) input data as a YANG data tree.
     pub fn parse_string(
-        context: &'a Context,
+        context: &Arc<Context>,
         data: &str,
         format: DataFormat,
         parser_options: DataParserFlags,
         validation_options: DataValidationFlags,
-    ) -> Result<DataTree<'a>> {
+    ) -> Result<DataTree> {
         let mut rnode = std::ptr::null_mut();
         let rnode_ptr = &mut rnode;
         let data = CString::new(data).unwrap();
@@ -457,7 +458,7 @@ impl<'a> DataTree<'a> {
     }
 
     /// Create a copy of the data tree.
-    pub fn duplicate(&self) -> Result<DataTree<'a>> {
+    pub fn duplicate(&self) -> Result<DataTree> {
         let mut dup = std::ptr::null_mut();
         let dup_ptr = &mut dup;
 
@@ -485,7 +486,7 @@ impl<'a> DataTree<'a> {
     /// Merge the source data tree into the target data tree. Merge may not be
     /// complete until validation is called on the resulting data tree (data
     /// from more cases may be present, default and non-default values).
-    pub fn merge(&mut self, source: &DataTree<'a>) -> Result<()> {
+    pub fn merge(&mut self, source: &DataTree) -> Result<()> {
         // Special handling for empty data trees.
         if self.raw.is_null() {
             *self = source.duplicate()?;
@@ -533,7 +534,7 @@ impl<'a> DataTree<'a> {
     /// metadata ('orig-default', 'value', 'orig-value', 'key', 'orig-key')
     /// are used for storing more information about the value in the first
     /// or the second tree.
-    pub fn diff(&self, dtree: &DataTree<'a>) -> Result<DataDiff<'a>> {
+    pub fn diff(&self, dtree: &DataTree) -> Result<DataDiff> {
         let options = ffi::LYD_DIFF_DEFAULTS as u16;
         let mut rnode = std::ptr::null_mut();
         let rnode_ptr = &mut rnode;
@@ -563,31 +564,37 @@ impl<'a> DataTree<'a> {
 
     /// Returns an iterator over all elements in the data tree and its sibling
     /// trees (depth-first search algorithm).
-    pub fn traverse(&'a self) -> impl Iterator<Item = DataNodeRef<'a>> {
+    pub fn traverse<'a>(&'a self) -> impl Iterator<Item = DataNodeRef<'a>> {
         let top = Siblings::new(self.reference());
         top.flat_map(|dnode| dnode.traverse())
     }
 }
 
-impl<'a> Data for DataTree<'a> {
+impl Data for DataTree {
     fn tree(&self) -> &DataTree {
         &self
     }
 }
 
-impl<'a> Binding<'a> for DataTree<'a> {
+impl<'a> Binding<'a> for DataTree {
     type CType = ffi::lyd_node;
-    type Container = Context;
+    type Container = Arc<Context>;
 
-    fn from_raw(context: &'a Context, raw: *mut ffi::lyd_node) -> DataTree {
-        DataTree { context, raw }
+    fn from_raw(
+        context: &'a Arc<Context>,
+        raw: *mut ffi::lyd_node,
+    ) -> DataTree {
+        DataTree {
+            context: context.clone(),
+            raw,
+        }
     }
 }
 
-unsafe impl Send for DataTree<'_> {}
-unsafe impl Sync for DataTree<'_> {}
+unsafe impl Send for DataTree {}
+unsafe impl Sync for DataTree {}
 
-impl<'a> Drop for DataTree<'a> {
+impl Drop for DataTree {
     fn drop(&mut self) {
         unsafe { ffi::lyd_free_all(self.raw) };
     }
@@ -726,7 +733,7 @@ impl<'a> Data for DataNodeRef<'a> {
 
 impl<'a> Binding<'a> for DataNodeRef<'a> {
     type CType = ffi::lyd_node;
-    type Container = DataTree<'a>;
+    type Container = DataTree;
 
     fn from_raw(
         tree: &'a DataTree,
@@ -827,7 +834,7 @@ unsafe impl Sync for Metadata<'_> {}
 
 // ===== impl DataDiff =====
 
-impl<'a> DataDiff<'a> {
+impl DataDiff {
     /// Returns an iterator over the data changes.
     pub fn iter(&self) -> impl Iterator<Item = (DataDiffOp, DataNodeRef<'_>)> {
         self.tree.traverse().filter_map(|dnode| {
@@ -863,7 +870,7 @@ impl<'a> DataDiff<'a> {
     }
 }
 
-impl<'a> Data for DataDiff<'a> {
+impl Data for DataDiff {
     fn tree(&self) -> &DataTree {
         &self.tree
     }

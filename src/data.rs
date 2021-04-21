@@ -397,12 +397,12 @@ impl DataTree {
         let rnode_ptr = &mut rnode;
         let value_cstr;
 
-        let value_ptr = match value {
+        let (value_ptr, value_len) = match value {
             Some(value) => {
                 value_cstr = CString::new(value).unwrap();
-                value_cstr.as_ptr()
+                (value_cstr.as_ptr(), value.len())
             }
-            None => std::ptr::null(),
+            None => (std::ptr::null(), 0),
         };
 
         let ret = unsafe {
@@ -411,6 +411,7 @@ impl DataTree {
                 self.context().raw,
                 path.as_ptr(),
                 value_ptr as *const c_void,
+                value_len as u64,
                 ffi::LYD_ANYDATA_VALUETYPE::LYD_ANYDATA_STRING,
                 ffi::LYD_NEW_PATH_UPDATE,
                 rnode_root_ptr,
@@ -690,7 +691,7 @@ impl<'a> DataNodeRef<'a> {
         match self.schema().kind() {
             SchemaNodeKind::Leaf | SchemaNodeKind::LeafList => {
                 let rnode = self.raw as *mut ffi::lyd_node_term;
-                let value = unsafe { (*rnode).value.canonical };
+                let value = unsafe { (*rnode).value._canonical };
                 char_ptr_to_opt_string(value)
             }
             _ => None,
@@ -819,7 +820,7 @@ impl<'a> Metadata<'a> {
 
     /// Metadata value representation.
     pub fn value(&self) -> &str {
-        char_ptr_to_str(unsafe { (*self.raw).value.canonical })
+        char_ptr_to_str(unsafe { (*self.raw).value._canonical })
     }
 
     /// Next metadata.

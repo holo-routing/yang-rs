@@ -432,22 +432,6 @@ impl<'a> SchemaNode<'a> {
         Ok(SchemaNode::from_raw(self.context, rnode as *mut _))
     }
 
-    /// Check type restrictions applicable to the particular leaf/leaf-list with
-    /// the given string value.
-    pub fn value_validate(&self, value: &str) -> bool {
-        let value_len = value.len() as u64;
-        let value = CString::new(value).unwrap();
-        let ret = unsafe {
-            ffi::lys_value_validate(
-                self.context.raw,
-                self.raw,
-                value.as_ptr(),
-                value_len,
-            )
-        };
-        ret == ffi::LY_ERR::LY_SUCCESS
-    }
-
     /// Returns whether the node is a configuration node.
     pub fn is_config(&self) -> bool {
         match self.kind {
@@ -572,7 +556,7 @@ impl<'a> SchemaNode<'a> {
         let default = unsafe {
             match self.kind() {
                 SchemaNodeKind::Leaf => {
-                    (*(*(self.raw as *mut ffi::lysc_node_leaf)).dflt).canonical
+                    (*(*(self.raw as *mut ffi::lysc_node_leaf)).dflt)._canonical
                 }
                 _ => return None,
             }
@@ -1014,7 +998,7 @@ impl DataValue {
                 DataValue::Int64(value)
             }
             _ => {
-                let canonical = (*raw).canonical;
+                let canonical = (*raw)._canonical;
                 DataValue::Other(char_ptr_to_string(canonical))
             }
         }

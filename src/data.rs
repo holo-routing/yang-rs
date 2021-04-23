@@ -180,17 +180,15 @@ bitflags! {
 /// Methods common to data trees, data node references and data diffs.
 pub trait Data {
     #[doc(hidden)]
-    fn tree(&self) -> &DataTree;
-
-    #[doc(hidden)]
     fn context(&self) -> &Context {
         &self.tree().context
     }
 
     #[doc(hidden)]
-    fn raw(&self) -> *mut ffi::lyd_node {
-        self.tree().raw
-    }
+    fn tree(&self) -> &DataTree;
+
+    #[doc(hidden)]
+    fn raw(&self) -> *mut ffi::lyd_node;
 
     /// Search in the given data for instances of nodes matching the provided
     /// XPath.
@@ -574,6 +572,10 @@ impl Data for DataTree {
     fn tree(&self) -> &DataTree {
         &self
     }
+
+    fn raw(&self) -> *mut ffi::lyd_node {
+        self.raw
+    }
 }
 
 impl<'a> Binding<'a> for DataTree {
@@ -742,6 +744,10 @@ impl<'a> Data for DataNodeRef<'a> {
     fn tree(&self) -> &DataTree {
         &self.tree
     }
+
+    fn raw(&self) -> *mut ffi::lyd_node {
+        self.raw
+    }
 }
 
 impl<'a> Binding<'a> for DataNodeRef<'a> {
@@ -886,5 +892,9 @@ impl DataDiff {
 impl Data for DataDiff {
     fn tree(&self) -> &DataTree {
         &self.tree
+    }
+
+    fn raw(&self) -> *mut ffi::lyd_node {
+        self.tree.raw
     }
 }

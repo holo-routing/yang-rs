@@ -18,7 +18,7 @@ use crate::error::{Error, Result};
 use crate::iter::{
     Ancestors, MetadataList, NodeIterable, Set, Siblings, Traverse,
 };
-use crate::schema::{SchemaModule, SchemaNode, SchemaNodeKind};
+use crate::schema::{DataValue, SchemaModule, SchemaNode, SchemaNodeKind};
 use crate::utils::*;
 use libyang2_sys as ffi;
 
@@ -684,12 +684,25 @@ impl<'a> DataNodeRef<'a> {
     }
 
     /// Node's value (canonical string representation).
-    pub fn value(&self) -> Option<String> {
+    pub fn value_canonical(&self) -> Option<String> {
         match self.schema().kind() {
             SchemaNodeKind::Leaf | SchemaNodeKind::LeafList => {
                 let rnode = self.raw as *mut ffi::lyd_node_term;
                 let value = unsafe { (*rnode).value.canonical };
                 char_ptr_to_opt_string(value)
+            }
+            _ => None,
+        }
+    }
+
+    /// Node's value (typed representation).
+    pub fn value(&self) -> Option<DataValue> {
+        match self.schema().kind() {
+            SchemaNodeKind::Leaf | SchemaNodeKind::LeafList => {
+                let rnode = self.raw as *const ffi::lyd_node_term;
+                let rvalue = unsafe { (*rnode).value };
+                let value = unsafe { DataValue::from_raw(&rvalue) };
+                Some(value)
             }
             _ => None,
         }

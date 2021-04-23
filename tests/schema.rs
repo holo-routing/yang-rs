@@ -1,5 +1,7 @@
 use yang2::context::{Context, ContextFlags};
-use yang2::schema::{DataValueType, SchemaNodeKind, SchemaPathFormat};
+use yang2::schema::{
+    DataValue, DataValueType, SchemaNodeKind, SchemaPathFormat,
+};
 
 static SEARCH_DIR: &str = "./assets/yang/";
 
@@ -251,7 +253,8 @@ fn schema_node_attributes() {
     assert!(snode.reference().is_some());
     assert_eq!(snode.is_config(), true);
     assert_eq!(snode.is_mandatory(), false);
-    assert_eq!(snode.default_value(), Some("true"));
+    assert_eq!(snode.default_value_canonical(), Some("true"));
+    assert_eq!(snode.default_value(), Some(DataValue::Bool(true)));
     assert_eq!(snode.base_type(), Some(DataValueType::Bool));
     assert!(snode.units().is_none());
     assert!(snode.musts().unwrap().count() == 0);

@@ -109,6 +109,7 @@ pub struct SchemaStmtWhen<'a> {
     raw: *mut ffi::lysc_when,
 }
 
+/// YANG data value type.
 #[derive(Copy, Clone, Debug, PartialEq, FromPrimitive)]
 pub enum DataValueType {
     Unknown = 0,
@@ -131,6 +132,22 @@ pub enum DataValueType {
     Int16 = 17,
     Int32 = 18,
     Int64 = 19,
+}
+
+/// YANG data value.
+#[derive(Clone, Debug, PartialEq)]
+pub enum DataValue {
+    Uint8(u8),
+    Uint16(u16),
+    Uint32(u32),
+    Uint64(u64),
+    Bool(bool),
+    Empty,
+    Int8(i8),
+    Int16(i16),
+    Int32(i32),
+    Int64(i64),
+    Other(String),
 }
 
 // ===== impl SchemaModule =====
@@ -550,8 +567,8 @@ impl<'a> SchemaNode<'a> {
         }
     }
 
-    /// The default value of the leaf.
-    pub fn default_value(&self) -> Option<&str> {
+    /// The default value of the leaf (canonical string representation).
+    pub fn default_value_canonical(&self) -> Option<&str> {
         let default = unsafe {
             match self.kind() {
                 SchemaNodeKind::Leaf => {
@@ -562,6 +579,24 @@ impl<'a> SchemaNode<'a> {
         };
 
         char_ptr_to_opt_str(default)
+    }
+
+    /// The default value of the leaf (typed representation).
+    pub fn default_value(&self) -> Option<DataValue> {
+        match self.kind() {
+            SchemaNodeKind::Leaf => {
+                let default = unsafe {
+                    let rvalue =
+                        (*(self.raw as *const ffi::lysc_node_leaf)).dflt;
+                    if rvalue.is_null() {
+                        return None;
+                    }
+                    DataValue::from_raw(rvalue)
+                };
+                Some(default)
+            }
+            _ => None,
+        }
     }
 
     /// The default case of the choice.
@@ -935,3 +970,53 @@ impl<'a> Binding<'a> for SchemaStmtWhen<'a> {
 
 unsafe impl Send for SchemaStmtWhen<'_> {}
 unsafe impl Sync for SchemaStmtWhen<'_> {}
+
+// ===== impl DataValue =====
+
+impl DataValue {
+    pub(crate) unsafe fn from_raw(raw: *const ffi::lyd_value) -> DataValue {
+        let rtype = (*(*raw).realtype).basetype;
+        match rtype {
+            ffi::LY_DATA_TYPE::LY_TYPE_UINT8 => {
+                let value = (*raw).__bindgen_anon_1.uint8;
+                DataValue::Uint8(value)
+            }
+            ffi::LY_DATA_TYPE::LY_TYPE_UINT16 => {
+                let value = (*raw).__bindgen_anon_1.uint16;
+                DataValue::Uint16(value)
+            }
+            ffi::LY_DATA_TYPE::LY_TYPE_UINT32 => {
+                let value = (*raw).__bindgen_anon_1.uint32;
+                DataValue::Uint32(value)
+            }
+            ffi::LY_DATA_TYPE::LY_TYPE_UINT64 => {
+                let value = (*raw).__bindgen_anon_1.uint64;
+                DataValue::Uint64(value)
+            }
+            ffi::LY_DATA_TYPE::LY_TYPE_BOOL => {
+                let value = (*raw).__bindgen_anon_1.boolean != 0;
+                DataValue::Bool(value)
+            }
+            ffi::LY_DATA_TYPE::LY_TYPE_INT8 => {
+                let value = (*raw).__bindgen_anon_1.int8;
+                DataValue::Int8(value)
+            }
+            ffi::LY_DATA_TYPE::LY_TYPE_INT16 => {
+                let value = (*raw).__bindgen_anon_1.int16;
+                DataValue::Int16(value)
+            }
+            ffi::LY_DATA_TYPE::LY_TYPE_INT32 => {
+                let value = (*raw).__bindgen_anon_1.int32;
+                DataValue::Int32(value)
+            }
+            ffi::LY_DATA_TYPE::LY_TYPE_INT64 => {
+                let value = (*raw).__bindgen_anon_1.int64;
+                DataValue::Int64(value)
+            }
+            _ => {
+                let canonical = (*raw).canonical;
+                DataValue::Other(char_ptr_to_string(canonical))
+            }
+        }
+    }
+}

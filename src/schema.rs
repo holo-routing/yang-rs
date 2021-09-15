@@ -214,6 +214,17 @@ impl<'a> SchemaModule<'a> {
         unsafe { (*self.raw).implemented != 0 }
     }
 
+    /// Get the current real status of the specified feature in the module.
+    pub fn feature_value(&self, feature: &str) -> Result<bool> {
+        let feature = CString::new(feature).unwrap();
+        let ret = unsafe { ffi::lys_feature_value(self.raw, feature.as_ptr()) };
+        match ret {
+            ffi::LY_ERR::LY_SUCCESS => return Ok(true),
+            ffi::LY_ERR::LY_ENOT => return Ok(false),
+            _ => return Err(Error::new(&self.context)),
+        }
+    }
+
     /// Print schema tree in the specified format into a file descriptor.
     pub fn print_file<F: AsRawFd>(
         &self,
@@ -687,8 +698,6 @@ impl<'a> SchemaNode<'a> {
         let ptr_size = mem::size_of::<ffi::lysc_when>();
         Array::new(&self.context, array as *mut _, ptr_size)
     }
-
-    // TODO: list of if-feature expressions.
 
     /// Array of actions.
     pub fn actions(&self) -> Option<Array<SchemaNode>> {

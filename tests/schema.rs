@@ -13,12 +13,21 @@ fn create_context() -> Context {
         .expect("Failed to set YANG search directory");
 
     // Load YANG modules.
-    for module_name in &["ietf-interfaces", "iana-if-type"] {
-        ctx.load_module(module_name, None)
-            .expect("Failed to load module");
-    }
+    ctx.load_module("ietf-interfaces", None, &["pre-provisioning"])
+        .expect("Failed to load module");
+    ctx.load_module("iana-if-type", None, &[])
+        .expect("Failed to load module");
 
     ctx
+}
+
+#[test]
+fn schema_feature_value() {
+    let ctx = create_context();
+    let module = ctx.get_module_latest("ietf-interfaces").unwrap();
+    assert_eq!(module.feature_value("pre-provisioning"), Ok(true));
+    assert_eq!(module.feature_value("if-mib"), Ok(false));
+    assert!(module.feature_value("blabla").is_err());
 }
 
 #[test]

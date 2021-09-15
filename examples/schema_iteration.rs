@@ -12,7 +12,7 @@ fn main() -> std::io::Result<()> {
         .expect("Failed to set YANG search directory");
 
     // Load test module.
-    ctx.load_module(MODULE_NAME, None)
+    ctx.load_module(MODULE_NAME, None, &[])
         .expect("Failed to load module");
 
     // Iterate over all schema nodes that belong to the test module and print

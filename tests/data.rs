@@ -177,7 +177,7 @@ fn create_context() -> Arc<Context> {
         "ietf-routing",
         "ietf-isis",
     ] {
-        ctx.load_module(module_name, None)
+        ctx.load_module(module_name, None, &[])
             .expect("Failed to load module");
     }
 

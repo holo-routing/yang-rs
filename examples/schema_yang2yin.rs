@@ -13,7 +13,7 @@ fn main() -> std::io::Result<()> {
 
     // Load test module.
     let module = ctx
-        .load_module(MODULE_NAME, None)
+        .load_module(MODULE_NAME, None, &[])
         .expect("Failed to load module");
 
     // Print test module.

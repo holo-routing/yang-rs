@@ -43,7 +43,7 @@ fn criterion_benchmark(c: &mut Criterion) {
 
     // Load YANG modules.
     for module_name in &["ietf-interfaces", "iana-if-type"] {
-        ctx.load_module(module_name, None)
+        ctx.load_module(module_name, None, &[])
             .expect("Failed to load module");
     }
 

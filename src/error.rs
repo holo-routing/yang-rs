@@ -12,7 +12,7 @@ use libyang2_sys as ffi;
 pub type Result<T> = std::result::Result<T, Error>;
 
 /// Enum listing possible errors from yang2-rs.
-#[derive(Debug)]
+#[derive(Debug, Eq, PartialEq)]
 pub struct Error {
     pub errcode: ffi::LY_ERR::Type,
     pub msg: Option<String>,

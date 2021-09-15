@@ -367,14 +367,22 @@ impl Context {
     /// the same module in the context.
     ///
     /// If the revision is not specified, the latest revision is loaded.
+    ///
+    /// The `features` parameter specifies the module features that should be
+    /// enabled. If let empty, no features are enabled. The feature string '*'
+    /// enables all module features.
     pub fn load_module(
         &mut self,
         name: &str,
         revision: Option<&str>,
+        features: &[&str],
     ) -> Result<SchemaModule> {
         let name = CString::new(name).unwrap();
         let revision_cstr;
+        let features_cstr;
+        let mut features_ptr;
 
+        // Prepare revision string.
         let revision_ptr = match revision {
             Some(revision) => {
                 revision_cstr = CString::new(revision).unwrap();
@@ -382,12 +390,24 @@ impl Context {
             }
             None => std::ptr::null(),
         };
+
+        // Prepare features array.
+        features_cstr = features
+            .into_iter()
+            .map(|feature| CString::new(*feature).unwrap())
+            .collect::<Vec<_>>();
+        features_ptr = features_cstr
+            .iter()
+            .map(|feature| feature.as_ptr())
+            .collect::<Vec<_>>();
+        features_ptr.push(std::ptr::null());
+
         let module = unsafe {
             ffi::ly_ctx_load_module(
                 self.raw,
                 name.as_ptr(),
                 revision_ptr,
-                std::ptr::null_mut(),
+                features_ptr.as_mut_ptr(),
             )
         };
         if module.is_null() {

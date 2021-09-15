@@ -16,7 +16,7 @@ fn main() -> std::io::Result<()> {
 
     // Load YANG modules.
     for module_name in &["ietf-interfaces", "iana-if-type", "ietf-isis"] {
-        ctx.load_module(module_name, None)
+        ctx.load_module(module_name, None, &[])
             .expect("Failed to load module");
     }
     let ctx = Arc::new(ctx);

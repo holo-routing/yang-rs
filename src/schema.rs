@@ -98,15 +98,15 @@ pub enum SchemaNodeKind {
 /// YANG must substatement.
 #[derive(Clone, Debug)]
 pub struct SchemaStmtMust<'a> {
-    context: &'a Context,
     raw: *mut ffi::lysc_must,
+    _marker: std::marker::PhantomData<&'a Context>,
 }
 
 /// YANG when substatement.
 #[derive(Clone, Debug)]
 pub struct SchemaStmtWhen<'a> {
-    context: &'a Context,
     raw: *mut ffi::lysc_when,
+    _marker: std::marker::PhantomData<&'a Context>,
 }
 
 /// YANG data value type.
@@ -922,10 +922,13 @@ impl<'a> Binding<'a> for SchemaStmtMust<'a> {
     type Container = Context;
 
     fn from_raw(
-        context: &'a Context,
+        _context: &'a Context,
         raw: *mut ffi::lysc_must,
     ) -> SchemaStmtMust {
-        SchemaStmtMust { context, raw }
+        SchemaStmtMust {
+            raw,
+            _marker: std::marker::PhantomData,
+        }
     }
 }
 
@@ -953,11 +956,14 @@ impl<'a> Binding<'a> for SchemaStmtWhen<'a> {
     type Container = Context;
 
     fn from_raw(
-        context: &'a Context,
+        _context: &'a Context,
         raw: *mut *mut ffi::lysc_when,
     ) -> SchemaStmtWhen {
         let raw = unsafe { *raw };
-        SchemaStmtWhen { context, raw }
+        SchemaStmtWhen {
+            raw,
+            _marker: std::marker::PhantomData,
+        }
     }
 }
 

@@ -69,7 +69,6 @@ where
 {
     container: &'a T::Container,
     slice: &'a [*mut T::CType],
-    _marker: std::marker::PhantomData<&'a T>,
 }
 
 /// An iterator over an array of nodes or substatements.
@@ -224,11 +223,7 @@ where
         container: &'a T::Container,
         slice: &'a [*mut T::CType],
     ) -> Set<'a, T> {
-        Set {
-            container,
-            slice,
-            _marker: std::marker::PhantomData,
-        }
+        Set { container, slice }
     }
 }
 

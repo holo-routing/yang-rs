@@ -25,7 +25,7 @@ fn main() {
         pregen_bindings.push(env::var("CARGO_MANIFEST_DIR").unwrap());
         pregen_bindings.push("pre-generated-bindings");
         pregen_bindings
-            .push("libyang2-52555c9339636e21b5bda8bb213932a3bfd7898f.rs");
+            .push("libyang2-a81b3304695ad94fe0b34697f3e24d7f25a6bd05.rs");
 
         std::fs::copy(&pregen_bindings, &out_file)
             .expect("Unable to copy pre-generated libyang2 bindings");
@@ -92,6 +92,7 @@ fn main() {
             .file("libyang/src/plugins_types/ipv6_address_no_zone.c")
             .file("libyang/src/plugins_types/ipv6_prefix.c")
             .file("libyang/src/plugins_types/leafref.c")
+            .file("libyang/src/plugins_types/node_instanceid.c")
             .file("libyang/src/plugins_types/string.c")
             .file("libyang/src/plugins_types/union.c")
             .file("libyang/src/plugins_types/xpath1.0.c")

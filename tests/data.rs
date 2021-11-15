@@ -278,7 +278,7 @@ fn data_edit() {
         match change {
             Operation::MODIFY(xpath, value) => {
                 dtree1
-                    .new_path(xpath, *value)
+                    .new_path(xpath, *value, false)
                     .expect("Failed to edit data tree");
             }
             Operation::DELETE(xpath) => {
@@ -328,7 +328,7 @@ fn data_add_implicit() {
     let xpath = "/ietf-routing:routing/control-plane-protocols/control-plane-protocol[type='ietf-isis:isis'][name='main']/ietf-isis:isis/area-address";
     let mut dtree1 = DataTree::new(&ctx);
     dtree1
-        .new_path(xpath, Some("00"))
+        .new_path(xpath, Some("00"), false)
         .expect("Failed to edit data tree");
 
     // Original data tree with implicit configuration nodes added.

@@ -384,11 +384,15 @@ impl DataTree {
     /// For key-less lists and state leaf-lists, positional predicates can be
     /// used. If no preciate is used for these nodes, they are always created.
     ///
+    /// The output parameter can be used to change the behavior to ignore
+    /// RPC/action input schema nodes and use only output ones.
+    ///
     /// Returns the last created or modified node (if any).
     pub fn new_path(
         &mut self,
         path: &str,
         value: Option<&str>,
+        output: bool,
     ) -> Result<Option<DataNodeRef>> {
         let path = CString::new(path).unwrap();
         let mut rnode_root = std::ptr::null_mut();
@@ -405,6 +409,11 @@ impl DataTree {
             None => (std::ptr::null(), 0),
         };
 
+        let mut options = ffi::LYD_NEW_PATH_UPDATE;
+        if output {
+            options |= ffi::LYD_NEW_PATH_OUTPUT;
+        }
+
         let ret = unsafe {
             ffi::lyd_new_path2(
                 self.raw(),
@@ -413,7 +422,7 @@ impl DataTree {
                 value_ptr as *const c_void,
                 value_len as u64,
                 ffi::LYD_ANYDATA_VALUETYPE::LYD_ANYDATA_STRING,
-                ffi::LYD_NEW_PATH_UPDATE,
+                options,
                 rnode_root_ptr,
                 rnode_ptr,
             )

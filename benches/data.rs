@@ -16,7 +16,7 @@ fn data_generate(ctx: &Context, interfaces: u32) -> DataTree {
 
         for (xpath, value) in &changes {
             dtree
-                .new_path(xpath, *value)
+                .new_path(xpath, *value, false)
                 .expect("Failed to edit data tree");
         }
     }

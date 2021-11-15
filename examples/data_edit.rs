@@ -63,7 +63,7 @@ fn main() -> std::io::Result<()> {
         match change {
             Operation::MODIFY(xpath, value) => {
                 dtree
-                    .new_path(xpath, *value)
+                    .new_path(xpath, *value, false)
                     .expect("Failed to edit data tree");
             }
             Operation::DELETE(xpath) => {

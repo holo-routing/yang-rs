@@ -150,11 +150,11 @@ static JSON_RDIFF: &str = r###"
     }"###;
 
 macro_rules! assert_data_eq {
-    ($dtree1:expr, $dtree2:expr) => {
-        let json1 = $dtree1
+    ($dnode1:expr, $dnode2:expr) => {
+        let json1 = $dnode1
             .print_string(DataFormat::JSON, DataPrinterFlags::WITH_SIBLINGS)
             .expect("Failed to print data");
-        let json2 = $dtree2
+        let json2 = $dnode2
             .print_string(DataFormat::JSON, DataPrinterFlags::WITH_SIBLINGS)
             .expect("Failed to print data");
 
@@ -301,12 +301,56 @@ fn data_validate() {
 }
 
 #[test]
-fn data_duplicate() {
+fn data_duplicate_tree() {
     let ctx = create_context();
     let dtree1 = parse_json_data(&ctx, JSON_TREE1);
-    let dup = dtree1.duplicate().expect("Failed to duplicate data");
+    let dup = dtree1.duplicate().expect("Failed to duplicate data tree");
 
     assert_data_eq!(&dtree1, &dup);
+}
+
+#[test]
+fn data_duplicate_subtree() {
+    let ctx = create_context();
+    let dtree1 = parse_json_data(&ctx, JSON_TREE1);
+
+    let dnode = dtree1
+        .find_path("/ietf-interfaces:interfaces/interface[name='eth/0/0']")
+        .expect("Failed to lookup data");
+
+    // Duplicate without parents.
+    let dup = dnode
+        .duplicate(false)
+        .expect("Failed to duplicate data subtree");
+    assert_eq!(
+        dup.traverse()
+            .map(|dnode| dnode.path())
+            .collect::<Vec<String>>(),
+        vec![
+            "/ietf-interfaces:interface[name='eth/0/0']",
+            "/ietf-interfaces:interface[name='eth/0/0']/name",
+            "/ietf-interfaces:interface[name='eth/0/0']/description",
+            "/ietf-interfaces:interface[name='eth/0/0']/type",
+            "/ietf-interfaces:interface[name='eth/0/0']/enabled",
+        ]
+    );
+
+    // Duplicate with parents.
+    let dup = dnode
+        .duplicate(true)
+        .expect("Failed to duplicate data subtree");
+    assert_eq!(
+        dup.traverse()
+            .map(|dnode| dnode.path())
+            .collect::<Vec<String>>(),
+        vec![
+            "/ietf-interfaces:interfaces/interface[name='eth/0/0']",
+            "/ietf-interfaces:interfaces/interface[name='eth/0/0']/name",
+            "/ietf-interfaces:interfaces/interface[name='eth/0/0']/description",
+            "/ietf-interfaces:interfaces/interface[name='eth/0/0']/type",
+            "/ietf-interfaces:interfaces/interface[name='eth/0/0']/enabled",
+        ]
+    );
 }
 
 #[test]

@@ -180,7 +180,7 @@ bitflags! {
 /// Methods common to data trees, data node references and data diffs.
 pub trait Data {
     #[doc(hidden)]
-    fn context(&self) -> &Context {
+    fn context(&self) -> &Arc<Context> {
         &self.tree().context
     }
 
@@ -728,6 +728,41 @@ impl<'a> DataNodeRef<'a> {
             }
             _ => false,
         }
+    }
+
+    /// Create a copy of the data subtree.
+    ///
+    /// When the `with_parents` parameter is set, duplicate also all the node
+    /// parents. Keys are also duplicated for lists.
+    pub fn duplicate(&self, with_parents: bool) -> Result<DataTree> {
+        let mut dup = std::ptr::null_mut();
+        let dup_ptr = &mut dup;
+
+        // Special handling for empty data trees.
+        if self.raw.is_null() {
+            return Ok(DataTree::from_raw(
+                self.context(),
+                std::ptr::null_mut(),
+            ));
+        }
+
+        let mut options = ffi::LYD_DUP_RECURSIVE | ffi::LYD_DUP_WITH_FLAGS;
+        if with_parents {
+            options |= ffi::LYD_DUP_WITH_PARENTS;
+        }
+        let ret = unsafe {
+            ffi::lyd_dup_single(
+                self.raw,
+                std::ptr::null_mut(),
+                options,
+                dup_ptr,
+            )
+        };
+        if ret != ffi::LY_ERR::LY_SUCCESS {
+            return Err(Error::new(&self.context()));
+        }
+
+        Ok(DataTree::from_raw(self.context(), dup))
     }
 
     /// Set private user data, not used by libyang.

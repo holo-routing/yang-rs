@@ -412,6 +412,7 @@ impl<'a> DataTree<'a> {
                 self.context().raw,
                 path.as_ptr(),
                 value_ptr as *const c_void,
+                0,
                 ffi::LYD_ANYDATA_VALUETYPE::LYD_ANYDATA_STRING,
                 ffi::LYD_NEW_PATH_UPDATE,
                 rnode_root_ptr,
@@ -681,7 +682,7 @@ impl<'a> DataNodeRef<'a> {
         match self.schema().kind() {
             SchemaNodeKind::Leaf | SchemaNodeKind::LeafList => {
                 let rnode = self.raw as *mut ffi::lyd_node_term;
-                let value = unsafe { (*rnode).value.canonical };
+                let value = unsafe { (*rnode).value._canonical };
                 char_ptr_to_opt_string(value)
             }
             _ => None,
@@ -793,7 +794,7 @@ impl<'a> Metadata<'a> {
 
     /// Metadata value representation.
     pub fn value(&self) -> &str {
-        char_ptr_to_str(unsafe { (*self.raw).value.canonical })
+        char_ptr_to_str(unsafe { (*self.raw).value._canonical })
     }
 
     /// Next metadata.

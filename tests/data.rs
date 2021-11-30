@@ -351,6 +351,7 @@ fn data_add_implicit() {
             .collect::<Vec<&String>>(),
         vec![
             "/ietf-interfaces:interfaces",
+            "/ietf-key-chain:key-chains",
             "/ietf-routing:routing/control-plane-protocols/control-plane-protocol[type='ietf-isis:isis'][name='main']/ietf-isis:isis/authentication",
             "/ietf-routing:routing/control-plane-protocols/control-plane-protocol[type='ietf-isis:isis'][name='main']/ietf-isis:isis/authentication/level-1",
             "/ietf-routing:routing/control-plane-protocols/control-plane-protocol[type='ietf-isis:isis'][name='main']/ietf-isis:isis/authentication/level-2",

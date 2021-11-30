@@ -87,6 +87,36 @@ where
         }
     }
 }
+#[repr(C)]
+#[derive(Default)]
+pub struct __IncompleteArrayField<T>(::std::marker::PhantomData<T>, [T; 0]);
+impl<T> __IncompleteArrayField<T> {
+    #[inline]
+    pub const fn new() -> Self {
+        __IncompleteArrayField(::std::marker::PhantomData, [])
+    }
+    #[inline]
+    pub fn as_ptr(&self) -> *const T {
+        self as *const _ as *const T
+    }
+    #[inline]
+    pub fn as_mut_ptr(&mut self) -> *mut T {
+        self as *mut _ as *mut T
+    }
+    #[inline]
+    pub unsafe fn as_slice(&self, len: usize) -> &[T] {
+        ::std::slice::from_raw_parts(self.as_ptr(), len)
+    }
+    #[inline]
+    pub unsafe fn as_mut_slice(&mut self, len: usize) -> &mut [T] {
+        ::std::slice::from_raw_parts_mut(self.as_mut_ptr(), len)
+    }
+}
+impl<T> ::std::fmt::Debug for __IncompleteArrayField<T> {
+    fn fmt(&self, fmt: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        fmt.write_str("__IncompleteArrayField")
+    }
+}
 pub const _STDINT_H: u32 = 1;
 pub const _FEATURES_H: u32 = 1;
 pub const _DEFAULT_SOURCE: u32 = 1;
@@ -175,151 +205,416 @@ pub const LY_LOSTORE: u32 = 2;
 pub const LY_LOSTORE_LAST: u32 = 6;
 pub const LY_LDGDICT: u32 = 1;
 pub const LY_LDGXPATH: u32 = 2;
-pub const LY_CTX_ALL_IMPLEMENTED: u32 = 1;
-pub const LY_CTX_REF_IMPLEMENTED: u32 = 2;
-pub const LY_CTX_NO_YANGLIBRARY: u32 = 4;
-pub const LY_CTX_DISABLE_SEARCHDIRS: u32 = 8;
-pub const LY_CTX_DISABLE_SEARCHDIR_CWD: u32 = 16;
-pub const LY_CTX_PREFER_SEARCHDIRS: u32 = 32;
-pub const _STRING_H: u32 = 1;
+pub const LY_LDGDEPSETS: u32 = 4;
+pub const _ARPA_INET_H: u32 = 1;
+pub const _NETINET_IN_H: u32 = 1;
+pub const _SYS_SOCKET_H: u32 = 1;
+pub const __iovec_defined: u32 = 1;
+pub const _SYS_TYPES_H: u32 = 1;
+pub const __clock_t_defined: u32 = 1;
+pub const __clockid_t_defined: u32 = 1;
+pub const __time_t_defined: u32 = 1;
+pub const __timer_t_defined: u32 = 1;
+pub const __BIT_TYPES_DEFINED__: u32 = 1;
+pub const _ENDIAN_H: u32 = 1;
+pub const __LITTLE_ENDIAN: u32 = 1234;
+pub const __BIG_ENDIAN: u32 = 4321;
+pub const __PDP_ENDIAN: u32 = 3412;
+pub const __BYTE_ORDER: u32 = 1234;
+pub const __FLOAT_WORD_ORDER: u32 = 1234;
+pub const LITTLE_ENDIAN: u32 = 1234;
+pub const BIG_ENDIAN: u32 = 4321;
+pub const PDP_ENDIAN: u32 = 3412;
+pub const BYTE_ORDER: u32 = 1234;
+pub const _BITS_BYTESWAP_H: u32 = 1;
+pub const _BITS_UINTN_IDENTITY_H: u32 = 1;
+pub const _SYS_SELECT_H: u32 = 1;
+pub const __FD_ZERO_STOS: &'static [u8; 6usize] = b"stosq\0";
+pub const __sigset_t_defined: u32 = 1;
+pub const __timeval_defined: u32 = 1;
+pub const _STRUCT_TIMESPEC: u32 = 1;
+pub const FD_SETSIZE: u32 = 1024;
+pub const _BITS_PTHREADTYPES_COMMON_H: u32 = 1;
+pub const _THREAD_SHARED_TYPES_H: u32 = 1;
+pub const _BITS_PTHREADTYPES_ARCH_H: u32 = 1;
+pub const __SIZEOF_PTHREAD_MUTEX_T: u32 = 40;
+pub const __SIZEOF_PTHREAD_ATTR_T: u32 = 56;
+pub const __SIZEOF_PTHREAD_RWLOCK_T: u32 = 56;
+pub const __SIZEOF_PTHREAD_BARRIER_T: u32 = 32;
+pub const __SIZEOF_PTHREAD_MUTEXATTR_T: u32 = 4;
+pub const __SIZEOF_PTHREAD_COND_T: u32 = 48;
+pub const __SIZEOF_PTHREAD_CONDATTR_T: u32 = 4;
+pub const __SIZEOF_PTHREAD_RWLOCKATTR_T: u32 = 8;
+pub const __SIZEOF_PTHREAD_BARRIERATTR_T: u32 = 4;
+pub const __PTHREAD_MUTEX_LOCK_ELISION: u32 = 1;
+pub const __PTHREAD_MUTEX_NUSERS_AFTER_KIND: u32 = 0;
+pub const __PTHREAD_MUTEX_USE_UNION: u32 = 0;
+pub const __PTHREAD_RWLOCK_INT_FLAGS_SHARED: u32 = 1;
+pub const __PTHREAD_MUTEX_HAVE_PREV: u32 = 1;
+pub const __have_pthread_attr_t: u32 = 1;
+pub const PF_UNSPEC: u32 = 0;
+pub const PF_LOCAL: u32 = 1;
+pub const PF_UNIX: u32 = 1;
+pub const PF_FILE: u32 = 1;
+pub const PF_INET: u32 = 2;
+pub const PF_AX25: u32 = 3;
+pub const PF_IPX: u32 = 4;
+pub const PF_APPLETALK: u32 = 5;
+pub const PF_NETROM: u32 = 6;
+pub const PF_BRIDGE: u32 = 7;
+pub const PF_ATMPVC: u32 = 8;
+pub const PF_X25: u32 = 9;
+pub const PF_INET6: u32 = 10;
+pub const PF_ROSE: u32 = 11;
+pub const PF_DECnet: u32 = 12;
+pub const PF_NETBEUI: u32 = 13;
+pub const PF_SECURITY: u32 = 14;
+pub const PF_KEY: u32 = 15;
+pub const PF_NETLINK: u32 = 16;
+pub const PF_ROUTE: u32 = 16;
+pub const PF_PACKET: u32 = 17;
+pub const PF_ASH: u32 = 18;
+pub const PF_ECONET: u32 = 19;
+pub const PF_ATMSVC: u32 = 20;
+pub const PF_RDS: u32 = 21;
+pub const PF_SNA: u32 = 22;
+pub const PF_IRDA: u32 = 23;
+pub const PF_PPPOX: u32 = 24;
+pub const PF_WANPIPE: u32 = 25;
+pub const PF_LLC: u32 = 26;
+pub const PF_IB: u32 = 27;
+pub const PF_MPLS: u32 = 28;
+pub const PF_CAN: u32 = 29;
+pub const PF_TIPC: u32 = 30;
+pub const PF_BLUETOOTH: u32 = 31;
+pub const PF_IUCV: u32 = 32;
+pub const PF_RXRPC: u32 = 33;
+pub const PF_ISDN: u32 = 34;
+pub const PF_PHONET: u32 = 35;
+pub const PF_IEEE802154: u32 = 36;
+pub const PF_CAIF: u32 = 37;
+pub const PF_ALG: u32 = 38;
+pub const PF_NFC: u32 = 39;
+pub const PF_VSOCK: u32 = 40;
+pub const PF_KCM: u32 = 41;
+pub const PF_QIPCRTR: u32 = 42;
+pub const PF_SMC: u32 = 43;
+pub const PF_MAX: u32 = 44;
+pub const AF_UNSPEC: u32 = 0;
+pub const AF_LOCAL: u32 = 1;
+pub const AF_UNIX: u32 = 1;
+pub const AF_FILE: u32 = 1;
+pub const AF_INET: u32 = 2;
+pub const AF_AX25: u32 = 3;
+pub const AF_IPX: u32 = 4;
+pub const AF_APPLETALK: u32 = 5;
+pub const AF_NETROM: u32 = 6;
+pub const AF_BRIDGE: u32 = 7;
+pub const AF_ATMPVC: u32 = 8;
+pub const AF_X25: u32 = 9;
+pub const AF_INET6: u32 = 10;
+pub const AF_ROSE: u32 = 11;
+pub const AF_DECnet: u32 = 12;
+pub const AF_NETBEUI: u32 = 13;
+pub const AF_SECURITY: u32 = 14;
+pub const AF_KEY: u32 = 15;
+pub const AF_NETLINK: u32 = 16;
+pub const AF_ROUTE: u32 = 16;
+pub const AF_PACKET: u32 = 17;
+pub const AF_ASH: u32 = 18;
+pub const AF_ECONET: u32 = 19;
+pub const AF_ATMSVC: u32 = 20;
+pub const AF_RDS: u32 = 21;
+pub const AF_SNA: u32 = 22;
+pub const AF_IRDA: u32 = 23;
+pub const AF_PPPOX: u32 = 24;
+pub const AF_WANPIPE: u32 = 25;
+pub const AF_LLC: u32 = 26;
+pub const AF_IB: u32 = 27;
+pub const AF_MPLS: u32 = 28;
+pub const AF_CAN: u32 = 29;
+pub const AF_TIPC: u32 = 30;
+pub const AF_BLUETOOTH: u32 = 31;
+pub const AF_IUCV: u32 = 32;
+pub const AF_RXRPC: u32 = 33;
+pub const AF_ISDN: u32 = 34;
+pub const AF_PHONET: u32 = 35;
+pub const AF_IEEE802154: u32 = 36;
+pub const AF_CAIF: u32 = 37;
+pub const AF_ALG: u32 = 38;
+pub const AF_NFC: u32 = 39;
+pub const AF_VSOCK: u32 = 40;
+pub const AF_KCM: u32 = 41;
+pub const AF_QIPCRTR: u32 = 42;
+pub const AF_SMC: u32 = 43;
+pub const AF_MAX: u32 = 44;
+pub const SOL_RAW: u32 = 255;
+pub const SOL_DECNET: u32 = 261;
+pub const SOL_X25: u32 = 262;
+pub const SOL_PACKET: u32 = 263;
+pub const SOL_ATM: u32 = 264;
+pub const SOL_AAL: u32 = 265;
+pub const SOL_IRDA: u32 = 266;
+pub const SOL_NETBEUI: u32 = 267;
+pub const SOL_LLC: u32 = 268;
+pub const SOL_DCCP: u32 = 269;
+pub const SOL_NETLINK: u32 = 270;
+pub const SOL_TIPC: u32 = 271;
+pub const SOL_RXRPC: u32 = 272;
+pub const SOL_PPPOL2TP: u32 = 273;
+pub const SOL_BLUETOOTH: u32 = 274;
+pub const SOL_PNPIPE: u32 = 275;
+pub const SOL_RDS: u32 = 276;
+pub const SOL_IUCV: u32 = 277;
+pub const SOL_CAIF: u32 = 278;
+pub const SOL_ALG: u32 = 279;
+pub const SOL_NFC: u32 = 280;
+pub const SOL_KCM: u32 = 281;
+pub const SOL_TLS: u32 = 282;
+pub const SOMAXCONN: u32 = 128;
+pub const _BITS_SOCKADDR_H: u32 = 1;
+pub const _SS_SIZE: u32 = 128;
+pub const FIOSETOWN: u32 = 35073;
+pub const SIOCSPGRP: u32 = 35074;
+pub const FIOGETOWN: u32 = 35075;
+pub const SIOCGPGRP: u32 = 35076;
+pub const SIOCATMARK: u32 = 35077;
+pub const SIOCGSTAMP: u32 = 35078;
+pub const SIOCGSTAMPNS: u32 = 35079;
+pub const SOL_SOCKET: u32 = 1;
+pub const SO_DEBUG: u32 = 1;
+pub const SO_REUSEADDR: u32 = 2;
+pub const SO_TYPE: u32 = 3;
+pub const SO_ERROR: u32 = 4;
+pub const SO_DONTROUTE: u32 = 5;
+pub const SO_BROADCAST: u32 = 6;
+pub const SO_SNDBUF: u32 = 7;
+pub const SO_RCVBUF: u32 = 8;
+pub const SO_SNDBUFFORCE: u32 = 32;
+pub const SO_RCVBUFFORCE: u32 = 33;
+pub const SO_KEEPALIVE: u32 = 9;
+pub const SO_OOBINLINE: u32 = 10;
+pub const SO_NO_CHECK: u32 = 11;
+pub const SO_PRIORITY: u32 = 12;
+pub const SO_LINGER: u32 = 13;
+pub const SO_BSDCOMPAT: u32 = 14;
+pub const SO_REUSEPORT: u32 = 15;
+pub const SO_PASSCRED: u32 = 16;
+pub const SO_PEERCRED: u32 = 17;
+pub const SO_RCVLOWAT: u32 = 18;
+pub const SO_SNDLOWAT: u32 = 19;
+pub const SO_RCVTIMEO: u32 = 20;
+pub const SO_SNDTIMEO: u32 = 21;
+pub const SO_SECURITY_AUTHENTICATION: u32 = 22;
+pub const SO_SECURITY_ENCRYPTION_TRANSPORT: u32 = 23;
+pub const SO_SECURITY_ENCRYPTION_NETWORK: u32 = 24;
+pub const SO_BINDTODEVICE: u32 = 25;
+pub const SO_ATTACH_FILTER: u32 = 26;
+pub const SO_DETACH_FILTER: u32 = 27;
+pub const SO_GET_FILTER: u32 = 26;
+pub const SO_PEERNAME: u32 = 28;
+pub const SO_TIMESTAMP: u32 = 29;
+pub const SCM_TIMESTAMP: u32 = 29;
+pub const SO_ACCEPTCONN: u32 = 30;
+pub const SO_PEERSEC: u32 = 31;
+pub const SO_PASSSEC: u32 = 34;
+pub const SO_TIMESTAMPNS: u32 = 35;
+pub const SCM_TIMESTAMPNS: u32 = 35;
+pub const SO_MARK: u32 = 36;
+pub const SO_TIMESTAMPING: u32 = 37;
+pub const SCM_TIMESTAMPING: u32 = 37;
+pub const SO_PROTOCOL: u32 = 38;
+pub const SO_DOMAIN: u32 = 39;
+pub const SO_RXQ_OVFL: u32 = 40;
+pub const SO_WIFI_STATUS: u32 = 41;
+pub const SCM_WIFI_STATUS: u32 = 41;
+pub const SO_PEEK_OFF: u32 = 42;
+pub const SO_NOFCS: u32 = 43;
+pub const SO_LOCK_FILTER: u32 = 44;
+pub const SO_SELECT_ERR_QUEUE: u32 = 45;
+pub const SO_BUSY_POLL: u32 = 46;
+pub const SO_MAX_PACING_RATE: u32 = 47;
+pub const SO_BPF_EXTENSIONS: u32 = 48;
+pub const SO_INCOMING_CPU: u32 = 49;
+pub const SO_ATTACH_BPF: u32 = 50;
+pub const SO_DETACH_BPF: u32 = 27;
+pub const SO_ATTACH_REUSEPORT_CBPF: u32 = 51;
+pub const SO_ATTACH_REUSEPORT_EBPF: u32 = 52;
+pub const SO_CNX_ADVICE: u32 = 53;
+pub const SCM_TIMESTAMPING_OPT_STATS: u32 = 54;
+pub const SO_MEMINFO: u32 = 55;
+pub const SO_INCOMING_NAPI_ID: u32 = 56;
+pub const SO_COOKIE: u32 = 57;
+pub const SCM_TIMESTAMPING_PKTINFO: u32 = 58;
+pub const SO_PEERGROUPS: u32 = 59;
+pub const SO_ZEROCOPY: u32 = 60;
+pub const SO_TXTIME: u32 = 61;
+pub const SCM_TXTIME: u32 = 61;
+pub const __osockaddr_defined: u32 = 1;
+pub const __USE_KERNEL_IPV6_DEFS: u32 = 0;
+pub const IP_OPTIONS: u32 = 4;
+pub const IP_HDRINCL: u32 = 3;
+pub const IP_TOS: u32 = 1;
+pub const IP_TTL: u32 = 2;
+pub const IP_RECVOPTS: u32 = 6;
+pub const IP_RETOPTS: u32 = 7;
+pub const IP_MULTICAST_IF: u32 = 32;
+pub const IP_MULTICAST_TTL: u32 = 33;
+pub const IP_MULTICAST_LOOP: u32 = 34;
+pub const IP_ADD_MEMBERSHIP: u32 = 35;
+pub const IP_DROP_MEMBERSHIP: u32 = 36;
+pub const IP_UNBLOCK_SOURCE: u32 = 37;
+pub const IP_BLOCK_SOURCE: u32 = 38;
+pub const IP_ADD_SOURCE_MEMBERSHIP: u32 = 39;
+pub const IP_DROP_SOURCE_MEMBERSHIP: u32 = 40;
+pub const IP_MSFILTER: u32 = 41;
+pub const MCAST_JOIN_GROUP: u32 = 42;
+pub const MCAST_BLOCK_SOURCE: u32 = 43;
+pub const MCAST_UNBLOCK_SOURCE: u32 = 44;
+pub const MCAST_LEAVE_GROUP: u32 = 45;
+pub const MCAST_JOIN_SOURCE_GROUP: u32 = 46;
+pub const MCAST_LEAVE_SOURCE_GROUP: u32 = 47;
+pub const MCAST_MSFILTER: u32 = 48;
+pub const IP_MULTICAST_ALL: u32 = 49;
+pub const IP_UNICAST_IF: u32 = 50;
+pub const MCAST_EXCLUDE: u32 = 0;
+pub const MCAST_INCLUDE: u32 = 1;
+pub const IP_ROUTER_ALERT: u32 = 5;
+pub const IP_PKTINFO: u32 = 8;
+pub const IP_PKTOPTIONS: u32 = 9;
+pub const IP_PMTUDISC: u32 = 10;
+pub const IP_MTU_DISCOVER: u32 = 10;
+pub const IP_RECVERR: u32 = 11;
+pub const IP_RECVTTL: u32 = 12;
+pub const IP_RECVTOS: u32 = 13;
+pub const IP_MTU: u32 = 14;
+pub const IP_FREEBIND: u32 = 15;
+pub const IP_IPSEC_POLICY: u32 = 16;
+pub const IP_XFRM_POLICY: u32 = 17;
+pub const IP_PASSSEC: u32 = 18;
+pub const IP_TRANSPARENT: u32 = 19;
+pub const IP_ORIGDSTADDR: u32 = 20;
+pub const IP_RECVORIGDSTADDR: u32 = 20;
+pub const IP_MINTTL: u32 = 21;
+pub const IP_NODEFRAG: u32 = 22;
+pub const IP_CHECKSUM: u32 = 23;
+pub const IP_BIND_ADDRESS_NO_PORT: u32 = 24;
+pub const IP_RECVFRAGSIZE: u32 = 25;
+pub const IP_PMTUDISC_DONT: u32 = 0;
+pub const IP_PMTUDISC_WANT: u32 = 1;
+pub const IP_PMTUDISC_DO: u32 = 2;
+pub const IP_PMTUDISC_PROBE: u32 = 3;
+pub const IP_PMTUDISC_INTERFACE: u32 = 4;
+pub const IP_PMTUDISC_OMIT: u32 = 5;
+pub const SOL_IP: u32 = 0;
+pub const IP_DEFAULT_MULTICAST_TTL: u32 = 1;
+pub const IP_DEFAULT_MULTICAST_LOOP: u32 = 1;
+pub const IP_MAX_MEMBERSHIPS: u32 = 20;
+pub const IPV6_ADDRFORM: u32 = 1;
+pub const IPV6_2292PKTINFO: u32 = 2;
+pub const IPV6_2292HOPOPTS: u32 = 3;
+pub const IPV6_2292DSTOPTS: u32 = 4;
+pub const IPV6_2292RTHDR: u32 = 5;
+pub const IPV6_2292PKTOPTIONS: u32 = 6;
+pub const IPV6_CHECKSUM: u32 = 7;
+pub const IPV6_2292HOPLIMIT: u32 = 8;
+pub const IPV6_NEXTHOP: u32 = 9;
+pub const IPV6_AUTHHDR: u32 = 10;
+pub const IPV6_UNICAST_HOPS: u32 = 16;
+pub const IPV6_MULTICAST_IF: u32 = 17;
+pub const IPV6_MULTICAST_HOPS: u32 = 18;
+pub const IPV6_MULTICAST_LOOP: u32 = 19;
+pub const IPV6_JOIN_GROUP: u32 = 20;
+pub const IPV6_LEAVE_GROUP: u32 = 21;
+pub const IPV6_ROUTER_ALERT: u32 = 22;
+pub const IPV6_MTU_DISCOVER: u32 = 23;
+pub const IPV6_MTU: u32 = 24;
+pub const IPV6_RECVERR: u32 = 25;
+pub const IPV6_V6ONLY: u32 = 26;
+pub const IPV6_JOIN_ANYCAST: u32 = 27;
+pub const IPV6_LEAVE_ANYCAST: u32 = 28;
+pub const IPV6_IPSEC_POLICY: u32 = 34;
+pub const IPV6_XFRM_POLICY: u32 = 35;
+pub const IPV6_HDRINCL: u32 = 36;
+pub const IPV6_RECVPKTINFO: u32 = 49;
+pub const IPV6_PKTINFO: u32 = 50;
+pub const IPV6_RECVHOPLIMIT: u32 = 51;
+pub const IPV6_HOPLIMIT: u32 = 52;
+pub const IPV6_RECVHOPOPTS: u32 = 53;
+pub const IPV6_HOPOPTS: u32 = 54;
+pub const IPV6_RTHDRDSTOPTS: u32 = 55;
+pub const IPV6_RECVRTHDR: u32 = 56;
+pub const IPV6_RTHDR: u32 = 57;
+pub const IPV6_RECVDSTOPTS: u32 = 58;
+pub const IPV6_DSTOPTS: u32 = 59;
+pub const IPV6_RECVPATHMTU: u32 = 60;
+pub const IPV6_PATHMTU: u32 = 61;
+pub const IPV6_DONTFRAG: u32 = 62;
+pub const IPV6_RECVTCLASS: u32 = 66;
+pub const IPV6_TCLASS: u32 = 67;
+pub const IPV6_AUTOFLOWLABEL: u32 = 70;
+pub const IPV6_ADDR_PREFERENCES: u32 = 72;
+pub const IPV6_MINHOPCOUNT: u32 = 73;
+pub const IPV6_ORIGDSTADDR: u32 = 74;
+pub const IPV6_RECVORIGDSTADDR: u32 = 74;
+pub const IPV6_TRANSPARENT: u32 = 75;
+pub const IPV6_UNICAST_IF: u32 = 76;
+pub const IPV6_RECVFRAGSIZE: u32 = 77;
+pub const IPV6_FREEBIND: u32 = 78;
+pub const IPV6_ADD_MEMBERSHIP: u32 = 20;
+pub const IPV6_DROP_MEMBERSHIP: u32 = 21;
+pub const IPV6_RXHOPOPTS: u32 = 54;
+pub const IPV6_RXDSTOPTS: u32 = 59;
+pub const IPV6_PMTUDISC_DONT: u32 = 0;
+pub const IPV6_PMTUDISC_WANT: u32 = 1;
+pub const IPV6_PMTUDISC_DO: u32 = 2;
+pub const IPV6_PMTUDISC_PROBE: u32 = 3;
+pub const IPV6_PMTUDISC_INTERFACE: u32 = 4;
+pub const IPV6_PMTUDISC_OMIT: u32 = 5;
+pub const SOL_IPV6: u32 = 41;
+pub const SOL_ICMPV6: u32 = 58;
+pub const IPV6_RTHDR_LOOSE: u32 = 0;
+pub const IPV6_RTHDR_STRICT: u32 = 1;
+pub const IPV6_RTHDR_TYPE_0: u32 = 0;
+pub const IN_CLASSA_NET: u32 = 4278190080;
+pub const IN_CLASSA_NSHIFT: u32 = 24;
+pub const IN_CLASSA_HOST: u32 = 16777215;
+pub const IN_CLASSA_MAX: u32 = 128;
+pub const IN_CLASSB_NET: u32 = 4294901760;
+pub const IN_CLASSB_NSHIFT: u32 = 16;
+pub const IN_CLASSB_HOST: u32 = 65535;
+pub const IN_CLASSB_MAX: u32 = 65536;
+pub const IN_CLASSC_NET: u32 = 4294967040;
+pub const IN_CLASSC_NSHIFT: u32 = 8;
+pub const IN_CLASSC_HOST: u32 = 255;
+pub const IN_LOOPBACKNET: u32 = 127;
+pub const INET_ADDRSTRLEN: u32 = 16;
+pub const INET6_ADDRSTRLEN: u32 = 46;
+pub const _TIME_H: u32 = 1;
+pub const _BITS_TIME_H: u32 = 1;
+pub const CLOCK_REALTIME: u32 = 0;
+pub const CLOCK_MONOTONIC: u32 = 1;
+pub const CLOCK_PROCESS_CPUTIME_ID: u32 = 2;
+pub const CLOCK_THREAD_CPUTIME_ID: u32 = 3;
+pub const CLOCK_MONOTONIC_RAW: u32 = 4;
+pub const CLOCK_REALTIME_COARSE: u32 = 5;
+pub const CLOCK_MONOTONIC_COARSE: u32 = 6;
+pub const CLOCK_BOOTTIME: u32 = 7;
+pub const CLOCK_REALTIME_ALARM: u32 = 8;
+pub const CLOCK_BOOTTIME_ALARM: u32 = 9;
+pub const CLOCK_TAI: u32 = 11;
+pub const TIMER_ABSTIME: u32 = 1;
+pub const __struct_tm_defined: u32 = 1;
+pub const __itimerspec_defined: u32 = 1;
 pub const _BITS_TYPES_LOCALE_T_H: u32 = 1;
 pub const _BITS_TYPES___LOCALE_T_H: u32 = 1;
-pub const _STRINGS_H: u32 = 1;
-pub const _STDIO_H: u32 = 1;
-pub const __GNUC_VA_LIST: u32 = 1;
-pub const _____fpos_t_defined: u32 = 1;
-pub const ____mbstate_t_defined: u32 = 1;
-pub const _____fpos64_t_defined: u32 = 1;
-pub const ____FILE_defined: u32 = 1;
-pub const __FILE_defined: u32 = 1;
-pub const __struct_FILE_defined: u32 = 1;
-pub const _IO_EOF_SEEN: u32 = 16;
-pub const _IO_ERR_SEEN: u32 = 32;
-pub const _IO_USER_LOCK: u32 = 32768;
-pub const _IOFBF: u32 = 0;
-pub const _IOLBF: u32 = 1;
-pub const _IONBF: u32 = 2;
-pub const BUFSIZ: u32 = 8192;
-pub const EOF: i32 = -1;
-pub const SEEK_SET: u32 = 0;
-pub const SEEK_CUR: u32 = 1;
-pub const SEEK_END: u32 = 2;
-pub const P_tmpdir: &'static [u8; 5usize] = b"/tmp\0";
-pub const _BITS_STDIO_LIM_H: u32 = 1;
-pub const L_tmpnam: u32 = 20;
-pub const TMP_MAX: u32 = 238328;
-pub const FILENAME_MAX: u32 = 4096;
-pub const L_ctermid: u32 = 9;
-pub const FOPEN_MAX: u32 = 16;
-pub const _UNISTD_H: u32 = 1;
-pub const _POSIX_VERSION: u32 = 200809;
-pub const __POSIX2_THIS_VERSION: u32 = 200809;
-pub const _POSIX2_VERSION: u32 = 200809;
-pub const _POSIX2_C_VERSION: u32 = 200809;
-pub const _POSIX2_C_BIND: u32 = 200809;
-pub const _POSIX2_C_DEV: u32 = 200809;
-pub const _POSIX2_SW_DEV: u32 = 200809;
-pub const _POSIX2_LOCALEDEF: u32 = 200809;
-pub const _XOPEN_VERSION: u32 = 700;
-pub const _XOPEN_XCU_VERSION: u32 = 4;
-pub const _XOPEN_XPG2: u32 = 1;
-pub const _XOPEN_XPG3: u32 = 1;
-pub const _XOPEN_XPG4: u32 = 1;
-pub const _XOPEN_UNIX: u32 = 1;
-pub const _XOPEN_ENH_I18N: u32 = 1;
-pub const _XOPEN_LEGACY: u32 = 1;
-pub const _BITS_POSIX_OPT_H: u32 = 1;
-pub const _POSIX_JOB_CONTROL: u32 = 1;
-pub const _POSIX_SAVED_IDS: u32 = 1;
-pub const _POSIX_PRIORITY_SCHEDULING: u32 = 200809;
-pub const _POSIX_SYNCHRONIZED_IO: u32 = 200809;
-pub const _POSIX_FSYNC: u32 = 200809;
-pub const _POSIX_MAPPED_FILES: u32 = 200809;
-pub const _POSIX_MEMLOCK: u32 = 200809;
-pub const _POSIX_MEMLOCK_RANGE: u32 = 200809;
-pub const _POSIX_MEMORY_PROTECTION: u32 = 200809;
-pub const _POSIX_CHOWN_RESTRICTED: u32 = 0;
-pub const _POSIX_VDISABLE: u8 = 0u8;
-pub const _POSIX_NO_TRUNC: u32 = 1;
-pub const _XOPEN_REALTIME: u32 = 1;
-pub const _XOPEN_REALTIME_THREADS: u32 = 1;
-pub const _XOPEN_SHM: u32 = 1;
-pub const _POSIX_THREADS: u32 = 200809;
-pub const _POSIX_REENTRANT_FUNCTIONS: u32 = 1;
-pub const _POSIX_THREAD_SAFE_FUNCTIONS: u32 = 200809;
-pub const _POSIX_THREAD_PRIORITY_SCHEDULING: u32 = 200809;
-pub const _POSIX_THREAD_ATTR_STACKSIZE: u32 = 200809;
-pub const _POSIX_THREAD_ATTR_STACKADDR: u32 = 200809;
-pub const _POSIX_THREAD_PRIO_INHERIT: u32 = 200809;
-pub const _POSIX_THREAD_PRIO_PROTECT: u32 = 200809;
-pub const _POSIX_THREAD_ROBUST_PRIO_INHERIT: u32 = 200809;
-pub const _POSIX_THREAD_ROBUST_PRIO_PROTECT: i32 = -1;
-pub const _POSIX_SEMAPHORES: u32 = 200809;
-pub const _POSIX_REALTIME_SIGNALS: u32 = 200809;
-pub const _POSIX_ASYNCHRONOUS_IO: u32 = 200809;
-pub const _POSIX_ASYNC_IO: u32 = 1;
-pub const _LFS_ASYNCHRONOUS_IO: u32 = 1;
-pub const _POSIX_PRIORITIZED_IO: u32 = 200809;
-pub const _LFS64_ASYNCHRONOUS_IO: u32 = 1;
-pub const _LFS_LARGEFILE: u32 = 1;
-pub const _LFS64_LARGEFILE: u32 = 1;
-pub const _LFS64_STDIO: u32 = 1;
-pub const _POSIX_SHARED_MEMORY_OBJECTS: u32 = 200809;
-pub const _POSIX_CPUTIME: u32 = 0;
-pub const _POSIX_THREAD_CPUTIME: u32 = 0;
-pub const _POSIX_REGEXP: u32 = 1;
-pub const _POSIX_READER_WRITER_LOCKS: u32 = 200809;
-pub const _POSIX_SHELL: u32 = 1;
-pub const _POSIX_TIMEOUTS: u32 = 200809;
-pub const _POSIX_SPIN_LOCKS: u32 = 200809;
-pub const _POSIX_SPAWN: u32 = 200809;
-pub const _POSIX_TIMERS: u32 = 200809;
-pub const _POSIX_BARRIERS: u32 = 200809;
-pub const _POSIX_MESSAGE_PASSING: u32 = 200809;
-pub const _POSIX_THREAD_PROCESS_SHARED: u32 = 200809;
-pub const _POSIX_MONOTONIC_CLOCK: u32 = 0;
-pub const _POSIX_CLOCK_SELECTION: u32 = 200809;
-pub const _POSIX_ADVISORY_INFO: u32 = 200809;
-pub const _POSIX_IPV6: u32 = 200809;
-pub const _POSIX_RAW_SOCKETS: u32 = 200809;
-pub const _POSIX2_CHAR_TERM: u32 = 200809;
-pub const _POSIX_SPORADIC_SERVER: i32 = -1;
-pub const _POSIX_THREAD_SPORADIC_SERVER: i32 = -1;
-pub const _POSIX_TRACE: i32 = -1;
-pub const _POSIX_TRACE_EVENT_FILTER: i32 = -1;
-pub const _POSIX_TRACE_INHERIT: i32 = -1;
-pub const _POSIX_TRACE_LOG: i32 = -1;
-pub const _POSIX_TYPED_MEMORY_OBJECTS: i32 = -1;
-pub const _POSIX_V7_LPBIG_OFFBIG: i32 = -1;
-pub const _POSIX_V6_LPBIG_OFFBIG: i32 = -1;
-pub const _XBS5_LPBIG_OFFBIG: i32 = -1;
-pub const _POSIX_V7_LP64_OFF64: u32 = 1;
-pub const _POSIX_V6_LP64_OFF64: u32 = 1;
-pub const _XBS5_LP64_OFF64: u32 = 1;
-pub const __ILP32_OFF32_CFLAGS: &'static [u8; 5usize] = b"-m32\0";
-pub const __ILP32_OFF32_LDFLAGS: &'static [u8; 5usize] = b"-m32\0";
-pub const __ILP32_OFFBIG_CFLAGS: &'static [u8; 48usize] =
-    b"-m32 -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64\0";
-pub const __ILP32_OFFBIG_LDFLAGS: &'static [u8; 5usize] = b"-m32\0";
-pub const __LP64_OFF64_CFLAGS: &'static [u8; 5usize] = b"-m64\0";
-pub const __LP64_OFF64_LDFLAGS: &'static [u8; 5usize] = b"-m64\0";
-pub const STDIN_FILENO: u32 = 0;
-pub const STDOUT_FILENO: u32 = 1;
-pub const STDERR_FILENO: u32 = 2;
-pub const R_OK: u32 = 4;
-pub const W_OK: u32 = 2;
-pub const X_OK: u32 = 1;
-pub const F_OK: u32 = 0;
-pub const L_SET: u32 = 0;
-pub const L_INCR: u32 = 1;
-pub const L_XTND: u32 = 2;
-pub const _GETOPT_POSIX_H: u32 = 1;
-pub const _GETOPT_CORE_H: u32 = 1;
-pub const F_ULOCK: u32 = 0;
-pub const F_LOCK: u32 = 1;
-pub const F_TLOCK: u32 = 2;
-pub const F_TEST: u32 = 3;
-pub const LY_PRINT_SHRINK: u32 = 2;
+pub const TIME_UTC: u32 = 1;
+pub const LYD_VALUE_FIXED_MEM_SIZE: u32 = 24;
+pub const LYPLG_SUFFIX: &'static [u8; 4usize] = b".so\0";
+pub const LYPLG_TYPE_DIR: &'static [u8; 34usize] =
+    b"/usr/local/lib/libyang/extensions\0";
+pub const LYPLG_EXT_DIR: &'static [u8; 29usize] =
+    b"/usr/local/lib/libyang/types\0";
 pub const _INTTYPES_H: u32 = 1;
 pub const ____gwchar_t_defined: u32 = 1;
 pub const __PRI64_PREFIX: &'static [u8; 2usize] = b"l\0";
@@ -598,48 +893,6 @@ pub const __lldiv_t_defined: u32 = 1;
 pub const RAND_MAX: u32 = 2147483647;
 pub const EXIT_FAILURE: u32 = 1;
 pub const EXIT_SUCCESS: u32 = 0;
-pub const _SYS_TYPES_H: u32 = 1;
-pub const __clock_t_defined: u32 = 1;
-pub const __clockid_t_defined: u32 = 1;
-pub const __time_t_defined: u32 = 1;
-pub const __timer_t_defined: u32 = 1;
-pub const __BIT_TYPES_DEFINED__: u32 = 1;
-pub const _ENDIAN_H: u32 = 1;
-pub const __LITTLE_ENDIAN: u32 = 1234;
-pub const __BIG_ENDIAN: u32 = 4321;
-pub const __PDP_ENDIAN: u32 = 3412;
-pub const __BYTE_ORDER: u32 = 1234;
-pub const __FLOAT_WORD_ORDER: u32 = 1234;
-pub const LITTLE_ENDIAN: u32 = 1234;
-pub const BIG_ENDIAN: u32 = 4321;
-pub const PDP_ENDIAN: u32 = 3412;
-pub const BYTE_ORDER: u32 = 1234;
-pub const _BITS_BYTESWAP_H: u32 = 1;
-pub const _BITS_UINTN_IDENTITY_H: u32 = 1;
-pub const _SYS_SELECT_H: u32 = 1;
-pub const __FD_ZERO_STOS: &'static [u8; 6usize] = b"stosq\0";
-pub const __sigset_t_defined: u32 = 1;
-pub const __timeval_defined: u32 = 1;
-pub const _STRUCT_TIMESPEC: u32 = 1;
-pub const FD_SETSIZE: u32 = 1024;
-pub const _BITS_PTHREADTYPES_COMMON_H: u32 = 1;
-pub const _THREAD_SHARED_TYPES_H: u32 = 1;
-pub const _BITS_PTHREADTYPES_ARCH_H: u32 = 1;
-pub const __SIZEOF_PTHREAD_MUTEX_T: u32 = 40;
-pub const __SIZEOF_PTHREAD_ATTR_T: u32 = 56;
-pub const __SIZEOF_PTHREAD_RWLOCK_T: u32 = 56;
-pub const __SIZEOF_PTHREAD_BARRIER_T: u32 = 32;
-pub const __SIZEOF_PTHREAD_MUTEXATTR_T: u32 = 4;
-pub const __SIZEOF_PTHREAD_COND_T: u32 = 48;
-pub const __SIZEOF_PTHREAD_CONDATTR_T: u32 = 4;
-pub const __SIZEOF_PTHREAD_RWLOCKATTR_T: u32 = 8;
-pub const __SIZEOF_PTHREAD_BARRIERATTR_T: u32 = 4;
-pub const __PTHREAD_MUTEX_LOCK_ELISION: u32 = 1;
-pub const __PTHREAD_MUTEX_NUSERS_AFTER_KIND: u32 = 0;
-pub const __PTHREAD_MUTEX_USE_UNION: u32 = 0;
-pub const __PTHREAD_RWLOCK_INT_FLAGS_SHARED: u32 = 1;
-pub const __PTHREAD_MUTEX_HAVE_PREV: u32 = 1;
-pub const __have_pthread_attr_t: u32 = 1;
 pub const _ALLOCA_H: u32 = 1;
 pub const PCRE2_ANCHORED: u32 = 2147483648;
 pub const PCRE2_NO_UTF_CHECK: u32 = 1073741824;
@@ -914,6 +1167,32 @@ pub const PCRE2_SIZE_MAX: i32 = -1;
 pub const PCRE2_CALLOUT_STARTMATCH: u32 = 1;
 pub const PCRE2_CALLOUT_BACKTRACK: u32 = 2;
 pub const PCRE2_LOCAL_WIDTH: u32 = 8;
+pub const _STDIO_H: u32 = 1;
+pub const __GNUC_VA_LIST: u32 = 1;
+pub const _____fpos_t_defined: u32 = 1;
+pub const ____mbstate_t_defined: u32 = 1;
+pub const _____fpos64_t_defined: u32 = 1;
+pub const ____FILE_defined: u32 = 1;
+pub const __FILE_defined: u32 = 1;
+pub const __struct_FILE_defined: u32 = 1;
+pub const _IO_EOF_SEEN: u32 = 16;
+pub const _IO_ERR_SEEN: u32 = 32;
+pub const _IO_USER_LOCK: u32 = 32768;
+pub const _IOFBF: u32 = 0;
+pub const _IOLBF: u32 = 1;
+pub const _IONBF: u32 = 2;
+pub const BUFSIZ: u32 = 8192;
+pub const EOF: i32 = -1;
+pub const SEEK_SET: u32 = 0;
+pub const SEEK_CUR: u32 = 1;
+pub const SEEK_END: u32 = 2;
+pub const P_tmpdir: &'static [u8; 5usize] = b"/tmp\0";
+pub const _BITS_STDIO_LIM_H: u32 = 1;
+pub const L_tmpnam: u32 = 20;
+pub const TMP_MAX: u32 = 238328;
+pub const FILENAME_MAX: u32 = 4096;
+pub const L_ctermid: u32 = 9;
+pub const FOPEN_MAX: u32 = 16;
 pub const LY_REV_SIZE: u32 = 11;
 pub const LYS_UNKNOWN: u32 = 0;
 pub const LYS_CONTAINER: u32 = 1;
@@ -954,6 +1233,7 @@ pub const LYS_PRESENCE: u32 = 128;
 pub const LYS_UNIQUE: u32 = 128;
 pub const LYS_KEY: u32 = 256;
 pub const LYS_KEYLESS: u32 = 512;
+pub const LYS_DISABLED: u32 = 256;
 pub const LYS_FENABLED: u32 = 32;
 pub const LYS_ORDBY_SYSTEM: u32 = 128;
 pub const LYS_ORDBY_USER: u32 = 64;
@@ -995,6 +1275,10 @@ pub const LYS_IFF_F: u32 = 3;
 pub const LYS_NODE_HASH_COUNT: u32 = 4;
 pub const LYS_FIND_XP_SCHEMA: u32 = 8;
 pub const LYS_FIND_XP_OUTPUT: u32 = 16;
+pub const LYS_FIND_NO_MATCH_ERROR: u32 = 64;
+pub const LYS_MOD_LATEST_REV: u32 = 1;
+pub const LYS_MOD_LATEST_SEARCHDIRS: u32 = 2;
+pub const LYS_MOD_IMPORTED_REV: u32 = 4;
 pub const LYS_GETNEXT_WITHCHOICE: u32 = 1;
 pub const LYS_GETNEXT_NOCHOICE: u32 = 2;
 pub const LYS_GETNEXT_WITHCASE: u32 = 4;
@@ -1021,6 +1305,8 @@ pub const LYD_HINT_SCHEMA: u32 = 511;
 pub const LYD_NEW_PATH_UPDATE: u32 = 1;
 pub const LYD_NEW_PATH_OUTPUT: u32 = 2;
 pub const LYD_NEW_PATH_OPAQ: u32 = 4;
+pub const LYD_NEW_PATH_BIN_VALUE: u32 = 8;
+pub const LYD_NEW_PATH_CANON_VALUE: u32 = 16;
 pub const LYD_IMPLICIT_NO_STATE: u32 = 1;
 pub const LYD_IMPLICIT_NO_CONFIG: u32 = 2;
 pub const LYD_IMPLICIT_OUTPUT: u32 = 4;
@@ -1033,13 +1319,135 @@ pub const LYD_DUP_WITH_PARENTS: u32 = 4;
 pub const LYD_DUP_WITH_FLAGS: u32 = 8;
 pub const LYD_MERGE_DESTRUCT: u32 = 1;
 pub const LYD_MERGE_DEFAULTS: u32 = 2;
+pub const LYD_MERGE_WITH_FLAGS: u32 = 4;
 pub const LYD_DIFF_DEFAULTS: u32 = 1;
 pub const LYD_DIFF_MERGE_DEFAULTS: u32 = 1;
+pub const LY_CTX_ALL_IMPLEMENTED: u32 = 1;
+pub const LY_CTX_REF_IMPLEMENTED: u32 = 2;
+pub const LY_CTX_NO_YANGLIBRARY: u32 = 4;
+pub const LY_CTX_DISABLE_SEARCHDIRS: u32 = 8;
+pub const LY_CTX_DISABLE_SEARCHDIR_CWD: u32 = 16;
+pub const LY_CTX_PREFER_SEARCHDIRS: u32 = 32;
+pub const LY_CTX_SET_PRIV_PARSED: u32 = 64;
+pub const LY_CTX_EXPLICIT_COMPILE: u32 = 128;
+pub const LY_CTX_ENABLE_IMP_FEATURES: u32 = 256;
+pub const _STRING_H: u32 = 1;
+pub const _STRINGS_H: u32 = 1;
+pub const _UNISTD_H: u32 = 1;
+pub const _POSIX_VERSION: u32 = 200809;
+pub const __POSIX2_THIS_VERSION: u32 = 200809;
+pub const _POSIX2_VERSION: u32 = 200809;
+pub const _POSIX2_C_VERSION: u32 = 200809;
+pub const _POSIX2_C_BIND: u32 = 200809;
+pub const _POSIX2_C_DEV: u32 = 200809;
+pub const _POSIX2_SW_DEV: u32 = 200809;
+pub const _POSIX2_LOCALEDEF: u32 = 200809;
+pub const _XOPEN_VERSION: u32 = 700;
+pub const _XOPEN_XCU_VERSION: u32 = 4;
+pub const _XOPEN_XPG2: u32 = 1;
+pub const _XOPEN_XPG3: u32 = 1;
+pub const _XOPEN_XPG4: u32 = 1;
+pub const _XOPEN_UNIX: u32 = 1;
+pub const _XOPEN_ENH_I18N: u32 = 1;
+pub const _XOPEN_LEGACY: u32 = 1;
+pub const _BITS_POSIX_OPT_H: u32 = 1;
+pub const _POSIX_JOB_CONTROL: u32 = 1;
+pub const _POSIX_SAVED_IDS: u32 = 1;
+pub const _POSIX_PRIORITY_SCHEDULING: u32 = 200809;
+pub const _POSIX_SYNCHRONIZED_IO: u32 = 200809;
+pub const _POSIX_FSYNC: u32 = 200809;
+pub const _POSIX_MAPPED_FILES: u32 = 200809;
+pub const _POSIX_MEMLOCK: u32 = 200809;
+pub const _POSIX_MEMLOCK_RANGE: u32 = 200809;
+pub const _POSIX_MEMORY_PROTECTION: u32 = 200809;
+pub const _POSIX_CHOWN_RESTRICTED: u32 = 0;
+pub const _POSIX_VDISABLE: u8 = 0u8;
+pub const _POSIX_NO_TRUNC: u32 = 1;
+pub const _XOPEN_REALTIME: u32 = 1;
+pub const _XOPEN_REALTIME_THREADS: u32 = 1;
+pub const _XOPEN_SHM: u32 = 1;
+pub const _POSIX_THREADS: u32 = 200809;
+pub const _POSIX_REENTRANT_FUNCTIONS: u32 = 1;
+pub const _POSIX_THREAD_SAFE_FUNCTIONS: u32 = 200809;
+pub const _POSIX_THREAD_PRIORITY_SCHEDULING: u32 = 200809;
+pub const _POSIX_THREAD_ATTR_STACKSIZE: u32 = 200809;
+pub const _POSIX_THREAD_ATTR_STACKADDR: u32 = 200809;
+pub const _POSIX_THREAD_PRIO_INHERIT: u32 = 200809;
+pub const _POSIX_THREAD_PRIO_PROTECT: u32 = 200809;
+pub const _POSIX_THREAD_ROBUST_PRIO_INHERIT: u32 = 200809;
+pub const _POSIX_THREAD_ROBUST_PRIO_PROTECT: i32 = -1;
+pub const _POSIX_SEMAPHORES: u32 = 200809;
+pub const _POSIX_REALTIME_SIGNALS: u32 = 200809;
+pub const _POSIX_ASYNCHRONOUS_IO: u32 = 200809;
+pub const _POSIX_ASYNC_IO: u32 = 1;
+pub const _LFS_ASYNCHRONOUS_IO: u32 = 1;
+pub const _POSIX_PRIORITIZED_IO: u32 = 200809;
+pub const _LFS64_ASYNCHRONOUS_IO: u32 = 1;
+pub const _LFS_LARGEFILE: u32 = 1;
+pub const _LFS64_LARGEFILE: u32 = 1;
+pub const _LFS64_STDIO: u32 = 1;
+pub const _POSIX_SHARED_MEMORY_OBJECTS: u32 = 200809;
+pub const _POSIX_CPUTIME: u32 = 0;
+pub const _POSIX_THREAD_CPUTIME: u32 = 0;
+pub const _POSIX_REGEXP: u32 = 1;
+pub const _POSIX_READER_WRITER_LOCKS: u32 = 200809;
+pub const _POSIX_SHELL: u32 = 1;
+pub const _POSIX_TIMEOUTS: u32 = 200809;
+pub const _POSIX_SPIN_LOCKS: u32 = 200809;
+pub const _POSIX_SPAWN: u32 = 200809;
+pub const _POSIX_TIMERS: u32 = 200809;
+pub const _POSIX_BARRIERS: u32 = 200809;
+pub const _POSIX_MESSAGE_PASSING: u32 = 200809;
+pub const _POSIX_THREAD_PROCESS_SHARED: u32 = 200809;
+pub const _POSIX_MONOTONIC_CLOCK: u32 = 0;
+pub const _POSIX_CLOCK_SELECTION: u32 = 200809;
+pub const _POSIX_ADVISORY_INFO: u32 = 200809;
+pub const _POSIX_IPV6: u32 = 200809;
+pub const _POSIX_RAW_SOCKETS: u32 = 200809;
+pub const _POSIX2_CHAR_TERM: u32 = 200809;
+pub const _POSIX_SPORADIC_SERVER: i32 = -1;
+pub const _POSIX_THREAD_SPORADIC_SERVER: i32 = -1;
+pub const _POSIX_TRACE: i32 = -1;
+pub const _POSIX_TRACE_EVENT_FILTER: i32 = -1;
+pub const _POSIX_TRACE_INHERIT: i32 = -1;
+pub const _POSIX_TRACE_LOG: i32 = -1;
+pub const _POSIX_TYPED_MEMORY_OBJECTS: i32 = -1;
+pub const _POSIX_V7_LPBIG_OFFBIG: i32 = -1;
+pub const _POSIX_V6_LPBIG_OFFBIG: i32 = -1;
+pub const _XBS5_LPBIG_OFFBIG: i32 = -1;
+pub const _POSIX_V7_LP64_OFF64: u32 = 1;
+pub const _POSIX_V6_LP64_OFF64: u32 = 1;
+pub const _XBS5_LP64_OFF64: u32 = 1;
+pub const __ILP32_OFF32_CFLAGS: &'static [u8; 5usize] = b"-m32\0";
+pub const __ILP32_OFF32_LDFLAGS: &'static [u8; 5usize] = b"-m32\0";
+pub const __ILP32_OFFBIG_CFLAGS: &'static [u8; 48usize] =
+    b"-m32 -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64\0";
+pub const __ILP32_OFFBIG_LDFLAGS: &'static [u8; 5usize] = b"-m32\0";
+pub const __LP64_OFF64_CFLAGS: &'static [u8; 5usize] = b"-m64\0";
+pub const __LP64_OFF64_LDFLAGS: &'static [u8; 5usize] = b"-m64\0";
+pub const STDIN_FILENO: u32 = 0;
+pub const STDOUT_FILENO: u32 = 1;
+pub const STDERR_FILENO: u32 = 2;
+pub const R_OK: u32 = 4;
+pub const W_OK: u32 = 2;
+pub const X_OK: u32 = 1;
+pub const F_OK: u32 = 0;
+pub const L_SET: u32 = 0;
+pub const L_INCR: u32 = 1;
+pub const L_XTND: u32 = 2;
+pub const _GETOPT_POSIX_H: u32 = 1;
+pub const _GETOPT_CORE_H: u32 = 1;
+pub const F_ULOCK: u32 = 0;
+pub const F_LOCK: u32 = 1;
+pub const F_TLOCK: u32 = 2;
+pub const F_TEST: u32 = 3;
+pub const LY_PRINT_SHRINK: u32 = 2;
 pub const LYD_PARSE_ONLY: u32 = 65536;
 pub const LYD_PARSE_STRICT: u32 = 131072;
 pub const LYD_PARSE_OPAQ: u32 = 262144;
 pub const LYD_PARSE_NO_STATE: u32 = 524288;
 pub const LYD_PARSE_LYB_MOD_UPDATE: u32 = 1048576;
+pub const LYD_PARSE_ORDERED: u32 = 2097152;
 pub const LYD_PARSE_OPTS_MASK: u32 = 4294901760;
 pub const LYD_VALIDATE_NO_STATE: u32 = 1;
 pub const LYD_VALIDATE_PRESENT: u32 = 2;
@@ -1211,8 +1619,9 @@ pub mod LY_ERR {
     pub const LY_EVALID: Type = 7;
     pub const LY_EDENIED: Type = 8;
     pub const LY_EINCOMPLETE: Type = 9;
-    pub const LY_ENOT: Type = 10;
-    pub const LY_EOTHER: Type = 11;
+    pub const LY_ERECOMPILE: Type = 10;
+    pub const LY_ENOT: Type = 11;
+    pub const LY_EOTHER: Type = 12;
     pub const LY_EPLUGIN: Type = 128;
 }
 pub mod LY_VECODE {
@@ -1399,7 +1808,7 @@ extern "C" {
         in_: *mut ly_in,
         format: LYS_INFORMAT::Type,
         features: *mut *const ::std::os::raw::c_char,
-        module: *mut *const lys_module,
+        module: *mut *mut lys_module,
     ) -> LY_ERR::Type;
 }
 extern "C" {
@@ -1407,7 +1816,7 @@ extern "C" {
         ctx: *mut ly_ctx,
         data: *const ::std::os::raw::c_char,
         format: LYS_INFORMAT::Type,
-        module: *mut *const lys_module,
+        module: *mut *mut lys_module,
     ) -> LY_ERR::Type;
 }
 extern "C" {
@@ -1415,7 +1824,7 @@ extern "C" {
         ctx: *mut ly_ctx,
         fd: ::std::os::raw::c_int,
         format: LYS_INFORMAT::Type,
-        module: *mut *const lys_module,
+        module: *mut *mut lys_module,
     ) -> LY_ERR::Type;
 }
 extern "C" {
@@ -1423,7 +1832,7 @@ extern "C" {
         ctx: *mut ly_ctx,
         path: *const ::std::os::raw::c_char,
         format: LYS_INFORMAT::Type,
-        module: *mut *const lys_module,
+        module: *mut *mut lys_module,
     ) -> LY_ERR::Type;
 }
 extern "C" {
@@ -1436,3152 +1845,54 @@ extern "C" {
         format: *mut LYS_INFORMAT::Type,
     ) -> LY_ERR::Type;
 }
-extern "C" {
-    pub fn ly_ctx_new(
-        search_dir: *const ::std::os::raw::c_char,
-        options: u16,
-        new_ctx: *mut *mut ly_ctx,
-    ) -> LY_ERR::Type;
-}
-extern "C" {
-    pub fn ly_ctx_set_searchdir(
-        ctx: *mut ly_ctx,
-        search_dir: *const ::std::os::raw::c_char,
-    ) -> LY_ERR::Type;
-}
-extern "C" {
-    pub fn ly_ctx_unset_searchdir(
-        ctx: *mut ly_ctx,
-        value: *const ::std::os::raw::c_char,
-    ) -> LY_ERR::Type;
-}
-extern "C" {
-    pub fn ly_ctx_unset_searchdir_last(
-        ctx: *mut ly_ctx,
-        count: u32,
-    ) -> LY_ERR::Type;
-}
-extern "C" {
-    pub fn ly_ctx_get_searchdirs(
-        ctx: *const ly_ctx,
-    ) -> *const *const ::std::os::raw::c_char;
-}
-extern "C" {
-    pub fn ly_ctx_get_options(ctx: *const ly_ctx) -> u16;
-}
-extern "C" {
-    pub fn ly_ctx_set_options(ctx: *mut ly_ctx, option: u16) -> LY_ERR::Type;
-}
-extern "C" {
-    pub fn ly_ctx_unset_options(ctx: *mut ly_ctx, option: u16) -> LY_ERR::Type;
-}
-extern "C" {
-    pub fn ly_ctx_get_change_count(ctx: *const ly_ctx) -> u16;
-}
-pub type ly_module_imp_data_free_clb = ::std::option::Option<
-    unsafe extern "C" fn(
-        module_data: *mut ::std::os::raw::c_void,
-        user_data: *mut ::std::os::raw::c_void,
-    ),
->;
-pub type ly_module_imp_clb = ::std::option::Option<
-    unsafe extern "C" fn(
-        mod_name: *const ::std::os::raw::c_char,
-        mod_rev: *const ::std::os::raw::c_char,
-        submod_name: *const ::std::os::raw::c_char,
-        submod_rev: *const ::std::os::raw::c_char,
-        user_data: *mut ::std::os::raw::c_void,
-        format: *mut LYS_INFORMAT::Type,
-        module_data: *mut *const ::std::os::raw::c_char,
-        free_module_data: *mut ly_module_imp_data_free_clb,
-    ) -> LY_ERR::Type,
->;
-extern "C" {
-    pub fn ly_ctx_get_module_imp_clb(
-        ctx: *const ly_ctx,
-        user_data: *mut *mut ::std::os::raw::c_void,
-    ) -> ly_module_imp_clb;
-}
-extern "C" {
-    pub fn ly_ctx_set_module_imp_clb(
-        ctx: *mut ly_ctx,
-        clb: ly_module_imp_clb,
-        user_data: *mut ::std::os::raw::c_void,
-    );
-}
-extern "C" {
-    pub fn ly_ctx_get_module(
-        ctx: *const ly_ctx,
-        name: *const ::std::os::raw::c_char,
-        revision: *const ::std::os::raw::c_char,
-    ) -> *mut lys_module;
-}
-extern "C" {
-    pub fn ly_ctx_get_module_latest(
-        ctx: *const ly_ctx,
-        name: *const ::std::os::raw::c_char,
-    ) -> *mut lys_module;
-}
-extern "C" {
-    pub fn ly_ctx_get_module_implemented(
-        ctx: *const ly_ctx,
-        name: *const ::std::os::raw::c_char,
-    ) -> *mut lys_module;
-}
-extern "C" {
-    pub fn ly_ctx_get_module_iter(
-        ctx: *const ly_ctx,
-        index: *mut u32,
-    ) -> *const lys_module;
-}
-extern "C" {
-    pub fn ly_ctx_get_module_ns(
-        ctx: *const ly_ctx,
-        ns: *const ::std::os::raw::c_char,
-        revision: *const ::std::os::raw::c_char,
-    ) -> *mut lys_module;
-}
-extern "C" {
-    pub fn ly_ctx_get_module_latest_ns(
-        ctx: *const ly_ctx,
-        ns: *const ::std::os::raw::c_char,
-    ) -> *mut lys_module;
-}
-extern "C" {
-    pub fn ly_ctx_get_module_implemented_ns(
-        ctx: *const ly_ctx,
-        ns: *const ::std::os::raw::c_char,
-    ) -> *mut lys_module;
-}
-extern "C" {
-    pub fn ly_ctx_get_submodule(
-        ctx: *const ly_ctx,
-        submodule: *const ::std::os::raw::c_char,
-        revision: *const ::std::os::raw::c_char,
-    ) -> *const lysp_submodule;
-}
-extern "C" {
-    pub fn ly_ctx_get_submodule_latest(
-        ctx: *const ly_ctx,
-        submodule: *const ::std::os::raw::c_char,
-    ) -> *const lysp_submodule;
-}
-extern "C" {
-    pub fn ly_ctx_get_submodule2(
-        module: *const lys_module,
-        submodule: *const ::std::os::raw::c_char,
-        revision: *const ::std::os::raw::c_char,
-    ) -> *const lysp_submodule;
-}
-extern "C" {
-    pub fn ly_ctx_get_submodule2_latest(
-        module: *const lys_module,
-        submodule: *const ::std::os::raw::c_char,
-    ) -> *const lysp_submodule;
-}
-extern "C" {
-    pub fn ly_ctx_reset_latests(ctx: *mut ly_ctx);
-}
-extern "C" {
-    pub fn ly_ctx_internal_modules_count(ctx: *const ly_ctx) -> u32;
-}
-extern "C" {
-    pub fn ly_ctx_load_module(
-        ctx: *mut ly_ctx,
-        name: *const ::std::os::raw::c_char,
-        revision: *const ::std::os::raw::c_char,
-        features: *mut *const ::std::os::raw::c_char,
-    ) -> *const lys_module;
-}
-extern "C" {
-    pub fn ly_ctx_get_yanglib_data(
-        ctx: *const ly_ctx,
-        root: *mut *mut lyd_node,
-        content_id_format: *const ::std::os::raw::c_char,
-        ...
-    ) -> LY_ERR::Type;
-}
-extern "C" {
-    pub fn ly_ctx_destroy(
-        ctx: *mut ly_ctx,
-        private_destructor: ::std::option::Option<
-            unsafe extern "C" fn(
-                node: *const lysc_node,
-                priv_: *mut ::std::os::raw::c_void,
-            ),
-        >,
-    );
-}
 pub type size_t = ::std::os::raw::c_ulong;
-pub type wchar_t = ::std::os::raw::c_int;
-#[repr(C)]
-#[repr(align(16))]
-#[derive(Debug, Default, Copy, Clone)]
-pub struct max_align_t {
-    pub __clang_max_align_nonce1: ::std::os::raw::c_longlong,
-    pub __bindgen_padding_0: u64,
-    pub __clang_max_align_nonce2: u128,
-}
-#[test]
-fn bindgen_test_layout_max_align_t() {
-    assert_eq!(
-        ::std::mem::size_of::<max_align_t>(),
-        32usize,
-        concat!("Size of: ", stringify!(max_align_t))
-    );
-    assert_eq!(
-        ::std::mem::align_of::<max_align_t>(),
-        16usize,
-        concat!("Alignment of ", stringify!(max_align_t))
-    );
-    assert_eq!(
-        unsafe {
-            &(*(::std::ptr::null::<max_align_t>())).__clang_max_align_nonce1
-                as *const _ as usize
-        },
-        0usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(max_align_t),
-            "::",
-            stringify!(__clang_max_align_nonce1)
-        )
-    );
-    assert_eq!(
-        unsafe {
-            &(*(::std::ptr::null::<max_align_t>())).__clang_max_align_nonce2
-                as *const _ as usize
-        },
-        16usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(max_align_t),
-            "::",
-            stringify!(__clang_max_align_nonce2)
-        )
-    );
-}
-extern "C" {
-    pub fn memcpy(
-        __dest: *mut ::std::os::raw::c_void,
-        __src: *const ::std::os::raw::c_void,
-        __n: ::std::os::raw::c_ulong,
-    ) -> *mut ::std::os::raw::c_void;
-}
-extern "C" {
-    pub fn memmove(
-        __dest: *mut ::std::os::raw::c_void,
-        __src: *const ::std::os::raw::c_void,
-        __n: ::std::os::raw::c_ulong,
-    ) -> *mut ::std::os::raw::c_void;
-}
-extern "C" {
-    pub fn memccpy(
-        __dest: *mut ::std::os::raw::c_void,
-        __src: *const ::std::os::raw::c_void,
-        __c: ::std::os::raw::c_int,
-        __n: size_t,
-    ) -> *mut ::std::os::raw::c_void;
-}
-extern "C" {
-    pub fn memset(
-        __s: *mut ::std::os::raw::c_void,
-        __c: ::std::os::raw::c_int,
-        __n: ::std::os::raw::c_ulong,
-    ) -> *mut ::std::os::raw::c_void;
-}
-extern "C" {
-    pub fn memcmp(
-        __s1: *const ::std::os::raw::c_void,
-        __s2: *const ::std::os::raw::c_void,
-        __n: ::std::os::raw::c_ulong,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn memchr(
-        __s: *const ::std::os::raw::c_void,
-        __c: ::std::os::raw::c_int,
-        __n: ::std::os::raw::c_ulong,
-    ) -> *mut ::std::os::raw::c_void;
-}
-extern "C" {
-    pub fn strcpy(
-        __dest: *mut ::std::os::raw::c_char,
-        __src: *const ::std::os::raw::c_char,
-    ) -> *mut ::std::os::raw::c_char;
-}
-extern "C" {
-    pub fn strncpy(
-        __dest: *mut ::std::os::raw::c_char,
-        __src: *const ::std::os::raw::c_char,
-        __n: ::std::os::raw::c_ulong,
-    ) -> *mut ::std::os::raw::c_char;
-}
-extern "C" {
-    pub fn strcat(
-        __dest: *mut ::std::os::raw::c_char,
-        __src: *const ::std::os::raw::c_char,
-    ) -> *mut ::std::os::raw::c_char;
-}
-extern "C" {
-    pub fn strncat(
-        __dest: *mut ::std::os::raw::c_char,
-        __src: *const ::std::os::raw::c_char,
-        __n: ::std::os::raw::c_ulong,
-    ) -> *mut ::std::os::raw::c_char;
-}
-extern "C" {
-    pub fn strcmp(
-        __s1: *const ::std::os::raw::c_char,
-        __s2: *const ::std::os::raw::c_char,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn strncmp(
-        __s1: *const ::std::os::raw::c_char,
-        __s2: *const ::std::os::raw::c_char,
-        __n: ::std::os::raw::c_ulong,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn strcoll(
-        __s1: *const ::std::os::raw::c_char,
-        __s2: *const ::std::os::raw::c_char,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn strxfrm(
-        __dest: *mut ::std::os::raw::c_char,
-        __src: *const ::std::os::raw::c_char,
-        __n: ::std::os::raw::c_ulong,
-    ) -> ::std::os::raw::c_ulong;
-}
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
-pub struct __locale_struct {
-    pub __locales: [*mut __locale_data; 13usize],
-    pub __ctype_b: *const ::std::os::raw::c_ushort,
-    pub __ctype_tolower: *const ::std::os::raw::c_int,
-    pub __ctype_toupper: *const ::std::os::raw::c_int,
-    pub __names: [*const ::std::os::raw::c_char; 13usize],
+pub struct iovec {
+    pub iov_base: *mut ::std::os::raw::c_void,
+    pub iov_len: size_t,
 }
 #[test]
-fn bindgen_test_layout___locale_struct() {
+fn bindgen_test_layout_iovec() {
     assert_eq!(
-        ::std::mem::size_of::<__locale_struct>(),
-        232usize,
-        concat!("Size of: ", stringify!(__locale_struct))
+        ::std::mem::size_of::<iovec>(),
+        16usize,
+        concat!("Size of: ", stringify!(iovec))
     );
     assert_eq!(
-        ::std::mem::align_of::<__locale_struct>(),
+        ::std::mem::align_of::<iovec>(),
         8usize,
-        concat!("Alignment of ", stringify!(__locale_struct))
+        concat!("Alignment of ", stringify!(iovec))
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<__locale_struct>())).__locales as *const _
-                as usize
+            &(*(::std::ptr::null::<iovec>())).iov_base as *const _ as usize
         },
         0usize,
         concat!(
             "Offset of field: ",
-            stringify!(__locale_struct),
+            stringify!(iovec),
             "::",
-            stringify!(__locales)
+            stringify!(iov_base)
         )
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<__locale_struct>())).__ctype_b as *const _
-                as usize
+            &(*(::std::ptr::null::<iovec>())).iov_len as *const _ as usize
         },
-        104usize,
+        8usize,
         concat!(
             "Offset of field: ",
-            stringify!(__locale_struct),
+            stringify!(iovec),
             "::",
-            stringify!(__ctype_b)
-        )
-    );
-    assert_eq!(
-        unsafe {
-            &(*(::std::ptr::null::<__locale_struct>())).__ctype_tolower
-                as *const _ as usize
-        },
-        112usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(__locale_struct),
-            "::",
-            stringify!(__ctype_tolower)
-        )
-    );
-    assert_eq!(
-        unsafe {
-            &(*(::std::ptr::null::<__locale_struct>())).__ctype_toupper
-                as *const _ as usize
-        },
-        120usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(__locale_struct),
-            "::",
-            stringify!(__ctype_toupper)
-        )
-    );
-    assert_eq!(
-        unsafe {
-            &(*(::std::ptr::null::<__locale_struct>())).__names as *const _
-                as usize
-        },
-        128usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(__locale_struct),
-            "::",
-            stringify!(__names)
+            stringify!(iov_len)
         )
     );
 }
-impl Default for __locale_struct {
+impl Default for iovec {
     fn default() -> Self {
         unsafe { ::std::mem::zeroed() }
     }
-}
-pub type __locale_t = *mut __locale_struct;
-pub type locale_t = __locale_t;
-extern "C" {
-    pub fn strcoll_l(
-        __s1: *const ::std::os::raw::c_char,
-        __s2: *const ::std::os::raw::c_char,
-        __l: locale_t,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn strxfrm_l(
-        __dest: *mut ::std::os::raw::c_char,
-        __src: *const ::std::os::raw::c_char,
-        __n: size_t,
-        __l: locale_t,
-    ) -> size_t;
-}
-extern "C" {
-    pub fn strdup(
-        __s: *const ::std::os::raw::c_char,
-    ) -> *mut ::std::os::raw::c_char;
-}
-extern "C" {
-    pub fn strndup(
-        __string: *const ::std::os::raw::c_char,
-        __n: ::std::os::raw::c_ulong,
-    ) -> *mut ::std::os::raw::c_char;
-}
-extern "C" {
-    pub fn strchr(
-        __s: *const ::std::os::raw::c_char,
-        __c: ::std::os::raw::c_int,
-    ) -> *mut ::std::os::raw::c_char;
-}
-extern "C" {
-    pub fn strrchr(
-        __s: *const ::std::os::raw::c_char,
-        __c: ::std::os::raw::c_int,
-    ) -> *mut ::std::os::raw::c_char;
-}
-extern "C" {
-    pub fn strcspn(
-        __s: *const ::std::os::raw::c_char,
-        __reject: *const ::std::os::raw::c_char,
-    ) -> ::std::os::raw::c_ulong;
-}
-extern "C" {
-    pub fn strspn(
-        __s: *const ::std::os::raw::c_char,
-        __accept: *const ::std::os::raw::c_char,
-    ) -> ::std::os::raw::c_ulong;
-}
-extern "C" {
-    pub fn strpbrk(
-        __s: *const ::std::os::raw::c_char,
-        __accept: *const ::std::os::raw::c_char,
-    ) -> *mut ::std::os::raw::c_char;
-}
-extern "C" {
-    pub fn strstr(
-        __haystack: *const ::std::os::raw::c_char,
-        __needle: *const ::std::os::raw::c_char,
-    ) -> *mut ::std::os::raw::c_char;
-}
-extern "C" {
-    pub fn strtok(
-        __s: *mut ::std::os::raw::c_char,
-        __delim: *const ::std::os::raw::c_char,
-    ) -> *mut ::std::os::raw::c_char;
-}
-extern "C" {
-    pub fn __strtok_r(
-        __s: *mut ::std::os::raw::c_char,
-        __delim: *const ::std::os::raw::c_char,
-        __save_ptr: *mut *mut ::std::os::raw::c_char,
-    ) -> *mut ::std::os::raw::c_char;
-}
-extern "C" {
-    pub fn strtok_r(
-        __s: *mut ::std::os::raw::c_char,
-        __delim: *const ::std::os::raw::c_char,
-        __save_ptr: *mut *mut ::std::os::raw::c_char,
-    ) -> *mut ::std::os::raw::c_char;
-}
-extern "C" {
-    pub fn strlen(
-        __s: *const ::std::os::raw::c_char,
-    ) -> ::std::os::raw::c_ulong;
-}
-extern "C" {
-    pub fn strnlen(
-        __string: *const ::std::os::raw::c_char,
-        __maxlen: size_t,
-    ) -> size_t;
-}
-extern "C" {
-    pub fn strerror(
-        __errnum: ::std::os::raw::c_int,
-    ) -> *mut ::std::os::raw::c_char;
-}
-extern "C" {
-    #[link_name = "\u{1}__xpg_strerror_r"]
-    pub fn strerror_r(
-        __errnum: ::std::os::raw::c_int,
-        __buf: *mut ::std::os::raw::c_char,
-        __buflen: size_t,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn strerror_l(
-        __errnum: ::std::os::raw::c_int,
-        __l: locale_t,
-    ) -> *mut ::std::os::raw::c_char;
-}
-extern "C" {
-    pub fn bcmp(
-        __s1: *const ::std::os::raw::c_void,
-        __s2: *const ::std::os::raw::c_void,
-        __n: size_t,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn bcopy(
-        __src: *const ::std::os::raw::c_void,
-        __dest: *mut ::std::os::raw::c_void,
-        __n: size_t,
-    );
-}
-extern "C" {
-    pub fn bzero(
-        __s: *mut ::std::os::raw::c_void,
-        __n: ::std::os::raw::c_ulong,
-    );
-}
-extern "C" {
-    pub fn index(
-        __s: *const ::std::os::raw::c_char,
-        __c: ::std::os::raw::c_int,
-    ) -> *mut ::std::os::raw::c_char;
-}
-extern "C" {
-    pub fn rindex(
-        __s: *const ::std::os::raw::c_char,
-        __c: ::std::os::raw::c_int,
-    ) -> *mut ::std::os::raw::c_char;
-}
-extern "C" {
-    pub fn ffs(__i: ::std::os::raw::c_int) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn ffsl(__l: ::std::os::raw::c_long) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn ffsll(__ll: ::std::os::raw::c_longlong) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn strcasecmp(
-        __s1: *const ::std::os::raw::c_char,
-        __s2: *const ::std::os::raw::c_char,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn strncasecmp(
-        __s1: *const ::std::os::raw::c_char,
-        __s2: *const ::std::os::raw::c_char,
-        __n: ::std::os::raw::c_ulong,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn strcasecmp_l(
-        __s1: *const ::std::os::raw::c_char,
-        __s2: *const ::std::os::raw::c_char,
-        __loc: locale_t,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn strncasecmp_l(
-        __s1: *const ::std::os::raw::c_char,
-        __s2: *const ::std::os::raw::c_char,
-        __n: size_t,
-        __loc: locale_t,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn explicit_bzero(__s: *mut ::std::os::raw::c_void, __n: size_t);
-}
-extern "C" {
-    pub fn strsep(
-        __stringp: *mut *mut ::std::os::raw::c_char,
-        __delim: *const ::std::os::raw::c_char,
-    ) -> *mut ::std::os::raw::c_char;
-}
-extern "C" {
-    pub fn strsignal(
-        __sig: ::std::os::raw::c_int,
-    ) -> *mut ::std::os::raw::c_char;
-}
-extern "C" {
-    pub fn __stpcpy(
-        __dest: *mut ::std::os::raw::c_char,
-        __src: *const ::std::os::raw::c_char,
-    ) -> *mut ::std::os::raw::c_char;
-}
-extern "C" {
-    pub fn stpcpy(
-        __dest: *mut ::std::os::raw::c_char,
-        __src: *const ::std::os::raw::c_char,
-    ) -> *mut ::std::os::raw::c_char;
-}
-extern "C" {
-    pub fn __stpncpy(
-        __dest: *mut ::std::os::raw::c_char,
-        __src: *const ::std::os::raw::c_char,
-        __n: size_t,
-    ) -> *mut ::std::os::raw::c_char;
-}
-extern "C" {
-    pub fn stpncpy(
-        __dest: *mut ::std::os::raw::c_char,
-        __src: *const ::std::os::raw::c_char,
-        __n: ::std::os::raw::c_ulong,
-    ) -> *mut ::std::os::raw::c_char;
-}
-extern "C" {
-    pub fn lydict_insert(
-        ctx: *const ly_ctx,
-        value: *const ::std::os::raw::c_char,
-        len: size_t,
-        str_p: *mut *const ::std::os::raw::c_char,
-    ) -> LY_ERR::Type;
-}
-extern "C" {
-    pub fn lydict_insert_zc(
-        ctx: *const ly_ctx,
-        value: *mut ::std::os::raw::c_char,
-        str_p: *mut *const ::std::os::raw::c_char,
-    ) -> LY_ERR::Type;
-}
-extern "C" {
-    pub fn lydict_remove(
-        ctx: *const ly_ctx,
-        value: *const ::std::os::raw::c_char,
-    ) -> LY_ERR::Type;
-}
-pub type va_list = __builtin_va_list;
-pub type __gnuc_va_list = __builtin_va_list;
-#[repr(C)]
-#[derive(Copy, Clone)]
-pub struct __mbstate_t {
-    pub __count: ::std::os::raw::c_int,
-    pub __value: __mbstate_t__bindgen_ty_1,
-}
-#[repr(C)]
-#[derive(Copy, Clone)]
-pub union __mbstate_t__bindgen_ty_1 {
-    pub __wch: ::std::os::raw::c_uint,
-    pub __wchb: [::std::os::raw::c_char; 4usize],
-    _bindgen_union_align: u32,
-}
-#[test]
-fn bindgen_test_layout___mbstate_t__bindgen_ty_1() {
-    assert_eq!(
-        ::std::mem::size_of::<__mbstate_t__bindgen_ty_1>(),
-        4usize,
-        concat!("Size of: ", stringify!(__mbstate_t__bindgen_ty_1))
-    );
-    assert_eq!(
-        ::std::mem::align_of::<__mbstate_t__bindgen_ty_1>(),
-        4usize,
-        concat!("Alignment of ", stringify!(__mbstate_t__bindgen_ty_1))
-    );
-    assert_eq!(
-        unsafe {
-            &(*(::std::ptr::null::<__mbstate_t__bindgen_ty_1>())).__wch
-                as *const _ as usize
-        },
-        0usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(__mbstate_t__bindgen_ty_1),
-            "::",
-            stringify!(__wch)
-        )
-    );
-    assert_eq!(
-        unsafe {
-            &(*(::std::ptr::null::<__mbstate_t__bindgen_ty_1>())).__wchb
-                as *const _ as usize
-        },
-        0usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(__mbstate_t__bindgen_ty_1),
-            "::",
-            stringify!(__wchb)
-        )
-    );
-}
-impl Default for __mbstate_t__bindgen_ty_1 {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
-#[test]
-fn bindgen_test_layout___mbstate_t() {
-    assert_eq!(
-        ::std::mem::size_of::<__mbstate_t>(),
-        8usize,
-        concat!("Size of: ", stringify!(__mbstate_t))
-    );
-    assert_eq!(
-        ::std::mem::align_of::<__mbstate_t>(),
-        4usize,
-        concat!("Alignment of ", stringify!(__mbstate_t))
-    );
-    assert_eq!(
-        unsafe {
-            &(*(::std::ptr::null::<__mbstate_t>())).__count as *const _ as usize
-        },
-        0usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(__mbstate_t),
-            "::",
-            stringify!(__count)
-        )
-    );
-    assert_eq!(
-        unsafe {
-            &(*(::std::ptr::null::<__mbstate_t>())).__value as *const _ as usize
-        },
-        4usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(__mbstate_t),
-            "::",
-            stringify!(__value)
-        )
-    );
-}
-impl Default for __mbstate_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
-#[repr(C)]
-#[derive(Copy, Clone)]
-pub struct _G_fpos_t {
-    pub __pos: __off_t,
-    pub __state: __mbstate_t,
-}
-#[test]
-fn bindgen_test_layout__G_fpos_t() {
-    assert_eq!(
-        ::std::mem::size_of::<_G_fpos_t>(),
-        16usize,
-        concat!("Size of: ", stringify!(_G_fpos_t))
-    );
-    assert_eq!(
-        ::std::mem::align_of::<_G_fpos_t>(),
-        8usize,
-        concat!("Alignment of ", stringify!(_G_fpos_t))
-    );
-    assert_eq!(
-        unsafe {
-            &(*(::std::ptr::null::<_G_fpos_t>())).__pos as *const _ as usize
-        },
-        0usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(_G_fpos_t),
-            "::",
-            stringify!(__pos)
-        )
-    );
-    assert_eq!(
-        unsafe {
-            &(*(::std::ptr::null::<_G_fpos_t>())).__state as *const _ as usize
-        },
-        8usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(_G_fpos_t),
-            "::",
-            stringify!(__state)
-        )
-    );
-}
-impl Default for _G_fpos_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
-pub type __fpos_t = _G_fpos_t;
-#[repr(C)]
-#[derive(Copy, Clone)]
-pub struct _G_fpos64_t {
-    pub __pos: __off64_t,
-    pub __state: __mbstate_t,
-}
-#[test]
-fn bindgen_test_layout__G_fpos64_t() {
-    assert_eq!(
-        ::std::mem::size_of::<_G_fpos64_t>(),
-        16usize,
-        concat!("Size of: ", stringify!(_G_fpos64_t))
-    );
-    assert_eq!(
-        ::std::mem::align_of::<_G_fpos64_t>(),
-        8usize,
-        concat!("Alignment of ", stringify!(_G_fpos64_t))
-    );
-    assert_eq!(
-        unsafe {
-            &(*(::std::ptr::null::<_G_fpos64_t>())).__pos as *const _ as usize
-        },
-        0usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(_G_fpos64_t),
-            "::",
-            stringify!(__pos)
-        )
-    );
-    assert_eq!(
-        unsafe {
-            &(*(::std::ptr::null::<_G_fpos64_t>())).__state as *const _ as usize
-        },
-        8usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(_G_fpos64_t),
-            "::",
-            stringify!(__state)
-        )
-    );
-}
-impl Default for _G_fpos64_t {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
-pub type __fpos64_t = _G_fpos64_t;
-pub type __FILE = _IO_FILE;
-pub type FILE = _IO_FILE;
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct _IO_marker {
-    _unused: [u8; 0],
-}
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct _IO_codecvt {
-    _unused: [u8; 0],
-}
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct _IO_wide_data {
-    _unused: [u8; 0],
-}
-pub type _IO_lock_t = ::std::os::raw::c_void;
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct _IO_FILE {
-    pub _flags: ::std::os::raw::c_int,
-    pub _IO_read_ptr: *mut ::std::os::raw::c_char,
-    pub _IO_read_end: *mut ::std::os::raw::c_char,
-    pub _IO_read_base: *mut ::std::os::raw::c_char,
-    pub _IO_write_base: *mut ::std::os::raw::c_char,
-    pub _IO_write_ptr: *mut ::std::os::raw::c_char,
-    pub _IO_write_end: *mut ::std::os::raw::c_char,
-    pub _IO_buf_base: *mut ::std::os::raw::c_char,
-    pub _IO_buf_end: *mut ::std::os::raw::c_char,
-    pub _IO_save_base: *mut ::std::os::raw::c_char,
-    pub _IO_backup_base: *mut ::std::os::raw::c_char,
-    pub _IO_save_end: *mut ::std::os::raw::c_char,
-    pub _markers: *mut _IO_marker,
-    pub _chain: *mut _IO_FILE,
-    pub _fileno: ::std::os::raw::c_int,
-    pub _flags2: ::std::os::raw::c_int,
-    pub _old_offset: __off_t,
-    pub _cur_column: ::std::os::raw::c_ushort,
-    pub _vtable_offset: ::std::os::raw::c_schar,
-    pub _shortbuf: [::std::os::raw::c_char; 1usize],
-    pub _lock: *mut _IO_lock_t,
-    pub _offset: __off64_t,
-    pub _codecvt: *mut _IO_codecvt,
-    pub _wide_data: *mut _IO_wide_data,
-    pub _freeres_list: *mut _IO_FILE,
-    pub _freeres_buf: *mut ::std::os::raw::c_void,
-    pub __pad5: size_t,
-    pub _mode: ::std::os::raw::c_int,
-    pub _unused2: [::std::os::raw::c_char; 20usize],
-}
-#[test]
-fn bindgen_test_layout__IO_FILE() {
-    assert_eq!(
-        ::std::mem::size_of::<_IO_FILE>(),
-        216usize,
-        concat!("Size of: ", stringify!(_IO_FILE))
-    );
-    assert_eq!(
-        ::std::mem::align_of::<_IO_FILE>(),
-        8usize,
-        concat!("Alignment of ", stringify!(_IO_FILE))
-    );
-    assert_eq!(
-        unsafe {
-            &(*(::std::ptr::null::<_IO_FILE>()))._flags as *const _ as usize
-        },
-        0usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(_IO_FILE),
-            "::",
-            stringify!(_flags)
-        )
-    );
-    assert_eq!(
-        unsafe {
-            &(*(::std::ptr::null::<_IO_FILE>()))._IO_read_ptr as *const _
-                as usize
-        },
-        8usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(_IO_FILE),
-            "::",
-            stringify!(_IO_read_ptr)
-        )
-    );
-    assert_eq!(
-        unsafe {
-            &(*(::std::ptr::null::<_IO_FILE>()))._IO_read_end as *const _
-                as usize
-        },
-        16usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(_IO_FILE),
-            "::",
-            stringify!(_IO_read_end)
-        )
-    );
-    assert_eq!(
-        unsafe {
-            &(*(::std::ptr::null::<_IO_FILE>()))._IO_read_base as *const _
-                as usize
-        },
-        24usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(_IO_FILE),
-            "::",
-            stringify!(_IO_read_base)
-        )
-    );
-    assert_eq!(
-        unsafe {
-            &(*(::std::ptr::null::<_IO_FILE>()))._IO_write_base as *const _
-                as usize
-        },
-        32usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(_IO_FILE),
-            "::",
-            stringify!(_IO_write_base)
-        )
-    );
-    assert_eq!(
-        unsafe {
-            &(*(::std::ptr::null::<_IO_FILE>()))._IO_write_ptr as *const _
-                as usize
-        },
-        40usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(_IO_FILE),
-            "::",
-            stringify!(_IO_write_ptr)
-        )
-    );
-    assert_eq!(
-        unsafe {
-            &(*(::std::ptr::null::<_IO_FILE>()))._IO_write_end as *const _
-                as usize
-        },
-        48usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(_IO_FILE),
-            "::",
-            stringify!(_IO_write_end)
-        )
-    );
-    assert_eq!(
-        unsafe {
-            &(*(::std::ptr::null::<_IO_FILE>()))._IO_buf_base as *const _
-                as usize
-        },
-        56usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(_IO_FILE),
-            "::",
-            stringify!(_IO_buf_base)
-        )
-    );
-    assert_eq!(
-        unsafe {
-            &(*(::std::ptr::null::<_IO_FILE>()))._IO_buf_end as *const _
-                as usize
-        },
-        64usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(_IO_FILE),
-            "::",
-            stringify!(_IO_buf_end)
-        )
-    );
-    assert_eq!(
-        unsafe {
-            &(*(::std::ptr::null::<_IO_FILE>()))._IO_save_base as *const _
-                as usize
-        },
-        72usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(_IO_FILE),
-            "::",
-            stringify!(_IO_save_base)
-        )
-    );
-    assert_eq!(
-        unsafe {
-            &(*(::std::ptr::null::<_IO_FILE>()))._IO_backup_base as *const _
-                as usize
-        },
-        80usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(_IO_FILE),
-            "::",
-            stringify!(_IO_backup_base)
-        )
-    );
-    assert_eq!(
-        unsafe {
-            &(*(::std::ptr::null::<_IO_FILE>()))._IO_save_end as *const _
-                as usize
-        },
-        88usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(_IO_FILE),
-            "::",
-            stringify!(_IO_save_end)
-        )
-    );
-    assert_eq!(
-        unsafe {
-            &(*(::std::ptr::null::<_IO_FILE>()))._markers as *const _ as usize
-        },
-        96usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(_IO_FILE),
-            "::",
-            stringify!(_markers)
-        )
-    );
-    assert_eq!(
-        unsafe {
-            &(*(::std::ptr::null::<_IO_FILE>()))._chain as *const _ as usize
-        },
-        104usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(_IO_FILE),
-            "::",
-            stringify!(_chain)
-        )
-    );
-    assert_eq!(
-        unsafe {
-            &(*(::std::ptr::null::<_IO_FILE>()))._fileno as *const _ as usize
-        },
-        112usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(_IO_FILE),
-            "::",
-            stringify!(_fileno)
-        )
-    );
-    assert_eq!(
-        unsafe {
-            &(*(::std::ptr::null::<_IO_FILE>()))._flags2 as *const _ as usize
-        },
-        116usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(_IO_FILE),
-            "::",
-            stringify!(_flags2)
-        )
-    );
-    assert_eq!(
-        unsafe {
-            &(*(::std::ptr::null::<_IO_FILE>()))._old_offset as *const _
-                as usize
-        },
-        120usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(_IO_FILE),
-            "::",
-            stringify!(_old_offset)
-        )
-    );
-    assert_eq!(
-        unsafe {
-            &(*(::std::ptr::null::<_IO_FILE>()))._cur_column as *const _
-                as usize
-        },
-        128usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(_IO_FILE),
-            "::",
-            stringify!(_cur_column)
-        )
-    );
-    assert_eq!(
-        unsafe {
-            &(*(::std::ptr::null::<_IO_FILE>()))._vtable_offset as *const _
-                as usize
-        },
-        130usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(_IO_FILE),
-            "::",
-            stringify!(_vtable_offset)
-        )
-    );
-    assert_eq!(
-        unsafe {
-            &(*(::std::ptr::null::<_IO_FILE>()))._shortbuf as *const _ as usize
-        },
-        131usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(_IO_FILE),
-            "::",
-            stringify!(_shortbuf)
-        )
-    );
-    assert_eq!(
-        unsafe {
-            &(*(::std::ptr::null::<_IO_FILE>()))._lock as *const _ as usize
-        },
-        136usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(_IO_FILE),
-            "::",
-            stringify!(_lock)
-        )
-    );
-    assert_eq!(
-        unsafe {
-            &(*(::std::ptr::null::<_IO_FILE>()))._offset as *const _ as usize
-        },
-        144usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(_IO_FILE),
-            "::",
-            stringify!(_offset)
-        )
-    );
-    assert_eq!(
-        unsafe {
-            &(*(::std::ptr::null::<_IO_FILE>()))._codecvt as *const _ as usize
-        },
-        152usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(_IO_FILE),
-            "::",
-            stringify!(_codecvt)
-        )
-    );
-    assert_eq!(
-        unsafe {
-            &(*(::std::ptr::null::<_IO_FILE>()))._wide_data as *const _ as usize
-        },
-        160usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(_IO_FILE),
-            "::",
-            stringify!(_wide_data)
-        )
-    );
-    assert_eq!(
-        unsafe {
-            &(*(::std::ptr::null::<_IO_FILE>()))._freeres_list as *const _
-                as usize
-        },
-        168usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(_IO_FILE),
-            "::",
-            stringify!(_freeres_list)
-        )
-    );
-    assert_eq!(
-        unsafe {
-            &(*(::std::ptr::null::<_IO_FILE>()))._freeres_buf as *const _
-                as usize
-        },
-        176usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(_IO_FILE),
-            "::",
-            stringify!(_freeres_buf)
-        )
-    );
-    assert_eq!(
-        unsafe {
-            &(*(::std::ptr::null::<_IO_FILE>())).__pad5 as *const _ as usize
-        },
-        184usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(_IO_FILE),
-            "::",
-            stringify!(__pad5)
-        )
-    );
-    assert_eq!(
-        unsafe {
-            &(*(::std::ptr::null::<_IO_FILE>()))._mode as *const _ as usize
-        },
-        192usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(_IO_FILE),
-            "::",
-            stringify!(_mode)
-        )
-    );
-    assert_eq!(
-        unsafe {
-            &(*(::std::ptr::null::<_IO_FILE>()))._unused2 as *const _ as usize
-        },
-        196usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(_IO_FILE),
-            "::",
-            stringify!(_unused2)
-        )
-    );
-}
-impl Default for _IO_FILE {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
-pub type off_t = __off_t;
-pub type ssize_t = __ssize_t;
-pub type fpos_t = __fpos_t;
-extern "C" {
-    pub static mut stdin: *mut FILE;
-}
-extern "C" {
-    pub static mut stdout: *mut FILE;
-}
-extern "C" {
-    pub static mut stderr: *mut FILE;
-}
-extern "C" {
-    pub fn remove(
-        __filename: *const ::std::os::raw::c_char,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn rename(
-        __old: *const ::std::os::raw::c_char,
-        __new: *const ::std::os::raw::c_char,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn renameat(
-        __oldfd: ::std::os::raw::c_int,
-        __old: *const ::std::os::raw::c_char,
-        __newfd: ::std::os::raw::c_int,
-        __new: *const ::std::os::raw::c_char,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn tmpfile() -> *mut FILE;
-}
-extern "C" {
-    pub fn tmpnam(
-        __s: *mut ::std::os::raw::c_char,
-    ) -> *mut ::std::os::raw::c_char;
-}
-extern "C" {
-    pub fn tmpnam_r(
-        __s: *mut ::std::os::raw::c_char,
-    ) -> *mut ::std::os::raw::c_char;
-}
-extern "C" {
-    pub fn tempnam(
-        __dir: *const ::std::os::raw::c_char,
-        __pfx: *const ::std::os::raw::c_char,
-    ) -> *mut ::std::os::raw::c_char;
-}
-extern "C" {
-    pub fn fclose(__stream: *mut FILE) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn fflush(__stream: *mut FILE) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn fflush_unlocked(__stream: *mut FILE) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn fopen(
-        __filename: *const ::std::os::raw::c_char,
-        __modes: *const ::std::os::raw::c_char,
-    ) -> *mut FILE;
-}
-extern "C" {
-    pub fn freopen(
-        __filename: *const ::std::os::raw::c_char,
-        __modes: *const ::std::os::raw::c_char,
-        __stream: *mut FILE,
-    ) -> *mut FILE;
-}
-extern "C" {
-    pub fn fdopen(
-        __fd: ::std::os::raw::c_int,
-        __modes: *const ::std::os::raw::c_char,
-    ) -> *mut FILE;
-}
-extern "C" {
-    pub fn fmemopen(
-        __s: *mut ::std::os::raw::c_void,
-        __len: size_t,
-        __modes: *const ::std::os::raw::c_char,
-    ) -> *mut FILE;
-}
-extern "C" {
-    pub fn open_memstream(
-        __bufloc: *mut *mut ::std::os::raw::c_char,
-        __sizeloc: *mut size_t,
-    ) -> *mut FILE;
-}
-extern "C" {
-    pub fn setbuf(__stream: *mut FILE, __buf: *mut ::std::os::raw::c_char);
-}
-extern "C" {
-    pub fn setvbuf(
-        __stream: *mut FILE,
-        __buf: *mut ::std::os::raw::c_char,
-        __modes: ::std::os::raw::c_int,
-        __n: size_t,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn setbuffer(
-        __stream: *mut FILE,
-        __buf: *mut ::std::os::raw::c_char,
-        __size: size_t,
-    );
-}
-extern "C" {
-    pub fn setlinebuf(__stream: *mut FILE);
-}
-extern "C" {
-    pub fn fprintf(
-        __stream: *mut FILE,
-        __format: *const ::std::os::raw::c_char,
-        ...
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn printf(
-        __format: *const ::std::os::raw::c_char,
-        ...
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn sprintf(
-        __s: *mut ::std::os::raw::c_char,
-        __format: *const ::std::os::raw::c_char,
-        ...
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn vfprintf(
-        __s: *mut FILE,
-        __format: *const ::std::os::raw::c_char,
-        __arg: *mut __va_list_tag,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn vprintf(
-        __format: *const ::std::os::raw::c_char,
-        __arg: *mut __va_list_tag,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn vsprintf(
-        __s: *mut ::std::os::raw::c_char,
-        __format: *const ::std::os::raw::c_char,
-        __arg: *mut __va_list_tag,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn snprintf(
-        __s: *mut ::std::os::raw::c_char,
-        __maxlen: ::std::os::raw::c_ulong,
-        __format: *const ::std::os::raw::c_char,
-        ...
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn vsnprintf(
-        __s: *mut ::std::os::raw::c_char,
-        __maxlen: ::std::os::raw::c_ulong,
-        __format: *const ::std::os::raw::c_char,
-        __arg: *mut __va_list_tag,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn vdprintf(
-        __fd: ::std::os::raw::c_int,
-        __fmt: *const ::std::os::raw::c_char,
-        __arg: *mut __va_list_tag,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn dprintf(
-        __fd: ::std::os::raw::c_int,
-        __fmt: *const ::std::os::raw::c_char,
-        ...
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn fscanf(
-        __stream: *mut FILE,
-        __format: *const ::std::os::raw::c_char,
-        ...
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn scanf(
-        __format: *const ::std::os::raw::c_char,
-        ...
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn sscanf(
-        __s: *const ::std::os::raw::c_char,
-        __format: *const ::std::os::raw::c_char,
-        ...
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    #[link_name = "\u{1}__isoc99_fscanf"]
-    pub fn fscanf1(
-        __stream: *mut FILE,
-        __format: *const ::std::os::raw::c_char,
-        ...
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    #[link_name = "\u{1}__isoc99_scanf"]
-    pub fn scanf1(
-        __format: *const ::std::os::raw::c_char,
-        ...
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    #[link_name = "\u{1}__isoc99_sscanf"]
-    pub fn sscanf1(
-        __s: *const ::std::os::raw::c_char,
-        __format: *const ::std::os::raw::c_char,
-        ...
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn vfscanf(
-        __s: *mut FILE,
-        __format: *const ::std::os::raw::c_char,
-        __arg: *mut __va_list_tag,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn vscanf(
-        __format: *const ::std::os::raw::c_char,
-        __arg: *mut __va_list_tag,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn vsscanf(
-        __s: *const ::std::os::raw::c_char,
-        __format: *const ::std::os::raw::c_char,
-        __arg: *mut __va_list_tag,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    #[link_name = "\u{1}__isoc99_vfscanf"]
-    pub fn vfscanf1(
-        __s: *mut FILE,
-        __format: *const ::std::os::raw::c_char,
-        __arg: *mut __va_list_tag,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    #[link_name = "\u{1}__isoc99_vscanf"]
-    pub fn vscanf1(
-        __format: *const ::std::os::raw::c_char,
-        __arg: *mut __va_list_tag,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    #[link_name = "\u{1}__isoc99_vsscanf"]
-    pub fn vsscanf1(
-        __s: *const ::std::os::raw::c_char,
-        __format: *const ::std::os::raw::c_char,
-        __arg: *mut __va_list_tag,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn fgetc(__stream: *mut FILE) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn getc(__stream: *mut FILE) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn getchar() -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn getc_unlocked(__stream: *mut FILE) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn getchar_unlocked() -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn fgetc_unlocked(__stream: *mut FILE) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn fputc(
-        __c: ::std::os::raw::c_int,
-        __stream: *mut FILE,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn putc(
-        __c: ::std::os::raw::c_int,
-        __stream: *mut FILE,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn putchar(__c: ::std::os::raw::c_int) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn fputc_unlocked(
-        __c: ::std::os::raw::c_int,
-        __stream: *mut FILE,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn putc_unlocked(
-        __c: ::std::os::raw::c_int,
-        __stream: *mut FILE,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn putchar_unlocked(
-        __c: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn getw(__stream: *mut FILE) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn putw(
-        __w: ::std::os::raw::c_int,
-        __stream: *mut FILE,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn fgets(
-        __s: *mut ::std::os::raw::c_char,
-        __n: ::std::os::raw::c_int,
-        __stream: *mut FILE,
-    ) -> *mut ::std::os::raw::c_char;
-}
-extern "C" {
-    pub fn __getdelim(
-        __lineptr: *mut *mut ::std::os::raw::c_char,
-        __n: *mut size_t,
-        __delimiter: ::std::os::raw::c_int,
-        __stream: *mut FILE,
-    ) -> __ssize_t;
-}
-extern "C" {
-    pub fn getdelim(
-        __lineptr: *mut *mut ::std::os::raw::c_char,
-        __n: *mut size_t,
-        __delimiter: ::std::os::raw::c_int,
-        __stream: *mut FILE,
-    ) -> __ssize_t;
-}
-extern "C" {
-    pub fn getline(
-        __lineptr: *mut *mut ::std::os::raw::c_char,
-        __n: *mut size_t,
-        __stream: *mut FILE,
-    ) -> __ssize_t;
-}
-extern "C" {
-    pub fn fputs(
-        __s: *const ::std::os::raw::c_char,
-        __stream: *mut FILE,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn puts(__s: *const ::std::os::raw::c_char) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn ungetc(
-        __c: ::std::os::raw::c_int,
-        __stream: *mut FILE,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn fread(
-        __ptr: *mut ::std::os::raw::c_void,
-        __size: ::std::os::raw::c_ulong,
-        __n: ::std::os::raw::c_ulong,
-        __stream: *mut FILE,
-    ) -> ::std::os::raw::c_ulong;
-}
-extern "C" {
-    pub fn fwrite(
-        __ptr: *const ::std::os::raw::c_void,
-        __size: ::std::os::raw::c_ulong,
-        __n: ::std::os::raw::c_ulong,
-        __s: *mut FILE,
-    ) -> ::std::os::raw::c_ulong;
-}
-extern "C" {
-    pub fn fread_unlocked(
-        __ptr: *mut ::std::os::raw::c_void,
-        __size: size_t,
-        __n: size_t,
-        __stream: *mut FILE,
-    ) -> size_t;
-}
-extern "C" {
-    pub fn fwrite_unlocked(
-        __ptr: *const ::std::os::raw::c_void,
-        __size: size_t,
-        __n: size_t,
-        __stream: *mut FILE,
-    ) -> size_t;
-}
-extern "C" {
-    pub fn fseek(
-        __stream: *mut FILE,
-        __off: ::std::os::raw::c_long,
-        __whence: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn ftell(__stream: *mut FILE) -> ::std::os::raw::c_long;
-}
-extern "C" {
-    pub fn rewind(__stream: *mut FILE);
-}
-extern "C" {
-    pub fn fseeko(
-        __stream: *mut FILE,
-        __off: __off_t,
-        __whence: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn ftello(__stream: *mut FILE) -> __off_t;
-}
-extern "C" {
-    pub fn fgetpos(
-        __stream: *mut FILE,
-        __pos: *mut fpos_t,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn fsetpos(
-        __stream: *mut FILE,
-        __pos: *const fpos_t,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn clearerr(__stream: *mut FILE);
-}
-extern "C" {
-    pub fn feof(__stream: *mut FILE) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn ferror(__stream: *mut FILE) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn clearerr_unlocked(__stream: *mut FILE);
-}
-extern "C" {
-    pub fn feof_unlocked(__stream: *mut FILE) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn ferror_unlocked(__stream: *mut FILE) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn perror(__s: *const ::std::os::raw::c_char);
-}
-extern "C" {
-    pub static mut sys_nerr: ::std::os::raw::c_int;
-}
-extern "C" {
-    pub static mut sys_errlist: [*const ::std::os::raw::c_char; 0usize];
-}
-extern "C" {
-    pub fn fileno(__stream: *mut FILE) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn fileno_unlocked(__stream: *mut FILE) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn popen(
-        __command: *const ::std::os::raw::c_char,
-        __modes: *const ::std::os::raw::c_char,
-    ) -> *mut FILE;
-}
-extern "C" {
-    pub fn pclose(__stream: *mut FILE) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn ctermid(
-        __s: *mut ::std::os::raw::c_char,
-    ) -> *mut ::std::os::raw::c_char;
-}
-extern "C" {
-    pub fn flockfile(__stream: *mut FILE);
-}
-extern "C" {
-    pub fn ftrylockfile(__stream: *mut FILE) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn funlockfile(__stream: *mut FILE);
-}
-extern "C" {
-    pub fn __uflow(arg1: *mut FILE) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn __overflow(
-        arg1: *mut FILE,
-        arg2: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
-}
-pub mod LY_IN_TYPE {
-    pub type Type = ::std::os::raw::c_int;
-    pub const LY_IN_ERROR: Type = -1;
-    pub const LY_IN_FD: Type = 0;
-    pub const LY_IN_FILE: Type = 1;
-    pub const LY_IN_FILEPATH: Type = 2;
-    pub const LY_IN_MEMORY: Type = 3;
-}
-extern "C" {
-    pub fn ly_in_type(in_: *const ly_in) -> LY_IN_TYPE::Type;
-}
-extern "C" {
-    pub fn ly_in_reset(in_: *mut ly_in) -> LY_ERR::Type;
-}
-extern "C" {
-    pub fn ly_in_new_fd(
-        fd: ::std::os::raw::c_int,
-        in_: *mut *mut ly_in,
-    ) -> LY_ERR::Type;
-}
-extern "C" {
-    pub fn ly_in_fd(
-        in_: *mut ly_in,
-        fd: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn ly_in_new_file(f: *mut FILE, in_: *mut *mut ly_in) -> LY_ERR::Type;
-}
-extern "C" {
-    pub fn ly_in_file(in_: *mut ly_in, f: *mut FILE) -> *mut FILE;
-}
-extern "C" {
-    pub fn ly_in_new_memory(
-        str_: *const ::std::os::raw::c_char,
-        in_: *mut *mut ly_in,
-    ) -> LY_ERR::Type;
-}
-extern "C" {
-    pub fn ly_in_memory(
-        in_: *mut ly_in,
-        str_: *const ::std::os::raw::c_char,
-    ) -> *const ::std::os::raw::c_char;
-}
-extern "C" {
-    pub fn ly_in_new_filepath(
-        filepath: *const ::std::os::raw::c_char,
-        len: size_t,
-        in_: *mut *mut ly_in,
-    ) -> LY_ERR::Type;
-}
-extern "C" {
-    pub fn ly_in_filepath(
-        in_: *mut ly_in,
-        filepath: *const ::std::os::raw::c_char,
-        len: size_t,
-    ) -> *const ::std::os::raw::c_char;
-}
-extern "C" {
-    pub fn ly_in_parsed(in_: *const ly_in) -> size_t;
-}
-extern "C" {
-    pub fn ly_in_free(in_: *mut ly_in, destroy: ly_bool);
-}
-pub type gid_t = __gid_t;
-pub type uid_t = __uid_t;
-pub type useconds_t = __useconds_t;
-pub type pid_t = __pid_t;
-pub type socklen_t = __socklen_t;
-extern "C" {
-    pub fn access(
-        __name: *const ::std::os::raw::c_char,
-        __type: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn faccessat(
-        __fd: ::std::os::raw::c_int,
-        __file: *const ::std::os::raw::c_char,
-        __type: ::std::os::raw::c_int,
-        __flag: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn lseek(
-        __fd: ::std::os::raw::c_int,
-        __offset: __off_t,
-        __whence: ::std::os::raw::c_int,
-    ) -> __off_t;
-}
-extern "C" {
-    pub fn close(__fd: ::std::os::raw::c_int) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn read(
-        __fd: ::std::os::raw::c_int,
-        __buf: *mut ::std::os::raw::c_void,
-        __nbytes: size_t,
-    ) -> ssize_t;
-}
-extern "C" {
-    pub fn write(
-        __fd: ::std::os::raw::c_int,
-        __buf: *const ::std::os::raw::c_void,
-        __n: size_t,
-    ) -> ssize_t;
-}
-extern "C" {
-    pub fn pread(
-        __fd: ::std::os::raw::c_int,
-        __buf: *mut ::std::os::raw::c_void,
-        __nbytes: size_t,
-        __offset: __off_t,
-    ) -> ssize_t;
-}
-extern "C" {
-    pub fn pwrite(
-        __fd: ::std::os::raw::c_int,
-        __buf: *const ::std::os::raw::c_void,
-        __n: size_t,
-        __offset: __off_t,
-    ) -> ssize_t;
-}
-extern "C" {
-    pub fn pipe(__pipedes: *mut ::std::os::raw::c_int)
-        -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn alarm(__seconds: ::std::os::raw::c_uint) -> ::std::os::raw::c_uint;
-}
-extern "C" {
-    pub fn sleep(__seconds: ::std::os::raw::c_uint) -> ::std::os::raw::c_uint;
-}
-extern "C" {
-    pub fn ualarm(
-        __value: __useconds_t,
-        __interval: __useconds_t,
-    ) -> __useconds_t;
-}
-extern "C" {
-    pub fn usleep(__useconds: __useconds_t) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn pause() -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn chown(
-        __file: *const ::std::os::raw::c_char,
-        __owner: __uid_t,
-        __group: __gid_t,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn fchown(
-        __fd: ::std::os::raw::c_int,
-        __owner: __uid_t,
-        __group: __gid_t,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn lchown(
-        __file: *const ::std::os::raw::c_char,
-        __owner: __uid_t,
-        __group: __gid_t,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn fchownat(
-        __fd: ::std::os::raw::c_int,
-        __file: *const ::std::os::raw::c_char,
-        __owner: __uid_t,
-        __group: __gid_t,
-        __flag: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn chdir(
-        __path: *const ::std::os::raw::c_char,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn fchdir(__fd: ::std::os::raw::c_int) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn getcwd(
-        __buf: *mut ::std::os::raw::c_char,
-        __size: size_t,
-    ) -> *mut ::std::os::raw::c_char;
-}
-extern "C" {
-    pub fn getwd(
-        __buf: *mut ::std::os::raw::c_char,
-    ) -> *mut ::std::os::raw::c_char;
-}
-extern "C" {
-    pub fn dup(__fd: ::std::os::raw::c_int) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn dup2(
-        __fd: ::std::os::raw::c_int,
-        __fd2: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub static mut __environ: *mut *mut ::std::os::raw::c_char;
-}
-extern "C" {
-    pub fn execve(
-        __path: *const ::std::os::raw::c_char,
-        __argv: *const *mut ::std::os::raw::c_char,
-        __envp: *const *mut ::std::os::raw::c_char,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn fexecve(
-        __fd: ::std::os::raw::c_int,
-        __argv: *const *mut ::std::os::raw::c_char,
-        __envp: *const *mut ::std::os::raw::c_char,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn execv(
-        __path: *const ::std::os::raw::c_char,
-        __argv: *const *mut ::std::os::raw::c_char,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn execle(
-        __path: *const ::std::os::raw::c_char,
-        __arg: *const ::std::os::raw::c_char,
-        ...
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn execl(
-        __path: *const ::std::os::raw::c_char,
-        __arg: *const ::std::os::raw::c_char,
-        ...
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn execvp(
-        __file: *const ::std::os::raw::c_char,
-        __argv: *const *mut ::std::os::raw::c_char,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn execlp(
-        __file: *const ::std::os::raw::c_char,
-        __arg: *const ::std::os::raw::c_char,
-        ...
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn nice(__inc: ::std::os::raw::c_int) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn _exit(__status: ::std::os::raw::c_int);
-}
-pub mod _bindgen_ty_1 {
-    pub type Type = ::std::os::raw::c_uint;
-    pub const _PC_LINK_MAX: Type = 0;
-    pub const _PC_MAX_CANON: Type = 1;
-    pub const _PC_MAX_INPUT: Type = 2;
-    pub const _PC_NAME_MAX: Type = 3;
-    pub const _PC_PATH_MAX: Type = 4;
-    pub const _PC_PIPE_BUF: Type = 5;
-    pub const _PC_CHOWN_RESTRICTED: Type = 6;
-    pub const _PC_NO_TRUNC: Type = 7;
-    pub const _PC_VDISABLE: Type = 8;
-    pub const _PC_SYNC_IO: Type = 9;
-    pub const _PC_ASYNC_IO: Type = 10;
-    pub const _PC_PRIO_IO: Type = 11;
-    pub const _PC_SOCK_MAXBUF: Type = 12;
-    pub const _PC_FILESIZEBITS: Type = 13;
-    pub const _PC_REC_INCR_XFER_SIZE: Type = 14;
-    pub const _PC_REC_MAX_XFER_SIZE: Type = 15;
-    pub const _PC_REC_MIN_XFER_SIZE: Type = 16;
-    pub const _PC_REC_XFER_ALIGN: Type = 17;
-    pub const _PC_ALLOC_SIZE_MIN: Type = 18;
-    pub const _PC_SYMLINK_MAX: Type = 19;
-    pub const _PC_2_SYMLINKS: Type = 20;
-}
-pub mod _bindgen_ty_2 {
-    pub type Type = ::std::os::raw::c_uint;
-    pub const _SC_ARG_MAX: Type = 0;
-    pub const _SC_CHILD_MAX: Type = 1;
-    pub const _SC_CLK_TCK: Type = 2;
-    pub const _SC_NGROUPS_MAX: Type = 3;
-    pub const _SC_OPEN_MAX: Type = 4;
-    pub const _SC_STREAM_MAX: Type = 5;
-    pub const _SC_TZNAME_MAX: Type = 6;
-    pub const _SC_JOB_CONTROL: Type = 7;
-    pub const _SC_SAVED_IDS: Type = 8;
-    pub const _SC_REALTIME_SIGNALS: Type = 9;
-    pub const _SC_PRIORITY_SCHEDULING: Type = 10;
-    pub const _SC_TIMERS: Type = 11;
-    pub const _SC_ASYNCHRONOUS_IO: Type = 12;
-    pub const _SC_PRIORITIZED_IO: Type = 13;
-    pub const _SC_SYNCHRONIZED_IO: Type = 14;
-    pub const _SC_FSYNC: Type = 15;
-    pub const _SC_MAPPED_FILES: Type = 16;
-    pub const _SC_MEMLOCK: Type = 17;
-    pub const _SC_MEMLOCK_RANGE: Type = 18;
-    pub const _SC_MEMORY_PROTECTION: Type = 19;
-    pub const _SC_MESSAGE_PASSING: Type = 20;
-    pub const _SC_SEMAPHORES: Type = 21;
-    pub const _SC_SHARED_MEMORY_OBJECTS: Type = 22;
-    pub const _SC_AIO_LISTIO_MAX: Type = 23;
-    pub const _SC_AIO_MAX: Type = 24;
-    pub const _SC_AIO_PRIO_DELTA_MAX: Type = 25;
-    pub const _SC_DELAYTIMER_MAX: Type = 26;
-    pub const _SC_MQ_OPEN_MAX: Type = 27;
-    pub const _SC_MQ_PRIO_MAX: Type = 28;
-    pub const _SC_VERSION: Type = 29;
-    pub const _SC_PAGESIZE: Type = 30;
-    pub const _SC_RTSIG_MAX: Type = 31;
-    pub const _SC_SEM_NSEMS_MAX: Type = 32;
-    pub const _SC_SEM_VALUE_MAX: Type = 33;
-    pub const _SC_SIGQUEUE_MAX: Type = 34;
-    pub const _SC_TIMER_MAX: Type = 35;
-    pub const _SC_BC_BASE_MAX: Type = 36;
-    pub const _SC_BC_DIM_MAX: Type = 37;
-    pub const _SC_BC_SCALE_MAX: Type = 38;
-    pub const _SC_BC_STRING_MAX: Type = 39;
-    pub const _SC_COLL_WEIGHTS_MAX: Type = 40;
-    pub const _SC_EQUIV_CLASS_MAX: Type = 41;
-    pub const _SC_EXPR_NEST_MAX: Type = 42;
-    pub const _SC_LINE_MAX: Type = 43;
-    pub const _SC_RE_DUP_MAX: Type = 44;
-    pub const _SC_CHARCLASS_NAME_MAX: Type = 45;
-    pub const _SC_2_VERSION: Type = 46;
-    pub const _SC_2_C_BIND: Type = 47;
-    pub const _SC_2_C_DEV: Type = 48;
-    pub const _SC_2_FORT_DEV: Type = 49;
-    pub const _SC_2_FORT_RUN: Type = 50;
-    pub const _SC_2_SW_DEV: Type = 51;
-    pub const _SC_2_LOCALEDEF: Type = 52;
-    pub const _SC_PII: Type = 53;
-    pub const _SC_PII_XTI: Type = 54;
-    pub const _SC_PII_SOCKET: Type = 55;
-    pub const _SC_PII_INTERNET: Type = 56;
-    pub const _SC_PII_OSI: Type = 57;
-    pub const _SC_POLL: Type = 58;
-    pub const _SC_SELECT: Type = 59;
-    pub const _SC_UIO_MAXIOV: Type = 60;
-    pub const _SC_IOV_MAX: Type = 60;
-    pub const _SC_PII_INTERNET_STREAM: Type = 61;
-    pub const _SC_PII_INTERNET_DGRAM: Type = 62;
-    pub const _SC_PII_OSI_COTS: Type = 63;
-    pub const _SC_PII_OSI_CLTS: Type = 64;
-    pub const _SC_PII_OSI_M: Type = 65;
-    pub const _SC_T_IOV_MAX: Type = 66;
-    pub const _SC_THREADS: Type = 67;
-    pub const _SC_THREAD_SAFE_FUNCTIONS: Type = 68;
-    pub const _SC_GETGR_R_SIZE_MAX: Type = 69;
-    pub const _SC_GETPW_R_SIZE_MAX: Type = 70;
-    pub const _SC_LOGIN_NAME_MAX: Type = 71;
-    pub const _SC_TTY_NAME_MAX: Type = 72;
-    pub const _SC_THREAD_DESTRUCTOR_ITERATIONS: Type = 73;
-    pub const _SC_THREAD_KEYS_MAX: Type = 74;
-    pub const _SC_THREAD_STACK_MIN: Type = 75;
-    pub const _SC_THREAD_THREADS_MAX: Type = 76;
-    pub const _SC_THREAD_ATTR_STACKADDR: Type = 77;
-    pub const _SC_THREAD_ATTR_STACKSIZE: Type = 78;
-    pub const _SC_THREAD_PRIORITY_SCHEDULING: Type = 79;
-    pub const _SC_THREAD_PRIO_INHERIT: Type = 80;
-    pub const _SC_THREAD_PRIO_PROTECT: Type = 81;
-    pub const _SC_THREAD_PROCESS_SHARED: Type = 82;
-    pub const _SC_NPROCESSORS_CONF: Type = 83;
-    pub const _SC_NPROCESSORS_ONLN: Type = 84;
-    pub const _SC_PHYS_PAGES: Type = 85;
-    pub const _SC_AVPHYS_PAGES: Type = 86;
-    pub const _SC_ATEXIT_MAX: Type = 87;
-    pub const _SC_PASS_MAX: Type = 88;
-    pub const _SC_XOPEN_VERSION: Type = 89;
-    pub const _SC_XOPEN_XCU_VERSION: Type = 90;
-    pub const _SC_XOPEN_UNIX: Type = 91;
-    pub const _SC_XOPEN_CRYPT: Type = 92;
-    pub const _SC_XOPEN_ENH_I18N: Type = 93;
-    pub const _SC_XOPEN_SHM: Type = 94;
-    pub const _SC_2_CHAR_TERM: Type = 95;
-    pub const _SC_2_C_VERSION: Type = 96;
-    pub const _SC_2_UPE: Type = 97;
-    pub const _SC_XOPEN_XPG2: Type = 98;
-    pub const _SC_XOPEN_XPG3: Type = 99;
-    pub const _SC_XOPEN_XPG4: Type = 100;
-    pub const _SC_CHAR_BIT: Type = 101;
-    pub const _SC_CHAR_MAX: Type = 102;
-    pub const _SC_CHAR_MIN: Type = 103;
-    pub const _SC_INT_MAX: Type = 104;
-    pub const _SC_INT_MIN: Type = 105;
-    pub const _SC_LONG_BIT: Type = 106;
-    pub const _SC_WORD_BIT: Type = 107;
-    pub const _SC_MB_LEN_MAX: Type = 108;
-    pub const _SC_NZERO: Type = 109;
-    pub const _SC_SSIZE_MAX: Type = 110;
-    pub const _SC_SCHAR_MAX: Type = 111;
-    pub const _SC_SCHAR_MIN: Type = 112;
-    pub const _SC_SHRT_MAX: Type = 113;
-    pub const _SC_SHRT_MIN: Type = 114;
-    pub const _SC_UCHAR_MAX: Type = 115;
-    pub const _SC_UINT_MAX: Type = 116;
-    pub const _SC_ULONG_MAX: Type = 117;
-    pub const _SC_USHRT_MAX: Type = 118;
-    pub const _SC_NL_ARGMAX: Type = 119;
-    pub const _SC_NL_LANGMAX: Type = 120;
-    pub const _SC_NL_MSGMAX: Type = 121;
-    pub const _SC_NL_NMAX: Type = 122;
-    pub const _SC_NL_SETMAX: Type = 123;
-    pub const _SC_NL_TEXTMAX: Type = 124;
-    pub const _SC_XBS5_ILP32_OFF32: Type = 125;
-    pub const _SC_XBS5_ILP32_OFFBIG: Type = 126;
-    pub const _SC_XBS5_LP64_OFF64: Type = 127;
-    pub const _SC_XBS5_LPBIG_OFFBIG: Type = 128;
-    pub const _SC_XOPEN_LEGACY: Type = 129;
-    pub const _SC_XOPEN_REALTIME: Type = 130;
-    pub const _SC_XOPEN_REALTIME_THREADS: Type = 131;
-    pub const _SC_ADVISORY_INFO: Type = 132;
-    pub const _SC_BARRIERS: Type = 133;
-    pub const _SC_BASE: Type = 134;
-    pub const _SC_C_LANG_SUPPORT: Type = 135;
-    pub const _SC_C_LANG_SUPPORT_R: Type = 136;
-    pub const _SC_CLOCK_SELECTION: Type = 137;
-    pub const _SC_CPUTIME: Type = 138;
-    pub const _SC_THREAD_CPUTIME: Type = 139;
-    pub const _SC_DEVICE_IO: Type = 140;
-    pub const _SC_DEVICE_SPECIFIC: Type = 141;
-    pub const _SC_DEVICE_SPECIFIC_R: Type = 142;
-    pub const _SC_FD_MGMT: Type = 143;
-    pub const _SC_FIFO: Type = 144;
-    pub const _SC_PIPE: Type = 145;
-    pub const _SC_FILE_ATTRIBUTES: Type = 146;
-    pub const _SC_FILE_LOCKING: Type = 147;
-    pub const _SC_FILE_SYSTEM: Type = 148;
-    pub const _SC_MONOTONIC_CLOCK: Type = 149;
-    pub const _SC_MULTI_PROCESS: Type = 150;
-    pub const _SC_SINGLE_PROCESS: Type = 151;
-    pub const _SC_NETWORKING: Type = 152;
-    pub const _SC_READER_WRITER_LOCKS: Type = 153;
-    pub const _SC_SPIN_LOCKS: Type = 154;
-    pub const _SC_REGEXP: Type = 155;
-    pub const _SC_REGEX_VERSION: Type = 156;
-    pub const _SC_SHELL: Type = 157;
-    pub const _SC_SIGNALS: Type = 158;
-    pub const _SC_SPAWN: Type = 159;
-    pub const _SC_SPORADIC_SERVER: Type = 160;
-    pub const _SC_THREAD_SPORADIC_SERVER: Type = 161;
-    pub const _SC_SYSTEM_DATABASE: Type = 162;
-    pub const _SC_SYSTEM_DATABASE_R: Type = 163;
-    pub const _SC_TIMEOUTS: Type = 164;
-    pub const _SC_TYPED_MEMORY_OBJECTS: Type = 165;
-    pub const _SC_USER_GROUPS: Type = 166;
-    pub const _SC_USER_GROUPS_R: Type = 167;
-    pub const _SC_2_PBS: Type = 168;
-    pub const _SC_2_PBS_ACCOUNTING: Type = 169;
-    pub const _SC_2_PBS_LOCATE: Type = 170;
-    pub const _SC_2_PBS_MESSAGE: Type = 171;
-    pub const _SC_2_PBS_TRACK: Type = 172;
-    pub const _SC_SYMLOOP_MAX: Type = 173;
-    pub const _SC_STREAMS: Type = 174;
-    pub const _SC_2_PBS_CHECKPOINT: Type = 175;
-    pub const _SC_V6_ILP32_OFF32: Type = 176;
-    pub const _SC_V6_ILP32_OFFBIG: Type = 177;
-    pub const _SC_V6_LP64_OFF64: Type = 178;
-    pub const _SC_V6_LPBIG_OFFBIG: Type = 179;
-    pub const _SC_HOST_NAME_MAX: Type = 180;
-    pub const _SC_TRACE: Type = 181;
-    pub const _SC_TRACE_EVENT_FILTER: Type = 182;
-    pub const _SC_TRACE_INHERIT: Type = 183;
-    pub const _SC_TRACE_LOG: Type = 184;
-    pub const _SC_LEVEL1_ICACHE_SIZE: Type = 185;
-    pub const _SC_LEVEL1_ICACHE_ASSOC: Type = 186;
-    pub const _SC_LEVEL1_ICACHE_LINESIZE: Type = 187;
-    pub const _SC_LEVEL1_DCACHE_SIZE: Type = 188;
-    pub const _SC_LEVEL1_DCACHE_ASSOC: Type = 189;
-    pub const _SC_LEVEL1_DCACHE_LINESIZE: Type = 190;
-    pub const _SC_LEVEL2_CACHE_SIZE: Type = 191;
-    pub const _SC_LEVEL2_CACHE_ASSOC: Type = 192;
-    pub const _SC_LEVEL2_CACHE_LINESIZE: Type = 193;
-    pub const _SC_LEVEL3_CACHE_SIZE: Type = 194;
-    pub const _SC_LEVEL3_CACHE_ASSOC: Type = 195;
-    pub const _SC_LEVEL3_CACHE_LINESIZE: Type = 196;
-    pub const _SC_LEVEL4_CACHE_SIZE: Type = 197;
-    pub const _SC_LEVEL4_CACHE_ASSOC: Type = 198;
-    pub const _SC_LEVEL4_CACHE_LINESIZE: Type = 199;
-    pub const _SC_IPV6: Type = 235;
-    pub const _SC_RAW_SOCKETS: Type = 236;
-    pub const _SC_V7_ILP32_OFF32: Type = 237;
-    pub const _SC_V7_ILP32_OFFBIG: Type = 238;
-    pub const _SC_V7_LP64_OFF64: Type = 239;
-    pub const _SC_V7_LPBIG_OFFBIG: Type = 240;
-    pub const _SC_SS_REPL_MAX: Type = 241;
-    pub const _SC_TRACE_EVENT_NAME_MAX: Type = 242;
-    pub const _SC_TRACE_NAME_MAX: Type = 243;
-    pub const _SC_TRACE_SYS_MAX: Type = 244;
-    pub const _SC_TRACE_USER_EVENT_MAX: Type = 245;
-    pub const _SC_XOPEN_STREAMS: Type = 246;
-    pub const _SC_THREAD_ROBUST_PRIO_INHERIT: Type = 247;
-    pub const _SC_THREAD_ROBUST_PRIO_PROTECT: Type = 248;
-}
-pub mod _bindgen_ty_3 {
-    pub type Type = ::std::os::raw::c_uint;
-    pub const _CS_PATH: Type = 0;
-    pub const _CS_V6_WIDTH_RESTRICTED_ENVS: Type = 1;
-    pub const _CS_GNU_LIBC_VERSION: Type = 2;
-    pub const _CS_GNU_LIBPTHREAD_VERSION: Type = 3;
-    pub const _CS_V5_WIDTH_RESTRICTED_ENVS: Type = 4;
-    pub const _CS_V7_WIDTH_RESTRICTED_ENVS: Type = 5;
-    pub const _CS_LFS_CFLAGS: Type = 1000;
-    pub const _CS_LFS_LDFLAGS: Type = 1001;
-    pub const _CS_LFS_LIBS: Type = 1002;
-    pub const _CS_LFS_LINTFLAGS: Type = 1003;
-    pub const _CS_LFS64_CFLAGS: Type = 1004;
-    pub const _CS_LFS64_LDFLAGS: Type = 1005;
-    pub const _CS_LFS64_LIBS: Type = 1006;
-    pub const _CS_LFS64_LINTFLAGS: Type = 1007;
-    pub const _CS_XBS5_ILP32_OFF32_CFLAGS: Type = 1100;
-    pub const _CS_XBS5_ILP32_OFF32_LDFLAGS: Type = 1101;
-    pub const _CS_XBS5_ILP32_OFF32_LIBS: Type = 1102;
-    pub const _CS_XBS5_ILP32_OFF32_LINTFLAGS: Type = 1103;
-    pub const _CS_XBS5_ILP32_OFFBIG_CFLAGS: Type = 1104;
-    pub const _CS_XBS5_ILP32_OFFBIG_LDFLAGS: Type = 1105;
-    pub const _CS_XBS5_ILP32_OFFBIG_LIBS: Type = 1106;
-    pub const _CS_XBS5_ILP32_OFFBIG_LINTFLAGS: Type = 1107;
-    pub const _CS_XBS5_LP64_OFF64_CFLAGS: Type = 1108;
-    pub const _CS_XBS5_LP64_OFF64_LDFLAGS: Type = 1109;
-    pub const _CS_XBS5_LP64_OFF64_LIBS: Type = 1110;
-    pub const _CS_XBS5_LP64_OFF64_LINTFLAGS: Type = 1111;
-    pub const _CS_XBS5_LPBIG_OFFBIG_CFLAGS: Type = 1112;
-    pub const _CS_XBS5_LPBIG_OFFBIG_LDFLAGS: Type = 1113;
-    pub const _CS_XBS5_LPBIG_OFFBIG_LIBS: Type = 1114;
-    pub const _CS_XBS5_LPBIG_OFFBIG_LINTFLAGS: Type = 1115;
-    pub const _CS_POSIX_V6_ILP32_OFF32_CFLAGS: Type = 1116;
-    pub const _CS_POSIX_V6_ILP32_OFF32_LDFLAGS: Type = 1117;
-    pub const _CS_POSIX_V6_ILP32_OFF32_LIBS: Type = 1118;
-    pub const _CS_POSIX_V6_ILP32_OFF32_LINTFLAGS: Type = 1119;
-    pub const _CS_POSIX_V6_ILP32_OFFBIG_CFLAGS: Type = 1120;
-    pub const _CS_POSIX_V6_ILP32_OFFBIG_LDFLAGS: Type = 1121;
-    pub const _CS_POSIX_V6_ILP32_OFFBIG_LIBS: Type = 1122;
-    pub const _CS_POSIX_V6_ILP32_OFFBIG_LINTFLAGS: Type = 1123;
-    pub const _CS_POSIX_V6_LP64_OFF64_CFLAGS: Type = 1124;
-    pub const _CS_POSIX_V6_LP64_OFF64_LDFLAGS: Type = 1125;
-    pub const _CS_POSIX_V6_LP64_OFF64_LIBS: Type = 1126;
-    pub const _CS_POSIX_V6_LP64_OFF64_LINTFLAGS: Type = 1127;
-    pub const _CS_POSIX_V6_LPBIG_OFFBIG_CFLAGS: Type = 1128;
-    pub const _CS_POSIX_V6_LPBIG_OFFBIG_LDFLAGS: Type = 1129;
-    pub const _CS_POSIX_V6_LPBIG_OFFBIG_LIBS: Type = 1130;
-    pub const _CS_POSIX_V6_LPBIG_OFFBIG_LINTFLAGS: Type = 1131;
-    pub const _CS_POSIX_V7_ILP32_OFF32_CFLAGS: Type = 1132;
-    pub const _CS_POSIX_V7_ILP32_OFF32_LDFLAGS: Type = 1133;
-    pub const _CS_POSIX_V7_ILP32_OFF32_LIBS: Type = 1134;
-    pub const _CS_POSIX_V7_ILP32_OFF32_LINTFLAGS: Type = 1135;
-    pub const _CS_POSIX_V7_ILP32_OFFBIG_CFLAGS: Type = 1136;
-    pub const _CS_POSIX_V7_ILP32_OFFBIG_LDFLAGS: Type = 1137;
-    pub const _CS_POSIX_V7_ILP32_OFFBIG_LIBS: Type = 1138;
-    pub const _CS_POSIX_V7_ILP32_OFFBIG_LINTFLAGS: Type = 1139;
-    pub const _CS_POSIX_V7_LP64_OFF64_CFLAGS: Type = 1140;
-    pub const _CS_POSIX_V7_LP64_OFF64_LDFLAGS: Type = 1141;
-    pub const _CS_POSIX_V7_LP64_OFF64_LIBS: Type = 1142;
-    pub const _CS_POSIX_V7_LP64_OFF64_LINTFLAGS: Type = 1143;
-    pub const _CS_POSIX_V7_LPBIG_OFFBIG_CFLAGS: Type = 1144;
-    pub const _CS_POSIX_V7_LPBIG_OFFBIG_LDFLAGS: Type = 1145;
-    pub const _CS_POSIX_V7_LPBIG_OFFBIG_LIBS: Type = 1146;
-    pub const _CS_POSIX_V7_LPBIG_OFFBIG_LINTFLAGS: Type = 1147;
-    pub const _CS_V6_ENV: Type = 1148;
-    pub const _CS_V7_ENV: Type = 1149;
-}
-extern "C" {
-    pub fn pathconf(
-        __path: *const ::std::os::raw::c_char,
-        __name: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_long;
-}
-extern "C" {
-    pub fn fpathconf(
-        __fd: ::std::os::raw::c_int,
-        __name: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_long;
-}
-extern "C" {
-    pub fn sysconf(__name: ::std::os::raw::c_int) -> ::std::os::raw::c_long;
-}
-extern "C" {
-    pub fn confstr(
-        __name: ::std::os::raw::c_int,
-        __buf: *mut ::std::os::raw::c_char,
-        __len: size_t,
-    ) -> size_t;
-}
-extern "C" {
-    pub fn getpid() -> __pid_t;
-}
-extern "C" {
-    pub fn getppid() -> __pid_t;
-}
-extern "C" {
-    pub fn getpgrp() -> __pid_t;
-}
-extern "C" {
-    pub fn __getpgid(__pid: __pid_t) -> __pid_t;
-}
-extern "C" {
-    pub fn getpgid(__pid: __pid_t) -> __pid_t;
-}
-extern "C" {
-    pub fn setpgid(__pid: __pid_t, __pgid: __pid_t) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn setpgrp() -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn setsid() -> __pid_t;
-}
-extern "C" {
-    pub fn getsid(__pid: __pid_t) -> __pid_t;
-}
-extern "C" {
-    pub fn getuid() -> __uid_t;
-}
-extern "C" {
-    pub fn geteuid() -> __uid_t;
-}
-extern "C" {
-    pub fn getgid() -> __gid_t;
-}
-extern "C" {
-    pub fn getegid() -> __gid_t;
-}
-extern "C" {
-    pub fn getgroups(
-        __size: ::std::os::raw::c_int,
-        __list: *mut __gid_t,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn setuid(__uid: __uid_t) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn setreuid(__ruid: __uid_t, __euid: __uid_t) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn seteuid(__uid: __uid_t) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn setgid(__gid: __gid_t) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn setregid(__rgid: __gid_t, __egid: __gid_t) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn setegid(__gid: __gid_t) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn fork() -> __pid_t;
-}
-extern "C" {
-    pub fn vfork() -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn ttyname(__fd: ::std::os::raw::c_int) -> *mut ::std::os::raw::c_char;
-}
-extern "C" {
-    pub fn ttyname_r(
-        __fd: ::std::os::raw::c_int,
-        __buf: *mut ::std::os::raw::c_char,
-        __buflen: size_t,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn isatty(__fd: ::std::os::raw::c_int) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn ttyslot() -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn link(
-        __from: *const ::std::os::raw::c_char,
-        __to: *const ::std::os::raw::c_char,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn linkat(
-        __fromfd: ::std::os::raw::c_int,
-        __from: *const ::std::os::raw::c_char,
-        __tofd: ::std::os::raw::c_int,
-        __to: *const ::std::os::raw::c_char,
-        __flags: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn symlink(
-        __from: *const ::std::os::raw::c_char,
-        __to: *const ::std::os::raw::c_char,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn readlink(
-        __path: *const ::std::os::raw::c_char,
-        __buf: *mut ::std::os::raw::c_char,
-        __len: size_t,
-    ) -> ssize_t;
-}
-extern "C" {
-    pub fn symlinkat(
-        __from: *const ::std::os::raw::c_char,
-        __tofd: ::std::os::raw::c_int,
-        __to: *const ::std::os::raw::c_char,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn readlinkat(
-        __fd: ::std::os::raw::c_int,
-        __path: *const ::std::os::raw::c_char,
-        __buf: *mut ::std::os::raw::c_char,
-        __len: size_t,
-    ) -> ssize_t;
-}
-extern "C" {
-    pub fn unlink(
-        __name: *const ::std::os::raw::c_char,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn unlinkat(
-        __fd: ::std::os::raw::c_int,
-        __name: *const ::std::os::raw::c_char,
-        __flag: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn rmdir(
-        __path: *const ::std::os::raw::c_char,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn tcgetpgrp(__fd: ::std::os::raw::c_int) -> __pid_t;
-}
-extern "C" {
-    pub fn tcsetpgrp(
-        __fd: ::std::os::raw::c_int,
-        __pgrp_id: __pid_t,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn getlogin() -> *mut ::std::os::raw::c_char;
-}
-extern "C" {
-    pub fn getlogin_r(
-        __name: *mut ::std::os::raw::c_char,
-        __name_len: size_t,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn setlogin(
-        __name: *const ::std::os::raw::c_char,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub static mut optarg: *mut ::std::os::raw::c_char;
-}
-extern "C" {
-    pub static mut optind: ::std::os::raw::c_int;
-}
-extern "C" {
-    pub static mut opterr: ::std::os::raw::c_int;
-}
-extern "C" {
-    pub static mut optopt: ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn getopt(
-        ___argc: ::std::os::raw::c_int,
-        ___argv: *const *mut ::std::os::raw::c_char,
-        __shortopts: *const ::std::os::raw::c_char,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn gethostname(
-        __name: *mut ::std::os::raw::c_char,
-        __len: size_t,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn sethostname(
-        __name: *const ::std::os::raw::c_char,
-        __len: size_t,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn sethostid(__id: ::std::os::raw::c_long) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn getdomainname(
-        __name: *mut ::std::os::raw::c_char,
-        __len: size_t,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn setdomainname(
-        __name: *const ::std::os::raw::c_char,
-        __len: size_t,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn vhangup() -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn revoke(
-        __file: *const ::std::os::raw::c_char,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn profil(
-        __sample_buffer: *mut ::std::os::raw::c_ushort,
-        __size: size_t,
-        __offset: size_t,
-        __scale: ::std::os::raw::c_uint,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn acct(__name: *const ::std::os::raw::c_char)
-        -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn getusershell() -> *mut ::std::os::raw::c_char;
-}
-extern "C" {
-    pub fn endusershell();
-}
-extern "C" {
-    pub fn setusershell();
-}
-extern "C" {
-    pub fn daemon(
-        __nochdir: ::std::os::raw::c_int,
-        __noclose: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn chroot(
-        __path: *const ::std::os::raw::c_char,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn getpass(
-        __prompt: *const ::std::os::raw::c_char,
-    ) -> *mut ::std::os::raw::c_char;
-}
-extern "C" {
-    pub fn fsync(__fd: ::std::os::raw::c_int) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn gethostid() -> ::std::os::raw::c_long;
-}
-extern "C" {
-    pub fn sync();
-}
-extern "C" {
-    pub fn getpagesize() -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn getdtablesize() -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn truncate(
-        __file: *const ::std::os::raw::c_char,
-        __length: __off_t,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn ftruncate(
-        __fd: ::std::os::raw::c_int,
-        __length: __off_t,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn brk(__addr: *mut ::std::os::raw::c_void) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn sbrk(__delta: isize) -> *mut ::std::os::raw::c_void;
-}
-extern "C" {
-    pub fn syscall(
-        __sysno: ::std::os::raw::c_long,
-        ...
-    ) -> ::std::os::raw::c_long;
-}
-extern "C" {
-    pub fn lockf(
-        __fd: ::std::os::raw::c_int,
-        __cmd: ::std::os::raw::c_int,
-        __len: __off_t,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn fdatasync(__fildes: ::std::os::raw::c_int) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn crypt(
-        __key: *const ::std::os::raw::c_char,
-        __salt: *const ::std::os::raw::c_char,
-    ) -> *mut ::std::os::raw::c_char;
-}
-extern "C" {
-    pub fn getentropy(
-        __buffer: *mut ::std::os::raw::c_void,
-        __length: size_t,
-    ) -> ::std::os::raw::c_int;
-}
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct ly_out {
-    _unused: [u8; 0],
-}
-pub mod LY_OUT_TYPE {
-    pub type Type = ::std::os::raw::c_int;
-    pub const LY_OUT_ERROR: Type = -1;
-    pub const LY_OUT_FD: Type = 0;
-    pub const LY_OUT_FDSTREAM: Type = 1;
-    pub const LY_OUT_FILE: Type = 2;
-    pub const LY_OUT_FILEPATH: Type = 3;
-    pub const LY_OUT_MEMORY: Type = 4;
-    pub const LY_OUT_CALLBACK: Type = 5;
-}
-extern "C" {
-    pub fn ly_out_type(out: *const ly_out) -> LY_OUT_TYPE::Type;
-}
-extern "C" {
-    pub fn ly_out_reset(out: *mut ly_out) -> LY_ERR::Type;
-}
-pub type ly_write_clb = ::std::option::Option<
-    unsafe extern "C" fn(
-        user_data: *mut ::std::os::raw::c_void,
-        buf: *const ::std::os::raw::c_void,
-        count: size_t,
-    ) -> ssize_t,
->;
-extern "C" {
-    pub fn ly_out_new_clb(
-        writeclb: ly_write_clb,
-        user_data: *mut ::std::os::raw::c_void,
-        out: *mut *mut ly_out,
-    ) -> LY_ERR::Type;
-}
-extern "C" {
-    pub fn ly_out_clb(out: *mut ly_out, writeclb: ly_write_clb)
-        -> ly_write_clb;
-}
-extern "C" {
-    pub fn ly_out_clb_arg(
-        out: *mut ly_out,
-        arg: *mut ::std::os::raw::c_void,
-    ) -> *mut ::std::os::raw::c_void;
-}
-extern "C" {
-    pub fn ly_out_new_fd(
-        fd: ::std::os::raw::c_int,
-        out: *mut *mut ly_out,
-    ) -> LY_ERR::Type;
-}
-extern "C" {
-    pub fn ly_out_fd(
-        out: *mut ly_out,
-        fd: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn ly_out_new_file(f: *mut FILE, out: *mut *mut ly_out)
-        -> LY_ERR::Type;
-}
-extern "C" {
-    pub fn ly_out_file(out: *mut ly_out, f: *mut FILE) -> *mut FILE;
-}
-extern "C" {
-    pub fn ly_out_new_memory(
-        strp: *mut *mut ::std::os::raw::c_char,
-        size: size_t,
-        out: *mut *mut ly_out,
-    ) -> LY_ERR::Type;
-}
-extern "C" {
-    pub fn ly_out_memory(
-        out: *mut ly_out,
-        strp: *mut *mut ::std::os::raw::c_char,
-        size: size_t,
-    ) -> *mut ::std::os::raw::c_char;
-}
-extern "C" {
-    pub fn ly_out_new_filepath(
-        filepath: *const ::std::os::raw::c_char,
-        out: *mut *mut ly_out,
-    ) -> LY_ERR::Type;
-}
-extern "C" {
-    pub fn ly_out_filepath(
-        out: *mut ly_out,
-        filepath: *const ::std::os::raw::c_char,
-    ) -> *const ::std::os::raw::c_char;
-}
-extern "C" {
-    pub fn ly_print(
-        out: *mut ly_out,
-        format: *const ::std::os::raw::c_char,
-        ...
-    ) -> LY_ERR::Type;
-}
-extern "C" {
-    pub fn ly_print_flush(out: *mut ly_out);
-}
-extern "C" {
-    pub fn ly_write(
-        out: *mut ly_out,
-        buf: *const ::std::os::raw::c_char,
-        len: size_t,
-    ) -> LY_ERR::Type;
-}
-extern "C" {
-    pub fn ly_out_printed(out: *const ly_out) -> size_t;
-}
-extern "C" {
-    pub fn ly_out_free(
-        out: *mut ly_out,
-        clb_arg_destructor: ::std::option::Option<
-            unsafe extern "C" fn(arg: *mut ::std::os::raw::c_void),
-        >,
-        destroy: ly_bool,
-    );
-}
-pub type __gwchar_t = ::std::os::raw::c_int;
-#[repr(C)]
-#[derive(Debug, Default, Copy, Clone)]
-pub struct imaxdiv_t {
-    pub quot: ::std::os::raw::c_long,
-    pub rem: ::std::os::raw::c_long,
-}
-#[test]
-fn bindgen_test_layout_imaxdiv_t() {
-    assert_eq!(
-        ::std::mem::size_of::<imaxdiv_t>(),
-        16usize,
-        concat!("Size of: ", stringify!(imaxdiv_t))
-    );
-    assert_eq!(
-        ::std::mem::align_of::<imaxdiv_t>(),
-        8usize,
-        concat!("Alignment of ", stringify!(imaxdiv_t))
-    );
-    assert_eq!(
-        unsafe {
-            &(*(::std::ptr::null::<imaxdiv_t>())).quot as *const _ as usize
-        },
-        0usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(imaxdiv_t),
-            "::",
-            stringify!(quot)
-        )
-    );
-    assert_eq!(
-        unsafe {
-            &(*(::std::ptr::null::<imaxdiv_t>())).rem as *const _ as usize
-        },
-        8usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(imaxdiv_t),
-            "::",
-            stringify!(rem)
-        )
-    );
-}
-extern "C" {
-    pub fn imaxabs(__n: intmax_t) -> intmax_t;
-}
-extern "C" {
-    pub fn imaxdiv(__numer: intmax_t, __denom: intmax_t) -> imaxdiv_t;
-}
-extern "C" {
-    pub fn strtoimax(
-        __nptr: *const ::std::os::raw::c_char,
-        __endptr: *mut *mut ::std::os::raw::c_char,
-        __base: ::std::os::raw::c_int,
-    ) -> intmax_t;
-}
-extern "C" {
-    pub fn strtoumax(
-        __nptr: *const ::std::os::raw::c_char,
-        __endptr: *mut *mut ::std::os::raw::c_char,
-        __base: ::std::os::raw::c_int,
-    ) -> uintmax_t;
-}
-extern "C" {
-    pub fn wcstoimax(
-        __nptr: *const __gwchar_t,
-        __endptr: *mut *mut __gwchar_t,
-        __base: ::std::os::raw::c_int,
-    ) -> intmax_t;
-}
-extern "C" {
-    pub fn wcstoumax(
-        __nptr: *const __gwchar_t,
-        __endptr: *mut *mut __gwchar_t,
-        __base: ::std::os::raw::c_int,
-    ) -> uintmax_t;
-}
-pub mod LY_DATA_TYPE {
-    pub type Type = ::std::os::raw::c_uint;
-    pub const LY_TYPE_UNKNOWN: Type = 0;
-    pub const LY_TYPE_BINARY: Type = 1;
-    pub const LY_TYPE_UINT8: Type = 2;
-    pub const LY_TYPE_UINT16: Type = 3;
-    pub const LY_TYPE_UINT32: Type = 4;
-    pub const LY_TYPE_UINT64: Type = 5;
-    pub const LY_TYPE_STRING: Type = 6;
-    pub const LY_TYPE_BITS: Type = 7;
-    pub const LY_TYPE_BOOL: Type = 8;
-    pub const LY_TYPE_DEC64: Type = 9;
-    pub const LY_TYPE_EMPTY: Type = 10;
-    pub const LY_TYPE_ENUM: Type = 11;
-    pub const LY_TYPE_IDENT: Type = 12;
-    pub const LY_TYPE_INST: Type = 13;
-    pub const LY_TYPE_LEAFREF: Type = 14;
-    pub const LY_TYPE_UNION: Type = 15;
-    pub const LY_TYPE_INT8: Type = 16;
-    pub const LY_TYPE_INT16: Type = 17;
-    pub const LY_TYPE_INT32: Type = 18;
-    pub const LY_TYPE_INT64: Type = 19;
-}
-extern "C" {
-    pub static mut ly_data_type2str: [*const ::std::os::raw::c_char; 20usize];
-}
-pub mod LY_PREFIX_FORMAT {
-    pub type Type = ::std::os::raw::c_uint;
-    pub const LY_PREF_SCHEMA: Type = 0;
-    pub const LY_PREF_SCHEMA_RESOLVED: Type = 1;
-    pub const LY_PREF_XML: Type = 2;
-    pub const LY_PREF_JSON: Type = 3;
-}
-pub mod idtype_t {
-    pub type Type = ::std::os::raw::c_uint;
-    pub const P_ALL: Type = 0;
-    pub const P_PID: Type = 1;
-    pub const P_PGID: Type = 2;
-}
-pub type _Float32 = f32;
-pub type _Float64 = f64;
-pub type _Float32x = f64;
-pub type _Float64x = u128;
-#[repr(C)]
-#[derive(Debug, Default, Copy, Clone)]
-pub struct div_t {
-    pub quot: ::std::os::raw::c_int,
-    pub rem: ::std::os::raw::c_int,
-}
-#[test]
-fn bindgen_test_layout_div_t() {
-    assert_eq!(
-        ::std::mem::size_of::<div_t>(),
-        8usize,
-        concat!("Size of: ", stringify!(div_t))
-    );
-    assert_eq!(
-        ::std::mem::align_of::<div_t>(),
-        4usize,
-        concat!("Alignment of ", stringify!(div_t))
-    );
-    assert_eq!(
-        unsafe { &(*(::std::ptr::null::<div_t>())).quot as *const _ as usize },
-        0usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(div_t),
-            "::",
-            stringify!(quot)
-        )
-    );
-    assert_eq!(
-        unsafe { &(*(::std::ptr::null::<div_t>())).rem as *const _ as usize },
-        4usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(div_t),
-            "::",
-            stringify!(rem)
-        )
-    );
-}
-#[repr(C)]
-#[derive(Debug, Default, Copy, Clone)]
-pub struct ldiv_t {
-    pub quot: ::std::os::raw::c_long,
-    pub rem: ::std::os::raw::c_long,
-}
-#[test]
-fn bindgen_test_layout_ldiv_t() {
-    assert_eq!(
-        ::std::mem::size_of::<ldiv_t>(),
-        16usize,
-        concat!("Size of: ", stringify!(ldiv_t))
-    );
-    assert_eq!(
-        ::std::mem::align_of::<ldiv_t>(),
-        8usize,
-        concat!("Alignment of ", stringify!(ldiv_t))
-    );
-    assert_eq!(
-        unsafe { &(*(::std::ptr::null::<ldiv_t>())).quot as *const _ as usize },
-        0usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(ldiv_t),
-            "::",
-            stringify!(quot)
-        )
-    );
-    assert_eq!(
-        unsafe { &(*(::std::ptr::null::<ldiv_t>())).rem as *const _ as usize },
-        8usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(ldiv_t),
-            "::",
-            stringify!(rem)
-        )
-    );
-}
-#[repr(C)]
-#[derive(Debug, Default, Copy, Clone)]
-pub struct lldiv_t {
-    pub quot: ::std::os::raw::c_longlong,
-    pub rem: ::std::os::raw::c_longlong,
-}
-#[test]
-fn bindgen_test_layout_lldiv_t() {
-    assert_eq!(
-        ::std::mem::size_of::<lldiv_t>(),
-        16usize,
-        concat!("Size of: ", stringify!(lldiv_t))
-    );
-    assert_eq!(
-        ::std::mem::align_of::<lldiv_t>(),
-        8usize,
-        concat!("Alignment of ", stringify!(lldiv_t))
-    );
-    assert_eq!(
-        unsafe {
-            &(*(::std::ptr::null::<lldiv_t>())).quot as *const _ as usize
-        },
-        0usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(lldiv_t),
-            "::",
-            stringify!(quot)
-        )
-    );
-    assert_eq!(
-        unsafe { &(*(::std::ptr::null::<lldiv_t>())).rem as *const _ as usize },
-        8usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(lldiv_t),
-            "::",
-            stringify!(rem)
-        )
-    );
-}
-extern "C" {
-    pub fn __ctype_get_mb_cur_max() -> size_t;
-}
-extern "C" {
-    pub fn atof(__nptr: *const ::std::os::raw::c_char) -> f64;
-}
-extern "C" {
-    pub fn atoi(__nptr: *const ::std::os::raw::c_char)
-        -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn atol(
-        __nptr: *const ::std::os::raw::c_char,
-    ) -> ::std::os::raw::c_long;
-}
-extern "C" {
-    pub fn atoll(
-        __nptr: *const ::std::os::raw::c_char,
-    ) -> ::std::os::raw::c_longlong;
-}
-extern "C" {
-    pub fn strtod(
-        __nptr: *const ::std::os::raw::c_char,
-        __endptr: *mut *mut ::std::os::raw::c_char,
-    ) -> f64;
-}
-extern "C" {
-    pub fn strtof(
-        __nptr: *const ::std::os::raw::c_char,
-        __endptr: *mut *mut ::std::os::raw::c_char,
-    ) -> f32;
-}
-extern "C" {
-    pub fn strtold(
-        __nptr: *const ::std::os::raw::c_char,
-        __endptr: *mut *mut ::std::os::raw::c_char,
-    ) -> u128;
-}
-extern "C" {
-    pub fn strtol(
-        __nptr: *const ::std::os::raw::c_char,
-        __endptr: *mut *mut ::std::os::raw::c_char,
-        __base: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_long;
-}
-extern "C" {
-    pub fn strtoul(
-        __nptr: *const ::std::os::raw::c_char,
-        __endptr: *mut *mut ::std::os::raw::c_char,
-        __base: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_ulong;
-}
-extern "C" {
-    pub fn strtoq(
-        __nptr: *const ::std::os::raw::c_char,
-        __endptr: *mut *mut ::std::os::raw::c_char,
-        __base: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_longlong;
-}
-extern "C" {
-    pub fn strtouq(
-        __nptr: *const ::std::os::raw::c_char,
-        __endptr: *mut *mut ::std::os::raw::c_char,
-        __base: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_ulonglong;
-}
-extern "C" {
-    pub fn strtoll(
-        __nptr: *const ::std::os::raw::c_char,
-        __endptr: *mut *mut ::std::os::raw::c_char,
-        __base: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_longlong;
-}
-extern "C" {
-    pub fn strtoull(
-        __nptr: *const ::std::os::raw::c_char,
-        __endptr: *mut *mut ::std::os::raw::c_char,
-        __base: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_ulonglong;
-}
-extern "C" {
-    pub fn l64a(__n: ::std::os::raw::c_long) -> *mut ::std::os::raw::c_char;
-}
-extern "C" {
-    pub fn a64l(__s: *const ::std::os::raw::c_char) -> ::std::os::raw::c_long;
 }
 pub type u_char = __u_char;
 pub type u_short = __u_short;
@@ -4593,9 +1904,14 @@ pub type fsid_t = __fsid_t;
 pub type loff_t = __loff_t;
 pub type ino_t = __ino_t;
 pub type dev_t = __dev_t;
+pub type gid_t = __gid_t;
 pub type mode_t = __mode_t;
 pub type nlink_t = __nlink_t;
+pub type uid_t = __uid_t;
+pub type off_t = __off_t;
+pub type pid_t = __pid_t;
 pub type id_t = __id_t;
+pub type ssize_t = __ssize_t;
 pub type daddr_t = __daddr_t;
 pub type caddr_t = __caddr_t;
 pub type key_t = __key_t;
@@ -5952,6 +3268,2437 @@ impl Default for pthread_barrierattr_t {
     fn default() -> Self {
         unsafe { ::std::mem::zeroed() }
     }
+}
+pub type socklen_t = __socklen_t;
+pub mod __socket_type {
+    pub type Type = ::std::os::raw::c_uint;
+    pub const SOCK_STREAM: Type = 1;
+    pub const SOCK_DGRAM: Type = 2;
+    pub const SOCK_RAW: Type = 3;
+    pub const SOCK_RDM: Type = 4;
+    pub const SOCK_SEQPACKET: Type = 5;
+    pub const SOCK_DCCP: Type = 6;
+    pub const SOCK_PACKET: Type = 10;
+    pub const SOCK_CLOEXEC: Type = 524288;
+    pub const SOCK_NONBLOCK: Type = 2048;
+}
+pub type sa_family_t = ::std::os::raw::c_ushort;
+#[repr(C)]
+#[derive(Debug, Default, Copy, Clone)]
+pub struct sockaddr {
+    pub sa_family: sa_family_t,
+    pub sa_data: [::std::os::raw::c_char; 14usize],
+}
+#[test]
+fn bindgen_test_layout_sockaddr() {
+    assert_eq!(
+        ::std::mem::size_of::<sockaddr>(),
+        16usize,
+        concat!("Size of: ", stringify!(sockaddr))
+    );
+    assert_eq!(
+        ::std::mem::align_of::<sockaddr>(),
+        2usize,
+        concat!("Alignment of ", stringify!(sockaddr))
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<sockaddr>())).sa_family as *const _ as usize
+        },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(sockaddr),
+            "::",
+            stringify!(sa_family)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<sockaddr>())).sa_data as *const _ as usize
+        },
+        2usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(sockaddr),
+            "::",
+            stringify!(sa_data)
+        )
+    );
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub struct sockaddr_storage {
+    pub ss_family: sa_family_t,
+    pub __ss_padding: [::std::os::raw::c_char; 118usize],
+    pub __ss_align: ::std::os::raw::c_ulong,
+}
+#[test]
+fn bindgen_test_layout_sockaddr_storage() {
+    assert_eq!(
+        ::std::mem::size_of::<sockaddr_storage>(),
+        128usize,
+        concat!("Size of: ", stringify!(sockaddr_storage))
+    );
+    assert_eq!(
+        ::std::mem::align_of::<sockaddr_storage>(),
+        8usize,
+        concat!("Alignment of ", stringify!(sockaddr_storage))
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<sockaddr_storage>())).ss_family as *const _
+                as usize
+        },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(sockaddr_storage),
+            "::",
+            stringify!(ss_family)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<sockaddr_storage>())).__ss_padding
+                as *const _ as usize
+        },
+        2usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(sockaddr_storage),
+            "::",
+            stringify!(__ss_padding)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<sockaddr_storage>())).__ss_align as *const _
+                as usize
+        },
+        120usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(sockaddr_storage),
+            "::",
+            stringify!(__ss_align)
+        )
+    );
+}
+impl Default for sockaddr_storage {
+    fn default() -> Self {
+        unsafe { ::std::mem::zeroed() }
+    }
+}
+pub mod _bindgen_ty_1 {
+    pub type Type = ::std::os::raw::c_uint;
+    pub const MSG_OOB: Type = 1;
+    pub const MSG_PEEK: Type = 2;
+    pub const MSG_DONTROUTE: Type = 4;
+    pub const MSG_CTRUNC: Type = 8;
+    pub const MSG_PROXY: Type = 16;
+    pub const MSG_TRUNC: Type = 32;
+    pub const MSG_DONTWAIT: Type = 64;
+    pub const MSG_EOR: Type = 128;
+    pub const MSG_WAITALL: Type = 256;
+    pub const MSG_FIN: Type = 512;
+    pub const MSG_SYN: Type = 1024;
+    pub const MSG_CONFIRM: Type = 2048;
+    pub const MSG_RST: Type = 4096;
+    pub const MSG_ERRQUEUE: Type = 8192;
+    pub const MSG_NOSIGNAL: Type = 16384;
+    pub const MSG_MORE: Type = 32768;
+    pub const MSG_WAITFORONE: Type = 65536;
+    pub const MSG_BATCH: Type = 262144;
+    pub const MSG_ZEROCOPY: Type = 67108864;
+    pub const MSG_FASTOPEN: Type = 536870912;
+    pub const MSG_CMSG_CLOEXEC: Type = 1073741824;
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct msghdr {
+    pub msg_name: *mut ::std::os::raw::c_void,
+    pub msg_namelen: socklen_t,
+    pub msg_iov: *mut iovec,
+    pub msg_iovlen: size_t,
+    pub msg_control: *mut ::std::os::raw::c_void,
+    pub msg_controllen: size_t,
+    pub msg_flags: ::std::os::raw::c_int,
+}
+#[test]
+fn bindgen_test_layout_msghdr() {
+    assert_eq!(
+        ::std::mem::size_of::<msghdr>(),
+        56usize,
+        concat!("Size of: ", stringify!(msghdr))
+    );
+    assert_eq!(
+        ::std::mem::align_of::<msghdr>(),
+        8usize,
+        concat!("Alignment of ", stringify!(msghdr))
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<msghdr>())).msg_name as *const _ as usize
+        },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(msghdr),
+            "::",
+            stringify!(msg_name)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<msghdr>())).msg_namelen as *const _ as usize
+        },
+        8usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(msghdr),
+            "::",
+            stringify!(msg_namelen)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<msghdr>())).msg_iov as *const _ as usize
+        },
+        16usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(msghdr),
+            "::",
+            stringify!(msg_iov)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<msghdr>())).msg_iovlen as *const _ as usize
+        },
+        24usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(msghdr),
+            "::",
+            stringify!(msg_iovlen)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<msghdr>())).msg_control as *const _ as usize
+        },
+        32usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(msghdr),
+            "::",
+            stringify!(msg_control)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<msghdr>())).msg_controllen as *const _
+                as usize
+        },
+        40usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(msghdr),
+            "::",
+            stringify!(msg_controllen)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<msghdr>())).msg_flags as *const _ as usize
+        },
+        48usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(msghdr),
+            "::",
+            stringify!(msg_flags)
+        )
+    );
+}
+impl Default for msghdr {
+    fn default() -> Self {
+        unsafe { ::std::mem::zeroed() }
+    }
+}
+#[repr(C)]
+#[derive(Debug, Default)]
+pub struct cmsghdr {
+    pub cmsg_len: size_t,
+    pub cmsg_level: ::std::os::raw::c_int,
+    pub cmsg_type: ::std::os::raw::c_int,
+    pub __cmsg_data: __IncompleteArrayField<::std::os::raw::c_uchar>,
+}
+#[test]
+fn bindgen_test_layout_cmsghdr() {
+    assert_eq!(
+        ::std::mem::size_of::<cmsghdr>(),
+        16usize,
+        concat!("Size of: ", stringify!(cmsghdr))
+    );
+    assert_eq!(
+        ::std::mem::align_of::<cmsghdr>(),
+        8usize,
+        concat!("Alignment of ", stringify!(cmsghdr))
+    );
+}
+extern "C" {
+    pub fn __cmsg_nxthdr(
+        __mhdr: *mut msghdr,
+        __cmsg: *mut cmsghdr,
+    ) -> *mut cmsghdr;
+}
+pub mod _bindgen_ty_2 {
+    pub type Type = ::std::os::raw::c_uint;
+    pub const SCM_RIGHTS: Type = 1;
+}
+#[repr(C)]
+#[derive(Debug, Default, Copy, Clone)]
+pub struct linger {
+    pub l_onoff: ::std::os::raw::c_int,
+    pub l_linger: ::std::os::raw::c_int,
+}
+#[test]
+fn bindgen_test_layout_linger() {
+    assert_eq!(
+        ::std::mem::size_of::<linger>(),
+        8usize,
+        concat!("Size of: ", stringify!(linger))
+    );
+    assert_eq!(
+        ::std::mem::align_of::<linger>(),
+        4usize,
+        concat!("Alignment of ", stringify!(linger))
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<linger>())).l_onoff as *const _ as usize
+        },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(linger),
+            "::",
+            stringify!(l_onoff)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<linger>())).l_linger as *const _ as usize
+        },
+        4usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(linger),
+            "::",
+            stringify!(l_linger)
+        )
+    );
+}
+#[repr(C)]
+#[derive(Debug, Default, Copy, Clone)]
+pub struct osockaddr {
+    pub sa_family: ::std::os::raw::c_ushort,
+    pub sa_data: [::std::os::raw::c_uchar; 14usize],
+}
+#[test]
+fn bindgen_test_layout_osockaddr() {
+    assert_eq!(
+        ::std::mem::size_of::<osockaddr>(),
+        16usize,
+        concat!("Size of: ", stringify!(osockaddr))
+    );
+    assert_eq!(
+        ::std::mem::align_of::<osockaddr>(),
+        2usize,
+        concat!("Alignment of ", stringify!(osockaddr))
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<osockaddr>())).sa_family as *const _ as usize
+        },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(osockaddr),
+            "::",
+            stringify!(sa_family)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<osockaddr>())).sa_data as *const _ as usize
+        },
+        2usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(osockaddr),
+            "::",
+            stringify!(sa_data)
+        )
+    );
+}
+pub mod _bindgen_ty_3 {
+    pub type Type = ::std::os::raw::c_uint;
+    pub const SHUT_RD: Type = 0;
+    pub const SHUT_WR: Type = 1;
+    pub const SHUT_RDWR: Type = 2;
+}
+extern "C" {
+    pub fn socket(
+        __domain: ::std::os::raw::c_int,
+        __type: ::std::os::raw::c_int,
+        __protocol: ::std::os::raw::c_int,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn socketpair(
+        __domain: ::std::os::raw::c_int,
+        __type: ::std::os::raw::c_int,
+        __protocol: ::std::os::raw::c_int,
+        __fds: *mut ::std::os::raw::c_int,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn bind(
+        __fd: ::std::os::raw::c_int,
+        __addr: *const sockaddr,
+        __len: socklen_t,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn getsockname(
+        __fd: ::std::os::raw::c_int,
+        __addr: *mut sockaddr,
+        __len: *mut socklen_t,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn connect(
+        __fd: ::std::os::raw::c_int,
+        __addr: *const sockaddr,
+        __len: socklen_t,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn getpeername(
+        __fd: ::std::os::raw::c_int,
+        __addr: *mut sockaddr,
+        __len: *mut socklen_t,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn send(
+        __fd: ::std::os::raw::c_int,
+        __buf: *const ::std::os::raw::c_void,
+        __n: size_t,
+        __flags: ::std::os::raw::c_int,
+    ) -> ssize_t;
+}
+extern "C" {
+    pub fn recv(
+        __fd: ::std::os::raw::c_int,
+        __buf: *mut ::std::os::raw::c_void,
+        __n: size_t,
+        __flags: ::std::os::raw::c_int,
+    ) -> ssize_t;
+}
+extern "C" {
+    pub fn sendto(
+        __fd: ::std::os::raw::c_int,
+        __buf: *const ::std::os::raw::c_void,
+        __n: size_t,
+        __flags: ::std::os::raw::c_int,
+        __addr: *const sockaddr,
+        __addr_len: socklen_t,
+    ) -> ssize_t;
+}
+extern "C" {
+    pub fn recvfrom(
+        __fd: ::std::os::raw::c_int,
+        __buf: *mut ::std::os::raw::c_void,
+        __n: size_t,
+        __flags: ::std::os::raw::c_int,
+        __addr: *mut sockaddr,
+        __addr_len: *mut socklen_t,
+    ) -> ssize_t;
+}
+extern "C" {
+    pub fn sendmsg(
+        __fd: ::std::os::raw::c_int,
+        __message: *const msghdr,
+        __flags: ::std::os::raw::c_int,
+    ) -> ssize_t;
+}
+extern "C" {
+    pub fn recvmsg(
+        __fd: ::std::os::raw::c_int,
+        __message: *mut msghdr,
+        __flags: ::std::os::raw::c_int,
+    ) -> ssize_t;
+}
+extern "C" {
+    pub fn getsockopt(
+        __fd: ::std::os::raw::c_int,
+        __level: ::std::os::raw::c_int,
+        __optname: ::std::os::raw::c_int,
+        __optval: *mut ::std::os::raw::c_void,
+        __optlen: *mut socklen_t,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn setsockopt(
+        __fd: ::std::os::raw::c_int,
+        __level: ::std::os::raw::c_int,
+        __optname: ::std::os::raw::c_int,
+        __optval: *const ::std::os::raw::c_void,
+        __optlen: socklen_t,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn listen(
+        __fd: ::std::os::raw::c_int,
+        __n: ::std::os::raw::c_int,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn accept(
+        __fd: ::std::os::raw::c_int,
+        __addr: *mut sockaddr,
+        __addr_len: *mut socklen_t,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn shutdown(
+        __fd: ::std::os::raw::c_int,
+        __how: ::std::os::raw::c_int,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn sockatmark(__fd: ::std::os::raw::c_int) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn isfdtype(
+        __fd: ::std::os::raw::c_int,
+        __fdtype: ::std::os::raw::c_int,
+    ) -> ::std::os::raw::c_int;
+}
+pub type in_addr_t = u32;
+#[repr(C)]
+#[derive(Debug, Default, Copy, Clone)]
+pub struct in_addr {
+    pub s_addr: in_addr_t,
+}
+#[test]
+fn bindgen_test_layout_in_addr() {
+    assert_eq!(
+        ::std::mem::size_of::<in_addr>(),
+        4usize,
+        concat!("Size of: ", stringify!(in_addr))
+    );
+    assert_eq!(
+        ::std::mem::align_of::<in_addr>(),
+        4usize,
+        concat!("Alignment of ", stringify!(in_addr))
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<in_addr>())).s_addr as *const _ as usize
+        },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(in_addr),
+            "::",
+            stringify!(s_addr)
+        )
+    );
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub struct ip_opts {
+    pub ip_dst: in_addr,
+    pub ip_opts: [::std::os::raw::c_char; 40usize],
+}
+#[test]
+fn bindgen_test_layout_ip_opts() {
+    assert_eq!(
+        ::std::mem::size_of::<ip_opts>(),
+        44usize,
+        concat!("Size of: ", stringify!(ip_opts))
+    );
+    assert_eq!(
+        ::std::mem::align_of::<ip_opts>(),
+        4usize,
+        concat!("Alignment of ", stringify!(ip_opts))
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<ip_opts>())).ip_dst as *const _ as usize
+        },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(ip_opts),
+            "::",
+            stringify!(ip_dst)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<ip_opts>())).ip_opts as *const _ as usize
+        },
+        4usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(ip_opts),
+            "::",
+            stringify!(ip_opts)
+        )
+    );
+}
+impl Default for ip_opts {
+    fn default() -> Self {
+        unsafe { ::std::mem::zeroed() }
+    }
+}
+#[repr(C)]
+#[derive(Debug, Default, Copy, Clone)]
+pub struct ip_mreqn {
+    pub imr_multiaddr: in_addr,
+    pub imr_address: in_addr,
+    pub imr_ifindex: ::std::os::raw::c_int,
+}
+#[test]
+fn bindgen_test_layout_ip_mreqn() {
+    assert_eq!(
+        ::std::mem::size_of::<ip_mreqn>(),
+        12usize,
+        concat!("Size of: ", stringify!(ip_mreqn))
+    );
+    assert_eq!(
+        ::std::mem::align_of::<ip_mreqn>(),
+        4usize,
+        concat!("Alignment of ", stringify!(ip_mreqn))
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<ip_mreqn>())).imr_multiaddr as *const _
+                as usize
+        },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(ip_mreqn),
+            "::",
+            stringify!(imr_multiaddr)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<ip_mreqn>())).imr_address as *const _
+                as usize
+        },
+        4usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(ip_mreqn),
+            "::",
+            stringify!(imr_address)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<ip_mreqn>())).imr_ifindex as *const _
+                as usize
+        },
+        8usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(ip_mreqn),
+            "::",
+            stringify!(imr_ifindex)
+        )
+    );
+}
+#[repr(C)]
+#[derive(Debug, Default, Copy, Clone)]
+pub struct in_pktinfo {
+    pub ipi_ifindex: ::std::os::raw::c_int,
+    pub ipi_spec_dst: in_addr,
+    pub ipi_addr: in_addr,
+}
+#[test]
+fn bindgen_test_layout_in_pktinfo() {
+    assert_eq!(
+        ::std::mem::size_of::<in_pktinfo>(),
+        12usize,
+        concat!("Size of: ", stringify!(in_pktinfo))
+    );
+    assert_eq!(
+        ::std::mem::align_of::<in_pktinfo>(),
+        4usize,
+        concat!("Alignment of ", stringify!(in_pktinfo))
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<in_pktinfo>())).ipi_ifindex as *const _
+                as usize
+        },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(in_pktinfo),
+            "::",
+            stringify!(ipi_ifindex)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<in_pktinfo>())).ipi_spec_dst as *const _
+                as usize
+        },
+        4usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(in_pktinfo),
+            "::",
+            stringify!(ipi_spec_dst)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<in_pktinfo>())).ipi_addr as *const _ as usize
+        },
+        8usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(in_pktinfo),
+            "::",
+            stringify!(ipi_addr)
+        )
+    );
+}
+pub mod _bindgen_ty_4 {
+    pub type Type = ::std::os::raw::c_uint;
+    pub const IPPROTO_IP: Type = 0;
+    pub const IPPROTO_ICMP: Type = 1;
+    pub const IPPROTO_IGMP: Type = 2;
+    pub const IPPROTO_IPIP: Type = 4;
+    pub const IPPROTO_TCP: Type = 6;
+    pub const IPPROTO_EGP: Type = 8;
+    pub const IPPROTO_PUP: Type = 12;
+    pub const IPPROTO_UDP: Type = 17;
+    pub const IPPROTO_IDP: Type = 22;
+    pub const IPPROTO_TP: Type = 29;
+    pub const IPPROTO_DCCP: Type = 33;
+    pub const IPPROTO_IPV6: Type = 41;
+    pub const IPPROTO_RSVP: Type = 46;
+    pub const IPPROTO_GRE: Type = 47;
+    pub const IPPROTO_ESP: Type = 50;
+    pub const IPPROTO_AH: Type = 51;
+    pub const IPPROTO_MTP: Type = 92;
+    pub const IPPROTO_BEETPH: Type = 94;
+    pub const IPPROTO_ENCAP: Type = 98;
+    pub const IPPROTO_PIM: Type = 103;
+    pub const IPPROTO_COMP: Type = 108;
+    pub const IPPROTO_SCTP: Type = 132;
+    pub const IPPROTO_UDPLITE: Type = 136;
+    pub const IPPROTO_MPLS: Type = 137;
+    pub const IPPROTO_RAW: Type = 255;
+    pub const IPPROTO_MAX: Type = 256;
+}
+pub mod _bindgen_ty_5 {
+    pub type Type = ::std::os::raw::c_uint;
+    pub const IPPROTO_HOPOPTS: Type = 0;
+    pub const IPPROTO_ROUTING: Type = 43;
+    pub const IPPROTO_FRAGMENT: Type = 44;
+    pub const IPPROTO_ICMPV6: Type = 58;
+    pub const IPPROTO_NONE: Type = 59;
+    pub const IPPROTO_DSTOPTS: Type = 60;
+    pub const IPPROTO_MH: Type = 135;
+}
+pub type in_port_t = u16;
+pub mod _bindgen_ty_6 {
+    pub type Type = ::std::os::raw::c_uint;
+    pub const IPPORT_ECHO: Type = 7;
+    pub const IPPORT_DISCARD: Type = 9;
+    pub const IPPORT_SYSTAT: Type = 11;
+    pub const IPPORT_DAYTIME: Type = 13;
+    pub const IPPORT_NETSTAT: Type = 15;
+    pub const IPPORT_FTP: Type = 21;
+    pub const IPPORT_TELNET: Type = 23;
+    pub const IPPORT_SMTP: Type = 25;
+    pub const IPPORT_TIMESERVER: Type = 37;
+    pub const IPPORT_NAMESERVER: Type = 42;
+    pub const IPPORT_WHOIS: Type = 43;
+    pub const IPPORT_MTP: Type = 57;
+    pub const IPPORT_TFTP: Type = 69;
+    pub const IPPORT_RJE: Type = 77;
+    pub const IPPORT_FINGER: Type = 79;
+    pub const IPPORT_TTYLINK: Type = 87;
+    pub const IPPORT_SUPDUP: Type = 95;
+    pub const IPPORT_EXECSERVER: Type = 512;
+    pub const IPPORT_LOGINSERVER: Type = 513;
+    pub const IPPORT_CMDSERVER: Type = 514;
+    pub const IPPORT_EFSSERVER: Type = 520;
+    pub const IPPORT_BIFFUDP: Type = 512;
+    pub const IPPORT_WHOSERVER: Type = 513;
+    pub const IPPORT_ROUTESERVER: Type = 520;
+    pub const IPPORT_RESERVED: Type = 1024;
+    pub const IPPORT_USERRESERVED: Type = 5000;
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub struct in6_addr {
+    pub __in6_u: in6_addr__bindgen_ty_1,
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub union in6_addr__bindgen_ty_1 {
+    pub __u6_addr8: [u8; 16usize],
+    pub __u6_addr16: [u16; 8usize],
+    pub __u6_addr32: [u32; 4usize],
+    _bindgen_union_align: [u32; 4usize],
+}
+#[test]
+fn bindgen_test_layout_in6_addr__bindgen_ty_1() {
+    assert_eq!(
+        ::std::mem::size_of::<in6_addr__bindgen_ty_1>(),
+        16usize,
+        concat!("Size of: ", stringify!(in6_addr__bindgen_ty_1))
+    );
+    assert_eq!(
+        ::std::mem::align_of::<in6_addr__bindgen_ty_1>(),
+        4usize,
+        concat!("Alignment of ", stringify!(in6_addr__bindgen_ty_1))
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<in6_addr__bindgen_ty_1>())).__u6_addr8
+                as *const _ as usize
+        },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(in6_addr__bindgen_ty_1),
+            "::",
+            stringify!(__u6_addr8)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<in6_addr__bindgen_ty_1>())).__u6_addr16
+                as *const _ as usize
+        },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(in6_addr__bindgen_ty_1),
+            "::",
+            stringify!(__u6_addr16)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<in6_addr__bindgen_ty_1>())).__u6_addr32
+                as *const _ as usize
+        },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(in6_addr__bindgen_ty_1),
+            "::",
+            stringify!(__u6_addr32)
+        )
+    );
+}
+impl Default for in6_addr__bindgen_ty_1 {
+    fn default() -> Self {
+        unsafe { ::std::mem::zeroed() }
+    }
+}
+#[test]
+fn bindgen_test_layout_in6_addr() {
+    assert_eq!(
+        ::std::mem::size_of::<in6_addr>(),
+        16usize,
+        concat!("Size of: ", stringify!(in6_addr))
+    );
+    assert_eq!(
+        ::std::mem::align_of::<in6_addr>(),
+        4usize,
+        concat!("Alignment of ", stringify!(in6_addr))
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<in6_addr>())).__in6_u as *const _ as usize
+        },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(in6_addr),
+            "::",
+            stringify!(__in6_u)
+        )
+    );
+}
+impl Default for in6_addr {
+    fn default() -> Self {
+        unsafe { ::std::mem::zeroed() }
+    }
+}
+extern "C" {
+    pub static in6addr_any: in6_addr;
+}
+extern "C" {
+    pub static in6addr_loopback: in6_addr;
+}
+#[repr(C)]
+#[derive(Debug, Default, Copy, Clone)]
+pub struct sockaddr_in {
+    pub sin_family: sa_family_t,
+    pub sin_port: in_port_t,
+    pub sin_addr: in_addr,
+    pub sin_zero: [::std::os::raw::c_uchar; 8usize],
+}
+#[test]
+fn bindgen_test_layout_sockaddr_in() {
+    assert_eq!(
+        ::std::mem::size_of::<sockaddr_in>(),
+        16usize,
+        concat!("Size of: ", stringify!(sockaddr_in))
+    );
+    assert_eq!(
+        ::std::mem::align_of::<sockaddr_in>(),
+        4usize,
+        concat!("Alignment of ", stringify!(sockaddr_in))
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<sockaddr_in>())).sin_family as *const _
+                as usize
+        },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(sockaddr_in),
+            "::",
+            stringify!(sin_family)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<sockaddr_in>())).sin_port as *const _
+                as usize
+        },
+        2usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(sockaddr_in),
+            "::",
+            stringify!(sin_port)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<sockaddr_in>())).sin_addr as *const _
+                as usize
+        },
+        4usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(sockaddr_in),
+            "::",
+            stringify!(sin_addr)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<sockaddr_in>())).sin_zero as *const _
+                as usize
+        },
+        8usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(sockaddr_in),
+            "::",
+            stringify!(sin_zero)
+        )
+    );
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub struct sockaddr_in6 {
+    pub sin6_family: sa_family_t,
+    pub sin6_port: in_port_t,
+    pub sin6_flowinfo: u32,
+    pub sin6_addr: in6_addr,
+    pub sin6_scope_id: u32,
+}
+#[test]
+fn bindgen_test_layout_sockaddr_in6() {
+    assert_eq!(
+        ::std::mem::size_of::<sockaddr_in6>(),
+        28usize,
+        concat!("Size of: ", stringify!(sockaddr_in6))
+    );
+    assert_eq!(
+        ::std::mem::align_of::<sockaddr_in6>(),
+        4usize,
+        concat!("Alignment of ", stringify!(sockaddr_in6))
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<sockaddr_in6>())).sin6_family as *const _
+                as usize
+        },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(sockaddr_in6),
+            "::",
+            stringify!(sin6_family)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<sockaddr_in6>())).sin6_port as *const _
+                as usize
+        },
+        2usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(sockaddr_in6),
+            "::",
+            stringify!(sin6_port)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<sockaddr_in6>())).sin6_flowinfo as *const _
+                as usize
+        },
+        4usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(sockaddr_in6),
+            "::",
+            stringify!(sin6_flowinfo)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<sockaddr_in6>())).sin6_addr as *const _
+                as usize
+        },
+        8usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(sockaddr_in6),
+            "::",
+            stringify!(sin6_addr)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<sockaddr_in6>())).sin6_scope_id as *const _
+                as usize
+        },
+        24usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(sockaddr_in6),
+            "::",
+            stringify!(sin6_scope_id)
+        )
+    );
+}
+impl Default for sockaddr_in6 {
+    fn default() -> Self {
+        unsafe { ::std::mem::zeroed() }
+    }
+}
+#[repr(C)]
+#[derive(Debug, Default, Copy, Clone)]
+pub struct ip_mreq {
+    pub imr_multiaddr: in_addr,
+    pub imr_interface: in_addr,
+}
+#[test]
+fn bindgen_test_layout_ip_mreq() {
+    assert_eq!(
+        ::std::mem::size_of::<ip_mreq>(),
+        8usize,
+        concat!("Size of: ", stringify!(ip_mreq))
+    );
+    assert_eq!(
+        ::std::mem::align_of::<ip_mreq>(),
+        4usize,
+        concat!("Alignment of ", stringify!(ip_mreq))
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<ip_mreq>())).imr_multiaddr as *const _
+                as usize
+        },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(ip_mreq),
+            "::",
+            stringify!(imr_multiaddr)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<ip_mreq>())).imr_interface as *const _
+                as usize
+        },
+        4usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(ip_mreq),
+            "::",
+            stringify!(imr_interface)
+        )
+    );
+}
+#[repr(C)]
+#[derive(Debug, Default, Copy, Clone)]
+pub struct ip_mreq_source {
+    pub imr_multiaddr: in_addr,
+    pub imr_interface: in_addr,
+    pub imr_sourceaddr: in_addr,
+}
+#[test]
+fn bindgen_test_layout_ip_mreq_source() {
+    assert_eq!(
+        ::std::mem::size_of::<ip_mreq_source>(),
+        12usize,
+        concat!("Size of: ", stringify!(ip_mreq_source))
+    );
+    assert_eq!(
+        ::std::mem::align_of::<ip_mreq_source>(),
+        4usize,
+        concat!("Alignment of ", stringify!(ip_mreq_source))
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<ip_mreq_source>())).imr_multiaddr as *const _
+                as usize
+        },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(ip_mreq_source),
+            "::",
+            stringify!(imr_multiaddr)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<ip_mreq_source>())).imr_interface as *const _
+                as usize
+        },
+        4usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(ip_mreq_source),
+            "::",
+            stringify!(imr_interface)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<ip_mreq_source>())).imr_sourceaddr
+                as *const _ as usize
+        },
+        8usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(ip_mreq_source),
+            "::",
+            stringify!(imr_sourceaddr)
+        )
+    );
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub struct ipv6_mreq {
+    pub ipv6mr_multiaddr: in6_addr,
+    pub ipv6mr_interface: ::std::os::raw::c_uint,
+}
+#[test]
+fn bindgen_test_layout_ipv6_mreq() {
+    assert_eq!(
+        ::std::mem::size_of::<ipv6_mreq>(),
+        20usize,
+        concat!("Size of: ", stringify!(ipv6_mreq))
+    );
+    assert_eq!(
+        ::std::mem::align_of::<ipv6_mreq>(),
+        4usize,
+        concat!("Alignment of ", stringify!(ipv6_mreq))
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<ipv6_mreq>())).ipv6mr_multiaddr as *const _
+                as usize
+        },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(ipv6_mreq),
+            "::",
+            stringify!(ipv6mr_multiaddr)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<ipv6_mreq>())).ipv6mr_interface as *const _
+                as usize
+        },
+        16usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(ipv6_mreq),
+            "::",
+            stringify!(ipv6mr_interface)
+        )
+    );
+}
+impl Default for ipv6_mreq {
+    fn default() -> Self {
+        unsafe { ::std::mem::zeroed() }
+    }
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub struct group_req {
+    pub gr_interface: u32,
+    pub gr_group: sockaddr_storage,
+}
+#[test]
+fn bindgen_test_layout_group_req() {
+    assert_eq!(
+        ::std::mem::size_of::<group_req>(),
+        136usize,
+        concat!("Size of: ", stringify!(group_req))
+    );
+    assert_eq!(
+        ::std::mem::align_of::<group_req>(),
+        8usize,
+        concat!("Alignment of ", stringify!(group_req))
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<group_req>())).gr_interface as *const _
+                as usize
+        },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(group_req),
+            "::",
+            stringify!(gr_interface)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<group_req>())).gr_group as *const _ as usize
+        },
+        8usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(group_req),
+            "::",
+            stringify!(gr_group)
+        )
+    );
+}
+impl Default for group_req {
+    fn default() -> Self {
+        unsafe { ::std::mem::zeroed() }
+    }
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub struct group_source_req {
+    pub gsr_interface: u32,
+    pub gsr_group: sockaddr_storage,
+    pub gsr_source: sockaddr_storage,
+}
+#[test]
+fn bindgen_test_layout_group_source_req() {
+    assert_eq!(
+        ::std::mem::size_of::<group_source_req>(),
+        264usize,
+        concat!("Size of: ", stringify!(group_source_req))
+    );
+    assert_eq!(
+        ::std::mem::align_of::<group_source_req>(),
+        8usize,
+        concat!("Alignment of ", stringify!(group_source_req))
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<group_source_req>())).gsr_interface
+                as *const _ as usize
+        },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(group_source_req),
+            "::",
+            stringify!(gsr_interface)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<group_source_req>())).gsr_group as *const _
+                as usize
+        },
+        8usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(group_source_req),
+            "::",
+            stringify!(gsr_group)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<group_source_req>())).gsr_source as *const _
+                as usize
+        },
+        136usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(group_source_req),
+            "::",
+            stringify!(gsr_source)
+        )
+    );
+}
+impl Default for group_source_req {
+    fn default() -> Self {
+        unsafe { ::std::mem::zeroed() }
+    }
+}
+#[repr(C)]
+#[derive(Debug, Default, Copy, Clone)]
+pub struct ip_msfilter {
+    pub imsf_multiaddr: in_addr,
+    pub imsf_interface: in_addr,
+    pub imsf_fmode: u32,
+    pub imsf_numsrc: u32,
+    pub imsf_slist: [in_addr; 1usize],
+}
+#[test]
+fn bindgen_test_layout_ip_msfilter() {
+    assert_eq!(
+        ::std::mem::size_of::<ip_msfilter>(),
+        20usize,
+        concat!("Size of: ", stringify!(ip_msfilter))
+    );
+    assert_eq!(
+        ::std::mem::align_of::<ip_msfilter>(),
+        4usize,
+        concat!("Alignment of ", stringify!(ip_msfilter))
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<ip_msfilter>())).imsf_multiaddr as *const _
+                as usize
+        },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(ip_msfilter),
+            "::",
+            stringify!(imsf_multiaddr)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<ip_msfilter>())).imsf_interface as *const _
+                as usize
+        },
+        4usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(ip_msfilter),
+            "::",
+            stringify!(imsf_interface)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<ip_msfilter>())).imsf_fmode as *const _
+                as usize
+        },
+        8usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(ip_msfilter),
+            "::",
+            stringify!(imsf_fmode)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<ip_msfilter>())).imsf_numsrc as *const _
+                as usize
+        },
+        12usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(ip_msfilter),
+            "::",
+            stringify!(imsf_numsrc)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<ip_msfilter>())).imsf_slist as *const _
+                as usize
+        },
+        16usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(ip_msfilter),
+            "::",
+            stringify!(imsf_slist)
+        )
+    );
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub struct group_filter {
+    pub gf_interface: u32,
+    pub gf_group: sockaddr_storage,
+    pub gf_fmode: u32,
+    pub gf_numsrc: u32,
+    pub gf_slist: [sockaddr_storage; 1usize],
+}
+#[test]
+fn bindgen_test_layout_group_filter() {
+    assert_eq!(
+        ::std::mem::size_of::<group_filter>(),
+        272usize,
+        concat!("Size of: ", stringify!(group_filter))
+    );
+    assert_eq!(
+        ::std::mem::align_of::<group_filter>(),
+        8usize,
+        concat!("Alignment of ", stringify!(group_filter))
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<group_filter>())).gf_interface as *const _
+                as usize
+        },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(group_filter),
+            "::",
+            stringify!(gf_interface)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<group_filter>())).gf_group as *const _
+                as usize
+        },
+        8usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(group_filter),
+            "::",
+            stringify!(gf_group)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<group_filter>())).gf_fmode as *const _
+                as usize
+        },
+        136usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(group_filter),
+            "::",
+            stringify!(gf_fmode)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<group_filter>())).gf_numsrc as *const _
+                as usize
+        },
+        140usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(group_filter),
+            "::",
+            stringify!(gf_numsrc)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<group_filter>())).gf_slist as *const _
+                as usize
+        },
+        144usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(group_filter),
+            "::",
+            stringify!(gf_slist)
+        )
+    );
+}
+impl Default for group_filter {
+    fn default() -> Self {
+        unsafe { ::std::mem::zeroed() }
+    }
+}
+extern "C" {
+    pub fn ntohl(__netlong: u32) -> u32;
+}
+extern "C" {
+    pub fn ntohs(__netshort: u16) -> u16;
+}
+extern "C" {
+    pub fn htonl(__hostlong: u32) -> u32;
+}
+extern "C" {
+    pub fn htons(__hostshort: u16) -> u16;
+}
+extern "C" {
+    pub fn bindresvport(
+        __sockfd: ::std::os::raw::c_int,
+        __sock_in: *mut sockaddr_in,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn bindresvport6(
+        __sockfd: ::std::os::raw::c_int,
+        __sock_in: *mut sockaddr_in6,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn inet_addr(__cp: *const ::std::os::raw::c_char) -> in_addr_t;
+}
+extern "C" {
+    pub fn inet_lnaof(__in: in_addr) -> in_addr_t;
+}
+extern "C" {
+    pub fn inet_makeaddr(__net: in_addr_t, __host: in_addr_t) -> in_addr;
+}
+extern "C" {
+    pub fn inet_netof(__in: in_addr) -> in_addr_t;
+}
+extern "C" {
+    pub fn inet_network(__cp: *const ::std::os::raw::c_char) -> in_addr_t;
+}
+extern "C" {
+    pub fn inet_ntoa(__in: in_addr) -> *mut ::std::os::raw::c_char;
+}
+extern "C" {
+    pub fn inet_pton(
+        __af: ::std::os::raw::c_int,
+        __cp: *const ::std::os::raw::c_char,
+        __buf: *mut ::std::os::raw::c_void,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn inet_ntop(
+        __af: ::std::os::raw::c_int,
+        __cp: *const ::std::os::raw::c_void,
+        __buf: *mut ::std::os::raw::c_char,
+        __len: socklen_t,
+    ) -> *const ::std::os::raw::c_char;
+}
+extern "C" {
+    pub fn inet_aton(
+        __cp: *const ::std::os::raw::c_char,
+        __inp: *mut in_addr,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn inet_neta(
+        __net: in_addr_t,
+        __buf: *mut ::std::os::raw::c_char,
+        __len: size_t,
+    ) -> *mut ::std::os::raw::c_char;
+}
+extern "C" {
+    pub fn inet_net_ntop(
+        __af: ::std::os::raw::c_int,
+        __cp: *const ::std::os::raw::c_void,
+        __bits: ::std::os::raw::c_int,
+        __buf: *mut ::std::os::raw::c_char,
+        __len: size_t,
+    ) -> *mut ::std::os::raw::c_char;
+}
+extern "C" {
+    pub fn inet_net_pton(
+        __af: ::std::os::raw::c_int,
+        __cp: *const ::std::os::raw::c_char,
+        __buf: *mut ::std::os::raw::c_void,
+        __len: size_t,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn inet_nsap_addr(
+        __cp: *const ::std::os::raw::c_char,
+        __buf: *mut ::std::os::raw::c_uchar,
+        __len: ::std::os::raw::c_int,
+    ) -> ::std::os::raw::c_uint;
+}
+extern "C" {
+    pub fn inet_nsap_ntoa(
+        __len: ::std::os::raw::c_int,
+        __cp: *const ::std::os::raw::c_uchar,
+        __buf: *mut ::std::os::raw::c_char,
+    ) -> *mut ::std::os::raw::c_char;
+}
+pub type wchar_t = ::std::os::raw::c_int;
+#[repr(C)]
+#[repr(align(16))]
+#[derive(Debug, Default, Copy, Clone)]
+pub struct max_align_t {
+    pub __clang_max_align_nonce1: ::std::os::raw::c_longlong,
+    pub __bindgen_padding_0: u64,
+    pub __clang_max_align_nonce2: u128,
+}
+#[test]
+fn bindgen_test_layout_max_align_t() {
+    assert_eq!(
+        ::std::mem::size_of::<max_align_t>(),
+        32usize,
+        concat!("Size of: ", stringify!(max_align_t))
+    );
+    assert_eq!(
+        ::std::mem::align_of::<max_align_t>(),
+        16usize,
+        concat!("Alignment of ", stringify!(max_align_t))
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<max_align_t>())).__clang_max_align_nonce1
+                as *const _ as usize
+        },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(max_align_t),
+            "::",
+            stringify!(__clang_max_align_nonce1)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<max_align_t>())).__clang_max_align_nonce2
+                as *const _ as usize
+        },
+        16usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(max_align_t),
+            "::",
+            stringify!(__clang_max_align_nonce2)
+        )
+    );
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct tm {
+    pub tm_sec: ::std::os::raw::c_int,
+    pub tm_min: ::std::os::raw::c_int,
+    pub tm_hour: ::std::os::raw::c_int,
+    pub tm_mday: ::std::os::raw::c_int,
+    pub tm_mon: ::std::os::raw::c_int,
+    pub tm_year: ::std::os::raw::c_int,
+    pub tm_wday: ::std::os::raw::c_int,
+    pub tm_yday: ::std::os::raw::c_int,
+    pub tm_isdst: ::std::os::raw::c_int,
+    pub tm_gmtoff: ::std::os::raw::c_long,
+    pub tm_zone: *const ::std::os::raw::c_char,
+}
+#[test]
+fn bindgen_test_layout_tm() {
+    assert_eq!(
+        ::std::mem::size_of::<tm>(),
+        56usize,
+        concat!("Size of: ", stringify!(tm))
+    );
+    assert_eq!(
+        ::std::mem::align_of::<tm>(),
+        8usize,
+        concat!("Alignment of ", stringify!(tm))
+    );
+    assert_eq!(
+        unsafe { &(*(::std::ptr::null::<tm>())).tm_sec as *const _ as usize },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(tm),
+            "::",
+            stringify!(tm_sec)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(::std::ptr::null::<tm>())).tm_min as *const _ as usize },
+        4usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(tm),
+            "::",
+            stringify!(tm_min)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(::std::ptr::null::<tm>())).tm_hour as *const _ as usize },
+        8usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(tm),
+            "::",
+            stringify!(tm_hour)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(::std::ptr::null::<tm>())).tm_mday as *const _ as usize },
+        12usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(tm),
+            "::",
+            stringify!(tm_mday)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(::std::ptr::null::<tm>())).tm_mon as *const _ as usize },
+        16usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(tm),
+            "::",
+            stringify!(tm_mon)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(::std::ptr::null::<tm>())).tm_year as *const _ as usize },
+        20usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(tm),
+            "::",
+            stringify!(tm_year)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(::std::ptr::null::<tm>())).tm_wday as *const _ as usize },
+        24usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(tm),
+            "::",
+            stringify!(tm_wday)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(::std::ptr::null::<tm>())).tm_yday as *const _ as usize },
+        28usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(tm),
+            "::",
+            stringify!(tm_yday)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(::std::ptr::null::<tm>())).tm_isdst as *const _ as usize },
+        32usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(tm),
+            "::",
+            stringify!(tm_isdst)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<tm>())).tm_gmtoff as *const _ as usize
+        },
+        40usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(tm),
+            "::",
+            stringify!(tm_gmtoff)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(::std::ptr::null::<tm>())).tm_zone as *const _ as usize },
+        48usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(tm),
+            "::",
+            stringify!(tm_zone)
+        )
+    );
+}
+impl Default for tm {
+    fn default() -> Self {
+        unsafe { ::std::mem::zeroed() }
+    }
+}
+#[repr(C)]
+#[derive(Debug, Default, Copy, Clone)]
+pub struct itimerspec {
+    pub it_interval: timespec,
+    pub it_value: timespec,
+}
+#[test]
+fn bindgen_test_layout_itimerspec() {
+    assert_eq!(
+        ::std::mem::size_of::<itimerspec>(),
+        32usize,
+        concat!("Size of: ", stringify!(itimerspec))
+    );
+    assert_eq!(
+        ::std::mem::align_of::<itimerspec>(),
+        8usize,
+        concat!("Alignment of ", stringify!(itimerspec))
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<itimerspec>())).it_interval as *const _
+                as usize
+        },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(itimerspec),
+            "::",
+            stringify!(it_interval)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<itimerspec>())).it_value as *const _ as usize
+        },
+        16usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(itimerspec),
+            "::",
+            stringify!(it_value)
+        )
+    );
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct sigevent {
+    _unused: [u8; 0],
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct __locale_struct {
+    pub __locales: [*mut __locale_data; 13usize],
+    pub __ctype_b: *const ::std::os::raw::c_ushort,
+    pub __ctype_tolower: *const ::std::os::raw::c_int,
+    pub __ctype_toupper: *const ::std::os::raw::c_int,
+    pub __names: [*const ::std::os::raw::c_char; 13usize],
+}
+#[test]
+fn bindgen_test_layout___locale_struct() {
+    assert_eq!(
+        ::std::mem::size_of::<__locale_struct>(),
+        232usize,
+        concat!("Size of: ", stringify!(__locale_struct))
+    );
+    assert_eq!(
+        ::std::mem::align_of::<__locale_struct>(),
+        8usize,
+        concat!("Alignment of ", stringify!(__locale_struct))
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<__locale_struct>())).__locales as *const _
+                as usize
+        },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(__locale_struct),
+            "::",
+            stringify!(__locales)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<__locale_struct>())).__ctype_b as *const _
+                as usize
+        },
+        104usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(__locale_struct),
+            "::",
+            stringify!(__ctype_b)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<__locale_struct>())).__ctype_tolower
+                as *const _ as usize
+        },
+        112usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(__locale_struct),
+            "::",
+            stringify!(__ctype_tolower)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<__locale_struct>())).__ctype_toupper
+                as *const _ as usize
+        },
+        120usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(__locale_struct),
+            "::",
+            stringify!(__ctype_toupper)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<__locale_struct>())).__names as *const _
+                as usize
+        },
+        128usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(__locale_struct),
+            "::",
+            stringify!(__names)
+        )
+    );
+}
+impl Default for __locale_struct {
+    fn default() -> Self {
+        unsafe { ::std::mem::zeroed() }
+    }
+}
+pub type __locale_t = *mut __locale_struct;
+pub type locale_t = __locale_t;
+extern "C" {
+    pub fn clock() -> clock_t;
+}
+extern "C" {
+    pub fn time(__timer: *mut time_t) -> time_t;
+}
+extern "C" {
+    pub fn difftime(__time1: time_t, __time0: time_t) -> f64;
+}
+extern "C" {
+    pub fn mktime(__tp: *mut tm) -> time_t;
+}
+extern "C" {
+    pub fn strftime(
+        __s: *mut ::std::os::raw::c_char,
+        __maxsize: size_t,
+        __format: *const ::std::os::raw::c_char,
+        __tp: *const tm,
+    ) -> size_t;
+}
+extern "C" {
+    pub fn strftime_l(
+        __s: *mut ::std::os::raw::c_char,
+        __maxsize: size_t,
+        __format: *const ::std::os::raw::c_char,
+        __tp: *const tm,
+        __loc: locale_t,
+    ) -> size_t;
+}
+extern "C" {
+    pub fn gmtime(__timer: *const time_t) -> *mut tm;
+}
+extern "C" {
+    pub fn localtime(__timer: *const time_t) -> *mut tm;
+}
+extern "C" {
+    pub fn gmtime_r(__timer: *const time_t, __tp: *mut tm) -> *mut tm;
+}
+extern "C" {
+    pub fn localtime_r(__timer: *const time_t, __tp: *mut tm) -> *mut tm;
+}
+extern "C" {
+    pub fn asctime(__tp: *const tm) -> *mut ::std::os::raw::c_char;
+}
+extern "C" {
+    pub fn ctime(__timer: *const time_t) -> *mut ::std::os::raw::c_char;
+}
+extern "C" {
+    pub fn asctime_r(
+        __tp: *const tm,
+        __buf: *mut ::std::os::raw::c_char,
+    ) -> *mut ::std::os::raw::c_char;
+}
+extern "C" {
+    pub fn ctime_r(
+        __timer: *const time_t,
+        __buf: *mut ::std::os::raw::c_char,
+    ) -> *mut ::std::os::raw::c_char;
+}
+extern "C" {
+    pub static mut __tzname: [*mut ::std::os::raw::c_char; 2usize];
+}
+extern "C" {
+    pub static mut __daylight: ::std::os::raw::c_int;
+}
+extern "C" {
+    pub static mut __timezone: ::std::os::raw::c_long;
+}
+extern "C" {
+    pub static mut tzname: [*mut ::std::os::raw::c_char; 2usize];
+}
+extern "C" {
+    pub fn tzset();
+}
+extern "C" {
+    pub static mut daylight: ::std::os::raw::c_int;
+}
+extern "C" {
+    pub static mut timezone: ::std::os::raw::c_long;
+}
+extern "C" {
+    pub fn stime(__when: *const time_t) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn timegm(__tp: *mut tm) -> time_t;
+}
+extern "C" {
+    pub fn timelocal(__tp: *mut tm) -> time_t;
+}
+extern "C" {
+    pub fn dysize(__year: ::std::os::raw::c_int) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn nanosleep(
+        __requested_time: *const timespec,
+        __remaining: *mut timespec,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn clock_getres(
+        __clock_id: clockid_t,
+        __res: *mut timespec,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn clock_gettime(
+        __clock_id: clockid_t,
+        __tp: *mut timespec,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn clock_settime(
+        __clock_id: clockid_t,
+        __tp: *const timespec,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn clock_nanosleep(
+        __clock_id: clockid_t,
+        __flags: ::std::os::raw::c_int,
+        __req: *const timespec,
+        __rem: *mut timespec,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn clock_getcpuclockid(
+        __pid: pid_t,
+        __clock_id: *mut clockid_t,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn timer_create(
+        __clock_id: clockid_t,
+        __evp: *mut sigevent,
+        __timerid: *mut timer_t,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn timer_delete(__timerid: timer_t) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn timer_settime(
+        __timerid: timer_t,
+        __flags: ::std::os::raw::c_int,
+        __value: *const itimerspec,
+        __ovalue: *mut itimerspec,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn timer_gettime(
+        __timerid: timer_t,
+        __value: *mut itimerspec,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn timer_getoverrun(__timerid: timer_t) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn timespec_get(
+        __ts: *mut timespec,
+        __base: ::std::os::raw::c_int,
+    ) -> ::std::os::raw::c_int;
+}
+pub type __gwchar_t = ::std::os::raw::c_int;
+#[repr(C)]
+#[derive(Debug, Default, Copy, Clone)]
+pub struct imaxdiv_t {
+    pub quot: ::std::os::raw::c_long,
+    pub rem: ::std::os::raw::c_long,
+}
+#[test]
+fn bindgen_test_layout_imaxdiv_t() {
+    assert_eq!(
+        ::std::mem::size_of::<imaxdiv_t>(),
+        16usize,
+        concat!("Size of: ", stringify!(imaxdiv_t))
+    );
+    assert_eq!(
+        ::std::mem::align_of::<imaxdiv_t>(),
+        8usize,
+        concat!("Alignment of ", stringify!(imaxdiv_t))
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<imaxdiv_t>())).quot as *const _ as usize
+        },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(imaxdiv_t),
+            "::",
+            stringify!(quot)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<imaxdiv_t>())).rem as *const _ as usize
+        },
+        8usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(imaxdiv_t),
+            "::",
+            stringify!(rem)
+        )
+    );
+}
+extern "C" {
+    pub fn imaxabs(__n: intmax_t) -> intmax_t;
+}
+extern "C" {
+    pub fn imaxdiv(__numer: intmax_t, __denom: intmax_t) -> imaxdiv_t;
+}
+extern "C" {
+    pub fn strtoimax(
+        __nptr: *const ::std::os::raw::c_char,
+        __endptr: *mut *mut ::std::os::raw::c_char,
+        __base: ::std::os::raw::c_int,
+    ) -> intmax_t;
+}
+extern "C" {
+    pub fn strtoumax(
+        __nptr: *const ::std::os::raw::c_char,
+        __endptr: *mut *mut ::std::os::raw::c_char,
+        __base: ::std::os::raw::c_int,
+    ) -> uintmax_t;
+}
+extern "C" {
+    pub fn wcstoimax(
+        __nptr: *const __gwchar_t,
+        __endptr: *mut *mut __gwchar_t,
+        __base: ::std::os::raw::c_int,
+    ) -> intmax_t;
+}
+extern "C" {
+    pub fn wcstoumax(
+        __nptr: *const __gwchar_t,
+        __endptr: *mut *mut __gwchar_t,
+        __base: ::std::os::raw::c_int,
+    ) -> uintmax_t;
+}
+pub mod LY_DATA_TYPE {
+    pub type Type = ::std::os::raw::c_uint;
+    pub const LY_TYPE_UNKNOWN: Type = 0;
+    pub const LY_TYPE_BINARY: Type = 1;
+    pub const LY_TYPE_UINT8: Type = 2;
+    pub const LY_TYPE_UINT16: Type = 3;
+    pub const LY_TYPE_UINT32: Type = 4;
+    pub const LY_TYPE_UINT64: Type = 5;
+    pub const LY_TYPE_STRING: Type = 6;
+    pub const LY_TYPE_BITS: Type = 7;
+    pub const LY_TYPE_BOOL: Type = 8;
+    pub const LY_TYPE_DEC64: Type = 9;
+    pub const LY_TYPE_EMPTY: Type = 10;
+    pub const LY_TYPE_ENUM: Type = 11;
+    pub const LY_TYPE_IDENT: Type = 12;
+    pub const LY_TYPE_INST: Type = 13;
+    pub const LY_TYPE_LEAFREF: Type = 14;
+    pub const LY_TYPE_UNION: Type = 15;
+    pub const LY_TYPE_INT8: Type = 16;
+    pub const LY_TYPE_INT16: Type = 17;
+    pub const LY_TYPE_INT32: Type = 18;
+    pub const LY_TYPE_INT64: Type = 19;
+}
+extern "C" {
+    pub static mut ly_data_type2str: [*const ::std::os::raw::c_char; 20usize];
+}
+pub mod LY_VALUE_FORMAT {
+    pub type Type = ::std::os::raw::c_uint;
+    pub const LY_VALUE_CANON: Type = 0;
+    pub const LY_VALUE_SCHEMA: Type = 1;
+    pub const LY_VALUE_SCHEMA_RESOLVED: Type = 2;
+    pub const LY_VALUE_XML: Type = 3;
+    pub const LY_VALUE_JSON: Type = 4;
+    pub const LY_VALUE_LYB: Type = 5;
+}
+pub mod idtype_t {
+    pub type Type = ::std::os::raw::c_uint;
+    pub const P_ALL: Type = 0;
+    pub const P_PID: Type = 1;
+    pub const P_PGID: Type = 2;
+}
+pub type _Float32 = f32;
+pub type _Float64 = f64;
+pub type _Float32x = f64;
+pub type _Float64x = u128;
+#[repr(C)]
+#[derive(Debug, Default, Copy, Clone)]
+pub struct div_t {
+    pub quot: ::std::os::raw::c_int,
+    pub rem: ::std::os::raw::c_int,
+}
+#[test]
+fn bindgen_test_layout_div_t() {
+    assert_eq!(
+        ::std::mem::size_of::<div_t>(),
+        8usize,
+        concat!("Size of: ", stringify!(div_t))
+    );
+    assert_eq!(
+        ::std::mem::align_of::<div_t>(),
+        4usize,
+        concat!("Alignment of ", stringify!(div_t))
+    );
+    assert_eq!(
+        unsafe { &(*(::std::ptr::null::<div_t>())).quot as *const _ as usize },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(div_t),
+            "::",
+            stringify!(quot)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(::std::ptr::null::<div_t>())).rem as *const _ as usize },
+        4usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(div_t),
+            "::",
+            stringify!(rem)
+        )
+    );
+}
+#[repr(C)]
+#[derive(Debug, Default, Copy, Clone)]
+pub struct ldiv_t {
+    pub quot: ::std::os::raw::c_long,
+    pub rem: ::std::os::raw::c_long,
+}
+#[test]
+fn bindgen_test_layout_ldiv_t() {
+    assert_eq!(
+        ::std::mem::size_of::<ldiv_t>(),
+        16usize,
+        concat!("Size of: ", stringify!(ldiv_t))
+    );
+    assert_eq!(
+        ::std::mem::align_of::<ldiv_t>(),
+        8usize,
+        concat!("Alignment of ", stringify!(ldiv_t))
+    );
+    assert_eq!(
+        unsafe { &(*(::std::ptr::null::<ldiv_t>())).quot as *const _ as usize },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(ldiv_t),
+            "::",
+            stringify!(quot)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(::std::ptr::null::<ldiv_t>())).rem as *const _ as usize },
+        8usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(ldiv_t),
+            "::",
+            stringify!(rem)
+        )
+    );
+}
+#[repr(C)]
+#[derive(Debug, Default, Copy, Clone)]
+pub struct lldiv_t {
+    pub quot: ::std::os::raw::c_longlong,
+    pub rem: ::std::os::raw::c_longlong,
+}
+#[test]
+fn bindgen_test_layout_lldiv_t() {
+    assert_eq!(
+        ::std::mem::size_of::<lldiv_t>(),
+        16usize,
+        concat!("Size of: ", stringify!(lldiv_t))
+    );
+    assert_eq!(
+        ::std::mem::align_of::<lldiv_t>(),
+        8usize,
+        concat!("Alignment of ", stringify!(lldiv_t))
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<lldiv_t>())).quot as *const _ as usize
+        },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(lldiv_t),
+            "::",
+            stringify!(quot)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(::std::ptr::null::<lldiv_t>())).rem as *const _ as usize },
+        8usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(lldiv_t),
+            "::",
+            stringify!(rem)
+        )
+    );
+}
+extern "C" {
+    pub fn __ctype_get_mb_cur_max() -> size_t;
+}
+extern "C" {
+    pub fn atof(__nptr: *const ::std::os::raw::c_char) -> f64;
+}
+extern "C" {
+    pub fn atoi(__nptr: *const ::std::os::raw::c_char)
+        -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn atol(
+        __nptr: *const ::std::os::raw::c_char,
+    ) -> ::std::os::raw::c_long;
+}
+extern "C" {
+    pub fn atoll(
+        __nptr: *const ::std::os::raw::c_char,
+    ) -> ::std::os::raw::c_longlong;
+}
+extern "C" {
+    pub fn strtod(
+        __nptr: *const ::std::os::raw::c_char,
+        __endptr: *mut *mut ::std::os::raw::c_char,
+    ) -> f64;
+}
+extern "C" {
+    pub fn strtof(
+        __nptr: *const ::std::os::raw::c_char,
+        __endptr: *mut *mut ::std::os::raw::c_char,
+    ) -> f32;
+}
+extern "C" {
+    pub fn strtold(
+        __nptr: *const ::std::os::raw::c_char,
+        __endptr: *mut *mut ::std::os::raw::c_char,
+    ) -> u128;
+}
+extern "C" {
+    pub fn strtol(
+        __nptr: *const ::std::os::raw::c_char,
+        __endptr: *mut *mut ::std::os::raw::c_char,
+        __base: ::std::os::raw::c_int,
+    ) -> ::std::os::raw::c_long;
+}
+extern "C" {
+    pub fn strtoul(
+        __nptr: *const ::std::os::raw::c_char,
+        __endptr: *mut *mut ::std::os::raw::c_char,
+        __base: ::std::os::raw::c_int,
+    ) -> ::std::os::raw::c_ulong;
+}
+extern "C" {
+    pub fn strtoq(
+        __nptr: *const ::std::os::raw::c_char,
+        __endptr: *mut *mut ::std::os::raw::c_char,
+        __base: ::std::os::raw::c_int,
+    ) -> ::std::os::raw::c_longlong;
+}
+extern "C" {
+    pub fn strtouq(
+        __nptr: *const ::std::os::raw::c_char,
+        __endptr: *mut *mut ::std::os::raw::c_char,
+        __base: ::std::os::raw::c_int,
+    ) -> ::std::os::raw::c_ulonglong;
+}
+extern "C" {
+    pub fn strtoll(
+        __nptr: *const ::std::os::raw::c_char,
+        __endptr: *mut *mut ::std::os::raw::c_char,
+        __base: ::std::os::raw::c_int,
+    ) -> ::std::os::raw::c_longlong;
+}
+extern "C" {
+    pub fn strtoull(
+        __nptr: *const ::std::os::raw::c_char,
+        __endptr: *mut *mut ::std::os::raw::c_char,
+        __base: ::std::os::raw::c_int,
+    ) -> ::std::os::raw::c_ulonglong;
+}
+extern "C" {
+    pub fn l64a(__n: ::std::os::raw::c_long) -> *mut ::std::os::raw::c_char;
+}
+extern "C" {
+    pub fn a64l(__s: *const ::std::os::raw::c_char) -> ::std::os::raw::c_long;
 }
 extern "C" {
     pub fn random() -> ::std::os::raw::c_long;
@@ -9234,6 +8981,1140 @@ extern "C" {
         arg1: *mut pcre2_general_context_32,
     ) -> *const u8;
 }
+pub type va_list = __builtin_va_list;
+pub type __gnuc_va_list = __builtin_va_list;
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub struct __mbstate_t {
+    pub __count: ::std::os::raw::c_int,
+    pub __value: __mbstate_t__bindgen_ty_1,
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub union __mbstate_t__bindgen_ty_1 {
+    pub __wch: ::std::os::raw::c_uint,
+    pub __wchb: [::std::os::raw::c_char; 4usize],
+    _bindgen_union_align: u32,
+}
+#[test]
+fn bindgen_test_layout___mbstate_t__bindgen_ty_1() {
+    assert_eq!(
+        ::std::mem::size_of::<__mbstate_t__bindgen_ty_1>(),
+        4usize,
+        concat!("Size of: ", stringify!(__mbstate_t__bindgen_ty_1))
+    );
+    assert_eq!(
+        ::std::mem::align_of::<__mbstate_t__bindgen_ty_1>(),
+        4usize,
+        concat!("Alignment of ", stringify!(__mbstate_t__bindgen_ty_1))
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<__mbstate_t__bindgen_ty_1>())).__wch
+                as *const _ as usize
+        },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(__mbstate_t__bindgen_ty_1),
+            "::",
+            stringify!(__wch)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<__mbstate_t__bindgen_ty_1>())).__wchb
+                as *const _ as usize
+        },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(__mbstate_t__bindgen_ty_1),
+            "::",
+            stringify!(__wchb)
+        )
+    );
+}
+impl Default for __mbstate_t__bindgen_ty_1 {
+    fn default() -> Self {
+        unsafe { ::std::mem::zeroed() }
+    }
+}
+#[test]
+fn bindgen_test_layout___mbstate_t() {
+    assert_eq!(
+        ::std::mem::size_of::<__mbstate_t>(),
+        8usize,
+        concat!("Size of: ", stringify!(__mbstate_t))
+    );
+    assert_eq!(
+        ::std::mem::align_of::<__mbstate_t>(),
+        4usize,
+        concat!("Alignment of ", stringify!(__mbstate_t))
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<__mbstate_t>())).__count as *const _ as usize
+        },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(__mbstate_t),
+            "::",
+            stringify!(__count)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<__mbstate_t>())).__value as *const _ as usize
+        },
+        4usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(__mbstate_t),
+            "::",
+            stringify!(__value)
+        )
+    );
+}
+impl Default for __mbstate_t {
+    fn default() -> Self {
+        unsafe { ::std::mem::zeroed() }
+    }
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub struct _G_fpos_t {
+    pub __pos: __off_t,
+    pub __state: __mbstate_t,
+}
+#[test]
+fn bindgen_test_layout__G_fpos_t() {
+    assert_eq!(
+        ::std::mem::size_of::<_G_fpos_t>(),
+        16usize,
+        concat!("Size of: ", stringify!(_G_fpos_t))
+    );
+    assert_eq!(
+        ::std::mem::align_of::<_G_fpos_t>(),
+        8usize,
+        concat!("Alignment of ", stringify!(_G_fpos_t))
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<_G_fpos_t>())).__pos as *const _ as usize
+        },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(_G_fpos_t),
+            "::",
+            stringify!(__pos)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<_G_fpos_t>())).__state as *const _ as usize
+        },
+        8usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(_G_fpos_t),
+            "::",
+            stringify!(__state)
+        )
+    );
+}
+impl Default for _G_fpos_t {
+    fn default() -> Self {
+        unsafe { ::std::mem::zeroed() }
+    }
+}
+pub type __fpos_t = _G_fpos_t;
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub struct _G_fpos64_t {
+    pub __pos: __off64_t,
+    pub __state: __mbstate_t,
+}
+#[test]
+fn bindgen_test_layout__G_fpos64_t() {
+    assert_eq!(
+        ::std::mem::size_of::<_G_fpos64_t>(),
+        16usize,
+        concat!("Size of: ", stringify!(_G_fpos64_t))
+    );
+    assert_eq!(
+        ::std::mem::align_of::<_G_fpos64_t>(),
+        8usize,
+        concat!("Alignment of ", stringify!(_G_fpos64_t))
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<_G_fpos64_t>())).__pos as *const _ as usize
+        },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(_G_fpos64_t),
+            "::",
+            stringify!(__pos)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<_G_fpos64_t>())).__state as *const _ as usize
+        },
+        8usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(_G_fpos64_t),
+            "::",
+            stringify!(__state)
+        )
+    );
+}
+impl Default for _G_fpos64_t {
+    fn default() -> Self {
+        unsafe { ::std::mem::zeroed() }
+    }
+}
+pub type __fpos64_t = _G_fpos64_t;
+pub type __FILE = _IO_FILE;
+pub type FILE = _IO_FILE;
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct _IO_marker {
+    _unused: [u8; 0],
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct _IO_codecvt {
+    _unused: [u8; 0],
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct _IO_wide_data {
+    _unused: [u8; 0],
+}
+pub type _IO_lock_t = ::std::os::raw::c_void;
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct _IO_FILE {
+    pub _flags: ::std::os::raw::c_int,
+    pub _IO_read_ptr: *mut ::std::os::raw::c_char,
+    pub _IO_read_end: *mut ::std::os::raw::c_char,
+    pub _IO_read_base: *mut ::std::os::raw::c_char,
+    pub _IO_write_base: *mut ::std::os::raw::c_char,
+    pub _IO_write_ptr: *mut ::std::os::raw::c_char,
+    pub _IO_write_end: *mut ::std::os::raw::c_char,
+    pub _IO_buf_base: *mut ::std::os::raw::c_char,
+    pub _IO_buf_end: *mut ::std::os::raw::c_char,
+    pub _IO_save_base: *mut ::std::os::raw::c_char,
+    pub _IO_backup_base: *mut ::std::os::raw::c_char,
+    pub _IO_save_end: *mut ::std::os::raw::c_char,
+    pub _markers: *mut _IO_marker,
+    pub _chain: *mut _IO_FILE,
+    pub _fileno: ::std::os::raw::c_int,
+    pub _flags2: ::std::os::raw::c_int,
+    pub _old_offset: __off_t,
+    pub _cur_column: ::std::os::raw::c_ushort,
+    pub _vtable_offset: ::std::os::raw::c_schar,
+    pub _shortbuf: [::std::os::raw::c_char; 1usize],
+    pub _lock: *mut _IO_lock_t,
+    pub _offset: __off64_t,
+    pub _codecvt: *mut _IO_codecvt,
+    pub _wide_data: *mut _IO_wide_data,
+    pub _freeres_list: *mut _IO_FILE,
+    pub _freeres_buf: *mut ::std::os::raw::c_void,
+    pub __pad5: size_t,
+    pub _mode: ::std::os::raw::c_int,
+    pub _unused2: [::std::os::raw::c_char; 20usize],
+}
+#[test]
+fn bindgen_test_layout__IO_FILE() {
+    assert_eq!(
+        ::std::mem::size_of::<_IO_FILE>(),
+        216usize,
+        concat!("Size of: ", stringify!(_IO_FILE))
+    );
+    assert_eq!(
+        ::std::mem::align_of::<_IO_FILE>(),
+        8usize,
+        concat!("Alignment of ", stringify!(_IO_FILE))
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<_IO_FILE>()))._flags as *const _ as usize
+        },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(_IO_FILE),
+            "::",
+            stringify!(_flags)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<_IO_FILE>()))._IO_read_ptr as *const _
+                as usize
+        },
+        8usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(_IO_FILE),
+            "::",
+            stringify!(_IO_read_ptr)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<_IO_FILE>()))._IO_read_end as *const _
+                as usize
+        },
+        16usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(_IO_FILE),
+            "::",
+            stringify!(_IO_read_end)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<_IO_FILE>()))._IO_read_base as *const _
+                as usize
+        },
+        24usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(_IO_FILE),
+            "::",
+            stringify!(_IO_read_base)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<_IO_FILE>()))._IO_write_base as *const _
+                as usize
+        },
+        32usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(_IO_FILE),
+            "::",
+            stringify!(_IO_write_base)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<_IO_FILE>()))._IO_write_ptr as *const _
+                as usize
+        },
+        40usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(_IO_FILE),
+            "::",
+            stringify!(_IO_write_ptr)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<_IO_FILE>()))._IO_write_end as *const _
+                as usize
+        },
+        48usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(_IO_FILE),
+            "::",
+            stringify!(_IO_write_end)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<_IO_FILE>()))._IO_buf_base as *const _
+                as usize
+        },
+        56usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(_IO_FILE),
+            "::",
+            stringify!(_IO_buf_base)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<_IO_FILE>()))._IO_buf_end as *const _
+                as usize
+        },
+        64usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(_IO_FILE),
+            "::",
+            stringify!(_IO_buf_end)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<_IO_FILE>()))._IO_save_base as *const _
+                as usize
+        },
+        72usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(_IO_FILE),
+            "::",
+            stringify!(_IO_save_base)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<_IO_FILE>()))._IO_backup_base as *const _
+                as usize
+        },
+        80usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(_IO_FILE),
+            "::",
+            stringify!(_IO_backup_base)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<_IO_FILE>()))._IO_save_end as *const _
+                as usize
+        },
+        88usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(_IO_FILE),
+            "::",
+            stringify!(_IO_save_end)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<_IO_FILE>()))._markers as *const _ as usize
+        },
+        96usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(_IO_FILE),
+            "::",
+            stringify!(_markers)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<_IO_FILE>()))._chain as *const _ as usize
+        },
+        104usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(_IO_FILE),
+            "::",
+            stringify!(_chain)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<_IO_FILE>()))._fileno as *const _ as usize
+        },
+        112usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(_IO_FILE),
+            "::",
+            stringify!(_fileno)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<_IO_FILE>()))._flags2 as *const _ as usize
+        },
+        116usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(_IO_FILE),
+            "::",
+            stringify!(_flags2)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<_IO_FILE>()))._old_offset as *const _
+                as usize
+        },
+        120usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(_IO_FILE),
+            "::",
+            stringify!(_old_offset)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<_IO_FILE>()))._cur_column as *const _
+                as usize
+        },
+        128usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(_IO_FILE),
+            "::",
+            stringify!(_cur_column)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<_IO_FILE>()))._vtable_offset as *const _
+                as usize
+        },
+        130usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(_IO_FILE),
+            "::",
+            stringify!(_vtable_offset)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<_IO_FILE>()))._shortbuf as *const _ as usize
+        },
+        131usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(_IO_FILE),
+            "::",
+            stringify!(_shortbuf)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<_IO_FILE>()))._lock as *const _ as usize
+        },
+        136usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(_IO_FILE),
+            "::",
+            stringify!(_lock)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<_IO_FILE>()))._offset as *const _ as usize
+        },
+        144usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(_IO_FILE),
+            "::",
+            stringify!(_offset)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<_IO_FILE>()))._codecvt as *const _ as usize
+        },
+        152usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(_IO_FILE),
+            "::",
+            stringify!(_codecvt)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<_IO_FILE>()))._wide_data as *const _ as usize
+        },
+        160usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(_IO_FILE),
+            "::",
+            stringify!(_wide_data)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<_IO_FILE>()))._freeres_list as *const _
+                as usize
+        },
+        168usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(_IO_FILE),
+            "::",
+            stringify!(_freeres_list)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<_IO_FILE>()))._freeres_buf as *const _
+                as usize
+        },
+        176usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(_IO_FILE),
+            "::",
+            stringify!(_freeres_buf)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<_IO_FILE>())).__pad5 as *const _ as usize
+        },
+        184usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(_IO_FILE),
+            "::",
+            stringify!(__pad5)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<_IO_FILE>()))._mode as *const _ as usize
+        },
+        192usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(_IO_FILE),
+            "::",
+            stringify!(_mode)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<_IO_FILE>()))._unused2 as *const _ as usize
+        },
+        196usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(_IO_FILE),
+            "::",
+            stringify!(_unused2)
+        )
+    );
+}
+impl Default for _IO_FILE {
+    fn default() -> Self {
+        unsafe { ::std::mem::zeroed() }
+    }
+}
+pub type fpos_t = __fpos_t;
+extern "C" {
+    pub static mut stdin: *mut FILE;
+}
+extern "C" {
+    pub static mut stdout: *mut FILE;
+}
+extern "C" {
+    pub static mut stderr: *mut FILE;
+}
+extern "C" {
+    pub fn remove(
+        __filename: *const ::std::os::raw::c_char,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn rename(
+        __old: *const ::std::os::raw::c_char,
+        __new: *const ::std::os::raw::c_char,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn renameat(
+        __oldfd: ::std::os::raw::c_int,
+        __old: *const ::std::os::raw::c_char,
+        __newfd: ::std::os::raw::c_int,
+        __new: *const ::std::os::raw::c_char,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn tmpfile() -> *mut FILE;
+}
+extern "C" {
+    pub fn tmpnam(
+        __s: *mut ::std::os::raw::c_char,
+    ) -> *mut ::std::os::raw::c_char;
+}
+extern "C" {
+    pub fn tmpnam_r(
+        __s: *mut ::std::os::raw::c_char,
+    ) -> *mut ::std::os::raw::c_char;
+}
+extern "C" {
+    pub fn tempnam(
+        __dir: *const ::std::os::raw::c_char,
+        __pfx: *const ::std::os::raw::c_char,
+    ) -> *mut ::std::os::raw::c_char;
+}
+extern "C" {
+    pub fn fclose(__stream: *mut FILE) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn fflush(__stream: *mut FILE) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn fflush_unlocked(__stream: *mut FILE) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn fopen(
+        __filename: *const ::std::os::raw::c_char,
+        __modes: *const ::std::os::raw::c_char,
+    ) -> *mut FILE;
+}
+extern "C" {
+    pub fn freopen(
+        __filename: *const ::std::os::raw::c_char,
+        __modes: *const ::std::os::raw::c_char,
+        __stream: *mut FILE,
+    ) -> *mut FILE;
+}
+extern "C" {
+    pub fn fdopen(
+        __fd: ::std::os::raw::c_int,
+        __modes: *const ::std::os::raw::c_char,
+    ) -> *mut FILE;
+}
+extern "C" {
+    pub fn fmemopen(
+        __s: *mut ::std::os::raw::c_void,
+        __len: size_t,
+        __modes: *const ::std::os::raw::c_char,
+    ) -> *mut FILE;
+}
+extern "C" {
+    pub fn open_memstream(
+        __bufloc: *mut *mut ::std::os::raw::c_char,
+        __sizeloc: *mut size_t,
+    ) -> *mut FILE;
+}
+extern "C" {
+    pub fn setbuf(__stream: *mut FILE, __buf: *mut ::std::os::raw::c_char);
+}
+extern "C" {
+    pub fn setvbuf(
+        __stream: *mut FILE,
+        __buf: *mut ::std::os::raw::c_char,
+        __modes: ::std::os::raw::c_int,
+        __n: size_t,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn setbuffer(
+        __stream: *mut FILE,
+        __buf: *mut ::std::os::raw::c_char,
+        __size: size_t,
+    );
+}
+extern "C" {
+    pub fn setlinebuf(__stream: *mut FILE);
+}
+extern "C" {
+    pub fn fprintf(
+        __stream: *mut FILE,
+        __format: *const ::std::os::raw::c_char,
+        ...
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn printf(
+        __format: *const ::std::os::raw::c_char,
+        ...
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn sprintf(
+        __s: *mut ::std::os::raw::c_char,
+        __format: *const ::std::os::raw::c_char,
+        ...
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn vfprintf(
+        __s: *mut FILE,
+        __format: *const ::std::os::raw::c_char,
+        __arg: *mut __va_list_tag,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn vprintf(
+        __format: *const ::std::os::raw::c_char,
+        __arg: *mut __va_list_tag,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn vsprintf(
+        __s: *mut ::std::os::raw::c_char,
+        __format: *const ::std::os::raw::c_char,
+        __arg: *mut __va_list_tag,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn snprintf(
+        __s: *mut ::std::os::raw::c_char,
+        __maxlen: ::std::os::raw::c_ulong,
+        __format: *const ::std::os::raw::c_char,
+        ...
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn vsnprintf(
+        __s: *mut ::std::os::raw::c_char,
+        __maxlen: ::std::os::raw::c_ulong,
+        __format: *const ::std::os::raw::c_char,
+        __arg: *mut __va_list_tag,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn vdprintf(
+        __fd: ::std::os::raw::c_int,
+        __fmt: *const ::std::os::raw::c_char,
+        __arg: *mut __va_list_tag,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn dprintf(
+        __fd: ::std::os::raw::c_int,
+        __fmt: *const ::std::os::raw::c_char,
+        ...
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn fscanf(
+        __stream: *mut FILE,
+        __format: *const ::std::os::raw::c_char,
+        ...
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn scanf(
+        __format: *const ::std::os::raw::c_char,
+        ...
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn sscanf(
+        __s: *const ::std::os::raw::c_char,
+        __format: *const ::std::os::raw::c_char,
+        ...
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    #[link_name = "\u{1}__isoc99_fscanf"]
+    pub fn fscanf1(
+        __stream: *mut FILE,
+        __format: *const ::std::os::raw::c_char,
+        ...
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    #[link_name = "\u{1}__isoc99_scanf"]
+    pub fn scanf1(
+        __format: *const ::std::os::raw::c_char,
+        ...
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    #[link_name = "\u{1}__isoc99_sscanf"]
+    pub fn sscanf1(
+        __s: *const ::std::os::raw::c_char,
+        __format: *const ::std::os::raw::c_char,
+        ...
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn vfscanf(
+        __s: *mut FILE,
+        __format: *const ::std::os::raw::c_char,
+        __arg: *mut __va_list_tag,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn vscanf(
+        __format: *const ::std::os::raw::c_char,
+        __arg: *mut __va_list_tag,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn vsscanf(
+        __s: *const ::std::os::raw::c_char,
+        __format: *const ::std::os::raw::c_char,
+        __arg: *mut __va_list_tag,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    #[link_name = "\u{1}__isoc99_vfscanf"]
+    pub fn vfscanf1(
+        __s: *mut FILE,
+        __format: *const ::std::os::raw::c_char,
+        __arg: *mut __va_list_tag,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    #[link_name = "\u{1}__isoc99_vscanf"]
+    pub fn vscanf1(
+        __format: *const ::std::os::raw::c_char,
+        __arg: *mut __va_list_tag,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    #[link_name = "\u{1}__isoc99_vsscanf"]
+    pub fn vsscanf1(
+        __s: *const ::std::os::raw::c_char,
+        __format: *const ::std::os::raw::c_char,
+        __arg: *mut __va_list_tag,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn fgetc(__stream: *mut FILE) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn getc(__stream: *mut FILE) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn getchar() -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn getc_unlocked(__stream: *mut FILE) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn getchar_unlocked() -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn fgetc_unlocked(__stream: *mut FILE) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn fputc(
+        __c: ::std::os::raw::c_int,
+        __stream: *mut FILE,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn putc(
+        __c: ::std::os::raw::c_int,
+        __stream: *mut FILE,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn putchar(__c: ::std::os::raw::c_int) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn fputc_unlocked(
+        __c: ::std::os::raw::c_int,
+        __stream: *mut FILE,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn putc_unlocked(
+        __c: ::std::os::raw::c_int,
+        __stream: *mut FILE,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn putchar_unlocked(
+        __c: ::std::os::raw::c_int,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn getw(__stream: *mut FILE) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn putw(
+        __w: ::std::os::raw::c_int,
+        __stream: *mut FILE,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn fgets(
+        __s: *mut ::std::os::raw::c_char,
+        __n: ::std::os::raw::c_int,
+        __stream: *mut FILE,
+    ) -> *mut ::std::os::raw::c_char;
+}
+extern "C" {
+    pub fn __getdelim(
+        __lineptr: *mut *mut ::std::os::raw::c_char,
+        __n: *mut size_t,
+        __delimiter: ::std::os::raw::c_int,
+        __stream: *mut FILE,
+    ) -> __ssize_t;
+}
+extern "C" {
+    pub fn getdelim(
+        __lineptr: *mut *mut ::std::os::raw::c_char,
+        __n: *mut size_t,
+        __delimiter: ::std::os::raw::c_int,
+        __stream: *mut FILE,
+    ) -> __ssize_t;
+}
+extern "C" {
+    pub fn getline(
+        __lineptr: *mut *mut ::std::os::raw::c_char,
+        __n: *mut size_t,
+        __stream: *mut FILE,
+    ) -> __ssize_t;
+}
+extern "C" {
+    pub fn fputs(
+        __s: *const ::std::os::raw::c_char,
+        __stream: *mut FILE,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn puts(__s: *const ::std::os::raw::c_char) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn ungetc(
+        __c: ::std::os::raw::c_int,
+        __stream: *mut FILE,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn fread(
+        __ptr: *mut ::std::os::raw::c_void,
+        __size: ::std::os::raw::c_ulong,
+        __n: ::std::os::raw::c_ulong,
+        __stream: *mut FILE,
+    ) -> ::std::os::raw::c_ulong;
+}
+extern "C" {
+    pub fn fwrite(
+        __ptr: *const ::std::os::raw::c_void,
+        __size: ::std::os::raw::c_ulong,
+        __n: ::std::os::raw::c_ulong,
+        __s: *mut FILE,
+    ) -> ::std::os::raw::c_ulong;
+}
+extern "C" {
+    pub fn fread_unlocked(
+        __ptr: *mut ::std::os::raw::c_void,
+        __size: size_t,
+        __n: size_t,
+        __stream: *mut FILE,
+    ) -> size_t;
+}
+extern "C" {
+    pub fn fwrite_unlocked(
+        __ptr: *const ::std::os::raw::c_void,
+        __size: size_t,
+        __n: size_t,
+        __stream: *mut FILE,
+    ) -> size_t;
+}
+extern "C" {
+    pub fn fseek(
+        __stream: *mut FILE,
+        __off: ::std::os::raw::c_long,
+        __whence: ::std::os::raw::c_int,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn ftell(__stream: *mut FILE) -> ::std::os::raw::c_long;
+}
+extern "C" {
+    pub fn rewind(__stream: *mut FILE);
+}
+extern "C" {
+    pub fn fseeko(
+        __stream: *mut FILE,
+        __off: __off_t,
+        __whence: ::std::os::raw::c_int,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn ftello(__stream: *mut FILE) -> __off_t;
+}
+extern "C" {
+    pub fn fgetpos(
+        __stream: *mut FILE,
+        __pos: *mut fpos_t,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn fsetpos(
+        __stream: *mut FILE,
+        __pos: *const fpos_t,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn clearerr(__stream: *mut FILE);
+}
+extern "C" {
+    pub fn feof(__stream: *mut FILE) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn ferror(__stream: *mut FILE) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn clearerr_unlocked(__stream: *mut FILE);
+}
+extern "C" {
+    pub fn feof_unlocked(__stream: *mut FILE) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn ferror_unlocked(__stream: *mut FILE) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn perror(__s: *const ::std::os::raw::c_char);
+}
+extern "C" {
+    pub static mut sys_nerr: ::std::os::raw::c_int;
+}
+extern "C" {
+    pub static mut sys_errlist: [*const ::std::os::raw::c_char; 0usize];
+}
+extern "C" {
+    pub fn fileno(__stream: *mut FILE) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn fileno_unlocked(__stream: *mut FILE) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn popen(
+        __command: *const ::std::os::raw::c_char,
+        __modes: *const ::std::os::raw::c_char,
+    ) -> *mut FILE;
+}
+extern "C" {
+    pub fn pclose(__stream: *mut FILE) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn ctermid(
+        __s: *mut ::std::os::raw::c_char,
+    ) -> *mut ::std::os::raw::c_char;
+}
+extern "C" {
+    pub fn flockfile(__stream: *mut FILE);
+}
+extern "C" {
+    pub fn ftrylockfile(__stream: *mut FILE) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn funlockfile(__stream: *mut FILE);
+}
+extern "C" {
+    pub fn __uflow(arg1: *mut FILE) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn __overflow(
+        arg1: *mut FILE,
+        arg2: ::std::os::raw::c_int,
+    ) -> ::std::os::raw::c_int;
+}
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct ly_path {
@@ -9694,7 +10575,7 @@ impl Default for lysp_ext {
 pub struct lysp_stmt {
     pub stmt: *const ::std::os::raw::c_char,
     pub arg: *const ::std::os::raw::c_char,
-    pub format: LY_PREFIX_FORMAT::Type,
+    pub format: LY_VALUE_FORMAT::Type,
     pub prefix_data: *mut ::std::os::raw::c_void,
     pub next: *mut lysp_stmt,
     pub child: *mut lysp_stmt,
@@ -9821,7 +10702,8 @@ impl Default for lysp_stmt {
 pub struct lysp_ext_instance {
     pub name: *const ::std::os::raw::c_char,
     pub argument: *const ::std::os::raw::c_char,
-    pub format: LY_PREFIX_FORMAT::Type,
+    pub format: LY_VALUE_FORMAT::Type,
+    pub parsed: *mut lysp_node,
     pub prefix_data: *mut ::std::os::raw::c_void,
     pub child: *mut lysp_stmt,
     pub parent: *mut ::std::os::raw::c_void,
@@ -9833,7 +10715,7 @@ pub struct lysp_ext_instance {
 fn bindgen_test_layout_lysp_ext_instance() {
     assert_eq!(
         ::std::mem::size_of::<lysp_ext_instance>(),
-        72usize,
+        80usize,
         concat!("Size of: ", stringify!(lysp_ext_instance))
     );
     assert_eq!(
@@ -9882,10 +10764,23 @@ fn bindgen_test_layout_lysp_ext_instance() {
     );
     assert_eq!(
         unsafe {
+            &(*(::std::ptr::null::<lysp_ext_instance>())).parsed as *const _
+                as usize
+        },
+        24usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(lysp_ext_instance),
+            "::",
+            stringify!(parsed)
+        )
+    );
+    assert_eq!(
+        unsafe {
             &(*(::std::ptr::null::<lysp_ext_instance>())).prefix_data
                 as *const _ as usize
         },
-        24usize,
+        32usize,
         concat!(
             "Offset of field: ",
             stringify!(lysp_ext_instance),
@@ -9898,7 +10793,7 @@ fn bindgen_test_layout_lysp_ext_instance() {
             &(*(::std::ptr::null::<lysp_ext_instance>())).child as *const _
                 as usize
         },
-        32usize,
+        40usize,
         concat!(
             "Offset of field: ",
             stringify!(lysp_ext_instance),
@@ -9911,7 +10806,7 @@ fn bindgen_test_layout_lysp_ext_instance() {
             &(*(::std::ptr::null::<lysp_ext_instance>())).parent as *const _
                 as usize
         },
-        40usize,
+        48usize,
         concat!(
             "Offset of field: ",
             stringify!(lysp_ext_instance),
@@ -9924,7 +10819,7 @@ fn bindgen_test_layout_lysp_ext_instance() {
             &(*(::std::ptr::null::<lysp_ext_instance>())).parent_stmt
                 as *const _ as usize
         },
-        48usize,
+        56usize,
         concat!(
             "Offset of field: ",
             stringify!(lysp_ext_instance),
@@ -9937,7 +10832,7 @@ fn bindgen_test_layout_lysp_ext_instance() {
             &(*(::std::ptr::null::<lysp_ext_instance>())).parent_stmt_index
                 as *const _ as usize
         },
-        56usize,
+        64usize,
         concat!(
             "Offset of field: ",
             stringify!(lysp_ext_instance),
@@ -9950,7 +10845,7 @@ fn bindgen_test_layout_lysp_ext_instance() {
             &(*(::std::ptr::null::<lysp_ext_instance>())).flags as *const _
                 as usize
         },
-        64usize,
+        72usize,
         concat!(
             "Offset of field: ",
             stringify!(lysp_ext_instance),
@@ -22317,6 +23212,9 @@ extern "C" {
     pub fn lysc_has_when(node: *const lysc_node) -> *const lysc_when;
 }
 extern "C" {
+    pub fn lysc_owner_module(node: *const lysc_node) -> *const lys_module;
+}
+extern "C" {
     pub fn lysp_node_groupings(node: *const lysp_node) -> *const lysp_node_grp;
 }
 extern "C" {
@@ -22371,6 +23269,11 @@ extern "C" {
 }
 extern "C" {
     pub fn lysc_iffeature_value(iff: *const lysc_iffeature) -> LY_ERR::Type;
+}
+extern "C" {
+    pub fn lys_identity_iffeature_value(
+        ident: *const lysc_ident,
+    ) -> LY_ERR::Type;
 }
 extern "C" {
     pub fn lysp_feature_next(
@@ -22470,6 +23373,7 @@ pub struct lys_module {
     pub augmented_by: *mut *mut lys_module,
     pub deviated_by: *mut *mut lys_module,
     pub implemented: ly_bool,
+    pub to_compile: ly_bool,
     pub latest_revision: u8,
 }
 #[test]
@@ -22682,10 +23586,23 @@ fn bindgen_test_layout_lys_module() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<lys_module>())).latest_revision as *const _
+            &(*(::std::ptr::null::<lys_module>())).to_compile as *const _
                 as usize
         },
         121usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(lys_module),
+            "::",
+            stringify!(to_compile)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<lys_module>())).latest_revision as *const _
+                as usize
+        },
+        122usize,
         concat!(
             "Offset of field: ",
             stringify!(lys_module),
@@ -22738,20 +23655,17 @@ extern "C" {
     ) -> LY_ERR::Type;
 }
 extern "C" {
-    pub fn lys_value_validate(
-        ctx: *const ly_ctx,
-        node: *const lysc_node,
-        value: *const ::std::os::raw::c_char,
-        value_len: size_t,
-    ) -> LY_ERR::Type;
-}
-extern "C" {
     pub fn lys_nodetype2str(nodetype: u16) -> *const ::std::os::raw::c_char;
 }
 extern "C" {
     pub fn lyxp_get_expr(
         path: *const lyxp_expr,
     ) -> *const ::std::os::raw::c_char;
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct lyxp_var {
+    _unused: [u8; 0],
 }
 pub mod LYD_FORMAT {
     pub type Type = ::std::os::raw::c_uint;
@@ -22771,9 +23685,9 @@ pub mod LYD_ANYDATA_VALUETYPE {
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct lyd_value {
-    pub canonical: *const ::std::os::raw::c_char,
-    pub __bindgen_anon_1: lyd_value__bindgen_ty_1,
+    pub _canonical: *const ::std::os::raw::c_char,
     pub realtype: *const lysc_type,
+    pub __bindgen_anon_1: lyd_value__bindgen_ty_1,
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -22789,18 +23703,18 @@ pub union lyd_value__bindgen_ty_1 {
     pub uint32: u32,
     pub uint64: u64,
     pub enum_item: *mut lysc_type_bitenum_item,
-    pub bits_items: *mut *mut lysc_type_bitenum_item,
     pub ident: *mut lysc_ident,
     pub target: *mut ly_path,
-    pub subvalue: *mut lyd_value_subvalue,
-    pub ptr: *mut ::std::os::raw::c_void,
-    _bindgen_union_align: u64,
+    pub subvalue: *mut lyd_value_union,
+    pub dyn_mem: *mut ::std::os::raw::c_void,
+    pub fixed_mem: [u8; 24usize],
+    _bindgen_union_align: [u64; 3usize],
 }
 #[test]
 fn bindgen_test_layout_lyd_value__bindgen_ty_1() {
     assert_eq!(
         ::std::mem::size_of::<lyd_value__bindgen_ty_1>(),
-        8usize,
+        24usize,
         concat!("Size of: ", stringify!(lyd_value__bindgen_ty_1))
     );
     assert_eq!(
@@ -22953,19 +23867,6 @@ fn bindgen_test_layout_lyd_value__bindgen_ty_1() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<lyd_value__bindgen_ty_1>())).bits_items
-                as *const _ as usize
-        },
-        0usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(lyd_value__bindgen_ty_1),
-            "::",
-            stringify!(bits_items)
-        )
-    );
-    assert_eq!(
-        unsafe {
             &(*(::std::ptr::null::<lyd_value__bindgen_ty_1>())).ident
                 as *const _ as usize
         },
@@ -23005,15 +23906,28 @@ fn bindgen_test_layout_lyd_value__bindgen_ty_1() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<lyd_value__bindgen_ty_1>())).ptr as *const _
-                as usize
+            &(*(::std::ptr::null::<lyd_value__bindgen_ty_1>())).dyn_mem
+                as *const _ as usize
         },
         0usize,
         concat!(
             "Offset of field: ",
             stringify!(lyd_value__bindgen_ty_1),
             "::",
-            stringify!(ptr)
+            stringify!(dyn_mem)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<lyd_value__bindgen_ty_1>())).fixed_mem
+                as *const _ as usize
+        },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(lyd_value__bindgen_ty_1),
+            "::",
+            stringify!(fixed_mem)
         )
     );
 }
@@ -23026,7 +23940,7 @@ impl Default for lyd_value__bindgen_ty_1 {
 fn bindgen_test_layout_lyd_value() {
     assert_eq!(
         ::std::mem::size_of::<lyd_value>(),
-        24usize,
+        40usize,
         concat!("Size of: ", stringify!(lyd_value))
     );
     assert_eq!(
@@ -23036,21 +23950,22 @@ fn bindgen_test_layout_lyd_value() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<lyd_value>())).canonical as *const _ as usize
+            &(*(::std::ptr::null::<lyd_value>()))._canonical as *const _
+                as usize
         },
         0usize,
         concat!(
             "Offset of field: ",
             stringify!(lyd_value),
             "::",
-            stringify!(canonical)
+            stringify!(_canonical)
         )
     );
     assert_eq!(
         unsafe {
             &(*(::std::ptr::null::<lyd_value>())).realtype as *const _ as usize
         },
-        16usize,
+        8usize,
         concat!(
             "Offset of field: ",
             stringify!(lyd_value),
@@ -23066,106 +23981,532 @@ impl Default for lyd_value {
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
-pub struct lyd_value_subvalue {
+pub struct lyd_value_union {
     pub value: lyd_value,
-    pub original: *const ::std::os::raw::c_char,
-    pub format: LY_PREFIX_FORMAT::Type,
-    pub prefix_data: *mut ::std::os::raw::c_void,
+    pub original: *mut ::std::os::raw::c_void,
+    pub orig_len: size_t,
     pub hints: u32,
+    pub format: LY_VALUE_FORMAT::Type,
+    pub prefix_data: *mut ::std::os::raw::c_void,
     pub ctx_node: *const lysc_node,
 }
 #[test]
-fn bindgen_test_layout_lyd_value_subvalue() {
+fn bindgen_test_layout_lyd_value_union() {
     assert_eq!(
-        ::std::mem::size_of::<lyd_value_subvalue>(),
-        64usize,
-        concat!("Size of: ", stringify!(lyd_value_subvalue))
+        ::std::mem::size_of::<lyd_value_union>(),
+        80usize,
+        concat!("Size of: ", stringify!(lyd_value_union))
     );
     assert_eq!(
-        ::std::mem::align_of::<lyd_value_subvalue>(),
+        ::std::mem::align_of::<lyd_value_union>(),
         8usize,
-        concat!("Alignment of ", stringify!(lyd_value_subvalue))
+        concat!("Alignment of ", stringify!(lyd_value_union))
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<lyd_value_subvalue>())).value as *const _
+            &(*(::std::ptr::null::<lyd_value_union>())).value as *const _
                 as usize
         },
         0usize,
         concat!(
             "Offset of field: ",
-            stringify!(lyd_value_subvalue),
+            stringify!(lyd_value_union),
             "::",
             stringify!(value)
         )
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<lyd_value_subvalue>())).original as *const _
+            &(*(::std::ptr::null::<lyd_value_union>())).original as *const _
                 as usize
         },
-        24usize,
+        40usize,
         concat!(
             "Offset of field: ",
-            stringify!(lyd_value_subvalue),
+            stringify!(lyd_value_union),
             "::",
             stringify!(original)
         )
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<lyd_value_subvalue>())).format as *const _
-                as usize
-        },
-        32usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(lyd_value_subvalue),
-            "::",
-            stringify!(format)
-        )
-    );
-    assert_eq!(
-        unsafe {
-            &(*(::std::ptr::null::<lyd_value_subvalue>())).prefix_data
-                as *const _ as usize
-        },
-        40usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(lyd_value_subvalue),
-            "::",
-            stringify!(prefix_data)
-        )
-    );
-    assert_eq!(
-        unsafe {
-            &(*(::std::ptr::null::<lyd_value_subvalue>())).hints as *const _
+            &(*(::std::ptr::null::<lyd_value_union>())).orig_len as *const _
                 as usize
         },
         48usize,
         concat!(
             "Offset of field: ",
-            stringify!(lyd_value_subvalue),
+            stringify!(lyd_value_union),
+            "::",
+            stringify!(orig_len)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<lyd_value_union>())).hints as *const _
+                as usize
+        },
+        56usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(lyd_value_union),
             "::",
             stringify!(hints)
         )
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<lyd_value_subvalue>())).ctx_node as *const _
+            &(*(::std::ptr::null::<lyd_value_union>())).format as *const _
                 as usize
         },
-        56usize,
+        60usize,
         concat!(
             "Offset of field: ",
-            stringify!(lyd_value_subvalue),
+            stringify!(lyd_value_union),
+            "::",
+            stringify!(format)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<lyd_value_union>())).prefix_data as *const _
+                as usize
+        },
+        64usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(lyd_value_union),
+            "::",
+            stringify!(prefix_data)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<lyd_value_union>())).ctx_node as *const _
+                as usize
+        },
+        72usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(lyd_value_union),
             "::",
             stringify!(ctx_node)
         )
     );
 }
-impl Default for lyd_value_subvalue {
+impl Default for lyd_value_union {
+    fn default() -> Self {
+        unsafe { ::std::mem::zeroed() }
+    }
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct lyd_value_bits {
+    pub bitmap: *mut ::std::os::raw::c_char,
+    pub items: *mut *mut lysc_type_bitenum_item,
+}
+#[test]
+fn bindgen_test_layout_lyd_value_bits() {
+    assert_eq!(
+        ::std::mem::size_of::<lyd_value_bits>(),
+        16usize,
+        concat!("Size of: ", stringify!(lyd_value_bits))
+    );
+    assert_eq!(
+        ::std::mem::align_of::<lyd_value_bits>(),
+        8usize,
+        concat!("Alignment of ", stringify!(lyd_value_bits))
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<lyd_value_bits>())).bitmap as *const _
+                as usize
+        },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(lyd_value_bits),
+            "::",
+            stringify!(bitmap)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<lyd_value_bits>())).items as *const _
+                as usize
+        },
+        8usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(lyd_value_bits),
+            "::",
+            stringify!(items)
+        )
+    );
+}
+impl Default for lyd_value_bits {
+    fn default() -> Self {
+        unsafe { ::std::mem::zeroed() }
+    }
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct lyd_value_binary {
+    pub data: *mut ::std::os::raw::c_void,
+    pub size: size_t,
+}
+#[test]
+fn bindgen_test_layout_lyd_value_binary() {
+    assert_eq!(
+        ::std::mem::size_of::<lyd_value_binary>(),
+        16usize,
+        concat!("Size of: ", stringify!(lyd_value_binary))
+    );
+    assert_eq!(
+        ::std::mem::align_of::<lyd_value_binary>(),
+        8usize,
+        concat!("Alignment of ", stringify!(lyd_value_binary))
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<lyd_value_binary>())).data as *const _
+                as usize
+        },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(lyd_value_binary),
+            "::",
+            stringify!(data)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<lyd_value_binary>())).size as *const _
+                as usize
+        },
+        8usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(lyd_value_binary),
+            "::",
+            stringify!(size)
+        )
+    );
+}
+impl Default for lyd_value_binary {
+    fn default() -> Self {
+        unsafe { ::std::mem::zeroed() }
+    }
+}
+#[repr(C)]
+#[derive(Debug, Default, Copy, Clone)]
+pub struct lyd_value_ipv4_address_no_zone {
+    pub addr: in_addr,
+}
+#[test]
+fn bindgen_test_layout_lyd_value_ipv4_address_no_zone() {
+    assert_eq!(
+        ::std::mem::size_of::<lyd_value_ipv4_address_no_zone>(),
+        4usize,
+        concat!("Size of: ", stringify!(lyd_value_ipv4_address_no_zone))
+    );
+    assert_eq!(
+        ::std::mem::align_of::<lyd_value_ipv4_address_no_zone>(),
+        4usize,
+        concat!("Alignment of ", stringify!(lyd_value_ipv4_address_no_zone))
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<lyd_value_ipv4_address_no_zone>())).addr
+                as *const _ as usize
+        },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(lyd_value_ipv4_address_no_zone),
+            "::",
+            stringify!(addr)
+        )
+    );
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct lyd_value_ipv4_address {
+    pub addr: in_addr,
+    pub zone: *const ::std::os::raw::c_char,
+}
+#[test]
+fn bindgen_test_layout_lyd_value_ipv4_address() {
+    assert_eq!(
+        ::std::mem::size_of::<lyd_value_ipv4_address>(),
+        16usize,
+        concat!("Size of: ", stringify!(lyd_value_ipv4_address))
+    );
+    assert_eq!(
+        ::std::mem::align_of::<lyd_value_ipv4_address>(),
+        8usize,
+        concat!("Alignment of ", stringify!(lyd_value_ipv4_address))
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<lyd_value_ipv4_address>())).addr as *const _
+                as usize
+        },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(lyd_value_ipv4_address),
+            "::",
+            stringify!(addr)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<lyd_value_ipv4_address>())).zone as *const _
+                as usize
+        },
+        8usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(lyd_value_ipv4_address),
+            "::",
+            stringify!(zone)
+        )
+    );
+}
+impl Default for lyd_value_ipv4_address {
+    fn default() -> Self {
+        unsafe { ::std::mem::zeroed() }
+    }
+}
+#[repr(C)]
+#[derive(Debug, Default, Copy, Clone)]
+pub struct lyd_value_ipv4_prefix {
+    pub addr: in_addr,
+    pub prefix: u8,
+}
+#[test]
+fn bindgen_test_layout_lyd_value_ipv4_prefix() {
+    assert_eq!(
+        ::std::mem::size_of::<lyd_value_ipv4_prefix>(),
+        8usize,
+        concat!("Size of: ", stringify!(lyd_value_ipv4_prefix))
+    );
+    assert_eq!(
+        ::std::mem::align_of::<lyd_value_ipv4_prefix>(),
+        4usize,
+        concat!("Alignment of ", stringify!(lyd_value_ipv4_prefix))
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<lyd_value_ipv4_prefix>())).addr as *const _
+                as usize
+        },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(lyd_value_ipv4_prefix),
+            "::",
+            stringify!(addr)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<lyd_value_ipv4_prefix>())).prefix as *const _
+                as usize
+        },
+        4usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(lyd_value_ipv4_prefix),
+            "::",
+            stringify!(prefix)
+        )
+    );
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub struct lyd_value_ipv6_address_no_zone {
+    pub addr: in6_addr,
+}
+#[test]
+fn bindgen_test_layout_lyd_value_ipv6_address_no_zone() {
+    assert_eq!(
+        ::std::mem::size_of::<lyd_value_ipv6_address_no_zone>(),
+        16usize,
+        concat!("Size of: ", stringify!(lyd_value_ipv6_address_no_zone))
+    );
+    assert_eq!(
+        ::std::mem::align_of::<lyd_value_ipv6_address_no_zone>(),
+        4usize,
+        concat!("Alignment of ", stringify!(lyd_value_ipv6_address_no_zone))
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<lyd_value_ipv6_address_no_zone>())).addr
+                as *const _ as usize
+        },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(lyd_value_ipv6_address_no_zone),
+            "::",
+            stringify!(addr)
+        )
+    );
+}
+impl Default for lyd_value_ipv6_address_no_zone {
+    fn default() -> Self {
+        unsafe { ::std::mem::zeroed() }
+    }
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub struct lyd_value_ipv6_address {
+    pub addr: in6_addr,
+    pub zone: *const ::std::os::raw::c_char,
+}
+#[test]
+fn bindgen_test_layout_lyd_value_ipv6_address() {
+    assert_eq!(
+        ::std::mem::size_of::<lyd_value_ipv6_address>(),
+        24usize,
+        concat!("Size of: ", stringify!(lyd_value_ipv6_address))
+    );
+    assert_eq!(
+        ::std::mem::align_of::<lyd_value_ipv6_address>(),
+        8usize,
+        concat!("Alignment of ", stringify!(lyd_value_ipv6_address))
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<lyd_value_ipv6_address>())).addr as *const _
+                as usize
+        },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(lyd_value_ipv6_address),
+            "::",
+            stringify!(addr)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<lyd_value_ipv6_address>())).zone as *const _
+                as usize
+        },
+        16usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(lyd_value_ipv6_address),
+            "::",
+            stringify!(zone)
+        )
+    );
+}
+impl Default for lyd_value_ipv6_address {
+    fn default() -> Self {
+        unsafe { ::std::mem::zeroed() }
+    }
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub struct lyd_value_ipv6_prefix {
+    pub addr: in6_addr,
+    pub prefix: u8,
+}
+#[test]
+fn bindgen_test_layout_lyd_value_ipv6_prefix() {
+    assert_eq!(
+        ::std::mem::size_of::<lyd_value_ipv6_prefix>(),
+        20usize,
+        concat!("Size of: ", stringify!(lyd_value_ipv6_prefix))
+    );
+    assert_eq!(
+        ::std::mem::align_of::<lyd_value_ipv6_prefix>(),
+        4usize,
+        concat!("Alignment of ", stringify!(lyd_value_ipv6_prefix))
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<lyd_value_ipv6_prefix>())).addr as *const _
+                as usize
+        },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(lyd_value_ipv6_prefix),
+            "::",
+            stringify!(addr)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<lyd_value_ipv6_prefix>())).prefix as *const _
+                as usize
+        },
+        16usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(lyd_value_ipv6_prefix),
+            "::",
+            stringify!(prefix)
+        )
+    );
+}
+impl Default for lyd_value_ipv6_prefix {
+    fn default() -> Self {
+        unsafe { ::std::mem::zeroed() }
+    }
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct lyd_value_date_and_time {
+    pub time: time_t,
+    pub fractions_s: *mut ::std::os::raw::c_char,
+}
+#[test]
+fn bindgen_test_layout_lyd_value_date_and_time() {
+    assert_eq!(
+        ::std::mem::size_of::<lyd_value_date_and_time>(),
+        16usize,
+        concat!("Size of: ", stringify!(lyd_value_date_and_time))
+    );
+    assert_eq!(
+        ::std::mem::align_of::<lyd_value_date_and_time>(),
+        8usize,
+        concat!("Alignment of ", stringify!(lyd_value_date_and_time))
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<lyd_value_date_and_time>())).time as *const _
+                as usize
+        },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(lyd_value_date_and_time),
+            "::",
+            stringify!(time)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<lyd_value_date_and_time>())).fractions_s
+                as *const _ as usize
+        },
+        8usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(lyd_value_date_and_time),
+            "::",
+            stringify!(fractions_s)
+        )
+    );
+}
+impl Default for lyd_value_date_and_time {
     fn default() -> Self {
         unsafe { ::std::mem::zeroed() }
     }
@@ -23183,7 +24524,7 @@ pub struct lyd_meta {
 fn bindgen_test_layout_lyd_meta() {
     assert_eq!(
         ::std::mem::size_of::<lyd_meta>(),
-        56usize,
+        72usize,
         concat!("Size of: ", stringify!(lyd_meta))
     );
     assert_eq!(
@@ -23364,15 +24705,15 @@ pub struct lyd_attr {
     pub next: *mut lyd_attr,
     pub name: ly_opaq_name,
     pub value: *const ::std::os::raw::c_char,
-    pub format: LY_PREFIX_FORMAT::Type,
-    pub val_prefix_data: *mut ::std::os::raw::c_void,
     pub hints: u32,
+    pub format: LY_VALUE_FORMAT::Type,
+    pub val_prefix_data: *mut ::std::os::raw::c_void,
 }
 #[test]
 fn bindgen_test_layout_lyd_attr() {
     assert_eq!(
         ::std::mem::size_of::<lyd_attr>(),
-        72usize,
+        64usize,
         concat!("Size of: ", stringify!(lyd_attr))
     );
     assert_eq!(
@@ -23430,9 +24771,21 @@ fn bindgen_test_layout_lyd_attr() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<lyd_attr>())).format as *const _ as usize
+            &(*(::std::ptr::null::<lyd_attr>())).hints as *const _ as usize
         },
         48usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(lyd_attr),
+            "::",
+            stringify!(hints)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<lyd_attr>())).format as *const _ as usize
+        },
+        52usize,
         concat!(
             "Offset of field: ",
             stringify!(lyd_attr),
@@ -23451,18 +24804,6 @@ fn bindgen_test_layout_lyd_attr() {
             stringify!(lyd_attr),
             "::",
             stringify!(val_prefix_data)
-        )
-    );
-    assert_eq!(
-        unsafe {
-            &(*(::std::ptr::null::<lyd_attr>())).hints as *const _ as usize
-        },
-        64usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(lyd_attr),
-            "::",
-            stringify!(hints)
         )
     );
 }
@@ -24030,7 +25371,7 @@ impl Default for lyd_node_term__bindgen_ty_1 {
 fn bindgen_test_layout_lyd_node_term() {
     assert_eq!(
         ::std::mem::size_of::<lyd_node_term>(),
-        80usize,
+        96usize,
         concat!("Size of: ", stringify!(lyd_node_term))
     );
     assert_eq!(
@@ -24058,9 +25399,97 @@ impl Default for lyd_node_term {
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
+pub union lyd_any_value {
+    pub tree: *mut lyd_node,
+    pub str_: *const ::std::os::raw::c_char,
+    pub xml: *const ::std::os::raw::c_char,
+    pub json: *const ::std::os::raw::c_char,
+    pub mem: *mut ::std::os::raw::c_char,
+    _bindgen_union_align: u64,
+}
+#[test]
+fn bindgen_test_layout_lyd_any_value() {
+    assert_eq!(
+        ::std::mem::size_of::<lyd_any_value>(),
+        8usize,
+        concat!("Size of: ", stringify!(lyd_any_value))
+    );
+    assert_eq!(
+        ::std::mem::align_of::<lyd_any_value>(),
+        8usize,
+        concat!("Alignment of ", stringify!(lyd_any_value))
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<lyd_any_value>())).tree as *const _ as usize
+        },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(lyd_any_value),
+            "::",
+            stringify!(tree)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<lyd_any_value>())).str_ as *const _ as usize
+        },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(lyd_any_value),
+            "::",
+            stringify!(str_)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<lyd_any_value>())).xml as *const _ as usize
+        },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(lyd_any_value),
+            "::",
+            stringify!(xml)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<lyd_any_value>())).json as *const _ as usize
+        },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(lyd_any_value),
+            "::",
+            stringify!(json)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<lyd_any_value>())).mem as *const _ as usize
+        },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(lyd_any_value),
+            "::",
+            stringify!(mem)
+        )
+    );
+}
+impl Default for lyd_any_value {
+    fn default() -> Self {
+        unsafe { ::std::mem::zeroed() }
+    }
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
 pub struct lyd_node_any {
     pub __bindgen_anon_1: lyd_node_any__bindgen_ty_1,
-    pub value: lyd_node_any_lyd_any_value,
+    pub value: lyd_any_value,
     pub value_type: LYD_ANYDATA_VALUETYPE::Type,
 }
 #[repr(C)]
@@ -24241,99 +25670,6 @@ impl Default for lyd_node_any__bindgen_ty_1 {
         unsafe { ::std::mem::zeroed() }
     }
 }
-#[repr(C)]
-#[derive(Copy, Clone)]
-pub union lyd_node_any_lyd_any_value {
-    pub tree: *mut lyd_node,
-    pub str_: *const ::std::os::raw::c_char,
-    pub xml: *const ::std::os::raw::c_char,
-    pub json: *const ::std::os::raw::c_char,
-    pub mem: *mut ::std::os::raw::c_char,
-    _bindgen_union_align: u64,
-}
-#[test]
-fn bindgen_test_layout_lyd_node_any_lyd_any_value() {
-    assert_eq!(
-        ::std::mem::size_of::<lyd_node_any_lyd_any_value>(),
-        8usize,
-        concat!("Size of: ", stringify!(lyd_node_any_lyd_any_value))
-    );
-    assert_eq!(
-        ::std::mem::align_of::<lyd_node_any_lyd_any_value>(),
-        8usize,
-        concat!("Alignment of ", stringify!(lyd_node_any_lyd_any_value))
-    );
-    assert_eq!(
-        unsafe {
-            &(*(::std::ptr::null::<lyd_node_any_lyd_any_value>())).tree
-                as *const _ as usize
-        },
-        0usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(lyd_node_any_lyd_any_value),
-            "::",
-            stringify!(tree)
-        )
-    );
-    assert_eq!(
-        unsafe {
-            &(*(::std::ptr::null::<lyd_node_any_lyd_any_value>())).str_
-                as *const _ as usize
-        },
-        0usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(lyd_node_any_lyd_any_value),
-            "::",
-            stringify!(str_)
-        )
-    );
-    assert_eq!(
-        unsafe {
-            &(*(::std::ptr::null::<lyd_node_any_lyd_any_value>())).xml
-                as *const _ as usize
-        },
-        0usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(lyd_node_any_lyd_any_value),
-            "::",
-            stringify!(xml)
-        )
-    );
-    assert_eq!(
-        unsafe {
-            &(*(::std::ptr::null::<lyd_node_any_lyd_any_value>())).json
-                as *const _ as usize
-        },
-        0usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(lyd_node_any_lyd_any_value),
-            "::",
-            stringify!(json)
-        )
-    );
-    assert_eq!(
-        unsafe {
-            &(*(::std::ptr::null::<lyd_node_any_lyd_any_value>())).mem
-                as *const _ as usize
-        },
-        0usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(lyd_node_any_lyd_any_value),
-            "::",
-            stringify!(mem)
-        )
-    );
-}
-impl Default for lyd_node_any_lyd_any_value {
-    fn default() -> Self {
-        unsafe { ::std::mem::zeroed() }
-    }
-}
 #[test]
 fn bindgen_test_layout_lyd_node_any() {
     assert_eq!(
@@ -24384,9 +25720,9 @@ pub struct lyd_node_opaq {
     pub child: *mut lyd_node,
     pub name: ly_opaq_name,
     pub value: *const ::std::os::raw::c_char,
-    pub format: LY_PREFIX_FORMAT::Type,
-    pub val_prefix_data: *mut ::std::os::raw::c_void,
     pub hints: u32,
+    pub format: LY_VALUE_FORMAT::Type,
+    pub val_prefix_data: *mut ::std::os::raw::c_void,
     pub attr: *mut lyd_attr,
     pub ctx: *const ly_ctx,
 }
@@ -24580,7 +25916,7 @@ impl Default for lyd_node_opaq__bindgen_ty_1 {
 fn bindgen_test_layout_lyd_node_opaq() {
     assert_eq!(
         ::std::mem::size_of::<lyd_node_opaq>(),
-        136usize,
+        128usize,
         concat!("Size of: ", stringify!(lyd_node_opaq))
     );
     assert_eq!(
@@ -24626,10 +25962,22 @@ fn bindgen_test_layout_lyd_node_opaq() {
     );
     assert_eq!(
         unsafe {
+            &(*(::std::ptr::null::<lyd_node_opaq>())).hints as *const _ as usize
+        },
+        96usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(lyd_node_opaq),
+            "::",
+            stringify!(hints)
+        )
+    );
+    assert_eq!(
+        unsafe {
             &(*(::std::ptr::null::<lyd_node_opaq>())).format as *const _
                 as usize
         },
-        96usize,
+        100usize,
         concat!(
             "Offset of field: ",
             stringify!(lyd_node_opaq),
@@ -24652,21 +26000,9 @@ fn bindgen_test_layout_lyd_node_opaq() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<lyd_node_opaq>())).hints as *const _ as usize
-        },
-        112usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(lyd_node_opaq),
-            "::",
-            stringify!(hints)
-        )
-    );
-    assert_eq!(
-        unsafe {
             &(*(::std::ptr::null::<lyd_node_opaq>())).attr as *const _ as usize
         },
-        120usize,
+        112usize,
         concat!(
             "Offset of field: ",
             stringify!(lyd_node_opaq),
@@ -24678,7 +26014,7 @@ fn bindgen_test_layout_lyd_node_opaq() {
         unsafe {
             &(*(::std::ptr::null::<lyd_node_opaq>())).ctx as *const _ as usize
         },
-        128usize,
+        120usize,
         concat!(
             "Offset of field: ",
             stringify!(lyd_node_opaq),
@@ -24713,6 +26049,12 @@ extern "C" {
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
+    pub fn lyd_value_get_canonical(
+        ctx: *const ly_ctx,
+        value: *const lyd_value,
+    ) -> *const ::std::os::raw::c_char;
+}
+extern "C" {
     pub fn lyd_any_value_str(
         any: *const lyd_node,
         value_str: *mut *mut ::std::os::raw::c_char,
@@ -24721,7 +26063,7 @@ extern "C" {
 extern "C" {
     pub fn lyd_any_copy_value(
         trg: *mut lyd_node,
-        value: *const lyd_node_any_lyd_any_value,
+        value: *const lyd_any_value,
         value_type: LYD_ANYDATA_VALUETYPE::Type,
     ) -> LY_ERR::Type;
 }
@@ -24752,6 +26094,26 @@ extern "C" {
     ) -> LY_ERR::Type;
 }
 extern "C" {
+    pub fn lyd_new_list_bin(
+        parent: *mut lyd_node,
+        module: *const lys_module,
+        name: *const ::std::os::raw::c_char,
+        output: ly_bool,
+        node: *mut *mut lyd_node,
+        ...
+    ) -> LY_ERR::Type;
+}
+extern "C" {
+    pub fn lyd_new_list_canon(
+        parent: *mut lyd_node,
+        module: *const lys_module,
+        name: *const ::std::os::raw::c_char,
+        output: ly_bool,
+        node: *mut *mut lyd_node,
+        ...
+    ) -> LY_ERR::Type;
+}
+extern "C" {
     pub fn lyd_new_ext_list(
         ext: *const lysc_ext_instance,
         name: *const ::std::os::raw::c_char,
@@ -24771,6 +26133,27 @@ extern "C" {
 }
 extern "C" {
     pub fn lyd_new_term(
+        parent: *mut lyd_node,
+        module: *const lys_module,
+        name: *const ::std::os::raw::c_char,
+        val_str: *const ::std::os::raw::c_char,
+        output: ly_bool,
+        node: *mut *mut lyd_node,
+    ) -> LY_ERR::Type;
+}
+extern "C" {
+    pub fn lyd_new_term_bin(
+        parent: *mut lyd_node,
+        module: *const lys_module,
+        name: *const ::std::os::raw::c_char,
+        value: *const ::std::os::raw::c_void,
+        value_len: size_t,
+        output: ly_bool,
+        node: *mut *mut lyd_node,
+    ) -> LY_ERR::Type;
+}
+extern "C" {
+    pub fn lyd_new_term_canon(
         parent: *mut lyd_node,
         module: *const lys_module,
         name: *const ::std::os::raw::c_char,
@@ -24885,6 +26268,7 @@ extern "C" {
         ctx: *const ly_ctx,
         path: *const ::std::os::raw::c_char,
         value: *const ::std::os::raw::c_void,
+        value_len: size_t,
         value_type: LYD_ANYDATA_VALUETYPE::Type,
         options: u32,
         new_parent: *mut *mut lyd_node,
@@ -24931,6 +26315,19 @@ extern "C" {
     ) -> LY_ERR::Type;
 }
 extern "C" {
+    pub fn lyd_change_term_bin(
+        term: *mut lyd_node,
+        value: *const ::std::os::raw::c_void,
+        value_len: size_t,
+    ) -> LY_ERR::Type;
+}
+extern "C" {
+    pub fn lyd_change_term_canon(
+        term: *mut lyd_node,
+        val_str: *const ::std::os::raw::c_char,
+    ) -> LY_ERR::Type;
+}
+extern "C" {
     pub fn lyd_change_meta(
         meta: *mut lyd_meta,
         val_str: *const ::std::os::raw::c_char,
@@ -24962,6 +26359,9 @@ extern "C" {
     ) -> LY_ERR::Type;
 }
 extern "C" {
+    pub fn lyd_unlink_siblings(node: *mut lyd_node);
+}
+extern "C" {
     pub fn lyd_unlink_tree(node: *mut lyd_node);
 }
 extern "C" {
@@ -24988,11 +26388,12 @@ extern "C" {
 extern "C" {
     pub fn lyd_value_validate(
         ctx: *const ly_ctx,
-        node: *const lyd_node_term,
+        schema: *const lysc_node,
         value: *const ::std::os::raw::c_char,
         value_len: size_t,
-        tree: *const lyd_node,
+        ctx_node: *const lyd_node,
         realtype: *mut *const lysc_type,
+        canonical: *mut *const ::std::os::raw::c_char,
     ) -> LY_ERR::Type;
 }
 extern "C" {
@@ -25056,6 +26457,23 @@ extern "C" {
     pub fn lyd_merge_siblings(
         target: *mut *mut lyd_node,
         source: *const lyd_node,
+        options: u16,
+    ) -> LY_ERR::Type;
+}
+pub type lyd_merge_cb = ::std::option::Option<
+    unsafe extern "C" fn(
+        trg_node: *mut lyd_node,
+        src_node: *const lyd_node,
+        cb_data: *mut ::std::os::raw::c_void,
+    ) -> LY_ERR::Type,
+>;
+extern "C" {
+    pub fn lyd_merge_module(
+        target: *mut *mut lyd_node,
+        source: *const lyd_node,
+        mod_: *const lys_module,
+        merge_cb: lyd_merge_cb,
+        cb_data: *mut ::std::os::raw::c_void,
         options: u16,
     ) -> LY_ERR::Type;
 }
@@ -25173,11 +26591,28 @@ extern "C" {
     ) -> LY_ERR::Type;
 }
 extern "C" {
+    pub fn lyd_find_sibling_dup_inst_set(
+        siblings: *const lyd_node,
+        target: *const lyd_node,
+        set: *mut *mut ly_set,
+    ) -> LY_ERR::Type;
+}
+extern "C" {
     pub fn lyd_find_sibling_opaq_next(
         first: *const lyd_node,
         name: *const ::std::os::raw::c_char,
         match_: *mut *mut lyd_node,
     ) -> LY_ERR::Type;
+}
+extern "C" {
+    pub fn lyxp_vars_set(
+        vars: *mut *mut lyxp_var,
+        name: *const ::std::os::raw::c_char,
+        value: *const ::std::os::raw::c_char,
+    ) -> LY_ERR::Type;
+}
+extern "C" {
+    pub fn lyxp_vars_free(vars: *mut lyxp_var);
 }
 extern "C" {
     pub fn lyd_find_xpath(
@@ -25187,12 +26622,1619 @@ extern "C" {
     ) -> LY_ERR::Type;
 }
 extern "C" {
+    pub fn lyd_find_xpath2(
+        ctx_node: *const lyd_node,
+        xpath: *const ::std::os::raw::c_char,
+        vars: *const lyxp_var,
+        set: *mut *mut ly_set,
+    ) -> LY_ERR::Type;
+}
+extern "C" {
+    pub fn lyd_eval_xpath(
+        ctx_node: *const lyd_node,
+        xpath: *const ::std::os::raw::c_char,
+        result: *mut ly_bool,
+    ) -> LY_ERR::Type;
+}
+extern "C" {
+    pub fn lyd_eval_xpath2(
+        ctx_node: *const lyd_node,
+        xpath: *const ::std::os::raw::c_char,
+        vars: *const lyxp_var,
+        result: *mut ly_bool,
+    ) -> LY_ERR::Type;
+}
+extern "C" {
     pub fn lyd_find_path(
         ctx_node: *const lyd_node,
         path: *const ::std::os::raw::c_char,
         output: ly_bool,
         match_: *mut *mut lyd_node,
     ) -> LY_ERR::Type;
+}
+extern "C" {
+    pub fn lyd_find_target(
+        path: *const ly_path,
+        tree: *const lyd_node,
+        match_: *mut *mut lyd_node,
+    ) -> LY_ERR::Type;
+}
+extern "C" {
+    pub fn ly_time_str2time(
+        value: *const ::std::os::raw::c_char,
+        time: *mut time_t,
+        fractions_s: *mut *mut ::std::os::raw::c_char,
+    ) -> LY_ERR::Type;
+}
+extern "C" {
+    pub fn ly_time_time2str(
+        time: time_t,
+        fractions_s: *const ::std::os::raw::c_char,
+        str_: *mut *mut ::std::os::raw::c_char,
+    ) -> LY_ERR::Type;
+}
+extern "C" {
+    pub fn ly_time_str2ts(
+        value: *const ::std::os::raw::c_char,
+        ts: *mut timespec,
+    ) -> LY_ERR::Type;
+}
+extern "C" {
+    pub fn ly_time_ts2str(
+        ts: *const timespec,
+        str_: *mut *mut ::std::os::raw::c_char,
+    ) -> LY_ERR::Type;
+}
+extern "C" {
+    pub fn ly_ctx_new(
+        search_dir: *const ::std::os::raw::c_char,
+        options: u16,
+        new_ctx: *mut *mut ly_ctx,
+    ) -> LY_ERR::Type;
+}
+extern "C" {
+    pub fn ly_ctx_new_ylpath(
+        search_dir: *const ::std::os::raw::c_char,
+        path: *const ::std::os::raw::c_char,
+        format: LYD_FORMAT::Type,
+        options: ::std::os::raw::c_int,
+        ctx: *mut *mut ly_ctx,
+    ) -> LY_ERR::Type;
+}
+extern "C" {
+    pub fn ly_ctx_new_ylmem(
+        search_dir: *const ::std::os::raw::c_char,
+        data: *const ::std::os::raw::c_char,
+        format: LYD_FORMAT::Type,
+        options: ::std::os::raw::c_int,
+        ctx: *mut *mut ly_ctx,
+    ) -> LY_ERR::Type;
+}
+extern "C" {
+    pub fn ly_ctx_compile(ctx: *mut ly_ctx) -> LY_ERR::Type;
+}
+extern "C" {
+    pub fn ly_ctx_set_searchdir(
+        ctx: *mut ly_ctx,
+        search_dir: *const ::std::os::raw::c_char,
+    ) -> LY_ERR::Type;
+}
+extern "C" {
+    pub fn ly_ctx_unset_searchdir(
+        ctx: *mut ly_ctx,
+        value: *const ::std::os::raw::c_char,
+    ) -> LY_ERR::Type;
+}
+extern "C" {
+    pub fn ly_ctx_unset_searchdir_last(
+        ctx: *mut ly_ctx,
+        count: u32,
+    ) -> LY_ERR::Type;
+}
+extern "C" {
+    pub fn ly_ctx_get_searchdirs(
+        ctx: *const ly_ctx,
+    ) -> *const *const ::std::os::raw::c_char;
+}
+extern "C" {
+    pub fn ly_ctx_get_options(ctx: *const ly_ctx) -> u16;
+}
+extern "C" {
+    pub fn ly_ctx_set_options(ctx: *mut ly_ctx, option: u16) -> LY_ERR::Type;
+}
+extern "C" {
+    pub fn ly_ctx_unset_options(ctx: *mut ly_ctx, option: u16) -> LY_ERR::Type;
+}
+extern "C" {
+    pub fn ly_ctx_get_change_count(ctx: *const ly_ctx) -> u16;
+}
+pub type ly_module_imp_data_free_clb = ::std::option::Option<
+    unsafe extern "C" fn(
+        module_data: *mut ::std::os::raw::c_void,
+        user_data: *mut ::std::os::raw::c_void,
+    ),
+>;
+pub type ly_module_imp_clb = ::std::option::Option<
+    unsafe extern "C" fn(
+        mod_name: *const ::std::os::raw::c_char,
+        mod_rev: *const ::std::os::raw::c_char,
+        submod_name: *const ::std::os::raw::c_char,
+        submod_rev: *const ::std::os::raw::c_char,
+        user_data: *mut ::std::os::raw::c_void,
+        format: *mut LYS_INFORMAT::Type,
+        module_data: *mut *const ::std::os::raw::c_char,
+        free_module_data: *mut ly_module_imp_data_free_clb,
+    ) -> LY_ERR::Type,
+>;
+extern "C" {
+    pub fn ly_ctx_get_module_imp_clb(
+        ctx: *const ly_ctx,
+        user_data: *mut *mut ::std::os::raw::c_void,
+    ) -> ly_module_imp_clb;
+}
+extern "C" {
+    pub fn ly_ctx_set_module_imp_clb(
+        ctx: *mut ly_ctx,
+        clb: ly_module_imp_clb,
+        user_data: *mut ::std::os::raw::c_void,
+    );
+}
+extern "C" {
+    pub fn ly_ctx_get_module(
+        ctx: *const ly_ctx,
+        name: *const ::std::os::raw::c_char,
+        revision: *const ::std::os::raw::c_char,
+    ) -> *mut lys_module;
+}
+extern "C" {
+    pub fn ly_ctx_get_module_latest(
+        ctx: *const ly_ctx,
+        name: *const ::std::os::raw::c_char,
+    ) -> *mut lys_module;
+}
+extern "C" {
+    pub fn ly_ctx_get_module_implemented(
+        ctx: *const ly_ctx,
+        name: *const ::std::os::raw::c_char,
+    ) -> *mut lys_module;
+}
+extern "C" {
+    pub fn ly_ctx_get_module_iter(
+        ctx: *const ly_ctx,
+        index: *mut u32,
+    ) -> *mut lys_module;
+}
+extern "C" {
+    pub fn ly_ctx_get_module_ns(
+        ctx: *const ly_ctx,
+        ns: *const ::std::os::raw::c_char,
+        revision: *const ::std::os::raw::c_char,
+    ) -> *mut lys_module;
+}
+extern "C" {
+    pub fn ly_ctx_get_module_latest_ns(
+        ctx: *const ly_ctx,
+        ns: *const ::std::os::raw::c_char,
+    ) -> *mut lys_module;
+}
+extern "C" {
+    pub fn ly_ctx_get_module_implemented_ns(
+        ctx: *const ly_ctx,
+        ns: *const ::std::os::raw::c_char,
+    ) -> *mut lys_module;
+}
+extern "C" {
+    pub fn ly_ctx_get_submodule(
+        ctx: *const ly_ctx,
+        submodule: *const ::std::os::raw::c_char,
+        revision: *const ::std::os::raw::c_char,
+    ) -> *const lysp_submodule;
+}
+extern "C" {
+    pub fn ly_ctx_get_submodule_latest(
+        ctx: *const ly_ctx,
+        submodule: *const ::std::os::raw::c_char,
+    ) -> *const lysp_submodule;
+}
+extern "C" {
+    pub fn ly_ctx_get_submodule2(
+        module: *const lys_module,
+        submodule: *const ::std::os::raw::c_char,
+        revision: *const ::std::os::raw::c_char,
+    ) -> *const lysp_submodule;
+}
+extern "C" {
+    pub fn ly_ctx_get_submodule2_latest(
+        module: *const lys_module,
+        submodule: *const ::std::os::raw::c_char,
+    ) -> *const lysp_submodule;
+}
+extern "C" {
+    pub fn ly_ctx_reset_latests(ctx: *mut ly_ctx);
+}
+extern "C" {
+    pub fn ly_ctx_internal_modules_count(ctx: *const ly_ctx) -> u32;
+}
+extern "C" {
+    pub fn ly_ctx_load_module(
+        ctx: *mut ly_ctx,
+        name: *const ::std::os::raw::c_char,
+        revision: *const ::std::os::raw::c_char,
+        features: *mut *const ::std::os::raw::c_char,
+    ) -> *mut lys_module;
+}
+extern "C" {
+    pub fn ly_ctx_get_yanglib_data(
+        ctx: *const ly_ctx,
+        root: *mut *mut lyd_node,
+        content_id_format: *const ::std::os::raw::c_char,
+        ...
+    ) -> LY_ERR::Type;
+}
+extern "C" {
+    pub fn ly_ctx_destroy(ctx: *mut ly_ctx);
+}
+extern "C" {
+    pub fn memcpy(
+        __dest: *mut ::std::os::raw::c_void,
+        __src: *const ::std::os::raw::c_void,
+        __n: ::std::os::raw::c_ulong,
+    ) -> *mut ::std::os::raw::c_void;
+}
+extern "C" {
+    pub fn memmove(
+        __dest: *mut ::std::os::raw::c_void,
+        __src: *const ::std::os::raw::c_void,
+        __n: ::std::os::raw::c_ulong,
+    ) -> *mut ::std::os::raw::c_void;
+}
+extern "C" {
+    pub fn memccpy(
+        __dest: *mut ::std::os::raw::c_void,
+        __src: *const ::std::os::raw::c_void,
+        __c: ::std::os::raw::c_int,
+        __n: size_t,
+    ) -> *mut ::std::os::raw::c_void;
+}
+extern "C" {
+    pub fn memset(
+        __s: *mut ::std::os::raw::c_void,
+        __c: ::std::os::raw::c_int,
+        __n: ::std::os::raw::c_ulong,
+    ) -> *mut ::std::os::raw::c_void;
+}
+extern "C" {
+    pub fn memcmp(
+        __s1: *const ::std::os::raw::c_void,
+        __s2: *const ::std::os::raw::c_void,
+        __n: ::std::os::raw::c_ulong,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn memchr(
+        __s: *const ::std::os::raw::c_void,
+        __c: ::std::os::raw::c_int,
+        __n: ::std::os::raw::c_ulong,
+    ) -> *mut ::std::os::raw::c_void;
+}
+extern "C" {
+    pub fn strcpy(
+        __dest: *mut ::std::os::raw::c_char,
+        __src: *const ::std::os::raw::c_char,
+    ) -> *mut ::std::os::raw::c_char;
+}
+extern "C" {
+    pub fn strncpy(
+        __dest: *mut ::std::os::raw::c_char,
+        __src: *const ::std::os::raw::c_char,
+        __n: ::std::os::raw::c_ulong,
+    ) -> *mut ::std::os::raw::c_char;
+}
+extern "C" {
+    pub fn strcat(
+        __dest: *mut ::std::os::raw::c_char,
+        __src: *const ::std::os::raw::c_char,
+    ) -> *mut ::std::os::raw::c_char;
+}
+extern "C" {
+    pub fn strncat(
+        __dest: *mut ::std::os::raw::c_char,
+        __src: *const ::std::os::raw::c_char,
+        __n: ::std::os::raw::c_ulong,
+    ) -> *mut ::std::os::raw::c_char;
+}
+extern "C" {
+    pub fn strcmp(
+        __s1: *const ::std::os::raw::c_char,
+        __s2: *const ::std::os::raw::c_char,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn strncmp(
+        __s1: *const ::std::os::raw::c_char,
+        __s2: *const ::std::os::raw::c_char,
+        __n: ::std::os::raw::c_ulong,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn strcoll(
+        __s1: *const ::std::os::raw::c_char,
+        __s2: *const ::std::os::raw::c_char,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn strxfrm(
+        __dest: *mut ::std::os::raw::c_char,
+        __src: *const ::std::os::raw::c_char,
+        __n: ::std::os::raw::c_ulong,
+    ) -> ::std::os::raw::c_ulong;
+}
+extern "C" {
+    pub fn strcoll_l(
+        __s1: *const ::std::os::raw::c_char,
+        __s2: *const ::std::os::raw::c_char,
+        __l: locale_t,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn strxfrm_l(
+        __dest: *mut ::std::os::raw::c_char,
+        __src: *const ::std::os::raw::c_char,
+        __n: size_t,
+        __l: locale_t,
+    ) -> size_t;
+}
+extern "C" {
+    pub fn strdup(
+        __s: *const ::std::os::raw::c_char,
+    ) -> *mut ::std::os::raw::c_char;
+}
+extern "C" {
+    pub fn strndup(
+        __string: *const ::std::os::raw::c_char,
+        __n: ::std::os::raw::c_ulong,
+    ) -> *mut ::std::os::raw::c_char;
+}
+extern "C" {
+    pub fn strchr(
+        __s: *const ::std::os::raw::c_char,
+        __c: ::std::os::raw::c_int,
+    ) -> *mut ::std::os::raw::c_char;
+}
+extern "C" {
+    pub fn strrchr(
+        __s: *const ::std::os::raw::c_char,
+        __c: ::std::os::raw::c_int,
+    ) -> *mut ::std::os::raw::c_char;
+}
+extern "C" {
+    pub fn strcspn(
+        __s: *const ::std::os::raw::c_char,
+        __reject: *const ::std::os::raw::c_char,
+    ) -> ::std::os::raw::c_ulong;
+}
+extern "C" {
+    pub fn strspn(
+        __s: *const ::std::os::raw::c_char,
+        __accept: *const ::std::os::raw::c_char,
+    ) -> ::std::os::raw::c_ulong;
+}
+extern "C" {
+    pub fn strpbrk(
+        __s: *const ::std::os::raw::c_char,
+        __accept: *const ::std::os::raw::c_char,
+    ) -> *mut ::std::os::raw::c_char;
+}
+extern "C" {
+    pub fn strstr(
+        __haystack: *const ::std::os::raw::c_char,
+        __needle: *const ::std::os::raw::c_char,
+    ) -> *mut ::std::os::raw::c_char;
+}
+extern "C" {
+    pub fn strtok(
+        __s: *mut ::std::os::raw::c_char,
+        __delim: *const ::std::os::raw::c_char,
+    ) -> *mut ::std::os::raw::c_char;
+}
+extern "C" {
+    pub fn __strtok_r(
+        __s: *mut ::std::os::raw::c_char,
+        __delim: *const ::std::os::raw::c_char,
+        __save_ptr: *mut *mut ::std::os::raw::c_char,
+    ) -> *mut ::std::os::raw::c_char;
+}
+extern "C" {
+    pub fn strtok_r(
+        __s: *mut ::std::os::raw::c_char,
+        __delim: *const ::std::os::raw::c_char,
+        __save_ptr: *mut *mut ::std::os::raw::c_char,
+    ) -> *mut ::std::os::raw::c_char;
+}
+extern "C" {
+    pub fn strlen(
+        __s: *const ::std::os::raw::c_char,
+    ) -> ::std::os::raw::c_ulong;
+}
+extern "C" {
+    pub fn strnlen(
+        __string: *const ::std::os::raw::c_char,
+        __maxlen: size_t,
+    ) -> size_t;
+}
+extern "C" {
+    pub fn strerror(
+        __errnum: ::std::os::raw::c_int,
+    ) -> *mut ::std::os::raw::c_char;
+}
+extern "C" {
+    #[link_name = "\u{1}__xpg_strerror_r"]
+    pub fn strerror_r(
+        __errnum: ::std::os::raw::c_int,
+        __buf: *mut ::std::os::raw::c_char,
+        __buflen: size_t,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn strerror_l(
+        __errnum: ::std::os::raw::c_int,
+        __l: locale_t,
+    ) -> *mut ::std::os::raw::c_char;
+}
+extern "C" {
+    pub fn bcmp(
+        __s1: *const ::std::os::raw::c_void,
+        __s2: *const ::std::os::raw::c_void,
+        __n: size_t,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn bcopy(
+        __src: *const ::std::os::raw::c_void,
+        __dest: *mut ::std::os::raw::c_void,
+        __n: size_t,
+    );
+}
+extern "C" {
+    pub fn bzero(
+        __s: *mut ::std::os::raw::c_void,
+        __n: ::std::os::raw::c_ulong,
+    );
+}
+extern "C" {
+    pub fn index(
+        __s: *const ::std::os::raw::c_char,
+        __c: ::std::os::raw::c_int,
+    ) -> *mut ::std::os::raw::c_char;
+}
+extern "C" {
+    pub fn rindex(
+        __s: *const ::std::os::raw::c_char,
+        __c: ::std::os::raw::c_int,
+    ) -> *mut ::std::os::raw::c_char;
+}
+extern "C" {
+    pub fn ffs(__i: ::std::os::raw::c_int) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn ffsl(__l: ::std::os::raw::c_long) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn ffsll(__ll: ::std::os::raw::c_longlong) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn strcasecmp(
+        __s1: *const ::std::os::raw::c_char,
+        __s2: *const ::std::os::raw::c_char,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn strncasecmp(
+        __s1: *const ::std::os::raw::c_char,
+        __s2: *const ::std::os::raw::c_char,
+        __n: ::std::os::raw::c_ulong,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn strcasecmp_l(
+        __s1: *const ::std::os::raw::c_char,
+        __s2: *const ::std::os::raw::c_char,
+        __loc: locale_t,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn strncasecmp_l(
+        __s1: *const ::std::os::raw::c_char,
+        __s2: *const ::std::os::raw::c_char,
+        __n: size_t,
+        __loc: locale_t,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn explicit_bzero(__s: *mut ::std::os::raw::c_void, __n: size_t);
+}
+extern "C" {
+    pub fn strsep(
+        __stringp: *mut *mut ::std::os::raw::c_char,
+        __delim: *const ::std::os::raw::c_char,
+    ) -> *mut ::std::os::raw::c_char;
+}
+extern "C" {
+    pub fn strsignal(
+        __sig: ::std::os::raw::c_int,
+    ) -> *mut ::std::os::raw::c_char;
+}
+extern "C" {
+    pub fn __stpcpy(
+        __dest: *mut ::std::os::raw::c_char,
+        __src: *const ::std::os::raw::c_char,
+    ) -> *mut ::std::os::raw::c_char;
+}
+extern "C" {
+    pub fn stpcpy(
+        __dest: *mut ::std::os::raw::c_char,
+        __src: *const ::std::os::raw::c_char,
+    ) -> *mut ::std::os::raw::c_char;
+}
+extern "C" {
+    pub fn __stpncpy(
+        __dest: *mut ::std::os::raw::c_char,
+        __src: *const ::std::os::raw::c_char,
+        __n: size_t,
+    ) -> *mut ::std::os::raw::c_char;
+}
+extern "C" {
+    pub fn stpncpy(
+        __dest: *mut ::std::os::raw::c_char,
+        __src: *const ::std::os::raw::c_char,
+        __n: ::std::os::raw::c_ulong,
+    ) -> *mut ::std::os::raw::c_char;
+}
+extern "C" {
+    pub fn lydict_insert(
+        ctx: *const ly_ctx,
+        value: *const ::std::os::raw::c_char,
+        len: size_t,
+        str_p: *mut *const ::std::os::raw::c_char,
+    ) -> LY_ERR::Type;
+}
+extern "C" {
+    pub fn lydict_insert_zc(
+        ctx: *const ly_ctx,
+        value: *mut ::std::os::raw::c_char,
+        str_p: *mut *const ::std::os::raw::c_char,
+    ) -> LY_ERR::Type;
+}
+extern "C" {
+    pub fn lydict_remove(
+        ctx: *const ly_ctx,
+        value: *const ::std::os::raw::c_char,
+    ) -> LY_ERR::Type;
+}
+pub mod LY_IN_TYPE {
+    pub type Type = ::std::os::raw::c_int;
+    pub const LY_IN_ERROR: Type = -1;
+    pub const LY_IN_FD: Type = 0;
+    pub const LY_IN_FILE: Type = 1;
+    pub const LY_IN_FILEPATH: Type = 2;
+    pub const LY_IN_MEMORY: Type = 3;
+}
+extern "C" {
+    pub fn ly_in_type(in_: *const ly_in) -> LY_IN_TYPE::Type;
+}
+extern "C" {
+    pub fn ly_in_reset(in_: *mut ly_in) -> LY_ERR::Type;
+}
+extern "C" {
+    pub fn ly_in_new_fd(
+        fd: ::std::os::raw::c_int,
+        in_: *mut *mut ly_in,
+    ) -> LY_ERR::Type;
+}
+extern "C" {
+    pub fn ly_in_fd(
+        in_: *mut ly_in,
+        fd: ::std::os::raw::c_int,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn ly_in_new_file(f: *mut FILE, in_: *mut *mut ly_in) -> LY_ERR::Type;
+}
+extern "C" {
+    pub fn ly_in_file(in_: *mut ly_in, f: *mut FILE) -> *mut FILE;
+}
+extern "C" {
+    pub fn ly_in_new_memory(
+        str_: *const ::std::os::raw::c_char,
+        in_: *mut *mut ly_in,
+    ) -> LY_ERR::Type;
+}
+extern "C" {
+    pub fn ly_in_memory(
+        in_: *mut ly_in,
+        str_: *const ::std::os::raw::c_char,
+    ) -> *const ::std::os::raw::c_char;
+}
+extern "C" {
+    pub fn ly_in_new_filepath(
+        filepath: *const ::std::os::raw::c_char,
+        len: size_t,
+        in_: *mut *mut ly_in,
+    ) -> LY_ERR::Type;
+}
+extern "C" {
+    pub fn ly_in_filepath(
+        in_: *mut ly_in,
+        filepath: *const ::std::os::raw::c_char,
+        len: size_t,
+    ) -> *const ::std::os::raw::c_char;
+}
+extern "C" {
+    pub fn ly_in_parsed(in_: *const ly_in) -> size_t;
+}
+extern "C" {
+    pub fn ly_in_free(in_: *mut ly_in, destroy: ly_bool);
+}
+pub type useconds_t = __useconds_t;
+extern "C" {
+    pub fn access(
+        __name: *const ::std::os::raw::c_char,
+        __type: ::std::os::raw::c_int,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn faccessat(
+        __fd: ::std::os::raw::c_int,
+        __file: *const ::std::os::raw::c_char,
+        __type: ::std::os::raw::c_int,
+        __flag: ::std::os::raw::c_int,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn lseek(
+        __fd: ::std::os::raw::c_int,
+        __offset: __off_t,
+        __whence: ::std::os::raw::c_int,
+    ) -> __off_t;
+}
+extern "C" {
+    pub fn close(__fd: ::std::os::raw::c_int) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn read(
+        __fd: ::std::os::raw::c_int,
+        __buf: *mut ::std::os::raw::c_void,
+        __nbytes: size_t,
+    ) -> ssize_t;
+}
+extern "C" {
+    pub fn write(
+        __fd: ::std::os::raw::c_int,
+        __buf: *const ::std::os::raw::c_void,
+        __n: size_t,
+    ) -> ssize_t;
+}
+extern "C" {
+    pub fn pread(
+        __fd: ::std::os::raw::c_int,
+        __buf: *mut ::std::os::raw::c_void,
+        __nbytes: size_t,
+        __offset: __off_t,
+    ) -> ssize_t;
+}
+extern "C" {
+    pub fn pwrite(
+        __fd: ::std::os::raw::c_int,
+        __buf: *const ::std::os::raw::c_void,
+        __n: size_t,
+        __offset: __off_t,
+    ) -> ssize_t;
+}
+extern "C" {
+    pub fn pipe(__pipedes: *mut ::std::os::raw::c_int)
+        -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn alarm(__seconds: ::std::os::raw::c_uint) -> ::std::os::raw::c_uint;
+}
+extern "C" {
+    pub fn sleep(__seconds: ::std::os::raw::c_uint) -> ::std::os::raw::c_uint;
+}
+extern "C" {
+    pub fn ualarm(
+        __value: __useconds_t,
+        __interval: __useconds_t,
+    ) -> __useconds_t;
+}
+extern "C" {
+    pub fn usleep(__useconds: __useconds_t) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn pause() -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn chown(
+        __file: *const ::std::os::raw::c_char,
+        __owner: __uid_t,
+        __group: __gid_t,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn fchown(
+        __fd: ::std::os::raw::c_int,
+        __owner: __uid_t,
+        __group: __gid_t,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn lchown(
+        __file: *const ::std::os::raw::c_char,
+        __owner: __uid_t,
+        __group: __gid_t,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn fchownat(
+        __fd: ::std::os::raw::c_int,
+        __file: *const ::std::os::raw::c_char,
+        __owner: __uid_t,
+        __group: __gid_t,
+        __flag: ::std::os::raw::c_int,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn chdir(
+        __path: *const ::std::os::raw::c_char,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn fchdir(__fd: ::std::os::raw::c_int) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn getcwd(
+        __buf: *mut ::std::os::raw::c_char,
+        __size: size_t,
+    ) -> *mut ::std::os::raw::c_char;
+}
+extern "C" {
+    pub fn getwd(
+        __buf: *mut ::std::os::raw::c_char,
+    ) -> *mut ::std::os::raw::c_char;
+}
+extern "C" {
+    pub fn dup(__fd: ::std::os::raw::c_int) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn dup2(
+        __fd: ::std::os::raw::c_int,
+        __fd2: ::std::os::raw::c_int,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub static mut __environ: *mut *mut ::std::os::raw::c_char;
+}
+extern "C" {
+    pub fn execve(
+        __path: *const ::std::os::raw::c_char,
+        __argv: *const *mut ::std::os::raw::c_char,
+        __envp: *const *mut ::std::os::raw::c_char,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn fexecve(
+        __fd: ::std::os::raw::c_int,
+        __argv: *const *mut ::std::os::raw::c_char,
+        __envp: *const *mut ::std::os::raw::c_char,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn execv(
+        __path: *const ::std::os::raw::c_char,
+        __argv: *const *mut ::std::os::raw::c_char,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn execle(
+        __path: *const ::std::os::raw::c_char,
+        __arg: *const ::std::os::raw::c_char,
+        ...
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn execl(
+        __path: *const ::std::os::raw::c_char,
+        __arg: *const ::std::os::raw::c_char,
+        ...
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn execvp(
+        __file: *const ::std::os::raw::c_char,
+        __argv: *const *mut ::std::os::raw::c_char,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn execlp(
+        __file: *const ::std::os::raw::c_char,
+        __arg: *const ::std::os::raw::c_char,
+        ...
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn nice(__inc: ::std::os::raw::c_int) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn _exit(__status: ::std::os::raw::c_int);
+}
+pub mod _bindgen_ty_7 {
+    pub type Type = ::std::os::raw::c_uint;
+    pub const _PC_LINK_MAX: Type = 0;
+    pub const _PC_MAX_CANON: Type = 1;
+    pub const _PC_MAX_INPUT: Type = 2;
+    pub const _PC_NAME_MAX: Type = 3;
+    pub const _PC_PATH_MAX: Type = 4;
+    pub const _PC_PIPE_BUF: Type = 5;
+    pub const _PC_CHOWN_RESTRICTED: Type = 6;
+    pub const _PC_NO_TRUNC: Type = 7;
+    pub const _PC_VDISABLE: Type = 8;
+    pub const _PC_SYNC_IO: Type = 9;
+    pub const _PC_ASYNC_IO: Type = 10;
+    pub const _PC_PRIO_IO: Type = 11;
+    pub const _PC_SOCK_MAXBUF: Type = 12;
+    pub const _PC_FILESIZEBITS: Type = 13;
+    pub const _PC_REC_INCR_XFER_SIZE: Type = 14;
+    pub const _PC_REC_MAX_XFER_SIZE: Type = 15;
+    pub const _PC_REC_MIN_XFER_SIZE: Type = 16;
+    pub const _PC_REC_XFER_ALIGN: Type = 17;
+    pub const _PC_ALLOC_SIZE_MIN: Type = 18;
+    pub const _PC_SYMLINK_MAX: Type = 19;
+    pub const _PC_2_SYMLINKS: Type = 20;
+}
+pub mod _bindgen_ty_8 {
+    pub type Type = ::std::os::raw::c_uint;
+    pub const _SC_ARG_MAX: Type = 0;
+    pub const _SC_CHILD_MAX: Type = 1;
+    pub const _SC_CLK_TCK: Type = 2;
+    pub const _SC_NGROUPS_MAX: Type = 3;
+    pub const _SC_OPEN_MAX: Type = 4;
+    pub const _SC_STREAM_MAX: Type = 5;
+    pub const _SC_TZNAME_MAX: Type = 6;
+    pub const _SC_JOB_CONTROL: Type = 7;
+    pub const _SC_SAVED_IDS: Type = 8;
+    pub const _SC_REALTIME_SIGNALS: Type = 9;
+    pub const _SC_PRIORITY_SCHEDULING: Type = 10;
+    pub const _SC_TIMERS: Type = 11;
+    pub const _SC_ASYNCHRONOUS_IO: Type = 12;
+    pub const _SC_PRIORITIZED_IO: Type = 13;
+    pub const _SC_SYNCHRONIZED_IO: Type = 14;
+    pub const _SC_FSYNC: Type = 15;
+    pub const _SC_MAPPED_FILES: Type = 16;
+    pub const _SC_MEMLOCK: Type = 17;
+    pub const _SC_MEMLOCK_RANGE: Type = 18;
+    pub const _SC_MEMORY_PROTECTION: Type = 19;
+    pub const _SC_MESSAGE_PASSING: Type = 20;
+    pub const _SC_SEMAPHORES: Type = 21;
+    pub const _SC_SHARED_MEMORY_OBJECTS: Type = 22;
+    pub const _SC_AIO_LISTIO_MAX: Type = 23;
+    pub const _SC_AIO_MAX: Type = 24;
+    pub const _SC_AIO_PRIO_DELTA_MAX: Type = 25;
+    pub const _SC_DELAYTIMER_MAX: Type = 26;
+    pub const _SC_MQ_OPEN_MAX: Type = 27;
+    pub const _SC_MQ_PRIO_MAX: Type = 28;
+    pub const _SC_VERSION: Type = 29;
+    pub const _SC_PAGESIZE: Type = 30;
+    pub const _SC_RTSIG_MAX: Type = 31;
+    pub const _SC_SEM_NSEMS_MAX: Type = 32;
+    pub const _SC_SEM_VALUE_MAX: Type = 33;
+    pub const _SC_SIGQUEUE_MAX: Type = 34;
+    pub const _SC_TIMER_MAX: Type = 35;
+    pub const _SC_BC_BASE_MAX: Type = 36;
+    pub const _SC_BC_DIM_MAX: Type = 37;
+    pub const _SC_BC_SCALE_MAX: Type = 38;
+    pub const _SC_BC_STRING_MAX: Type = 39;
+    pub const _SC_COLL_WEIGHTS_MAX: Type = 40;
+    pub const _SC_EQUIV_CLASS_MAX: Type = 41;
+    pub const _SC_EXPR_NEST_MAX: Type = 42;
+    pub const _SC_LINE_MAX: Type = 43;
+    pub const _SC_RE_DUP_MAX: Type = 44;
+    pub const _SC_CHARCLASS_NAME_MAX: Type = 45;
+    pub const _SC_2_VERSION: Type = 46;
+    pub const _SC_2_C_BIND: Type = 47;
+    pub const _SC_2_C_DEV: Type = 48;
+    pub const _SC_2_FORT_DEV: Type = 49;
+    pub const _SC_2_FORT_RUN: Type = 50;
+    pub const _SC_2_SW_DEV: Type = 51;
+    pub const _SC_2_LOCALEDEF: Type = 52;
+    pub const _SC_PII: Type = 53;
+    pub const _SC_PII_XTI: Type = 54;
+    pub const _SC_PII_SOCKET: Type = 55;
+    pub const _SC_PII_INTERNET: Type = 56;
+    pub const _SC_PII_OSI: Type = 57;
+    pub const _SC_POLL: Type = 58;
+    pub const _SC_SELECT: Type = 59;
+    pub const _SC_UIO_MAXIOV: Type = 60;
+    pub const _SC_IOV_MAX: Type = 60;
+    pub const _SC_PII_INTERNET_STREAM: Type = 61;
+    pub const _SC_PII_INTERNET_DGRAM: Type = 62;
+    pub const _SC_PII_OSI_COTS: Type = 63;
+    pub const _SC_PII_OSI_CLTS: Type = 64;
+    pub const _SC_PII_OSI_M: Type = 65;
+    pub const _SC_T_IOV_MAX: Type = 66;
+    pub const _SC_THREADS: Type = 67;
+    pub const _SC_THREAD_SAFE_FUNCTIONS: Type = 68;
+    pub const _SC_GETGR_R_SIZE_MAX: Type = 69;
+    pub const _SC_GETPW_R_SIZE_MAX: Type = 70;
+    pub const _SC_LOGIN_NAME_MAX: Type = 71;
+    pub const _SC_TTY_NAME_MAX: Type = 72;
+    pub const _SC_THREAD_DESTRUCTOR_ITERATIONS: Type = 73;
+    pub const _SC_THREAD_KEYS_MAX: Type = 74;
+    pub const _SC_THREAD_STACK_MIN: Type = 75;
+    pub const _SC_THREAD_THREADS_MAX: Type = 76;
+    pub const _SC_THREAD_ATTR_STACKADDR: Type = 77;
+    pub const _SC_THREAD_ATTR_STACKSIZE: Type = 78;
+    pub const _SC_THREAD_PRIORITY_SCHEDULING: Type = 79;
+    pub const _SC_THREAD_PRIO_INHERIT: Type = 80;
+    pub const _SC_THREAD_PRIO_PROTECT: Type = 81;
+    pub const _SC_THREAD_PROCESS_SHARED: Type = 82;
+    pub const _SC_NPROCESSORS_CONF: Type = 83;
+    pub const _SC_NPROCESSORS_ONLN: Type = 84;
+    pub const _SC_PHYS_PAGES: Type = 85;
+    pub const _SC_AVPHYS_PAGES: Type = 86;
+    pub const _SC_ATEXIT_MAX: Type = 87;
+    pub const _SC_PASS_MAX: Type = 88;
+    pub const _SC_XOPEN_VERSION: Type = 89;
+    pub const _SC_XOPEN_XCU_VERSION: Type = 90;
+    pub const _SC_XOPEN_UNIX: Type = 91;
+    pub const _SC_XOPEN_CRYPT: Type = 92;
+    pub const _SC_XOPEN_ENH_I18N: Type = 93;
+    pub const _SC_XOPEN_SHM: Type = 94;
+    pub const _SC_2_CHAR_TERM: Type = 95;
+    pub const _SC_2_C_VERSION: Type = 96;
+    pub const _SC_2_UPE: Type = 97;
+    pub const _SC_XOPEN_XPG2: Type = 98;
+    pub const _SC_XOPEN_XPG3: Type = 99;
+    pub const _SC_XOPEN_XPG4: Type = 100;
+    pub const _SC_CHAR_BIT: Type = 101;
+    pub const _SC_CHAR_MAX: Type = 102;
+    pub const _SC_CHAR_MIN: Type = 103;
+    pub const _SC_INT_MAX: Type = 104;
+    pub const _SC_INT_MIN: Type = 105;
+    pub const _SC_LONG_BIT: Type = 106;
+    pub const _SC_WORD_BIT: Type = 107;
+    pub const _SC_MB_LEN_MAX: Type = 108;
+    pub const _SC_NZERO: Type = 109;
+    pub const _SC_SSIZE_MAX: Type = 110;
+    pub const _SC_SCHAR_MAX: Type = 111;
+    pub const _SC_SCHAR_MIN: Type = 112;
+    pub const _SC_SHRT_MAX: Type = 113;
+    pub const _SC_SHRT_MIN: Type = 114;
+    pub const _SC_UCHAR_MAX: Type = 115;
+    pub const _SC_UINT_MAX: Type = 116;
+    pub const _SC_ULONG_MAX: Type = 117;
+    pub const _SC_USHRT_MAX: Type = 118;
+    pub const _SC_NL_ARGMAX: Type = 119;
+    pub const _SC_NL_LANGMAX: Type = 120;
+    pub const _SC_NL_MSGMAX: Type = 121;
+    pub const _SC_NL_NMAX: Type = 122;
+    pub const _SC_NL_SETMAX: Type = 123;
+    pub const _SC_NL_TEXTMAX: Type = 124;
+    pub const _SC_XBS5_ILP32_OFF32: Type = 125;
+    pub const _SC_XBS5_ILP32_OFFBIG: Type = 126;
+    pub const _SC_XBS5_LP64_OFF64: Type = 127;
+    pub const _SC_XBS5_LPBIG_OFFBIG: Type = 128;
+    pub const _SC_XOPEN_LEGACY: Type = 129;
+    pub const _SC_XOPEN_REALTIME: Type = 130;
+    pub const _SC_XOPEN_REALTIME_THREADS: Type = 131;
+    pub const _SC_ADVISORY_INFO: Type = 132;
+    pub const _SC_BARRIERS: Type = 133;
+    pub const _SC_BASE: Type = 134;
+    pub const _SC_C_LANG_SUPPORT: Type = 135;
+    pub const _SC_C_LANG_SUPPORT_R: Type = 136;
+    pub const _SC_CLOCK_SELECTION: Type = 137;
+    pub const _SC_CPUTIME: Type = 138;
+    pub const _SC_THREAD_CPUTIME: Type = 139;
+    pub const _SC_DEVICE_IO: Type = 140;
+    pub const _SC_DEVICE_SPECIFIC: Type = 141;
+    pub const _SC_DEVICE_SPECIFIC_R: Type = 142;
+    pub const _SC_FD_MGMT: Type = 143;
+    pub const _SC_FIFO: Type = 144;
+    pub const _SC_PIPE: Type = 145;
+    pub const _SC_FILE_ATTRIBUTES: Type = 146;
+    pub const _SC_FILE_LOCKING: Type = 147;
+    pub const _SC_FILE_SYSTEM: Type = 148;
+    pub const _SC_MONOTONIC_CLOCK: Type = 149;
+    pub const _SC_MULTI_PROCESS: Type = 150;
+    pub const _SC_SINGLE_PROCESS: Type = 151;
+    pub const _SC_NETWORKING: Type = 152;
+    pub const _SC_READER_WRITER_LOCKS: Type = 153;
+    pub const _SC_SPIN_LOCKS: Type = 154;
+    pub const _SC_REGEXP: Type = 155;
+    pub const _SC_REGEX_VERSION: Type = 156;
+    pub const _SC_SHELL: Type = 157;
+    pub const _SC_SIGNALS: Type = 158;
+    pub const _SC_SPAWN: Type = 159;
+    pub const _SC_SPORADIC_SERVER: Type = 160;
+    pub const _SC_THREAD_SPORADIC_SERVER: Type = 161;
+    pub const _SC_SYSTEM_DATABASE: Type = 162;
+    pub const _SC_SYSTEM_DATABASE_R: Type = 163;
+    pub const _SC_TIMEOUTS: Type = 164;
+    pub const _SC_TYPED_MEMORY_OBJECTS: Type = 165;
+    pub const _SC_USER_GROUPS: Type = 166;
+    pub const _SC_USER_GROUPS_R: Type = 167;
+    pub const _SC_2_PBS: Type = 168;
+    pub const _SC_2_PBS_ACCOUNTING: Type = 169;
+    pub const _SC_2_PBS_LOCATE: Type = 170;
+    pub const _SC_2_PBS_MESSAGE: Type = 171;
+    pub const _SC_2_PBS_TRACK: Type = 172;
+    pub const _SC_SYMLOOP_MAX: Type = 173;
+    pub const _SC_STREAMS: Type = 174;
+    pub const _SC_2_PBS_CHECKPOINT: Type = 175;
+    pub const _SC_V6_ILP32_OFF32: Type = 176;
+    pub const _SC_V6_ILP32_OFFBIG: Type = 177;
+    pub const _SC_V6_LP64_OFF64: Type = 178;
+    pub const _SC_V6_LPBIG_OFFBIG: Type = 179;
+    pub const _SC_HOST_NAME_MAX: Type = 180;
+    pub const _SC_TRACE: Type = 181;
+    pub const _SC_TRACE_EVENT_FILTER: Type = 182;
+    pub const _SC_TRACE_INHERIT: Type = 183;
+    pub const _SC_TRACE_LOG: Type = 184;
+    pub const _SC_LEVEL1_ICACHE_SIZE: Type = 185;
+    pub const _SC_LEVEL1_ICACHE_ASSOC: Type = 186;
+    pub const _SC_LEVEL1_ICACHE_LINESIZE: Type = 187;
+    pub const _SC_LEVEL1_DCACHE_SIZE: Type = 188;
+    pub const _SC_LEVEL1_DCACHE_ASSOC: Type = 189;
+    pub const _SC_LEVEL1_DCACHE_LINESIZE: Type = 190;
+    pub const _SC_LEVEL2_CACHE_SIZE: Type = 191;
+    pub const _SC_LEVEL2_CACHE_ASSOC: Type = 192;
+    pub const _SC_LEVEL2_CACHE_LINESIZE: Type = 193;
+    pub const _SC_LEVEL3_CACHE_SIZE: Type = 194;
+    pub const _SC_LEVEL3_CACHE_ASSOC: Type = 195;
+    pub const _SC_LEVEL3_CACHE_LINESIZE: Type = 196;
+    pub const _SC_LEVEL4_CACHE_SIZE: Type = 197;
+    pub const _SC_LEVEL4_CACHE_ASSOC: Type = 198;
+    pub const _SC_LEVEL4_CACHE_LINESIZE: Type = 199;
+    pub const _SC_IPV6: Type = 235;
+    pub const _SC_RAW_SOCKETS: Type = 236;
+    pub const _SC_V7_ILP32_OFF32: Type = 237;
+    pub const _SC_V7_ILP32_OFFBIG: Type = 238;
+    pub const _SC_V7_LP64_OFF64: Type = 239;
+    pub const _SC_V7_LPBIG_OFFBIG: Type = 240;
+    pub const _SC_SS_REPL_MAX: Type = 241;
+    pub const _SC_TRACE_EVENT_NAME_MAX: Type = 242;
+    pub const _SC_TRACE_NAME_MAX: Type = 243;
+    pub const _SC_TRACE_SYS_MAX: Type = 244;
+    pub const _SC_TRACE_USER_EVENT_MAX: Type = 245;
+    pub const _SC_XOPEN_STREAMS: Type = 246;
+    pub const _SC_THREAD_ROBUST_PRIO_INHERIT: Type = 247;
+    pub const _SC_THREAD_ROBUST_PRIO_PROTECT: Type = 248;
+}
+pub mod _bindgen_ty_9 {
+    pub type Type = ::std::os::raw::c_uint;
+    pub const _CS_PATH: Type = 0;
+    pub const _CS_V6_WIDTH_RESTRICTED_ENVS: Type = 1;
+    pub const _CS_GNU_LIBC_VERSION: Type = 2;
+    pub const _CS_GNU_LIBPTHREAD_VERSION: Type = 3;
+    pub const _CS_V5_WIDTH_RESTRICTED_ENVS: Type = 4;
+    pub const _CS_V7_WIDTH_RESTRICTED_ENVS: Type = 5;
+    pub const _CS_LFS_CFLAGS: Type = 1000;
+    pub const _CS_LFS_LDFLAGS: Type = 1001;
+    pub const _CS_LFS_LIBS: Type = 1002;
+    pub const _CS_LFS_LINTFLAGS: Type = 1003;
+    pub const _CS_LFS64_CFLAGS: Type = 1004;
+    pub const _CS_LFS64_LDFLAGS: Type = 1005;
+    pub const _CS_LFS64_LIBS: Type = 1006;
+    pub const _CS_LFS64_LINTFLAGS: Type = 1007;
+    pub const _CS_XBS5_ILP32_OFF32_CFLAGS: Type = 1100;
+    pub const _CS_XBS5_ILP32_OFF32_LDFLAGS: Type = 1101;
+    pub const _CS_XBS5_ILP32_OFF32_LIBS: Type = 1102;
+    pub const _CS_XBS5_ILP32_OFF32_LINTFLAGS: Type = 1103;
+    pub const _CS_XBS5_ILP32_OFFBIG_CFLAGS: Type = 1104;
+    pub const _CS_XBS5_ILP32_OFFBIG_LDFLAGS: Type = 1105;
+    pub const _CS_XBS5_ILP32_OFFBIG_LIBS: Type = 1106;
+    pub const _CS_XBS5_ILP32_OFFBIG_LINTFLAGS: Type = 1107;
+    pub const _CS_XBS5_LP64_OFF64_CFLAGS: Type = 1108;
+    pub const _CS_XBS5_LP64_OFF64_LDFLAGS: Type = 1109;
+    pub const _CS_XBS5_LP64_OFF64_LIBS: Type = 1110;
+    pub const _CS_XBS5_LP64_OFF64_LINTFLAGS: Type = 1111;
+    pub const _CS_XBS5_LPBIG_OFFBIG_CFLAGS: Type = 1112;
+    pub const _CS_XBS5_LPBIG_OFFBIG_LDFLAGS: Type = 1113;
+    pub const _CS_XBS5_LPBIG_OFFBIG_LIBS: Type = 1114;
+    pub const _CS_XBS5_LPBIG_OFFBIG_LINTFLAGS: Type = 1115;
+    pub const _CS_POSIX_V6_ILP32_OFF32_CFLAGS: Type = 1116;
+    pub const _CS_POSIX_V6_ILP32_OFF32_LDFLAGS: Type = 1117;
+    pub const _CS_POSIX_V6_ILP32_OFF32_LIBS: Type = 1118;
+    pub const _CS_POSIX_V6_ILP32_OFF32_LINTFLAGS: Type = 1119;
+    pub const _CS_POSIX_V6_ILP32_OFFBIG_CFLAGS: Type = 1120;
+    pub const _CS_POSIX_V6_ILP32_OFFBIG_LDFLAGS: Type = 1121;
+    pub const _CS_POSIX_V6_ILP32_OFFBIG_LIBS: Type = 1122;
+    pub const _CS_POSIX_V6_ILP32_OFFBIG_LINTFLAGS: Type = 1123;
+    pub const _CS_POSIX_V6_LP64_OFF64_CFLAGS: Type = 1124;
+    pub const _CS_POSIX_V6_LP64_OFF64_LDFLAGS: Type = 1125;
+    pub const _CS_POSIX_V6_LP64_OFF64_LIBS: Type = 1126;
+    pub const _CS_POSIX_V6_LP64_OFF64_LINTFLAGS: Type = 1127;
+    pub const _CS_POSIX_V6_LPBIG_OFFBIG_CFLAGS: Type = 1128;
+    pub const _CS_POSIX_V6_LPBIG_OFFBIG_LDFLAGS: Type = 1129;
+    pub const _CS_POSIX_V6_LPBIG_OFFBIG_LIBS: Type = 1130;
+    pub const _CS_POSIX_V6_LPBIG_OFFBIG_LINTFLAGS: Type = 1131;
+    pub const _CS_POSIX_V7_ILP32_OFF32_CFLAGS: Type = 1132;
+    pub const _CS_POSIX_V7_ILP32_OFF32_LDFLAGS: Type = 1133;
+    pub const _CS_POSIX_V7_ILP32_OFF32_LIBS: Type = 1134;
+    pub const _CS_POSIX_V7_ILP32_OFF32_LINTFLAGS: Type = 1135;
+    pub const _CS_POSIX_V7_ILP32_OFFBIG_CFLAGS: Type = 1136;
+    pub const _CS_POSIX_V7_ILP32_OFFBIG_LDFLAGS: Type = 1137;
+    pub const _CS_POSIX_V7_ILP32_OFFBIG_LIBS: Type = 1138;
+    pub const _CS_POSIX_V7_ILP32_OFFBIG_LINTFLAGS: Type = 1139;
+    pub const _CS_POSIX_V7_LP64_OFF64_CFLAGS: Type = 1140;
+    pub const _CS_POSIX_V7_LP64_OFF64_LDFLAGS: Type = 1141;
+    pub const _CS_POSIX_V7_LP64_OFF64_LIBS: Type = 1142;
+    pub const _CS_POSIX_V7_LP64_OFF64_LINTFLAGS: Type = 1143;
+    pub const _CS_POSIX_V7_LPBIG_OFFBIG_CFLAGS: Type = 1144;
+    pub const _CS_POSIX_V7_LPBIG_OFFBIG_LDFLAGS: Type = 1145;
+    pub const _CS_POSIX_V7_LPBIG_OFFBIG_LIBS: Type = 1146;
+    pub const _CS_POSIX_V7_LPBIG_OFFBIG_LINTFLAGS: Type = 1147;
+    pub const _CS_V6_ENV: Type = 1148;
+    pub const _CS_V7_ENV: Type = 1149;
+}
+extern "C" {
+    pub fn pathconf(
+        __path: *const ::std::os::raw::c_char,
+        __name: ::std::os::raw::c_int,
+    ) -> ::std::os::raw::c_long;
+}
+extern "C" {
+    pub fn fpathconf(
+        __fd: ::std::os::raw::c_int,
+        __name: ::std::os::raw::c_int,
+    ) -> ::std::os::raw::c_long;
+}
+extern "C" {
+    pub fn sysconf(__name: ::std::os::raw::c_int) -> ::std::os::raw::c_long;
+}
+extern "C" {
+    pub fn confstr(
+        __name: ::std::os::raw::c_int,
+        __buf: *mut ::std::os::raw::c_char,
+        __len: size_t,
+    ) -> size_t;
+}
+extern "C" {
+    pub fn getpid() -> __pid_t;
+}
+extern "C" {
+    pub fn getppid() -> __pid_t;
+}
+extern "C" {
+    pub fn getpgrp() -> __pid_t;
+}
+extern "C" {
+    pub fn __getpgid(__pid: __pid_t) -> __pid_t;
+}
+extern "C" {
+    pub fn getpgid(__pid: __pid_t) -> __pid_t;
+}
+extern "C" {
+    pub fn setpgid(__pid: __pid_t, __pgid: __pid_t) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn setpgrp() -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn setsid() -> __pid_t;
+}
+extern "C" {
+    pub fn getsid(__pid: __pid_t) -> __pid_t;
+}
+extern "C" {
+    pub fn getuid() -> __uid_t;
+}
+extern "C" {
+    pub fn geteuid() -> __uid_t;
+}
+extern "C" {
+    pub fn getgid() -> __gid_t;
+}
+extern "C" {
+    pub fn getegid() -> __gid_t;
+}
+extern "C" {
+    pub fn getgroups(
+        __size: ::std::os::raw::c_int,
+        __list: *mut __gid_t,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn setuid(__uid: __uid_t) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn setreuid(__ruid: __uid_t, __euid: __uid_t) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn seteuid(__uid: __uid_t) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn setgid(__gid: __gid_t) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn setregid(__rgid: __gid_t, __egid: __gid_t) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn setegid(__gid: __gid_t) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn fork() -> __pid_t;
+}
+extern "C" {
+    pub fn vfork() -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn ttyname(__fd: ::std::os::raw::c_int) -> *mut ::std::os::raw::c_char;
+}
+extern "C" {
+    pub fn ttyname_r(
+        __fd: ::std::os::raw::c_int,
+        __buf: *mut ::std::os::raw::c_char,
+        __buflen: size_t,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn isatty(__fd: ::std::os::raw::c_int) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn ttyslot() -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn link(
+        __from: *const ::std::os::raw::c_char,
+        __to: *const ::std::os::raw::c_char,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn linkat(
+        __fromfd: ::std::os::raw::c_int,
+        __from: *const ::std::os::raw::c_char,
+        __tofd: ::std::os::raw::c_int,
+        __to: *const ::std::os::raw::c_char,
+        __flags: ::std::os::raw::c_int,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn symlink(
+        __from: *const ::std::os::raw::c_char,
+        __to: *const ::std::os::raw::c_char,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn readlink(
+        __path: *const ::std::os::raw::c_char,
+        __buf: *mut ::std::os::raw::c_char,
+        __len: size_t,
+    ) -> ssize_t;
+}
+extern "C" {
+    pub fn symlinkat(
+        __from: *const ::std::os::raw::c_char,
+        __tofd: ::std::os::raw::c_int,
+        __to: *const ::std::os::raw::c_char,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn readlinkat(
+        __fd: ::std::os::raw::c_int,
+        __path: *const ::std::os::raw::c_char,
+        __buf: *mut ::std::os::raw::c_char,
+        __len: size_t,
+    ) -> ssize_t;
+}
+extern "C" {
+    pub fn unlink(
+        __name: *const ::std::os::raw::c_char,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn unlinkat(
+        __fd: ::std::os::raw::c_int,
+        __name: *const ::std::os::raw::c_char,
+        __flag: ::std::os::raw::c_int,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn rmdir(
+        __path: *const ::std::os::raw::c_char,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn tcgetpgrp(__fd: ::std::os::raw::c_int) -> __pid_t;
+}
+extern "C" {
+    pub fn tcsetpgrp(
+        __fd: ::std::os::raw::c_int,
+        __pgrp_id: __pid_t,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn getlogin() -> *mut ::std::os::raw::c_char;
+}
+extern "C" {
+    pub fn getlogin_r(
+        __name: *mut ::std::os::raw::c_char,
+        __name_len: size_t,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn setlogin(
+        __name: *const ::std::os::raw::c_char,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub static mut optarg: *mut ::std::os::raw::c_char;
+}
+extern "C" {
+    pub static mut optind: ::std::os::raw::c_int;
+}
+extern "C" {
+    pub static mut opterr: ::std::os::raw::c_int;
+}
+extern "C" {
+    pub static mut optopt: ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn getopt(
+        ___argc: ::std::os::raw::c_int,
+        ___argv: *const *mut ::std::os::raw::c_char,
+        __shortopts: *const ::std::os::raw::c_char,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn gethostname(
+        __name: *mut ::std::os::raw::c_char,
+        __len: size_t,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn sethostname(
+        __name: *const ::std::os::raw::c_char,
+        __len: size_t,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn sethostid(__id: ::std::os::raw::c_long) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn getdomainname(
+        __name: *mut ::std::os::raw::c_char,
+        __len: size_t,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn setdomainname(
+        __name: *const ::std::os::raw::c_char,
+        __len: size_t,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn vhangup() -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn revoke(
+        __file: *const ::std::os::raw::c_char,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn profil(
+        __sample_buffer: *mut ::std::os::raw::c_ushort,
+        __size: size_t,
+        __offset: size_t,
+        __scale: ::std::os::raw::c_uint,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn acct(__name: *const ::std::os::raw::c_char)
+        -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn getusershell() -> *mut ::std::os::raw::c_char;
+}
+extern "C" {
+    pub fn endusershell();
+}
+extern "C" {
+    pub fn setusershell();
+}
+extern "C" {
+    pub fn daemon(
+        __nochdir: ::std::os::raw::c_int,
+        __noclose: ::std::os::raw::c_int,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn chroot(
+        __path: *const ::std::os::raw::c_char,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn getpass(
+        __prompt: *const ::std::os::raw::c_char,
+    ) -> *mut ::std::os::raw::c_char;
+}
+extern "C" {
+    pub fn fsync(__fd: ::std::os::raw::c_int) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn gethostid() -> ::std::os::raw::c_long;
+}
+extern "C" {
+    pub fn sync();
+}
+extern "C" {
+    pub fn getpagesize() -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn getdtablesize() -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn truncate(
+        __file: *const ::std::os::raw::c_char,
+        __length: __off_t,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn ftruncate(
+        __fd: ::std::os::raw::c_int,
+        __length: __off_t,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn brk(__addr: *mut ::std::os::raw::c_void) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn sbrk(__delta: isize) -> *mut ::std::os::raw::c_void;
+}
+extern "C" {
+    pub fn syscall(
+        __sysno: ::std::os::raw::c_long,
+        ...
+    ) -> ::std::os::raw::c_long;
+}
+extern "C" {
+    pub fn lockf(
+        __fd: ::std::os::raw::c_int,
+        __cmd: ::std::os::raw::c_int,
+        __len: __off_t,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn fdatasync(__fildes: ::std::os::raw::c_int) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn crypt(
+        __key: *const ::std::os::raw::c_char,
+        __salt: *const ::std::os::raw::c_char,
+    ) -> *mut ::std::os::raw::c_char;
+}
+extern "C" {
+    pub fn getentropy(
+        __buffer: *mut ::std::os::raw::c_void,
+        __length: size_t,
+    ) -> ::std::os::raw::c_int;
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct ly_out {
+    _unused: [u8; 0],
+}
+pub mod LY_OUT_TYPE {
+    pub type Type = ::std::os::raw::c_int;
+    pub const LY_OUT_ERROR: Type = -1;
+    pub const LY_OUT_FD: Type = 0;
+    pub const LY_OUT_FDSTREAM: Type = 1;
+    pub const LY_OUT_FILE: Type = 2;
+    pub const LY_OUT_FILEPATH: Type = 3;
+    pub const LY_OUT_MEMORY: Type = 4;
+    pub const LY_OUT_CALLBACK: Type = 5;
+}
+extern "C" {
+    pub fn ly_out_type(out: *const ly_out) -> LY_OUT_TYPE::Type;
+}
+extern "C" {
+    pub fn ly_out_reset(out: *mut ly_out) -> LY_ERR::Type;
+}
+pub type ly_write_clb = ::std::option::Option<
+    unsafe extern "C" fn(
+        user_data: *mut ::std::os::raw::c_void,
+        buf: *const ::std::os::raw::c_void,
+        count: size_t,
+    ) -> ssize_t,
+>;
+extern "C" {
+    pub fn ly_out_new_clb(
+        writeclb: ly_write_clb,
+        user_data: *mut ::std::os::raw::c_void,
+        out: *mut *mut ly_out,
+    ) -> LY_ERR::Type;
+}
+extern "C" {
+    pub fn ly_out_clb(out: *mut ly_out, writeclb: ly_write_clb)
+        -> ly_write_clb;
+}
+extern "C" {
+    pub fn ly_out_clb_arg(
+        out: *mut ly_out,
+        arg: *mut ::std::os::raw::c_void,
+    ) -> *mut ::std::os::raw::c_void;
+}
+extern "C" {
+    pub fn ly_out_new_fd(
+        fd: ::std::os::raw::c_int,
+        out: *mut *mut ly_out,
+    ) -> LY_ERR::Type;
+}
+extern "C" {
+    pub fn ly_out_fd(
+        out: *mut ly_out,
+        fd: ::std::os::raw::c_int,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn ly_out_new_file(f: *mut FILE, out: *mut *mut ly_out)
+        -> LY_ERR::Type;
+}
+extern "C" {
+    pub fn ly_out_file(out: *mut ly_out, f: *mut FILE) -> *mut FILE;
+}
+extern "C" {
+    pub fn ly_out_new_memory(
+        strp: *mut *mut ::std::os::raw::c_char,
+        size: size_t,
+        out: *mut *mut ly_out,
+    ) -> LY_ERR::Type;
+}
+extern "C" {
+    pub fn ly_out_memory(
+        out: *mut ly_out,
+        strp: *mut *mut ::std::os::raw::c_char,
+        size: size_t,
+    ) -> *mut ::std::os::raw::c_char;
+}
+extern "C" {
+    pub fn ly_out_new_filepath(
+        filepath: *const ::std::os::raw::c_char,
+        out: *mut *mut ly_out,
+    ) -> LY_ERR::Type;
+}
+extern "C" {
+    pub fn ly_out_filepath(
+        out: *mut ly_out,
+        filepath: *const ::std::os::raw::c_char,
+    ) -> *const ::std::os::raw::c_char;
+}
+extern "C" {
+    pub fn ly_print(
+        out: *mut ly_out,
+        format: *const ::std::os::raw::c_char,
+        ...
+    ) -> LY_ERR::Type;
+}
+extern "C" {
+    pub fn ly_print_flush(out: *mut ly_out);
+}
+extern "C" {
+    pub fn ly_write(
+        out: *mut ly_out,
+        buf: *const ::std::os::raw::c_char,
+        len: size_t,
+    ) -> LY_ERR::Type;
+}
+extern "C" {
+    pub fn ly_out_printed(out: *const ly_out) -> size_t;
+}
+extern "C" {
+    pub fn ly_out_free(
+        out: *mut ly_out,
+        clb_arg_destructor: ::std::option::Option<
+            unsafe extern "C" fn(arg: *mut ::std::os::raw::c_void),
+        >,
+        destroy: ly_bool,
+    );
 }
 extern "C" {
     pub fn lyd_parse_data(

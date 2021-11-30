@@ -421,11 +421,14 @@ impl<'a> SchemaNode<'a> {
         let value_len = value.len() as u64;
         let value = CString::new(value).unwrap();
         let ret = unsafe {
-            ffi::lys_value_validate(
+            ffi::lyd_value_validate(
                 self.context.raw,
                 self.raw,
                 value.as_ptr(),
                 value_len,
+                std::ptr::null(),
+                std::ptr::null_mut(),
+                std::ptr::null_mut(),
             )
         };
         ret == ffi::LY_ERR::LY_SUCCESS
@@ -555,7 +558,7 @@ impl<'a> SchemaNode<'a> {
         let default = unsafe {
             match self.kind() {
                 SchemaNodeKind::Leaf => {
-                    (*(*(self.raw as *mut ffi::lysc_node_leaf)).dflt).canonical
+                    (*(*(self.raw as *mut ffi::lysc_node_leaf)).dflt)._canonical
                 }
                 _ => return None,
             }

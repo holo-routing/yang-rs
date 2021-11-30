@@ -448,7 +448,7 @@ unsafe impl Sync for Context {}
 
 impl Drop for Context {
     fn drop(&mut self) {
-        unsafe { ffi::ly_ctx_destroy(self.raw, None) };
+        unsafe { ffi::ly_ctx_destroy(self.raw) };
     }
 }
 

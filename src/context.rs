@@ -335,7 +335,7 @@ impl Context {
     /// Internal modules (loaded during the context creation) can be skipped by
     /// setting "skip_internal" to true.
     pub fn modules(&self, skip_internal: bool) -> SchemaModules<'_> {
-        SchemaModules::new(&self, skip_internal)
+        SchemaModules::new(self, skip_internal)
     }
 
     /// Returns an iterator over all data nodes from all modules in the YANG
@@ -399,7 +399,7 @@ impl Context {
 
         // Prepare features array.
         features_cstr = features
-            .into_iter()
+            .iter()
             .map(|feature| CString::new(*feature).unwrap())
             .collect::<Vec<_>>();
         features_ptr = features_cstr

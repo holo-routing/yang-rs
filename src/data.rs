@@ -367,7 +367,7 @@ impl DataTree {
             None
         } else {
             Some(DataNodeRef {
-                tree: &self,
+                tree: self,
                 raw: self.raw,
             })
         }
@@ -572,7 +572,7 @@ impl DataTree {
 
     /// Returns an iterator over all elements in the data tree and its sibling
     /// trees (depth-first search algorithm).
-    pub fn traverse<'a>(&'a self) -> impl Iterator<Item = DataNodeRef<'a>> {
+    pub fn traverse(&self) -> impl Iterator<Item = DataNodeRef<'_>> {
         let top = Siblings::new(self.reference());
         top.flat_map(|dnode| dnode.traverse())
     }
@@ -580,7 +580,7 @@ impl DataTree {
 
 impl Data for DataTree {
     fn tree(&self) -> &DataTree {
-        &self
+        self
     }
 
     fn raw(&self) -> *mut ffi::lyd_node {
@@ -671,7 +671,7 @@ impl<'a> DataNodeRef<'a> {
     /// Returns an iterator over all metadata associated to this node.
     pub fn meta(&self) -> MetadataList<'_> {
         let rmeta = unsafe { (*self.raw).meta };
-        let meta = Metadata::from_raw_opt(&self, rmeta);
+        let meta = Metadata::from_raw_opt(self, rmeta);
         MetadataList::new(meta)
     }
 
@@ -759,7 +759,7 @@ impl<'a> DataNodeRef<'a> {
             )
         };
         if ret != ffi::LY_ERR::LY_SUCCESS {
-            return Err(Error::new(&self.context()));
+            return Err(Error::new(self.context()));
         }
 
         Ok(DataTree::from_raw(self.context(), dup))
@@ -787,7 +787,7 @@ impl<'a> DataNodeRef<'a> {
 
 impl<'a> Data for DataNodeRef<'a> {
     fn tree(&self) -> &DataTree {
-        &self.tree
+        self.tree
     }
 
     fn raw(&self) -> *mut ffi::lyd_node {
@@ -812,12 +812,12 @@ impl<'a> NodeIterable<'a> for DataNodeRef<'a> {
         // NOTE: can't use lyd_parent() since it's an inline function.
         let rparent =
             unsafe { &mut (*(*self.raw).parent).__bindgen_anon_1.node };
-        DataNodeRef::from_raw_opt(&self.tree, rparent)
+        DataNodeRef::from_raw_opt(self.tree, rparent)
     }
 
     fn next_sibling(&self) -> Option<DataNodeRef<'a>> {
         let rsibling = unsafe { (*self.raw).next };
-        DataNodeRef::from_raw_opt(&self.tree, rsibling)
+        DataNodeRef::from_raw_opt(self.tree, rsibling)
     }
 
     fn first_child(&self) -> Option<DataNodeRef<'a>> {
@@ -826,7 +826,7 @@ impl<'a> NodeIterable<'a> for DataNodeRef<'a> {
         if snode.is_null() {
             let ropaq = self.raw as *mut ffi::lyd_node_opaq;
             let rchild = unsafe { (*ropaq).child };
-            return DataNodeRef::from_raw_opt(&self.tree, rchild);
+            return DataNodeRef::from_raw_opt(self.tree, rchild);
         }
 
         let nodetype = unsafe { (*snode).nodetype as u32 };
@@ -841,7 +841,7 @@ impl<'a> NodeIterable<'a> for DataNodeRef<'a> {
             }
             _ => std::ptr::null_mut(),
         };
-        DataNodeRef::from_raw_opt(&self.tree, rchild)
+        DataNodeRef::from_raw_opt(self.tree, rchild)
     }
 }
 
@@ -871,7 +871,7 @@ impl<'a> Metadata<'a> {
     #[doc(hidden)]
     pub(crate) fn next(&self) -> Option<Metadata<'a>> {
         let rnext = unsafe { (*self.raw).next };
-        Metadata::from_raw_opt(&self.dnode, rnext)
+        Metadata::from_raw_opt(self.dnode, rnext)
     }
 }
 

@@ -235,7 +235,7 @@ where
 
     fn next(&mut self) -> Option<T> {
         if !self.slice.is_empty() {
-            let dnode = Some(T::from_raw(&self.container, self.slice[0]));
+            let dnode = Some(T::from_raw(self.container, self.slice[0]));
             self.slice = &self.slice[1..];
             dnode
         } else {
@@ -287,7 +287,7 @@ where
 
     fn next(&mut self) -> Option<S> {
         if self.count > 0 {
-            let next = S::from_raw_opt(&self.context, self.raw);
+            let next = S::from_raw_opt(self.context, self.raw);
             self.count -= 1;
             self.raw = (self.raw as usize + self.ptr_size) as *mut S::CType;
             next
@@ -324,7 +324,7 @@ impl<'a> Iterator for SchemaModules<'a> {
         let rmodule = unsafe {
             ffi::ly_ctx_get_module_iter(self.context.raw, &mut self.index)
         };
-        SchemaModule::from_raw_opt(&self.context, rmodule as *mut _)
+        SchemaModule::from_raw_opt(self.context, rmodule as *mut _)
     }
 }
 

@@ -55,7 +55,7 @@ where
         if raw.is_null() {
             None
         } else {
-            Some(Self::from_raw(&container, raw))
+            Some(Self::from_raw(container, raw))
         }
     }
 }

@@ -203,7 +203,7 @@ impl<'a> SchemaModule<'a> {
         let ret =
             unsafe { ffi::lys_set_implemented(self.raw, std::ptr::null_mut()) };
         if ret != ffi::LY_ERR::LY_SUCCESS {
-            return Err(Error::new(&self.context));
+            return Err(Error::new(self.context));
         }
 
         Ok(())
@@ -219,9 +219,9 @@ impl<'a> SchemaModule<'a> {
         let feature = CString::new(feature).unwrap();
         let ret = unsafe { ffi::lys_feature_value(self.raw, feature.as_ptr()) };
         match ret {
-            ffi::LY_ERR::LY_SUCCESS => return Ok(true),
-            ffi::LY_ERR::LY_ENOT => return Ok(false),
-            _ => return Err(Error::new(&self.context)),
+            ffi::LY_ERR::LY_SUCCESS => Ok(true),
+            ffi::LY_ERR::LY_ENOT => Ok(false),
+            _ => Err(Error::new(self.context)),
         }
     }
 
@@ -241,7 +241,7 @@ impl<'a> SchemaModule<'a> {
             )
         };
         if ret != ffi::LY_ERR::LY_SUCCESS {
-            return Err(Error::new(&self.context));
+            return Err(Error::new(self.context));
         }
 
         Ok(())
@@ -265,7 +265,7 @@ impl<'a> SchemaModule<'a> {
             )
         };
         if ret != ffi::LY_ERR::LY_SUCCESS {
-            return Err(Error::new(&self.context));
+            return Err(Error::new(self.context));
         }
 
         Ok(char_ptr_to_string(cstr))
@@ -279,7 +279,7 @@ impl<'a> SchemaModule<'a> {
         } else {
             unsafe { (*compiled).data }
         };
-        let data = SchemaNode::from_raw_opt(&self.context, rdata as *mut _);
+        let data = SchemaNode::from_raw_opt(self.context, rdata as *mut _);
         Siblings::new(data)
     }
 
@@ -291,7 +291,7 @@ impl<'a> SchemaModule<'a> {
         } else {
             unsafe { (*compiled).rpcs }
         };
-        let rpcs = SchemaNode::from_raw_opt(&self.context, rdata as *mut _);
+        let rpcs = SchemaNode::from_raw_opt(self.context, rdata as *mut _);
         Siblings::new(rpcs)
     }
 
@@ -304,7 +304,7 @@ impl<'a> SchemaModule<'a> {
             unsafe { (*compiled).notifs }
         };
         let notifications =
-            SchemaNode::from_raw_opt(&self.context, rdata as *mut _);
+            SchemaNode::from_raw_opt(self.context, rdata as *mut _);
         Siblings::new(notifications)
     }
 
@@ -415,7 +415,7 @@ impl<'a> SchemaNode<'a> {
             )
         };
         if ret != ffi::LY_ERR::LY_SUCCESS {
-            return Err(Error::new(&self.context));
+            return Err(Error::new(self.context));
         }
 
         let rnodes_count = unsafe { (*set).count } as usize;
@@ -605,7 +605,7 @@ impl<'a> SchemaNode<'a> {
             }
         };
 
-        SchemaNode::from_raw_opt(&self.context, default as *mut _)
+        SchemaNode::from_raw_opt(self.context, default as *mut _)
     }
 
     // TODO: list of leaf-list default values.
@@ -689,14 +689,14 @@ impl<'a> SchemaNode<'a> {
     pub fn musts(&self) -> Option<Array<'_, SchemaStmtMust<'_>>> {
         let array = unsafe { ffi::lysc_node_musts(self.raw) };
         let ptr_size = mem::size_of::<ffi::lysc_must>();
-        Some(Array::new(&self.context, array as *mut _, ptr_size))
+        Some(Array::new(self.context, array as *mut _, ptr_size))
     }
 
     /// Array of when statements.
     pub fn whens(&self) -> Array<'_, SchemaStmtWhen<'_>> {
         let array = unsafe { ffi::lysc_node_when(self.raw) };
         let ptr_size = mem::size_of::<ffi::lysc_when>();
-        Array::new(&self.context, array as *mut _, ptr_size)
+        Array::new(self.context, array as *mut _, ptr_size)
     }
 
     /// Array of actions.
@@ -714,7 +714,7 @@ impl<'a> SchemaNode<'a> {
         };
 
         let ptr_size = mem::size_of::<ffi::lysc_node_action>();
-        Some(Array::new(&self.context, array as *mut _, ptr_size))
+        Some(Array::new(self.context, array as *mut _, ptr_size))
     }
 
     /// Array of notifications.
@@ -732,7 +732,7 @@ impl<'a> SchemaNode<'a> {
         };
 
         let ptr_size = mem::size_of::<ffi::lysc_node_notif>();
-        Some(Array::new(&self.context, array as *mut _, ptr_size))
+        Some(Array::new(self.context, array as *mut _, ptr_size))
     }
 
     /// RPC's input. Returns a tuple containing the following:
@@ -749,10 +749,10 @@ impl<'a> SchemaNode<'a> {
                 let rnode = input.child;
                 let rmusts = input.musts;
 
-                let node = SchemaNode::from_raw_opt(&self.context, rnode);
+                let node = SchemaNode::from_raw_opt(self.context, rnode);
                 let nodes = Siblings::new(node);
                 let ptr_size = mem::size_of::<ffi::lysc_must>();
-                let musts = Array::new(&self.context, rmusts, ptr_size);
+                let musts = Array::new(self.context, rmusts, ptr_size);
                 Some((nodes, musts))
             }
             _ => None,
@@ -773,10 +773,10 @@ impl<'a> SchemaNode<'a> {
                 let rnode = output.child;
                 let rmusts = output.musts;
 
-                let node = SchemaNode::from_raw_opt(&self.context, rnode);
+                let node = SchemaNode::from_raw_opt(self.context, rnode);
                 let nodes = Siblings::new(node);
                 let ptr_size = mem::size_of::<ffi::lysc_must>();
-                let musts = Array::new(&self.context, rmusts, ptr_size);
+                let musts = Array::new(self.context, rmusts, ptr_size);
                 Some((nodes, musts))
             }
             _ => None,
@@ -873,17 +873,17 @@ impl<'a> Binding<'a> for SchemaNode<'a> {
 impl<'a> NodeIterable<'a> for SchemaNode<'a> {
     fn parent(&self) -> Option<SchemaNode<'a>> {
         let rparent = unsafe { (*self.raw).parent };
-        SchemaNode::from_raw_opt(&self.context, rparent)
+        SchemaNode::from_raw_opt(self.context, rparent)
     }
 
     fn next_sibling(&self) -> Option<SchemaNode<'a>> {
         let rnext = unsafe { (*self.raw).next };
-        SchemaNode::from_raw_opt(&self.context, rnext)
+        SchemaNode::from_raw_opt(self.context, rnext)
     }
 
     fn first_child(&self) -> Option<SchemaNode<'a>> {
         let rchild = unsafe { ffi::lysc_node_child(&*self.raw) };
-        SchemaNode::from_raw_opt(&self.context, rchild as *mut _)
+        SchemaNode::from_raw_opt(self.context, rchild as *mut _)
     }
 }
 

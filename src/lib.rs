@@ -37,6 +37,8 @@
 //!
 //! See <https://github.com/rwestphal/yang2-rs/tree/master/examples>
 
+#![warn(rust_2018_idioms)]
+
 mod error;
 mod utils;
 

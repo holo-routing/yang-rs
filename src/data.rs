@@ -203,7 +203,7 @@ pub trait Data {
     /// the form `leaf-list[.='val']`, these instances are found using hashes
     /// with constant (*O(1)*) complexity (unless they are defined in
     /// top-level). Other predicates can still follow the aforementioned ones.
-    fn find_xpath(&self, xpath: &str) -> Result<Set<DataNodeRef>> {
+    fn find_xpath(&self, xpath: &str) -> Result<Set<'_, DataNodeRef<'_>>> {
         let xpath = CString::new(xpath).unwrap();
         let mut set = std::ptr::null_mut();
         let set_ptr = &mut set;
@@ -230,7 +230,7 @@ pub trait Data {
     /// The expected format of the expression is JSON, meaning the first node in
     /// every path must have its module name as prefix or be the special `*`
     /// value for all the nodes.
-    fn find_path(&self, path: &str) -> Result<DataNodeRef> {
+    fn find_path(&self, path: &str) -> Result<DataNodeRef<'_>> {
         let path = CString::new(path).unwrap();
         let mut rnode = std::ptr::null_mut();
         let rnode_ptr = &mut rnode;
@@ -362,7 +362,7 @@ impl DataTree {
 
     /// Returns a reference to the fist top-level data node, unless the data
     /// tree is empty.
-    pub fn reference(&self) -> Option<DataNodeRef> {
+    pub fn reference(&self) -> Option<DataNodeRef<'_>> {
         if self.raw.is_null() {
             None
         } else {
@@ -393,7 +393,7 @@ impl DataTree {
         path: &str,
         value: Option<&str>,
         output: bool,
-    ) -> Result<Option<DataNodeRef>> {
+    ) -> Result<Option<DataNodeRef<'_>>> {
         let path = CString::new(path).unwrap();
         let mut rnode_root = std::ptr::null_mut();
         let mut rnode = std::ptr::null_mut();
@@ -616,7 +616,7 @@ impl Drop for DataTree {
 
 impl<'a> DataNodeRef<'a> {
     /// Schema definition of this node.
-    pub fn schema(&self) -> SchemaNode {
+    pub fn schema(&self) -> SchemaNode<'_> {
         let raw = unsafe { (*self.raw).schema };
         SchemaNode::from_raw(self.context(), raw as *mut _)
     }
@@ -624,7 +624,7 @@ impl<'a> DataNodeRef<'a> {
     /// Get the owner module of the data node. It is the module of the top-level
     /// schema node. Generally, in case of augments it is the target module,
     /// recursively, otherwise it is the module where the data node is defined.
-    pub fn owner_module(&self) -> SchemaModule {
+    pub fn owner_module(&self) -> SchemaModule<'_> {
         let module = unsafe { ffi::lyd_owner_module(self.raw()) };
         SchemaModule::from_raw(self.context(), module as *mut _)
     }
@@ -669,7 +669,7 @@ impl<'a> DataNodeRef<'a> {
     }
 
     /// Returns an iterator over all metadata associated to this node.
-    pub fn meta(&self) -> MetadataList {
+    pub fn meta(&self) -> MetadataList<'_> {
         let rmeta = unsafe { (*self.raw).meta };
         let meta = Metadata::from_raw_opt(&self, rmeta);
         MetadataList::new(meta)
@@ -846,7 +846,7 @@ impl<'a> NodeIterable<'a> for DataNodeRef<'a> {
 }
 
 impl<'a> PartialEq for DataNodeRef<'a> {
-    fn eq(&self, other: &DataNodeRef) -> bool {
+    fn eq(&self, other: &DataNodeRef<'_>) -> bool {
         self.raw == other.raw
     }
 }
@@ -880,7 +880,7 @@ impl<'a> Binding<'a> for Metadata<'a> {
     type Container = DataNodeRef<'a>;
 
     fn from_raw(
-        dnode: &'a DataNodeRef,
+        dnode: &'a DataNodeRef<'_>,
         raw: *mut ffi::lyd_meta,
     ) -> Metadata<'a> {
         Metadata { dnode, raw }
@@ -888,7 +888,7 @@ impl<'a> Binding<'a> for Metadata<'a> {
 }
 
 impl<'a> PartialEq for Metadata<'a> {
-    fn eq(&self, other: &Metadata) -> bool {
+    fn eq(&self, other: &Metadata<'_>) -> bool {
         self.raw == other.raw
     }
 }

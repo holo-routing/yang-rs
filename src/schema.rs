@@ -329,13 +329,13 @@ impl<'a> Binding<'a> for SchemaModule<'a> {
     fn from_raw(
         context: &'a Context,
         raw: *mut ffi::lys_module,
-    ) -> SchemaModule {
+    ) -> SchemaModule<'_> {
         SchemaModule { context, raw }
     }
 }
 
 impl<'a> PartialEq for SchemaModule<'a> {
-    fn eq(&self, other: &SchemaModule) -> bool {
+    fn eq(&self, other: &SchemaModule<'_>) -> bool {
         self.raw == other.raw
     }
 }
@@ -353,7 +353,7 @@ impl<'a> SchemaNode<'a> {
     }
 
     /// Schema node module.
-    pub fn module(&self) -> SchemaModule {
+    pub fn module(&self) -> SchemaModule<'_> {
         let module = unsafe { (*self.raw).module };
         SchemaModule::from_raw(self.context, module)
     }
@@ -399,7 +399,7 @@ impl<'a> SchemaNode<'a> {
     }
 
     /// Evaluate an xpath expression on the node.
-    pub fn find_xpath(&self, xpath: &str) -> Result<Set<SchemaNode>> {
+    pub fn find_xpath(&self, xpath: &str) -> Result<Set<'_, SchemaNode<'_>>> {
         let xpath = CString::new(xpath).unwrap();
         let mut set = std::ptr::null_mut();
         let set_ptr = &mut set;
@@ -430,7 +430,7 @@ impl<'a> SchemaNode<'a> {
     }
 
     /// Get a schema node based on the given data path (JSON format).
-    pub fn find_path(&self, path: &str) -> Result<SchemaNode> {
+    pub fn find_path(&self, path: &str) -> Result<SchemaNode<'_>> {
         let path = CString::new(path).unwrap();
 
         let rnode = unsafe {
@@ -595,7 +595,7 @@ impl<'a> SchemaNode<'a> {
     }
 
     /// The default case of the choice.
-    pub fn default_case(&self) -> Option<SchemaNode> {
+    pub fn default_case(&self) -> Option<SchemaNode<'_>> {
         let default = unsafe {
             match self.kind() {
                 SchemaNodeKind::Choice => {
@@ -686,21 +686,21 @@ impl<'a> SchemaNode<'a> {
     }
 
     /// Array of must restrictions.
-    pub fn musts(&self) -> Option<Array<SchemaStmtMust>> {
+    pub fn musts(&self) -> Option<Array<'_, SchemaStmtMust<'_>>> {
         let array = unsafe { ffi::lysc_node_musts(self.raw) };
         let ptr_size = mem::size_of::<ffi::lysc_must>();
         Some(Array::new(&self.context, array as *mut _, ptr_size))
     }
 
     /// Array of when statements.
-    pub fn whens(&self) -> Array<SchemaStmtWhen> {
+    pub fn whens(&self) -> Array<'_, SchemaStmtWhen<'_>> {
         let array = unsafe { ffi::lysc_node_when(self.raw) };
         let ptr_size = mem::size_of::<ffi::lysc_when>();
         Array::new(&self.context, array as *mut _, ptr_size)
     }
 
     /// Array of actions.
-    pub fn actions(&self) -> Option<Array<SchemaNode>> {
+    pub fn actions(&self) -> Option<Array<'_, SchemaNode<'_>>> {
         let array = unsafe {
             match self.kind {
                 SchemaNodeKind::Container => {
@@ -718,7 +718,7 @@ impl<'a> SchemaNode<'a> {
     }
 
     /// Array of notifications.
-    pub fn notifications(&self) -> Option<Array<SchemaNode>> {
+    pub fn notifications(&self) -> Option<Array<'_, SchemaNode<'_>>> {
         let array = unsafe {
             match self.kind {
                 SchemaNodeKind::Container => {
@@ -740,7 +740,8 @@ impl<'a> SchemaNode<'a> {
     /// * Input's list of must restrictions.
     pub fn input(
         &self,
-    ) -> Option<(Siblings<SchemaNode>, Array<SchemaStmtMust>)> {
+    ) -> Option<(Siblings<'_, SchemaNode<'_>>, Array<'_, SchemaStmtMust<'_>>)>
+    {
         match self.kind {
             SchemaNodeKind::Rpc | SchemaNodeKind::Action => {
                 let raw = self.raw as *mut ffi::lysc_node_action;
@@ -763,7 +764,8 @@ impl<'a> SchemaNode<'a> {
     /// * Output's list of must restrictions.
     pub fn output(
         &self,
-    ) -> Option<(Siblings<SchemaNode>, Array<SchemaStmtMust>)> {
+    ) -> Option<(Siblings<'_, SchemaNode<'_>>, Array<'_, SchemaStmtMust<'_>>)>
+    {
         match self.kind {
             SchemaNodeKind::Rpc | SchemaNodeKind::Action => {
                 let raw = self.raw as *mut ffi::lysc_node_action;
@@ -844,7 +846,10 @@ impl<'a> Binding<'a> for SchemaNode<'a> {
     type CType = ffi::lysc_node;
     type Container = Context;
 
-    fn from_raw(context: &'a Context, raw: *mut ffi::lysc_node) -> SchemaNode {
+    fn from_raw(
+        context: &'a Context,
+        raw: *mut ffi::lysc_node,
+    ) -> SchemaNode<'_> {
         let nodetype = unsafe { (*raw).nodetype } as u32;
         let kind = match nodetype {
             ffi::LYS_CONTAINER => SchemaNodeKind::Container,
@@ -883,7 +888,7 @@ impl<'a> NodeIterable<'a> for SchemaNode<'a> {
 }
 
 impl<'a> PartialEq for SchemaNode<'a> {
-    fn eq(&self, other: &SchemaNode) -> bool {
+    fn eq(&self, other: &SchemaNode<'_>) -> bool {
         self.raw == other.raw
     }
 }
@@ -924,7 +929,7 @@ impl<'a> Binding<'a> for SchemaStmtMust<'a> {
     fn from_raw(
         _context: &'a Context,
         raw: *mut ffi::lysc_must,
-    ) -> SchemaStmtMust {
+    ) -> SchemaStmtMust<'_> {
         SchemaStmtMust {
             raw,
             _marker: std::marker::PhantomData,
@@ -958,7 +963,7 @@ impl<'a> Binding<'a> for SchemaStmtWhen<'a> {
     fn from_raw(
         _context: &'a Context,
         raw: *mut *mut ffi::lysc_when,
-    ) -> SchemaStmtWhen {
+    ) -> SchemaStmtWhen<'_> {
         let raw = unsafe { *raw };
         SchemaStmtWhen {
             raw,

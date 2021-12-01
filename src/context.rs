@@ -219,7 +219,7 @@ impl Context {
         &self,
         name: &str,
         revision: Option<&str>,
-    ) -> Option<SchemaModule> {
+    ) -> Option<SchemaModule<'_>> {
         let name = CString::new(name).unwrap();
         let revision_cstr;
 
@@ -243,7 +243,7 @@ impl Context {
     /// Get the latest revision of the YANG module specified by its name.
     ///
     /// YANG modules with no revision are supposed to be the oldest one.
-    pub fn get_module_latest(&self, name: &str) -> Option<SchemaModule> {
+    pub fn get_module_latest(&self, name: &str) -> Option<SchemaModule<'_>> {
         let name = CString::new(name).unwrap();
         let module =
             unsafe { ffi::ly_ctx_get_module_latest(self.raw, name.as_ptr()) };
@@ -255,7 +255,10 @@ impl Context {
     }
 
     /// Get the (only) implemented YANG module specified by its name.
-    pub fn get_module_implemented(&self, name: &str) -> Option<SchemaModule> {
+    pub fn get_module_implemented(
+        &self,
+        name: &str,
+    ) -> Option<SchemaModule<'_>> {
         let name = CString::new(name).unwrap();
         let module = unsafe {
             ffi::ly_ctx_get_module_implemented(self.raw, name.as_ptr())
@@ -275,7 +278,7 @@ impl Context {
         &self,
         ns: &str,
         revision: Option<&str>,
-    ) -> Option<SchemaModule> {
+    ) -> Option<SchemaModule<'_>> {
         let ns = CString::new(ns).unwrap();
         let revision_cstr;
 
@@ -300,7 +303,7 @@ impl Context {
     /// Get the latest revision of the YANG module specified by its namespace.
     ///
     /// YANG modules with no revision are supposed to be the oldest one.
-    pub fn get_module_latest_ns(&self, ns: &str) -> Option<SchemaModule> {
+    pub fn get_module_latest_ns(&self, ns: &str) -> Option<SchemaModule<'_>> {
         let ns = CString::new(ns).unwrap();
         let module =
             unsafe { ffi::ly_ctx_get_module_latest_ns(self.raw, ns.as_ptr()) };
@@ -312,7 +315,10 @@ impl Context {
     }
 
     /// Get the (only) implemented YANG module specified by its namespace.
-    pub fn get_module_implemented_ns(&self, ns: &str) -> Option<SchemaModule> {
+    pub fn get_module_implemented_ns(
+        &self,
+        ns: &str,
+    ) -> Option<SchemaModule<'_>> {
         let ns = CString::new(ns).unwrap();
         let module = unsafe {
             ffi::ly_ctx_get_module_implemented_ns(self.raw, ns.as_ptr())
@@ -328,13 +334,13 @@ impl Context {
     ///
     /// Internal modules (loaded during the context creation) can be skipped by
     /// setting "skip_internal" to true.
-    pub fn modules(&self, skip_internal: bool) -> SchemaModules {
+    pub fn modules(&self, skip_internal: bool) -> SchemaModules<'_> {
         SchemaModules::new(&self, skip_internal)
     }
 
     /// Returns an iterator over all data nodes from all modules in the YANG
     /// context (depth-first search algorithm).
-    pub fn traverse(&self) -> impl Iterator<Item = SchemaNode> {
+    pub fn traverse(&self) -> impl Iterator<Item = SchemaNode<'_>> {
         self.modules(false).flat_map(|module| module.traverse())
     }
 
@@ -376,7 +382,7 @@ impl Context {
         name: &str,
         revision: Option<&str>,
         features: &[&str],
-    ) -> Result<SchemaModule> {
+    ) -> Result<SchemaModule<'_>> {
         let name = CString::new(name).unwrap();
         let revision_cstr;
         let features_cstr;
@@ -418,7 +424,7 @@ impl Context {
     }
 
     /// Evaluate an xpath expression on schema nodes.
-    pub fn find_xpath(&self, path: &str) -> Result<Set<SchemaNode>> {
+    pub fn find_xpath(&self, path: &str) -> Result<Set<'_, SchemaNode<'_>>> {
         let path = CString::new(path).unwrap();
         let mut set = std::ptr::null_mut();
         let set_ptr = &mut set;
@@ -449,7 +455,7 @@ impl Context {
     }
 
     /// Get a schema node based on the given data path (JSON format).
-    pub fn find_path(&self, path: &str) -> Result<SchemaNode> {
+    pub fn find_path(&self, path: &str) -> Result<SchemaNode<'_>> {
         let path = CString::new(path).unwrap();
 
         let rnode = unsafe {

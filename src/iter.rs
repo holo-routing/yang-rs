@@ -331,7 +331,7 @@ impl<'a> Iterator for SchemaModules<'a> {
 // ===== impl MetadataList =====
 
 impl MetadataList<'_> {
-    pub fn new(next: Option<Metadata>) -> MetadataList {
+    pub fn new(next: Option<Metadata<'_>>) -> MetadataList<'_> {
         MetadataList { next }
     }
 }

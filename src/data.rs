@@ -700,7 +700,15 @@ impl<'a> DataNodeRef<'a> {
         match self.schema().kind() {
             SchemaNodeKind::Leaf | SchemaNodeKind::LeafList => {
                 let rnode = self.raw as *mut ffi::lyd_node_term;
-                let value = unsafe { (*rnode).value._canonical };
+                let mut value = unsafe { (*rnode).value._canonical };
+                if value.is_null() {
+                    value = unsafe {
+                        ffi::lyd_value_get_canonical(
+                            self.context().raw,
+                            &(*rnode).value,
+                        )
+                    };
+                }
                 char_ptr_to_opt_string(value)
             }
             _ => None,

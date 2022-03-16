@@ -457,6 +457,35 @@ impl<'a> SchemaNode<'a> {
         }
     }
 
+    /// Returns whether the node is a state node.
+    pub fn is_state(&self) -> bool {
+        match self.kind {
+            SchemaNodeKind::Container
+            | SchemaNodeKind::Case
+            | SchemaNodeKind::Choice
+            | SchemaNodeKind::Leaf
+            | SchemaNodeKind::LeafList
+            | SchemaNodeKind::List
+            | SchemaNodeKind::AnyData => self.check_flag(ffi::LYS_CONFIG_R),
+            _ => false,
+        }
+    }
+
+    /// Returns whether the node's status is "current".
+    pub fn is_status_current(&self) -> bool {
+        self.check_flag(ffi::LYS_STATUS_CURR)
+    }
+
+    /// Returns whether the node's status is "deprecated".
+    pub fn is_status_deprecated(&self) -> bool {
+        self.check_flag(ffi::LYS_STATUS_DEPRC)
+    }
+
+    /// Returns whether the node's status is "obsolete".
+    pub fn is_status_obsolete(&self) -> bool {
+        self.check_flag(ffi::LYS_STATUS_OBSLT)
+    }
+
     /// Returns whether the node is mandatory.
     pub fn is_mandatory(&self) -> bool {
         match self.kind {

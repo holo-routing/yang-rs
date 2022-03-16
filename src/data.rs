@@ -899,6 +899,25 @@ unsafe impl Sync for Metadata<'_> {}
 // ===== impl DataDiff =====
 
 impl DataDiff {
+    /// Parse (and validate) input data as a YANG data diff.
+    pub fn parse_string(
+        context: &Arc<Context>,
+        data: &str,
+        format: DataFormat,
+        parser_options: DataParserFlags,
+        validation_options: DataValidationFlags,
+    ) -> Result<DataDiff> {
+        let dtree = DataTree::parse_string(
+            context,
+            data,
+            format,
+            parser_options,
+            validation_options,
+        )?;
+
+        Ok(DataDiff { tree: dtree })
+    }
+
     /// Returns an iterator over the data changes.
     pub fn iter(&self) -> impl Iterator<Item = (DataDiffOp, DataNodeRef<'_>)> {
         self.tree.traverse().filter_map(|dnode| {

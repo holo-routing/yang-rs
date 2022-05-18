@@ -2,8 +2,8 @@ use std::collections::BTreeSet;
 use std::sync::Arc;
 use yang2::context::{Context, ContextFlags};
 use yang2::data::{
-    Data, DataFormat, DataImplicitFlags, DataParserFlags, DataPrinterFlags,
-    DataTree, DataValidationFlags,
+    Data, DataFormat, DataImplicitFlags, DataOperation, DataParserFlags,
+    DataPrinterFlags, DataTree, DataValidationFlags,
 };
 
 static SEARCH_DIR: &str = "./assets/yang/";
@@ -148,6 +148,20 @@ static JSON_RDIFF: &str = r###"
         ]
       }
     }"###;
+static JSON_NOTIF1: &str = r###"
+    {
+        "ietf-isis:attempt-to-exceed-max-sequence":{
+          "routing-protocol-name":"main",
+          "isis-level":"level-1",
+          "lsp-id":"0000.0000.0000.00-00"
+        }
+    }"###;
+static JSON_RPC1: &str = r###"
+    {
+        "ietf-isis:clear-adjacency":{
+          "routing-protocol-instance-name":"main"
+        }
+    }"###;
 
 macro_rules! assert_data_eq {
     ($dnode1:expr, $dnode2:expr) => {
@@ -193,6 +207,26 @@ fn parse_json_data(ctx: &Arc<Context>, string: &str) -> DataTree {
         DataValidationFlags::empty(),
     )
     .expect("Failed to parse data tree")
+}
+
+fn parse_json_notification(ctx: &Arc<Context>, string: &str) -> DataTree {
+    DataTree::parse_op_string(
+        &ctx,
+        string,
+        DataFormat::JSON,
+        DataOperation::NotificationYang,
+    )
+    .expect("Failed to parse YANG RPC")
+}
+
+fn parse_json_rpc(ctx: &Arc<Context>, string: &str) -> DataTree {
+    DataTree::parse_op_string(
+        &ctx,
+        string,
+        DataFormat::JSON,
+        DataOperation::RpcYang,
+    )
+    .expect("Failed to parse YANG RPC")
 }
 
 #[test]
@@ -479,6 +513,42 @@ fn data_iterator_traverse() {
             "/ietf-interfaces:interfaces/interface[name='eth/0/1']/description",
             "/ietf-interfaces:interfaces/interface[name='eth/0/1']/type",
             "/ietf-interfaces:interfaces/interface[name='eth/0/1']/enabled"
+        ]
+    );
+}
+
+#[test]
+fn data_iterator_traverse_notification() {
+    let ctx = create_context();
+    let dtree1 = parse_json_notification(&ctx, JSON_NOTIF1);
+
+    assert_eq!(
+        dtree1
+            .traverse()
+            .map(|dnode| dnode.path().to_owned())
+            .collect::<Vec<String>>(),
+        vec![
+            "/ietf-isis:attempt-to-exceed-max-sequence",
+            "/ietf-isis:attempt-to-exceed-max-sequence/routing-protocol-name",
+            "/ietf-isis:attempt-to-exceed-max-sequence/isis-level",
+            "/ietf-isis:attempt-to-exceed-max-sequence/lsp-id"
+        ]
+    );
+}
+
+#[test]
+fn data_iterator_traverse_rpc() {
+    let ctx = create_context();
+    let dtree1 = parse_json_rpc(&ctx, JSON_RPC1);
+
+    assert_eq!(
+        dtree1
+            .traverse()
+            .map(|dnode| dnode.path())
+            .collect::<Vec<String>>(),
+        vec![
+            "/ietf-isis:clear-adjacency",
+            "/ietf-isis:clear-adjacency/routing-protocol-instance-name"
         ]
     );
 }

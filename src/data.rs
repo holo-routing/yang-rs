@@ -75,6 +75,20 @@ pub enum DataFormat {
     LYB = ffi::LYD_FORMAT::LYD_LYB,
 }
 
+/// Data operation type.
+#[repr(u32)]
+#[derive(Clone, Copy, Debug, PartialEq)]
+pub enum DataOperation {
+    /// Generic YANG instance data.
+    Data = ffi::lyd_type::LYD_TYPE_DATA_YANG,
+    /// Instance of a YANG RPC/action request with only "input" data children.
+    /// Including all parents in case of an action
+    RpcYang = ffi::lyd_type::LYD_TYPE_RPC_YANG,
+    /// Instance of a YANG notification, including all parents in case of a
+    /// nested one.
+    NotificationYang = ffi::lyd_type::LYD_TYPE_NOTIF_YANG,
+}
+
 bitflags! {
     /// Data parser options.
     ///
@@ -351,6 +365,42 @@ impl DataTree {
                 parser_options.bits(),
                 validation_options.bits(),
                 rnode_ptr,
+            )
+        };
+        if ret != ffi::LY_ERR::LY_SUCCESS {
+            return Err(Error::new(context));
+        }
+
+        Ok(DataTree::from_raw(context, rnode))
+    }
+
+    /// Parse YANG data into an operation data tree.
+    pub fn parse_op_string(
+        context: &Arc<Context>,
+        data: &str,
+        format: DataFormat,
+        op: DataOperation,
+    ) -> Result<DataTree> {
+        let mut rnode = std::ptr::null_mut();
+        let rnode_ptr = &mut rnode;
+
+        // Create input handler.
+        let data = CString::new(data).unwrap();
+        let mut ly_in = std::ptr::null_mut();
+        let ret = unsafe { ffi::ly_in_new_memory(data.as_ptr(), &mut ly_in) };
+        if ret != ffi::LY_ERR::LY_SUCCESS {
+            return Err(Error::new(context));
+        }
+
+        let ret = unsafe {
+            ffi::lyd_parse_op(
+                context.raw,
+                std::ptr::null_mut(),
+                ly_in,
+                format as u32,
+                op as u32,
+                rnode_ptr,
+                std::ptr::null_mut(),
             )
         };
         if ret != ffi::LY_ERR::LY_SUCCESS {

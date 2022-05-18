@@ -25,7 +25,7 @@ fn main() {
         pregen_bindings.push(env::var("CARGO_MANIFEST_DIR").unwrap());
         pregen_bindings.push("pre-generated-bindings");
         pregen_bindings
-            .push("libyang2-fbeb7a34e4450d1971b9162a9ae2abfbd38cd825.rs");
+            .push("libyang2-27f60f5003a70acffbc4b85abc9fbf770072a3db.rs");
 
         std::fs::copy(&pregen_bindings, &out_file)
             .expect("Unable to copy pre-generated libyang2 bindings");
@@ -62,9 +62,9 @@ fn main() {
             .file("libyang/src/log.c")
             .file("libyang/src/lyb.c")
             .file("libyang/src/out.c")
+            .file("libyang/src/parser_common.c")
             .file("libyang/src/parser_json.c")
             .file("libyang/src/parser_lyb.c")
-            .file("libyang/src/parser_stmt.c")
             .file("libyang/src/parser_xml.c")
             .file("libyang/src/parser_yang.c")
             .file("libyang/src/parser_yin.c")
@@ -111,12 +111,13 @@ fn main() {
             .file("libyang/src/schema_features.c")
             .file("libyang/src/set.c")
             .file("libyang/src/tree_data.c")
+            .file("libyang/src/tree_data_common.c")
             .file("libyang/src/tree_data_free.c")
             .file("libyang/src/tree_data_hash.c")
-            .file("libyang/src/tree_data_helpers.c")
+            .file("libyang/src/tree_data_new.c")
             .file("libyang/src/tree_schema.c")
+            .file("libyang/src/tree_schema_common.c")
             .file("libyang/src/tree_schema_free.c")
-            .file("libyang/src/tree_schema_helpers.c")
             .file("libyang/src/validation.c")
             .file("libyang/src/xml.c")
             .file("libyang/src/xpath.c")

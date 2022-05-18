@@ -191,6 +191,19 @@ bitflags! {
     }
 }
 
+bitflags! {
+    /// Data diff options.
+    ///
+    /// Default behavior:
+    /// - Any default nodes are treated as non-existent and ignored.
+    pub struct DataDiffFlags: u16 {
+        /// Default nodes in the trees are not ignored but treated similarly to
+        /// explicit nodes. Also, leaves and leaf-lists are added into diff even
+        /// in case only their default flag (state) was changed.
+        const DEFAULTS = ffi::LYD_DIFF_DEFAULTS as u16;
+    }
+}
+
 /// Methods common to data trees, data node references and data diffs.
 pub trait Data {
     #[doc(hidden)]
@@ -592,13 +605,21 @@ impl DataTree {
     /// metadata ('orig-default', 'value', 'orig-value', 'key', 'orig-key')
     /// are used for storing more information about the value in the first
     /// or the second tree.
-    pub fn diff(&self, dtree: &DataTree) -> Result<DataDiff> {
-        let options = ffi::LYD_DIFF_DEFAULTS as u16;
+    pub fn diff(
+        &self,
+        dtree: &DataTree,
+        options: DataDiffFlags,
+    ) -> Result<DataDiff> {
         let mut rnode = std::ptr::null_mut();
         let rnode_ptr = &mut rnode;
 
         let ret = unsafe {
-            ffi::lyd_diff_siblings(self.raw, dtree.raw, options, rnode_ptr)
+            ffi::lyd_diff_siblings(
+                self.raw,
+                dtree.raw,
+                options.bits(),
+                rnode_ptr,
+            )
         };
         if ret != ffi::LY_ERR::LY_SUCCESS {
             return Err(Error::new(&self.context));

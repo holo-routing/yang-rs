@@ -2,8 +2,9 @@ use std::collections::BTreeSet;
 use std::sync::Arc;
 use yang2::context::{Context, ContextFlags};
 use yang2::data::{
-    Data, DataDiff, DataFormat, DataImplicitFlags, DataOperation,
-    DataParserFlags, DataPrinterFlags, DataTree, DataValidationFlags,
+    Data, DataDiff, DataDiffFlags, DataFormat, DataImplicitFlags,
+    DataOperation, DataParserFlags, DataPrinterFlags, DataTree,
+    DataValidationFlags,
 };
 
 static SEARCH_DIR: &str = "./assets/yang/";
@@ -474,7 +475,9 @@ fn data_diff() {
     let dtree2 = parse_json_data(&ctx, JSON_TREE2);
     let dtree_diff = parse_json_diff(&ctx, JSON_DIFF);
 
-    let diff = dtree1.diff(&dtree2).expect("Failed to compare data trees");
+    let diff = dtree1
+        .diff(&dtree2, DataDiffFlags::DEFAULTS)
+        .expect("Failed to compare data trees");
     assert_data_eq!(&diff, &dtree_diff);
 }
 
@@ -484,7 +487,9 @@ fn data_diff_apply() {
     let mut dtree1 = parse_json_data(&ctx, JSON_TREE1);
     let dtree2 = parse_json_data(&ctx, JSON_TREE2);
 
-    let diff = dtree1.diff(&dtree2).expect("Failed to compare data trees");
+    let diff = dtree1
+        .diff(&dtree2, DataDiffFlags::DEFAULTS)
+        .expect("Failed to compare data trees");
     dtree1.diff_apply(&diff).expect("Failed to apply diff");
 
     assert_data_eq!(&dtree1, &dtree2);
@@ -497,7 +502,9 @@ fn data_diff_reverse() {
     let dtree2 = parse_json_data(&ctx, JSON_TREE2);
     let dtree_rdiff = parse_json_data(&ctx, JSON_RDIFF);
 
-    let diff = dtree1.diff(&dtree2).expect("Failed to compare data trees");
+    let diff = dtree1
+        .diff(&dtree2, DataDiffFlags::DEFAULTS)
+        .expect("Failed to compare data trees");
     let rdiff = diff.reverse().expect("Failed to reverse diff");
     assert_data_eq!(&rdiff, &dtree_rdiff);
 }

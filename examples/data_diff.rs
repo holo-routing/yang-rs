@@ -1,8 +1,8 @@
 use std::sync::Arc;
 use yang2::context::{Context, ContextFlags};
 use yang2::data::{
-    Data, DataFormat, DataParserFlags, DataPrinterFlags, DataTree,
-    DataValidationFlags,
+    Data, DataDiffFlags, DataFormat, DataParserFlags, DataPrinterFlags,
+    DataTree, DataValidationFlags,
 };
 
 static SEARCH_DIR: &str = "./assets/yang/";
@@ -84,7 +84,9 @@ fn main() -> std::io::Result<()> {
 
     // Compare data trees.
     println!("Comparing data trees (JSON output):");
-    let diff = dtree1.diff(&dtree2).expect("Failed to compare data trees");
+    let diff = dtree1
+        .diff(&dtree2, DataDiffFlags::empty())
+        .expect("Failed to compare data trees");
     diff.print_file(
         std::io::stdout(),
         DataFormat::JSON,

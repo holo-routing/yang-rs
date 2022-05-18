@@ -238,7 +238,7 @@ fn data_find_xpath() {
         dtree1
             .find_xpath("/ietf-interfaces:interfaces/interface")
             .expect("Failed to lookup data")
-            .map(|dnode| dnode.path())
+            .map(|dnode| dnode.path().to_owned())
             .collect::<Vec<String>>(),
         vec![
             "/ietf-interfaces:interfaces/interface[name='eth/0/0']",
@@ -252,7 +252,7 @@ fn data_find_xpath() {
                 "/ietf-interfaces:interfaces/interface[name='eth/0/0']/*"
             )
             .expect("Failed to lookup data")
-            .map(|dnode| dnode.path())
+            .map(|dnode| dnode.path().to_owned())
             .collect::<Vec<String>>(),
         vec![
             "/ietf-interfaces:interfaces/interface[name='eth/0/0']/name",
@@ -358,7 +358,7 @@ fn data_duplicate_subtree() {
         .expect("Failed to duplicate data subtree");
     assert_eq!(
         dup.traverse()
-            .map(|dnode| dnode.path())
+            .map(|dnode| dnode.path().to_owned())
             .collect::<Vec<String>>(),
         vec![
             "/ietf-interfaces:interface[name='eth/0/0']",
@@ -375,7 +375,7 @@ fn data_duplicate_subtree() {
         .expect("Failed to duplicate data subtree");
     assert_eq!(
         dup.traverse()
-            .map(|dnode| dnode.path())
+            .map(|dnode| dnode.path().to_owned())
             .collect::<Vec<String>>(),
         vec![
             "/ietf-interfaces:interfaces/interface[name='eth/0/0']",
@@ -418,11 +418,11 @@ fn data_add_implicit() {
     // Test implicit config nodes.
     let dtree1_nodes = dtree1
         .traverse()
-        .map(|dnode| dnode.path())
+        .map(|dnode| dnode.path().to_owned())
         .collect::<BTreeSet<String>>();
     let dtree2_nodes = dtree2
         .traverse()
-        .map(|dnode| dnode.path())
+        .map(|dnode| dnode.path().to_owned())
         .collect::<BTreeSet<String>>();
     assert_eq!(
         dtree2_nodes
@@ -499,7 +499,7 @@ fn data_iterator_traverse() {
     assert_eq!(
         dtree1
             .traverse()
-            .map(|dnode| dnode.path())
+            .map(|dnode| dnode.path().to_owned())
             .collect::<Vec<String>>(),
         vec![
             "/ietf-interfaces:interfaces",
@@ -544,7 +544,7 @@ fn data_iterator_traverse_rpc() {
     assert_eq!(
         dtree1
             .traverse()
-            .map(|dnode| dnode.path())
+            .map(|dnode| dnode.path().to_owned())
             .collect::<Vec<String>>(),
         vec![
             "/ietf-isis:clear-adjacency",
@@ -565,7 +565,7 @@ fn data_iterator_ancestors() {
             )
             .expect("Failed to lookup data")
             .ancestors()
-            .map(|dnode| dnode.path())
+            .map(|dnode| dnode.path().to_owned())
             .collect::<Vec<String>>(),
         vec![
             "/ietf-interfaces:interfaces/interface[name='eth/0/0']",
@@ -579,7 +579,7 @@ fn data_iterator_ancestors() {
             )
             .expect("Failed to lookup data")
             .inclusive_ancestors()
-            .map(|dnode| dnode.path())
+            .map(|dnode| dnode.path().to_owned())
             .collect::<Vec<String>>(),
         vec![
             "/ietf-interfaces:interfaces/interface[name='eth/0/0']/type",
@@ -599,7 +599,7 @@ fn data_iterator_siblings() {
             .find_path("/ietf-interfaces:interfaces/interface[name='eth/0/0']")
             .expect("Failed to lookup data")
             .siblings()
-            .map(|dnode| dnode.path())
+            .map(|dnode| dnode.path().to_owned())
             .collect::<Vec<String>>(),
         vec!["/ietf-interfaces:interfaces/interface[name='eth/0/1']",]
     );
@@ -608,7 +608,7 @@ fn data_iterator_siblings() {
             .find_path("/ietf-interfaces:interfaces/interface[name='eth/0/0']")
             .expect("Failed to lookup data")
             .inclusive_siblings()
-            .map(|dnode| dnode.path())
+            .map(|dnode| dnode.path().to_owned())
             .collect::<Vec<String>>(),
         vec![
             "/ietf-interfaces:interfaces/interface[name='eth/0/0']",
@@ -627,7 +627,7 @@ fn data_iterator_children() {
             .find_path("/ietf-interfaces:interfaces")
             .expect("Failed to lookup data")
             .children()
-            .map(|dnode| dnode.path())
+            .map(|dnode| dnode.path().to_owned())
             .collect::<Vec<String>>(),
         vec![
             "/ietf-interfaces:interfaces/interface[name='eth/0/0']",

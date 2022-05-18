@@ -2,8 +2,8 @@ use std::collections::BTreeSet;
 use std::sync::Arc;
 use yang2::context::{Context, ContextFlags};
 use yang2::data::{
-    Data, DataFormat, DataImplicitFlags, DataOperation, DataParserFlags,
-    DataPrinterFlags, DataTree, DataValidationFlags,
+    Data, DataDiff, DataFormat, DataImplicitFlags, DataOperation,
+    DataParserFlags, DataPrinterFlags, DataTree, DataValidationFlags,
 };
 
 static SEARCH_DIR: &str = "./assets/yang/";
@@ -207,6 +207,17 @@ fn parse_json_data(ctx: &Arc<Context>, string: &str) -> DataTree {
         DataValidationFlags::empty(),
     )
     .expect("Failed to parse data tree")
+}
+
+fn parse_json_diff(ctx: &Arc<Context>, string: &str) -> DataDiff {
+    DataDiff::parse_string(
+        &ctx,
+        string,
+        DataFormat::JSON,
+        DataParserFlags::NO_VALIDATION,
+        DataValidationFlags::empty(),
+    )
+    .expect("Failed to parse data diff")
 }
 
 fn parse_json_notification(ctx: &Arc<Context>, string: &str) -> DataTree {
@@ -461,7 +472,7 @@ fn data_diff() {
     let ctx = create_context();
     let dtree1 = parse_json_data(&ctx, JSON_TREE1);
     let dtree2 = parse_json_data(&ctx, JSON_TREE2);
-    let dtree_diff = parse_json_data(&ctx, JSON_DIFF);
+    let dtree_diff = parse_json_diff(&ctx, JSON_DIFF);
 
     let diff = dtree1.diff(&dtree2).expect("Failed to compare data trees");
     assert_data_eq!(&diff, &dtree_diff);

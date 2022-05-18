@@ -275,6 +275,7 @@ fn schema_node_attributes() {
     assert!(snode.description().is_some());
     assert!(snode.reference().is_some());
     assert_eq!(snode.is_config(), true);
+    assert_eq!(snode.is_state(), false);
     assert_eq!(snode.is_mandatory(), false);
     assert_eq!(snode.default_value_canonical(), Some("true"));
     assert_eq!(snode.default_value(), Some(DataValue::Bool(true)));
@@ -282,6 +283,9 @@ fn schema_node_attributes() {
     assert!(snode.units().is_none());
     assert!(snode.musts().unwrap().count() == 0);
     assert!(snode.whens().count() == 0);
+    assert_eq!(snode.is_status_current(), true);
+    assert_eq!(snode.is_status_deprecated(), false);
+    assert_eq!(snode.is_status_obsolete(), false);
 
     let snode = ctx
         .find_path("/ietf-interfaces:interfaces/interface")
@@ -291,6 +295,7 @@ fn schema_node_attributes() {
     assert!(snode.description().is_some());
     assert!(snode.reference().is_none());
     assert_eq!(snode.is_config(), true);
+    assert_eq!(snode.is_state(), false);
     assert_eq!(snode.is_mandatory(), false);
     assert_eq!(snode.is_keyless_list(), false);
     assert_eq!(snode.is_user_ordered(), false);
@@ -300,4 +305,29 @@ fn schema_node_attributes() {
     assert!(snode.whens().count() == 0);
     assert!(snode.actions().unwrap().count() == 0);
     assert!(snode.notifications().unwrap().count() == 0);
+    assert_eq!(snode.is_status_current(), true);
+    assert_eq!(snode.is_status_deprecated(), false);
+    assert_eq!(snode.is_status_obsolete(), false);
+
+    let snode = ctx
+        .find_path("/ietf-interfaces:interfaces-state/interface")
+        .expect("Failed to lookup schema node");
+    assert_eq!(snode.kind(), SchemaNodeKind::List);
+    assert_eq!(snode.name(), "interface");
+    assert!(snode.description().is_some());
+    assert!(snode.reference().is_none());
+    assert_eq!(snode.is_config(), false);
+    assert_eq!(snode.is_state(), true);
+    assert_eq!(snode.is_mandatory(), false);
+    assert_eq!(snode.is_keyless_list(), false);
+    assert_eq!(snode.is_user_ordered(), false);
+    assert_eq!(snode.min_elements(), None);
+    assert_eq!(snode.max_elements(), None);
+    assert!(snode.musts().unwrap().count() == 0);
+    assert!(snode.whens().count() == 0);
+    assert!(snode.actions().unwrap().count() == 0);
+    assert!(snode.notifications().unwrap().count() == 0);
+    assert_eq!(snode.is_status_current(), false);
+    assert_eq!(snode.is_status_deprecated(), true);
+    assert_eq!(snode.is_status_obsolete(), false);
 }

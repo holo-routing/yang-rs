@@ -4,6 +4,7 @@
 [![Documentation][docs-badge]][docs-url]
 [![MIT licensed][mit-badge]][mit-url]
 [![Build Status][actions-badge]][actions-url]
+[![codecov][codecov-badge]][codecov-url]
 
 [crates-badge]: https://img.shields.io/crates/v/yang2.svg
 [crates-url]: https://crates.io/crates/yang2
@@ -13,6 +14,8 @@
 [mit-url]: https://github.com/rwestphal/yang2-rs/blob/master/LICENSE
 [actions-badge]: https://github.com/rwestphal/yang2-rs/workflows/CI/badge.svg
 [actions-url]: https://github.com/rwestphal/yang2-rs/actions?query=workflow%3ACI+branch%3Amaster
+[codecov-badge]: https://codecov.io/gh/rwestphal/yang2-rs/branch/master/graph/badge.svg?token=1KE3JMHG0H
+[codecov-url]: https://codecov.io/gh/rwestphal/yang2-rs
 
 Rust bindings for the [libyang2] library.
 

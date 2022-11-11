@@ -25,7 +25,7 @@ fn main() {
         pregen_bindings.push(env::var("CARGO_MANIFEST_DIR").unwrap());
         pregen_bindings.push("pre-generated-bindings");
         pregen_bindings
-            .push("libyang2-27f60f5003a70acffbc4b85abc9fbf770072a3db.rs");
+            .push("libyang2-c7e6136c3226f0c6a95d598ff3ab69c8e89b9a40.rs");
 
         std::fs::copy(&pregen_bindings, &out_file)
             .expect("Unable to copy pre-generated libyang2 bindings");
@@ -52,6 +52,7 @@ fn main() {
             .include(format!("{}/build/compat", cmake_dst.display()))
             .include(format!("{}/build/src", cmake_dst.display()))
             .include("libyang/src")
+            .include("libyang/src/plugins_exts")
             .file("libyang/compat/compat.c")
             .file("libyang/src/common.c")
             .file("libyang/src/context.c")
@@ -74,6 +75,7 @@ fn main() {
             .file("libyang/src/plugins_exts/metadata.c")
             .file("libyang/src/plugins_exts/nacm.c")
             .file("libyang/src/plugins_exts/schema_mount.c")
+            .file("libyang/src/plugins_exts/structure.c")
             .file("libyang/src/plugins_exts/yangdata.c")
             .file("libyang/src/plugins_types.c")
             .file("libyang/src/plugins_types/binary.c")
@@ -85,6 +87,7 @@ fn main() {
             .file("libyang/src/plugins_types/enumeration.c")
             .file("libyang/src/plugins_types/identityref.c")
             .file("libyang/src/plugins_types/instanceid.c")
+            .file("libyang/src/plugins_types/instanceid_keys.c")
             .file("libyang/src/plugins_types/integer.c")
             .file("libyang/src/plugins_types/ipv4_address.c")
             .file("libyang/src/plugins_types/ipv4_address_no_zone.c")

@@ -119,6 +119,7 @@ impl<T> ::std::fmt::Debug for __IncompleteArrayField<T> {
 pub const _STDINT_H: u32 = 1;
 pub const _FEATURES_H: u32 = 1;
 pub const _DEFAULT_SOURCE: u32 = 1;
+pub const __GLIBC_USE_ISOC2X: u32 = 0;
 pub const __USE_ISOC11: u32 = 1;
 pub const __USE_ISOC99: u32 = 1;
 pub const __USE_ISOC95: u32 = 1;
@@ -136,29 +137,36 @@ pub const __USE_MISC: u32 = 1;
 pub const __USE_ATFILE: u32 = 1;
 pub const __USE_FORTIFY_LEVEL: u32 = 0;
 pub const __GLIBC_USE_DEPRECATED_GETS: u32 = 0;
+pub const __GLIBC_USE_DEPRECATED_SCANF: u32 = 0;
 pub const _STDC_PREDEF_H: u32 = 1;
 pub const __STDC_IEC_559__: u32 = 1;
 pub const __STDC_IEC_559_COMPLEX__: u32 = 1;
 pub const __STDC_ISO_10646__: u32 = 201706;
 pub const __GNU_LIBRARY__: u32 = 6;
 pub const __GLIBC__: u32 = 2;
-pub const __GLIBC_MINOR__: u32 = 28;
+pub const __GLIBC_MINOR__: u32 = 31;
 pub const _SYS_CDEFS_H: u32 = 1;
 pub const __glibc_c99_flexarr_available: u32 = 1;
 pub const __WORDSIZE: u32 = 64;
 pub const __WORDSIZE_TIME64_COMPAT32: u32 = 1;
 pub const __SYSCALL_WORDSIZE: u32 = 64;
+pub const __LONG_DOUBLE_USES_FLOAT128: u32 = 0;
 pub const __HAVE_GENERIC_SELECTION: u32 = 1;
 pub const __GLIBC_USE_LIB_EXT2: u32 = 0;
 pub const __GLIBC_USE_IEC_60559_BFP_EXT: u32 = 0;
+pub const __GLIBC_USE_IEC_60559_BFP_EXT_C2X: u32 = 0;
 pub const __GLIBC_USE_IEC_60559_FUNCS_EXT: u32 = 0;
+pub const __GLIBC_USE_IEC_60559_FUNCS_EXT_C2X: u32 = 0;
 pub const __GLIBC_USE_IEC_60559_TYPES_EXT: u32 = 0;
 pub const _BITS_TYPES_H: u32 = 1;
+pub const __TIMESIZE: u32 = 64;
 pub const _BITS_TYPESIZES_H: u32 = 1;
 pub const __OFF_T_MATCHES_OFF64_T: u32 = 1;
 pub const __INO_T_MATCHES_INO64_T: u32 = 1;
 pub const __RLIM_T_MATCHES_RLIM64_T: u32 = 1;
+pub const __STATFS_MATCHES_STATFS64: u32 = 1;
 pub const __FD_SETSIZE: u32 = 1024;
+pub const _BITS_TIME64_H: u32 = 1;
 pub const _BITS_WCHAR_H: u32 = 1;
 pub const _BITS_STDINT_INTN_H: u32 = 1;
 pub const _BITS_STDINT_UINTN_H: u32 = 1;
@@ -221,9 +229,11 @@ pub const __time_t_defined: u32 = 1;
 pub const __timer_t_defined: u32 = 1;
 pub const __BIT_TYPES_DEFINED__: u32 = 1;
 pub const _ENDIAN_H: u32 = 1;
+pub const _BITS_ENDIAN_H: u32 = 1;
 pub const __LITTLE_ENDIAN: u32 = 1234;
 pub const __BIG_ENDIAN: u32 = 4321;
 pub const __PDP_ENDIAN: u32 = 3412;
+pub const _BITS_ENDIANNESS_H: u32 = 1;
 pub const __BYTE_ORDER: u32 = 1234;
 pub const __FLOAT_WORD_ORDER: u32 = 1234;
 pub const LITTLE_ENDIAN: u32 = 1234;
@@ -250,10 +260,7 @@ pub const __SIZEOF_PTHREAD_COND_T: u32 = 48;
 pub const __SIZEOF_PTHREAD_CONDATTR_T: u32 = 4;
 pub const __SIZEOF_PTHREAD_RWLOCKATTR_T: u32 = 8;
 pub const __SIZEOF_PTHREAD_BARRIERATTR_T: u32 = 4;
-pub const __PTHREAD_MUTEX_LOCK_ELISION: u32 = 1;
-pub const __PTHREAD_MUTEX_NUSERS_AFTER_KIND: u32 = 0;
-pub const __PTHREAD_MUTEX_USE_UNION: u32 = 0;
-pub const __PTHREAD_RWLOCK_INT_FLAGS_SHARED: u32 = 1;
+pub const _THREAD_MUTEX_INTERNAL_H: u32 = 1;
 pub const __PTHREAD_MUTEX_HAVE_PREV: u32 = 1;
 pub const __have_pthread_attr_t: u32 = 1;
 pub const PF_UNSPEC: u32 = 0;
@@ -303,7 +310,8 @@ pub const PF_VSOCK: u32 = 40;
 pub const PF_KCM: u32 = 41;
 pub const PF_QIPCRTR: u32 = 42;
 pub const PF_SMC: u32 = 43;
-pub const PF_MAX: u32 = 44;
+pub const PF_XDP: u32 = 44;
+pub const PF_MAX: u32 = 45;
 pub const AF_UNSPEC: u32 = 0;
 pub const AF_LOCAL: u32 = 1;
 pub const AF_UNIX: u32 = 1;
@@ -351,7 +359,8 @@ pub const AF_VSOCK: u32 = 40;
 pub const AF_KCM: u32 = 41;
 pub const AF_QIPCRTR: u32 = 42;
 pub const AF_SMC: u32 = 43;
-pub const AF_MAX: u32 = 44;
+pub const AF_XDP: u32 = 44;
+pub const AF_MAX: u32 = 45;
 pub const SOL_RAW: u32 = 255;
 pub const SOL_DECNET: u32 = 261;
 pub const SOL_X25: u32 = 262;
@@ -375,9 +384,11 @@ pub const SOL_ALG: u32 = 279;
 pub const SOL_NFC: u32 = 280;
 pub const SOL_KCM: u32 = 281;
 pub const SOL_TLS: u32 = 282;
-pub const SOMAXCONN: u32 = 128;
+pub const SOL_XDP: u32 = 283;
+pub const SOMAXCONN: u32 = 4096;
 pub const _BITS_SOCKADDR_H: u32 = 1;
 pub const _SS_SIZE: u32 = 128;
+pub const __BITS_PER_LONG: u32 = 64;
 pub const FIOSETOWN: u32 = 35073;
 pub const SIOCSPGRP: u32 = 35074;
 pub const FIOGETOWN: u32 = 35075;
@@ -407,8 +418,8 @@ pub const SO_PASSCRED: u32 = 16;
 pub const SO_PEERCRED: u32 = 17;
 pub const SO_RCVLOWAT: u32 = 18;
 pub const SO_SNDLOWAT: u32 = 19;
-pub const SO_RCVTIMEO: u32 = 20;
-pub const SO_SNDTIMEO: u32 = 21;
+pub const SO_RCVTIMEO_OLD: u32 = 20;
+pub const SO_SNDTIMEO_OLD: u32 = 21;
 pub const SO_SECURITY_AUTHENTICATION: u32 = 22;
 pub const SO_SECURITY_ENCRYPTION_TRANSPORT: u32 = 23;
 pub const SO_SECURITY_ENCRYPTION_NETWORK: u32 = 24;
@@ -417,16 +428,10 @@ pub const SO_ATTACH_FILTER: u32 = 26;
 pub const SO_DETACH_FILTER: u32 = 27;
 pub const SO_GET_FILTER: u32 = 26;
 pub const SO_PEERNAME: u32 = 28;
-pub const SO_TIMESTAMP: u32 = 29;
-pub const SCM_TIMESTAMP: u32 = 29;
 pub const SO_ACCEPTCONN: u32 = 30;
 pub const SO_PEERSEC: u32 = 31;
 pub const SO_PASSSEC: u32 = 34;
-pub const SO_TIMESTAMPNS: u32 = 35;
-pub const SCM_TIMESTAMPNS: u32 = 35;
 pub const SO_MARK: u32 = 36;
-pub const SO_TIMESTAMPING: u32 = 37;
-pub const SCM_TIMESTAMPING: u32 = 37;
 pub const SO_PROTOCOL: u32 = 38;
 pub const SO_DOMAIN: u32 = 39;
 pub const SO_RXQ_OVFL: u32 = 40;
@@ -454,6 +459,24 @@ pub const SO_PEERGROUPS: u32 = 59;
 pub const SO_ZEROCOPY: u32 = 60;
 pub const SO_TXTIME: u32 = 61;
 pub const SCM_TXTIME: u32 = 61;
+pub const SO_BINDTOIFINDEX: u32 = 62;
+pub const SO_TIMESTAMP_OLD: u32 = 29;
+pub const SO_TIMESTAMPNS_OLD: u32 = 35;
+pub const SO_TIMESTAMPING_OLD: u32 = 37;
+pub const SO_TIMESTAMP_NEW: u32 = 63;
+pub const SO_TIMESTAMPNS_NEW: u32 = 64;
+pub const SO_TIMESTAMPING_NEW: u32 = 65;
+pub const SO_RCVTIMEO_NEW: u32 = 66;
+pub const SO_SNDTIMEO_NEW: u32 = 67;
+pub const SO_DETACH_REUSEPORT_BPF: u32 = 68;
+pub const SO_TIMESTAMP: u32 = 29;
+pub const SO_TIMESTAMPNS: u32 = 35;
+pub const SO_TIMESTAMPING: u32 = 37;
+pub const SO_RCVTIMEO: u32 = 20;
+pub const SO_SNDTIMEO: u32 = 21;
+pub const SCM_TIMESTAMP: u32 = 29;
+pub const SCM_TIMESTAMPNS: u32 = 35;
+pub const SCM_TIMESTAMPING: u32 = 37;
 pub const __osockaddr_defined: u32 = 1;
 pub const __USE_KERNEL_IPV6_DEFS: u32 = 0;
 pub const IP_OPTIONS: u32 = 4;
@@ -537,6 +560,8 @@ pub const IPV6_RECVERR: u32 = 25;
 pub const IPV6_V6ONLY: u32 = 26;
 pub const IPV6_JOIN_ANYCAST: u32 = 27;
 pub const IPV6_LEAVE_ANYCAST: u32 = 28;
+pub const IPV6_MULTICAST_ALL: u32 = 29;
+pub const IPV6_ROUTER_ALERT_ISOLATE: u32 = 30;
 pub const IPV6_IPSEC_POLICY: u32 = 34;
 pub const IPV6_XFRM_POLICY: u32 = 35;
 pub const IPV6_HDRINCL: u32 = 36;
@@ -775,10 +800,8 @@ pub const LY_PRI_ARRAY_COUNT_TYPE: &[u8; 3usize] = b"lu\0";
 pub const LY_DATA_TYPE_COUNT: u32 = 20;
 pub const PCRE2_CODE_UNIT_WIDTH: u32 = 8;
 pub const PCRE2_MAJOR: u32 = 10;
-pub const PCRE2_MINOR: u32 = 32;
-pub const PCRE2_DATE: u32 = 1999;
-pub const PCRE2_HAVE_STDINT_H: u32 = 1;
-pub const PCRE2_HAVE_INTTYPES_H: u32 = 1;
+pub const PCRE2_MINOR: u32 = 36;
+pub const PCRE2_DATE: u32 = 2004;
 pub const _LIBC_LIMITS_H_: u32 = 1;
 pub const MB_LEN_MAX: u32 = 16;
 pub const _BITS_POSIX1_LIM_H: u32 = 1;
@@ -921,13 +944,17 @@ pub const PCRE2_ALT_VERBNAMES: u32 = 4194304;
 pub const PCRE2_USE_OFFSET_LIMIT: u32 = 8388608;
 pub const PCRE2_EXTENDED_MORE: u32 = 16777216;
 pub const PCRE2_LITERAL: u32 = 33554432;
+pub const PCRE2_MATCH_INVALID_UTF: u32 = 67108864;
 pub const PCRE2_EXTRA_ALLOW_SURROGATE_ESCAPES: u32 = 1;
 pub const PCRE2_EXTRA_BAD_ESCAPE_IS_LITERAL: u32 = 2;
 pub const PCRE2_EXTRA_MATCH_WORD: u32 = 4;
 pub const PCRE2_EXTRA_MATCH_LINE: u32 = 8;
+pub const PCRE2_EXTRA_ESCAPED_CR_IS_LF: u32 = 16;
+pub const PCRE2_EXTRA_ALT_BSUX: u32 = 32;
 pub const PCRE2_JIT_COMPLETE: u32 = 1;
 pub const PCRE2_JIT_PARTIAL_SOFT: u32 = 2;
 pub const PCRE2_JIT_PARTIAL_HARD: u32 = 4;
+pub const PCRE2_JIT_INVALID_UTF: u32 = 256;
 pub const PCRE2_NOTBOL: u32 = 1;
 pub const PCRE2_NOTEOL: u32 = 2;
 pub const PCRE2_NOTEMPTY: u32 = 4;
@@ -942,6 +969,10 @@ pub const PCRE2_SUBSTITUTE_UNSET_EMPTY: u32 = 1024;
 pub const PCRE2_SUBSTITUTE_UNKNOWN_UNSET: u32 = 2048;
 pub const PCRE2_SUBSTITUTE_OVERFLOW_LENGTH: u32 = 4096;
 pub const PCRE2_NO_JIT: u32 = 8192;
+pub const PCRE2_COPY_MATCHED_SUBJECT: u32 = 16384;
+pub const PCRE2_SUBSTITUTE_LITERAL: u32 = 32768;
+pub const PCRE2_SUBSTITUTE_MATCHED: u32 = 65536;
+pub const PCRE2_SUBSTITUTE_REPLACEMENT_ONLY: u32 = 131072;
 pub const PCRE2_CONVERT_UTF: u32 = 1;
 pub const PCRE2_CONVERT_NO_UTF_CHECK: u32 = 2;
 pub const PCRE2_CONVERT_POSIX_BASIC: u32 = 4;
@@ -1051,6 +1082,10 @@ pub const PCRE2_ERROR_NO_SURROGATES_IN_UTF16: u32 = 191;
 pub const PCRE2_ERROR_BAD_LITERAL_OPTIONS: u32 = 192;
 pub const PCRE2_ERROR_SUPPORTED_ONLY_IN_UNICODE: u32 = 193;
 pub const PCRE2_ERROR_INVALID_HYPHEN_IN_OPTIONS: u32 = 194;
+pub const PCRE2_ERROR_ALPHA_ASSERTION_UNKNOWN: u32 = 195;
+pub const PCRE2_ERROR_SCRIPT_RUN_NOT_AVAILABLE: u32 = 196;
+pub const PCRE2_ERROR_TOO_MANY_CAPTURES: u32 = 197;
+pub const PCRE2_ERROR_CONDITION_ATOMIC_ASSERTION_EXPECTED: u32 = 198;
 pub const PCRE2_ERROR_NOMATCH: i32 = -1;
 pub const PCRE2_ERROR_PARTIAL: i32 = -2;
 pub const PCRE2_ERROR_UTF8_ERR1: i32 = -3;
@@ -1117,6 +1152,7 @@ pub const PCRE2_ERROR_BADSERIALIZEDDATA: i32 = -62;
 pub const PCRE2_ERROR_HEAPLIMIT: i32 = -63;
 pub const PCRE2_ERROR_CONVERT_SYNTAX: i32 = -64;
 pub const PCRE2_ERROR_INTERNAL_DUPMATCH: i32 = -65;
+pub const PCRE2_ERROR_DFA_UINVALID_UTF: i32 = -66;
 pub const PCRE2_INFO_ALLOPTIONS: u32 = 0;
 pub const PCRE2_INFO_ARGOPTIONS: u32 = 1;
 pub const PCRE2_INFO_BACKREFMAX: u32 = 2;
@@ -1161,6 +1197,7 @@ pub const PCRE2_CONFIG_VERSION: u32 = 11;
 pub const PCRE2_CONFIG_HEAPLIMIT: u32 = 12;
 pub const PCRE2_CONFIG_NEVER_BACKSLASH_C: u32 = 13;
 pub const PCRE2_CONFIG_COMPILED_WIDTHS: u32 = 14;
+pub const PCRE2_CONFIG_TABLES_LENGTH: u32 = 15;
 pub const PCRE2_SIZE_MAX: i32 = -1;
 pub const PCRE2_CALLOUT_STARTMATCH: u32 = 1;
 pub const PCRE2_CALLOUT_BACKTRACK: u32 = 2;
@@ -1317,6 +1354,7 @@ pub const LYD_DUP_RECURSIVE: u32 = 1;
 pub const LYD_DUP_NO_META: u32 = 2;
 pub const LYD_DUP_WITH_PARENTS: u32 = 4;
 pub const LYD_DUP_WITH_FLAGS: u32 = 8;
+pub const LYD_DUP_NO_EXT: u32 = 16;
 pub const LYD_MERGE_DESTRUCT: u32 = 1;
 pub const LYD_MERGE_DEFAULTS: u32 = 2;
 pub const LYD_MERGE_WITH_FLAGS: u32 = 4;
@@ -1333,114 +1371,6 @@ pub const LY_CTX_EXPLICIT_COMPILE: u32 = 128;
 pub const LY_CTX_ENABLE_IMP_FEATURES: u32 = 256;
 pub const _STRING_H: u32 = 1;
 pub const _STRINGS_H: u32 = 1;
-pub const _UNISTD_H: u32 = 1;
-pub const _POSIX_VERSION: u32 = 200809;
-pub const __POSIX2_THIS_VERSION: u32 = 200809;
-pub const _POSIX2_VERSION: u32 = 200809;
-pub const _POSIX2_C_VERSION: u32 = 200809;
-pub const _POSIX2_C_BIND: u32 = 200809;
-pub const _POSIX2_C_DEV: u32 = 200809;
-pub const _POSIX2_SW_DEV: u32 = 200809;
-pub const _POSIX2_LOCALEDEF: u32 = 200809;
-pub const _XOPEN_VERSION: u32 = 700;
-pub const _XOPEN_XCU_VERSION: u32 = 4;
-pub const _XOPEN_XPG2: u32 = 1;
-pub const _XOPEN_XPG3: u32 = 1;
-pub const _XOPEN_XPG4: u32 = 1;
-pub const _XOPEN_UNIX: u32 = 1;
-pub const _XOPEN_ENH_I18N: u32 = 1;
-pub const _XOPEN_LEGACY: u32 = 1;
-pub const _BITS_POSIX_OPT_H: u32 = 1;
-pub const _POSIX_JOB_CONTROL: u32 = 1;
-pub const _POSIX_SAVED_IDS: u32 = 1;
-pub const _POSIX_PRIORITY_SCHEDULING: u32 = 200809;
-pub const _POSIX_SYNCHRONIZED_IO: u32 = 200809;
-pub const _POSIX_FSYNC: u32 = 200809;
-pub const _POSIX_MAPPED_FILES: u32 = 200809;
-pub const _POSIX_MEMLOCK: u32 = 200809;
-pub const _POSIX_MEMLOCK_RANGE: u32 = 200809;
-pub const _POSIX_MEMORY_PROTECTION: u32 = 200809;
-pub const _POSIX_CHOWN_RESTRICTED: u32 = 0;
-pub const _POSIX_VDISABLE: u8 = 0u8;
-pub const _POSIX_NO_TRUNC: u32 = 1;
-pub const _XOPEN_REALTIME: u32 = 1;
-pub const _XOPEN_REALTIME_THREADS: u32 = 1;
-pub const _XOPEN_SHM: u32 = 1;
-pub const _POSIX_THREADS: u32 = 200809;
-pub const _POSIX_REENTRANT_FUNCTIONS: u32 = 1;
-pub const _POSIX_THREAD_SAFE_FUNCTIONS: u32 = 200809;
-pub const _POSIX_THREAD_PRIORITY_SCHEDULING: u32 = 200809;
-pub const _POSIX_THREAD_ATTR_STACKSIZE: u32 = 200809;
-pub const _POSIX_THREAD_ATTR_STACKADDR: u32 = 200809;
-pub const _POSIX_THREAD_PRIO_INHERIT: u32 = 200809;
-pub const _POSIX_THREAD_PRIO_PROTECT: u32 = 200809;
-pub const _POSIX_THREAD_ROBUST_PRIO_INHERIT: u32 = 200809;
-pub const _POSIX_THREAD_ROBUST_PRIO_PROTECT: i32 = -1;
-pub const _POSIX_SEMAPHORES: u32 = 200809;
-pub const _POSIX_REALTIME_SIGNALS: u32 = 200809;
-pub const _POSIX_ASYNCHRONOUS_IO: u32 = 200809;
-pub const _POSIX_ASYNC_IO: u32 = 1;
-pub const _LFS_ASYNCHRONOUS_IO: u32 = 1;
-pub const _POSIX_PRIORITIZED_IO: u32 = 200809;
-pub const _LFS64_ASYNCHRONOUS_IO: u32 = 1;
-pub const _LFS_LARGEFILE: u32 = 1;
-pub const _LFS64_LARGEFILE: u32 = 1;
-pub const _LFS64_STDIO: u32 = 1;
-pub const _POSIX_SHARED_MEMORY_OBJECTS: u32 = 200809;
-pub const _POSIX_CPUTIME: u32 = 0;
-pub const _POSIX_THREAD_CPUTIME: u32 = 0;
-pub const _POSIX_REGEXP: u32 = 1;
-pub const _POSIX_READER_WRITER_LOCKS: u32 = 200809;
-pub const _POSIX_SHELL: u32 = 1;
-pub const _POSIX_TIMEOUTS: u32 = 200809;
-pub const _POSIX_SPIN_LOCKS: u32 = 200809;
-pub const _POSIX_SPAWN: u32 = 200809;
-pub const _POSIX_TIMERS: u32 = 200809;
-pub const _POSIX_BARRIERS: u32 = 200809;
-pub const _POSIX_MESSAGE_PASSING: u32 = 200809;
-pub const _POSIX_THREAD_PROCESS_SHARED: u32 = 200809;
-pub const _POSIX_MONOTONIC_CLOCK: u32 = 0;
-pub const _POSIX_CLOCK_SELECTION: u32 = 200809;
-pub const _POSIX_ADVISORY_INFO: u32 = 200809;
-pub const _POSIX_IPV6: u32 = 200809;
-pub const _POSIX_RAW_SOCKETS: u32 = 200809;
-pub const _POSIX2_CHAR_TERM: u32 = 200809;
-pub const _POSIX_SPORADIC_SERVER: i32 = -1;
-pub const _POSIX_THREAD_SPORADIC_SERVER: i32 = -1;
-pub const _POSIX_TRACE: i32 = -1;
-pub const _POSIX_TRACE_EVENT_FILTER: i32 = -1;
-pub const _POSIX_TRACE_INHERIT: i32 = -1;
-pub const _POSIX_TRACE_LOG: i32 = -1;
-pub const _POSIX_TYPED_MEMORY_OBJECTS: i32 = -1;
-pub const _POSIX_V7_LPBIG_OFFBIG: i32 = -1;
-pub const _POSIX_V6_LPBIG_OFFBIG: i32 = -1;
-pub const _XBS5_LPBIG_OFFBIG: i32 = -1;
-pub const _POSIX_V7_LP64_OFF64: u32 = 1;
-pub const _POSIX_V6_LP64_OFF64: u32 = 1;
-pub const _XBS5_LP64_OFF64: u32 = 1;
-pub const __ILP32_OFF32_CFLAGS: &[u8; 5usize] = b"-m32\0";
-pub const __ILP32_OFF32_LDFLAGS: &[u8; 5usize] = b"-m32\0";
-pub const __ILP32_OFFBIG_CFLAGS: &[u8; 48usize] =
-    b"-m32 -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64\0";
-pub const __ILP32_OFFBIG_LDFLAGS: &[u8; 5usize] = b"-m32\0";
-pub const __LP64_OFF64_CFLAGS: &[u8; 5usize] = b"-m64\0";
-pub const __LP64_OFF64_LDFLAGS: &[u8; 5usize] = b"-m64\0";
-pub const STDIN_FILENO: u32 = 0;
-pub const STDOUT_FILENO: u32 = 1;
-pub const STDERR_FILENO: u32 = 2;
-pub const R_OK: u32 = 4;
-pub const W_OK: u32 = 2;
-pub const X_OK: u32 = 1;
-pub const F_OK: u32 = 0;
-pub const L_SET: u32 = 0;
-pub const L_INCR: u32 = 1;
-pub const L_XTND: u32 = 2;
-pub const _GETOPT_POSIX_H: u32 = 1;
-pub const _GETOPT_CORE_H: u32 = 1;
-pub const F_ULOCK: u32 = 0;
-pub const F_LOCK: u32 = 1;
-pub const F_TLOCK: u32 = 2;
-pub const F_TEST: u32 = 3;
 pub const LY_PRINT_SHRINK: u32 = 2;
 pub const LYD_PARSE_ONLY: u32 = 65536;
 pub const LYD_PARSE_STRICT: u32 = 131072;
@@ -1931,10 +1861,10 @@ pub type timer_t = __timer_t;
 pub type ulong = ::std::os::raw::c_ulong;
 pub type ushort = ::std::os::raw::c_ushort;
 pub type uint = ::std::os::raw::c_uint;
-pub type u_int8_t = ::std::os::raw::c_uchar;
-pub type u_int16_t = ::std::os::raw::c_ushort;
-pub type u_int32_t = ::std::os::raw::c_uint;
-pub type u_int64_t = ::std::os::raw::c_ulong;
+pub type u_int8_t = __uint8_t;
+pub type u_int16_t = __uint16_t;
+pub type u_int32_t = __uint32_t;
+pub type u_int64_t = __uint64_t;
 pub type register_t = ::std::os::raw::c_long;
 #[repr(C)]
 #[derive(Debug, Default, Copy, Clone)]
@@ -2109,6 +2039,240 @@ pub type blksize_t = __blksize_t;
 pub type blkcnt_t = __blkcnt_t;
 pub type fsblkcnt_t = __fsblkcnt_t;
 pub type fsfilcnt_t = __fsfilcnt_t;
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct __pthread_internal_list {
+    pub __prev: *mut __pthread_internal_list,
+    pub __next: *mut __pthread_internal_list,
+}
+#[test]
+fn bindgen_test_layout___pthread_internal_list() {
+    assert_eq!(
+        ::std::mem::size_of::<__pthread_internal_list>(),
+        16usize,
+        concat!("Size of: ", stringify!(__pthread_internal_list))
+    );
+    assert_eq!(
+        ::std::mem::align_of::<__pthread_internal_list>(),
+        8usize,
+        concat!("Alignment of ", stringify!(__pthread_internal_list))
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<__pthread_internal_list>())).__prev
+                as *const _ as usize
+        },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(__pthread_internal_list),
+            "::",
+            stringify!(__prev)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<__pthread_internal_list>())).__next
+                as *const _ as usize
+        },
+        8usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(__pthread_internal_list),
+            "::",
+            stringify!(__next)
+        )
+    );
+}
+impl Default for __pthread_internal_list {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
+pub type __pthread_list_t = __pthread_internal_list;
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct __pthread_internal_slist {
+    pub __next: *mut __pthread_internal_slist,
+}
+#[test]
+fn bindgen_test_layout___pthread_internal_slist() {
+    assert_eq!(
+        ::std::mem::size_of::<__pthread_internal_slist>(),
+        8usize,
+        concat!("Size of: ", stringify!(__pthread_internal_slist))
+    );
+    assert_eq!(
+        ::std::mem::align_of::<__pthread_internal_slist>(),
+        8usize,
+        concat!("Alignment of ", stringify!(__pthread_internal_slist))
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<__pthread_internal_slist>())).__next
+                as *const _ as usize
+        },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(__pthread_internal_slist),
+            "::",
+            stringify!(__next)
+        )
+    );
+}
+impl Default for __pthread_internal_slist {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
+pub type __pthread_slist_t = __pthread_internal_slist;
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct __pthread_mutex_s {
+    pub __lock: ::std::os::raw::c_int,
+    pub __count: ::std::os::raw::c_uint,
+    pub __owner: ::std::os::raw::c_int,
+    pub __nusers: ::std::os::raw::c_uint,
+    pub __kind: ::std::os::raw::c_int,
+    pub __spins: ::std::os::raw::c_short,
+    pub __elision: ::std::os::raw::c_short,
+    pub __list: __pthread_list_t,
+}
+#[test]
+fn bindgen_test_layout___pthread_mutex_s() {
+    assert_eq!(
+        ::std::mem::size_of::<__pthread_mutex_s>(),
+        40usize,
+        concat!("Size of: ", stringify!(__pthread_mutex_s))
+    );
+    assert_eq!(
+        ::std::mem::align_of::<__pthread_mutex_s>(),
+        8usize,
+        concat!("Alignment of ", stringify!(__pthread_mutex_s))
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<__pthread_mutex_s>())).__lock as *const _
+                as usize
+        },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(__pthread_mutex_s),
+            "::",
+            stringify!(__lock)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<__pthread_mutex_s>())).__count as *const _
+                as usize
+        },
+        4usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(__pthread_mutex_s),
+            "::",
+            stringify!(__count)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<__pthread_mutex_s>())).__owner as *const _
+                as usize
+        },
+        8usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(__pthread_mutex_s),
+            "::",
+            stringify!(__owner)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<__pthread_mutex_s>())).__nusers as *const _
+                as usize
+        },
+        12usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(__pthread_mutex_s),
+            "::",
+            stringify!(__nusers)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<__pthread_mutex_s>())).__kind as *const _
+                as usize
+        },
+        16usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(__pthread_mutex_s),
+            "::",
+            stringify!(__kind)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<__pthread_mutex_s>())).__spins as *const _
+                as usize
+        },
+        20usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(__pthread_mutex_s),
+            "::",
+            stringify!(__spins)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<__pthread_mutex_s>())).__elision as *const _
+                as usize
+        },
+        22usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(__pthread_mutex_s),
+            "::",
+            stringify!(__elision)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<__pthread_mutex_s>())).__list as *const _
+                as usize
+        },
+        24usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(__pthread_mutex_s),
+            "::",
+            stringify!(__list)
+        )
+    );
+}
+impl Default for __pthread_mutex_s {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 #[repr(C)]
 #[derive(Debug, Default, Copy, Clone)]
 pub struct __pthread_rwlock_arch_t {
@@ -2293,199 +2457,6 @@ fn bindgen_test_layout___pthread_rwlock_arch_t() {
             stringify!(__flags)
         )
     );
-}
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct __pthread_internal_list {
-    pub __prev: *mut __pthread_internal_list,
-    pub __next: *mut __pthread_internal_list,
-}
-#[test]
-fn bindgen_test_layout___pthread_internal_list() {
-    assert_eq!(
-        ::std::mem::size_of::<__pthread_internal_list>(),
-        16usize,
-        concat!("Size of: ", stringify!(__pthread_internal_list))
-    );
-    assert_eq!(
-        ::std::mem::align_of::<__pthread_internal_list>(),
-        8usize,
-        concat!("Alignment of ", stringify!(__pthread_internal_list))
-    );
-    assert_eq!(
-        unsafe {
-            &(*(::std::ptr::null::<__pthread_internal_list>())).__prev
-                as *const _ as usize
-        },
-        0usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(__pthread_internal_list),
-            "::",
-            stringify!(__prev)
-        )
-    );
-    assert_eq!(
-        unsafe {
-            &(*(::std::ptr::null::<__pthread_internal_list>())).__next
-                as *const _ as usize
-        },
-        8usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(__pthread_internal_list),
-            "::",
-            stringify!(__next)
-        )
-    );
-}
-impl Default for __pthread_internal_list {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
-pub type __pthread_list_t = __pthread_internal_list;
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct __pthread_mutex_s {
-    pub __lock: ::std::os::raw::c_int,
-    pub __count: ::std::os::raw::c_uint,
-    pub __owner: ::std::os::raw::c_int,
-    pub __nusers: ::std::os::raw::c_uint,
-    pub __kind: ::std::os::raw::c_int,
-    pub __spins: ::std::os::raw::c_short,
-    pub __elision: ::std::os::raw::c_short,
-    pub __list: __pthread_list_t,
-}
-#[test]
-fn bindgen_test_layout___pthread_mutex_s() {
-    assert_eq!(
-        ::std::mem::size_of::<__pthread_mutex_s>(),
-        40usize,
-        concat!("Size of: ", stringify!(__pthread_mutex_s))
-    );
-    assert_eq!(
-        ::std::mem::align_of::<__pthread_mutex_s>(),
-        8usize,
-        concat!("Alignment of ", stringify!(__pthread_mutex_s))
-    );
-    assert_eq!(
-        unsafe {
-            &(*(::std::ptr::null::<__pthread_mutex_s>())).__lock as *const _
-                as usize
-        },
-        0usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(__pthread_mutex_s),
-            "::",
-            stringify!(__lock)
-        )
-    );
-    assert_eq!(
-        unsafe {
-            &(*(::std::ptr::null::<__pthread_mutex_s>())).__count as *const _
-                as usize
-        },
-        4usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(__pthread_mutex_s),
-            "::",
-            stringify!(__count)
-        )
-    );
-    assert_eq!(
-        unsafe {
-            &(*(::std::ptr::null::<__pthread_mutex_s>())).__owner as *const _
-                as usize
-        },
-        8usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(__pthread_mutex_s),
-            "::",
-            stringify!(__owner)
-        )
-    );
-    assert_eq!(
-        unsafe {
-            &(*(::std::ptr::null::<__pthread_mutex_s>())).__nusers as *const _
-                as usize
-        },
-        12usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(__pthread_mutex_s),
-            "::",
-            stringify!(__nusers)
-        )
-    );
-    assert_eq!(
-        unsafe {
-            &(*(::std::ptr::null::<__pthread_mutex_s>())).__kind as *const _
-                as usize
-        },
-        16usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(__pthread_mutex_s),
-            "::",
-            stringify!(__kind)
-        )
-    );
-    assert_eq!(
-        unsafe {
-            &(*(::std::ptr::null::<__pthread_mutex_s>())).__spins as *const _
-                as usize
-        },
-        20usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(__pthread_mutex_s),
-            "::",
-            stringify!(__spins)
-        )
-    );
-    assert_eq!(
-        unsafe {
-            &(*(::std::ptr::null::<__pthread_mutex_s>())).__elision as *const _
-                as usize
-        },
-        22usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(__pthread_mutex_s),
-            "::",
-            stringify!(__elision)
-        )
-    );
-    assert_eq!(
-        unsafe {
-            &(*(::std::ptr::null::<__pthread_mutex_s>())).__list as *const _
-                as usize
-        },
-        24usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(__pthread_mutex_s),
-            "::",
-            stringify!(__list)
-        )
-    );
-}
-impl Default for __pthread_mutex_s {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -3610,6 +3581,54 @@ fn bindgen_test_layout_cmsghdr() {
         8usize,
         concat!("Alignment of ", stringify!(cmsghdr))
     );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<cmsghdr>())).cmsg_len as *const _ as usize
+        },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(cmsghdr),
+            "::",
+            stringify!(cmsg_len)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<cmsghdr>())).cmsg_level as *const _ as usize
+        },
+        8usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(cmsghdr),
+            "::",
+            stringify!(cmsg_level)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<cmsghdr>())).cmsg_type as *const _ as usize
+        },
+        12usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(cmsghdr),
+            "::",
+            stringify!(cmsg_type)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<cmsghdr>())).__cmsg_data as *const _ as usize
+        },
+        16usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(cmsghdr),
+            "::",
+            stringify!(__cmsg_data)
+        )
+    );
 }
 extern "C" {
     pub fn __cmsg_nxthdr(
@@ -3621,6 +3640,100 @@ pub mod _bindgen_ty_2 {
     pub type Type = ::std::os::raw::c_uint;
     pub const SCM_RIGHTS: Type = 1;
 }
+#[repr(C)]
+#[derive(Debug, Default, Copy, Clone)]
+pub struct __kernel_fd_set {
+    pub fds_bits: [::std::os::raw::c_ulong; 16usize],
+}
+#[test]
+fn bindgen_test_layout___kernel_fd_set() {
+    assert_eq!(
+        ::std::mem::size_of::<__kernel_fd_set>(),
+        128usize,
+        concat!("Size of: ", stringify!(__kernel_fd_set))
+    );
+    assert_eq!(
+        ::std::mem::align_of::<__kernel_fd_set>(),
+        8usize,
+        concat!("Alignment of ", stringify!(__kernel_fd_set))
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<__kernel_fd_set>())).fds_bits as *const _
+                as usize
+        },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(__kernel_fd_set),
+            "::",
+            stringify!(fds_bits)
+        )
+    );
+}
+pub type __kernel_sighandler_t =
+    ::std::option::Option<unsafe extern "C" fn(arg1: ::std::os::raw::c_int)>;
+pub type __kernel_key_t = ::std::os::raw::c_int;
+pub type __kernel_mqd_t = ::std::os::raw::c_int;
+pub type __kernel_old_uid_t = ::std::os::raw::c_ushort;
+pub type __kernel_old_gid_t = ::std::os::raw::c_ushort;
+pub type __kernel_old_dev_t = ::std::os::raw::c_ulong;
+pub type __kernel_long_t = ::std::os::raw::c_long;
+pub type __kernel_ulong_t = ::std::os::raw::c_ulong;
+pub type __kernel_ino_t = __kernel_ulong_t;
+pub type __kernel_mode_t = ::std::os::raw::c_uint;
+pub type __kernel_pid_t = ::std::os::raw::c_int;
+pub type __kernel_ipc_pid_t = ::std::os::raw::c_int;
+pub type __kernel_uid_t = ::std::os::raw::c_uint;
+pub type __kernel_gid_t = ::std::os::raw::c_uint;
+pub type __kernel_suseconds_t = __kernel_long_t;
+pub type __kernel_daddr_t = ::std::os::raw::c_int;
+pub type __kernel_uid32_t = ::std::os::raw::c_uint;
+pub type __kernel_gid32_t = ::std::os::raw::c_uint;
+pub type __kernel_size_t = __kernel_ulong_t;
+pub type __kernel_ssize_t = __kernel_long_t;
+pub type __kernel_ptrdiff_t = __kernel_long_t;
+#[repr(C)]
+#[derive(Debug, Default, Copy, Clone)]
+pub struct __kernel_fsid_t {
+    pub val: [::std::os::raw::c_int; 2usize],
+}
+#[test]
+fn bindgen_test_layout___kernel_fsid_t() {
+    assert_eq!(
+        ::std::mem::size_of::<__kernel_fsid_t>(),
+        8usize,
+        concat!("Size of: ", stringify!(__kernel_fsid_t))
+    );
+    assert_eq!(
+        ::std::mem::align_of::<__kernel_fsid_t>(),
+        4usize,
+        concat!("Alignment of ", stringify!(__kernel_fsid_t))
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<__kernel_fsid_t>())).val as *const _ as usize
+        },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(__kernel_fsid_t),
+            "::",
+            stringify!(val)
+        )
+    );
+}
+pub type __kernel_off_t = __kernel_long_t;
+pub type __kernel_loff_t = ::std::os::raw::c_longlong;
+pub type __kernel_old_time_t = __kernel_long_t;
+pub type __kernel_time_t = __kernel_long_t;
+pub type __kernel_time64_t = ::std::os::raw::c_longlong;
+pub type __kernel_clock_t = __kernel_long_t;
+pub type __kernel_timer_t = ::std::os::raw::c_int;
+pub type __kernel_clockid_t = ::std::os::raw::c_int;
+pub type __kernel_caddr_t = *mut ::std::os::raw::c_char;
+pub type __kernel_uid16_t = ::std::os::raw::c_ushort;
+pub type __kernel_gid16_t = ::std::os::raw::c_ushort;
 #[repr(C)]
 #[derive(Debug, Default, Copy, Clone)]
 pub struct linger {
@@ -5391,9 +5504,6 @@ extern "C" {
     pub static mut timezone: ::std::os::raw::c_long;
 }
 extern "C" {
-    pub fn stime(__when: *const time_t) -> ::std::os::raw::c_int;
-}
-extern "C" {
     pub fn timegm(__tp: *mut tm) -> time_t;
 }
 extern "C" {
@@ -6167,6 +6277,13 @@ extern "C" {
     ) -> *mut ::std::os::raw::c_void;
 }
 extern "C" {
+    pub fn reallocarray(
+        __ptr: *mut ::std::os::raw::c_void,
+        __nmemb: size_t,
+        __size: size_t,
+    ) -> *mut ::std::os::raw::c_void;
+}
+extern "C" {
     pub fn free(__ptr: *mut ::std::os::raw::c_void);
 }
 extern "C" {
@@ -6895,6 +7012,133 @@ impl Default for pcre2_callout_enumerate_block_8 {
         }
     }
 }
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct pcre2_substitute_callout_block_8 {
+    pub version: u32,
+    pub input: PCRE2_SPTR8,
+    pub output: PCRE2_SPTR8,
+    pub output_offsets: [size_t; 2usize],
+    pub ovector: *mut size_t,
+    pub oveccount: u32,
+    pub subscount: u32,
+}
+#[test]
+fn bindgen_test_layout_pcre2_substitute_callout_block_8() {
+    assert_eq!(
+        ::std::mem::size_of::<pcre2_substitute_callout_block_8>(),
+        56usize,
+        concat!("Size of: ", stringify!(pcre2_substitute_callout_block_8))
+    );
+    assert_eq!(
+        ::std::mem::align_of::<pcre2_substitute_callout_block_8>(),
+        8usize,
+        concat!(
+            "Alignment of ",
+            stringify!(pcre2_substitute_callout_block_8)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<pcre2_substitute_callout_block_8>())).version
+                as *const _ as usize
+        },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(pcre2_substitute_callout_block_8),
+            "::",
+            stringify!(version)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<pcre2_substitute_callout_block_8>())).input
+                as *const _ as usize
+        },
+        8usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(pcre2_substitute_callout_block_8),
+            "::",
+            stringify!(input)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<pcre2_substitute_callout_block_8>())).output
+                as *const _ as usize
+        },
+        16usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(pcre2_substitute_callout_block_8),
+            "::",
+            stringify!(output)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<pcre2_substitute_callout_block_8>()))
+                .output_offsets as *const _ as usize
+        },
+        24usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(pcre2_substitute_callout_block_8),
+            "::",
+            stringify!(output_offsets)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<pcre2_substitute_callout_block_8>())).ovector
+                as *const _ as usize
+        },
+        40usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(pcre2_substitute_callout_block_8),
+            "::",
+            stringify!(ovector)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<pcre2_substitute_callout_block_8>()))
+                .oveccount as *const _ as usize
+        },
+        48usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(pcre2_substitute_callout_block_8),
+            "::",
+            stringify!(oveccount)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<pcre2_substitute_callout_block_8>()))
+                .subscount as *const _ as usize
+        },
+        52usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(pcre2_substitute_callout_block_8),
+            "::",
+            stringify!(subscount)
+        )
+    );
+}
+impl Default for pcre2_substitute_callout_block_8 {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 extern "C" {
     pub fn pcre2_config_8(
         arg1: u32,
@@ -6948,7 +7192,7 @@ extern "C" {
 extern "C" {
     pub fn pcre2_set_character_tables_8(
         arg1: *mut pcre2_compile_context_8,
-        arg2: *const ::std::os::raw::c_uchar,
+        arg2: *const u8,
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
@@ -7044,6 +7288,18 @@ extern "C" {
         arg2: ::std::option::Option<
             unsafe extern "C" fn(
                 arg1: *mut pcre2_callout_block_8,
+                arg2: *mut ::std::os::raw::c_void,
+            ) -> ::std::os::raw::c_int,
+        >,
+        arg3: *mut ::std::os::raw::c_void,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn pcre2_set_substitute_callout_8(
+        arg1: *mut pcre2_match_context_8,
+        arg2: ::std::option::Option<
+            unsafe extern "C" fn(
+                arg1: *mut pcre2_substitute_callout_block_8,
                 arg2: *mut ::std::os::raw::c_void,
             ) -> ::std::os::raw::c_int,
         >,
@@ -7179,6 +7435,10 @@ extern "C" {
 }
 extern "C" {
     pub fn pcre2_get_mark_8(arg1: *mut pcre2_match_data_8) -> PCRE2_SPTR8;
+}
+extern "C" {
+    pub fn pcre2_get_match_data_size_8(arg1: *mut pcre2_match_data_8)
+        -> size_t;
 }
 extern "C" {
     pub fn pcre2_get_ovector_count_8(arg1: *mut pcre2_match_data_8) -> u32;
@@ -7348,6 +7608,12 @@ extern "C" {
 }
 extern "C" {
     pub fn pcre2_maketables_8(arg1: *mut pcre2_general_context_8) -> *const u8;
+}
+extern "C" {
+    pub fn pcre2_maketables_free_8(
+        arg1: *mut pcre2_general_context_8,
+        arg2: *const u8,
+    );
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -7773,6 +8039,133 @@ impl Default for pcre2_callout_enumerate_block_16 {
         }
     }
 }
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct pcre2_substitute_callout_block_16 {
+    pub version: u32,
+    pub input: PCRE2_SPTR16,
+    pub output: PCRE2_SPTR16,
+    pub output_offsets: [size_t; 2usize],
+    pub ovector: *mut size_t,
+    pub oveccount: u32,
+    pub subscount: u32,
+}
+#[test]
+fn bindgen_test_layout_pcre2_substitute_callout_block_16() {
+    assert_eq!(
+        ::std::mem::size_of::<pcre2_substitute_callout_block_16>(),
+        56usize,
+        concat!("Size of: ", stringify!(pcre2_substitute_callout_block_16))
+    );
+    assert_eq!(
+        ::std::mem::align_of::<pcre2_substitute_callout_block_16>(),
+        8usize,
+        concat!(
+            "Alignment of ",
+            stringify!(pcre2_substitute_callout_block_16)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<pcre2_substitute_callout_block_16>()))
+                .version as *const _ as usize
+        },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(pcre2_substitute_callout_block_16),
+            "::",
+            stringify!(version)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<pcre2_substitute_callout_block_16>())).input
+                as *const _ as usize
+        },
+        8usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(pcre2_substitute_callout_block_16),
+            "::",
+            stringify!(input)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<pcre2_substitute_callout_block_16>())).output
+                as *const _ as usize
+        },
+        16usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(pcre2_substitute_callout_block_16),
+            "::",
+            stringify!(output)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<pcre2_substitute_callout_block_16>()))
+                .output_offsets as *const _ as usize
+        },
+        24usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(pcre2_substitute_callout_block_16),
+            "::",
+            stringify!(output_offsets)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<pcre2_substitute_callout_block_16>()))
+                .ovector as *const _ as usize
+        },
+        40usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(pcre2_substitute_callout_block_16),
+            "::",
+            stringify!(ovector)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<pcre2_substitute_callout_block_16>()))
+                .oveccount as *const _ as usize
+        },
+        48usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(pcre2_substitute_callout_block_16),
+            "::",
+            stringify!(oveccount)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<pcre2_substitute_callout_block_16>()))
+                .subscount as *const _ as usize
+        },
+        52usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(pcre2_substitute_callout_block_16),
+            "::",
+            stringify!(subscount)
+        )
+    );
+}
+impl Default for pcre2_substitute_callout_block_16 {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 extern "C" {
     pub fn pcre2_config_16(
         arg1: u32,
@@ -7826,7 +8219,7 @@ extern "C" {
 extern "C" {
     pub fn pcre2_set_character_tables_16(
         arg1: *mut pcre2_compile_context_16,
-        arg2: *const ::std::os::raw::c_uchar,
+        arg2: *const u8,
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
@@ -7922,6 +8315,18 @@ extern "C" {
         arg2: ::std::option::Option<
             unsafe extern "C" fn(
                 arg1: *mut pcre2_callout_block_16,
+                arg2: *mut ::std::os::raw::c_void,
+            ) -> ::std::os::raw::c_int,
+        >,
+        arg3: *mut ::std::os::raw::c_void,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn pcre2_set_substitute_callout_16(
+        arg1: *mut pcre2_match_context_16,
+        arg2: ::std::option::Option<
+            unsafe extern "C" fn(
+                arg1: *mut pcre2_substitute_callout_block_16,
                 arg2: *mut ::std::os::raw::c_void,
             ) -> ::std::os::raw::c_int,
         >,
@@ -8058,6 +8463,11 @@ extern "C" {
 }
 extern "C" {
     pub fn pcre2_get_mark_16(arg1: *mut pcre2_match_data_16) -> PCRE2_SPTR16;
+}
+extern "C" {
+    pub fn pcre2_get_match_data_size_16(
+        arg1: *mut pcre2_match_data_16,
+    ) -> size_t;
 }
 extern "C" {
     pub fn pcre2_get_ovector_count_16(arg1: *mut pcre2_match_data_16) -> u32;
@@ -8229,6 +8639,12 @@ extern "C" {
     pub fn pcre2_maketables_16(
         arg1: *mut pcre2_general_context_16,
     ) -> *const u8;
+}
+extern "C" {
+    pub fn pcre2_maketables_free_16(
+        arg1: *mut pcre2_general_context_16,
+        arg2: *const u8,
+    );
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -8654,6 +9070,133 @@ impl Default for pcre2_callout_enumerate_block_32 {
         }
     }
 }
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct pcre2_substitute_callout_block_32 {
+    pub version: u32,
+    pub input: PCRE2_SPTR32,
+    pub output: PCRE2_SPTR32,
+    pub output_offsets: [size_t; 2usize],
+    pub ovector: *mut size_t,
+    pub oveccount: u32,
+    pub subscount: u32,
+}
+#[test]
+fn bindgen_test_layout_pcre2_substitute_callout_block_32() {
+    assert_eq!(
+        ::std::mem::size_of::<pcre2_substitute_callout_block_32>(),
+        56usize,
+        concat!("Size of: ", stringify!(pcre2_substitute_callout_block_32))
+    );
+    assert_eq!(
+        ::std::mem::align_of::<pcre2_substitute_callout_block_32>(),
+        8usize,
+        concat!(
+            "Alignment of ",
+            stringify!(pcre2_substitute_callout_block_32)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<pcre2_substitute_callout_block_32>()))
+                .version as *const _ as usize
+        },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(pcre2_substitute_callout_block_32),
+            "::",
+            stringify!(version)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<pcre2_substitute_callout_block_32>())).input
+                as *const _ as usize
+        },
+        8usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(pcre2_substitute_callout_block_32),
+            "::",
+            stringify!(input)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<pcre2_substitute_callout_block_32>())).output
+                as *const _ as usize
+        },
+        16usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(pcre2_substitute_callout_block_32),
+            "::",
+            stringify!(output)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<pcre2_substitute_callout_block_32>()))
+                .output_offsets as *const _ as usize
+        },
+        24usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(pcre2_substitute_callout_block_32),
+            "::",
+            stringify!(output_offsets)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<pcre2_substitute_callout_block_32>()))
+                .ovector as *const _ as usize
+        },
+        40usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(pcre2_substitute_callout_block_32),
+            "::",
+            stringify!(ovector)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<pcre2_substitute_callout_block_32>()))
+                .oveccount as *const _ as usize
+        },
+        48usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(pcre2_substitute_callout_block_32),
+            "::",
+            stringify!(oveccount)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<pcre2_substitute_callout_block_32>()))
+                .subscount as *const _ as usize
+        },
+        52usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(pcre2_substitute_callout_block_32),
+            "::",
+            stringify!(subscount)
+        )
+    );
+}
+impl Default for pcre2_substitute_callout_block_32 {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 extern "C" {
     pub fn pcre2_config_32(
         arg1: u32,
@@ -8707,7 +9250,7 @@ extern "C" {
 extern "C" {
     pub fn pcre2_set_character_tables_32(
         arg1: *mut pcre2_compile_context_32,
-        arg2: *const ::std::os::raw::c_uchar,
+        arg2: *const u8,
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
@@ -8803,6 +9346,18 @@ extern "C" {
         arg2: ::std::option::Option<
             unsafe extern "C" fn(
                 arg1: *mut pcre2_callout_block_32,
+                arg2: *mut ::std::os::raw::c_void,
+            ) -> ::std::os::raw::c_int,
+        >,
+        arg3: *mut ::std::os::raw::c_void,
+    ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn pcre2_set_substitute_callout_32(
+        arg1: *mut pcre2_match_context_32,
+        arg2: ::std::option::Option<
+            unsafe extern "C" fn(
+                arg1: *mut pcre2_substitute_callout_block_32,
                 arg2: *mut ::std::os::raw::c_void,
             ) -> ::std::os::raw::c_int,
         >,
@@ -8939,6 +9494,11 @@ extern "C" {
 }
 extern "C" {
     pub fn pcre2_get_mark_32(arg1: *mut pcre2_match_data_32) -> PCRE2_SPTR32;
+}
+extern "C" {
+    pub fn pcre2_get_match_data_size_32(
+        arg1: *mut pcre2_match_data_32,
+    ) -> size_t;
 }
 extern "C" {
     pub fn pcre2_get_ovector_count_32(arg1: *mut pcre2_match_data_32) -> u32;
@@ -9110,6 +9670,12 @@ extern "C" {
     pub fn pcre2_maketables_32(
         arg1: *mut pcre2_general_context_32,
     ) -> *const u8;
+}
+extern "C" {
+    pub fn pcre2_maketables_free_32(
+        arg1: *mut pcre2_general_context_32,
+        arg2: *const u8,
+    );
 }
 pub type va_list = __builtin_va_list;
 pub type __gnuc_va_list = __builtin_va_list;
@@ -10355,15 +10921,20 @@ pub mod ly_stmt {
 extern "C" {
     pub fn ly_stmt2str(stmt: ly_stmt::Type) -> *const ::std::os::raw::c_char;
 }
-extern "C" {
-    pub fn lys_nodetype2stmt(nodetype: u16) -> ly_stmt::Type;
-}
 pub mod ly_stmt_cardinality {
     pub type Type = ::std::os::raw::c_uint;
     pub const LY_STMT_CARD_OPT: Type = 0;
     pub const LY_STMT_CARD_MAND: Type = 1;
     pub const LY_STMT_CARD_SOME: Type = 2;
     pub const LY_STMT_CARD_ANY: Type = 3;
+}
+extern "C" {
+    pub fn ly_cardinality2str(
+        card: ly_stmt_cardinality::Type,
+    ) -> *const ::std::os::raw::c_char;
+}
+extern "C" {
+    pub fn lys_nodetype2stmt(nodetype: u16) -> ly_stmt::Type;
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -27499,6 +28070,17 @@ extern "C" {
     ) -> LY_ERR::Type;
 }
 extern "C" {
+    pub fn lyd_eval_xpath3(
+        ctx_node: *const lyd_node,
+        cur_mod: *const lys_module,
+        xpath: *const ::std::os::raw::c_char,
+        format: LY_VALUE_FORMAT::Type,
+        prefix_data: *mut ::std::os::raw::c_void,
+        vars: *const lyxp_var,
+        result: *mut ly_bool,
+    ) -> LY_ERR::Type;
+}
+extern "C" {
     pub fn lyd_find_path(
         ctx_node: *const lyd_node,
         path: *const ::std::os::raw::c_char,
@@ -27770,7 +28352,7 @@ extern "C" {
         __dest: *mut ::std::os::raw::c_void,
         __src: *const ::std::os::raw::c_void,
         __c: ::std::os::raw::c_int,
-        __n: size_t,
+        __n: ::std::os::raw::c_ulong,
     ) -> *mut ::std::os::raw::c_void;
 }
 extern "C" {
@@ -27962,7 +28544,7 @@ extern "C" {
     pub fn bcmp(
         __s1: *const ::std::os::raw::c_void,
         __s2: *const ::std::os::raw::c_void,
-        __n: size_t,
+        __n: ::std::os::raw::c_ulong,
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
@@ -28151,848 +28733,6 @@ extern "C" {
 }
 extern "C" {
     pub fn ly_in_free(in_: *mut ly_in, destroy: ly_bool);
-}
-pub type useconds_t = __useconds_t;
-extern "C" {
-    pub fn access(
-        __name: *const ::std::os::raw::c_char,
-        __type: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn faccessat(
-        __fd: ::std::os::raw::c_int,
-        __file: *const ::std::os::raw::c_char,
-        __type: ::std::os::raw::c_int,
-        __flag: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn lseek(
-        __fd: ::std::os::raw::c_int,
-        __offset: __off_t,
-        __whence: ::std::os::raw::c_int,
-    ) -> __off_t;
-}
-extern "C" {
-    pub fn close(__fd: ::std::os::raw::c_int) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn read(
-        __fd: ::std::os::raw::c_int,
-        __buf: *mut ::std::os::raw::c_void,
-        __nbytes: size_t,
-    ) -> ssize_t;
-}
-extern "C" {
-    pub fn write(
-        __fd: ::std::os::raw::c_int,
-        __buf: *const ::std::os::raw::c_void,
-        __n: size_t,
-    ) -> ssize_t;
-}
-extern "C" {
-    pub fn pread(
-        __fd: ::std::os::raw::c_int,
-        __buf: *mut ::std::os::raw::c_void,
-        __nbytes: size_t,
-        __offset: __off_t,
-    ) -> ssize_t;
-}
-extern "C" {
-    pub fn pwrite(
-        __fd: ::std::os::raw::c_int,
-        __buf: *const ::std::os::raw::c_void,
-        __n: size_t,
-        __offset: __off_t,
-    ) -> ssize_t;
-}
-extern "C" {
-    pub fn pipe(__pipedes: *mut ::std::os::raw::c_int)
-        -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn alarm(__seconds: ::std::os::raw::c_uint) -> ::std::os::raw::c_uint;
-}
-extern "C" {
-    pub fn sleep(__seconds: ::std::os::raw::c_uint) -> ::std::os::raw::c_uint;
-}
-extern "C" {
-    pub fn ualarm(
-        __value: __useconds_t,
-        __interval: __useconds_t,
-    ) -> __useconds_t;
-}
-extern "C" {
-    pub fn usleep(__useconds: __useconds_t) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn pause() -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn chown(
-        __file: *const ::std::os::raw::c_char,
-        __owner: __uid_t,
-        __group: __gid_t,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn fchown(
-        __fd: ::std::os::raw::c_int,
-        __owner: __uid_t,
-        __group: __gid_t,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn lchown(
-        __file: *const ::std::os::raw::c_char,
-        __owner: __uid_t,
-        __group: __gid_t,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn fchownat(
-        __fd: ::std::os::raw::c_int,
-        __file: *const ::std::os::raw::c_char,
-        __owner: __uid_t,
-        __group: __gid_t,
-        __flag: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn chdir(
-        __path: *const ::std::os::raw::c_char,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn fchdir(__fd: ::std::os::raw::c_int) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn getcwd(
-        __buf: *mut ::std::os::raw::c_char,
-        __size: size_t,
-    ) -> *mut ::std::os::raw::c_char;
-}
-extern "C" {
-    pub fn getwd(
-        __buf: *mut ::std::os::raw::c_char,
-    ) -> *mut ::std::os::raw::c_char;
-}
-extern "C" {
-    pub fn dup(__fd: ::std::os::raw::c_int) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn dup2(
-        __fd: ::std::os::raw::c_int,
-        __fd2: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub static mut __environ: *mut *mut ::std::os::raw::c_char;
-}
-extern "C" {
-    pub fn execve(
-        __path: *const ::std::os::raw::c_char,
-        __argv: *const *mut ::std::os::raw::c_char,
-        __envp: *const *mut ::std::os::raw::c_char,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn fexecve(
-        __fd: ::std::os::raw::c_int,
-        __argv: *const *mut ::std::os::raw::c_char,
-        __envp: *const *mut ::std::os::raw::c_char,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn execv(
-        __path: *const ::std::os::raw::c_char,
-        __argv: *const *mut ::std::os::raw::c_char,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn execle(
-        __path: *const ::std::os::raw::c_char,
-        __arg: *const ::std::os::raw::c_char,
-        ...
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn execl(
-        __path: *const ::std::os::raw::c_char,
-        __arg: *const ::std::os::raw::c_char,
-        ...
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn execvp(
-        __file: *const ::std::os::raw::c_char,
-        __argv: *const *mut ::std::os::raw::c_char,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn execlp(
-        __file: *const ::std::os::raw::c_char,
-        __arg: *const ::std::os::raw::c_char,
-        ...
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn nice(__inc: ::std::os::raw::c_int) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn _exit(__status: ::std::os::raw::c_int);
-}
-pub mod _bindgen_ty_7 {
-    pub type Type = ::std::os::raw::c_uint;
-    pub const _PC_LINK_MAX: Type = 0;
-    pub const _PC_MAX_CANON: Type = 1;
-    pub const _PC_MAX_INPUT: Type = 2;
-    pub const _PC_NAME_MAX: Type = 3;
-    pub const _PC_PATH_MAX: Type = 4;
-    pub const _PC_PIPE_BUF: Type = 5;
-    pub const _PC_CHOWN_RESTRICTED: Type = 6;
-    pub const _PC_NO_TRUNC: Type = 7;
-    pub const _PC_VDISABLE: Type = 8;
-    pub const _PC_SYNC_IO: Type = 9;
-    pub const _PC_ASYNC_IO: Type = 10;
-    pub const _PC_PRIO_IO: Type = 11;
-    pub const _PC_SOCK_MAXBUF: Type = 12;
-    pub const _PC_FILESIZEBITS: Type = 13;
-    pub const _PC_REC_INCR_XFER_SIZE: Type = 14;
-    pub const _PC_REC_MAX_XFER_SIZE: Type = 15;
-    pub const _PC_REC_MIN_XFER_SIZE: Type = 16;
-    pub const _PC_REC_XFER_ALIGN: Type = 17;
-    pub const _PC_ALLOC_SIZE_MIN: Type = 18;
-    pub const _PC_SYMLINK_MAX: Type = 19;
-    pub const _PC_2_SYMLINKS: Type = 20;
-}
-pub mod _bindgen_ty_8 {
-    pub type Type = ::std::os::raw::c_uint;
-    pub const _SC_ARG_MAX: Type = 0;
-    pub const _SC_CHILD_MAX: Type = 1;
-    pub const _SC_CLK_TCK: Type = 2;
-    pub const _SC_NGROUPS_MAX: Type = 3;
-    pub const _SC_OPEN_MAX: Type = 4;
-    pub const _SC_STREAM_MAX: Type = 5;
-    pub const _SC_TZNAME_MAX: Type = 6;
-    pub const _SC_JOB_CONTROL: Type = 7;
-    pub const _SC_SAVED_IDS: Type = 8;
-    pub const _SC_REALTIME_SIGNALS: Type = 9;
-    pub const _SC_PRIORITY_SCHEDULING: Type = 10;
-    pub const _SC_TIMERS: Type = 11;
-    pub const _SC_ASYNCHRONOUS_IO: Type = 12;
-    pub const _SC_PRIORITIZED_IO: Type = 13;
-    pub const _SC_SYNCHRONIZED_IO: Type = 14;
-    pub const _SC_FSYNC: Type = 15;
-    pub const _SC_MAPPED_FILES: Type = 16;
-    pub const _SC_MEMLOCK: Type = 17;
-    pub const _SC_MEMLOCK_RANGE: Type = 18;
-    pub const _SC_MEMORY_PROTECTION: Type = 19;
-    pub const _SC_MESSAGE_PASSING: Type = 20;
-    pub const _SC_SEMAPHORES: Type = 21;
-    pub const _SC_SHARED_MEMORY_OBJECTS: Type = 22;
-    pub const _SC_AIO_LISTIO_MAX: Type = 23;
-    pub const _SC_AIO_MAX: Type = 24;
-    pub const _SC_AIO_PRIO_DELTA_MAX: Type = 25;
-    pub const _SC_DELAYTIMER_MAX: Type = 26;
-    pub const _SC_MQ_OPEN_MAX: Type = 27;
-    pub const _SC_MQ_PRIO_MAX: Type = 28;
-    pub const _SC_VERSION: Type = 29;
-    pub const _SC_PAGESIZE: Type = 30;
-    pub const _SC_RTSIG_MAX: Type = 31;
-    pub const _SC_SEM_NSEMS_MAX: Type = 32;
-    pub const _SC_SEM_VALUE_MAX: Type = 33;
-    pub const _SC_SIGQUEUE_MAX: Type = 34;
-    pub const _SC_TIMER_MAX: Type = 35;
-    pub const _SC_BC_BASE_MAX: Type = 36;
-    pub const _SC_BC_DIM_MAX: Type = 37;
-    pub const _SC_BC_SCALE_MAX: Type = 38;
-    pub const _SC_BC_STRING_MAX: Type = 39;
-    pub const _SC_COLL_WEIGHTS_MAX: Type = 40;
-    pub const _SC_EQUIV_CLASS_MAX: Type = 41;
-    pub const _SC_EXPR_NEST_MAX: Type = 42;
-    pub const _SC_LINE_MAX: Type = 43;
-    pub const _SC_RE_DUP_MAX: Type = 44;
-    pub const _SC_CHARCLASS_NAME_MAX: Type = 45;
-    pub const _SC_2_VERSION: Type = 46;
-    pub const _SC_2_C_BIND: Type = 47;
-    pub const _SC_2_C_DEV: Type = 48;
-    pub const _SC_2_FORT_DEV: Type = 49;
-    pub const _SC_2_FORT_RUN: Type = 50;
-    pub const _SC_2_SW_DEV: Type = 51;
-    pub const _SC_2_LOCALEDEF: Type = 52;
-    pub const _SC_PII: Type = 53;
-    pub const _SC_PII_XTI: Type = 54;
-    pub const _SC_PII_SOCKET: Type = 55;
-    pub const _SC_PII_INTERNET: Type = 56;
-    pub const _SC_PII_OSI: Type = 57;
-    pub const _SC_POLL: Type = 58;
-    pub const _SC_SELECT: Type = 59;
-    pub const _SC_UIO_MAXIOV: Type = 60;
-    pub const _SC_IOV_MAX: Type = 60;
-    pub const _SC_PII_INTERNET_STREAM: Type = 61;
-    pub const _SC_PII_INTERNET_DGRAM: Type = 62;
-    pub const _SC_PII_OSI_COTS: Type = 63;
-    pub const _SC_PII_OSI_CLTS: Type = 64;
-    pub const _SC_PII_OSI_M: Type = 65;
-    pub const _SC_T_IOV_MAX: Type = 66;
-    pub const _SC_THREADS: Type = 67;
-    pub const _SC_THREAD_SAFE_FUNCTIONS: Type = 68;
-    pub const _SC_GETGR_R_SIZE_MAX: Type = 69;
-    pub const _SC_GETPW_R_SIZE_MAX: Type = 70;
-    pub const _SC_LOGIN_NAME_MAX: Type = 71;
-    pub const _SC_TTY_NAME_MAX: Type = 72;
-    pub const _SC_THREAD_DESTRUCTOR_ITERATIONS: Type = 73;
-    pub const _SC_THREAD_KEYS_MAX: Type = 74;
-    pub const _SC_THREAD_STACK_MIN: Type = 75;
-    pub const _SC_THREAD_THREADS_MAX: Type = 76;
-    pub const _SC_THREAD_ATTR_STACKADDR: Type = 77;
-    pub const _SC_THREAD_ATTR_STACKSIZE: Type = 78;
-    pub const _SC_THREAD_PRIORITY_SCHEDULING: Type = 79;
-    pub const _SC_THREAD_PRIO_INHERIT: Type = 80;
-    pub const _SC_THREAD_PRIO_PROTECT: Type = 81;
-    pub const _SC_THREAD_PROCESS_SHARED: Type = 82;
-    pub const _SC_NPROCESSORS_CONF: Type = 83;
-    pub const _SC_NPROCESSORS_ONLN: Type = 84;
-    pub const _SC_PHYS_PAGES: Type = 85;
-    pub const _SC_AVPHYS_PAGES: Type = 86;
-    pub const _SC_ATEXIT_MAX: Type = 87;
-    pub const _SC_PASS_MAX: Type = 88;
-    pub const _SC_XOPEN_VERSION: Type = 89;
-    pub const _SC_XOPEN_XCU_VERSION: Type = 90;
-    pub const _SC_XOPEN_UNIX: Type = 91;
-    pub const _SC_XOPEN_CRYPT: Type = 92;
-    pub const _SC_XOPEN_ENH_I18N: Type = 93;
-    pub const _SC_XOPEN_SHM: Type = 94;
-    pub const _SC_2_CHAR_TERM: Type = 95;
-    pub const _SC_2_C_VERSION: Type = 96;
-    pub const _SC_2_UPE: Type = 97;
-    pub const _SC_XOPEN_XPG2: Type = 98;
-    pub const _SC_XOPEN_XPG3: Type = 99;
-    pub const _SC_XOPEN_XPG4: Type = 100;
-    pub const _SC_CHAR_BIT: Type = 101;
-    pub const _SC_CHAR_MAX: Type = 102;
-    pub const _SC_CHAR_MIN: Type = 103;
-    pub const _SC_INT_MAX: Type = 104;
-    pub const _SC_INT_MIN: Type = 105;
-    pub const _SC_LONG_BIT: Type = 106;
-    pub const _SC_WORD_BIT: Type = 107;
-    pub const _SC_MB_LEN_MAX: Type = 108;
-    pub const _SC_NZERO: Type = 109;
-    pub const _SC_SSIZE_MAX: Type = 110;
-    pub const _SC_SCHAR_MAX: Type = 111;
-    pub const _SC_SCHAR_MIN: Type = 112;
-    pub const _SC_SHRT_MAX: Type = 113;
-    pub const _SC_SHRT_MIN: Type = 114;
-    pub const _SC_UCHAR_MAX: Type = 115;
-    pub const _SC_UINT_MAX: Type = 116;
-    pub const _SC_ULONG_MAX: Type = 117;
-    pub const _SC_USHRT_MAX: Type = 118;
-    pub const _SC_NL_ARGMAX: Type = 119;
-    pub const _SC_NL_LANGMAX: Type = 120;
-    pub const _SC_NL_MSGMAX: Type = 121;
-    pub const _SC_NL_NMAX: Type = 122;
-    pub const _SC_NL_SETMAX: Type = 123;
-    pub const _SC_NL_TEXTMAX: Type = 124;
-    pub const _SC_XBS5_ILP32_OFF32: Type = 125;
-    pub const _SC_XBS5_ILP32_OFFBIG: Type = 126;
-    pub const _SC_XBS5_LP64_OFF64: Type = 127;
-    pub const _SC_XBS5_LPBIG_OFFBIG: Type = 128;
-    pub const _SC_XOPEN_LEGACY: Type = 129;
-    pub const _SC_XOPEN_REALTIME: Type = 130;
-    pub const _SC_XOPEN_REALTIME_THREADS: Type = 131;
-    pub const _SC_ADVISORY_INFO: Type = 132;
-    pub const _SC_BARRIERS: Type = 133;
-    pub const _SC_BASE: Type = 134;
-    pub const _SC_C_LANG_SUPPORT: Type = 135;
-    pub const _SC_C_LANG_SUPPORT_R: Type = 136;
-    pub const _SC_CLOCK_SELECTION: Type = 137;
-    pub const _SC_CPUTIME: Type = 138;
-    pub const _SC_THREAD_CPUTIME: Type = 139;
-    pub const _SC_DEVICE_IO: Type = 140;
-    pub const _SC_DEVICE_SPECIFIC: Type = 141;
-    pub const _SC_DEVICE_SPECIFIC_R: Type = 142;
-    pub const _SC_FD_MGMT: Type = 143;
-    pub const _SC_FIFO: Type = 144;
-    pub const _SC_PIPE: Type = 145;
-    pub const _SC_FILE_ATTRIBUTES: Type = 146;
-    pub const _SC_FILE_LOCKING: Type = 147;
-    pub const _SC_FILE_SYSTEM: Type = 148;
-    pub const _SC_MONOTONIC_CLOCK: Type = 149;
-    pub const _SC_MULTI_PROCESS: Type = 150;
-    pub const _SC_SINGLE_PROCESS: Type = 151;
-    pub const _SC_NETWORKING: Type = 152;
-    pub const _SC_READER_WRITER_LOCKS: Type = 153;
-    pub const _SC_SPIN_LOCKS: Type = 154;
-    pub const _SC_REGEXP: Type = 155;
-    pub const _SC_REGEX_VERSION: Type = 156;
-    pub const _SC_SHELL: Type = 157;
-    pub const _SC_SIGNALS: Type = 158;
-    pub const _SC_SPAWN: Type = 159;
-    pub const _SC_SPORADIC_SERVER: Type = 160;
-    pub const _SC_THREAD_SPORADIC_SERVER: Type = 161;
-    pub const _SC_SYSTEM_DATABASE: Type = 162;
-    pub const _SC_SYSTEM_DATABASE_R: Type = 163;
-    pub const _SC_TIMEOUTS: Type = 164;
-    pub const _SC_TYPED_MEMORY_OBJECTS: Type = 165;
-    pub const _SC_USER_GROUPS: Type = 166;
-    pub const _SC_USER_GROUPS_R: Type = 167;
-    pub const _SC_2_PBS: Type = 168;
-    pub const _SC_2_PBS_ACCOUNTING: Type = 169;
-    pub const _SC_2_PBS_LOCATE: Type = 170;
-    pub const _SC_2_PBS_MESSAGE: Type = 171;
-    pub const _SC_2_PBS_TRACK: Type = 172;
-    pub const _SC_SYMLOOP_MAX: Type = 173;
-    pub const _SC_STREAMS: Type = 174;
-    pub const _SC_2_PBS_CHECKPOINT: Type = 175;
-    pub const _SC_V6_ILP32_OFF32: Type = 176;
-    pub const _SC_V6_ILP32_OFFBIG: Type = 177;
-    pub const _SC_V6_LP64_OFF64: Type = 178;
-    pub const _SC_V6_LPBIG_OFFBIG: Type = 179;
-    pub const _SC_HOST_NAME_MAX: Type = 180;
-    pub const _SC_TRACE: Type = 181;
-    pub const _SC_TRACE_EVENT_FILTER: Type = 182;
-    pub const _SC_TRACE_INHERIT: Type = 183;
-    pub const _SC_TRACE_LOG: Type = 184;
-    pub const _SC_LEVEL1_ICACHE_SIZE: Type = 185;
-    pub const _SC_LEVEL1_ICACHE_ASSOC: Type = 186;
-    pub const _SC_LEVEL1_ICACHE_LINESIZE: Type = 187;
-    pub const _SC_LEVEL1_DCACHE_SIZE: Type = 188;
-    pub const _SC_LEVEL1_DCACHE_ASSOC: Type = 189;
-    pub const _SC_LEVEL1_DCACHE_LINESIZE: Type = 190;
-    pub const _SC_LEVEL2_CACHE_SIZE: Type = 191;
-    pub const _SC_LEVEL2_CACHE_ASSOC: Type = 192;
-    pub const _SC_LEVEL2_CACHE_LINESIZE: Type = 193;
-    pub const _SC_LEVEL3_CACHE_SIZE: Type = 194;
-    pub const _SC_LEVEL3_CACHE_ASSOC: Type = 195;
-    pub const _SC_LEVEL3_CACHE_LINESIZE: Type = 196;
-    pub const _SC_LEVEL4_CACHE_SIZE: Type = 197;
-    pub const _SC_LEVEL4_CACHE_ASSOC: Type = 198;
-    pub const _SC_LEVEL4_CACHE_LINESIZE: Type = 199;
-    pub const _SC_IPV6: Type = 235;
-    pub const _SC_RAW_SOCKETS: Type = 236;
-    pub const _SC_V7_ILP32_OFF32: Type = 237;
-    pub const _SC_V7_ILP32_OFFBIG: Type = 238;
-    pub const _SC_V7_LP64_OFF64: Type = 239;
-    pub const _SC_V7_LPBIG_OFFBIG: Type = 240;
-    pub const _SC_SS_REPL_MAX: Type = 241;
-    pub const _SC_TRACE_EVENT_NAME_MAX: Type = 242;
-    pub const _SC_TRACE_NAME_MAX: Type = 243;
-    pub const _SC_TRACE_SYS_MAX: Type = 244;
-    pub const _SC_TRACE_USER_EVENT_MAX: Type = 245;
-    pub const _SC_XOPEN_STREAMS: Type = 246;
-    pub const _SC_THREAD_ROBUST_PRIO_INHERIT: Type = 247;
-    pub const _SC_THREAD_ROBUST_PRIO_PROTECT: Type = 248;
-}
-pub mod _bindgen_ty_9 {
-    pub type Type = ::std::os::raw::c_uint;
-    pub const _CS_PATH: Type = 0;
-    pub const _CS_V6_WIDTH_RESTRICTED_ENVS: Type = 1;
-    pub const _CS_GNU_LIBC_VERSION: Type = 2;
-    pub const _CS_GNU_LIBPTHREAD_VERSION: Type = 3;
-    pub const _CS_V5_WIDTH_RESTRICTED_ENVS: Type = 4;
-    pub const _CS_V7_WIDTH_RESTRICTED_ENVS: Type = 5;
-    pub const _CS_LFS_CFLAGS: Type = 1000;
-    pub const _CS_LFS_LDFLAGS: Type = 1001;
-    pub const _CS_LFS_LIBS: Type = 1002;
-    pub const _CS_LFS_LINTFLAGS: Type = 1003;
-    pub const _CS_LFS64_CFLAGS: Type = 1004;
-    pub const _CS_LFS64_LDFLAGS: Type = 1005;
-    pub const _CS_LFS64_LIBS: Type = 1006;
-    pub const _CS_LFS64_LINTFLAGS: Type = 1007;
-    pub const _CS_XBS5_ILP32_OFF32_CFLAGS: Type = 1100;
-    pub const _CS_XBS5_ILP32_OFF32_LDFLAGS: Type = 1101;
-    pub const _CS_XBS5_ILP32_OFF32_LIBS: Type = 1102;
-    pub const _CS_XBS5_ILP32_OFF32_LINTFLAGS: Type = 1103;
-    pub const _CS_XBS5_ILP32_OFFBIG_CFLAGS: Type = 1104;
-    pub const _CS_XBS5_ILP32_OFFBIG_LDFLAGS: Type = 1105;
-    pub const _CS_XBS5_ILP32_OFFBIG_LIBS: Type = 1106;
-    pub const _CS_XBS5_ILP32_OFFBIG_LINTFLAGS: Type = 1107;
-    pub const _CS_XBS5_LP64_OFF64_CFLAGS: Type = 1108;
-    pub const _CS_XBS5_LP64_OFF64_LDFLAGS: Type = 1109;
-    pub const _CS_XBS5_LP64_OFF64_LIBS: Type = 1110;
-    pub const _CS_XBS5_LP64_OFF64_LINTFLAGS: Type = 1111;
-    pub const _CS_XBS5_LPBIG_OFFBIG_CFLAGS: Type = 1112;
-    pub const _CS_XBS5_LPBIG_OFFBIG_LDFLAGS: Type = 1113;
-    pub const _CS_XBS5_LPBIG_OFFBIG_LIBS: Type = 1114;
-    pub const _CS_XBS5_LPBIG_OFFBIG_LINTFLAGS: Type = 1115;
-    pub const _CS_POSIX_V6_ILP32_OFF32_CFLAGS: Type = 1116;
-    pub const _CS_POSIX_V6_ILP32_OFF32_LDFLAGS: Type = 1117;
-    pub const _CS_POSIX_V6_ILP32_OFF32_LIBS: Type = 1118;
-    pub const _CS_POSIX_V6_ILP32_OFF32_LINTFLAGS: Type = 1119;
-    pub const _CS_POSIX_V6_ILP32_OFFBIG_CFLAGS: Type = 1120;
-    pub const _CS_POSIX_V6_ILP32_OFFBIG_LDFLAGS: Type = 1121;
-    pub const _CS_POSIX_V6_ILP32_OFFBIG_LIBS: Type = 1122;
-    pub const _CS_POSIX_V6_ILP32_OFFBIG_LINTFLAGS: Type = 1123;
-    pub const _CS_POSIX_V6_LP64_OFF64_CFLAGS: Type = 1124;
-    pub const _CS_POSIX_V6_LP64_OFF64_LDFLAGS: Type = 1125;
-    pub const _CS_POSIX_V6_LP64_OFF64_LIBS: Type = 1126;
-    pub const _CS_POSIX_V6_LP64_OFF64_LINTFLAGS: Type = 1127;
-    pub const _CS_POSIX_V6_LPBIG_OFFBIG_CFLAGS: Type = 1128;
-    pub const _CS_POSIX_V6_LPBIG_OFFBIG_LDFLAGS: Type = 1129;
-    pub const _CS_POSIX_V6_LPBIG_OFFBIG_LIBS: Type = 1130;
-    pub const _CS_POSIX_V6_LPBIG_OFFBIG_LINTFLAGS: Type = 1131;
-    pub const _CS_POSIX_V7_ILP32_OFF32_CFLAGS: Type = 1132;
-    pub const _CS_POSIX_V7_ILP32_OFF32_LDFLAGS: Type = 1133;
-    pub const _CS_POSIX_V7_ILP32_OFF32_LIBS: Type = 1134;
-    pub const _CS_POSIX_V7_ILP32_OFF32_LINTFLAGS: Type = 1135;
-    pub const _CS_POSIX_V7_ILP32_OFFBIG_CFLAGS: Type = 1136;
-    pub const _CS_POSIX_V7_ILP32_OFFBIG_LDFLAGS: Type = 1137;
-    pub const _CS_POSIX_V7_ILP32_OFFBIG_LIBS: Type = 1138;
-    pub const _CS_POSIX_V7_ILP32_OFFBIG_LINTFLAGS: Type = 1139;
-    pub const _CS_POSIX_V7_LP64_OFF64_CFLAGS: Type = 1140;
-    pub const _CS_POSIX_V7_LP64_OFF64_LDFLAGS: Type = 1141;
-    pub const _CS_POSIX_V7_LP64_OFF64_LIBS: Type = 1142;
-    pub const _CS_POSIX_V7_LP64_OFF64_LINTFLAGS: Type = 1143;
-    pub const _CS_POSIX_V7_LPBIG_OFFBIG_CFLAGS: Type = 1144;
-    pub const _CS_POSIX_V7_LPBIG_OFFBIG_LDFLAGS: Type = 1145;
-    pub const _CS_POSIX_V7_LPBIG_OFFBIG_LIBS: Type = 1146;
-    pub const _CS_POSIX_V7_LPBIG_OFFBIG_LINTFLAGS: Type = 1147;
-    pub const _CS_V6_ENV: Type = 1148;
-    pub const _CS_V7_ENV: Type = 1149;
-}
-extern "C" {
-    pub fn pathconf(
-        __path: *const ::std::os::raw::c_char,
-        __name: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_long;
-}
-extern "C" {
-    pub fn fpathconf(
-        __fd: ::std::os::raw::c_int,
-        __name: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_long;
-}
-extern "C" {
-    pub fn sysconf(__name: ::std::os::raw::c_int) -> ::std::os::raw::c_long;
-}
-extern "C" {
-    pub fn confstr(
-        __name: ::std::os::raw::c_int,
-        __buf: *mut ::std::os::raw::c_char,
-        __len: size_t,
-    ) -> size_t;
-}
-extern "C" {
-    pub fn getpid() -> __pid_t;
-}
-extern "C" {
-    pub fn getppid() -> __pid_t;
-}
-extern "C" {
-    pub fn getpgrp() -> __pid_t;
-}
-extern "C" {
-    pub fn __getpgid(__pid: __pid_t) -> __pid_t;
-}
-extern "C" {
-    pub fn getpgid(__pid: __pid_t) -> __pid_t;
-}
-extern "C" {
-    pub fn setpgid(__pid: __pid_t, __pgid: __pid_t) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn setpgrp() -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn setsid() -> __pid_t;
-}
-extern "C" {
-    pub fn getsid(__pid: __pid_t) -> __pid_t;
-}
-extern "C" {
-    pub fn getuid() -> __uid_t;
-}
-extern "C" {
-    pub fn geteuid() -> __uid_t;
-}
-extern "C" {
-    pub fn getgid() -> __gid_t;
-}
-extern "C" {
-    pub fn getegid() -> __gid_t;
-}
-extern "C" {
-    pub fn getgroups(
-        __size: ::std::os::raw::c_int,
-        __list: *mut __gid_t,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn setuid(__uid: __uid_t) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn setreuid(__ruid: __uid_t, __euid: __uid_t) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn seteuid(__uid: __uid_t) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn setgid(__gid: __gid_t) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn setregid(__rgid: __gid_t, __egid: __gid_t) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn setegid(__gid: __gid_t) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn fork() -> __pid_t;
-}
-extern "C" {
-    pub fn vfork() -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn ttyname(__fd: ::std::os::raw::c_int) -> *mut ::std::os::raw::c_char;
-}
-extern "C" {
-    pub fn ttyname_r(
-        __fd: ::std::os::raw::c_int,
-        __buf: *mut ::std::os::raw::c_char,
-        __buflen: size_t,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn isatty(__fd: ::std::os::raw::c_int) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn ttyslot() -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn link(
-        __from: *const ::std::os::raw::c_char,
-        __to: *const ::std::os::raw::c_char,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn linkat(
-        __fromfd: ::std::os::raw::c_int,
-        __from: *const ::std::os::raw::c_char,
-        __tofd: ::std::os::raw::c_int,
-        __to: *const ::std::os::raw::c_char,
-        __flags: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn symlink(
-        __from: *const ::std::os::raw::c_char,
-        __to: *const ::std::os::raw::c_char,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn readlink(
-        __path: *const ::std::os::raw::c_char,
-        __buf: *mut ::std::os::raw::c_char,
-        __len: size_t,
-    ) -> ssize_t;
-}
-extern "C" {
-    pub fn symlinkat(
-        __from: *const ::std::os::raw::c_char,
-        __tofd: ::std::os::raw::c_int,
-        __to: *const ::std::os::raw::c_char,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn readlinkat(
-        __fd: ::std::os::raw::c_int,
-        __path: *const ::std::os::raw::c_char,
-        __buf: *mut ::std::os::raw::c_char,
-        __len: size_t,
-    ) -> ssize_t;
-}
-extern "C" {
-    pub fn unlink(
-        __name: *const ::std::os::raw::c_char,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn unlinkat(
-        __fd: ::std::os::raw::c_int,
-        __name: *const ::std::os::raw::c_char,
-        __flag: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn rmdir(
-        __path: *const ::std::os::raw::c_char,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn tcgetpgrp(__fd: ::std::os::raw::c_int) -> __pid_t;
-}
-extern "C" {
-    pub fn tcsetpgrp(
-        __fd: ::std::os::raw::c_int,
-        __pgrp_id: __pid_t,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn getlogin() -> *mut ::std::os::raw::c_char;
-}
-extern "C" {
-    pub fn getlogin_r(
-        __name: *mut ::std::os::raw::c_char,
-        __name_len: size_t,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn setlogin(
-        __name: *const ::std::os::raw::c_char,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub static mut optarg: *mut ::std::os::raw::c_char;
-}
-extern "C" {
-    pub static mut optind: ::std::os::raw::c_int;
-}
-extern "C" {
-    pub static mut opterr: ::std::os::raw::c_int;
-}
-extern "C" {
-    pub static mut optopt: ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn getopt(
-        ___argc: ::std::os::raw::c_int,
-        ___argv: *const *mut ::std::os::raw::c_char,
-        __shortopts: *const ::std::os::raw::c_char,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn gethostname(
-        __name: *mut ::std::os::raw::c_char,
-        __len: size_t,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn sethostname(
-        __name: *const ::std::os::raw::c_char,
-        __len: size_t,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn sethostid(__id: ::std::os::raw::c_long) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn getdomainname(
-        __name: *mut ::std::os::raw::c_char,
-        __len: size_t,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn setdomainname(
-        __name: *const ::std::os::raw::c_char,
-        __len: size_t,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn vhangup() -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn revoke(
-        __file: *const ::std::os::raw::c_char,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn profil(
-        __sample_buffer: *mut ::std::os::raw::c_ushort,
-        __size: size_t,
-        __offset: size_t,
-        __scale: ::std::os::raw::c_uint,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn acct(__name: *const ::std::os::raw::c_char)
-        -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn getusershell() -> *mut ::std::os::raw::c_char;
-}
-extern "C" {
-    pub fn endusershell();
-}
-extern "C" {
-    pub fn setusershell();
-}
-extern "C" {
-    pub fn daemon(
-        __nochdir: ::std::os::raw::c_int,
-        __noclose: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn chroot(
-        __path: *const ::std::os::raw::c_char,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn getpass(
-        __prompt: *const ::std::os::raw::c_char,
-    ) -> *mut ::std::os::raw::c_char;
-}
-extern "C" {
-    pub fn fsync(__fd: ::std::os::raw::c_int) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn gethostid() -> ::std::os::raw::c_long;
-}
-extern "C" {
-    pub fn sync();
-}
-extern "C" {
-    pub fn getpagesize() -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn getdtablesize() -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn truncate(
-        __file: *const ::std::os::raw::c_char,
-        __length: __off_t,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn ftruncate(
-        __fd: ::std::os::raw::c_int,
-        __length: __off_t,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn brk(__addr: *mut ::std::os::raw::c_void) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn sbrk(__delta: isize) -> *mut ::std::os::raw::c_void;
-}
-extern "C" {
-    pub fn syscall(
-        __sysno: ::std::os::raw::c_long,
-        ...
-    ) -> ::std::os::raw::c_long;
-}
-extern "C" {
-    pub fn lockf(
-        __fd: ::std::os::raw::c_int,
-        __cmd: ::std::os::raw::c_int,
-        __len: __off_t,
-    ) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn fdatasync(__fildes: ::std::os::raw::c_int) -> ::std::os::raw::c_int;
-}
-extern "C" {
-    pub fn crypt(
-        __key: *const ::std::os::raw::c_char,
-        __salt: *const ::std::os::raw::c_char,
-    ) -> *mut ::std::os::raw::c_char;
-}
-extern "C" {
-    pub fn getentropy(
-        __buffer: *mut ::std::os::raw::c_void,
-        __length: size_t,
-    ) -> ::std::os::raw::c_int;
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]

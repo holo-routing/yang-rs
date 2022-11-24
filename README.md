@@ -48,6 +48,7 @@ By default, yang2-rs uses pre-generated FFI bindings and uses dynamic linking to
 A basic example that parses and validates JSON instance data, and then converts
 it to the XML format:
 ```rust,no_run
+use std::sync::Arc;
 use std::fs::File;
 use yang2::context::{Context, ContextFlags};
 use yang2::data::{
@@ -59,7 +60,7 @@ static SEARCH_DIR: &str = "./assets/yang/";
 
 fn main() -> std::io::Result<()> {
     // Initialize context.
-    let ctx = Context::new(ContextFlags::NO_YANGLIBRARY)
+    let mut ctx = Context::new(ContextFlags::NO_YANGLIBRARY)
         .expect("Failed to create context");
     ctx.set_searchdir(SEARCH_DIR)
         .expect("Failed to set YANG search directory");
@@ -69,6 +70,7 @@ fn main() -> std::io::Result<()> {
         ctx.load_module(module_name, None, &[])
             .expect("Failed to load module");
     }
+    let ctx = Arc::new(ctx);
 
     // Parse and validate data tree in the JSON format.
     let dtree = DataTree::parse_file(
@@ -76,7 +78,7 @@ fn main() -> std::io::Result<()> {
         File::open("./assets/data/interfaces.json")?,
         DataFormat::JSON,
         DataParserFlags::empty(),
-        DataValidationFlags::empty(),
+        DataValidationFlags::NO_STATE,
     )
     .expect("Failed to parse data tree");
 
@@ -93,6 +95,7 @@ fn main() -> std::io::Result<()> {
 }
 ```
 
+Note the `NO_STATE` flag passed to `parse_file` since the example json file does not contain state data.
 More examples can be found [here][examples].
 
 [examples]: https://github.com/rwestphal/yang2-rs/tree/master/examples

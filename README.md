@@ -78,7 +78,7 @@ fn main() -> std::io::Result<()> {
         File::open("./assets/data/interfaces.json")?,
         DataFormat::JSON,
         DataParserFlags::empty(),
-        DataValidationFlags::empty(),
+        DataValidationFlags::NO_STATE,
     )
     .expect("Failed to parse data tree");
 
@@ -95,6 +95,7 @@ fn main() -> std::io::Result<()> {
 }
 ```
 
+Note the `NO_STATE` flag passed to `parse_file` since the example json file does not contain state data.
 More examples can be found [here][examples].
 
 [examples]: https://github.com/rwestphal/yang2-rs/tree/master/examples

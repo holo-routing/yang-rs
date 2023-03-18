@@ -39,10 +39,7 @@ fn schema_find_xpath() {
             .expect("Failed to lookup schema data")
             .map(|dnode| dnode.path(SchemaPathFormat::DATA))
             .collect::<Vec<String>>(),
-        vec![
-            "/ietf-interfaces:interfaces/interface",
-            "/ietf-interfaces:interfaces-state"
-        ]
+        vec!["/ietf-interfaces:interfaces/interface"]
     );
 
     assert_eq!(

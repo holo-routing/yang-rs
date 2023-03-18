@@ -25,7 +25,7 @@ fn main() {
         pregen_bindings.push(env::var("CARGO_MANIFEST_DIR").unwrap());
         pregen_bindings.push("pre-generated-bindings");
         pregen_bindings
-            .push("libyang2-c7e6136c3226f0c6a95d598ff3ab69c8e89b9a40.rs");
+            .push("libyang2-9a4e5b2ce30b9696116d6e654ee55caab5aafed8.rs");
 
         std::fs::copy(&pregen_bindings, &out_file)
             .expect("Unable to copy pre-generated libyang2 bindings");

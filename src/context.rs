@@ -13,6 +13,7 @@ use std::os::raw::{c_char, c_void};
 use std::os::unix::ffi::OsStrExt;
 use std::path::Path;
 use std::slice;
+use std::sync::Once;
 
 use crate::error::{Error, Result};
 use crate::iter::{SchemaModules, Set};
@@ -83,8 +84,17 @@ impl Context {
     /// libyang is holding all schemas (and other internal information)
     /// according to which the data trees will be processed and validated.
     pub fn new(options: ContextFlags) -> Result<Context> {
+        static INIT: Once = Once::new();
         let mut context = std::ptr::null_mut();
         let ctx_ptr = &mut context;
+
+        // Initialization routine that is called only once when the first YANG
+        // context is created.
+        INIT.call_once(|| {
+            // Disable automatic logging to stderr in order to give users more
+            // control over the handling of errors.
+            unsafe { ffi::ly_log_options(ffi::LY_LOSTORE_LAST) };
+        });
 
         let ret =
             unsafe { ffi::ly_ctx_new(std::ptr::null(), options.bits, ctx_ptr) };

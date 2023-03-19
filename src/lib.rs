@@ -48,3 +48,6 @@ pub mod iter;
 pub mod schema;
 
 pub use crate::error::Error;
+
+// Re-export the raw FFI bindings for convenience.
+pub use libyang2_sys as ffi;

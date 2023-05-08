@@ -792,7 +792,7 @@ impl<'a> DataNodeRef<'a> {
             SchemaNodeKind::Leaf | SchemaNodeKind::LeafList => {
                 let rnode = self.raw as *const ffi::lyd_node_term;
                 let rvalue = unsafe { (*rnode).value };
-                let value = unsafe { DataValue::from_raw(&rvalue) };
+                let value = unsafe { DataValue::from_raw(&*self.tree.context, &rvalue) };
                 Some(value)
             }
             _ => None,
@@ -943,7 +943,14 @@ impl<'a> Metadata<'a> {
 
     /// Metadata value representation.
     pub fn value(&self) -> &str {
-        char_ptr_to_str(unsafe { (*self.raw).value._canonical })
+        let rvalue = unsafe { (*self.raw).value };
+        let mut canonical = rvalue._canonical;
+        if canonical.is_null() {
+            canonical = unsafe {
+                ffi::lyd_value_get_canonical(self.dnode.tree.context.raw, &rvalue)
+            };
+        }
+        char_ptr_to_str(canonical)
     }
 
     /// Next metadata.

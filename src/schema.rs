@@ -596,7 +596,12 @@ impl<'a> SchemaNode<'a> {
         let default = unsafe {
             match self.kind() {
                 SchemaNodeKind::Leaf => {
-                    (*(*(self.raw as *mut ffi::lysc_node_leaf)).dflt)._canonical
+                    let rvalue = (*(self.raw as *const ffi::lysc_node_leaf)).dflt;
+                    let mut canonical = (*rvalue)._canonical;
+                    if canonical.is_null() {
+                        canonical = ffi::lyd_value_get_canonical(self.context.raw, rvalue)
+                    }
+                    canonical
                 }
                 _ => return None,
             }
@@ -615,7 +620,7 @@ impl<'a> SchemaNode<'a> {
                     if rvalue.is_null() {
                         return None;
                     }
-                    DataValue::from_raw(rvalue)
+                    DataValue::from_raw(self.context, rvalue)
                 };
                 Some(default)
             }
@@ -1007,7 +1012,7 @@ unsafe impl Sync for SchemaStmtWhen<'_> {}
 // ===== impl DataValue =====
 
 impl DataValue {
-    pub(crate) unsafe fn from_raw(raw: *const ffi::lyd_value) -> DataValue {
+    pub(crate) unsafe fn from_raw(context: &Context, raw: *const ffi::lyd_value) -> DataValue {
         let rtype = (*(*raw).realtype).basetype;
         match rtype {
             ffi::LY_DATA_TYPE::LY_TYPE_UINT8 => {
@@ -1047,7 +1052,10 @@ impl DataValue {
                 DataValue::Int64(value)
             }
             _ => {
-                let canonical = (*raw)._canonical;
+                let mut canonical = (*raw)._canonical;
+                if canonical.is_null() {
+                    canonical = ffi::lyd_value_get_canonical(context.raw, raw);
+                }
                 DataValue::Other(char_ptr_to_string(canonical))
             }
         }

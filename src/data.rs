@@ -269,7 +269,7 @@ pub trait Data {
             return Err(Error::new(self.context()));
         }
 
-        Ok(DataNodeRef::from_raw(self.tree(), rnode as *mut _))
+        Ok(unsafe { DataNodeRef::from_raw(self.tree(), rnode as *mut _) })
     }
 
     /// Print data tree in the specified format.
@@ -355,7 +355,7 @@ impl DataTree {
             return Err(Error::new(context));
         }
 
-        Ok(DataTree::from_raw(context, rnode))
+        Ok(unsafe { DataTree::from_raw(context, rnode) })
     }
 
     /// Parse (and validate) input data as a YANG data tree.
@@ -384,7 +384,7 @@ impl DataTree {
             return Err(Error::new(context));
         }
 
-        Ok(DataTree::from_raw(context, rnode))
+        Ok(unsafe { DataTree::from_raw(context, rnode) })
     }
 
     /// Parse YANG data into an operation data tree.
@@ -420,7 +420,7 @@ impl DataTree {
             return Err(Error::new(context));
         }
 
-        Ok(DataTree::from_raw(context, rnode))
+        Ok(unsafe { DataTree::from_raw(context, rnode) })
     }
 
     /// Returns a reference to the fist top-level data node, unless the data
@@ -501,7 +501,7 @@ impl DataTree {
             self.raw = unsafe { ffi::lyd_first_sibling(self.raw) };
         }
 
-        Ok(DataNodeRef::from_raw_opt(self.tree(), rnode))
+        Ok(unsafe { DataNodeRef::from_raw_opt(self.tree(), rnode) })
     }
 
     /// Remove a data node.
@@ -535,7 +535,9 @@ impl DataTree {
 
         // Special handling for empty data trees.
         if self.raw.is_null() {
-            return Ok(DataTree::from_raw(&self.context, std::ptr::null_mut()));
+            return Ok(unsafe {
+                DataTree::from_raw(&self.context, std::ptr::null_mut())
+            });
         }
 
         let options = ffi::LYD_DUP_RECURSIVE | ffi::LYD_DUP_WITH_FLAGS;
@@ -551,7 +553,7 @@ impl DataTree {
             return Err(Error::new(&self.context));
         }
 
-        Ok(DataTree::from_raw(&self.context, dup))
+        Ok(unsafe { DataTree::from_raw(&self.context, dup) })
     }
 
     /// Merge the source data tree into the target data tree. Merge may not be
@@ -626,7 +628,7 @@ impl DataTree {
         }
 
         Ok(DataDiff {
-            tree: DataTree::from_raw(&dtree.context, rnode),
+            tree: unsafe { DataTree::from_raw(&dtree.context, rnode) },
         })
     }
 
@@ -659,11 +661,11 @@ impl Data for DataTree {
     }
 }
 
-impl<'a> Binding<'a> for DataTree {
+unsafe impl<'a> Binding<'a> for DataTree {
     type CType = ffi::lyd_node;
     type Container = Arc<Context>;
 
-    fn from_raw(
+    unsafe fn from_raw(
         context: &'a Arc<Context>,
         raw: *mut ffi::lyd_node,
     ) -> DataTree {
@@ -689,7 +691,7 @@ impl<'a> DataNodeRef<'a> {
     /// Schema definition of this node.
     pub fn schema(&self) -> SchemaNode<'_> {
         let raw = unsafe { (*self.raw).schema };
-        SchemaNode::from_raw(self.context(), raw as *mut _)
+        unsafe { SchemaNode::from_raw(self.context(), raw as *mut _) }
     }
 
     /// Get the owner module of the data node. It is the module of the top-level
@@ -697,7 +699,7 @@ impl<'a> DataNodeRef<'a> {
     /// recursively, otherwise it is the module where the data node is defined.
     pub fn owner_module(&self) -> SchemaModule<'_> {
         let module = unsafe { ffi::lyd_owner_module(self.raw()) };
-        SchemaModule::from_raw(self.context(), module as *mut _)
+        unsafe { SchemaModule::from_raw(self.context(), module as *mut _) }
     }
 
     /// Returns an iterator over the ancestor data nodes.
@@ -742,7 +744,7 @@ impl<'a> DataNodeRef<'a> {
     /// Returns an iterator over all metadata associated to this node.
     pub fn meta(&self) -> MetadataList<'_> {
         let rmeta = unsafe { (*self.raw).meta };
-        let meta = Metadata::from_raw_opt(self, rmeta);
+        let meta = unsafe { Metadata::from_raw_opt(self, rmeta) };
         MetadataList::new(meta)
     }
 
@@ -792,7 +794,9 @@ impl<'a> DataNodeRef<'a> {
             SchemaNodeKind::Leaf | SchemaNodeKind::LeafList => {
                 let rnode = self.raw as *const ffi::lyd_node_term;
                 let rvalue = unsafe { (*rnode).value };
-                let value = unsafe { DataValue::from_raw(&*self.tree.context, &rvalue) };
+                let value = unsafe {
+                    DataValue::from_raw(&*self.tree.context, &rvalue)
+                };
                 Some(value)
             }
             _ => None,
@@ -819,10 +823,9 @@ impl<'a> DataNodeRef<'a> {
 
         // Special handling for empty data trees.
         if self.raw.is_null() {
-            return Ok(DataTree::from_raw(
-                self.context(),
-                std::ptr::null_mut(),
-            ));
+            return Ok(unsafe {
+                DataTree::from_raw(self.context(), std::ptr::null_mut())
+            });
         }
 
         let mut options = ffi::LYD_DUP_RECURSIVE | ffi::LYD_DUP_WITH_FLAGS;
@@ -841,7 +844,7 @@ impl<'a> DataNodeRef<'a> {
             return Err(Error::new(self.context()));
         }
 
-        Ok(DataTree::from_raw(self.context(), dup))
+        Ok(unsafe { DataTree::from_raw(self.context(), dup) })
     }
 
     /// Set private user data, not used by libyang.
@@ -874,11 +877,11 @@ impl<'a> Data for DataNodeRef<'a> {
     }
 }
 
-impl<'a> Binding<'a> for DataNodeRef<'a> {
+unsafe impl<'a> Binding<'a> for DataNodeRef<'a> {
     type CType = ffi::lyd_node;
     type Container = DataTree;
 
-    fn from_raw(
+    unsafe fn from_raw(
         tree: &'a DataTree,
         raw: *mut ffi::lyd_node,
     ) -> DataNodeRef<'a> {
@@ -891,12 +894,12 @@ impl<'a> NodeIterable<'a> for DataNodeRef<'a> {
         // NOTE: can't use lyd_parent() since it's an inline function.
         let rparent =
             unsafe { &mut (*(*self.raw).parent).__bindgen_anon_1.node };
-        DataNodeRef::from_raw_opt(self.tree, rparent)
+        unsafe { DataNodeRef::from_raw_opt(self.tree, rparent) }
     }
 
     fn next_sibling(&self) -> Option<DataNodeRef<'a>> {
         let rsibling = unsafe { (*self.raw).next };
-        DataNodeRef::from_raw_opt(self.tree, rsibling)
+        unsafe { DataNodeRef::from_raw_opt(self.tree, rsibling) }
     }
 
     fn first_child(&self) -> Option<DataNodeRef<'a>> {
@@ -905,7 +908,7 @@ impl<'a> NodeIterable<'a> for DataNodeRef<'a> {
         if snode.is_null() {
             let ropaq = self.raw as *mut ffi::lyd_node_opaq;
             let rchild = unsafe { (*ropaq).child };
-            return DataNodeRef::from_raw_opt(self.tree, rchild);
+            return unsafe { DataNodeRef::from_raw_opt(self.tree, rchild) };
         }
 
         let nodetype = unsafe { (*snode).nodetype as u32 };
@@ -920,7 +923,7 @@ impl<'a> NodeIterable<'a> for DataNodeRef<'a> {
             }
             _ => std::ptr::null_mut(),
         };
-        DataNodeRef::from_raw_opt(self.tree, rchild)
+        unsafe { DataNodeRef::from_raw_opt(self.tree, rchild) }
     }
 }
 
@@ -947,7 +950,10 @@ impl<'a> Metadata<'a> {
         let mut canonical = rvalue._canonical;
         if canonical.is_null() {
             canonical = unsafe {
-                ffi::lyd_value_get_canonical(self.dnode.tree.context.raw, &rvalue)
+                ffi::lyd_value_get_canonical(
+                    self.dnode.tree.context.raw,
+                    &rvalue,
+                )
             };
         }
         char_ptr_to_str(canonical)
@@ -957,15 +963,15 @@ impl<'a> Metadata<'a> {
     #[doc(hidden)]
     pub(crate) fn next(&self) -> Option<Metadata<'a>> {
         let rnext = unsafe { (*self.raw).next };
-        Metadata::from_raw_opt(self.dnode, rnext)
+        unsafe { Metadata::from_raw_opt(self.dnode, rnext) }
     }
 }
 
-impl<'a> Binding<'a> for Metadata<'a> {
+unsafe impl<'a> Binding<'a> for Metadata<'a> {
     type CType = ffi::lyd_meta;
     type Container = DataNodeRef<'a>;
 
-    fn from_raw(
+    unsafe fn from_raw(
         dnode: &'a DataNodeRef<'_>,
         raw: *mut ffi::lyd_meta,
     ) -> Metadata<'a> {
@@ -1034,7 +1040,7 @@ impl DataDiff {
         }
 
         Ok(DataDiff {
-            tree: DataTree::from_raw(&self.tree.context, rnode),
+            tree: unsafe { DataTree::from_raw(&self.tree.context, rnode) },
         })
     }
 }

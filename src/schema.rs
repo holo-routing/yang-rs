@@ -279,7 +279,8 @@ impl<'a> SchemaModule<'a> {
         } else {
             unsafe { (*compiled).data }
         };
-        let data = SchemaNode::from_raw_opt(self.context, rdata as *mut _);
+        let data =
+            unsafe { SchemaNode::from_raw_opt(self.context, rdata as *mut _) };
         Siblings::new(data)
     }
 
@@ -291,7 +292,8 @@ impl<'a> SchemaModule<'a> {
         } else {
             unsafe { (*compiled).rpcs }
         };
-        let rpcs = SchemaNode::from_raw_opt(self.context, rdata as *mut _);
+        let rpcs =
+            unsafe { SchemaNode::from_raw_opt(self.context, rdata as *mut _) };
         Siblings::new(rpcs)
     }
 
@@ -304,7 +306,7 @@ impl<'a> SchemaModule<'a> {
             unsafe { (*compiled).notifs }
         };
         let notifications =
-            SchemaNode::from_raw_opt(self.context, rdata as *mut _);
+            unsafe { SchemaNode::from_raw_opt(self.context, rdata as *mut _) };
         Siblings::new(notifications)
     }
 
@@ -322,11 +324,11 @@ impl<'a> SchemaModule<'a> {
     }
 }
 
-impl<'a> Binding<'a> for SchemaModule<'a> {
+unsafe impl<'a> Binding<'a> for SchemaModule<'a> {
     type CType = ffi::lys_module;
     type Container = Context;
 
-    fn from_raw(
+    unsafe fn from_raw(
         context: &'a Context,
         raw: *mut ffi::lys_module,
     ) -> SchemaModule<'_> {
@@ -355,7 +357,7 @@ impl<'a> SchemaNode<'a> {
     /// Schema node module.
     pub fn module(&self) -> SchemaModule<'_> {
         let module = unsafe { (*self.raw).module };
-        SchemaModule::from_raw(self.context, module)
+        unsafe { SchemaModule::from_raw(self.context, module) }
     }
 
     /// Returns the kind of the schema node.
@@ -440,7 +442,7 @@ impl<'a> SchemaNode<'a> {
             return Err(Error::new(self.context));
         }
 
-        Ok(SchemaNode::from_raw(self.context, rnode as *mut _))
+        Ok(unsafe { SchemaNode::from_raw(self.context, rnode as *mut _) })
     }
 
     /// Returns whether the node is a configuration node.
@@ -596,10 +598,14 @@ impl<'a> SchemaNode<'a> {
         let default = unsafe {
             match self.kind() {
                 SchemaNodeKind::Leaf => {
-                    let rvalue = (*(self.raw as *const ffi::lysc_node_leaf)).dflt;
+                    let rvalue =
+                        (*(self.raw as *const ffi::lysc_node_leaf)).dflt;
                     let mut canonical = (*rvalue)._canonical;
                     if canonical.is_null() {
-                        canonical = ffi::lyd_value_get_canonical(self.context.raw, rvalue)
+                        canonical = ffi::lyd_value_get_canonical(
+                            self.context.raw,
+                            rvalue,
+                        )
                     }
                     canonical
                 }
@@ -639,7 +645,7 @@ impl<'a> SchemaNode<'a> {
             }
         };
 
-        SchemaNode::from_raw_opt(self.context, default as *mut _)
+        unsafe { SchemaNode::from_raw_opt(self.context, default as *mut _) }
     }
 
     // TODO: list of leaf-list default values.
@@ -783,7 +789,8 @@ impl<'a> SchemaNode<'a> {
                 let rnode = input.child;
                 let rmusts = input.musts;
 
-                let node = SchemaNode::from_raw_opt(self.context, rnode);
+                let node =
+                    unsafe { SchemaNode::from_raw_opt(self.context, rnode) };
                 let nodes = Siblings::new(node);
                 let ptr_size = mem::size_of::<ffi::lysc_must>();
                 let musts = Array::new(self.context, rmusts, ptr_size);
@@ -807,7 +814,8 @@ impl<'a> SchemaNode<'a> {
                 let rnode = output.child;
                 let rmusts = output.musts;
 
-                let node = SchemaNode::from_raw_opt(self.context, rnode);
+                let node =
+                    unsafe { SchemaNode::from_raw_opt(self.context, rnode) };
                 let nodes = Siblings::new(node);
                 let ptr_size = mem::size_of::<ffi::lysc_must>();
                 let musts = Array::new(self.context, rmusts, ptr_size);
@@ -876,11 +884,11 @@ impl<'a> SchemaNode<'a> {
     }
 }
 
-impl<'a> Binding<'a> for SchemaNode<'a> {
+unsafe impl<'a> Binding<'a> for SchemaNode<'a> {
     type CType = ffi::lysc_node;
     type Container = Context;
 
-    fn from_raw(
+    unsafe fn from_raw(
         context: &'a Context,
         raw: *mut ffi::lysc_node,
     ) -> SchemaNode<'_> {
@@ -907,17 +915,17 @@ impl<'a> Binding<'a> for SchemaNode<'a> {
 impl<'a> NodeIterable<'a> for SchemaNode<'a> {
     fn parent(&self) -> Option<SchemaNode<'a>> {
         let rparent = unsafe { (*self.raw).parent };
-        SchemaNode::from_raw_opt(self.context, rparent)
+        unsafe { SchemaNode::from_raw_opt(self.context, rparent) }
     }
 
     fn next_sibling(&self) -> Option<SchemaNode<'a>> {
         let rnext = unsafe { (*self.raw).next };
-        SchemaNode::from_raw_opt(self.context, rnext)
+        unsafe { SchemaNode::from_raw_opt(self.context, rnext) }
     }
 
     fn first_child(&self) -> Option<SchemaNode<'a>> {
         let rchild = unsafe { ffi::lysc_node_child(&*self.raw) };
-        SchemaNode::from_raw_opt(self.context, rchild as *mut _)
+        unsafe { SchemaNode::from_raw_opt(self.context, rchild as *mut _) }
     }
 }
 
@@ -956,11 +964,11 @@ impl<'a> SchemaStmtMust<'a> {
     }
 }
 
-impl<'a> Binding<'a> for SchemaStmtMust<'a> {
+unsafe impl<'a> Binding<'a> for SchemaStmtMust<'a> {
     type CType = ffi::lysc_must;
     type Container = Context;
 
-    fn from_raw(
+    unsafe fn from_raw(
         _context: &'a Context,
         raw: *mut ffi::lysc_must,
     ) -> SchemaStmtMust<'_> {
@@ -990,11 +998,11 @@ impl<'a> SchemaStmtWhen<'a> {
     }
 }
 
-impl<'a> Binding<'a> for SchemaStmtWhen<'a> {
+unsafe impl<'a> Binding<'a> for SchemaStmtWhen<'a> {
     type CType = *mut ffi::lysc_when;
     type Container = Context;
 
-    fn from_raw(
+    unsafe fn from_raw(
         _context: &'a Context,
         raw: *mut *mut ffi::lysc_when,
     ) -> SchemaStmtWhen<'_> {
@@ -1012,7 +1020,10 @@ unsafe impl Sync for SchemaStmtWhen<'_> {}
 // ===== impl DataValue =====
 
 impl DataValue {
-    pub(crate) unsafe fn from_raw(context: &Context, raw: *const ffi::lyd_value) -> DataValue {
+    pub(crate) unsafe fn from_raw(
+        context: &Context,
+        raw: *const ffi::lyd_value,
+    ) -> DataValue {
         let rtype = (*(*raw).realtype).basetype;
         match rtype {
             ffi::LY_DATA_TYPE::LY_TYPE_UINT8 => {

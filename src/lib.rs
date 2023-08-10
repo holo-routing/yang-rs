@@ -40,12 +40,12 @@
 #![warn(rust_2018_idioms)]
 
 mod error;
-mod utils;
 
 pub mod context;
 pub mod data;
 pub mod iter;
 pub mod schema;
+pub mod utils;
 
 pub use crate::error::Error;
 

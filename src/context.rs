@@ -247,7 +247,7 @@ impl Context {
             return None;
         }
 
-        Some(SchemaModule::from_raw(self, module))
+        Some(unsafe { SchemaModule::from_raw(self, module) })
     }
 
     /// Get the latest revision of the YANG module specified by its name.
@@ -261,7 +261,7 @@ impl Context {
             return None;
         }
 
-        Some(SchemaModule::from_raw(self, module))
+        Some(unsafe { SchemaModule::from_raw(self, module) })
     }
 
     /// Get the (only) implemented YANG module specified by its name.
@@ -277,7 +277,7 @@ impl Context {
             return None;
         }
 
-        Some(SchemaModule::from_raw(self, module))
+        Some(unsafe { SchemaModule::from_raw(self, module) })
     }
 
     /// YANG module of the given namespace and revision.
@@ -307,7 +307,7 @@ impl Context {
             return None;
         }
 
-        Some(SchemaModule::from_raw(self, module))
+        Some(unsafe { SchemaModule::from_raw(self, module) })
     }
 
     /// Get the latest revision of the YANG module specified by its namespace.
@@ -321,7 +321,7 @@ impl Context {
             return None;
         }
 
-        Some(SchemaModule::from_raw(self, module))
+        Some(unsafe { SchemaModule::from_raw(self, module) })
     }
 
     /// Get the (only) implemented YANG module specified by its namespace.
@@ -337,7 +337,7 @@ impl Context {
             return None;
         }
 
-        Some(SchemaModule::from_raw(self, module))
+        Some(unsafe { SchemaModule::from_raw(self, module) })
     }
 
     /// Get list of loaded modules.
@@ -430,7 +430,7 @@ impl Context {
             return Err(Error::new(self));
         }
 
-        Ok(SchemaModule::from_raw(self, module as *mut _))
+        Ok(unsafe { SchemaModule::from_raw(self, module as *mut _) })
     }
 
     /// Evaluate an xpath expression on schema nodes.
@@ -475,7 +475,7 @@ impl Context {
             return Err(Error::new(self));
         }
 
-        Ok(SchemaNode::from_raw(self, rnode as *mut _))
+        Ok(unsafe { SchemaNode::from_raw(self, rnode as *mut _) })
     }
 }
 

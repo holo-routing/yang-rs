@@ -37,8 +37,7 @@ pub(crate) fn char_ptr_to_opt_str<'a>(c_str: *const c_char) -> Option<&'a str> {
 
 /// A trait implemented by all types that can be created from a raw C pointer
 /// and a generic container type.
-#[doc(hidden)]
-pub trait Binding<'a>
+pub unsafe trait Binding<'a>
 where
     Self: Sized,
     <Self as Binding<'a>>::Container: 'a,
@@ -46,9 +45,12 @@ where
     type CType;
     type Container;
 
-    fn from_raw(container: &'a Self::Container, raw: *mut Self::CType) -> Self;
+    unsafe fn from_raw(
+        container: &'a Self::Container,
+        raw: *mut Self::CType,
+    ) -> Self;
 
-    fn from_raw_opt(
+    unsafe fn from_raw_opt(
         container: &'a Self::Container,
         raw: *mut Self::CType,
     ) -> Option<Self> {

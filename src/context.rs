@@ -516,39 +516,16 @@ fn find_embedded_module<'a>(
     submod_rev: Option<&'a str>,
 ) -> Option<(&'a EmbeddedModuleKey, &'a &'a str)> {
     modules.iter().find(|(key, _)| {
-        // Check module name.
-        if *key.mod_name != *mod_name {
-            return false;
-        }
-
-        // Check module revision.
-        if let Some(mod_rev) = &mod_rev {
-            if let Some(emod_rev) = &key.mod_rev {
-                if *emod_rev != *mod_rev {
-                    return false;
+        *key.mod_name == *mod_name
+            && (mod_rev.is_none() || key.mod_rev == mod_rev)
+            && match submod_name {
+                Some(submod_name) => {
+                    key.submod_name == Some(submod_name)
+                        && (submod_rev.is_none()
+                            || key.submod_rev == submod_rev)
                 }
+                None => key.submod_name.is_none(),
             }
-        }
-
-        // Check submodule name.
-        if let Some(submod_name) = &submod_name {
-            if let Some(esubmod_name) = &key.submod_name {
-                if *esubmod_name != *submod_name {
-                    return false;
-                }
-            }
-
-            // Check submodule revision.
-            if let Some(submod_rev) = &submod_rev {
-                if let Some(esubmod_rev) = &key.submod_rev {
-                    if *esubmod_rev != *submod_rev {
-                        return false;
-                    }
-                }
-            }
-        }
-
-        true
     })
 }
 

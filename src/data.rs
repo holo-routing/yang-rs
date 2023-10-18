@@ -483,7 +483,7 @@ impl DataTree {
                 self.context().raw,
                 path.as_ptr(),
                 value_ptr as *const c_void,
-                value_len as u64,
+                value_len,
                 ffi::LYD_ANYDATA_VALUETYPE::LYD_ANYDATA_STRING,
                 options,
                 rnode_root_ptr,
@@ -754,12 +754,7 @@ impl<'a> DataNodeRef<'a> {
 
         let pathtype = ffi::LYD_PATH_TYPE::LYD_PATH_STD;
         let ret = unsafe {
-            ffi::lyd_path(
-                self.raw,
-                pathtype,
-                buf.as_mut_ptr(),
-                buf.len() as u64,
-            )
+            ffi::lyd_path(self.raw, pathtype, buf.as_mut_ptr(), buf.len())
         };
         if ret.is_null() {
             panic!("Failed to generate path of the data node");

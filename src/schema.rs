@@ -386,12 +386,7 @@ impl<'a> SchemaNode<'a> {
         let mut buf = unsafe { buf.assume_init() };
 
         let ret = unsafe {
-            ffi::lysc_path(
-                self.raw,
-                format as u32,
-                buf.as_mut_ptr(),
-                buf.len() as u64,
-            )
+            ffi::lysc_path(self.raw, format as u32, buf.as_mut_ptr(), buf.len())
         };
         if ret.is_null() {
             panic!("Failed to generate path of the schema node");

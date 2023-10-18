@@ -1,7 +1,7 @@
 //
 // Copyright (c) The yang2-rs Core Contributors
 //
-// See LICENSE for license details.
+// SPDX-License-Identifier: MIT
 //
 
 //! Rust bindings for the [libyang2] library.

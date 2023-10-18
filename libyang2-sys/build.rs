@@ -25,7 +25,7 @@ fn main() {
         pregen_bindings.push(env::var("CARGO_MANIFEST_DIR").unwrap());
         pregen_bindings.push("pre-generated-bindings");
         pregen_bindings
-            .push("libyang2-ea94c8b9f513f8a6ddc6ce1540fa41eaf4c8922a.rs");
+            .push("libyang2-7e5ea21030fe6632b6faad30c0de8d9669503773.rs");
 
         std::fs::copy(&pregen_bindings, &out_file)
             .expect("Unable to copy pre-generated libyang2 bindings");
@@ -86,6 +86,7 @@ fn main() {
             .file("libyang/src/plugins_types/decimal64.c")
             .file("libyang/src/plugins_types/empty.c")
             .file("libyang/src/plugins_types/enumeration.c")
+            .file("libyang/src/plugins_types/hex_string.c")
             .file("libyang/src/plugins_types/identityref.c")
             .file("libyang/src/plugins_types/instanceid.c")
             .file("libyang/src/plugins_types/instanceid_keys.c")

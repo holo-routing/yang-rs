@@ -130,8 +130,18 @@ fn main() {
 
         build.compile("yang2");
         println!("cargo:root={}", env::var("OUT_DIR").unwrap());
-        println!("cargo:rustc-link-lib=pcre2-8");
+        if let Err(e) = pkg_config::Config::new().probe("libpcre2-8") {
+            println!("cargo:warning=failed to find pcre2 library with pkg-config: {}", e);
+            println!("cargo:warning=attempting to link without pkg-config");
+            println!("cargo:rustc-link-lib=pcre2-8");
+        }
     }
     #[cfg(not(feature = "bundled"))]
-    println!("cargo:rustc-link-lib=yang");
+    {
+        if let Err(e) = pkg_config::Config::new().probe("libyang") {
+            println!("cargo:warning=failed to find yang library with pkg-config: {}", e);
+            println!("cargo:warning=attempting to link without pkg-config");
+            println!("cargo:rustc-link-lib=yang");
+        }
+    }
 }

@@ -1356,7 +1356,6 @@ pub const LYD_NEW_PATH_OUTPUT: u32 = 2;
 pub const LYD_NEW_PATH_OPAQ: u32 = 4;
 pub const LYD_NEW_PATH_BIN_VALUE: u32 = 8;
 pub const LYD_NEW_PATH_CANON_VALUE: u32 = 16;
-pub const LYD_NEW_PATH_WITH_OPAQ: u32 = 32;
 pub const LYD_IMPLICIT_NO_STATE: u32 = 1;
 pub const LYD_IMPLICIT_NO_CONFIG: u32 = 2;
 pub const LYD_IMPLICIT_OUTPUT: u32 = 4;
@@ -22142,9 +22141,6 @@ extern "C" {
 extern "C" {
     pub fn lysc_node_when(node: *const lysc_node) -> *mut *mut lysc_when;
 }
-extern "C" {
-    pub fn lysc_node_lref_target(node: *const lysc_node) -> *const lysc_node;
-}
 pub type lysc_dfs_clb = ::std::option::Option<
     unsafe extern "C" fn(
         node: *mut lysc_node,
@@ -24793,19 +24789,10 @@ impl Default for lyd_node_opaq {
     }
 }
 extern "C" {
-    pub fn lyd_parent(node: *const lyd_node) -> *mut lyd_node;
-}
-extern "C" {
-    pub fn lyd_child(node: *const lyd_node) -> *mut lyd_node;
-}
-extern "C" {
     pub fn lyd_child_no_keys(node: *const lyd_node) -> *mut lyd_node;
 }
 extern "C" {
     pub fn lyd_owner_module(node: *const lyd_node) -> *const lys_module;
-}
-extern "C" {
-    pub fn lyd_node_module(node: *const lyd_node) -> *const lys_module;
 }
 extern "C" {
     pub fn lyd_is_default(node: *const lyd_node) -> ly_bool;
@@ -24831,11 +24818,6 @@ extern "C" {
     ) -> *const ::std::os::raw::c_char;
 }
 extern "C" {
-    pub fn lyd_get_value(
-        node: *const lyd_node,
-    ) -> *const ::std::os::raw::c_char;
-}
-extern "C" {
     pub fn lyd_any_value_str(
         any: *const lyd_node,
         value_str: *mut *mut ::std::os::raw::c_char,
@@ -24847,9 +24829,6 @@ extern "C" {
         value: *const lyd_any_value,
         value_type: LYD_ANYDATA_VALUETYPE::Type,
     ) -> LY_ERR::Type;
-}
-extern "C" {
-    pub fn lyd_node_schema(node: *const lyd_node) -> *const lysc_node;
 }
 extern "C" {
     pub fn lyd_new_inner(

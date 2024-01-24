@@ -25,7 +25,7 @@ fn main() {
         pregen_bindings.push(env::var("CARGO_MANIFEST_DIR").unwrap());
         pregen_bindings.push("pre-generated-bindings");
         pregen_bindings
-            .push("libyang2-7e5ea21030fe6632b6faad30c0de8d9669503773.rs");
+            .push("libyang2-fc4dbd923e044006c93df020590a1e5a8656c09e.rs");
 
         std::fs::copy(&pregen_bindings, &out_file)
             .expect("Unable to copy pre-generated libyang2 bindings");
@@ -139,7 +139,10 @@ fn main() {
     #[cfg(not(feature = "bundled"))]
     {
         if let Err(e) = pkg_config::Config::new().probe("libyang") {
-            println!("cargo:warning=failed to find yang library with pkg-config: {}", e);
+            println!(
+                "cargo:warning=failed to find yang library with pkg-config: {}",
+                e
+            );
             println!("cargo:warning=attempting to link without pkg-config");
             println!("cargo:rustc-link-lib=yang");
         }

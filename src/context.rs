@@ -506,6 +506,20 @@ impl EmbeddedModuleKey {
     }
 }
 
+unsafe impl<'a> Binding<'a> for Context {
+    type CType = ffi::ly_ctx;
+    type Container = ();
+
+    unsafe fn from_raw(
+        _: &'a Self::Container,
+        raw: *mut Self::CType,
+    ) -> Self {
+        Self {
+            raw,
+        }
+    }
+}
+
 // ===== helper functions =====
 
 fn find_embedded_module<'a>(

@@ -9,7 +9,7 @@
 //! For raw FFI bindings for libyang2, see [libyang2-sys].
 //!
 //! [libyang2]: https://github.com/CESNET/libyang/tree/libyang2
-//! [libyang2-sys]: https://github.com/rwestphal/yang2-rs/tree/master/libyang2-sys
+//! [libyang2-sys]: https://github.com/holo-routing/yang2-rs/tree/master/libyang2-sys
 //!
 //! ## Design Goals
 //! * Provide high-level bindings for libyang2 using idiomatic Rust
@@ -35,7 +35,7 @@
 //!
 //! ## Examples
 //!
-//! See <https://github.com/rwestphal/yang2-rs/tree/master/examples>
+//! See <https://github.com/holo-routing/yang2-rs/tree/master/examples>
 
 #![warn(rust_2018_idioms)]
 

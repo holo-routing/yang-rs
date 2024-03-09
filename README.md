@@ -11,18 +11,18 @@
 [docs-badge]: https://docs.rs/yang2/badge.svg
 [docs-url]: https://docs.rs/yang2
 [mit-badge]: https://img.shields.io/badge/license-MIT-blue.svg
-[mit-url]: https://github.com/rwestphal/yang2-rs/blob/master/LICENSE
-[actions-badge]: https://github.com/rwestphal/yang2-rs/workflows/CI/badge.svg
-[actions-url]: https://github.com/rwestphal/yang2-rs/actions?query=workflow%3ACI+branch%3Amaster
-[codecov-badge]: https://codecov.io/gh/rwestphal/yang2-rs/branch/master/graph/badge.svg?token=1KE3JMHG0H
-[codecov-url]: https://codecov.io/gh/rwestphal/yang2-rs
+[mit-url]: https://github.com/holo-routing/yang2-rs/blob/master/LICENSE
+[actions-badge]: https://github.com/holo-routing/yang2-rs/workflows/CI/badge.svg
+[actions-url]: https://github.com/holo-routing/yang2-rs/actions?query=workflow%3ACI+branch%3Amaster
+[codecov-badge]: https://codecov.io/gh/holo-routing/yang2-rs/branch/master/graph/badge.svg?token=1KE3JMHG0H
+[codecov-url]: https://codecov.io/gh/holo-routing/yang2-rs
 
 Rust bindings for the [libyang2] library.
 
 For raw FFI bindings for libyang2, see [libyang2-sys].
 
 [libyang2]: https://github.com/CESNET/libyang/tree/libyang2
-[libyang2-sys]: https://github.com/rwestphal/yang2-rs/tree/master/libyang2-sys
+[libyang2-sys]: https://github.com/holo-routing/yang2-rs/tree/master/libyang2-sys
 
 #### Cargo.toml
 
@@ -98,14 +98,14 @@ fn main() -> std::io::Result<()> {
 Note the `NO_STATE` flag passed to `parse_file` since the example json file does not contain state data.
 More examples can be found [here][examples].
 
-[examples]: https://github.com/rwestphal/yang2-rs/tree/master/examples
+[examples]: https://github.com/holo-routing/yang2-rs/tree/master/examples
 
 ## License
 
 This project is licensed under the [MIT license].
 
-[MIT license]: https://github.com/rwestphal/yang2-rs/blob/master/LICENSE
+[MIT license]: https://github.com/holo-routing/yang2-rs/blob/master/LICENSE
 
 ### Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/rwestphal/yang2-rs.
+Bug reports and pull requests are welcome on GitHub at https://github.com/holo-routing/yang2-rs.

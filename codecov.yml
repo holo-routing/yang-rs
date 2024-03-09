@@ -1,0 +1,7 @@
+coverage:
+  status:
+    project:
+      default:
+        threshold: 10%
+    patch: off
+    changes: no

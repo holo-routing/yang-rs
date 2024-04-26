@@ -96,8 +96,9 @@ impl Context {
             unsafe { ffi::ly_log_options(ffi::LY_LOSTORE_LAST) };
         });
 
-        let ret =
-            unsafe { ffi::ly_ctx_new(std::ptr::null(), options.bits, ctx_ptr) };
+        let ret = unsafe {
+            ffi::ly_ctx_new(std::ptr::null(), options.bits(), ctx_ptr)
+        };
         if ret != ffi::LY_ERR::LY_SUCCESS {
             // Need to construct error structure by hand.
             return Err(Error {
@@ -198,7 +199,7 @@ impl Context {
 
     /// Set some of the context's options.
     pub fn set_options(&mut self, options: ContextFlags) -> Result<()> {
-        let ret = unsafe { ffi::ly_ctx_set_options(self.raw, options.bits) };
+        let ret = unsafe { ffi::ly_ctx_set_options(self.raw, options.bits()) };
         if ret != ffi::LY_ERR::LY_SUCCESS {
             return Err(Error::new(self));
         }
@@ -208,7 +209,8 @@ impl Context {
 
     /// Unset some of the context's options.
     pub fn unset_options(&mut self, options: ContextFlags) -> Result<()> {
-        let ret = unsafe { ffi::ly_ctx_unset_options(self.raw, options.bits) };
+        let ret =
+            unsafe { ffi::ly_ctx_unset_options(self.raw, options.bits()) };
         if ret != ffi::LY_ERR::LY_SUCCESS {
             return Err(Error::new(self));
         }

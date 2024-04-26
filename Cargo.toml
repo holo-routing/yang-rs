@@ -14,7 +14,7 @@ exclude = ["assets/**"]
 
 [dependencies]
 libyang2-sys = { path = "libyang2-sys", version = "0.8.0" }
-bitflags = "1.0"
+bitflags = "2.5"
 num-traits = "0.2"
 num-derive = "0.4"
 

@@ -735,8 +735,8 @@ impl<'a> SchemaNode<'a> {
     }
 
     /// Array of actions.
-    pub fn actions(&self) -> Option<Array<'_, SchemaNode<'_>>> {
-        let array = unsafe {
+    pub fn actions(&self) -> Option<Siblings<'_, SchemaNode<'_>>> {
+        let rnode = unsafe {
             match self.kind {
                 SchemaNodeKind::Container => {
                     (*(self.raw as *mut ffi::lysc_node_container)).actions
@@ -748,13 +748,14 @@ impl<'a> SchemaNode<'a> {
             }
         };
 
-        let ptr_size = mem::size_of::<ffi::lysc_node_action>();
-        Some(Array::new(self.context, array as *mut _, ptr_size))
+        let node =
+            unsafe { SchemaNode::from_raw_opt(self.context, rnode as *mut _) };
+        Some(Siblings::new(node))
     }
 
     /// Array of notifications.
-    pub fn notifications(&self) -> Option<Array<'_, SchemaNode<'_>>> {
-        let array = unsafe {
+    pub fn notifications(&self) -> Option<Siblings<'_, SchemaNode<'_>>> {
+        let rnode = unsafe {
             match self.kind {
                 SchemaNodeKind::Container => {
                     (*(self.raw as *mut ffi::lysc_node_container)).notifs
@@ -766,8 +767,9 @@ impl<'a> SchemaNode<'a> {
             }
         };
 
-        let ptr_size = mem::size_of::<ffi::lysc_node_notif>();
-        Some(Array::new(self.context, array as *mut _, ptr_size))
+        let node =
+            unsafe { SchemaNode::from_raw_opt(self.context, rnode as *mut _) };
+        Some(Siblings::new(node))
     }
 
     /// RPC's input. Returns a tuple containing the following:

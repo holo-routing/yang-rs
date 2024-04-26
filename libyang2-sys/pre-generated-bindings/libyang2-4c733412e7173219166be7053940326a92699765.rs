@@ -1282,7 +1282,7 @@ pub const LYS_DISABLED: u32 = 256;
 pub const LYS_FENABLED: u32 = 32;
 pub const LYS_ORDBY_SYSTEM: u32 = 128;
 pub const LYS_ORDBY_USER: u32 = 64;
-pub const LYS_ORDBY_MASK: u32 = 96;
+pub const LYS_ORDBY_MASK: u32 = 192;
 pub const LYS_YINELEM_TRUE: u32 = 128;
 pub const LYS_YINELEM_FALSE: u32 = 256;
 pub const LYS_YINELEM_MASK: u32 = 384;
@@ -1351,11 +1351,15 @@ pub const LYD_NODEHINT_LIST: u32 = 128;
 pub const LYD_NODEHINT_LEAFLIST: u32 = 256;
 pub const LYD_HINT_DATA: u32 = 499;
 pub const LYD_HINT_SCHEMA: u32 = 511;
-pub const LYD_NEW_PATH_UPDATE: u32 = 1;
-pub const LYD_NEW_PATH_OUTPUT: u32 = 2;
-pub const LYD_NEW_PATH_OPAQ: u32 = 4;
-pub const LYD_NEW_PATH_BIN_VALUE: u32 = 8;
-pub const LYD_NEW_PATH_CANON_VALUE: u32 = 16;
+pub const LYD_NEW_VAL_OUTPUT: u32 = 1;
+pub const LYD_NEW_VAL_STORE_ONLY: u32 = 2;
+pub const LYD_NEW_VAL_BIN: u32 = 4;
+pub const LYD_NEW_VAL_CANON: u32 = 8;
+pub const LYD_NEW_META_CLEAR_DFLT: u32 = 16;
+pub const LYD_NEW_PATH_UPDATE: u32 = 32;
+pub const LYD_NEW_PATH_OPAQ: u32 = 64;
+pub const LYD_NEW_PATH_WITH_OPAQ: u32 = 128;
+pub const LYD_NEW_ANY_USE_VALUE: u32 = 256;
 pub const LYD_IMPLICIT_NO_STATE: u32 = 1;
 pub const LYD_IMPLICIT_NO_CONFIG: u32 = 2;
 pub const LYD_IMPLICIT_OUTPUT: u32 = 4;
@@ -1368,6 +1372,8 @@ pub const LYD_DUP_NO_META: u32 = 2;
 pub const LYD_DUP_WITH_PARENTS: u32 = 4;
 pub const LYD_DUP_WITH_FLAGS: u32 = 8;
 pub const LYD_DUP_NO_EXT: u32 = 16;
+pub const LYD_DUP_WITH_PRIV: u32 = 32;
+pub const LYD_DUP_NO_LYDS: u32 = 64;
 pub const LYD_MERGE_DESTRUCT: u32 = 1;
 pub const LYD_MERGE_DEFAULTS: u32 = 2;
 pub const LYD_MERGE_WITH_FLAGS: u32 = 4;
@@ -1383,6 +1389,8 @@ pub const LY_CTX_SET_PRIV_PARSED: u32 = 64;
 pub const LY_CTX_EXPLICIT_COMPILE: u32 = 128;
 pub const LY_CTX_ENABLE_IMP_FEATURES: u32 = 256;
 pub const LY_CTX_LEAFREF_EXTENDED: u32 = 512;
+pub const LY_CTX_LEAFREF_LINKING: u32 = 1024;
+pub const LY_CTX_BUILTIN_PLUGINS_ONLY: u32 = 2048;
 pub const _STRING_H: u32 = 1;
 pub const _STRINGS_H: u32 = 1;
 pub const LYD_PARSE_ONLY: u32 = 65536;
@@ -1394,12 +1402,15 @@ pub const LYD_PARSE_ORDERED: u32 = 2097152;
 pub const LYD_PARSE_SUBTREE: u32 = 4194304;
 pub const LYD_PARSE_WHEN_TRUE: u32 = 8388608;
 pub const LYD_PARSE_NO_NEW: u32 = 16777216;
+pub const LYD_PARSE_STORE_ONLY: u32 = 33619968;
+pub const LYD_PARSE_JSON_NULL: u32 = 67108864;
 pub const LYD_PARSE_OPTS_MASK: u32 = 4294901760;
 pub const LYD_VALIDATE_NO_STATE: u32 = 1;
 pub const LYD_VALIDATE_PRESENT: u32 = 2;
 pub const LYD_VALIDATE_MULTI_ERROR: u32 = 4;
 pub const LYD_VALIDATE_OPERATIONAL: u32 = 8;
 pub const LYD_VALIDATE_NO_DEFAULTS: u32 = 16;
+pub const LYD_VALIDATE_NOT_FINAL: u32 = 32;
 pub const LYD_VALIDATE_OPTS_MASK: u32 = 65535;
 pub const LYPLG_EXT_API_VERSION: u32 = 6;
 pub const LY_STMT_NODE_MASK: u32 = 65535;
@@ -1553,7 +1564,7 @@ extern "C" {
     pub fn ly_log_options(opts: u32) -> u32;
 }
 extern "C" {
-    pub fn ly_temp_log_options(opts: *mut u32);
+    pub fn ly_temp_log_options(opts: *mut u32) -> *mut u32;
 }
 extern "C" {
     pub fn ly_log_dbg_groups(dbg_groups: u32) -> u32;
@@ -1562,11 +1573,13 @@ pub type ly_log_clb = ::std::option::Option<
     unsafe extern "C" fn(
         level: LY_LOG_LEVEL::Type,
         msg: *const ::std::os::raw::c_char,
-        path: *const ::std::os::raw::c_char,
+        data_path: *const ::std::os::raw::c_char,
+        schema_path: *const ::std::os::raw::c_char,
+        line: u64,
     ),
 >;
 extern "C" {
-    pub fn ly_set_log_clb(clb: ly_log_clb, path: ly_bool);
+    pub fn ly_set_log_clb(clb: ly_log_clb);
 }
 extern "C" {
     pub fn ly_get_log_clb() -> ly_log_clb;
@@ -1606,10 +1619,12 @@ pub mod LY_VECODE {
 #[derive(Debug, Copy, Clone)]
 pub struct ly_err_item {
     pub level: LY_LOG_LEVEL::Type,
-    pub no: LY_ERR::Type,
+    pub err: LY_ERR::Type,
     pub vecode: LY_VECODE::Type,
     pub msg: *mut ::std::os::raw::c_char,
-    pub path: *mut ::std::os::raw::c_char,
+    pub data_path: *mut ::std::os::raw::c_char,
+    pub schema_path: *mut ::std::os::raw::c_char,
+    pub line: u64,
     pub apptag: *mut ::std::os::raw::c_char,
     pub next: *mut ly_err_item,
     pub prev: *mut ly_err_item,
@@ -1621,7 +1636,7 @@ fn bindgen_test_layout_ly_err_item() {
     let ptr = UNINIT.as_ptr();
     assert_eq!(
         ::std::mem::size_of::<ly_err_item>(),
-        56usize,
+        72usize,
         concat!("Size of: ", stringify!(ly_err_item))
     );
     assert_eq!(
@@ -1640,13 +1655,13 @@ fn bindgen_test_layout_ly_err_item() {
         )
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).no) as usize - ptr as usize },
+        unsafe { ::std::ptr::addr_of!((*ptr).err) as usize - ptr as usize },
         4usize,
         concat!(
             "Offset of field: ",
             stringify!(ly_err_item),
             "::",
-            stringify!(no)
+            stringify!(err)
         )
     );
     assert_eq!(
@@ -1670,18 +1685,42 @@ fn bindgen_test_layout_ly_err_item() {
         )
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).path) as usize - ptr as usize },
+        unsafe {
+            ::std::ptr::addr_of!((*ptr).data_path) as usize - ptr as usize
+        },
         24usize,
         concat!(
             "Offset of field: ",
             stringify!(ly_err_item),
             "::",
-            stringify!(path)
+            stringify!(data_path)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            ::std::ptr::addr_of!((*ptr).schema_path) as usize - ptr as usize
+        },
+        32usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(ly_err_item),
+            "::",
+            stringify!(schema_path)
+        )
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).line) as usize - ptr as usize },
+        40usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(ly_err_item),
+            "::",
+            stringify!(line)
         )
     );
     assert_eq!(
         unsafe { ::std::ptr::addr_of!((*ptr).apptag) as usize - ptr as usize },
-        32usize,
+        48usize,
         concat!(
             "Offset of field: ",
             stringify!(ly_err_item),
@@ -1691,7 +1730,7 @@ fn bindgen_test_layout_ly_err_item() {
     );
     assert_eq!(
         unsafe { ::std::ptr::addr_of!((*ptr).next) as usize - ptr as usize },
-        40usize,
+        56usize,
         concat!(
             "Offset of field: ",
             stringify!(ly_err_item),
@@ -1701,7 +1740,7 @@ fn bindgen_test_layout_ly_err_item() {
     );
     assert_eq!(
         unsafe { ::std::ptr::addr_of!((*ptr).prev) as usize - ptr as usize },
-        48usize,
+        64usize,
         concat!(
             "Offset of field: ",
             stringify!(ly_err_item),
@@ -1720,13 +1759,7 @@ impl Default for ly_err_item {
     }
 }
 extern "C" {
-    pub fn ly_errcode(ctx: *const ly_ctx) -> LY_ERR::Type;
-}
-extern "C" {
-    pub fn ly_strerrcode(err: LY_ERR::Type) -> *const ::std::os::raw::c_char;
-}
-extern "C" {
-    pub fn ly_vecode(ctx: *const ly_ctx) -> LY_VECODE::Type;
+    pub fn ly_strerr(err: LY_ERR::Type) -> *const ::std::os::raw::c_char;
 }
 extern "C" {
     pub fn ly_strvecode(
@@ -1734,25 +1767,16 @@ extern "C" {
     ) -> *const ::std::os::raw::c_char;
 }
 extern "C" {
-    pub fn ly_errmsg(ctx: *const ly_ctx) -> *const ::std::os::raw::c_char;
+    pub fn ly_last_logmsg() -> *const ::std::os::raw::c_char;
 }
 extern "C" {
-    pub fn ly_last_errmsg() -> *const ::std::os::raw::c_char;
+    pub fn ly_err_first(ctx: *const ly_ctx) -> *const ly_err_item;
 }
 extern "C" {
-    pub fn ly_errpath(ctx: *const ly_ctx) -> *const ::std::os::raw::c_char;
+    pub fn ly_err_last(ctx: *const ly_ctx) -> *const ly_err_item;
 }
 extern "C" {
-    pub fn ly_errapptag(ctx: *const ly_ctx) -> *const ::std::os::raw::c_char;
-}
-extern "C" {
-    pub fn ly_err_first(ctx: *const ly_ctx) -> *mut ly_err_item;
-}
-extern "C" {
-    pub fn ly_err_last(ctx: *const ly_ctx) -> *mut ly_err_item;
-}
-extern "C" {
-    pub fn ly_err_print(ctx: *const ly_ctx, eitem: *mut ly_err_item);
+    pub fn ly_err_print(ctx: *const ly_ctx, eitem: *const ly_err_item);
 }
 extern "C" {
     pub fn ly_err_clean(ctx: *mut ly_ctx, eitem: *mut ly_err_item);
@@ -11134,6 +11158,7 @@ impl Default for lysc_iffeature {
 pub struct lysp_qname {
     pub str_: *const ::std::os::raw::c_char,
     pub mod_: *const lysp_module,
+    pub flags: u16,
 }
 #[test]
 fn bindgen_test_layout_lysp_qname() {
@@ -11142,7 +11167,7 @@ fn bindgen_test_layout_lysp_qname() {
     let ptr = UNINIT.as_ptr();
     assert_eq!(
         ::std::mem::size_of::<lysp_qname>(),
-        16usize,
+        24usize,
         concat!("Size of: ", stringify!(lysp_qname))
     );
     assert_eq!(
@@ -11168,6 +11193,16 @@ fn bindgen_test_layout_lysp_qname() {
             stringify!(lysp_qname),
             "::",
             stringify!(mod_)
+        )
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).flags) as usize - ptr as usize },
+        16usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(lysp_qname),
+            "::",
+            stringify!(flags)
         )
     );
 }
@@ -11305,7 +11340,7 @@ fn bindgen_test_layout_lysp_restr() {
     let ptr = UNINIT.as_ptr();
     assert_eq!(
         ::std::mem::size_of::<lysp_restr>(),
-        56usize,
+        64usize,
         concat!("Size of: ", stringify!(lysp_restr))
     );
     assert_eq!(
@@ -11325,7 +11360,7 @@ fn bindgen_test_layout_lysp_restr() {
     );
     assert_eq!(
         unsafe { ::std::ptr::addr_of!((*ptr).emsg) as usize - ptr as usize },
-        16usize,
+        24usize,
         concat!(
             "Offset of field: ",
             stringify!(lysp_restr),
@@ -11335,7 +11370,7 @@ fn bindgen_test_layout_lysp_restr() {
     );
     assert_eq!(
         unsafe { ::std::ptr::addr_of!((*ptr).eapptag) as usize - ptr as usize },
-        24usize,
+        32usize,
         concat!(
             "Offset of field: ",
             stringify!(lysp_restr),
@@ -11345,7 +11380,7 @@ fn bindgen_test_layout_lysp_restr() {
     );
     assert_eq!(
         unsafe { ::std::ptr::addr_of!((*ptr).dsc) as usize - ptr as usize },
-        32usize,
+        40usize,
         concat!(
             "Offset of field: ",
             stringify!(lysp_restr),
@@ -11355,7 +11390,7 @@ fn bindgen_test_layout_lysp_restr() {
     );
     assert_eq!(
         unsafe { ::std::ptr::addr_of!((*ptr).ref_) as usize - ptr as usize },
-        40usize,
+        48usize,
         concat!(
             "Offset of field: ",
             stringify!(lysp_restr),
@@ -11365,7 +11400,7 @@ fn bindgen_test_layout_lysp_restr() {
     );
     assert_eq!(
         unsafe { ::std::ptr::addr_of!((*ptr).exts) as usize - ptr as usize },
-        48usize,
+        56usize,
         concat!(
             "Offset of field: ",
             stringify!(lysp_restr),
@@ -11786,7 +11821,7 @@ fn bindgen_test_layout_lysp_tpdf() {
     let ptr = UNINIT.as_ptr();
     assert_eq!(
         ::std::mem::size_of::<lysp_tpdf>(),
-        168usize,
+        176usize,
         concat!("Size of: ", stringify!(lysp_tpdf))
     );
     assert_eq!(
@@ -11826,7 +11861,7 @@ fn bindgen_test_layout_lysp_tpdf() {
     );
     assert_eq!(
         unsafe { ::std::ptr::addr_of!((*ptr).dsc) as usize - ptr as usize },
-        32usize,
+        40usize,
         concat!(
             "Offset of field: ",
             stringify!(lysp_tpdf),
@@ -11836,7 +11871,7 @@ fn bindgen_test_layout_lysp_tpdf() {
     );
     assert_eq!(
         unsafe { ::std::ptr::addr_of!((*ptr).ref_) as usize - ptr as usize },
-        40usize,
+        48usize,
         concat!(
             "Offset of field: ",
             stringify!(lysp_tpdf),
@@ -11846,7 +11881,7 @@ fn bindgen_test_layout_lysp_tpdf() {
     );
     assert_eq!(
         unsafe { ::std::ptr::addr_of!((*ptr).exts) as usize - ptr as usize },
-        48usize,
+        56usize,
         concat!(
             "Offset of field: ",
             stringify!(lysp_tpdf),
@@ -11856,7 +11891,7 @@ fn bindgen_test_layout_lysp_tpdf() {
     );
     assert_eq!(
         unsafe { ::std::ptr::addr_of!((*ptr).type_) as usize - ptr as usize },
-        56usize,
+        64usize,
         concat!(
             "Offset of field: ",
             stringify!(lysp_tpdf),
@@ -11866,7 +11901,7 @@ fn bindgen_test_layout_lysp_tpdf() {
     );
     assert_eq!(
         unsafe { ::std::ptr::addr_of!((*ptr).flags) as usize - ptr as usize },
-        160usize,
+        168usize,
         concat!(
             "Offset of field: ",
             stringify!(lysp_tpdf),
@@ -12438,7 +12473,7 @@ fn bindgen_test_layout_lysp_deviate_rpl() {
     let ptr = UNINIT.as_ptr();
     assert_eq!(
         ::std::mem::size_of::<lysp_deviate_rpl>(),
-        72usize,
+        80usize,
         concat!("Size of: ", stringify!(lysp_deviate_rpl))
     );
     assert_eq!(
@@ -12508,7 +12543,7 @@ fn bindgen_test_layout_lysp_deviate_rpl() {
     );
     assert_eq!(
         unsafe { ::std::ptr::addr_of!((*ptr).flags) as usize - ptr as usize },
-        56usize,
+        64usize,
         concat!(
             "Offset of field: ",
             stringify!(lysp_deviate_rpl),
@@ -12518,7 +12553,7 @@ fn bindgen_test_layout_lysp_deviate_rpl() {
     );
     assert_eq!(
         unsafe { ::std::ptr::addr_of!((*ptr).min) as usize - ptr as usize },
-        60usize,
+        68usize,
         concat!(
             "Offset of field: ",
             stringify!(lysp_deviate_rpl),
@@ -12528,7 +12563,7 @@ fn bindgen_test_layout_lysp_deviate_rpl() {
     );
     assert_eq!(
         unsafe { ::std::ptr::addr_of!((*ptr).max) as usize - ptr as usize },
-        64usize,
+        72usize,
         concat!(
             "Offset of field: ",
             stringify!(lysp_deviate_rpl),
@@ -13270,7 +13305,7 @@ fn bindgen_test_layout_lysp_node_leaf() {
     let ptr = UNINIT.as_ptr();
     assert_eq!(
         ::std::mem::size_of::<lysp_node_leaf>(),
-        208usize,
+        216usize,
         concat!("Size of: ", stringify!(lysp_node_leaf))
     );
     assert_eq!(
@@ -14159,7 +14194,7 @@ fn bindgen_test_layout_lysp_node_choice() {
     let ptr = UNINIT.as_ptr();
     assert_eq!(
         ::std::mem::size_of::<lysp_node_choice>(),
-        96usize,
+        104usize,
         concat!("Size of: ", stringify!(lysp_node_choice))
     );
     assert_eq!(
@@ -16923,7 +16958,6 @@ pub struct lysc_ext {
     pub exts: *mut lysc_ext_instance,
     pub plugin: *mut lyplg_ext,
     pub module: *mut lys_module,
-    pub refcount: u32,
     pub flags: u16,
 }
 #[test]
@@ -16992,20 +17026,8 @@ fn bindgen_test_layout_lysc_ext() {
         )
     );
     assert_eq!(
-        unsafe {
-            ::std::ptr::addr_of!((*ptr).refcount) as usize - ptr as usize
-        },
-        40usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(lysc_ext),
-            "::",
-            stringify!(refcount)
-        )
-    );
-    assert_eq!(
         unsafe { ::std::ptr::addr_of!((*ptr).flags) as usize - ptr as usize },
-        44usize,
+        40usize,
         concat!(
             "Offset of field: ",
             stringify!(lysc_ext),
@@ -17805,6 +17827,7 @@ impl Default for lysc_must {
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct lysc_type {
+    pub name: *const ::std::os::raw::c_char,
     pub exts: *mut lysc_ext_instance,
     pub plugin: *mut lyplg_type,
     pub basetype: LY_DATA_TYPE::Type,
@@ -17817,7 +17840,7 @@ fn bindgen_test_layout_lysc_type() {
     let ptr = UNINIT.as_ptr();
     assert_eq!(
         ::std::mem::size_of::<lysc_type>(),
-        24usize,
+        32usize,
         concat!("Size of: ", stringify!(lysc_type))
     );
     assert_eq!(
@@ -17826,8 +17849,18 @@ fn bindgen_test_layout_lysc_type() {
         concat!("Alignment of ", stringify!(lysc_type))
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).exts) as usize - ptr as usize },
+        unsafe { ::std::ptr::addr_of!((*ptr).name) as usize - ptr as usize },
         0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(lysc_type),
+            "::",
+            stringify!(name)
+        )
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).exts) as usize - ptr as usize },
+        8usize,
         concat!(
             "Offset of field: ",
             stringify!(lysc_type),
@@ -17837,7 +17870,7 @@ fn bindgen_test_layout_lysc_type() {
     );
     assert_eq!(
         unsafe { ::std::ptr::addr_of!((*ptr).plugin) as usize - ptr as usize },
-        8usize,
+        16usize,
         concat!(
             "Offset of field: ",
             stringify!(lysc_type),
@@ -17849,7 +17882,7 @@ fn bindgen_test_layout_lysc_type() {
         unsafe {
             ::std::ptr::addr_of!((*ptr).basetype) as usize - ptr as usize
         },
-        16usize,
+        24usize,
         concat!(
             "Offset of field: ",
             stringify!(lysc_type),
@@ -17861,7 +17894,7 @@ fn bindgen_test_layout_lysc_type() {
         unsafe {
             ::std::ptr::addr_of!((*ptr).refcount) as usize - ptr as usize
         },
-        20usize,
+        28usize,
         concat!(
             "Offset of field: ",
             stringify!(lysc_type),
@@ -17882,6 +17915,7 @@ impl Default for lysc_type {
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct lysc_type_num {
+    pub name: *const ::std::os::raw::c_char,
     pub exts: *mut lysc_ext_instance,
     pub plugin: *mut lyplg_type,
     pub basetype: LY_DATA_TYPE::Type,
@@ -17895,7 +17929,7 @@ fn bindgen_test_layout_lysc_type_num() {
     let ptr = UNINIT.as_ptr();
     assert_eq!(
         ::std::mem::size_of::<lysc_type_num>(),
-        32usize,
+        40usize,
         concat!("Size of: ", stringify!(lysc_type_num))
     );
     assert_eq!(
@@ -17904,8 +17938,18 @@ fn bindgen_test_layout_lysc_type_num() {
         concat!("Alignment of ", stringify!(lysc_type_num))
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).exts) as usize - ptr as usize },
+        unsafe { ::std::ptr::addr_of!((*ptr).name) as usize - ptr as usize },
         0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(lysc_type_num),
+            "::",
+            stringify!(name)
+        )
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).exts) as usize - ptr as usize },
+        8usize,
         concat!(
             "Offset of field: ",
             stringify!(lysc_type_num),
@@ -17915,7 +17959,7 @@ fn bindgen_test_layout_lysc_type_num() {
     );
     assert_eq!(
         unsafe { ::std::ptr::addr_of!((*ptr).plugin) as usize - ptr as usize },
-        8usize,
+        16usize,
         concat!(
             "Offset of field: ",
             stringify!(lysc_type_num),
@@ -17927,7 +17971,7 @@ fn bindgen_test_layout_lysc_type_num() {
         unsafe {
             ::std::ptr::addr_of!((*ptr).basetype) as usize - ptr as usize
         },
-        16usize,
+        24usize,
         concat!(
             "Offset of field: ",
             stringify!(lysc_type_num),
@@ -17939,7 +17983,7 @@ fn bindgen_test_layout_lysc_type_num() {
         unsafe {
             ::std::ptr::addr_of!((*ptr).refcount) as usize - ptr as usize
         },
-        20usize,
+        28usize,
         concat!(
             "Offset of field: ",
             stringify!(lysc_type_num),
@@ -17949,7 +17993,7 @@ fn bindgen_test_layout_lysc_type_num() {
     );
     assert_eq!(
         unsafe { ::std::ptr::addr_of!((*ptr).range) as usize - ptr as usize },
-        24usize,
+        32usize,
         concat!(
             "Offset of field: ",
             stringify!(lysc_type_num),
@@ -17970,6 +18014,7 @@ impl Default for lysc_type_num {
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct lysc_type_dec {
+    pub name: *const ::std::os::raw::c_char,
     pub exts: *mut lysc_ext_instance,
     pub plugin: *mut lyplg_type,
     pub basetype: LY_DATA_TYPE::Type,
@@ -17984,7 +18029,7 @@ fn bindgen_test_layout_lysc_type_dec() {
     let ptr = UNINIT.as_ptr();
     assert_eq!(
         ::std::mem::size_of::<lysc_type_dec>(),
-        40usize,
+        48usize,
         concat!("Size of: ", stringify!(lysc_type_dec))
     );
     assert_eq!(
@@ -17993,8 +18038,18 @@ fn bindgen_test_layout_lysc_type_dec() {
         concat!("Alignment of ", stringify!(lysc_type_dec))
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).exts) as usize - ptr as usize },
+        unsafe { ::std::ptr::addr_of!((*ptr).name) as usize - ptr as usize },
         0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(lysc_type_dec),
+            "::",
+            stringify!(name)
+        )
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).exts) as usize - ptr as usize },
+        8usize,
         concat!(
             "Offset of field: ",
             stringify!(lysc_type_dec),
@@ -18004,7 +18059,7 @@ fn bindgen_test_layout_lysc_type_dec() {
     );
     assert_eq!(
         unsafe { ::std::ptr::addr_of!((*ptr).plugin) as usize - ptr as usize },
-        8usize,
+        16usize,
         concat!(
             "Offset of field: ",
             stringify!(lysc_type_dec),
@@ -18016,7 +18071,7 @@ fn bindgen_test_layout_lysc_type_dec() {
         unsafe {
             ::std::ptr::addr_of!((*ptr).basetype) as usize - ptr as usize
         },
-        16usize,
+        24usize,
         concat!(
             "Offset of field: ",
             stringify!(lysc_type_dec),
@@ -18028,7 +18083,7 @@ fn bindgen_test_layout_lysc_type_dec() {
         unsafe {
             ::std::ptr::addr_of!((*ptr).refcount) as usize - ptr as usize
         },
-        20usize,
+        28usize,
         concat!(
             "Offset of field: ",
             stringify!(lysc_type_dec),
@@ -18040,7 +18095,7 @@ fn bindgen_test_layout_lysc_type_dec() {
         unsafe {
             ::std::ptr::addr_of!((*ptr).fraction_digits) as usize - ptr as usize
         },
-        24usize,
+        32usize,
         concat!(
             "Offset of field: ",
             stringify!(lysc_type_dec),
@@ -18050,7 +18105,7 @@ fn bindgen_test_layout_lysc_type_dec() {
     );
     assert_eq!(
         unsafe { ::std::ptr::addr_of!((*ptr).range) as usize - ptr as usize },
-        32usize,
+        40usize,
         concat!(
             "Offset of field: ",
             stringify!(lysc_type_dec),
@@ -18071,6 +18126,7 @@ impl Default for lysc_type_dec {
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct lysc_type_str {
+    pub name: *const ::std::os::raw::c_char,
     pub exts: *mut lysc_ext_instance,
     pub plugin: *mut lyplg_type,
     pub basetype: LY_DATA_TYPE::Type,
@@ -18085,7 +18141,7 @@ fn bindgen_test_layout_lysc_type_str() {
     let ptr = UNINIT.as_ptr();
     assert_eq!(
         ::std::mem::size_of::<lysc_type_str>(),
-        40usize,
+        48usize,
         concat!("Size of: ", stringify!(lysc_type_str))
     );
     assert_eq!(
@@ -18094,8 +18150,18 @@ fn bindgen_test_layout_lysc_type_str() {
         concat!("Alignment of ", stringify!(lysc_type_str))
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).exts) as usize - ptr as usize },
+        unsafe { ::std::ptr::addr_of!((*ptr).name) as usize - ptr as usize },
         0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(lysc_type_str),
+            "::",
+            stringify!(name)
+        )
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).exts) as usize - ptr as usize },
+        8usize,
         concat!(
             "Offset of field: ",
             stringify!(lysc_type_str),
@@ -18105,7 +18171,7 @@ fn bindgen_test_layout_lysc_type_str() {
     );
     assert_eq!(
         unsafe { ::std::ptr::addr_of!((*ptr).plugin) as usize - ptr as usize },
-        8usize,
+        16usize,
         concat!(
             "Offset of field: ",
             stringify!(lysc_type_str),
@@ -18117,7 +18183,7 @@ fn bindgen_test_layout_lysc_type_str() {
         unsafe {
             ::std::ptr::addr_of!((*ptr).basetype) as usize - ptr as usize
         },
-        16usize,
+        24usize,
         concat!(
             "Offset of field: ",
             stringify!(lysc_type_str),
@@ -18129,7 +18195,7 @@ fn bindgen_test_layout_lysc_type_str() {
         unsafe {
             ::std::ptr::addr_of!((*ptr).refcount) as usize - ptr as usize
         },
-        20usize,
+        28usize,
         concat!(
             "Offset of field: ",
             stringify!(lysc_type_str),
@@ -18139,7 +18205,7 @@ fn bindgen_test_layout_lysc_type_str() {
     );
     assert_eq!(
         unsafe { ::std::ptr::addr_of!((*ptr).length) as usize - ptr as usize },
-        24usize,
+        32usize,
         concat!(
             "Offset of field: ",
             stringify!(lysc_type_str),
@@ -18151,7 +18217,7 @@ fn bindgen_test_layout_lysc_type_str() {
         unsafe {
             ::std::ptr::addr_of!((*ptr).patterns) as usize - ptr as usize
         },
-        32usize,
+        40usize,
         concat!(
             "Offset of field: ",
             stringify!(lysc_type_str),
@@ -18317,6 +18383,7 @@ impl Default for lysc_type_bitenum_item {
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct lysc_type_enum {
+    pub name: *const ::std::os::raw::c_char,
     pub exts: *mut lysc_ext_instance,
     pub plugin: *mut lyplg_type,
     pub basetype: LY_DATA_TYPE::Type,
@@ -18330,7 +18397,7 @@ fn bindgen_test_layout_lysc_type_enum() {
     let ptr = UNINIT.as_ptr();
     assert_eq!(
         ::std::mem::size_of::<lysc_type_enum>(),
-        32usize,
+        40usize,
         concat!("Size of: ", stringify!(lysc_type_enum))
     );
     assert_eq!(
@@ -18339,8 +18406,18 @@ fn bindgen_test_layout_lysc_type_enum() {
         concat!("Alignment of ", stringify!(lysc_type_enum))
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).exts) as usize - ptr as usize },
+        unsafe { ::std::ptr::addr_of!((*ptr).name) as usize - ptr as usize },
         0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(lysc_type_enum),
+            "::",
+            stringify!(name)
+        )
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).exts) as usize - ptr as usize },
+        8usize,
         concat!(
             "Offset of field: ",
             stringify!(lysc_type_enum),
@@ -18350,7 +18427,7 @@ fn bindgen_test_layout_lysc_type_enum() {
     );
     assert_eq!(
         unsafe { ::std::ptr::addr_of!((*ptr).plugin) as usize - ptr as usize },
-        8usize,
+        16usize,
         concat!(
             "Offset of field: ",
             stringify!(lysc_type_enum),
@@ -18362,7 +18439,7 @@ fn bindgen_test_layout_lysc_type_enum() {
         unsafe {
             ::std::ptr::addr_of!((*ptr).basetype) as usize - ptr as usize
         },
-        16usize,
+        24usize,
         concat!(
             "Offset of field: ",
             stringify!(lysc_type_enum),
@@ -18374,7 +18451,7 @@ fn bindgen_test_layout_lysc_type_enum() {
         unsafe {
             ::std::ptr::addr_of!((*ptr).refcount) as usize - ptr as usize
         },
-        20usize,
+        28usize,
         concat!(
             "Offset of field: ",
             stringify!(lysc_type_enum),
@@ -18384,7 +18461,7 @@ fn bindgen_test_layout_lysc_type_enum() {
     );
     assert_eq!(
         unsafe { ::std::ptr::addr_of!((*ptr).enums) as usize - ptr as usize },
-        24usize,
+        32usize,
         concat!(
             "Offset of field: ",
             stringify!(lysc_type_enum),
@@ -18405,6 +18482,7 @@ impl Default for lysc_type_enum {
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct lysc_type_bits {
+    pub name: *const ::std::os::raw::c_char,
     pub exts: *mut lysc_ext_instance,
     pub plugin: *mut lyplg_type,
     pub basetype: LY_DATA_TYPE::Type,
@@ -18418,7 +18496,7 @@ fn bindgen_test_layout_lysc_type_bits() {
     let ptr = UNINIT.as_ptr();
     assert_eq!(
         ::std::mem::size_of::<lysc_type_bits>(),
-        32usize,
+        40usize,
         concat!("Size of: ", stringify!(lysc_type_bits))
     );
     assert_eq!(
@@ -18427,8 +18505,18 @@ fn bindgen_test_layout_lysc_type_bits() {
         concat!("Alignment of ", stringify!(lysc_type_bits))
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).exts) as usize - ptr as usize },
+        unsafe { ::std::ptr::addr_of!((*ptr).name) as usize - ptr as usize },
         0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(lysc_type_bits),
+            "::",
+            stringify!(name)
+        )
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).exts) as usize - ptr as usize },
+        8usize,
         concat!(
             "Offset of field: ",
             stringify!(lysc_type_bits),
@@ -18438,7 +18526,7 @@ fn bindgen_test_layout_lysc_type_bits() {
     );
     assert_eq!(
         unsafe { ::std::ptr::addr_of!((*ptr).plugin) as usize - ptr as usize },
-        8usize,
+        16usize,
         concat!(
             "Offset of field: ",
             stringify!(lysc_type_bits),
@@ -18450,7 +18538,7 @@ fn bindgen_test_layout_lysc_type_bits() {
         unsafe {
             ::std::ptr::addr_of!((*ptr).basetype) as usize - ptr as usize
         },
-        16usize,
+        24usize,
         concat!(
             "Offset of field: ",
             stringify!(lysc_type_bits),
@@ -18462,7 +18550,7 @@ fn bindgen_test_layout_lysc_type_bits() {
         unsafe {
             ::std::ptr::addr_of!((*ptr).refcount) as usize - ptr as usize
         },
-        20usize,
+        28usize,
         concat!(
             "Offset of field: ",
             stringify!(lysc_type_bits),
@@ -18472,7 +18560,7 @@ fn bindgen_test_layout_lysc_type_bits() {
     );
     assert_eq!(
         unsafe { ::std::ptr::addr_of!((*ptr).bits) as usize - ptr as usize },
-        24usize,
+        32usize,
         concat!(
             "Offset of field: ",
             stringify!(lysc_type_bits),
@@ -18493,13 +18581,13 @@ impl Default for lysc_type_bits {
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct lysc_type_leafref {
+    pub name: *const ::std::os::raw::c_char,
     pub exts: *mut lysc_ext_instance,
     pub plugin: *mut lyplg_type,
     pub basetype: LY_DATA_TYPE::Type,
     pub refcount: u32,
     pub path: *mut lyxp_expr,
     pub prefixes: *mut lysc_prefix,
-    pub cur_mod: *const lys_module,
     pub realtype: *mut lysc_type,
     pub require_instance: u8,
 }
@@ -18519,8 +18607,18 @@ fn bindgen_test_layout_lysc_type_leafref() {
         concat!("Alignment of ", stringify!(lysc_type_leafref))
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).exts) as usize - ptr as usize },
+        unsafe { ::std::ptr::addr_of!((*ptr).name) as usize - ptr as usize },
         0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(lysc_type_leafref),
+            "::",
+            stringify!(name)
+        )
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).exts) as usize - ptr as usize },
+        8usize,
         concat!(
             "Offset of field: ",
             stringify!(lysc_type_leafref),
@@ -18530,7 +18628,7 @@ fn bindgen_test_layout_lysc_type_leafref() {
     );
     assert_eq!(
         unsafe { ::std::ptr::addr_of!((*ptr).plugin) as usize - ptr as usize },
-        8usize,
+        16usize,
         concat!(
             "Offset of field: ",
             stringify!(lysc_type_leafref),
@@ -18542,7 +18640,7 @@ fn bindgen_test_layout_lysc_type_leafref() {
         unsafe {
             ::std::ptr::addr_of!((*ptr).basetype) as usize - ptr as usize
         },
-        16usize,
+        24usize,
         concat!(
             "Offset of field: ",
             stringify!(lysc_type_leafref),
@@ -18554,7 +18652,7 @@ fn bindgen_test_layout_lysc_type_leafref() {
         unsafe {
             ::std::ptr::addr_of!((*ptr).refcount) as usize - ptr as usize
         },
-        20usize,
+        28usize,
         concat!(
             "Offset of field: ",
             stringify!(lysc_type_leafref),
@@ -18564,7 +18662,7 @@ fn bindgen_test_layout_lysc_type_leafref() {
     );
     assert_eq!(
         unsafe { ::std::ptr::addr_of!((*ptr).path) as usize - ptr as usize },
-        24usize,
+        32usize,
         concat!(
             "Offset of field: ",
             stringify!(lysc_type_leafref),
@@ -18576,22 +18674,12 @@ fn bindgen_test_layout_lysc_type_leafref() {
         unsafe {
             ::std::ptr::addr_of!((*ptr).prefixes) as usize - ptr as usize
         },
-        32usize,
-        concat!(
-            "Offset of field: ",
-            stringify!(lysc_type_leafref),
-            "::",
-            stringify!(prefixes)
-        )
-    );
-    assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).cur_mod) as usize - ptr as usize },
         40usize,
         concat!(
             "Offset of field: ",
             stringify!(lysc_type_leafref),
             "::",
-            stringify!(cur_mod)
+            stringify!(prefixes)
         )
     );
     assert_eq!(
@@ -18632,6 +18720,7 @@ impl Default for lysc_type_leafref {
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct lysc_type_identityref {
+    pub name: *const ::std::os::raw::c_char,
     pub exts: *mut lysc_ext_instance,
     pub plugin: *mut lyplg_type,
     pub basetype: LY_DATA_TYPE::Type,
@@ -18645,7 +18734,7 @@ fn bindgen_test_layout_lysc_type_identityref() {
     let ptr = UNINIT.as_ptr();
     assert_eq!(
         ::std::mem::size_of::<lysc_type_identityref>(),
-        32usize,
+        40usize,
         concat!("Size of: ", stringify!(lysc_type_identityref))
     );
     assert_eq!(
@@ -18654,8 +18743,18 @@ fn bindgen_test_layout_lysc_type_identityref() {
         concat!("Alignment of ", stringify!(lysc_type_identityref))
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).exts) as usize - ptr as usize },
+        unsafe { ::std::ptr::addr_of!((*ptr).name) as usize - ptr as usize },
         0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(lysc_type_identityref),
+            "::",
+            stringify!(name)
+        )
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).exts) as usize - ptr as usize },
+        8usize,
         concat!(
             "Offset of field: ",
             stringify!(lysc_type_identityref),
@@ -18665,7 +18764,7 @@ fn bindgen_test_layout_lysc_type_identityref() {
     );
     assert_eq!(
         unsafe { ::std::ptr::addr_of!((*ptr).plugin) as usize - ptr as usize },
-        8usize,
+        16usize,
         concat!(
             "Offset of field: ",
             stringify!(lysc_type_identityref),
@@ -18677,7 +18776,7 @@ fn bindgen_test_layout_lysc_type_identityref() {
         unsafe {
             ::std::ptr::addr_of!((*ptr).basetype) as usize - ptr as usize
         },
-        16usize,
+        24usize,
         concat!(
             "Offset of field: ",
             stringify!(lysc_type_identityref),
@@ -18689,7 +18788,7 @@ fn bindgen_test_layout_lysc_type_identityref() {
         unsafe {
             ::std::ptr::addr_of!((*ptr).refcount) as usize - ptr as usize
         },
-        20usize,
+        28usize,
         concat!(
             "Offset of field: ",
             stringify!(lysc_type_identityref),
@@ -18699,7 +18798,7 @@ fn bindgen_test_layout_lysc_type_identityref() {
     );
     assert_eq!(
         unsafe { ::std::ptr::addr_of!((*ptr).bases) as usize - ptr as usize },
-        24usize,
+        32usize,
         concat!(
             "Offset of field: ",
             stringify!(lysc_type_identityref),
@@ -18720,6 +18819,7 @@ impl Default for lysc_type_identityref {
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct lysc_type_instanceid {
+    pub name: *const ::std::os::raw::c_char,
     pub exts: *mut lysc_ext_instance,
     pub plugin: *mut lyplg_type,
     pub basetype: LY_DATA_TYPE::Type,
@@ -18733,7 +18833,7 @@ fn bindgen_test_layout_lysc_type_instanceid() {
     let ptr = UNINIT.as_ptr();
     assert_eq!(
         ::std::mem::size_of::<lysc_type_instanceid>(),
-        32usize,
+        40usize,
         concat!("Size of: ", stringify!(lysc_type_instanceid))
     );
     assert_eq!(
@@ -18742,8 +18842,18 @@ fn bindgen_test_layout_lysc_type_instanceid() {
         concat!("Alignment of ", stringify!(lysc_type_instanceid))
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).exts) as usize - ptr as usize },
+        unsafe { ::std::ptr::addr_of!((*ptr).name) as usize - ptr as usize },
         0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(lysc_type_instanceid),
+            "::",
+            stringify!(name)
+        )
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).exts) as usize - ptr as usize },
+        8usize,
         concat!(
             "Offset of field: ",
             stringify!(lysc_type_instanceid),
@@ -18753,7 +18863,7 @@ fn bindgen_test_layout_lysc_type_instanceid() {
     );
     assert_eq!(
         unsafe { ::std::ptr::addr_of!((*ptr).plugin) as usize - ptr as usize },
-        8usize,
+        16usize,
         concat!(
             "Offset of field: ",
             stringify!(lysc_type_instanceid),
@@ -18765,7 +18875,7 @@ fn bindgen_test_layout_lysc_type_instanceid() {
         unsafe {
             ::std::ptr::addr_of!((*ptr).basetype) as usize - ptr as usize
         },
-        16usize,
+        24usize,
         concat!(
             "Offset of field: ",
             stringify!(lysc_type_instanceid),
@@ -18777,7 +18887,7 @@ fn bindgen_test_layout_lysc_type_instanceid() {
         unsafe {
             ::std::ptr::addr_of!((*ptr).refcount) as usize - ptr as usize
         },
-        20usize,
+        28usize,
         concat!(
             "Offset of field: ",
             stringify!(lysc_type_instanceid),
@@ -18790,7 +18900,7 @@ fn bindgen_test_layout_lysc_type_instanceid() {
             ::std::ptr::addr_of!((*ptr).require_instance) as usize
                 - ptr as usize
         },
-        24usize,
+        32usize,
         concat!(
             "Offset of field: ",
             stringify!(lysc_type_instanceid),
@@ -18811,6 +18921,7 @@ impl Default for lysc_type_instanceid {
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct lysc_type_union {
+    pub name: *const ::std::os::raw::c_char,
     pub exts: *mut lysc_ext_instance,
     pub plugin: *mut lyplg_type,
     pub basetype: LY_DATA_TYPE::Type,
@@ -18824,7 +18935,7 @@ fn bindgen_test_layout_lysc_type_union() {
     let ptr = UNINIT.as_ptr();
     assert_eq!(
         ::std::mem::size_of::<lysc_type_union>(),
-        32usize,
+        40usize,
         concat!("Size of: ", stringify!(lysc_type_union))
     );
     assert_eq!(
@@ -18833,8 +18944,18 @@ fn bindgen_test_layout_lysc_type_union() {
         concat!("Alignment of ", stringify!(lysc_type_union))
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).exts) as usize - ptr as usize },
+        unsafe { ::std::ptr::addr_of!((*ptr).name) as usize - ptr as usize },
         0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(lysc_type_union),
+            "::",
+            stringify!(name)
+        )
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).exts) as usize - ptr as usize },
+        8usize,
         concat!(
             "Offset of field: ",
             stringify!(lysc_type_union),
@@ -18844,7 +18965,7 @@ fn bindgen_test_layout_lysc_type_union() {
     );
     assert_eq!(
         unsafe { ::std::ptr::addr_of!((*ptr).plugin) as usize - ptr as usize },
-        8usize,
+        16usize,
         concat!(
             "Offset of field: ",
             stringify!(lysc_type_union),
@@ -18856,7 +18977,7 @@ fn bindgen_test_layout_lysc_type_union() {
         unsafe {
             ::std::ptr::addr_of!((*ptr).basetype) as usize - ptr as usize
         },
-        16usize,
+        24usize,
         concat!(
             "Offset of field: ",
             stringify!(lysc_type_union),
@@ -18868,7 +18989,7 @@ fn bindgen_test_layout_lysc_type_union() {
         unsafe {
             ::std::ptr::addr_of!((*ptr).refcount) as usize - ptr as usize
         },
-        20usize,
+        28usize,
         concat!(
             "Offset of field: ",
             stringify!(lysc_type_union),
@@ -18878,7 +18999,7 @@ fn bindgen_test_layout_lysc_type_union() {
     );
     assert_eq!(
         unsafe { ::std::ptr::addr_of!((*ptr).types) as usize - ptr as usize },
-        24usize,
+        32usize,
         concat!(
             "Offset of field: ",
             stringify!(lysc_type_union),
@@ -18899,6 +19020,7 @@ impl Default for lysc_type_union {
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct lysc_type_bin {
+    pub name: *const ::std::os::raw::c_char,
     pub exts: *mut lysc_ext_instance,
     pub plugin: *mut lyplg_type,
     pub basetype: LY_DATA_TYPE::Type,
@@ -18912,7 +19034,7 @@ fn bindgen_test_layout_lysc_type_bin() {
     let ptr = UNINIT.as_ptr();
     assert_eq!(
         ::std::mem::size_of::<lysc_type_bin>(),
-        32usize,
+        40usize,
         concat!("Size of: ", stringify!(lysc_type_bin))
     );
     assert_eq!(
@@ -18921,8 +19043,18 @@ fn bindgen_test_layout_lysc_type_bin() {
         concat!("Alignment of ", stringify!(lysc_type_bin))
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).exts) as usize - ptr as usize },
+        unsafe { ::std::ptr::addr_of!((*ptr).name) as usize - ptr as usize },
         0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(lysc_type_bin),
+            "::",
+            stringify!(name)
+        )
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).exts) as usize - ptr as usize },
+        8usize,
         concat!(
             "Offset of field: ",
             stringify!(lysc_type_bin),
@@ -18932,7 +19064,7 @@ fn bindgen_test_layout_lysc_type_bin() {
     );
     assert_eq!(
         unsafe { ::std::ptr::addr_of!((*ptr).plugin) as usize - ptr as usize },
-        8usize,
+        16usize,
         concat!(
             "Offset of field: ",
             stringify!(lysc_type_bin),
@@ -18944,7 +19076,7 @@ fn bindgen_test_layout_lysc_type_bin() {
         unsafe {
             ::std::ptr::addr_of!((*ptr).basetype) as usize - ptr as usize
         },
-        16usize,
+        24usize,
         concat!(
             "Offset of field: ",
             stringify!(lysc_type_bin),
@@ -18956,7 +19088,7 @@ fn bindgen_test_layout_lysc_type_bin() {
         unsafe {
             ::std::ptr::addr_of!((*ptr).refcount) as usize - ptr as usize
         },
-        20usize,
+        28usize,
         concat!(
             "Offset of field: ",
             stringify!(lysc_type_bin),
@@ -18966,7 +19098,7 @@ fn bindgen_test_layout_lysc_type_bin() {
     );
     assert_eq!(
         unsafe { ::std::ptr::addr_of!((*ptr).length) as usize - ptr as usize },
-        24usize,
+        32usize,
         concat!(
             "Offset of field: ",
             stringify!(lysc_type_bin),
@@ -22141,6 +22273,9 @@ extern "C" {
 extern "C" {
     pub fn lysc_node_when(node: *const lysc_node) -> *mut *mut lysc_when;
 }
+extern "C" {
+    pub fn lysc_node_lref_target(node: *const lysc_node) -> *const lysc_node;
+}
 pub type lysc_dfs_clb = ::std::option::Option<
     unsafe extern "C" fn(
         node: *mut lysc_node,
@@ -22536,6 +22671,11 @@ extern "C" {
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct lyxp_var {
+    _unused: [u8; 0],
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct rb_node {
     _unused: [u8; 0],
 }
 pub mod LYD_FORMAT {
@@ -23435,6 +23575,46 @@ fn bindgen_test_layout_lyd_value_xpath10() {
     );
 }
 impl Default for lyd_value_xpath10 {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct lyd_value_lyds_tree {
+    pub rbt: *mut rb_node,
+}
+#[test]
+fn bindgen_test_layout_lyd_value_lyds_tree() {
+    const UNINIT: ::std::mem::MaybeUninit<lyd_value_lyds_tree> =
+        ::std::mem::MaybeUninit::uninit();
+    let ptr = UNINIT.as_ptr();
+    assert_eq!(
+        ::std::mem::size_of::<lyd_value_lyds_tree>(),
+        8usize,
+        concat!("Size of: ", stringify!(lyd_value_lyds_tree))
+    );
+    assert_eq!(
+        ::std::mem::align_of::<lyd_value_lyds_tree>(),
+        8usize,
+        concat!("Alignment of ", stringify!(lyd_value_lyds_tree))
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).rbt) as usize - ptr as usize },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(lyd_value_lyds_tree),
+            "::",
+            stringify!(rbt)
+        )
+    );
+}
+impl Default for lyd_value_lyds_tree {
     fn default() -> Self {
         let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
         unsafe {
@@ -24788,11 +24968,80 @@ impl Default for lyd_node_opaq {
         }
     }
 }
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct lyd_leafref_links_rec {
+    pub node: *const lyd_node_term,
+    pub leafref_nodes: *mut *const lyd_node_term,
+    pub target_nodes: *mut *const lyd_node_term,
+}
+#[test]
+fn bindgen_test_layout_lyd_leafref_links_rec() {
+    const UNINIT: ::std::mem::MaybeUninit<lyd_leafref_links_rec> =
+        ::std::mem::MaybeUninit::uninit();
+    let ptr = UNINIT.as_ptr();
+    assert_eq!(
+        ::std::mem::size_of::<lyd_leafref_links_rec>(),
+        24usize,
+        concat!("Size of: ", stringify!(lyd_leafref_links_rec))
+    );
+    assert_eq!(
+        ::std::mem::align_of::<lyd_leafref_links_rec>(),
+        8usize,
+        concat!("Alignment of ", stringify!(lyd_leafref_links_rec))
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).node) as usize - ptr as usize },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(lyd_leafref_links_rec),
+            "::",
+            stringify!(node)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            ::std::ptr::addr_of!((*ptr).leafref_nodes) as usize - ptr as usize
+        },
+        8usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(lyd_leafref_links_rec),
+            "::",
+            stringify!(leafref_nodes)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            ::std::ptr::addr_of!((*ptr).target_nodes) as usize - ptr as usize
+        },
+        16usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(lyd_leafref_links_rec),
+            "::",
+            stringify!(target_nodes)
+        )
+    );
+}
+impl Default for lyd_leafref_links_rec {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 extern "C" {
     pub fn lyd_child_no_keys(node: *const lyd_node) -> *mut lyd_node;
 }
 extern "C" {
     pub fn lyd_owner_module(node: *const lyd_node) -> *const lys_module;
+}
+extern "C" {
+    pub fn lyd_node_module(node: *const lyd_node) -> *const lys_module;
 }
 extern "C" {
     pub fn lyd_is_default(node: *const lyd_node) -> ly_bool;
@@ -24831,6 +25080,9 @@ extern "C" {
     ) -> LY_ERR::Type;
 }
 extern "C" {
+    pub fn lyd_node_schema(node: *const lyd_node) -> *const lysc_node;
+}
+extern "C" {
     pub fn lyd_new_inner(
         parent: *mut lyd_node,
         module: *const lys_module,
@@ -24851,27 +25103,7 @@ extern "C" {
         parent: *mut lyd_node,
         module: *const lys_module,
         name: *const ::std::os::raw::c_char,
-        output: ly_bool,
-        node: *mut *mut lyd_node,
-        ...
-    ) -> LY_ERR::Type;
-}
-extern "C" {
-    pub fn lyd_new_list_bin(
-        parent: *mut lyd_node,
-        module: *const lys_module,
-        name: *const ::std::os::raw::c_char,
-        output: ly_bool,
-        node: *mut *mut lyd_node,
-        ...
-    ) -> LY_ERR::Type;
-}
-extern "C" {
-    pub fn lyd_new_list_canon(
-        parent: *mut lyd_node,
-        module: *const lys_module,
-        name: *const ::std::os::raw::c_char,
-        output: ly_bool,
+        options: u32,
         node: *mut *mut lyd_node,
         ...
     ) -> LY_ERR::Type;
@@ -24880,6 +25112,7 @@ extern "C" {
     pub fn lyd_new_ext_list(
         ext: *const lysc_ext_instance,
         name: *const ::std::os::raw::c_char,
+        options: u32,
         node: *mut *mut lyd_node,
         ...
     ) -> LY_ERR::Type;
@@ -24890,7 +25123,18 @@ extern "C" {
         module: *const lys_module,
         name: *const ::std::os::raw::c_char,
         keys: *const ::std::os::raw::c_char,
-        output: ly_bool,
+        options: u32,
+        node: *mut *mut lyd_node,
+    ) -> LY_ERR::Type;
+}
+extern "C" {
+    pub fn lyd_new_list3(
+        parent: *mut lyd_node,
+        module: *const lys_module,
+        name: *const ::std::os::raw::c_char,
+        key_values: *mut *const ::std::os::raw::c_char,
+        value_lengths: *mut u32,
+        options: u32,
         node: *mut *mut lyd_node,
     ) -> LY_ERR::Type;
 }
@@ -24899,8 +25143,8 @@ extern "C" {
         parent: *mut lyd_node,
         module: *const lys_module,
         name: *const ::std::os::raw::c_char,
-        val_str: *const ::std::os::raw::c_char,
-        output: ly_bool,
+        value: *const ::std::os::raw::c_char,
+        options: u32,
         node: *mut *mut lyd_node,
     ) -> LY_ERR::Type;
 }
@@ -24911,17 +25155,7 @@ extern "C" {
         name: *const ::std::os::raw::c_char,
         value: *const ::std::os::raw::c_void,
         value_len: usize,
-        output: ly_bool,
-        node: *mut *mut lyd_node,
-    ) -> LY_ERR::Type;
-}
-extern "C" {
-    pub fn lyd_new_term_canon(
-        parent: *mut lyd_node,
-        module: *const lys_module,
-        name: *const ::std::os::raw::c_char,
-        val_str: *const ::std::os::raw::c_char,
-        output: ly_bool,
+        options: u32,
         node: *mut *mut lyd_node,
     ) -> LY_ERR::Type;
 }
@@ -24929,7 +25163,9 @@ extern "C" {
     pub fn lyd_new_ext_term(
         ext: *const lysc_ext_instance,
         name: *const ::std::os::raw::c_char,
-        val_str: *const ::std::os::raw::c_char,
+        value: *const ::std::os::raw::c_void,
+        value_len: usize,
+        options: u32,
         node: *mut *mut lyd_node,
     ) -> LY_ERR::Type;
 }
@@ -24939,9 +25175,8 @@ extern "C" {
         module: *const lys_module,
         name: *const ::std::os::raw::c_char,
         value: *const ::std::os::raw::c_void,
-        use_value: ly_bool,
         value_type: LYD_ANYDATA_VALUETYPE::Type,
-        output: ly_bool,
+        options: u32,
         node: *mut *mut lyd_node,
     ) -> LY_ERR::Type;
 }
@@ -24950,8 +25185,8 @@ extern "C" {
         ext: *const lysc_ext_instance,
         name: *const ::std::os::raw::c_char,
         value: *const ::std::os::raw::c_void,
-        use_value: ly_bool,
         value_type: LYD_ANYDATA_VALUETYPE::Type,
+        options: u32,
         node: *mut *mut lyd_node,
     ) -> LY_ERR::Type;
 }
@@ -24962,7 +25197,7 @@ extern "C" {
         module: *const lys_module,
         name: *const ::std::os::raw::c_char,
         val_str: *const ::std::os::raw::c_char,
-        clear_dflt: ly_bool,
+        options: u32,
         meta: *mut *mut lyd_meta,
     ) -> LY_ERR::Type;
 }
@@ -24970,7 +25205,7 @@ extern "C" {
     pub fn lyd_new_meta2(
         ctx: *const ly_ctx,
         parent: *mut lyd_node,
-        clear_dflt: ly_bool,
+        options: u32,
         attr: *const lyd_attr,
         meta: *mut *mut lyd_meta,
     ) -> LY_ERR::Type;
@@ -25122,10 +25357,10 @@ extern "C" {
     ) -> LY_ERR::Type;
 }
 extern "C" {
-    pub fn lyd_unlink_siblings(node: *mut lyd_node);
+    pub fn lyd_unlink_siblings(node: *mut lyd_node) -> LY_ERR::Type;
 }
 extern "C" {
-    pub fn lyd_unlink_tree(node: *mut lyd_node);
+    pub fn lyd_unlink_tree(node: *mut lyd_node) -> LY_ERR::Type;
 }
 extern "C" {
     pub fn lyd_free_all(node: *mut lyd_node);
@@ -25329,12 +25564,6 @@ extern "C" {
         diff: *mut *mut lyd_node,
     ) -> LY_ERR::Type;
 }
-extern "C" {
-    pub fn lyd_target(
-        path: *const ly_path,
-        tree: *const lyd_node,
-    ) -> *const lyd_node_term;
-}
 pub mod LYD_PATH_TYPE {
     pub type Type = ::std::os::raw::c_uint;
     pub const LYD_PATH_STD: Type = 0;
@@ -25415,15 +25644,6 @@ extern "C" {
         ctx_node: *const lyd_node,
         tree: *const lyd_node,
         xpath: *const ::std::os::raw::c_char,
-        vars: *const lyxp_var,
-        set: *mut *mut ly_set,
-    ) -> LY_ERR::Type;
-}
-extern "C" {
-    pub fn lyd_find_xpath4(
-        ctx_node: *const lyd_node,
-        tree: *const lyd_node,
-        xpath: *const ::std::os::raw::c_char,
         format: LY_VALUE_FORMAT::Type,
         prefix_data: *mut ::std::os::raw::c_void,
         vars: *const lyxp_var,
@@ -25480,6 +25700,13 @@ extern "C" {
     ) -> LY_ERR::Type;
 }
 extern "C" {
+    pub fn lyd_trim_xpath(
+        tree: *mut *mut lyd_node,
+        xpath: *const ::std::os::raw::c_char,
+        vars: *const lyxp_var,
+    ) -> LY_ERR::Type;
+}
+extern "C" {
     pub fn lyd_find_path(
         ctx_node: *const lyd_node,
         path: *const ::std::os::raw::c_char,
@@ -25525,6 +25752,15 @@ extern "C" {
         ts: *const timespec,
         str_: *mut *mut ::std::os::raw::c_char,
     ) -> LY_ERR::Type;
+}
+extern "C" {
+    pub fn lyd_leafref_get_links(
+        node: *const lyd_node_term,
+        record: *mut *const lyd_leafref_links_rec,
+    ) -> LY_ERR::Type;
+}
+extern "C" {
+    pub fn lyd_leafref_link_node_tree(tree: *const lyd_node) -> LY_ERR::Type;
 }
 extern "C" {
     pub fn ly_ctx_new(
@@ -25715,9 +25951,6 @@ extern "C" {
         module: *const lys_module,
         submodule: *const ::std::os::raw::c_char,
     ) -> *const lysp_submodule;
-}
-extern "C" {
-    pub fn ly_ctx_reset_latests(ctx: *mut ly_ctx);
 }
 extern "C" {
     pub fn ly_ctx_internal_modules_count(ctx: *const ly_ctx) -> u32;
@@ -26263,12 +26496,24 @@ extern "C" {
     ) -> LY_ERR::Type;
 }
 extern "C" {
+    pub fn lyd_validate_module_final(
+        tree: *mut lyd_node,
+        module: *const lys_module,
+        val_opts: u32,
+    ) -> LY_ERR::Type;
+}
+extern "C" {
     pub fn lyd_validate_op(
         op_tree: *mut lyd_node,
         dep_tree: *const lyd_node,
         data_type: lyd_type::Type,
         diff: *mut *mut lyd_node,
     ) -> LY_ERR::Type;
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct lyplg_type_record {
+    _unused: [u8; 0],
 }
 pub mod LYPLG {
     pub type Type = ::std::os::raw::c_uint;
@@ -26277,6 +26522,20 @@ pub mod LYPLG {
 }
 extern "C" {
     pub fn lyplg_add(pathname: *const ::std::os::raw::c_char) -> LY_ERR::Type;
+}
+extern "C" {
+    pub fn lyplg_add_extension_plugin(
+        ctx: *mut ly_ctx,
+        version: u32,
+        recs: *const lyplg_ext_record,
+    ) -> LY_ERR::Type;
+}
+extern "C" {
+    pub fn lyplg_add_type_plugin(
+        ctx: *mut ly_ctx,
+        version: u32,
+        recs: *const lyplg_type_record,
+    ) -> LY_ERR::Type;
 }
 extern "C" {
     pub fn ly_realloc(
@@ -26936,7 +27195,7 @@ extern "C" {
         pctx: *const lysp_ctx,
         ext: *const lysp_ext_instance,
         level: LY_LOG_LEVEL::Type,
-        err_no: LY_ERR::Type,
+        err: LY_ERR::Type,
         format: *const ::std::os::raw::c_char,
         ...
     );
@@ -26964,7 +27223,7 @@ extern "C" {
         cctx: *const lysc_ctx,
         ext: *const lysc_ext_instance,
         level: LY_LOG_LEVEL::Type,
-        err_no: LY_ERR::Type,
+        err: LY_ERR::Type,
         format: *const ::std::os::raw::c_char,
         ...
     );
@@ -26974,14 +27233,14 @@ extern "C" {
         path: *const ::std::os::raw::c_char,
         ext: *const lysc_ext_instance,
         level: LY_LOG_LEVEL::Type,
-        err_no: LY_ERR::Type,
+        err: LY_ERR::Type,
         format: *const ::std::os::raw::c_char,
         ...
     );
 }
 extern "C" {
     pub fn lyplg_ext_compile_log_err(
-        err: *const ly_err_item,
+        eitem: *const ly_err_item,
         ext: *const lysc_ext_instance,
     );
 }
@@ -27701,6 +27960,9 @@ extern "C" {
         options: u32,
     ) -> ly_bool;
 }
+extern "C" {
+    pub fn lyd_metadata_should_print(meta: *const lyd_meta) -> ly_bool;
+}
 pub mod LYS_OUTFORMAT {
     pub type Type = ::std::os::raw::c_uint;
     pub const LYS_OUT_UNKNOWN: Type = 0;
@@ -27951,6 +28213,15 @@ extern "C" {
 }
 extern "C" {
     pub fn ly_set_rm_index(
+        set: *mut ly_set,
+        index: u32,
+        destructor: ::std::option::Option<
+            unsafe extern "C" fn(obj: *mut ::std::os::raw::c_void),
+        >,
+    ) -> LY_ERR::Type;
+}
+extern "C" {
+    pub fn ly_set_rm_index_ordered(
         set: *mut ly_set,
         index: u32,
         destructor: ::std::option::Option<

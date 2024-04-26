@@ -356,18 +356,6 @@ impl Context {
         self.modules(false).flat_map(|module| module.traverse())
     }
 
-    /// Reset cached latest revision information of the schemas in the context.
-    ///
-    /// When a (sub)module is imported/included without revision, the latest
-    /// revision is searched. libyang searches for the latest revision in
-    /// searchdir. Then it is expected that the content of searchdirs does not
-    /// change. So when it changes, it is necessary to force searching for the
-    /// latest revision in case of loading another module, which what this
-    /// function does.
-    pub fn reset_latests(&mut self) {
-        unsafe { ffi::ly_ctx_reset_latests(self.raw) };
-    }
-
     /// Learn the number of internal modules of the context. Internal modules is
     /// considered one that was loaded during the context creation.
     pub fn internal_module_count(&self) -> u32 {

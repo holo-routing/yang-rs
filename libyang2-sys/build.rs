@@ -25,7 +25,7 @@ fn main() {
         pregen_bindings.push(env::var("CARGO_MANIFEST_DIR").unwrap());
         pregen_bindings.push("pre-generated-bindings");
         pregen_bindings
-            .push("libyang2-fc4dbd923e044006c93df020590a1e5a8656c09e.rs");
+            .push("libyang2-4c733412e7173219166be7053940326a92699765.rs");
 
         std::fs::copy(&pregen_bindings, &out_file)
             .expect("Unable to copy pre-generated libyang2 bindings");
@@ -54,7 +54,6 @@ fn main() {
             .include("libyang/src")
             .include("libyang/src/plugins_exts")
             .file("libyang/compat/compat.c")
-            .file("libyang/src/common.c")
             .file("libyang/src/context.c")
             .file("libyang/src/dict.c")
             .file("libyang/src/diff.c")
@@ -63,6 +62,7 @@ fn main() {
             .file("libyang/src/json.c")
             .file("libyang/src/log.c")
             .file("libyang/src/lyb.c")
+            .file("libyang/src/ly_common.c")
             .file("libyang/src/out.c")
             .file("libyang/src/parser_common.c")
             .file("libyang/src/parser_json.c")
@@ -98,6 +98,7 @@ fn main() {
             .file("libyang/src/plugins_types/ipv6_address_no_zone.c")
             .file("libyang/src/plugins_types/ipv6_prefix.c")
             .file("libyang/src/plugins_types/leafref.c")
+            .file("libyang/src/plugins_types/lyds_tree.c")
             .file("libyang/src/plugins_types/node_instanceid.c")
             .file("libyang/src/plugins_types/string.c")
             .file("libyang/src/plugins_types/union.c")
@@ -120,6 +121,7 @@ fn main() {
             .file("libyang/src/tree_data_free.c")
             .file("libyang/src/tree_data_hash.c")
             .file("libyang/src/tree_data_new.c")
+            .file("libyang/src/tree_data_sorted.c")
             .file("libyang/src/tree_schema.c")
             .file("libyang/src/tree_schema_common.c")
             .file("libyang/src/tree_schema_free.c")

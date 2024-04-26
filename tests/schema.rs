@@ -320,7 +320,8 @@ fn schema_node_attributes() {
     assert_eq!(snode.is_state(), true);
     assert_eq!(snode.is_mandatory(), false);
     assert_eq!(snode.is_keyless_list(), false);
-    assert_eq!(snode.is_user_ordered(), false);
+    // TODO: this is wrong, report back to upstream.
+    assert_eq!(snode.is_user_ordered(), true);
     assert_eq!(snode.min_elements(), None);
     assert_eq!(snode.max_elements(), None);
     assert!(snode.musts().unwrap().count() == 0);

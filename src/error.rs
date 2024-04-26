@@ -22,13 +22,20 @@ pub struct Error {
 
 impl Error {
     pub fn new(ctx: &Context) -> Error {
-        let errcode = unsafe { ffi::ly_errcode(ctx.raw) };
-        let msg = unsafe { ffi::ly_errmsg(ctx.raw) };
-        let msg = char_ptr_to_opt_string(msg);
-        let path = unsafe { ffi::ly_errpath(ctx.raw) };
-        let path = char_ptr_to_opt_string(path);
-        let apptag = unsafe { ffi::ly_errapptag(ctx.raw) };
-        let apptag = char_ptr_to_opt_string(apptag);
+        let error = unsafe { ffi::ly_err_last(ctx.raw) };
+        if error.is_null() {
+            return Self {
+                errcode: ffi::LY_ERR::LY_EOTHER,
+                msg: None,
+                path: None,
+                apptag: None,
+            };
+        }
+
+        let errcode = unsafe { (*error).err };
+        let msg = unsafe { char_ptr_to_opt_string((*error).msg) };
+        let path = unsafe { char_ptr_to_opt_string((*error).data_path) };
+        let apptag = unsafe { char_ptr_to_opt_string((*error).apptag) };
 
         Self {
             errcode,

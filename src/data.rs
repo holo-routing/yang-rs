@@ -474,7 +474,7 @@ impl DataTree {
 
         let mut options = ffi::LYD_NEW_PATH_UPDATE;
         if output {
-            options |= ffi::LYD_NEW_PATH_OUTPUT;
+            options |= ffi::LYD_NEW_VAL_OUTPUT;
         }
 
         let ret = unsafe {

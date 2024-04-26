@@ -2,7 +2,7 @@ use std::sync::Arc;
 
 use criterion::{criterion_group, criterion_main, BenchmarkId, Criterion};
 use yang2::context::{Context, ContextFlags};
-use yang2::data::{Data, DataTree, DataValidationFlags, DataDiffFlags};
+use yang2::data::{Data, DataDiffFlags, DataTree, DataValidationFlags};
 
 static SEARCH_DIR: &str = "./assets/yang/";
 
@@ -38,14 +38,18 @@ fn criterion_benchmark(c: &mut Criterion) {
     ];
 
     // Initialize context.
-    let mut ctx = Arc::new(Context::new(ContextFlags::NO_YANGLIBRARY)
-        .expect("Failed to create context"));
-    (*Arc::get_mut(&mut ctx).unwrap()).set_searchdir(SEARCH_DIR)
+    let mut ctx = Arc::new(
+        Context::new(ContextFlags::NO_YANGLIBRARY)
+            .expect("Failed to create context"),
+    );
+    (*Arc::get_mut(&mut ctx).unwrap())
+        .set_searchdir(SEARCH_DIR)
         .expect("Failed to set YANG search directory");
 
     // Load YANG modules.
     for module_name in &["ietf-interfaces", "iana-if-type"] {
-        (*Arc::get_mut(&mut ctx).unwrap()).load_module(module_name, None, &[])
+        (*Arc::get_mut(&mut ctx).unwrap())
+            .load_module(module_name, None, &[])
             .expect("Failed to load module");
     }
 

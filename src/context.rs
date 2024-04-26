@@ -397,7 +397,6 @@ impl Context {
     ) -> Result<SchemaModule<'_>> {
         let name = CString::new(name).unwrap();
         let revision_cstr;
-        let features_cstr;
         let mut features_ptr;
 
         // Prepare revision string.
@@ -410,7 +409,7 @@ impl Context {
         };
 
         // Prepare features array.
-        features_cstr = features
+        let features_cstr = features
             .iter()
             .map(|feature| CString::new(*feature).unwrap())
             .collect::<Vec<_>>();

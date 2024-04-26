@@ -37,8 +37,6 @@
 //!
 //! See <https://github.com/holo-routing/yang2-rs/tree/master/examples>
 
-#![warn(rust_2018_idioms)]
-
 mod error;
 
 pub mod context;

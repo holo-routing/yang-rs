@@ -713,7 +713,7 @@ impl<'a> SchemaNode<'a> {
                 _ => return None,
             }
         };
-        if max != std::u32::MAX {
+        if max != u32::MAX {
             Some(max)
         } else {
             None

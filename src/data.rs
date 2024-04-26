@@ -789,9 +789,8 @@ impl<'a> DataNodeRef<'a> {
             SchemaNodeKind::Leaf | SchemaNodeKind::LeafList => {
                 let rnode = self.raw as *const ffi::lyd_node_term;
                 let rvalue = unsafe { (*rnode).value };
-                let value = unsafe {
-                    DataValue::from_raw(&*self.tree.context, &rvalue)
-                };
+                let value =
+                    unsafe { DataValue::from_raw(&self.tree.context, &rvalue) };
                 Some(value)
             }
             _ => None,

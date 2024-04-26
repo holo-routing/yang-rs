@@ -21,6 +21,12 @@ num-derive = "0.4"
 [dev-dependencies]
 criterion = "0.3.3"
 
+[lints.rust]
+rust_2018_idioms = "warn"
+
+[lints.clippy]
+missing_safety_doc = "allow"
+
 [[bench]]
 name = "data"
 harness = false

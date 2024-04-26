@@ -28,7 +28,7 @@ For raw FFI bindings for libyang2, see [libyang2-sys].
 
 ```toml
 [dependencies]
-yang2 = "0.9"
+yang2 = "0.10"
 ```
 ## Design Goals
 * Provide high-level bindings for libyang2 using idiomatic Rust
@@ -41,7 +41,7 @@ By default, yang2-rs uses pre-generated FFI bindings and uses dynamic linking to
 * **bundled**: instructs cargo to download and build libyang2 from the sources. The resulting objects are grouped into a static archive linked to this crate. This feature can be used when having a libyang2 dynamic link dependency isn't desirable.
   * Additional build requirements: *cc 1.0*, *cmake 0.1*, a C compiler and CMake.
 * **use_bindgen**: generate new C FFI bindings dynamically instead of using the pre-generated ones. Useful when updating this crate to use newer libyang2 versions.
-  * Additional build requirements: *bindgen 0.55.0*
+  * Additional build requirements: *bindgen 0.68.0*
 
 ## Example
 

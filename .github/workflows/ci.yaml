@@ -84,4 +84,5 @@ jobs:
           # required for private repositories:
           # token: ${{ secrets.CODECOV_TOKEN }}
           files: ./lcov.info
-          fail_ci_if_error: true
+          fail_ci_if_error: false
+          token: ${{ secrets.CODECOV_TOKEN }}

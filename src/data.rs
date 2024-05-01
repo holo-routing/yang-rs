@@ -859,6 +859,66 @@ impl<'a> DataNodeRef<'a> {
             Some(priv_)
         }
     }
+
+    /// Create a new inner node in the data tree.
+    ///
+    /// Returns the created node.
+    pub fn new_inner(
+        &mut self,
+        module: Option<&SchemaModule<'_>>,
+        name: &str,
+    ) -> Result<DataNodeRef<'_>> {
+        let name_cstr = CString::new(name).unwrap();
+        let mut rnode = std::ptr::null_mut();
+        let rnode_ptr = &mut rnode;
+
+        let ret = unsafe {
+            ffi::lyd_new_inner(
+                self.raw(),
+                module
+                    .map(|module| module.raw())
+                    .unwrap_or(std::ptr::null_mut()),
+                name_cstr.as_ptr(),
+                0,
+                rnode_ptr,
+            )
+        };
+        if ret != ffi::LY_ERR::LY_SUCCESS {
+            return Err(Error::new(self.context()));
+        }
+
+        Ok(unsafe { DataNodeRef::from_raw(self.tree(), rnode) })
+    }
+
+    /// Create a new term node in the data tree.
+    pub fn new_term(
+        &mut self,
+        module: Option<&SchemaModule<'_>>,
+        name: &str,
+        value: &str,
+    ) -> Result<()> {
+        let name_cstr = CString::new(name).unwrap();
+        let value_cstr = CString::new(value).unwrap();
+        let options = 0;
+
+        let ret = unsafe {
+            ffi::lyd_new_term(
+                self.raw(),
+                module
+                    .map(|module| module.raw())
+                    .unwrap_or(std::ptr::null_mut()),
+                name_cstr.as_ptr(),
+                value_cstr.as_ptr(),
+                options,
+                std::ptr::null_mut(),
+            )
+        };
+        if ret != ffi::LY_ERR::LY_SUCCESS {
+            return Err(Error::new(self.context()));
+        }
+
+        Ok(())
+    }
 }
 
 impl<'a> Data for DataNodeRef<'a> {

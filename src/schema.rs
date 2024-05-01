@@ -153,6 +153,12 @@ pub enum DataValue {
 // ===== impl SchemaModule =====
 
 impl<'a> SchemaModule<'a> {
+    /// Returns a mutable raw pointer to the underlying C library representation
+    /// of the module.
+    pub(crate) fn raw(&self) -> *mut ffi::lys_module {
+        self.raw
+    }
+
     /// Name of the module.
     pub fn name(&self) -> &str {
         char_ptr_to_str(unsafe { (*self.raw).name })

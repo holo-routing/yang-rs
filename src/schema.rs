@@ -668,6 +668,23 @@ impl<'a> SchemaNode<'a> {
         Some(DataValueType::from_u32(ltype).unwrap())
     }
 
+    /// Referenced typedef name of the leaf(-list).
+    pub fn typedef_name(&self) -> Option<String> {
+        let ltype = unsafe {
+            match self.kind() {
+                SchemaNodeKind::Leaf => {
+                    (*(self.raw as *mut ffi::lysc_node_leaf)).type_
+                }
+                SchemaNodeKind::LeafList => {
+                    (*(self.raw as *mut ffi::lysc_node_leaflist)).type_
+                }
+                _ => return None,
+            }
+        };
+        let ltypedef = unsafe { (*ltype).name };
+        char_ptr_to_opt_string(ltypedef)
+    }
+
     /// Units of the leaf(-list)'s type.
     pub fn units(&self) -> Option<&str> {
         let units = unsafe {

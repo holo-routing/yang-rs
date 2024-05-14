@@ -895,11 +895,19 @@ impl<'a> DataNodeRef<'a> {
         &mut self,
         module: Option<&SchemaModule<'_>>,
         name: &str,
-        value: &str,
+        value: Option<&str>,
     ) -> Result<()> {
         let name_cstr = CString::new(name).unwrap();
-        let value_cstr = CString::new(value).unwrap();
+        let value_cstr;
         let options = 0;
+
+        let value_ptr = match value {
+            Some(value) => {
+                value_cstr = CString::new(value).unwrap();
+                value_cstr.as_ptr()
+            }
+            None => std::ptr::null(),
+        };
 
         let ret = unsafe {
             ffi::lyd_new_term(
@@ -908,7 +916,7 @@ impl<'a> DataNodeRef<'a> {
                     .map(|module| module.raw())
                     .unwrap_or(std::ptr::null_mut()),
                 name_cstr.as_ptr(),
-                value_cstr.as_ptr(),
+                value_ptr,
                 options,
                 std::ptr::null_mut(),
             )

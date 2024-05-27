@@ -109,6 +109,13 @@ pub struct SchemaStmtWhen<'a> {
     _marker: std::marker::PhantomData<&'a Context>,
 }
 
+/// YANG leaf(-list) type.
+#[derive(Clone, Debug)]
+pub struct SchemaLeafType<'a> {
+    context: &'a Context,
+    raw: *mut ffi::lysc_type,
+}
+
 /// YANG data value type.
 #[derive(Copy, Clone, Debug, PartialEq, FromPrimitive)]
 pub enum DataValueType {
@@ -651,9 +658,9 @@ impl<'a> SchemaNode<'a> {
 
     // TODO: list of leaf-list default values.
 
-    /// Resolved base type.
-    pub fn base_type(&self) -> Option<DataValueType> {
-        let ltype = unsafe {
+    /// Type of the leaf(-list) node.
+    pub fn leaf_type(&self) -> Option<SchemaLeafType<'_>> {
+        let raw = unsafe {
             match self.kind() {
                 SchemaNodeKind::Leaf => {
                     (*(self.raw as *mut ffi::lysc_node_leaf)).type_
@@ -664,25 +671,8 @@ impl<'a> SchemaNode<'a> {
                 _ => return None,
             }
         };
-        let ltype = unsafe { (*ltype).basetype };
-        Some(DataValueType::from_u32(ltype).unwrap())
-    }
-
-    /// Referenced typedef name of the leaf(-list).
-    pub fn typedef_name(&self) -> Option<String> {
-        let ltype = unsafe {
-            match self.kind() {
-                SchemaNodeKind::Leaf => {
-                    (*(self.raw as *mut ffi::lysc_node_leaf)).type_
-                }
-                SchemaNodeKind::LeafList => {
-                    (*(self.raw as *mut ffi::lysc_node_leaflist)).type_
-                }
-                _ => return None,
-            }
-        };
-        let ltypedef = unsafe { (*ltype).name };
-        char_ptr_to_opt_string(ltypedef)
+        let ltype = unsafe { SchemaLeafType::from_raw(self.context, raw) };
+        Some(ltype)
     }
 
     /// Units of the leaf(-list)'s type.
@@ -1036,6 +1026,51 @@ unsafe impl<'a> Binding<'a> for SchemaStmtWhen<'a> {
 
 unsafe impl Send for SchemaStmtWhen<'_> {}
 unsafe impl Sync for SchemaStmtWhen<'_> {}
+
+// ===== impl SchemaLeafType =====
+
+impl<'a> SchemaLeafType<'a> {
+    /// Returns the resolved base type.
+    pub fn base_type(&self) -> DataValueType {
+        let base_type = unsafe { (*self.raw).basetype };
+        DataValueType::from_u32(base_type).unwrap()
+    }
+
+    /// Returns the typedef name if it exists.
+    pub fn typedef_name(&self) -> Option<String> {
+        let typedef = unsafe { (*self.raw).name };
+        char_ptr_to_opt_string(typedef)
+    }
+
+    /// Returns the real type of the leafref, corresponding to the first
+    /// non-leafref in a possible chain of leafrefs.
+    pub fn leafref_real_type(&self) -> Option<SchemaLeafType<'_>> {
+        if self.base_type() != DataValueType::LeafRef {
+            return None;
+        }
+
+        let leafref = self.raw as *mut ffi::lysc_type_leafref;
+        let real_type = unsafe { (*leafref).realtype };
+        let ltype =
+            unsafe { SchemaLeafType::from_raw(self.context, real_type) };
+        Some(ltype)
+    }
+}
+
+unsafe impl<'a> Binding<'a> for SchemaLeafType<'a> {
+    type CType = ffi::lysc_type;
+    type Container = Context;
+
+    unsafe fn from_raw(
+        context: &'a Context,
+        raw: *mut ffi::lysc_type,
+    ) -> SchemaLeafType<'_> {
+        SchemaLeafType { context, raw }
+    }
+}
+
+unsafe impl Send for SchemaLeafType<'_> {}
+unsafe impl Sync for SchemaLeafType<'_> {}
 
 // ===== impl DataValue =====
 

@@ -279,7 +279,7 @@ fn schema_node_attributes() {
     assert_eq!(snode.is_mandatory(), false);
     assert_eq!(snode.default_value_canonical(), Some("true"));
     assert_eq!(snode.default_value(), Some(DataValue::Bool(true)));
-    assert_eq!(snode.base_type(), Some(DataValueType::Bool));
+    assert_eq!(snode.leaf_type().unwrap().base_type(), DataValueType::Bool);
     assert!(snode.units().is_none());
     assert!(snode.musts().unwrap().count() == 0);
     assert!(snode.whens().count() == 0);

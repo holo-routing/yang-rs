@@ -927,6 +927,12 @@ impl<'a> DataNodeRef<'a> {
 
         Ok(())
     }
+
+    /// Remove the data node.
+    pub fn remove(&mut self) {
+        unsafe { ffi::lyd_unlink_tree(self.raw()) };
+        unsafe { ffi::lyd_free_tree(self.raw()) };
+    }
 }
 
 impl<'a> Data for DataNodeRef<'a> {

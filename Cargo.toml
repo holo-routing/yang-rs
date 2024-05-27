@@ -1,6 +1,6 @@
 [package]
 name = "yang2"
-version = "0.12.0"
+version = "0.13.0"
 authors = ["Renato Westphal <renato@opensourcerouting.org>"]
 description = "libyang2 bindings for Rust"
 keywords = ["yang", "libyang"]

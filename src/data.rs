@@ -860,7 +860,8 @@ impl<'a> DataNodeRef<'a> {
         }
     }
 
-    /// Create a new inner node in the data tree.
+    /// Create a new inner node (container, notification, RPC or action) in the
+    /// data tree.
     ///
     /// Returns the created node.
     pub fn new_inner(
@@ -880,6 +881,90 @@ impl<'a> DataNodeRef<'a> {
                     .unwrap_or(std::ptr::null_mut()),
                 name_cstr.as_ptr(),
                 0,
+                rnode_ptr,
+            )
+        };
+        if ret != ffi::LY_ERR::LY_SUCCESS {
+            return Err(Error::new(self.context()));
+        }
+
+        Ok(unsafe { DataNodeRef::from_raw(self.tree(), rnode) })
+    }
+
+    /// Create a new list node in the data tree.
+    ///
+    /// The `keys` parameter should be a string containing key-value pairs in
+    /// the format:"[key1='val1'][key2='val2']...". The order of the key-value
+    /// pairs does not matter.
+    ///
+    /// Returns the created node.
+    pub fn new_list(
+        &mut self,
+        module: Option<&SchemaModule<'_>>,
+        name: &str,
+        keys: &str,
+    ) -> Result<DataNodeRef<'_>> {
+        let name_cstr = CString::new(name).unwrap();
+        let keys_cstr = CString::new(keys).unwrap();
+        let mut rnode = std::ptr::null_mut();
+        let rnode_ptr = &mut rnode;
+        let options = 0;
+
+        let ret = unsafe {
+            ffi::lyd_new_list2(
+                self.raw(),
+                module
+                    .map(|module| module.raw())
+                    .unwrap_or(std::ptr::null_mut()),
+                name_cstr.as_ptr(),
+                keys_cstr.as_ptr(),
+                options,
+                rnode_ptr,
+            )
+        };
+        if ret != ffi::LY_ERR::LY_SUCCESS {
+            return Err(Error::new(self.context()));
+        }
+
+        Ok(unsafe { DataNodeRef::from_raw(self.tree(), rnode) })
+    }
+
+    /// Create a new list node in the data tree.
+    ///
+    /// The `keys` parameter should be a slice of strings representing the key
+    /// values for the new list instance. All keys must be provided in the
+    /// correct order.
+    ///
+    /// Returns the created node.
+    pub fn new_list2(
+        &mut self,
+        module: Option<&SchemaModule<'_>>,
+        name: &str,
+        keys: &[impl AsRef<str>],
+    ) -> Result<DataNodeRef<'_>> {
+        let name_cstr = CString::new(name).unwrap();
+        let mut rnode = std::ptr::null_mut();
+        let rnode_ptr = &mut rnode;
+        let options = 0;
+
+        // Convert keys to raw pointers.
+        let keys: Vec<CString> = keys
+            .iter()
+            .map(|key| CString::new(key.as_ref()).unwrap())
+            .collect();
+        let mut keys: Vec<*const c_char> =
+            keys.iter().map(|key| key.as_ptr()).collect();
+
+        let ret = unsafe {
+            ffi::lyd_new_list3(
+                self.raw(),
+                module
+                    .map(|module| module.raw())
+                    .unwrap_or(std::ptr::null_mut()),
+                name_cstr.as_ptr(),
+                keys.as_mut_ptr(),
+                std::ptr::null_mut(),
+                options,
                 rnode_ptr,
             )
         };

@@ -838,6 +838,14 @@ impl<'a> DataNodeRef<'a> {
             return Err(Error::new(self.context()));
         }
 
+        if with_parents {
+            let mut dnode = unsafe { DataNodeRef::from_raw(self.tree, dup) };
+            while let Some(parent) = dnode.parent() {
+                dnode = parent;
+            }
+            dup = dnode.raw();
+        }
+
         Ok(unsafe { DataTree::from_raw(self.context(), dup) })
     }
 

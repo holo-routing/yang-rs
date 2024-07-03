@@ -390,6 +390,7 @@ fn data_duplicate_subtree() {
             .map(|dnode| dnode.path())
             .collect::<Vec<String>>(),
         vec![
+            "/ietf-interfaces:interfaces",
             "/ietf-interfaces:interfaces/interface[name='eth/0/0']",
             "/ietf-interfaces:interfaces/interface[name='eth/0/0']/name",
             "/ietf-interfaces:interfaces/interface[name='eth/0/0']/description",

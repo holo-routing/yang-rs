@@ -1,5 +1,5 @@
 //
-// Copyright (c) The yang2-rs Core Contributors
+// Copyright (c) The yang-rs Core Contributors
 //
 // SPDX-License-Identifier: MIT
 //
@@ -19,13 +19,13 @@ use crate::error::{Error, Result};
 use crate::iter::{SchemaModules, Set};
 use crate::schema::{SchemaModule, SchemaNode};
 use crate::utils::*;
-use libyang2_sys as ffi;
+use libyang3_sys as ffi;
 
 /// Context of the YANG schemas.
 ///
 /// [Official C documentation]
 ///
-/// [Official C documentation]: https://netopeer.liberouter.org/doc/libyang/libyang2/html/howto_context.html
+/// [Official C documentation]: https://netopeer.liberouter.org/doc/libyang/master/html/howto_context.html
 #[derive(Debug, PartialEq)]
 pub struct Context {
     pub(crate) raw: *mut ffi::ly_ctx,

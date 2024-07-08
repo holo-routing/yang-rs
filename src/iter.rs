@@ -1,5 +1,5 @@
 //
-// Copyright (c) The yang2-rs Core Contributors
+// Copyright (c) The yang-rs Core Contributors
 //
 // SPDX-License-Identifier: MIT
 //
@@ -10,7 +10,7 @@ use crate::context::Context;
 use crate::data::Metadata;
 use crate::schema::SchemaModule;
 use crate::utils::Binding;
-use libyang2_sys as ffi;
+use libyang3_sys as ffi;
 
 /// Common methods used by multiple data and schema node iterators.
 #[doc(hidden)]
@@ -73,8 +73,8 @@ where
 
 /// An iterator over an array of nodes or substatements.
 ///
-/// This is a safe wrapper around libyang2's
-/// [sized arrays](https://netopeer.liberouter.org/doc/libyang/libyang2/html/howto_structures.html#sizedarrays).
+/// This is a safe wrapper around libyang3's
+/// [sized arrays](https://netopeer.liberouter.org/doc/libyang/master/html/howto_structures.html).
 #[derive(Debug)]
 pub struct Array<'a, S: Binding<'a>> {
     context: &'a Context,

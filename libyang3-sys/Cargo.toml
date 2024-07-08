@@ -1,12 +1,12 @@
 [package]
-name = "libyang2-sys"
-version = "0.9.0"
+name = "libyang3-sys"
+version = "0.1.0"
 authors = ["Renato Westphal <renato@opensourcerouting.org>"]
-description = "Raw FFI bindings for libyang2"
+description = "Raw FFI bindings for libyang3"
 keywords = ["yang", "libyang"]
 edition = "2018"
 license = "MIT"
-documentation = "https://docs.rs/libyang2-sys"
+documentation = "https://docs.rs/libyang3-sys"
 categories = ["external-ffi-bindings"]
 
 [dependencies]
@@ -21,8 +21,8 @@ pkg-config = "0.3.27"
 # Use pre-generated FFI bindings
 default = []
 # Generate FFI bindings dynamically.
-# For this to work libyang2 needs to be installed in the system.
-use_bindgen = ["bindgen"]
-# Bundle libyang2 C files into a static archive linked to this crate.
-# This removes the libyang2 dynamic link dependency.
-bundled = ["cc", "cmake"]
+# For this to work libyang3 needs to be installed in the system.
+bindgen = ["dep:bindgen"]
+# Bundle libyang3 C files into a static archive linked to this crate.
+# This removes the libyang3 dynamic link dependency.
+bundled = ["dep:cc", "dep:cmake"]

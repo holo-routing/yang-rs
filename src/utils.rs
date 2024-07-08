@@ -1,5 +1,5 @@
 //
-// Copyright (c) The yang2-rs Core Contributors
+// Copyright (c) The yang-rs Core Contributors
 //
 // SPDX-License-Identifier: MIT
 //

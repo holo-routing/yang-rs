@@ -1,4 +1,4 @@
-# yang2-rs
+# yang-rs
 
 [![Crates.io][crates-badge]][crates-url]
 [![Documentation][docs-badge]][docs-url]
@@ -6,41 +6,41 @@
 [![Build Status][actions-badge]][actions-url]
 [![codecov][codecov-badge]][codecov-url]
 
-[crates-badge]: https://img.shields.io/crates/v/yang2.svg
-[crates-url]: https://crates.io/crates/yang2
-[docs-badge]: https://docs.rs/yang2/badge.svg
-[docs-url]: https://docs.rs/yang2
+[crates-badge]: https://img.shields.io/crates/v/yang3.svg
+[crates-url]: https://crates.io/crates/yang3
+[docs-badge]: https://docs.rs/yang3/badge.svg
+[docs-url]: https://docs.rs/yang3
 [mit-badge]: https://img.shields.io/badge/license-MIT-blue.svg
-[mit-url]: https://github.com/holo-routing/yang2-rs/blob/master/LICENSE
-[actions-badge]: https://github.com/holo-routing/yang2-rs/workflows/CI/badge.svg
-[actions-url]: https://github.com/holo-routing/yang2-rs/actions?query=workflow%3ACI+branch%3Amaster
-[codecov-badge]: https://codecov.io/gh/holo-routing/yang2-rs/branch/master/graph/badge.svg?token=1KE3JMHG0H
-[codecov-url]: https://codecov.io/gh/holo-routing/yang2-rs
+[mit-url]: https://github.com/holo-routing/yang-rs/blob/master/LICENSE
+[actions-badge]: https://github.com/holo-routing/yang-rs/workflows/CI/badge.svg
+[actions-url]: https://github.com/holo-routing/yang-rs/actions?query=workflow%3ACI+branch%3Amaster
+[codecov-badge]: https://codecov.io/gh/holo-routing/yang-rs/branch/master/graph/badge.svg?token=1KE3JMHG0H
+[codecov-url]: https://codecov.io/gh/holo-routing/yang-rs
 
-Rust bindings for the [libyang2] library.
+Rust bindings for the [libyang] library.
 
-For raw FFI bindings for libyang2, see [libyang2-sys].
+For raw FFI bindings for libyang, see [libyang-sys].
 
-[libyang2]: https://github.com/CESNET/libyang/tree/libyang2
-[libyang2-sys]: https://github.com/holo-routing/yang2-rs/tree/master/libyang2-sys
+[libyang]: https://github.com/CESNET/libyang/tree/libyang
+[libyang-sys]: https://github.com/holo-routing/yang-rs/tree/master/libyang-sys
 
 #### Cargo.toml
 
 ```toml
 [dependencies]
-yang2 = "0.13"
+yang3 = "0.1"
 ```
 ## Design Goals
-* Provide high-level bindings for libyang2 using idiomatic Rust
+* Provide high-level bindings for libyang using idiomatic Rust
 * Leverage Rust's ownership system to detect API misuse problems at compile time
 * Automatic resource management
 * Zero-cost abstractions
 
 ## Feature flags
-By default, yang2-rs uses pre-generated FFI bindings and uses dynamic linking to load libyang2. The following feature flags, however, can be used to change that behavior:
-* **bundled**: instructs cargo to download and build libyang2 from the sources. The resulting objects are grouped into a static archive linked to this crate. This feature can be used when having a libyang2 dynamic link dependency isn't desirable.
+By default, yang-rs uses pre-generated FFI bindings and uses dynamic linking to load libyang. The following feature flags, however, can be used to change that behavior:
+* **bundled**: instructs cargo to download and build libyang from the sources. The resulting objects are grouped into a static archive linked to this crate. This feature can be used when having a libyang dynamic link dependency isn't desirable.
   * Additional build requirements: *cc 1.0*, *cmake 0.1*, a C compiler and CMake.
-* **use_bindgen**: generate new C FFI bindings dynamically instead of using the pre-generated ones. Useful when updating this crate to use newer libyang2 versions.
+* **use_bindgen**: generate new C FFI bindings dynamically instead of using the pre-generated ones. Useful when updating this crate to use newer libyang versions.
   * Additional build requirements: *bindgen 0.68.0*
 
 ## Example
@@ -50,8 +50,8 @@ it to the XML format:
 ```rust,no_run
 use std::sync::Arc;
 use std::fs::File;
-use yang2::context::{Context, ContextFlags};
-use yang2::data::{
+use yang3::context::{Context, ContextFlags};
+use yang3::data::{
     Data, DataFormat, DataParserFlags, DataPrinterFlags, DataTree,
     DataValidationFlags,
 };
@@ -98,14 +98,14 @@ fn main() -> std::io::Result<()> {
 Note the `NO_STATE` flag passed to `parse_file` since the example json file does not contain state data.
 More examples can be found [here][examples].
 
-[examples]: https://github.com/holo-routing/yang2-rs/tree/master/examples
+[examples]: https://github.com/holo-routing/yang-rs/tree/master/examples
 
 ## License
 
 This project is licensed under the [MIT license].
 
-[MIT license]: https://github.com/holo-routing/yang2-rs/blob/master/LICENSE
+[MIT license]: https://github.com/holo-routing/yang-rs/blob/master/LICENSE
 
 ### Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/holo-routing/yang2-rs.
+Bug reports and pull requests are welcome on GitHub at https://github.com/holo-routing/yang-rs.

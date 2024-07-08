@@ -1,5 +1,5 @@
 //
-// Copyright (c) The yang2-rs Core Contributors
+// Copyright (c) The yang-rs Core Contributors
 //
 // SPDX-License-Identifier: MIT
 //
@@ -20,7 +20,7 @@ use crate::iter::{
 };
 use crate::schema::{DataValue, SchemaModule, SchemaNode, SchemaNodeKind};
 use crate::utils::*;
-use libyang2_sys as ffi;
+use libyang3_sys as ffi;
 
 /// YANG data tree.
 #[derive(Debug)]

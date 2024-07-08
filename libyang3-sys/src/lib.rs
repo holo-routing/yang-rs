@@ -10,4 +10,4 @@
     deref_nullptr,
 )]
 
-include!(concat!(env!("OUT_DIR"), "/libyang2.rs"));
+include!(concat!(env!("OUT_DIR"), "/libyang3.rs"));

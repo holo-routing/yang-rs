@@ -1,17 +1,17 @@
 //
-// Copyright (c) The yang2-rs Core Contributors
+// Copyright (c) The yang-rs Core Contributors
 //
 // SPDX-License-Identifier: MIT
 //
 
 use crate::context::Context;
 use crate::utils::*;
-use libyang2_sys as ffi;
+use libyang3_sys as ffi;
 
-/// A convenience wrapper around `Result` for `yang2::Error`.
+/// A convenience wrapper around `Result` for `yang3::Error`.
 pub type Result<T> = std::result::Result<T, Error>;
 
-/// Enum listing possible errors from yang2-rs.
+/// Enum listing possible errors from yang3.
 #[derive(Debug, Eq, PartialEq)]
 pub struct Error {
     pub errcode: ffi::LY_ERR::Type,

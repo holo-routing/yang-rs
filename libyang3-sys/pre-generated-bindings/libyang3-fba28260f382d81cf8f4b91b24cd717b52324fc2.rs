@@ -1349,8 +1349,9 @@ pub const LYD_VALHINT_BOOLEAN: u32 = 32;
 pub const LYD_VALHINT_EMPTY: u32 = 64;
 pub const LYD_NODEHINT_LIST: u32 = 128;
 pub const LYD_NODEHINT_LEAFLIST: u32 = 256;
-pub const LYD_HINT_DATA: u32 = 499;
-pub const LYD_HINT_SCHEMA: u32 = 511;
+pub const LYD_NODEHINT_CONTAINER: u32 = 512;
+pub const LYD_HINT_DATA: u32 = 1011;
+pub const LYD_HINT_SCHEMA: u32 = 1023;
 pub const LYD_NEW_VAL_OUTPUT: u32 = 1;
 pub const LYD_NEW_VAL_STORE_ONLY: u32 = 2;
 pub const LYD_NEW_VAL_BIN: u32 = 4;
@@ -25083,6 +25084,9 @@ extern "C" {
     pub fn lyd_node_schema(node: *const lyd_node) -> *const lysc_node;
 }
 extern "C" {
+    pub fn lyd_meta_is_internal(meta: *const lyd_meta) -> ly_bool;
+}
+extern "C" {
     pub fn lyd_new_inner(
         parent: *mut lyd_node,
         module: *const lys_module,
@@ -26764,7 +26768,7 @@ impl Default for lysp_stmt {
 #[derive(Debug, Copy, Clone)]
 pub struct lysp_ext_substmt {
     pub stmt: ly_stmt::Type,
-    pub storage: *mut ::std::os::raw::c_void,
+    pub storage: u64,
 }
 #[test]
 fn bindgen_test_layout_lysp_ext_substmt() {
@@ -26998,7 +27002,7 @@ impl Default for lysp_ext_instance {
 #[derive(Debug, Copy, Clone)]
 pub struct lysc_ext_substmt {
     pub stmt: ly_stmt::Type,
-    pub storage: *mut ::std::os::raw::c_void,
+    pub storage: u64,
 }
 #[test]
 fn bindgen_test_layout_lysc_ext_substmt() {

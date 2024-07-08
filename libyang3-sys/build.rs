@@ -3,9 +3,9 @@ use std::path::PathBuf;
 
 fn main() {
     let dst = PathBuf::from(env::var("OUT_DIR").unwrap());
-    let out_file = dst.join("libyang2.rs");
+    let out_file = dst.join("libyang3.rs");
 
-    #[cfg(feature = "use_bindgen")]
+    #[cfg(feature = "bindgen")]
     {
         // Generate Rust FFI to libfrr.
         println!("cargo:rerun-if-changed=wrapper.h");
@@ -14,21 +14,21 @@ fn main() {
             .derive_default(true)
             .default_enum_style(bindgen::EnumVariation::ModuleConsts)
             .generate()
-            .expect("Unable to generate libyang2 bindings");
+            .expect("Unable to generate libyang3 bindings");
         bindings
             .write_to_file(out_file)
-            .expect("Couldn't write libyang2 bindings!");
+            .expect("Couldn't write libyang3 bindings!");
     }
-    #[cfg(not(feature = "use_bindgen"))]
+    #[cfg(not(feature = "bindgen"))]
     {
         let mut pregen_bindings = PathBuf::new();
         pregen_bindings.push(env::var("CARGO_MANIFEST_DIR").unwrap());
         pregen_bindings.push("pre-generated-bindings");
         pregen_bindings
-            .push("libyang2-4c733412e7173219166be7053940326a92699765.rs");
+            .push("libyang3-fba28260f382d81cf8f4b91b24cd717b52324fc2.rs");
 
         std::fs::copy(&pregen_bindings, &out_file)
-            .expect("Unable to copy pre-generated libyang2 bindings");
+            .expect("Unable to copy pre-generated libyang3 bindings");
     }
 
     #[cfg(feature = "bundled")]
@@ -46,11 +46,12 @@ fn main() {
         // Run cmake.
         let cmake_dst = cmake::build("libyang");
 
-        // Build libyang2.
+        // Build libyang3.
         let mut build = cc::Build::new();
         build
             .include(format!("{}/build/compat", cmake_dst.display()))
             .include(format!("{}/build/src", cmake_dst.display()))
+            .include(format!("{}/build/libyang", cmake_dst.display()))
             .include("libyang/src")
             .include("libyang/src/plugins_exts")
             .file("libyang/compat/compat.c")
@@ -130,7 +131,7 @@ fn main() {
             .file("libyang/src/xpath.c")
             .warnings(false);
 
-        build.compile("yang2");
+        build.compile("yang3");
         println!("cargo:root={}", env::var("OUT_DIR").unwrap());
         if let Err(e) = pkg_config::Config::new().probe("libpcre2-8") {
             println!("cargo:warning=failed to find pcre2 library with pkg-config: {}", e);

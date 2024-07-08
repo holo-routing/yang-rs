@@ -1,19 +1,19 @@
 [package]
-name = "yang2"
-version = "0.13.1"
+name = "yang3"
+version = "0.1.0"
 authors = ["Renato Westphal <renato@opensourcerouting.org>"]
-description = "libyang2 bindings for Rust"
+description = "libyang3 bindings for Rust"
 keywords = ["yang", "libyang"]
 edition = "2018"
 license = "MIT"
-repository = "https://github.com/holo-routing/yang2-rs"
-documentation = "https://docs.rs/yang2"
+repository = "https://github.com/holo-routing/yang-rs"
+documentation = "https://docs.rs/yang3"
 readme = "README.md"
 categories = ["parser-implementations"]
 exclude = ["assets/**"]
 
 [dependencies]
-libyang2-sys = { path = "libyang2-sys", version = "0.9.0" }
+libyang3-sys = { path = "libyang3-sys", version = "0.1.0" }
 bitflags = "2.5"
 num-traits = "0.2"
 num-derive = "0.4"
@@ -33,5 +33,5 @@ harness = false
 
 [features]
 default = []
-use_bindgen = ["libyang2-sys/use_bindgen"]
-bundled = ["libyang2-sys/bundled"]
+bindgen = ["libyang3-sys/bindgen"]
+bundled = ["libyang3-sys/bundled"]

@@ -1,5 +1,5 @@
-use yang2::context::{Context, ContextFlags};
-use yang2::schema::{
+use yang3::context::{Context, ContextFlags};
+use yang3::schema::{
     DataValue, DataValueType, SchemaNodeKind, SchemaPathFormat,
 };
 

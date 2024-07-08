@@ -1,6 +1,6 @@
 use std::sync::Arc;
-use yang2::context::{Context, ContextFlags};
-use yang2::data::{
+use yang3::context::{Context, ContextFlags};
+use yang3::data::{
     Data, DataDiffFlags, DataFormat, DataParserFlags, DataPrinterFlags,
     DataTree, DataValidationFlags,
 };

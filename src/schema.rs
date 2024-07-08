@@ -1,5 +1,5 @@
 //
-// Copyright (c) The yang2-rs Core Contributors
+// Copyright (c) The yang-rs Core Contributors
 //
 // SPDX-License-Identifier: MIT
 //
@@ -19,7 +19,7 @@ use crate::context::Context;
 use crate::error::{Error, Result};
 use crate::iter::{Ancestors, Array, NodeIterable, Set, Siblings, Traverse};
 use crate::utils::*;
-use libyang2_sys as ffi;
+use libyang3_sys as ffi;
 
 /// Available YANG schema tree structures representing YANG module.
 #[derive(Clone, Debug)]

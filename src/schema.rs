@@ -748,7 +748,7 @@ impl<'a> SchemaNode<'a> {
     }
 
     /// Array of actions.
-    pub fn actions(&self) -> Option<Siblings<'_, SchemaNode<'_>>> {
+    pub fn actions(&self) -> impl Iterator<Item = SchemaNode<'a>> + 'a {
         let rnode = unsafe {
             match self.kind {
                 SchemaNodeKind::Container => {
@@ -757,17 +757,17 @@ impl<'a> SchemaNode<'a> {
                 SchemaNodeKind::List => {
                     (*(self.raw as *mut ffi::lysc_node_list)).actions
                 }
-                _ => return None,
+                _ => std::ptr::null_mut(),
             }
         };
 
         let node =
             unsafe { SchemaNode::from_raw_opt(self.context, rnode as *mut _) };
-        Some(Siblings::new(node))
+        Siblings::new(node)
     }
 
     /// Array of notifications.
-    pub fn notifications(&self) -> Option<Siblings<'_, SchemaNode<'_>>> {
+    pub fn notifications(&self) -> impl Iterator<Item = SchemaNode<'a>> + 'a {
         let rnode = unsafe {
             match self.kind {
                 SchemaNodeKind::Container => {
@@ -776,13 +776,13 @@ impl<'a> SchemaNode<'a> {
                 SchemaNodeKind::List => {
                     (*(self.raw as *mut ffi::lysc_node_list)).notifs
                 }
-                _ => return None,
+                _ => std::ptr::null_mut(),
             }
         };
 
         let node =
             unsafe { SchemaNode::from_raw_opt(self.context, rnode as *mut _) };
-        Some(Siblings::new(node))
+        Siblings::new(node)
     }
 
     /// RPC's input. Returns a tuple containing the following:
@@ -857,10 +857,20 @@ impl<'a> SchemaNode<'a> {
         Siblings::new(Some(self.clone()))
     }
 
-    /// Returns an iterator over the child schema nodes.
+    /// Returns an iterator over the child schema nodes, excluding action and
+    /// notification nodes.
     pub fn children(&self) -> Siblings<'a, SchemaNode<'a>> {
         let child = self.first_child();
         Siblings::new(child)
+    }
+
+    /// Returns an iterator over all child schema nodes, including action and
+    /// notification nodes.
+    pub fn all_children(&self) -> impl Iterator<Item = SchemaNode<'a>> {
+        let child = self.first_child();
+        Siblings::new(child)
+            .chain(self.actions())
+            .chain(self.notifications())
     }
 
     /// Returns an iterator over all elements in the schema tree (depth-first

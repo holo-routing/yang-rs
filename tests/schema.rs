@@ -17,6 +17,8 @@ fn create_context() -> Context {
         .expect("Failed to load module");
     ctx.load_module("iana-if-type", None, &[])
         .expect("Failed to load module");
+    ctx.load_module("ietf-routing", None, &[])
+        .expect("Failed to load module");
 
     ctx
 }
@@ -82,23 +84,10 @@ fn schema_iterator_traverse() {
     assert_eq!(
         ctx
             .traverse()
+            .filter(|snode| snode.module().name() == "ietf-interfaces")
             .map(|snode| snode.path(SchemaPathFormat::DATA))
             .collect::<Vec<String>>(),
         vec![
-            "/ietf-yang-schema-mount:schema-mounts",
-            "/ietf-yang-schema-mount:schema-mounts/namespace",
-            "/ietf-yang-schema-mount:schema-mounts/namespace/prefix",
-            "/ietf-yang-schema-mount:schema-mounts/namespace/uri",
-            "/ietf-yang-schema-mount:schema-mounts/mount-point",
-            "/ietf-yang-schema-mount:schema-mounts/mount-point/module",
-            "/ietf-yang-schema-mount:schema-mounts/mount-point/label",
-            "/ietf-yang-schema-mount:schema-mounts/mount-point/config",
-            "/ietf-yang-schema-mount:schema-mounts/mount-point",
-            "/ietf-yang-schema-mount:schema-mounts/mount-point",
-            "/ietf-yang-schema-mount:schema-mounts/mount-point/inline",
-            "/ietf-yang-schema-mount:schema-mounts/mount-point",
-            "/ietf-yang-schema-mount:schema-mounts/mount-point/shared-schema",
-            "/ietf-yang-schema-mount:schema-mounts/mount-point/shared-schema/parent-reference",
             "/ietf-interfaces:interfaces",
             "/ietf-interfaces:interfaces/interface",
             "/ietf-interfaces:interfaces/interface/name",
@@ -261,6 +250,35 @@ fn schema_iterator_children() {
             "/ietf-interfaces:interfaces/interface/statistics/out-errors",
         ]
     );
+
+    assert_eq!(
+        ctx.find_path("/ietf-routing:routing/ribs/rib")
+            .expect("Failed to lookup schema data")
+            .children()
+            .map(|snode| snode.path(SchemaPathFormat::DATA))
+            .collect::<Vec<String>>(),
+        vec![
+            "/ietf-routing:routing/ribs/rib/name",
+            "/ietf-routing:routing/ribs/rib/address-family",
+            "/ietf-routing:routing/ribs/rib/routes",
+            "/ietf-routing:routing/ribs/rib/description"
+        ]
+    );
+
+    assert_eq!(
+        ctx.find_path("/ietf-routing:routing/ribs/rib")
+            .expect("Failed to lookup schema data")
+            .all_children()
+            .map(|snode| snode.path(SchemaPathFormat::DATA))
+            .collect::<Vec<String>>(),
+        vec![
+            "/ietf-routing:routing/ribs/rib/name",
+            "/ietf-routing:routing/ribs/rib/address-family",
+            "/ietf-routing:routing/ribs/rib/routes",
+            "/ietf-routing:routing/ribs/rib/description",
+            "/ietf-routing:routing/ribs/rib/active-route"
+        ]
+    );
 }
 
 #[test]
@@ -303,8 +321,8 @@ fn schema_node_attributes() {
     assert_eq!(snode.max_elements(), None);
     assert!(snode.musts().unwrap().count() == 0);
     assert!(snode.whens().count() == 0);
-    assert!(snode.actions().unwrap().count() == 0);
-    assert!(snode.notifications().unwrap().count() == 0);
+    assert!(snode.actions().count() == 0);
+    assert!(snode.notifications().count() == 0);
     assert_eq!(snode.is_status_current(), true);
     assert_eq!(snode.is_status_deprecated(), false);
     assert_eq!(snode.is_status_obsolete(), false);
@@ -326,8 +344,8 @@ fn schema_node_attributes() {
     assert_eq!(snode.max_elements(), None);
     assert!(snode.musts().unwrap().count() == 0);
     assert!(snode.whens().count() == 0);
-    assert!(snode.actions().unwrap().count() == 0);
-    assert!(snode.notifications().unwrap().count() == 0);
+    assert!(snode.actions().count() == 0);
+    assert!(snode.notifications().count() == 0);
     assert_eq!(snode.is_status_current(), false);
     assert_eq!(snode.is_status_deprecated(), true);
     assert_eq!(snode.is_status_obsolete(), false);

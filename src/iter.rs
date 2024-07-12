@@ -8,8 +8,9 @@
 
 use crate::context::Context;
 use crate::data::Metadata;
-use crate::schema::SchemaModule;
+use crate::schema::{SchemaModule, SchemaNode};
 use crate::utils::Binding;
+use bitflags::bitflags;
 use libyang3_sys as ffi;
 
 /// Common methods used by multiple data and schema node iterators.
@@ -57,6 +58,34 @@ where
     start: T,
     next: Option<T>,
     _marker: std::marker::PhantomData<&'a T>,
+}
+
+/// An customizable iterator over the sibings of a node.
+#[derive(Debug)]
+pub struct Getnext<'a> {
+    flags: GetnextFlags,
+    last: Option<SchemaNode<'a>>,
+    parent: Option<SchemaNode<'a>>,
+    module: Option<SchemaModule<'a>>,
+}
+
+bitflags! {
+    /// Various options that control the behavior of the `Getnext` iterator.
+    #[derive(Debug)]
+    pub struct GetnextFlags: u32 {
+        /// Return #LYS_CHOICE nodes instead of looking into them.
+        const WITH_CHOICE = ffi::LYS_GETNEXT_WITHCHOICE;
+        /// Ignore (kind of conditional) nodes within choice node.
+        const NO_CHOICE = ffi::LYS_GETNEXT_NOCHOICE;
+        /// Allow returning #LYS_CASE nodes instead of looking into them.
+        const WITH_CASE = ffi::LYS_GETNEXT_WITHCASE;
+        /// Look into non-presence container, instead of returning container
+        /// itself.
+        const INTO_NP_CONT = ffi::LYS_GETNEXT_INTONPCONT;
+        /// Provide RPC's/action's output schema nodes instead of input schema
+        /// nodes provided by default.
+        const OUTPUT = ffi::LYS_GETNEXT_OUTPUT;
+    }
 }
 
 /// An iterator over a set of nodes.
@@ -210,6 +239,60 @@ where
         }
 
         ret
+    }
+}
+
+// ===== impl Getnext =====
+
+impl<'a> Getnext<'a> {
+    pub fn new(
+        flags: GetnextFlags,
+        parent: Option<SchemaNode<'a>>,
+        module: Option<SchemaModule<'a>>,
+    ) -> Getnext<'a> {
+        Getnext {
+            flags,
+            last: None,
+            parent,
+            module,
+        }
+    }
+}
+
+impl<'a> Iterator for Getnext<'a> {
+    type Item = SchemaNode<'a>;
+
+    fn next(&mut self) -> Option<SchemaNode<'a>> {
+        let last = self.last.take();
+        let parent = self.parent.clone();
+        let module = self.module.clone();
+
+        let last_raw =
+            last.map(|snode| snode.raw as _).unwrap_or(std::ptr::null());
+        let parent_raw = parent
+            .as_ref()
+            .map(|snode| snode.raw as _)
+            .unwrap_or(std::ptr::null());
+        let module_raw = module
+            .as_ref()
+            .map(|smodule| unsafe { (*smodule.raw).compiled } as _)
+            .unwrap_or(std::ptr::null());
+        let next = unsafe {
+            ffi::lys_getnext(
+                last_raw,
+                parent_raw,
+                module_raw,
+                self.flags.bits(),
+            )
+        };
+
+        let context = parent
+            .map(|snode| snode.context)
+            .or(module.map(|smodule| smodule.context))
+            .unwrap();
+        let next = unsafe { SchemaNode::from_raw_opt(context, next as *mut _) };
+        self.last = next.clone();
+        next
     }
 }
 

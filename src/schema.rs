@@ -18,7 +18,7 @@ use std::slice;
 use crate::context::Context;
 use crate::error::{Error, Result};
 use crate::iter::{
-    Ancestors, Array, Getnext, GetnextFlags, NodeIterable, Set, Siblings,
+    Ancestors, Array, Getnext, IterSchemaFlags, NodeIterable, Set, Siblings,
     Traverse,
 };
 use crate::utils::*;
@@ -328,7 +328,10 @@ impl<'a> SchemaModule<'a> {
 
     /// Returns an iterator over the top-level data nodes. The iteration
     /// behavior is customizable using the provided `flags` option.
-    pub fn getnext(&self, flags: GetnextFlags) -> Getnext<'a> {
+    pub fn top_level_nodes(
+        &self,
+        flags: IterSchemaFlags,
+    ) -> impl Iterator<Item = SchemaNode<'a>> {
         Getnext::new(flags, None, Some(self.clone()))
     }
 
@@ -882,16 +885,19 @@ impl<'a> SchemaNode<'a> {
             .chain(self.notifications())
     }
 
+    /// Returns an iterator over all child schema nodes. The iteration behavior
+    /// is customizable using the provided `flags` option.
+    pub fn children2(
+        &self,
+        flags: IterSchemaFlags,
+    ) -> impl Iterator<Item = SchemaNode<'a>> {
+        Getnext::new(flags, Some(self.clone()), None)
+    }
+
     /// Returns an iterator over all elements in the schema tree (depth-first
     /// search algorithm).
     pub fn traverse(&self) -> Traverse<'a, SchemaNode<'a>> {
         Traverse::new(self.clone())
-    }
-
-    /// Returns an iterator over all child schema nodes. The iteration behavior
-    /// is customizable using the provided `flags` option.
-    pub fn getnext(&self, flags: GetnextFlags) -> Getnext<'a> {
-        Getnext::new(flags, Some(self.clone()), None)
     }
 
     /// Returns an iterator over the keys of the list.

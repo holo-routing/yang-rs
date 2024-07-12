@@ -26,7 +26,7 @@ pub trait NodeIterable<'a>: Sized + Clone + PartialEq + Binding<'a> {
     fn first_child(&self) -> Option<Self>;
 }
 
-/// An iterator over the sibings of a node.
+/// An iterator over the siblings of a node.
 #[derive(Debug)]
 pub struct Siblings<'a, T>
 where
@@ -60,19 +60,19 @@ where
     _marker: std::marker::PhantomData<&'a T>,
 }
 
-/// An customizable iterator over the sibings of a node.
+/// An customizable iterator over the children of a node.
 #[derive(Debug)]
 pub struct Getnext<'a> {
-    flags: GetnextFlags,
+    flags: IterSchemaFlags,
     last: Option<SchemaNode<'a>>,
     parent: Option<SchemaNode<'a>>,
     module: Option<SchemaModule<'a>>,
 }
 
 bitflags! {
-    /// Various options that control the behavior of the `Getnext` iterator.
+    /// Various options that control iteration behavior.
     #[derive(Debug)]
-    pub struct GetnextFlags: u32 {
+    pub struct IterSchemaFlags: u32 {
         /// Return #LYS_CHOICE nodes instead of looking into them.
         const WITH_CHOICE = ffi::LYS_GETNEXT_WITHCHOICE;
         /// Ignore (kind of conditional) nodes within choice node.
@@ -246,7 +246,7 @@ where
 
 impl<'a> Getnext<'a> {
     pub fn new(
-        flags: GetnextFlags,
+        flags: IterSchemaFlags,
         parent: Option<SchemaNode<'a>>,
         module: Option<SchemaModule<'a>>,
     ) -> Getnext<'a> {

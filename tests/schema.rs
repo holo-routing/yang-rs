@@ -1,5 +1,5 @@
 use yang2::context::{Context, ContextFlags};
-use yang2::iter::GetnextFlags;
+use yang2::iter::IterSchemaFlags;
 use yang2::schema::{
     DataValue, DataValueType, SchemaNodeKind, SchemaPathFormat,
 };
@@ -21,6 +21,8 @@ fn create_context() -> Context {
     ctx.load_module("ietf-key-chain", None, &["hex-key-string"])
         .expect("Failed to load module");
     ctx.load_module("ietf-routing", None, &[])
+        .expect("Failed to load module");
+    ctx.load_module("ietf-mpls-ldp", None, &[])
         .expect("Failed to load module");
 
     ctx
@@ -285,13 +287,13 @@ fn schema_iterator_children() {
 }
 
 #[test]
-fn schema_iterator_getnext() {
+fn schema_iterator_children2() {
     let ctx = create_context();
 
     assert_eq!(
         ctx.find_path("/ietf-key-chain:key-chains/key-chain/key/key-string")
             .expect("Failed to lookup schema data")
-            .getnext(GetnextFlags::empty())
+            .children2(IterSchemaFlags::empty())
             .map(|snode| snode.path(SchemaPathFormat::DATA))
             .collect::<Vec<String>>(),
         vec![
@@ -303,7 +305,7 @@ fn schema_iterator_getnext() {
     assert_eq!(
         ctx.find_path("/ietf-key-chain:key-chains/key-chain/key/key-string")
             .expect("Failed to lookup schema data")
-            .getnext(GetnextFlags::NO_CHOICE)
+            .children2(IterSchemaFlags::NO_CHOICE)
             .map(|snode| snode.path(SchemaPathFormat::DATA))
             .collect::<Vec<String>>(),
         Vec::<String>::new()
@@ -312,7 +314,7 @@ fn schema_iterator_getnext() {
     assert_eq!(
         ctx.find_path("/ietf-key-chain:key-chains/key-chain/key")
             .expect("Failed to lookup schema data")
-            .getnext(GetnextFlags::empty())
+            .children2(IterSchemaFlags::empty())
             .map(|snode| snode.path(SchemaPathFormat::DATA))
             .collect::<Vec<String>>(),
         vec![
@@ -328,7 +330,7 @@ fn schema_iterator_getnext() {
     assert_eq!(
         ctx.find_path("/ietf-key-chain:key-chains/key-chain/key")
             .expect("Failed to lookup schema data")
-            .getnext(GetnextFlags::INTO_NP_CONT)
+            .children2(IterSchemaFlags::INTO_NP_CONT)
             .map(|snode| snode.path(SchemaPathFormat::DATA))
             .collect::<Vec<String>>(),
         vec![
@@ -349,7 +351,7 @@ fn schema_iterator_getnext() {
     assert_eq!(
         ctx.find_path("/ietf-routing:routing/ribs/rib")
             .expect("Failed to lookup schema data")
-            .getnext(GetnextFlags::empty())
+            .children2(IterSchemaFlags::empty())
             .map(|snode| snode.path(SchemaPathFormat::DATA))
             .collect::<Vec<String>>(),
         vec![
@@ -360,15 +362,38 @@ fn schema_iterator_getnext() {
             "/ietf-routing:routing/ribs/rib/active-route"
         ]
     );
+}
+
+#[test]
+fn schema_iterator_top_level_nodes() {
+    let ctx = create_context();
 
     assert_eq!(
         ctx.get_module_latest("ietf-interfaces")
             .expect("Failed to lookup schema module")
-            .getnext(GetnextFlags::empty())
-            .take(1)
+            .top_level_nodes(IterSchemaFlags::empty())
             .map(|snode| snode.path(SchemaPathFormat::DATA))
             .collect::<Vec<String>>(),
-        vec!["/ietf-interfaces:interfaces"]
+        vec![
+            "/ietf-interfaces:interfaces",
+            "/ietf-interfaces:interfaces-state"
+        ]
+    );
+
+    assert_eq!(
+        ctx.get_module_latest("ietf-mpls-ldp")
+            .expect("Failed to lookup schema module")
+            .top_level_nodes(IterSchemaFlags::empty())
+            .map(|snode| snode.path(SchemaPathFormat::DATA))
+            .collect::<Vec<String>>(),
+        vec![
+            "/ietf-mpls-ldp:mpls-ldp-clear-peer",
+            "/ietf-mpls-ldp:mpls-ldp-clear-hello-adjacency",
+            "/ietf-mpls-ldp:mpls-ldp-clear-peer-statistics",
+            "/ietf-mpls-ldp:mpls-ldp-peer-event",
+            "/ietf-mpls-ldp:mpls-ldp-hello-adjacency-event",
+            "/ietf-mpls-ldp:mpls-ldp-fec-event"
+        ]
     );
 }
 

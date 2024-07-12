@@ -17,15 +17,18 @@ use std::slice;
 
 use crate::context::Context;
 use crate::error::{Error, Result};
-use crate::iter::{Ancestors, Array, NodeIterable, Set, Siblings, Traverse};
+use crate::iter::{
+    Ancestors, Array, Getnext, GetnextFlags, NodeIterable, Set, Siblings,
+    Traverse,
+};
 use crate::utils::*;
 use libyang2_sys as ffi;
 
 /// Available YANG schema tree structures representing YANG module.
 #[derive(Clone, Debug)]
 pub struct SchemaModule<'a> {
-    context: &'a Context,
-    raw: *mut ffi::lys_module,
+    pub(crate) context: &'a Context,
+    pub(crate) raw: *mut ffi::lys_module,
 }
 
 /// Schema input formats accepted by libyang.
@@ -73,8 +76,8 @@ bitflags! {
 /// Generic YANG schema node.
 #[derive(Clone, Debug)]
 pub struct SchemaNode<'a> {
-    context: &'a Context,
-    raw: *mut ffi::lysc_node,
+    pub(crate) context: &'a Context,
+    pub(crate) raw: *mut ffi::lysc_node,
     kind: SchemaNodeKind,
 }
 
@@ -321,6 +324,12 @@ impl<'a> SchemaModule<'a> {
         let notifications =
             unsafe { SchemaNode::from_raw_opt(self.context, rdata as *mut _) };
         Siblings::new(notifications)
+    }
+
+    /// Returns an iterator over the top-level data nodes. The iteration
+    /// behavior is customizable using the provided `flags` option.
+    pub fn getnext(&self, flags: GetnextFlags) -> Getnext<'a> {
+        Getnext::new(flags, None, Some(self.clone()))
     }
 
     /// Returns an iterator over all data nodes in the schema module
@@ -877,6 +886,12 @@ impl<'a> SchemaNode<'a> {
     /// search algorithm).
     pub fn traverse(&self) -> Traverse<'a, SchemaNode<'a>> {
         Traverse::new(self.clone())
+    }
+
+    /// Returns an iterator over all child schema nodes. The iteration behavior
+    /// is customizable using the provided `flags` option.
+    pub fn getnext(&self, flags: GetnextFlags) -> Getnext<'a> {
+        Getnext::new(flags, Some(self.clone()), None)
     }
 
     /// Returns an iterator over the keys of the list.

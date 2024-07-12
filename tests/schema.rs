@@ -1,4 +1,5 @@
 use yang2::context::{Context, ContextFlags};
+use yang2::iter::GetnextFlags;
 use yang2::schema::{
     DataValue, DataValueType, SchemaNodeKind, SchemaPathFormat,
 };
@@ -16,6 +17,8 @@ fn create_context() -> Context {
     ctx.load_module("ietf-interfaces", None, &["pre-provisioning"])
         .expect("Failed to load module");
     ctx.load_module("iana-if-type", None, &[])
+        .expect("Failed to load module");
+    ctx.load_module("ietf-key-chain", None, &["hex-key-string"])
         .expect("Failed to load module");
     ctx.load_module("ietf-routing", None, &[])
         .expect("Failed to load module");
@@ -84,23 +87,10 @@ fn schema_iterator_traverse() {
     assert_eq!(
         ctx
             .traverse()
+            .filter(|snode| snode.module().name() == "ietf-interfaces")
             .map(|snode| snode.path(SchemaPathFormat::DATA))
             .collect::<Vec<String>>(),
         vec![
-            "/ietf-yang-schema-mount:schema-mounts",
-            "/ietf-yang-schema-mount:schema-mounts/namespace",
-            "/ietf-yang-schema-mount:schema-mounts/namespace/prefix",
-            "/ietf-yang-schema-mount:schema-mounts/namespace/uri",
-            "/ietf-yang-schema-mount:schema-mounts/mount-point",
-            "/ietf-yang-schema-mount:schema-mounts/mount-point/module",
-            "/ietf-yang-schema-mount:schema-mounts/mount-point/label",
-            "/ietf-yang-schema-mount:schema-mounts/mount-point/config",
-            "/ietf-yang-schema-mount:schema-mounts/mount-point",
-            "/ietf-yang-schema-mount:schema-mounts/mount-point",
-            "/ietf-yang-schema-mount:schema-mounts/mount-point/inline",
-            "/ietf-yang-schema-mount:schema-mounts/mount-point",
-            "/ietf-yang-schema-mount:schema-mounts/mount-point/shared-schema",
-            "/ietf-yang-schema-mount:schema-mounts/mount-point/shared-schema/parent-reference",
             "/ietf-interfaces:interfaces",
             "/ietf-interfaces:interfaces/interface",
             "/ietf-interfaces:interfaces/interface/name",
@@ -291,6 +281,94 @@ fn schema_iterator_children() {
             "/ietf-routing:routing/ribs/rib/description",
             "/ietf-routing:routing/ribs/rib/active-route"
         ]
+    );
+}
+
+#[test]
+fn schema_iterator_getnext() {
+    let ctx = create_context();
+
+    assert_eq!(
+        ctx.find_path("/ietf-key-chain:key-chains/key-chain/key/key-string")
+            .expect("Failed to lookup schema data")
+            .getnext(GetnextFlags::empty())
+            .map(|snode| snode.path(SchemaPathFormat::DATA))
+            .collect::<Vec<String>>(),
+        vec![
+            "/ietf-key-chain:key-chains/key-chain/key/key-string/keystring",
+            "/ietf-key-chain:key-chains/key-chain/key/key-string/hexadecimal-string"
+        ]
+    );
+
+    assert_eq!(
+        ctx.find_path("/ietf-key-chain:key-chains/key-chain/key/key-string")
+            .expect("Failed to lookup schema data")
+            .getnext(GetnextFlags::NO_CHOICE)
+            .map(|snode| snode.path(SchemaPathFormat::DATA))
+            .collect::<Vec<String>>(),
+        Vec::<String>::new()
+    );
+
+    assert_eq!(
+        ctx.find_path("/ietf-key-chain:key-chains/key-chain/key")
+            .expect("Failed to lookup schema data")
+            .getnext(GetnextFlags::empty())
+            .map(|snode| snode.path(SchemaPathFormat::DATA))
+            .collect::<Vec<String>>(),
+        vec![
+            "/ietf-key-chain:key-chains/key-chain/key/key-id",
+            "/ietf-key-chain:key-chains/key-chain/key/lifetime",
+            "/ietf-key-chain:key-chains/key-chain/key/crypto-algorithm",
+            "/ietf-key-chain:key-chains/key-chain/key/key-string",
+            "/ietf-key-chain:key-chains/key-chain/key/send-lifetime-active",
+            "/ietf-key-chain:key-chains/key-chain/key/accept-lifetime-active"
+        ]
+    );
+
+    assert_eq!(
+        ctx.find_path("/ietf-key-chain:key-chains/key-chain/key")
+            .expect("Failed to lookup schema data")
+            .getnext(GetnextFlags::INTO_NP_CONT)
+            .map(|snode| snode.path(SchemaPathFormat::DATA))
+            .collect::<Vec<String>>(),
+        vec![
+            "/ietf-key-chain:key-chains/key-chain/key/key-id",
+            "/ietf-key-chain:key-chains/key-chain/key/lifetime/send-accept-lifetime/always",
+            "/ietf-key-chain:key-chains/key-chain/key/lifetime/send-accept-lifetime/start-date-time",
+            "/ietf-key-chain:key-chains/key-chain/key/lifetime/send-accept-lifetime/no-end-time",
+            "/ietf-key-chain:key-chains/key-chain/key/lifetime/send-accept-lifetime/duration",
+            "/ietf-key-chain:key-chains/key-chain/key/lifetime/send-accept-lifetime/end-date-time",
+            "/ietf-key-chain:key-chains/key-chain/key/crypto-algorithm",
+            "/ietf-key-chain:key-chains/key-chain/key/key-string/keystring",
+            "/ietf-key-chain:key-chains/key-chain/key/key-string/hexadecimal-string",
+            "/ietf-key-chain:key-chains/key-chain/key/send-lifetime-active",
+            "/ietf-key-chain:key-chains/key-chain/key/accept-lifetime-active"
+        ]
+    );
+
+    assert_eq!(
+        ctx.find_path("/ietf-routing:routing/ribs/rib")
+            .expect("Failed to lookup schema data")
+            .getnext(GetnextFlags::empty())
+            .map(|snode| snode.path(SchemaPathFormat::DATA))
+            .collect::<Vec<String>>(),
+        vec![
+            "/ietf-routing:routing/ribs/rib/name",
+            "/ietf-routing:routing/ribs/rib/address-family",
+            "/ietf-routing:routing/ribs/rib/routes",
+            "/ietf-routing:routing/ribs/rib/description",
+            "/ietf-routing:routing/ribs/rib/active-route"
+        ]
+    );
+
+    assert_eq!(
+        ctx.get_module_latest("ietf-interfaces")
+            .expect("Failed to lookup schema module")
+            .getnext(GetnextFlags::empty())
+            .take(1)
+            .map(|snode| snode.path(SchemaPathFormat::DATA))
+            .collect::<Vec<String>>(),
+        vec!["/ietf-interfaces:interfaces"]
     );
 }
 

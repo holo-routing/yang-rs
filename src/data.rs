@@ -7,6 +7,7 @@
 //! YANG instance data.
 
 use bitflags::bitflags;
+use std::ffi::CStr;
 use std::ffi::CString;
 use std::os::raw::{c_char, c_void};
 use std::os::unix::io::AsRawFd;
@@ -294,7 +295,14 @@ pub trait Data {
         Ok(())
     }
 
-    /// Print data tree in the specified format.
+    /// Print data tree in the specified format to a `String`.
+    ///
+    /// # Warning
+    /// For printing a data tree in the `DataFormat::LYB` format, use the
+    /// [`Data::print_bytes`] method instead. Using this function with
+    /// `DataFormat::LYB` may result in mangled data because the `LYB` format
+    /// can contain invalid UTF-8 sequences, which cannot be represented in a
+    /// `String`.
     fn print_string(
         &self,
         format: DataFormat,
@@ -316,6 +324,53 @@ pub trait Data {
         }
 
         Ok(char_ptr_to_opt_string(cstr))
+    }
+
+    /// Print data tree in the specified format to a bytes vector.
+    fn print_bytes(
+        &self,
+        format: DataFormat,
+        options: DataPrinterFlags,
+    ) -> Result<Option<Vec<u8>>> {
+        let mut cstr = std::ptr::null_mut();
+        let cstr_ptr = &mut cstr;
+
+        let ret = unsafe {
+            ffi::lyd_print_mem(
+                cstr_ptr,
+                self.raw(),
+                format as u32,
+                options.bits(),
+            )
+        };
+        if ret != ffi::LY_ERR::LY_SUCCESS {
+            return Err(Error::new(self.context()));
+        }
+
+        if cstr.is_null() {
+            return Ok(None);
+        }
+
+        let bytes = match format {
+            DataFormat::XML | DataFormat::JSON => {
+                // Convert the null-terminated C string to a vector of bytes.
+                // After converting to bytes, manually add a null terminator.
+                let mut bytes =
+                    unsafe { CStr::from_ptr(cstr) }.to_bytes().to_vec();
+                bytes.push(0);
+                bytes
+            }
+            DataFormat::LYB => {
+                // Get the length of the LYB data.
+                let len = unsafe { ffi::lyd_lyb_data_length(cstr) };
+                // For the LYB data format, `cstr` isn't null-terminated.
+                // Create a byte slice from the raw parts and convert it to a
+                // vector.
+                unsafe { std::slice::from_raw_parts(cstr as _, len as _) }
+                    .to_vec()
+            }
+        };
+        Ok(Some(bytes))
     }
 }
 
@@ -361,19 +416,18 @@ impl DataTree {
     /// Parse (and validate) input data as a YANG data tree.
     pub fn parse_string(
         context: &Arc<Context>,
-        data: &str,
+        data: impl AsRef<[u8]>,
         format: DataFormat,
         parser_options: DataParserFlags,
         validation_options: DataValidationFlags,
     ) -> Result<DataTree> {
         let mut rnode = std::ptr::null_mut();
         let rnode_ptr = &mut rnode;
-        let data = CString::new(data).unwrap();
 
         let ret = unsafe {
             ffi::lyd_parse_data_mem(
                 context.raw,
-                data.as_ptr(),
+                data.as_ref().as_ptr() as _,
                 format as u32,
                 parser_options.bits(),
                 validation_options.bits(),
@@ -390,7 +444,7 @@ impl DataTree {
     /// Parse YANG data into an operation data tree.
     pub fn parse_op_string(
         context: &Arc<Context>,
-        data: &str,
+        data: impl AsRef<[u8]>,
         format: DataFormat,
         op: DataOperation,
     ) -> Result<DataTree> {
@@ -398,9 +452,10 @@ impl DataTree {
         let rnode_ptr = &mut rnode;
 
         // Create input handler.
-        let data = CString::new(data).unwrap();
         let mut ly_in = std::ptr::null_mut();
-        let ret = unsafe { ffi::ly_in_new_memory(data.as_ptr(), &mut ly_in) };
+        let ret = unsafe {
+            ffi::ly_in_new_memory(data.as_ref().as_ptr() as _, &mut ly_in)
+        };
         if ret != ffi::LY_ERR::LY_SUCCESS {
             return Err(Error::new(context));
         }
@@ -1155,7 +1210,7 @@ impl DataDiff {
     /// Parse (and validate) input data as a YANG data diff.
     pub fn parse_string(
         context: &Arc<Context>,
-        data: &str,
+        data: impl AsRef<[u8]>,
         format: DataFormat,
         parser_options: DataParserFlags,
         validation_options: DataValidationFlags,

@@ -2,9 +2,12 @@ name: CI
 
 on:
   push:
-    branches: [ master ]
+    branches:
+      - "**"
   pull_request:
-    branches: [ master ]
+    branches:
+      - "master"
+      - "yang2"
 
 env:
   CARGO_TERM_COLOR: always

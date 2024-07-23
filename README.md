@@ -19,10 +19,10 @@
 
 Rust bindings for the [libyang] library.
 
-For raw FFI bindings for libyang, see [libyang-sys].
+For raw FFI bindings for libyang, see [libyang3-sys].
 
-[libyang]: https://github.com/CESNET/libyang/tree/libyang
-[libyang-sys]: https://github.com/holo-routing/yang-rs/tree/master/libyang-sys
+[libyang]: https://github.com/CESNET/libyang/
+[libyang3-sys]: ./libyang3-sys
 
 #### Cargo.toml
 

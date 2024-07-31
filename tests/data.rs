@@ -1,5 +1,4 @@
 use std::collections::BTreeSet;
-use std::sync::Arc;
 use yang3::context::{Context, ContextFlags};
 use yang3::data::{
     Data, DataDiff, DataDiffFlags, DataFormat, DataImplicitFlags,
@@ -177,7 +176,7 @@ macro_rules! assert_data_eq {
     };
 }
 
-fn create_context() -> Arc<Context> {
+fn create_context() -> Context {
     // Initialize context.
     let mut ctx = Context::new(ContextFlags::NO_YANGLIBRARY)
         .expect("Failed to create context");
@@ -196,10 +195,10 @@ fn create_context() -> Arc<Context> {
             .expect("Failed to load module");
     }
 
-    Arc::new(ctx)
+    ctx
 }
 
-fn parse_json_data(ctx: &Arc<Context>, string: &str) -> DataTree {
+fn parse_json_data<'a>(ctx: &'a Context, string: &str) -> DataTree<'a> {
     DataTree::parse_string(
         &ctx,
         string,
@@ -210,7 +209,7 @@ fn parse_json_data(ctx: &Arc<Context>, string: &str) -> DataTree {
     .expect("Failed to parse data tree")
 }
 
-fn parse_json_diff(ctx: &Arc<Context>, string: &str) -> DataDiff {
+fn parse_json_diff<'a>(ctx: &'a Context, string: &str) -> DataDiff<'a> {
     DataDiff::parse_string(
         &ctx,
         string,
@@ -221,7 +220,7 @@ fn parse_json_diff(ctx: &Arc<Context>, string: &str) -> DataDiff {
     .expect("Failed to parse data diff")
 }
 
-fn parse_json_notification(ctx: &Arc<Context>, string: &str) -> DataTree {
+fn parse_json_notification<'a>(ctx: &'a Context, string: &str) -> DataTree<'a> {
     DataTree::parse_op_string(
         &ctx,
         string,
@@ -231,7 +230,7 @@ fn parse_json_notification(ctx: &Arc<Context>, string: &str) -> DataTree {
     .expect("Failed to parse YANG RPC")
 }
 
-fn parse_json_rpc(ctx: &Arc<Context>, string: &str) -> DataTree {
+fn parse_json_rpc<'a>(ctx: &'a Context, string: &str) -> DataTree<'a> {
     DataTree::parse_op_string(
         &ctx,
         string,

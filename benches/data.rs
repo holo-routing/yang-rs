@@ -1,12 +1,10 @@
-use std::sync::Arc;
-
 use criterion::{criterion_group, criterion_main, BenchmarkId, Criterion};
 use yang3::context::{Context, ContextFlags};
 use yang3::data::{Data, DataDiffFlags, DataTree, DataValidationFlags};
 
 static SEARCH_DIR: &str = "./assets/yang/";
 
-fn data_generate(ctx: &Arc<Context>, interfaces: u32) -> DataTree {
+fn data_generate(ctx: &Context, interfaces: u32) -> DataTree {
     let mut dtree = DataTree::new(ctx);
 
     for i in 1..=interfaces {
@@ -38,18 +36,14 @@ fn criterion_benchmark(c: &mut Criterion) {
     ];
 
     // Initialize context.
-    let mut ctx = Arc::new(
-        Context::new(ContextFlags::NO_YANGLIBRARY)
-            .expect("Failed to create context"),
-    );
-    (*Arc::get_mut(&mut ctx).unwrap())
-        .set_searchdir(SEARCH_DIR)
+    let mut ctx = Context::new(ContextFlags::NO_YANGLIBRARY)
+        .expect("Failed to create context");
+    ctx.set_searchdir(SEARCH_DIR)
         .expect("Failed to set YANG search directory");
 
     // Load YANG modules.
     for module_name in &["ietf-interfaces", "iana-if-type"] {
-        (*Arc::get_mut(&mut ctx).unwrap())
-            .load_module(module_name, None, &[])
+        ctx.load_module(module_name, None, &[])
             .expect("Failed to load module");
     }
 

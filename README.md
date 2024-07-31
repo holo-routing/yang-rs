@@ -48,7 +48,6 @@ By default, yang-rs uses pre-generated FFI bindings and uses dynamic linking to 
 A basic example that parses and validates JSON instance data, and then converts
 it to the XML format:
 ```rust,no_run
-use std::sync::Arc;
 use std::fs::File;
 use yang3::context::{Context, ContextFlags};
 use yang3::data::{
@@ -70,7 +69,6 @@ fn main() -> std::io::Result<()> {
         ctx.load_module(module_name, None, &[])
             .expect("Failed to load module");
     }
-    let ctx = Arc::new(ctx);
 
     // Parse and validate data tree in the JSON format.
     let dtree = DataTree::parse_file(

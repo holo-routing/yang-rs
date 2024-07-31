@@ -16,6 +16,7 @@ use std::os::unix::io::AsRawFd;
 use std::slice;
 
 use crate::context::Context;
+use crate::data::DataTree;
 use crate::error::{Error, Result};
 use crate::iter::{
     Ancestors, Array, Getnext, IterSchemaFlags, NodeIterable, Set, Siblings,
@@ -117,6 +118,13 @@ pub struct SchemaStmtWhen<'a> {
 pub struct SchemaLeafType<'a> {
     context: &'a Context,
     raw: *mut ffi::lysc_type,
+}
+
+/// YANG extension instance.
+#[derive(Clone, Debug)]
+pub struct SchemaExtInstance<'a> {
+    context: &'a Context,
+    raw: *mut ffi::lysc_ext_instance,
 }
 
 /// YANG data value type.
@@ -324,6 +332,14 @@ impl<'a> SchemaModule<'a> {
         let notifications =
             unsafe { SchemaNode::from_raw_opt(self.context, rdata as *mut _) };
         Siblings::new(notifications)
+    }
+
+    /// Returns an iterator over the list of extension instances.
+    pub fn extensions(&self) -> impl Iterator<Item = SchemaExtInstance<'a>> {
+        let compiled = unsafe { (*self.raw).compiled };
+        let array = unsafe { (*compiled).exts };
+        let ptr_size = mem::size_of::<ffi::lysc_ext_instance>();
+        Array::new(self.context, array as *mut _, ptr_size)
     }
 
     /// Returns an iterator over the top-level data nodes. The iteration
@@ -1102,6 +1118,105 @@ unsafe impl<'a> Binding<'a> for SchemaLeafType<'a> {
 
 unsafe impl Send for SchemaLeafType<'_> {}
 unsafe impl Sync for SchemaLeafType<'_> {}
+
+// ===== impl SchemaExtInstance =====
+
+impl<'a> SchemaExtInstance<'a> {
+    /// Returns the optional extension's argument.
+    pub fn argument(&self) -> Option<String> {
+        let argument = unsafe { (*self.raw).argument };
+        char_ptr_to_opt_string(argument)
+    }
+
+    /// Create a new node in the extension instance based on a path.
+    ///
+    /// If path points to a list key and the list instance does not exist,
+    /// the key value from the predicate is used and value is ignored. Also,
+    /// if a leaf-list is being created and both a predicate is defined in
+    /// path and value is set, the predicate is preferred.
+    ///
+    /// For key-less lists and state leaf-lists, positional predicates can be
+    /// used. If no preciate is used for these nodes, they are always created.
+    ///
+    /// The output parameter can be used to change the behavior to ignore
+    /// RPC/action input schema nodes and use only output ones.
+    ///
+    /// Returns the last created node (if any).
+    pub fn new_path(
+        &self,
+        path: &str,
+        value: Option<&str>,
+        output: bool,
+    ) -> Result<Option<DataTree<'a>>> {
+        let path = CString::new(path).unwrap();
+        let mut rnode = std::ptr::null_mut();
+        let rnode_ptr = &mut rnode;
+        let value_cstr;
+
+        let value_ptr = match value {
+            Some(value) => {
+                value_cstr = CString::new(value).unwrap();
+                value_cstr.as_ptr()
+            }
+            None => std::ptr::null(),
+        };
+
+        let mut options = ffi::LYD_NEW_PATH_UPDATE;
+        if output {
+            options |= ffi::LYD_NEW_VAL_OUTPUT;
+        }
+
+        let ret = unsafe {
+            ffi::lyd_new_ext_path(
+                std::ptr::null_mut(),
+                self.raw,
+                path.as_ptr(),
+                value_ptr as *const c_void,
+                options,
+                rnode_ptr,
+            )
+        };
+        if ret != ffi::LY_ERR::LY_SUCCESS {
+            return Err(Error::new(self.context));
+        }
+
+        Ok(unsafe { DataTree::from_raw_opt(self.context, rnode) })
+    }
+
+    /// Create a new top-level inner node (container, notification, RPC or
+    /// action) in the in the extension instance.
+    ///
+    /// Returns the created node.
+    pub fn new_inner(&self, name: &str) -> Result<DataTree<'a>> {
+        let name_cstr = CString::new(name).unwrap();
+        let mut rnode = std::ptr::null_mut();
+        let rnode_ptr = &mut rnode;
+
+        let ret = unsafe {
+            ffi::lyd_new_ext_inner(self.raw, name_cstr.as_ptr(), rnode_ptr)
+        };
+        if ret != ffi::LY_ERR::LY_SUCCESS {
+            return Err(Error::new(self.context));
+        }
+
+        Ok(unsafe { DataTree::from_raw(self.context, rnode) })
+    }
+}
+
+unsafe impl<'a> Binding<'a> for SchemaExtInstance<'a> {
+    type CType = ffi::lysc_ext_instance;
+    type Container = Context;
+
+    unsafe fn from_raw(
+        context: &'a Context,
+        raw: *mut ffi::lysc_ext_instance,
+    ) -> SchemaExtInstance<'_> {
+        SchemaExtInstance { context, raw }
+    }
+}
+
+unsafe impl Send for SchemaExtInstance<'_> {}
+unsafe impl Sync for SchemaExtInstance<'_> {}
 
 // ===== impl DataValue =====
 

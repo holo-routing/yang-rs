@@ -466,3 +466,55 @@ fn schema_node_attributes() {
     assert_eq!(snode.is_status_deprecated(), true);
     assert_eq!(snode.is_status_obsolete(), false);
 }
+
+#[test]
+fn ext_yang_data() {
+    let mut ctx = create_context();
+
+    let module = ctx
+        .load_module("ietf-restconf", None, &[])
+        .expect("Failed to load module");
+
+    assert_eq!(
+        module
+            .extensions()
+            .filter_map(|ext| ext.argument())
+            .collect::<Vec<String>>(),
+        ["yang-errors", "yang-api"]
+    );
+
+    // yang-errors
+    let ext = module
+        .extensions()
+        .find(|ext| ext.argument().as_deref() == Some("yang-errors"))
+        .expect("Failed to find the \"yang-api\" extension instance");
+
+    let dtree = ext.new_inner("errors").expect("Failed to create data");
+
+    assert_eq!(
+        dtree
+            .traverse()
+            .map(|dnode| dnode.path())
+            .collect::<Vec<String>>(),
+        vec!["/ietf-restconf:errors"]
+    );
+
+    // yang-api
+    let ext = module
+        .extensions()
+        .find(|ext| ext.argument().as_deref() == Some("yang-api"))
+        .expect("Failed to find the \"yang-api\" extension instance");
+
+    let dtree = ext
+        .new_path("/ietf-restconf:restconf/data", None, false)
+        .expect("Failed to create data")
+        .unwrap();
+
+    assert_eq!(
+        dtree
+            .traverse()
+            .map(|dnode| dnode.path())
+            .collect::<Vec<String>>(),
+        vec!["/ietf-restconf:restconf", "/ietf-restconf:restconf/data"]
+    );
+}

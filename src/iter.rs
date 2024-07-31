@@ -121,8 +121,8 @@ pub struct SchemaModules<'a> {
 
 /// An iterator over a list of metadata.
 #[derive(Debug)]
-pub struct MetadataList<'a> {
-    next: Option<Metadata<'a>>,
+pub struct MetadataList<'a, 'b> {
+    next: Option<Metadata<'a, 'b>>,
 }
 
 // ===== impl Siblings =====
@@ -414,16 +414,16 @@ impl<'a> Iterator for SchemaModules<'a> {
 
 // ===== impl MetadataList =====
 
-impl MetadataList<'_> {
-    pub fn new(next: Option<Metadata<'_>>) -> MetadataList<'_> {
+impl<'a, 'b> MetadataList<'a, 'b> {
+    pub fn new(next: Option<Metadata<'a, 'b>>) -> MetadataList<'a, 'b> {
         MetadataList { next }
     }
 }
 
-impl<'a> Iterator for MetadataList<'a> {
-    type Item = Metadata<'a>;
+impl<'a, 'b> Iterator for MetadataList<'a, 'b> {
+    type Item = Metadata<'a, 'b>;
 
-    fn next(&mut self) -> Option<Metadata<'a>> {
+    fn next(&mut self) -> Option<Metadata<'a, 'b>> {
         let meta = self.next.clone();
         if let Some(next) = &self.next {
             self.next = next.next();

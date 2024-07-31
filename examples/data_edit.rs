@@ -1,5 +1,4 @@
 use std::fs::File;
-use std::sync::Arc;
 use yang2::context::{Context, ContextFlags};
 use yang2::data::{
     Data, DataFormat, DataParserFlags, DataPrinterFlags, DataTree,
@@ -25,7 +24,6 @@ fn main() -> std::io::Result<()> {
         ctx.load_module(module_name, None, &[])
             .expect("Failed to load module");
     }
-    let ctx = Arc::new(ctx);
 
     // Parse data tree from JSON file.
     let mut dtree = DataTree::parse_file(

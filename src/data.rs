@@ -306,7 +306,7 @@ pub trait Data<'a> {
         &self,
         format: DataFormat,
         options: DataPrinterFlags,
-    ) -> Result<Option<String>> {
+    ) -> Result<String> {
         let mut cstr = std::ptr::null_mut();
         let cstr_ptr = &mut cstr;
 
@@ -322,7 +322,7 @@ pub trait Data<'a> {
             return Err(Error::new(self.context()));
         }
 
-        Ok(char_ptr_to_opt_string(cstr))
+        Ok(char_ptr_to_string(cstr))
     }
 
     /// Print data tree in the specified format to a bytes vector.
@@ -330,7 +330,7 @@ pub trait Data<'a> {
         &self,
         format: DataFormat,
         options: DataPrinterFlags,
-    ) -> Result<Option<Vec<u8>>> {
+    ) -> Result<Vec<u8>> {
         let mut cstr = std::ptr::null_mut();
         let cstr_ptr = &mut cstr;
 
@@ -344,10 +344,6 @@ pub trait Data<'a> {
         };
         if ret != ffi::LY_ERR::LY_SUCCESS {
             return Err(Error::new(self.context()));
-        }
-
-        if cstr.is_null() {
-            return Ok(None);
         }
 
         let bytes = match format {
@@ -369,7 +365,7 @@ pub trait Data<'a> {
                     .to_vec()
             }
         };
-        Ok(Some(bytes))
+        Ok(bytes)
     }
 }
 

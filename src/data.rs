@@ -7,10 +7,9 @@
 //! YANG instance data.
 
 use bitflags::bitflags;
+use core::ffi::{c_char, c_void};
 use std::ffi::CStr;
 use std::ffi::CString;
-use std::os::raw::{c_char, c_void};
-use std::os::unix::io::AsRawFd;
 use std::slice;
 
 use crate::context::Context;
@@ -273,7 +272,8 @@ pub trait Data<'a> {
     }
 
     /// Print data tree in the specified format.
-    fn print_file<F: AsRawFd>(
+    #[cfg(not(target_os = "windows"))]
+    fn print_file<F: std::os::unix::io::AsRawFd>(
         &self,
         fd: F,
         format: DataFormat,
@@ -286,6 +286,29 @@ pub trait Data<'a> {
                 format as u32,
                 options.bits(),
             )
+        };
+        if ret != ffi::LY_ERR::LY_SUCCESS {
+            return Err(Error::new(self.context()));
+        }
+
+        Ok(())
+    }
+    /// Print data tree in the specified format.
+    #[cfg(target_os = "windows")]
+    fn print_file(
+        &self,
+        file: impl std::os::windows::io::AsRawHandle,
+        format: DataFormat,
+        options: DataPrinterFlags,
+    ) -> Result<()> {
+        use libc::open_osfhandle;
+
+        let raw_handle = file.as_raw_handle();
+
+        let fd = unsafe { open_osfhandle(raw_handle as isize, 0) };
+
+        let ret = unsafe {
+            ffi::lyd_print_fd(fd, self.raw(), format as u32, options.bits())
         };
         if ret != ffi::LY_ERR::LY_SUCCESS {
             return Err(Error::new(self.context()));
@@ -381,7 +404,8 @@ impl<'a> DataTree<'a> {
     }
 
     /// Parse (and validate) input data as a YANG data tree.
-    pub fn parse_file<F: AsRawFd>(
+    #[cfg(not(target_os = "windows"))]
+    pub fn parse_file<F: std::os::unix::io::AsRawFd>(
         context: &'a Context,
         fd: F,
         format: DataFormat,
@@ -395,6 +419,39 @@ impl<'a> DataTree<'a> {
             ffi::lyd_parse_data_fd(
                 context.raw,
                 fd.as_raw_fd(),
+                format as u32,
+                parser_options.bits(),
+                validation_options.bits(),
+                rnode_ptr,
+            )
+        };
+        if ret != ffi::LY_ERR::LY_SUCCESS {
+            return Err(Error::new(context));
+        }
+
+        Ok(unsafe { DataTree::from_raw(context, rnode) })
+    }
+    #[cfg(target_os = "windows")]
+    pub fn parse_file(
+        context: &'a Context,
+        file: impl std::os::windows::io::AsRawHandle,
+        format: DataFormat,
+        parser_options: DataParserFlags,
+        validation_options: DataValidationFlags,
+    ) -> Result<DataTree<'a>> {
+        use libc::open_osfhandle;
+
+        let raw_handle = file.as_raw_handle();
+
+        let fd = unsafe { open_osfhandle(raw_handle as isize, 0) };
+
+        let mut rnode = std::ptr::null_mut();
+        let rnode_ptr = &mut rnode;
+
+        let ret = unsafe {
+            ffi::lyd_parse_data_fd(
+                context.raw,
+                fd,
                 format as u32,
                 parser_options.bits(),
                 validation_options.bits(),

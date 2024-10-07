@@ -12,7 +12,6 @@ use num_traits::FromPrimitive;
 use std::ffi::CString;
 use std::mem;
 use std::os::raw::{c_char, c_void};
-use std::os::unix::io::AsRawFd;
 use std::slice;
 
 use crate::context::Context;
@@ -250,7 +249,8 @@ impl<'a> SchemaModule<'a> {
     }
 
     /// Print schema tree in the specified format into a file descriptor.
-    pub fn print_file<F: AsRawFd>(
+    #[cfg(not(target_os = "windows"))]
+    pub fn print_file<F: std::os::unix::io::AsRawFd>(
         &self,
         fd: F,
         format: SchemaOutputFormat,
@@ -263,6 +263,28 @@ impl<'a> SchemaModule<'a> {
                 format as u32,
                 options.bits(),
             )
+        };
+        if ret != ffi::LY_ERR::LY_SUCCESS {
+            return Err(Error::new(self.context));
+        }
+
+        Ok(())
+    }
+    #[cfg(target_os = "windows")]
+    pub fn print_file(
+        &self,
+        file: impl std::os::windows::io::AsRawHandle,
+        format: SchemaOutputFormat,
+        options: SchemaPrinterFlags,
+    ) -> Result<()> {
+        use libc::open_osfhandle;
+
+        let raw_handle = file.as_raw_handle();
+
+        let fd = unsafe { open_osfhandle(raw_handle as isize, 0) };
+
+        let ret = unsafe {
+            ffi::lys_print_fd(fd, self.raw, format as u32, options.bits())
         };
         if ret != ffi::LY_ERR::LY_SUCCESS {
             return Err(Error::new(self.context));

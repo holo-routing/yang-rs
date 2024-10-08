@@ -26,6 +26,7 @@ rust_2018_idioms = "warn"
 
 [lints.clippy]
 missing_safety_doc = "allow"
+too_long_first_doc_paragraph = "allow"
 
 [[bench]]
 name = "data"

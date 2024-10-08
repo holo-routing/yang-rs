@@ -18,6 +18,9 @@ bitflags = "2.5"
 num-traits = "0.2"
 num-derive = "0.4"
 
+[target.'cfg(windows)'.dependencies]
+libc = "0.2"
+
 [dev-dependencies]
 criterion = "0.3.3"
 

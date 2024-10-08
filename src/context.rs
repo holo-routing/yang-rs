@@ -10,7 +10,6 @@ use bitflags::bitflags;
 use std::collections::HashMap;
 use std::ffi::CString;
 use std::os::raw::{c_char, c_void};
-use std::os::unix::ffi::OsStrExt;
 use std::path::Path;
 use std::slice;
 use std::sync::Once;
@@ -118,7 +117,7 @@ impl Context {
         search_dir: P,
     ) -> Result<()> {
         let search_dir =
-            CString::new(search_dir.as_ref().as_os_str().as_bytes()).unwrap();
+            CString::new(search_dir.as_ref().to_str().unwrap()).unwrap();
         let ret =
             unsafe { ffi::ly_ctx_set_searchdir(self.raw, search_dir.as_ptr()) };
         if ret != ffi::LY_ERR::LY_SUCCESS {
@@ -137,7 +136,7 @@ impl Context {
         search_dir: P,
     ) -> Result<()> {
         let search_dir =
-            CString::new(search_dir.as_ref().as_os_str().as_bytes()).unwrap();
+            CString::new(search_dir.as_ref().to_str().unwrap()).unwrap();
         let ret = unsafe {
             ffi::ly_ctx_unset_searchdir(self.raw, search_dir.as_ptr())
         };

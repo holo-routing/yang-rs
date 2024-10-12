@@ -25,7 +25,7 @@ fn main() {
         pregen_bindings.push(env::var("CARGO_MANIFEST_DIR").unwrap());
         pregen_bindings.push("pre-generated-bindings");
         pregen_bindings
-            .push("libyang3-fba28260f382d81cf8f4b91b24cd717b52324fc2.rs");
+            .push("libyang3-526e3ffd1e93ca5874675b48f4027de6150ce92f.rs");
 
         std::fs::copy(&pregen_bindings, &out_file)
             .expect("Unable to copy pre-generated libyang3 bindings");
@@ -101,6 +101,7 @@ fn main() {
             .file("libyang/src/plugins_types/leafref.c")
             .file("libyang/src/plugins_types/lyds_tree.c")
             .file("libyang/src/plugins_types/node_instanceid.c")
+            .file("libyang/src/plugins_types/time_period.c")
             .file("libyang/src/plugins_types/string.c")
             .file("libyang/src/plugins_types/union.c")
             .file("libyang/src/plugins_types/xpath1.0.c")

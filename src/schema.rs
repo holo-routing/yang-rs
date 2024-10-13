@@ -31,6 +31,13 @@ pub struct SchemaModule<'a> {
     pub(crate) raw: *mut ffi::lys_module,
 }
 
+/// Available YANG schema tree structures representing YANG submodule.
+#[derive(Clone, Debug)]
+pub struct SchemaSubmodule<'a> {
+    pub(crate) module: &'a SchemaModule<'a>,
+    pub(crate) raw: *mut ffi::lysp_submodule,
+}
+
 /// Schema input formats accepted by libyang.
 #[allow(clippy::upper_case_acronyms)]
 #[repr(u32)]
@@ -248,6 +255,53 @@ impl<'a> SchemaModule<'a> {
         }
     }
 
+    /// Get YANG submodule of the given name and revision.
+    ///
+    /// If the revision is not specified, the schema with no revision is
+    /// returned (if it is present in the context).
+    pub fn get_submodule(
+        &self,
+        name: &str,
+        revision: Option<&str>,
+    ) -> Option<SchemaSubmodule<'_>> {
+        let name = CString::new(name).unwrap();
+        let revision_cstr;
+
+        let revision_ptr = match revision {
+            Some(revision) => {
+                revision_cstr = CString::new(revision).unwrap();
+                revision_cstr.as_ptr()
+            }
+            None => std::ptr::null(),
+        };
+        let module = unsafe {
+            ffi::ly_ctx_get_submodule2(self.raw, name.as_ptr(), revision_ptr)
+        };
+        if module.is_null() {
+            return None;
+        }
+
+        Some(unsafe { SchemaSubmodule::from_raw(self, module as _) })
+    }
+
+    /// Get the latest revision of the YANG submodule specified by its name.
+    ///
+    /// YANG modules with no revision are supposed to be the oldest one.
+    pub fn get_submodule_latest(
+        &self,
+        name: &str,
+    ) -> Option<SchemaSubmodule<'_>> {
+        let name = CString::new(name).unwrap();
+        let module = unsafe {
+            ffi::ly_ctx_get_submodule2_latest(self.raw, name.as_ptr())
+        };
+        if module.is_null() {
+            return None;
+        }
+
+        Some(unsafe { SchemaSubmodule::from_raw(self, module as _) })
+    }
+
     /// Print schema tree in the specified format into a file descriptor.
     #[cfg(not(target_os = "windows"))]
     pub fn print_file<F: std::os::unix::io::AsRawFd>(
@@ -407,6 +461,61 @@ impl PartialEq for SchemaModule<'_> {
 
 unsafe impl Send for SchemaModule<'_> {}
 unsafe impl Sync for SchemaModule<'_> {}
+
+// ===== impl SchemaSubmodule =====
+
+impl SchemaSubmodule<'_> {
+    /// Print schema tree in the specified format into a string.
+    pub fn print_string(
+        &self,
+        format: SchemaOutputFormat,
+        options: SchemaPrinterFlags,
+    ) -> Result<String> {
+        let mut cstr = std::ptr::null_mut();
+        let cstr_ptr = &mut cstr;
+        let mut ly_out = std::ptr::null_mut();
+        let ret = unsafe { ffi::ly_out_new_memory(cstr_ptr, 0, &mut ly_out) };
+        if ret != ffi::LY_ERR::LY_SUCCESS {
+            return Err(Error::new(self.module.context));
+        }
+
+        let ret = unsafe {
+            ffi::lys_print_submodule(
+                ly_out,
+                self.raw,
+                format as u32,
+                0,
+                options.bits(),
+            )
+        };
+        if ret != ffi::LY_ERR::LY_SUCCESS {
+            return Err(Error::new(self.module.context));
+        }
+
+        Ok(char_ptr_to_string(cstr))
+    }
+}
+
+unsafe impl<'a> Binding<'a> for SchemaSubmodule<'a> {
+    type CType = ffi::lysp_submodule;
+    type Container = SchemaModule<'a>;
+
+    unsafe fn from_raw(
+        module: &'a SchemaModule<'a>,
+        raw: *mut ffi::lysp_submodule,
+    ) -> SchemaSubmodule<'a> {
+        SchemaSubmodule { module, raw }
+    }
+}
+
+impl PartialEq for SchemaSubmodule<'_> {
+    fn eq(&self, other: &SchemaSubmodule<'_>) -> bool {
+        self.raw == other.raw
+    }
+}
+
+unsafe impl Send for SchemaSubmodule<'_> {}
+unsafe impl Sync for SchemaSubmodule<'_> {}
 
 // ===== impl SchemaNode =====
 

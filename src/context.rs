@@ -57,6 +57,9 @@ bitflags! {
         /// directory, which is by default searched automatically (despite not
         /// recursively).
         const DISABLE_SEARCHDIR_CWD = ffi::LY_CTX_DISABLE_SEARCHDIR_CWD as u16;
+
+        /// When searching for schema, prefer searchdirs instead of user callback.
+        const PREFER_SEARCHDIRS = ffi::LY_CTX_PREFER_SEARCHDIRS as u16;
     }
 }
 
@@ -72,6 +75,18 @@ pub struct EmbeddedModuleKey {
 
 /// A hashmap containing embedded YANG modules.
 pub type EmbeddedModules = HashMap<EmbeddedModuleKey, &'static str>;
+
+/// Callback for retrieving missing included or imported models in a custom way.
+pub type ModuleImportCb = unsafe extern "C" fn(
+    mod_name: *const c_char,
+    mod_rev: *const c_char,
+    submod_name: *const c_char,
+    submod_rev: *const c_char,
+    user_data: *mut c_void,
+    format: *mut ffi::LYS_INFORMAT::Type,
+    module_data: *mut *const c_char,
+    free_module_data: *mut ffi::ly_module_imp_data_free_clb,
+) -> ffi::LY_ERR::Type;
 
 // ===== impl Context =====
 
@@ -187,6 +202,24 @@ impl Context {
     pub fn unset_embedded_modules(&mut self) {
         unsafe {
             ffi::ly_ctx_set_module_imp_clb(self.raw, None, std::ptr::null_mut())
+        };
+    }
+
+    /// Set missing include or import module callback. It is meant to be used
+    /// when the models are not locally available (such as when downloading
+    /// modules from a NETCONF server), it should not be required in other
+    /// cases.
+    pub fn set_module_import_callback(
+        &mut self,
+        module_import_cb: ModuleImportCb,
+        user_data: *mut c_void,
+    ) {
+        unsafe {
+            ffi::ly_ctx_set_module_imp_clb(
+                self.raw,
+                Some(module_import_cb),
+                user_data,
+            )
         };
     }
 

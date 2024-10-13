@@ -209,7 +209,7 @@ impl Context {
     /// when the models are not locally available (such as when downloading
     /// modules from a NETCONF server), it should not be required in other
     /// cases.
-    pub fn set_module_import_callback(
+    pub unsafe fn set_module_import_callback(
         &mut self,
         module_import_cb: ModuleImportCb,
         user_data: *mut c_void,

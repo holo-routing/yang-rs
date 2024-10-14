@@ -530,6 +530,97 @@ impl<'a> DataTree<'a> {
         Ok(unsafe { DataTree::from_raw(context, rnode) })
     }
 
+    pub fn _parse_op(
+        &'a mut self,
+        data: impl AsRef<[u8]>,
+        format: DataFormat,
+        op_type: ffi::lyd_type::Type,
+    ) -> Result<DataNodeRef<'a, 'a>> {
+        let mut op_node = std::ptr::null_mut();
+        let mut env_node = std::ptr::null_mut();
+
+        // Create input handler.
+        let mut ly_in = std::ptr::null_mut();
+        let ret = if data.as_ref().is_empty() {
+            let blank = CString::new("").unwrap();
+            unsafe { ffi::ly_in_new_memory(blank.as_ptr() as _, &mut ly_in) }
+        } else {
+            unsafe {
+                ffi::ly_in_new_memory(data.as_ref().as_ptr() as _, &mut ly_in)
+            }
+        };
+        if ret != ffi::LY_ERR::LY_SUCCESS {
+            return Err(Error::new(self.context));
+        }
+
+        let ret = unsafe {
+            ffi::lyd_parse_op(
+                self.context.raw,
+                std::ptr::null_mut(),
+                ly_in,
+                format as u32,
+                op_type,
+                &mut env_node,
+                &mut op_node,
+            )
+        };
+
+        // Can be set even on error, we don't use opaq wrapper.
+        unsafe { ffi::lyd_free_all(env_node) };
+
+        if ret != ffi::LY_ERR::LY_SUCCESS {
+            return Err(Error::new(self.context));
+        }
+
+        let result = unsafe { DataNodeRef::from_raw(self, op_node) };
+        Ok(result)
+    }
+
+    /// Parse RPC with input args from NETCONF (i.e. in XML)
+    pub fn parse_netconf_rpc_op(
+        &'a mut self,
+        data: impl AsRef<[u8]>,
+    ) -> Result<DataNodeRef<'a, 'a>> {
+        self._parse_op(
+            data,
+            DataFormat::XML,
+            ffi::lyd_type::LYD_TYPE_RPC_NETCONF,
+        )
+    }
+
+    /// Parse NOTIFICATION with args from NETCONF (i.e. in XML)
+    pub fn parse_netconf_notif_op(
+        &'a mut self,
+        data: impl AsRef<[u8]>,
+    ) -> Result<DataNodeRef<'a, 'a>> {
+        self._parse_op(
+            data,
+            DataFormat::XML,
+            ffi::lyd_type::LYD_TYPE_NOTIF_NETCONF,
+        )
+    }
+
+    /// Parse NOTIFICATION with args from RESTCONF (in either JSON or XML)
+    pub fn parse_restconf_notif_op(
+        &'a mut self,
+        data: impl AsRef<[u8]>,
+        format: DataFormat,
+    ) -> Result<DataNodeRef<'a, 'a>> {
+        if format == DataFormat::XML {
+            self._parse_op(
+                data,
+                DataFormat::XML,
+                ffi::lyd_type::LYD_TYPE_NOTIF_NETCONF,
+            )
+        } else {
+            self._parse_op(
+                data,
+                DataFormat::JSON,
+                ffi::lyd_type::LYD_TYPE_NOTIF_RESTCONF,
+            )
+        }
+    }
+
     /// Returns a reference to the fist top-level data node, unless the data
     /// tree is empty.
     pub fn reference<'b>(&'b self) -> Option<DataNodeRef<'b, 'a>> {
@@ -1123,6 +1214,86 @@ impl<'a, 'b> DataNodeRef<'a, 'b> {
         }
 
         Ok(())
+    }
+
+    pub fn _parse_op(
+        &mut self,
+        data: impl AsRef<[u8]>,
+        format: DataFormat,
+        op_type: ffi::lyd_type::Type,
+    ) -> Result<()> {
+        let mut rnode = std::ptr::null_mut();
+        let rnode_ptr = &mut rnode;
+
+        // Create input handler.
+        let mut ly_in = std::ptr::null_mut();
+        let ret = if data.as_ref().is_empty() {
+            let blank = CString::new("").unwrap();
+            unsafe { ffi::ly_in_new_memory(blank.as_ptr() as _, &mut ly_in) }
+        } else {
+            unsafe {
+                ffi::ly_in_new_memory(data.as_ref().as_ptr() as _, &mut ly_in)
+            }
+        };
+
+        if ret != ffi::LY_ERR::LY_SUCCESS {
+            return Err(Error::new(self.tree.context));
+        }
+
+        let ret = unsafe {
+            ffi::lyd_parse_op(
+                self.tree.context.raw,
+                self.raw,
+                ly_in,
+                format as u32,
+                op_type,
+                rnode_ptr,
+                std::ptr::null_mut(),
+            )
+        };
+
+        unsafe { ffi::ly_in_free(ly_in, 0) };
+        // Can be set even on error, we don't use opaq wrapper.
+        unsafe { ffi::lyd_free_all(rnode) };
+
+        if ret != ffi::LY_ERR::LY_SUCCESS {
+            return Err(Error::new(self.tree.context));
+        }
+
+        Ok(())
+    }
+
+    /// Parse RPC REPLY with output args from NETCONF (in XML)
+    pub fn parse_netconf_reply_op(
+        &mut self,
+        data: impl AsRef<[u8]>,
+    ) -> Result<Self> {
+        self._parse_op(
+            data,
+            DataFormat::XML,
+            ffi::lyd_type::LYD_TYPE_REPLY_NETCONF,
+        )?;
+        Ok(unsafe { DataNodeRef::from_raw(self.tree, self.raw) })
+    }
+
+    /// Parse RPC with input args from RESTCONF (in JSON or XML)
+    pub fn parse_restconf_rpc_op(
+        &mut self,
+        data: impl AsRef<[u8]>,
+        format: DataFormat,
+    ) -> Result<Self> {
+        self._parse_op(data, format, ffi::lyd_type::LYD_TYPE_RPC_RESTCONF)?;
+        Ok(unsafe { DataNodeRef::from_raw(self.tree, self.raw) })
+    }
+
+    /// Parse RPC REPLY with output args from RESTCONF (in JSON or XML)
+    pub fn parse_restconf_reply_op(
+        &mut self,
+        data: impl AsRef<[u8]>,
+        format: DataFormat,
+    ) -> Result<Self> {
+        self._parse_op(data, format, ffi::lyd_type::LYD_TYPE_REPLY_RESTCONF)?;
+        Ok(unsafe { DataNodeRef::from_raw(self.tree, self.raw) })
     }
 
     /// Remove the data node.

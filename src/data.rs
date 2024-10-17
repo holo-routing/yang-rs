@@ -6,6 +6,8 @@
 
 //! YANG instance data.
 
+use std::sync::Arc;
+
 use bitflags::bitflags;
 use core::ffi::{c_char, c_void};
 use std::ffi::CStr;
@@ -30,8 +32,8 @@ pub struct DataTree<'a> {
 
 /// YANG data node reference.
 #[derive(Clone, Debug)]
-pub struct DataNodeRef<'a, 'b> {
-    tree: &'a DataTree<'b>,
+pub struct DataNodeRef<'a> {
+    tree: Arc<DataTree<'a>>,
     raw: *mut ffi::lyd_node,
 }
 
@@ -43,14 +45,14 @@ pub struct DataNodeRef<'a, 'b> {
 /// '@' character (for more information, see the YANG metadata RFC).
 #[derive(Clone, Debug)]
 pub struct Metadata<'a, 'b> {
-    dnode: &'a DataNodeRef<'a, 'b>,
+    dnode: &'a DataNodeRef<'b>,
     raw: *mut ffi::lyd_meta,
 }
 
 /// YANG data tree diff.
 #[derive(Debug)]
 pub struct DataDiff<'a> {
-    tree: DataTree<'a>,
+    tree: Arc<DataTree<'a>>,
 }
 
 /// YANG data diff operation.
@@ -211,7 +213,7 @@ pub trait Data<'a> {
     }
 
     #[doc(hidden)]
-    fn tree(&self) -> &DataTree<'a>;
+    fn tree(&self) -> &Arc<DataTree<'a>>;
 
     #[doc(hidden)]
     fn raw(&self) -> *mut ffi::lyd_node;
@@ -229,7 +231,7 @@ pub trait Data<'a> {
     /// the form `leaf-list[.='val']`, these instances are found using hashes
     /// with constant (*O(1)*) complexity (unless they are defined in
     /// top-level). Other predicates can still follow the aforementioned ones.
-    fn find_xpath(&self, xpath: &str) -> Result<Set<'_, DataNodeRef<'_, 'a>>> {
+    fn find_xpath(&'a self, xpath: &str) -> Result<Set<'a, DataNodeRef<'a>>> {
         let xpath = CString::new(xpath).unwrap();
         let mut set = std::ptr::null_mut();
         let set_ptr = &mut set;
@@ -256,7 +258,7 @@ pub trait Data<'a> {
     /// The expected format of the expression is JSON, meaning the first node in
     /// every path must have its module name as prefix or be the special `*`
     /// value for all the nodes.
-    fn find_path(&self, path: &str) -> Result<DataNodeRef<'_, 'a>> {
+    fn find_path(&self, path: &str) -> Result<DataNodeRef<'a>> {
         let path = CString::new(path).unwrap();
         let mut rnode = std::ptr::null_mut();
         let rnode_ptr = &mut rnode;
@@ -532,12 +534,12 @@ impl<'a> DataTree<'a> {
 
     /// Returns a reference to the fist top-level data node, unless the data
     /// tree is empty.
-    pub fn reference<'b>(&'b self) -> Option<DataNodeRef<'b, 'a>> {
+    pub fn reference(self: &Arc<Self>) -> Option<DataNodeRef<'a>> {
         if self.raw.is_null() {
             None
         } else {
             Some(DataNodeRef {
-                tree: self,
+                tree: self.clone(),
                 raw: self.raw,
             })
         }
@@ -559,11 +561,11 @@ impl<'a> DataTree<'a> {
     ///
     /// Returns the last created or modified node (if any).
     pub fn new_path(
-        &mut self,
+        self: &Arc<DataTree<'a>>,
         path: &str,
         value: Option<&str>,
         output: bool,
-    ) -> Result<Option<DataNodeRef<'_, '_>>> {
+    ) -> Result<Option<DataNodeRef<'_>>> {
         let path = CString::new(path).unwrap();
         let mut rnode_root = std::ptr::null_mut();
         let mut rnode = std::ptr::null_mut();
@@ -602,17 +604,19 @@ impl<'a> DataTree<'a> {
         }
 
         // Update top-level sibling.
+        /*
         if self.raw.is_null() {
             self.raw = unsafe { ffi::lyd_first_sibling(rnode_root) };
         } else {
             self.raw = unsafe { ffi::lyd_first_sibling(self.raw) };
         }
+        */
 
         Ok(unsafe { DataNodeRef::from_raw_opt(self.tree(), rnode) })
     }
 
     /// Remove a data node.
-    pub fn remove(&mut self, path: &str) -> Result<()> {
+    pub fn remove(self: &Arc<DataTree<'a>>, path: &str) -> Result<()> {
         let dnode = self.find_path(path)?;
         unsafe { ffi::lyd_free_tree(dnode.raw) };
         Ok(())
@@ -734,8 +738,9 @@ impl<'a> DataTree<'a> {
             return Err(Error::new(self.context));
         }
 
+        let dtree = unsafe { DataTree::from_raw(dtree.context, rnode) };
         Ok(DataDiff {
-            tree: unsafe { DataTree::from_raw(dtree.context, rnode) },
+            tree: Arc::new(dtree),
         })
     }
 
@@ -752,14 +757,16 @@ impl<'a> DataTree<'a> {
 
     /// Returns an iterator over all elements in the data tree and its sibling
     /// trees (depth-first search algorithm).
-    pub fn traverse<'b>(&'b self) -> impl Iterator<Item = DataNodeRef<'b, 'a>> {
+    pub fn traverse(
+        self: &Arc<DataTree<'a>>,
+    ) -> impl Iterator<Item = DataNodeRef<'a>> {
         let top = Siblings::new(self.reference());
         top.flat_map(|dnode| dnode.traverse())
     }
 }
 
-impl<'a> Data<'a> for DataTree<'a> {
-    fn tree(&self) -> &DataTree<'a> {
+impl<'a> Data<'a> for Arc<DataTree<'a>> {
+    fn tree(&self) -> &Arc<DataTree<'a>> {
         self
     }
 
@@ -791,7 +798,7 @@ impl Drop for DataTree<'_> {
 
 // ===== impl DataNodeRef =====
 
-impl<'a, 'b> DataNodeRef<'a, 'b> {
+impl<'a> DataNodeRef<'a> {
     /// Schema definition of this node.
     pub fn schema(&self) -> SchemaNode<'_> {
         let raw = unsafe { (*self.raw).schema };
@@ -807,41 +814,41 @@ impl<'a, 'b> DataNodeRef<'a, 'b> {
     }
 
     /// Returns an iterator over the ancestor data nodes.
-    pub fn ancestors(&self) -> Ancestors<'a, DataNodeRef<'a, 'b>> {
+    pub fn ancestors(&self) -> Ancestors<'a, DataNodeRef<'a>> {
         let parent = self.parent();
         Ancestors::new(parent)
     }
 
     /// Returns an iterator over this data node and its ancestors.
-    pub fn inclusive_ancestors(&self) -> Ancestors<'a, DataNodeRef<'a, 'b>> {
+    pub fn inclusive_ancestors(&self) -> Ancestors<'a, DataNodeRef<'a>> {
         Ancestors::new(Some(self.clone()))
     }
 
     /// Returns an iterator over the sibling data nodes.
-    pub fn siblings(&self) -> Siblings<'a, DataNodeRef<'a, 'b>> {
+    pub fn siblings(&self) -> Siblings<'a, DataNodeRef<'a>> {
         let sibling = self.next_sibling();
         Siblings::new(sibling)
     }
 
     /// Returns an iterator over this data node and its siblings.
-    pub fn inclusive_siblings(&self) -> Siblings<'a, DataNodeRef<'a, 'b>> {
+    pub fn inclusive_siblings(&self) -> Siblings<'a, DataNodeRef<'a>> {
         Siblings::new(Some(self.clone()))
     }
 
     /// Returns an iterator over the child data nodes.
-    pub fn children(&self) -> Siblings<'a, DataNodeRef<'a, 'b>> {
+    pub fn children(&self) -> Siblings<'a, DataNodeRef<'a>> {
         let child = self.first_child();
         Siblings::new(child)
     }
 
     /// Returns an iterator over all elements in the data tree (depth-first
     /// search algorithm).
-    pub fn traverse(&self) -> Traverse<'a, DataNodeRef<'a, 'b>> {
+    pub fn traverse(&self) -> Traverse<'a, DataNodeRef<'a>> {
         Traverse::new(self.clone())
     }
 
     /// Returns an iterator over the keys of the list.
-    pub fn list_keys(&self) -> impl Iterator<Item = DataNodeRef<'a, 'b>> {
+    pub fn list_keys(&self) -> impl Iterator<Item = DataNodeRef<'a>> {
         self.children().filter(|dnode| dnode.schema().is_list_key())
     }
 
@@ -915,7 +922,7 @@ impl<'a, 'b> DataNodeRef<'a, 'b> {
     ///
     /// When the `with_parents` parameter is set, duplicate also all the node
     /// parents. Keys are also duplicated for lists.
-    pub fn duplicate(&self, with_parents: bool) -> Result<DataTree<'b>> {
+    pub fn duplicate(&self, with_parents: bool) -> Result<DataTree<'a>> {
         let mut dup = std::ptr::null_mut();
         let dup_ptr = &mut dup;
 
@@ -943,7 +950,7 @@ impl<'a, 'b> DataNodeRef<'a, 'b> {
         }
 
         if with_parents {
-            let mut dnode = unsafe { DataNodeRef::from_raw(self.tree, dup) };
+            let mut dnode = unsafe { DataNodeRef::from_raw(&self.tree, dup) };
             while let Some(parent) = dnode.parent() {
                 dnode = parent;
             }
@@ -980,7 +987,7 @@ impl<'a, 'b> DataNodeRef<'a, 'b> {
         &mut self,
         module: Option<&SchemaModule<'_>>,
         name: &str,
-    ) -> Result<DataNodeRef<'a, 'b>> {
+    ) -> Result<DataNodeRef<'a>> {
         let name_cstr = CString::new(name).unwrap();
         let mut rnode = std::ptr::null_mut();
         let rnode_ptr = &mut rnode;
@@ -1000,7 +1007,7 @@ impl<'a, 'b> DataNodeRef<'a, 'b> {
             return Err(Error::new(self.context()));
         }
 
-        Ok(unsafe { DataNodeRef::from_raw(self.tree, rnode) })
+        Ok(unsafe { DataNodeRef::from_raw(&self.tree, rnode) })
     }
 
     /// Create a new list node in the data tree.
@@ -1015,7 +1022,7 @@ impl<'a, 'b> DataNodeRef<'a, 'b> {
         module: Option<&SchemaModule<'_>>,
         name: &str,
         keys: &str,
-    ) -> Result<DataNodeRef<'a, 'b>> {
+    ) -> Result<DataNodeRef<'a>> {
         let name_cstr = CString::new(name).unwrap();
         let keys_cstr = CString::new(keys).unwrap();
         let mut rnode = std::ptr::null_mut();
@@ -1038,7 +1045,7 @@ impl<'a, 'b> DataNodeRef<'a, 'b> {
             return Err(Error::new(self.context()));
         }
 
-        Ok(unsafe { DataNodeRef::from_raw(self.tree, rnode) })
+        Ok(unsafe { DataNodeRef::from_raw(&self.tree, rnode) })
     }
 
     /// Create a new list node in the data tree.
@@ -1053,7 +1060,7 @@ impl<'a, 'b> DataNodeRef<'a, 'b> {
         module: Option<&SchemaModule<'_>>,
         name: &str,
         keys: &[impl AsRef<str>],
-    ) -> Result<DataNodeRef<'a, 'b>> {
+    ) -> Result<DataNodeRef<'a>> {
         let name_cstr = CString::new(name).unwrap();
         let mut rnode = std::ptr::null_mut();
         let rnode_ptr = &mut rnode;
@@ -1084,7 +1091,7 @@ impl<'a, 'b> DataNodeRef<'a, 'b> {
             return Err(Error::new(self.context()));
         }
 
-        Ok(unsafe { DataNodeRef::from_raw(self.tree, rnode) })
+        Ok(unsafe { DataNodeRef::from_raw(&self.tree, rnode) })
     }
 
     /// Create a new term node in the data tree.
@@ -1132,9 +1139,9 @@ impl<'a, 'b> DataNodeRef<'a, 'b> {
     }
 }
 
-impl<'a> Data<'a> for DataNodeRef<'_, 'a> {
-    fn tree(&self) -> &DataTree<'a> {
-        self.tree
+impl<'a> Data<'a> for DataNodeRef<'a> {
+    fn tree(&self) -> &Arc<DataTree<'a>> {
+        &self.tree
     }
 
     fn raw(&self) -> *mut ffi::lyd_node {
@@ -1142,38 +1149,41 @@ impl<'a> Data<'a> for DataNodeRef<'_, 'a> {
     }
 }
 
-unsafe impl<'a, 'b> Binding<'a> for DataNodeRef<'a, 'b> {
+unsafe impl<'a, 'b> Binding<'a> for DataNodeRef<'b> {
     type CType = ffi::lyd_node;
-    type Container = DataTree<'b>;
+    type Container = Arc<DataTree<'b>>;
 
     unsafe fn from_raw(
-        tree: &'a DataTree<'b>,
+        tree: &'a Arc<DataTree<'b>>,
         raw: *mut ffi::lyd_node,
-    ) -> DataNodeRef<'a, 'b> {
-        DataNodeRef { tree, raw }
+    ) -> DataNodeRef<'b> {
+        DataNodeRef {
+            tree: tree.clone(),
+            raw,
+        }
     }
 }
 
-impl<'a, 'b> NodeIterable<'a> for DataNodeRef<'a, 'b> {
-    fn parent(&self) -> Option<DataNodeRef<'a, 'b>> {
+impl<'a> NodeIterable<'a> for DataNodeRef<'a> {
+    fn parent(&self) -> Option<DataNodeRef<'a>> {
         // NOTE: can't use lyd_parent() since it's an inline function.
         let rparent =
             unsafe { &mut (*(*self.raw).parent).__bindgen_anon_1.node };
-        unsafe { DataNodeRef::from_raw_opt(self.tree, rparent) }
+        unsafe { DataNodeRef::from_raw_opt(&self.tree, rparent) }
     }
 
-    fn next_sibling(&self) -> Option<DataNodeRef<'a, 'b>> {
+    fn next_sibling(&self) -> Option<DataNodeRef<'a>> {
         let rsibling = unsafe { (*self.raw).next };
-        unsafe { DataNodeRef::from_raw_opt(self.tree, rsibling) }
+        unsafe { DataNodeRef::from_raw_opt(&self.tree, rsibling) }
     }
 
-    fn first_child(&self) -> Option<DataNodeRef<'a, 'b>> {
+    fn first_child(&self) -> Option<DataNodeRef<'a>> {
         // NOTE: can't use lyd_child() since it's an inline function.
         let snode = unsafe { (*self.raw).schema };
         if snode.is_null() {
             let ropaq = self.raw as *mut ffi::lyd_node_opaq;
             let rchild = unsafe { (*ropaq).child };
-            return unsafe { DataNodeRef::from_raw_opt(self.tree, rchild) };
+            return unsafe { DataNodeRef::from_raw_opt(&self.tree, rchild) };
         }
 
         let nodetype = unsafe { (*snode).nodetype as u32 };
@@ -1188,18 +1198,18 @@ impl<'a, 'b> NodeIterable<'a> for DataNodeRef<'a, 'b> {
             }
             _ => std::ptr::null_mut(),
         };
-        unsafe { DataNodeRef::from_raw_opt(self.tree, rchild) }
+        unsafe { DataNodeRef::from_raw_opt(&self.tree, rchild) }
     }
 }
 
-impl PartialEq for DataNodeRef<'_, '_> {
-    fn eq(&self, other: &DataNodeRef<'_, '_>) -> bool {
+impl PartialEq for DataNodeRef<'_> {
+    fn eq(&self, other: &DataNodeRef<'_>) -> bool {
         self.raw == other.raw
     }
 }
 
-unsafe impl Send for DataNodeRef<'_, '_> {}
-unsafe impl Sync for DataNodeRef<'_, '_> {}
+unsafe impl Send for DataNodeRef<'_> {}
+unsafe impl Sync for DataNodeRef<'_> {}
 
 // ===== impl Metadata =====
 
@@ -1234,10 +1244,10 @@ impl<'a, 'b> Metadata<'a, 'b> {
 
 unsafe impl<'a, 'b> Binding<'a> for Metadata<'a, 'b> {
     type CType = ffi::lyd_meta;
-    type Container = DataNodeRef<'a, 'b>;
+    type Container = DataNodeRef<'b>;
 
     unsafe fn from_raw(
-        dnode: &'a DataNodeRef<'a, 'b>,
+        dnode: &'a DataNodeRef<'b>,
         raw: *mut ffi::lyd_meta,
     ) -> Metadata<'a, 'b> {
         Metadata { dnode, raw }
@@ -1272,13 +1282,13 @@ impl<'a> DataDiff<'a> {
             validation_options,
         )?;
 
-        Ok(DataDiff { tree: dtree })
+        Ok(DataDiff {
+            tree: Arc::new(dtree),
+        })
     }
 
     /// Returns an iterator over the data changes.
-    pub fn iter(
-        &self,
-    ) -> impl Iterator<Item = (DataDiffOp, DataNodeRef<'_, '_>)> {
+    pub fn iter(&self) -> impl Iterator<Item = (DataDiffOp, DataNodeRef<'_>)> {
         self.tree.traverse().filter_map(|dnode| {
             match dnode.meta().find(|meta| meta.name() == "operation") {
                 Some(meta) => match meta.value() {
@@ -1306,14 +1316,15 @@ impl<'a> DataDiff<'a> {
             return Err(Error::new(self.tree.context));
         }
 
+        let dtree = unsafe { DataTree::from_raw(self.tree.context, rnode) };
         Ok(DataDiff {
-            tree: unsafe { DataTree::from_raw(self.tree.context, rnode) },
+            tree: Arc::new(dtree),
         })
     }
 }
 
 impl<'a> Data<'a> for DataDiff<'a> {
-    fn tree(&self) -> &DataTree<'a> {
+    fn tree(&self) -> &Arc<DataTree<'a>> {
         &self.tree
     }
 

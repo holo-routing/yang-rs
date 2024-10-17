@@ -40,7 +40,6 @@ pub(crate) fn char_ptr_to_opt_str<'a>(c_str: *const c_char) -> Option<&'a str> {
 pub unsafe trait Binding<'a>
 where
     Self: Sized,
-    <Self as Binding<'a>>::Container: 'a,
 {
     type CType;
     type Container;

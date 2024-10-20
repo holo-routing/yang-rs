@@ -176,6 +176,21 @@ macro_rules! assert_data_eq {
     };
 }
 
+use std::sync::{Arc, OnceLock};
+static YANG_CTX: OnceLock<Arc<Context>> = OnceLock::new();
+fn get_configuration(
+    config: &DataTree<'static>,
+    path: &str,
+) -> DataTree<'static> {
+    let yang_ctx = YANG_CTX.get().unwrap();
+    let mut dtree = DataTree::new(yang_ctx);
+    for dnode in config.find_xpath(path).unwrap() {
+        let subtree = dnode.duplicate(true).unwrap();
+        dtree.merge(&subtree).unwrap();
+    }
+    dtree
+}
+
 fn create_context() -> Context {
     // Initialize context.
     let mut ctx = Context::new(ContextFlags::NO_YANGLIBRARY)

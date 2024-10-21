@@ -25,10 +25,7 @@ impl Error {
         let error = unsafe { ffi::ly_err_last(ctx.raw) };
         if error.is_null() {
             return Self {
-                errcode: ffi::LY_ERR::LY_EOTHER,
-                msg: None,
-                path: None,
-                apptag: None,
+                ..Default::default()
             };
         }
 
@@ -42,6 +39,17 @@ impl Error {
             msg,
             path,
             apptag,
+        }
+    }
+}
+
+impl Default for Error {
+    fn default() -> Self {
+        Self {
+            errcode: ffi::LY_ERR::LY_EOTHER,
+            msg: None,
+            path: None,
+            apptag: None,
         }
     }
 }

@@ -3,7 +3,7 @@ use yang3::context::{Context, ContextFlags};
 use yang3::data::{
     Data, DataDiff, DataDiffFlags, DataFormat, DataImplicitFlags,
     DataOperation, DataParserFlags, DataPrinterFlags, DataTree,
-    DataValidationFlags,
+    DataTreeOwningRef, DataValidationFlags,
 };
 
 static SEARCH_DIR: &str = "./assets/yang/";
@@ -162,6 +162,23 @@ static JSON_RPC1: &str = r###"
           "routing-protocol-instance-name":"main"
         }
     }"###;
+static JSON_ACTION1: &str = r###"
+    {
+        "ietf-routing:routing": {
+            "ribs": {
+                "rib": [
+                    {
+                        "name": "default",
+                        "active-route": {
+                            "route": {
+                                "source-protocol": "direct"
+                            }
+                        }
+                    }
+                ]
+            }
+        }
+    }"###;
 
 macro_rules! assert_data_eq {
     ($dnode1:expr, $dnode2:expr) => {
@@ -236,6 +253,16 @@ fn parse_json_rpc<'a>(ctx: &'a Context, string: &str) -> DataTree<'a> {
         string,
         DataFormat::JSON,
         DataOperation::RpcYang,
+    )
+    .expect("Failed to parse YANG RPC")
+}
+
+fn parse_json_rpc_reply<'a>(ctx: &'a Context, string: &str) -> DataTree<'a> {
+    DataTree::parse_op_string(
+        &ctx,
+        string,
+        DataFormat::JSON,
+        DataOperation::ReplyYang,
     )
     .expect("Failed to parse YANG RPC")
 }
@@ -567,6 +594,71 @@ fn data_iterator_traverse_rpc() {
         vec![
             "/ietf-isis:clear-adjacency",
             "/ietf-isis:clear-adjacency/routing-protocol-instance-name"
+        ]
+    );
+}
+
+#[test]
+fn data_iterator_traverse_action() {
+    let ctx = create_context();
+    let mut tree1 = DataTreeOwningRef::new_path(
+        &ctx,
+        "/ietf-routing:routing/ribs/rib[name=\"default\"]/active-route",
+        None,
+        false,
+    )
+    .expect("Failed to create OP node");
+
+    tree1
+        .parse_restconf_reply_op(
+            r###"
+{
+    "ietf-routing:output": {
+        "route": {
+            "source-protocol": "direct"
+        }
+    }
+}"###,
+            DataFormat::JSON,
+        )
+        .expect("Failed to parse YANG ACTION REPLY");
+
+    assert_eq!(
+        tree1
+            .tree()
+            .traverse()
+            .map(|dnode| dnode.path())
+            .collect::<Vec<String>>(),
+        vec![
+            "/ietf-routing:routing",
+            "/ietf-routing:routing/ribs",
+            "/ietf-routing:routing/ribs/rib[name='default']",
+            "/ietf-routing:routing/ribs/rib[name='default']/name",
+            "/ietf-routing:routing/ribs/rib[name='default']/active-route",
+            "/ietf-routing:routing/ribs/rib[name='default']/active-route/route",
+            "/ietf-routing:routing/ribs/rib[name='default']/active-route/route/source-protocol",
+        ]
+    );
+
+    //
+    // Check generic interface
+    //
+
+    let tree1 = parse_json_rpc_reply(&ctx, JSON_ACTION1);
+    assert_eq!(
+        tree1
+            .tree()
+            .traverse()
+            .map(|dnode| dnode.path())
+            .collect::<Vec<String>>(),
+        vec![
+            "/ietf-routing:routing",
+            "/ietf-routing:routing/ribs",
+            "/ietf-routing:routing/ribs/rib[name='default']",
+            "/ietf-routing:routing/ribs/rib[name='default']/name",
+            "/ietf-routing:routing/ribs/rib[name='default']/active-route",
+            "/ietf-routing:routing/ribs/rib[name='default']/active-route/route",
+            "/ietf-routing:routing/ribs/rib[name='default']/active-route/route/source-protocol",
         ]
     );
 }

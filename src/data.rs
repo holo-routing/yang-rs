@@ -28,6 +28,13 @@ pub struct DataTree<'a> {
     raw: *mut ffi::lyd_node,
 }
 
+/// YANG data tree with an associated inner node reference.
+#[derive(Debug)]
+pub struct DataTreeOwningRef<'a> {
+    pub tree: DataTree<'a>,
+    raw: *mut ffi::lyd_node,
+}
+
 /// YANG data node reference.
 #[derive(Clone, Debug)]
 pub struct DataNodeRef<'a> {
@@ -86,6 +93,9 @@ pub enum DataOperation {
     /// Instance of a YANG notification, including all parents in case of a
     /// nested one.
     NotificationYang = ffi::lyd_type::LYD_TYPE_NOTIF_YANG,
+    /// Instance of a YANG RPC/action request with only "output" data children.
+    /// Including all parents in case of an action
+    ReplyYang = ffi::lyd_type::LYD_TYPE_REPLY_YANG,
 }
 
 bitflags! {
@@ -401,6 +411,17 @@ impl<'a> DataTree<'a> {
             context,
             raw: std::ptr::null_mut(),
         }
+    }
+
+    unsafe fn reroot(&mut self, raw: *mut ffi::lyd_node) {
+        if self.raw.is_null() {
+            let mut dnode = DataNodeRef::from_raw(self, raw);
+            while let Some(parent) = dnode.parent() {
+                dnode = parent;
+            }
+            self.raw = dnode.raw();
+        }
+        self.raw = ffi::lyd_first_sibling(self.raw);
     }
 
     /// Parse (and validate) input data as a YANG data tree.
@@ -790,6 +811,255 @@ impl Drop for DataTree<'_> {
         unsafe { ffi::lyd_free_all(self.raw) };
     }
 }
+
+// ===== impl DataTreeOwningRef =====
+
+impl<'a> DataTreeOwningRef<'a> {
+    unsafe fn from_raw(tree: DataTree<'a>, raw: *mut ffi::lyd_node) -> Self {
+        DataTreeOwningRef { tree, raw }
+    }
+
+    /// Create a new node or modify existing one in the data tree based on a
+    /// path.
+    ///
+    /// If path points to a list key and the list instance does not exist,
+    /// the key value from the predicate is used and value is ignored. Also,
+    /// if a leaf-list is being created and both a predicate is defined in
+    /// path and value is set, the predicate is preferred.
+    ///
+    /// For key-less lists and state leaf-lists, positional predicates can be
+    /// used. If no preciate is used for these nodes, they are always created.
+    ///
+    /// The output parameter can be used to change the behavior to ignore
+    /// RPC/action input schema nodes and use only output ones.
+    ///
+    /// Returns the last created or modified node (if any).
+    pub fn new_path(
+        context: &'a Context,
+        path: &str,
+        value: Option<&str>,
+        output: bool,
+    ) -> Result<Self> {
+        let mut tree = DataTree::new(context);
+        let raw = {
+            match tree.new_path(path, value, output)? {
+                Some(node) => node.raw,
+                None => tree.find_path(path)?.raw,
+            }
+        };
+        Ok(unsafe { DataTreeOwningRef::from_raw(tree, raw) })
+    }
+
+    /// Obtain a DataNodeRef that the DataTreeOwningRef is referencing.
+    pub fn noderef(&'a self) -> DataNodeRef<'a> {
+        DataNodeRef {
+            tree: &self.tree,
+            raw: self.raw,
+        }
+    }
+
+    fn _parse_op(
+        context: &'a Context,
+        raw: *mut ffi::lyd_node,
+        data: impl AsRef<[u8]>,
+        format: DataFormat,
+        op_type: ffi::lyd_type::Type,
+        op_node_ptr: *mut *mut ffi::lyd_node,
+    ) -> Result<()> {
+        let mut opaque = std::ptr::null_mut();
+        let opaque_ptr = &mut opaque;
+
+        // Create input handler.
+        if format != DataFormat::JSON && format != DataFormat::XML {
+            return Err(Error {
+                errcode: ffi::LY_ERR::LY_EINVAL,
+                ..Default::default()
+            });
+        }
+        let mut ly_in = std::ptr::null_mut();
+        let cdata = CString::new(data.as_ref()).unwrap();
+        let ret =
+            unsafe { ffi::ly_in_new_memory(cdata.as_ptr() as _, &mut ly_in) };
+        if ret != ffi::LY_ERR::LY_SUCCESS {
+            return Err(Error::new(context));
+        }
+
+        let ret = unsafe {
+            ffi::lyd_parse_op(
+                context.raw,
+                raw,
+                ly_in,
+                format as u32,
+                op_type,
+                opaque_ptr,
+                op_node_ptr,
+            )
+        };
+
+        unsafe { ffi::ly_in_free(ly_in, 0) };
+        unsafe { ffi::lyd_free_all(opaque) }; // Can be set on error.
+
+        if ret != ffi::LY_ERR::LY_SUCCESS {
+            return Err(Error::new(context));
+        }
+
+        Ok(())
+    }
+
+    /// Parse RPC with input args from NETCONF (i.e. in XML)
+    pub fn parse_netconf_rpc_op(
+        context: &'a Context,
+        data: impl AsRef<[u8]>,
+    ) -> Result<DataTreeOwningRef<'a>> {
+        let mut tree = DataTreeOwningRef {
+            tree: DataTree::new(context),
+            raw: std::ptr::null_mut(),
+        };
+
+        Self::_parse_op(
+            context,
+            std::ptr::null_mut(),
+            data,
+            DataFormat::XML,
+            ffi::lyd_type::LYD_TYPE_RPC_NETCONF,
+            &mut tree.raw,
+        )?;
+        unsafe { tree.tree.reroot(tree.raw) };
+        Ok(tree)
+    }
+
+    /// Parse RPC REPLY with output args from NETCONF (in XML)
+    pub fn parse_netconf_reply_op(
+        &mut self,
+        data: impl AsRef<[u8]>,
+    ) -> Result<()> {
+        Self::_parse_op(
+            self.tree.context,
+            self.raw,
+            data,
+            DataFormat::XML,
+            ffi::lyd_type::LYD_TYPE_REPLY_NETCONF,
+            std::ptr::null_mut(),
+        )
+    }
+
+    /// Parse NOTIFICATION with args from NETCONF (i.e. in XML)
+    pub fn parse_netconf_notif_op(
+        context: &'a Context,
+        data: impl AsRef<[u8]>,
+    ) -> Result<DataTreeOwningRef<'a>> {
+        let mut tree = DataTreeOwningRef {
+            tree: DataTree::new(context),
+            raw: std::ptr::null_mut(),
+        };
+
+        Self::_parse_op(
+            context,
+            std::ptr::null_mut(),
+            data,
+            DataFormat::XML,
+            ffi::lyd_type::LYD_TYPE_NOTIF_NETCONF,
+            &mut tree.raw,
+        )?;
+        unsafe { tree.tree.reroot(tree.raw) };
+        Ok(tree)
+    }
+
+    /// Parse RPC with input args from RESTCONF (in JSON or XML)
+    pub fn parse_restconf_rpc_op(
+        &mut self,
+        data: impl AsRef<[u8]>,
+        format: DataFormat,
+    ) -> Result<()> {
+        Self::_parse_op(
+            self.tree.context,
+            self.raw,
+            data,
+            format,
+            ffi::lyd_type::LYD_TYPE_RPC_RESTCONF,
+            std::ptr::null_mut(),
+        )
+    }
+
+    /// Parse RPC REPLY with output args from RESTCONF (in JSON or XML)
+    pub fn parse_restconf_reply_op(
+        &mut self,
+        data: impl AsRef<[u8]>,
+        format: DataFormat,
+    ) -> Result<()> {
+        Self::_parse_op(
+            self.tree.context,
+            self.raw,
+            data,
+            format,
+            ffi::lyd_type::LYD_TYPE_REPLY_RESTCONF,
+            std::ptr::null_mut(),
+        )
+    }
+
+    /// Parse NOTIFICATION with args from RESTCONF (in either JSON or XML)
+    pub fn parse_restconf_notif_op(
+        context: &'a Context,
+        data: impl AsRef<[u8]>,
+        format: DataFormat,
+    ) -> Result<DataTreeOwningRef<'a>> {
+        let mut tree = DataTreeOwningRef {
+            tree: DataTree::new(context),
+            raw: std::ptr::null_mut(),
+        };
+
+        if format == DataFormat::XML {
+            Self::_parse_op(
+                context,
+                std::ptr::null_mut(),
+                data,
+                DataFormat::XML,
+                ffi::lyd_type::LYD_TYPE_NOTIF_NETCONF,
+                &mut tree.raw,
+            )?;
+        } else {
+            Self::_parse_op(
+                context,
+                std::ptr::null_mut(),
+                data,
+                DataFormat::JSON,
+                ffi::lyd_type::LYD_TYPE_NOTIF_RESTCONF,
+                &mut tree.raw,
+            )?;
+        }
+        unsafe { tree.tree.reroot(tree.raw) };
+        Ok(tree)
+    }
+}
+
+impl<'a> From<DataTree<'a>> for DataTreeOwningRef<'a> {
+    fn from(tree: DataTree<'a>) -> DataTreeOwningRef<'a> {
+        let raw = tree.raw;
+        unsafe { DataTreeOwningRef::from_raw(tree, raw) }
+    }
+}
+
+impl<'a> From<&'a DataTreeOwningRef<'_>> for DataNodeRef<'a> {
+    fn from(tree: &'a DataTreeOwningRef<'_>) -> DataNodeRef<'a> {
+        DataNodeRef {
+            tree: &tree.tree,
+            raw: tree.raw,
+        }
+    }
+}
+
+impl<'a> Data<'a> for DataTreeOwningRef<'a> {
+    fn tree(&self) -> &DataTree<'a> {
+        &self.tree
+    }
+
+    fn raw(&self) -> *mut ffi::lyd_node {
+        self.raw
+    }
+}
+
+unsafe impl Send for DataTreeOwningRef<'_> {}
+unsafe impl Sync for DataTreeOwningRef<'_> {}
 
 // ===== impl DataNodeRef =====
 

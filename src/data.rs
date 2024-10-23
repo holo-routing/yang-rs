@@ -544,6 +544,8 @@ impl<'a> DataTree<'a> {
                 std::ptr::null_mut(),
             )
         };
+        unsafe { ffi::ly_in_free(ly_in, 0) };
+
         if ret != ffi::LY_ERR::LY_SUCCESS {
             return Err(Error::new(context));
         }

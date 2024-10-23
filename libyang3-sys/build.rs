@@ -7,7 +7,7 @@ fn main() {
 
     #[cfg(feature = "bindgen")]
     {
-        // Generate Rust FFI to libfrr.
+        // Generate Rust FFI to libyang.
         println!("cargo:rerun-if-changed=wrapper.h");
         let bindings = bindgen::Builder::default()
             .header("wrapper.h")

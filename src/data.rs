@@ -496,11 +496,12 @@ impl<'a> DataTree<'a> {
     ) -> Result<DataTree<'a>> {
         let mut rnode = std::ptr::null_mut();
         let rnode_ptr = &mut rnode;
+        let cdata = CString::new(data.as_ref()).unwrap();
 
         let ret = unsafe {
             ffi::lyd_parse_data_mem(
                 context.raw,
-                data.as_ref().as_ptr() as _,
+                cdata.as_ptr() as _,
                 format as u32,
                 parser_options.bits(),
                 validation_options.bits(),
@@ -525,10 +526,10 @@ impl<'a> DataTree<'a> {
         let rnode_ptr = &mut rnode;
 
         // Create input handler.
+        let cdata = CString::new(data.as_ref()).unwrap();
         let mut ly_in = std::ptr::null_mut();
-        let ret = unsafe {
-            ffi::ly_in_new_memory(data.as_ref().as_ptr() as _, &mut ly_in)
-        };
+        let ret =
+            unsafe { ffi::ly_in_new_memory(cdata.as_ptr() as _, &mut ly_in) };
         if ret != ffi::LY_ERR::LY_SUCCESS {
             return Err(Error::new(context));
         }

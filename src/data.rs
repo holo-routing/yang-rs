@@ -727,10 +727,10 @@ unsafe impl<'a> Binding<'a> for DataTree<'a> {
     }
 }
 
-unsafe impl<'a> Send for DataTree<'a> {}
-unsafe impl<'a> Sync for DataTree<'a> {}
+unsafe impl Send for DataTree<'_> {}
+unsafe impl Sync for DataTree<'_> {}
 
-impl<'a> Drop for DataTree<'a> {
+impl Drop for DataTree<'_> {
     fn drop(&mut self) {
         unsafe { ffi::lyd_free_all(self.raw) };
     }
@@ -1079,8 +1079,8 @@ impl<'a, 'b> DataNodeRef<'a, 'b> {
     }
 }
 
-impl<'a, 'b> Data<'b> for DataNodeRef<'a, 'b> {
-    fn tree(&self) -> &DataTree<'b> {
+impl<'a> Data<'a> for DataNodeRef<'_, 'a> {
+    fn tree(&self) -> &DataTree<'a> {
         self.tree
     }
 
@@ -1139,7 +1139,7 @@ impl<'a, 'b> NodeIterable<'a> for DataNodeRef<'a, 'b> {
     }
 }
 
-impl<'a, 'b> PartialEq for DataNodeRef<'a, 'b> {
+impl PartialEq for DataNodeRef<'_, '_> {
     fn eq(&self, other: &DataNodeRef<'_, '_>) -> bool {
         self.raw == other.raw
     }
@@ -1191,7 +1191,7 @@ unsafe impl<'a, 'b> Binding<'a> for Metadata<'a, 'b> {
     }
 }
 
-impl<'a, 'b> PartialEq for Metadata<'a, 'b> {
+impl PartialEq for Metadata<'_, '_> {
     fn eq(&self, other: &Metadata<'_, '_>) -> bool {
         self.raw == other.raw
     }

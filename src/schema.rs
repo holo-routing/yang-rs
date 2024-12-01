@@ -372,12 +372,12 @@ unsafe impl<'a> Binding<'a> for SchemaModule<'a> {
     unsafe fn from_raw(
         context: &'a Context,
         raw: *mut ffi::lys_module,
-    ) -> SchemaModule<'_> {
+    ) -> SchemaModule<'a> {
         SchemaModule { context, raw }
     }
 }
 
-impl<'a> PartialEq for SchemaModule<'a> {
+impl PartialEq for SchemaModule<'_> {
     fn eq(&self, other: &SchemaModule<'_>) -> bool {
         self.raw == other.raw
     }
@@ -948,7 +948,7 @@ unsafe impl<'a> Binding<'a> for SchemaNode<'a> {
     unsafe fn from_raw(
         context: &'a Context,
         raw: *mut ffi::lysc_node,
-    ) -> SchemaNode<'_> {
+    ) -> SchemaNode<'a> {
         let nodetype = unsafe { (*raw).nodetype } as u32;
         let kind = match nodetype {
             ffi::LYS_CONTAINER => SchemaNodeKind::Container,
@@ -986,7 +986,7 @@ impl<'a> NodeIterable<'a> for SchemaNode<'a> {
     }
 }
 
-impl<'a> PartialEq for SchemaNode<'a> {
+impl PartialEq for SchemaNode<'_> {
     fn eq(&self, other: &SchemaNode<'_>) -> bool {
         self.raw == other.raw
     }
@@ -997,7 +997,7 @@ unsafe impl Sync for SchemaNode<'_> {}
 
 // ===== impl SchemaStmtMust =====
 
-impl<'a> SchemaStmtMust<'a> {
+impl SchemaStmtMust<'_> {
     // TODO: XPath condition
 
     /// description substatement.
@@ -1028,7 +1028,7 @@ unsafe impl<'a> Binding<'a> for SchemaStmtMust<'a> {
     unsafe fn from_raw(
         _context: &'a Context,
         raw: *mut ffi::lysc_must,
-    ) -> SchemaStmtMust<'_> {
+    ) -> SchemaStmtMust<'a> {
         SchemaStmtMust {
             raw,
             _marker: std::marker::PhantomData,
@@ -1041,7 +1041,7 @@ unsafe impl Sync for SchemaStmtMust<'_> {}
 
 // ===== impl SchemaStmtWhen =====
 
-impl<'a> SchemaStmtWhen<'a> {
+impl SchemaStmtWhen<'_> {
     // TODO: XPath condition
 
     /// description substatement.
@@ -1062,7 +1062,7 @@ unsafe impl<'a> Binding<'a> for SchemaStmtWhen<'a> {
     unsafe fn from_raw(
         _context: &'a Context,
         raw: *mut *mut ffi::lysc_when,
-    ) -> SchemaStmtWhen<'_> {
+    ) -> SchemaStmtWhen<'a> {
         let raw = unsafe { *raw };
         SchemaStmtWhen {
             raw,
@@ -1076,7 +1076,7 @@ unsafe impl Sync for SchemaStmtWhen<'_> {}
 
 // ===== impl SchemaLeafType =====
 
-impl<'a> SchemaLeafType<'a> {
+impl SchemaLeafType<'_> {
     /// Returns the resolved base type.
     pub fn base_type(&self) -> DataValueType {
         let base_type = unsafe { (*self.raw).basetype };
@@ -1111,7 +1111,7 @@ unsafe impl<'a> Binding<'a> for SchemaLeafType<'a> {
     unsafe fn from_raw(
         context: &'a Context,
         raw: *mut ffi::lysc_type,
-    ) -> SchemaLeafType<'_> {
+    ) -> SchemaLeafType<'a> {
         SchemaLeafType { context, raw }
     }
 }
@@ -1210,7 +1210,7 @@ unsafe impl<'a> Binding<'a> for SchemaExtInstance<'a> {
     unsafe fn from_raw(
         context: &'a Context,
         raw: *mut ffi::lysc_ext_instance,
-    ) -> SchemaExtInstance<'_> {
+    ) -> SchemaExtInstance<'a> {
         SchemaExtInstance { context, raw }
     }
 }

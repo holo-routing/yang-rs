@@ -2,9 +2,12 @@ name: CI
 
 on:
   push:
-    branches: [ master ]
+    branches:
+      - "**"
   pull_request:
-    branches: [ master ]
+    branches:
+      - "master"
+      - "yang2"
 
 env:
   CARGO_TERM_COLOR: always
@@ -17,7 +20,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: dtolnay/rust-toolchain@nightly
+      - uses: dtolnay/rust-toolchain@stable
         with:
           components: rustfmt
       - uses: Swatinem/rust-cache@v2
@@ -33,7 +36,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: dtolnay/rust-toolchain@nightly
+      - uses: dtolnay/rust-toolchain@stable
         with:
           components: clippy
       - name: Run Clippy
@@ -42,36 +45,21 @@ jobs:
   test:
     name: Tests and Coverage Report
     env:
-      yang2_rs: rust_ci_github_actions_workflow
       CARGO_INCREMENTAL: 0
-      RUSTFLAGS: -Zprofile -Ccodegen-units=1 -Copt-level=0 -Clink-dead-code -Coverflow-checks=off -Zpanic_abort_tests -Cpanic=abort
+      RUSTFLAGS: -Cinstrument-coverage -Ccodegen-units=1 -Copt-level=0 -Clink-dead-code -Coverflow-checks=off -Zpanic_abort_tests -Cpanic=abort
       RUSTDOCFLAGS: -Cpanic=abort
+      LLVM_PROFILE_FILE: yang_rs-%p-%m.profraw
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: actions-rs/toolchain@v1
+      - uses: dtolnay/rust-toolchain@nightly
         with:
-          profile: minimal
-          toolchain: nightly
-          override: true
-      - name: Cache dependencies
-        uses: actions/cache@v2
-        env:
-          cache-name: cache-dependencies
-        with:
-          path: |
-            ~/.cargo/.crates.toml
-            ~/.cargo/.crates2.json
-            ~/.cargo/bin
-            ~/.cargo/registry/index
-            ~/.cargo/registry/cache
-            target
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('Cargo.lock') }}
+          components: llvm-tools-preview
       - name: Generate test result and coverage report
         run: |
           cargo install cargo2junit grcov;
           cargo test --features bundled $CARGO_OPTIONS -- -Z unstable-options --format json | cargo2junit > results.xml;
-          grcov . -s . -t lcov --llvm --ignore-not-existing --ignore "/*" --ignore "tests/*" --ignore "examples/*" --ignore "libyang2-sys/*" -o lcov.info;
+          grcov . -s . --binary-path ./target/debug/ -t lcov --llvm --ignore-not-existing --ignore "/*" --ignore "tests/*" --ignore "examples/*" --ignore "libyang3-sys/*" -o lcov.info;
       - name: Upload test results
         uses: EnricoMi/publish-unit-test-result-action@v1
         with:

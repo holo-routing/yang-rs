@@ -173,7 +173,7 @@ pub enum DataValue {
 impl<'a> SchemaModule<'a> {
     /// Returns a mutable raw pointer to the underlying C library representation
     /// of the module.
-    pub(crate) fn raw(&self) -> *mut ffi::lys_module {
+    pub fn as_raw(&self) -> *mut ffi::lys_module {
         self.raw
     }
 
@@ -389,6 +389,12 @@ unsafe impl Sync for SchemaModule<'_> {}
 // ===== impl SchemaNode =====
 
 impl<'a> SchemaNode<'a> {
+    /// Returns a mutable raw pointer to the underlying C library representation
+    /// of the node.
+    pub fn as_raw(&self) -> *mut ffi::lysc_node {
+        self.raw
+    }
+
     #[doc(hidden)]
     fn check_flag(&self, flag: u32) -> bool {
         let flags = unsafe { (*self.raw).flags } as u32;
@@ -1000,6 +1006,12 @@ unsafe impl Sync for SchemaNode<'_> {}
 impl SchemaStmtMust<'_> {
     // TODO: XPath condition
 
+    /// Returns a mutable raw pointer to the underlying C library representation
+    /// of the must statement.
+    pub fn as_raw(&self) -> *mut ffi::lysc_must {
+        self.raw
+    }
+
     /// description substatement.
     pub fn description(&self) -> Option<&str> {
         char_ptr_to_opt_str(unsafe { (*self.raw).dsc })
@@ -1044,6 +1056,12 @@ unsafe impl Sync for SchemaStmtMust<'_> {}
 impl SchemaStmtWhen<'_> {
     // TODO: XPath condition
 
+    /// Returns a mutable raw pointer to the underlying C library representation
+    /// of the when statement.
+    pub fn as_raw(&self) -> *mut ffi::lysc_when {
+        self.raw
+    }
+
     /// description substatement.
     pub fn description(&self) -> Option<&str> {
         char_ptr_to_opt_str(unsafe { (*self.raw).dsc })
@@ -1077,6 +1095,12 @@ unsafe impl Sync for SchemaStmtWhen<'_> {}
 // ===== impl SchemaLeafType =====
 
 impl SchemaLeafType<'_> {
+    /// Returns a mutable raw pointer to the underlying C library representation
+    /// of the leaf type.
+    pub fn as_raw(&self) -> *mut ffi::lysc_type {
+        self.raw
+    }
+
     /// Returns the resolved base type.
     pub fn base_type(&self) -> DataValueType {
         let base_type = unsafe { (*self.raw).basetype };
@@ -1122,6 +1146,12 @@ unsafe impl Sync for SchemaLeafType<'_> {}
 // ===== impl SchemaExtInstance =====
 
 impl<'a> SchemaExtInstance<'a> {
+    /// Returns a mutable raw pointer to the underlying C library representation
+    /// of the extension instance.
+    pub fn as_raw(&self) -> *mut ffi::lysc_ext_instance {
+        self.raw
+    }
+
     /// Returns the optional extension's argument.
     pub fn argument(&self) -> Option<String> {
         let argument = unsafe { (*self.raw).argument };

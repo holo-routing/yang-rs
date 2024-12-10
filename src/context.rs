@@ -9,6 +9,7 @@
 use bitflags::bitflags;
 use std::collections::HashMap;
 use std::ffi::CString;
+use std::mem::ManuallyDrop;
 use std::os::raw::{c_char, c_void};
 use std::os::unix::ffi::OsStrExt;
 use std::path::Path;
@@ -110,6 +111,12 @@ impl Context {
         }
 
         Ok(Context { raw: context })
+    }
+
+    /// Returns a mutable raw pointer to the underlying C library representation
+    /// of the libyang context.
+    pub fn into_raw(self) -> *mut ffi::ly_ctx {
+        ManuallyDrop::new(self).raw
     }
 
     /// Add the search path into libyang context.

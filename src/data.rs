@@ -10,6 +10,7 @@ use bitflags::bitflags;
 use core::ffi::{c_char, c_void};
 use std::ffi::CStr;
 use std::ffi::CString;
+use std::mem::ManuallyDrop;
 use std::slice;
 
 use crate::context::Context;
@@ -411,6 +412,12 @@ impl<'a> DataTree<'a> {
             context,
             raw: std::ptr::null_mut(),
         }
+    }
+
+    /// Returns a mutable raw pointer to the underlying C library representation
+    /// of the root node of the YANG data tree.
+    pub fn into_raw(self) -> *mut ffi::lyd_node {
+        ManuallyDrop::new(self).raw
     }
 
     unsafe fn reroot(&mut self, raw: *mut ffi::lyd_node) {
@@ -1067,6 +1074,12 @@ unsafe impl Sync for DataTreeOwningRef<'_> {}
 // ===== impl DataNodeRef =====
 
 impl<'a> DataNodeRef<'a> {
+    /// Returns a mutable raw pointer to the underlying C library representation
+    /// of the data node reference.
+    pub fn as_raw(&self) -> *mut ffi::lyd_node {
+        self.raw
+    }
+
     /// Schema definition of this node.
     pub fn schema(&self) -> SchemaNode<'_> {
         let raw = unsafe { (*self.raw).schema };
@@ -1264,7 +1277,7 @@ impl<'a> DataNodeRef<'a> {
             ffi::lyd_new_inner(
                 self.raw(),
                 module
-                    .map(|module| module.raw())
+                    .map(|module| module.as_raw())
                     .unwrap_or(std::ptr::null_mut()),
                 name_cstr.as_ptr(),
                 0,
@@ -1301,7 +1314,7 @@ impl<'a> DataNodeRef<'a> {
             ffi::lyd_new_list2(
                 self.raw(),
                 module
-                    .map(|module| module.raw())
+                    .map(|module| module.as_raw())
                     .unwrap_or(std::ptr::null_mut()),
                 name_cstr.as_ptr(),
                 keys_cstr.as_ptr(),
@@ -1346,7 +1359,7 @@ impl<'a> DataNodeRef<'a> {
             ffi::lyd_new_list3(
                 self.raw(),
                 module
-                    .map(|module| module.raw())
+                    .map(|module| module.as_raw())
                     .unwrap_or(std::ptr::null_mut()),
                 name_cstr.as_ptr(),
                 keys.as_mut_ptr(),
@@ -1385,7 +1398,7 @@ impl<'a> DataNodeRef<'a> {
             ffi::lyd_new_term(
                 self.raw(),
                 module
-                    .map(|module| module.raw())
+                    .map(|module| module.as_raw())
                     .unwrap_or(std::ptr::null_mut()),
                 name_cstr.as_ptr(),
                 value_ptr,
@@ -1479,6 +1492,12 @@ unsafe impl Sync for DataNodeRef<'_> {}
 // ===== impl Metadata =====
 
 impl<'a> Metadata<'a> {
+    /// Returns a mutable raw pointer to the underlying C library representation
+    /// of the data element metadata.
+    pub fn as_raw(&self) -> *mut ffi::lyd_meta {
+        self.raw
+    }
+
     /// Metadata name.
     pub fn name(&self) -> &str {
         char_ptr_to_str(unsafe { (*self.raw).name })

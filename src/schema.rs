@@ -129,8 +129,8 @@ pub struct SchemaLeafType<'a> {
 /// YANG extension instance.
 #[derive(Clone, Debug)]
 pub struct SchemaExtInstance<'a> {
-    context: &'a Context,
-    raw: *mut ffi::lysc_ext_instance,
+    pub(crate) context: &'a Context,
+    pub(crate) raw: *mut ffi::lysc_ext_instance,
 }
 
 /// YANG data value type.

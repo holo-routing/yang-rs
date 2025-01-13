@@ -44,33 +44,19 @@ jobs:
 
   test:
     name: Tests and Coverage Report
-    env:
-      CARGO_INCREMENTAL: 0
-      RUSTFLAGS: -Cinstrument-coverage -Ccodegen-units=1 -Copt-level=0 -Clink-dead-code -Coverflow-checks=off -Zpanic_abort_tests -Cpanic=abort
-      RUSTDOCFLAGS: -Cpanic=abort
-      LLVM_PROFILE_FILE: yang_rs-%p-%m.profraw
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: dtolnay/rust-toolchain@nightly
+      - name: Install Rust
+        run: rustup update stable
+      - name: Install cargo-llvm-cov
+        uses: taiki-e/install-action@cargo-llvm-cov
+      - name: Generate code coverage
+        run: cargo llvm-cov --features bundled --codecov --output-path codecov.json
+      - name: Upload to Codecov
+        uses: codecov/codecov-action@v4
+        if: github.event_name != 'pull_request'
         with:
-          components: llvm-tools-preview
-      - name: Generate test result and coverage report
-        run: |
-          cargo install cargo2junit grcov;
-          cargo test --features bundled $CARGO_OPTIONS -- -Z unstable-options --format json | cargo2junit > results.xml;
-          grcov . -s . --binary-path ./target/debug/ -t lcov --llvm --ignore-not-existing --ignore "/*" --ignore "tests/*" --ignore "examples/*" --ignore "libyang3-sys/*" -o lcov.info;
-      - name: Upload test results
-        uses: EnricoMi/publish-unit-test-result-action@v1
-        with:
-          check_name: Test Results
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          files: results.xml
-      - name: Upload to CodeCov
-        uses: codecov/codecov-action@v1
-        with:
-          # required for private repositories:
-          # token: ${{ secrets.CODECOV_TOKEN }}
           files: ./lcov.info
           fail_ci_if_error: false
           token: ${{ secrets.CODECOV_TOKEN }}

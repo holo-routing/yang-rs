@@ -30,9 +30,9 @@ impl Error {
         }
 
         let errcode = unsafe { (*error).err };
-        let msg = unsafe { char_ptr_to_opt_string((*error).msg) };
-        let path = unsafe { char_ptr_to_opt_string((*error).data_path) };
-        let apptag = unsafe { char_ptr_to_opt_string((*error).apptag) };
+        let msg = unsafe { char_ptr_to_opt_string((*error).msg, false) };
+        let path = unsafe { char_ptr_to_opt_string((*error).data_path, false) };
+        let apptag = unsafe { char_ptr_to_opt_string((*error).apptag, false) };
 
         Self {
             errcode,

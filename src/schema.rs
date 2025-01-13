@@ -368,7 +368,7 @@ impl<'a> SchemaModule<'a> {
             return Err(Error::new(self.context));
         }
 
-        Ok(char_ptr_to_string(cstr))
+        Ok(char_ptr_to_string(cstr, true))
     }
 
     /// Returns an iterator over the top-level data nodes.
@@ -498,7 +498,7 @@ impl SchemaSubmodule<'_> {
             return Err(Error::new(self.module.context));
         }
 
-        Ok(char_ptr_to_string(cstr))
+        Ok(char_ptr_to_string(cstr, true))
     }
 }
 
@@ -576,7 +576,7 @@ impl<'a> SchemaNode<'a> {
             panic!("Failed to generate path of the schema node");
         }
 
-        char_ptr_to_string(buf.as_ptr())
+        char_ptr_to_string(buf.as_ptr(), false)
     }
 
     /// Evaluate an xpath expression on the node.
@@ -1247,7 +1247,7 @@ impl SchemaLeafType<'_> {
     /// Returns the typedef name if it exists.
     pub fn typedef_name(&self) -> Option<String> {
         let typedef = unsafe { (*self.raw).name };
-        char_ptr_to_opt_string(typedef)
+        char_ptr_to_opt_string(typedef, false)
     }
 
     /// Returns the real type of the leafref, corresponding to the first
@@ -1292,7 +1292,7 @@ impl<'a> SchemaExtInstance<'a> {
     /// Returns the optional extension's argument.
     pub fn argument(&self) -> Option<String> {
         let argument = unsafe { (*self.raw).argument };
-        char_ptr_to_opt_string(argument)
+        char_ptr_to_opt_string(argument, false)
     }
 
     /// Create a new node in the extension instance based on a path.
@@ -1435,7 +1435,7 @@ impl DataValue {
                 if canonical.is_null() {
                     canonical = ffi::lyd_value_get_canonical(context.raw, raw);
                 }
-                DataValue::Other(char_ptr_to_string(canonical))
+                DataValue::Other(char_ptr_to_string(canonical, false))
             }
         }
     }

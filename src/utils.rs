@@ -4,20 +4,29 @@
 // SPDX-License-Identifier: MIT
 //
 
+use libyang3_sys as ffi;
 use std::ffi::CStr;
 use std::os::raw::c_char;
 
 /// Convert C String to owned string.
-pub(crate) fn char_ptr_to_string(c_str: *const c_char) -> String {
-    unsafe { CStr::from_ptr(c_str).to_string_lossy().into_owned() }
+pub(crate) fn char_ptr_to_string(c_str: *const c_char, free: bool) -> String {
+    let string =
+        unsafe { CStr::from_ptr(c_str).to_string_lossy().into_owned() };
+    if free {
+        unsafe { ffi::free(c_str as *mut std::ffi::c_void) };
+    }
+    string
 }
 
 /// Convert C String to optional owned string.
-pub(crate) fn char_ptr_to_opt_string(c_str: *const c_char) -> Option<String> {
+pub(crate) fn char_ptr_to_opt_string(
+    c_str: *const c_char,
+    free: bool,
+) -> Option<String> {
     if c_str.is_null() {
         None
     } else {
-        Some(char_ptr_to_string(c_str))
+        Some(char_ptr_to_string(c_str, free))
     }
 }
 

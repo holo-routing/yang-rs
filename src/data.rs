@@ -357,7 +357,7 @@ pub trait Data<'a> {
             return Err(Error::new(self.context()));
         }
 
-        Ok(char_ptr_to_string(cstr))
+        Ok(char_ptr_to_string(cstr, true))
     }
 
     /// Print data tree in the specified format to a bytes vector.
@@ -1259,7 +1259,7 @@ impl<'a> DataNodeRef<'a> {
             panic!("Failed to generate path of the data node");
         }
 
-        char_ptr_to_string(buf.as_ptr())
+        char_ptr_to_string(buf.as_ptr(), false)
     }
 
     /// Node's value (canonical string representation).
@@ -1276,7 +1276,7 @@ impl<'a> DataNodeRef<'a> {
                         )
                     };
                 }
-                char_ptr_to_opt_string(value)
+                char_ptr_to_opt_string(value, false)
             }
             _ => None,
         }

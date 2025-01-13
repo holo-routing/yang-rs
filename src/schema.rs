@@ -498,7 +498,9 @@ impl SchemaSubmodule<'_> {
             return Err(Error::new(self.module.context));
         }
 
-        Ok(char_ptr_to_string(cstr, true))
+        let string = char_ptr_to_string(cstr, false);
+        unsafe { ffi::ly_out_free(ly_out, None, 0) };
+        Ok(string)
     }
 }
 

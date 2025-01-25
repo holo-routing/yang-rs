@@ -936,6 +936,32 @@ impl<'a> DataTreeOwningRef<'a> {
         DataTreeOwningRef { tree, raw }
     }
 
+    /// Get a temporary DataTreeOwningRef from a raw lyd_node pointer.
+    ///
+    /// The intent of this function is to create a temporary DataTreeOwningRef
+    /// from a raw lyd_node pointer passed to user that lives in a DataTree they
+    /// do not own (e.g., as a C callback argument).
+    ///
+    /// # Safety:
+    ///
+    /// The user must still have access and pass in the context that the tree
+    /// of the data node was created from. The function will panic if the
+    /// context does not match.
+    ///
+    /// The returned value is only valid for as long as the node's tree and the
+    /// node itself are valid.
+    pub unsafe fn from_raw_node(
+        context: &Context,
+        raw: *mut ffi::lyd_node,
+    ) -> std::mem::ManuallyDrop<DataTreeOwningRef<'_>> {
+        if (*(*(*raw).schema).module).ctx != context.raw {
+            panic!("raw node context differs from passed in context");
+        }
+        let mut tree = DataTree::new(context);
+        tree.reroot(raw);
+        std::mem::ManuallyDrop::new(DataTreeOwningRef { tree, raw })
+    }
+
     /// Create a new node or modify existing one in the data tree based on a
     /// path.
     ///

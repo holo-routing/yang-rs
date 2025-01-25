@@ -1413,7 +1413,7 @@ pub const LYD_VALIDATE_OPERATIONAL: u32 = 8;
 pub const LYD_VALIDATE_NO_DEFAULTS: u32 = 16;
 pub const LYD_VALIDATE_NOT_FINAL: u32 = 32;
 pub const LYD_VALIDATE_OPTS_MASK: u32 = 65535;
-pub const LYPLG_EXT_API_VERSION: u32 = 6;
+pub const LYPLG_EXT_API_VERSION: u32 = 8;
 pub const LY_STMT_NODE_MASK: u32 = 65535;
 pub const LYS_COMPILE_GROUPING: u32 = 1;
 pub const LYS_COMPILE_DISABLED: u32 = 2;
@@ -26322,6 +26322,13 @@ extern "C" {
         value: *const ::std::os::raw::c_char,
     ) -> LY_ERR::Type;
 }
+extern "C" {
+    pub fn lydict_dup(
+        ctx: *const ly_ctx,
+        value: *const ::std::os::raw::c_char,
+        str_p: *mut *const ::std::os::raw::c_char,
+    ) -> LY_ERR::Type;
+}
 pub mod LY_IN_TYPE {
     pub type Type = ::std::os::raw::c_int;
     pub const LY_IN_ERROR: Type = -1;
@@ -26768,7 +26775,7 @@ impl Default for lysp_stmt {
 #[derive(Debug, Copy, Clone)]
 pub struct lysp_ext_substmt {
     pub stmt: ly_stmt::Type,
-    pub storage: u64,
+    pub storage_p: *mut *mut ::std::os::raw::c_void,
 }
 #[test]
 fn bindgen_test_layout_lysp_ext_substmt() {
@@ -26796,13 +26803,15 @@ fn bindgen_test_layout_lysp_ext_substmt() {
         )
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).storage) as usize - ptr as usize },
+        unsafe {
+            ::std::ptr::addr_of!((*ptr).storage_p) as usize - ptr as usize
+        },
         8usize,
         concat!(
             "Offset of field: ",
             stringify!(lysp_ext_substmt),
             "::",
-            stringify!(storage)
+            stringify!(storage_p)
         )
     );
 }
@@ -26831,6 +26840,7 @@ pub struct lysp_ext_instance {
     pub substmts: *mut lysp_ext_substmt,
     pub parsed: *mut ::std::os::raw::c_void,
     pub child: *mut lysp_stmt,
+    pub exts: *mut lysp_ext_instance,
 }
 #[test]
 fn bindgen_test_layout_lysp_ext_instance() {
@@ -26839,7 +26849,7 @@ fn bindgen_test_layout_lysp_ext_instance() {
     let ptr = UNINIT.as_ptr();
     assert_eq!(
         ::std::mem::size_of::<lysp_ext_instance>(),
-        104usize,
+        112usize,
         concat!("Size of: ", stringify!(lysp_ext_instance))
     );
     assert_eq!(
@@ -26988,6 +26998,16 @@ fn bindgen_test_layout_lysp_ext_instance() {
             stringify!(child)
         )
     );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).exts) as usize - ptr as usize },
+        104usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(lysp_ext_instance),
+            "::",
+            stringify!(exts)
+        )
+    );
 }
 impl Default for lysp_ext_instance {
     fn default() -> Self {
@@ -27002,7 +27022,7 @@ impl Default for lysp_ext_instance {
 #[derive(Debug, Copy, Clone)]
 pub struct lysc_ext_substmt {
     pub stmt: ly_stmt::Type,
-    pub storage: u64,
+    pub storage_p: *mut *mut ::std::os::raw::c_void,
 }
 #[test]
 fn bindgen_test_layout_lysc_ext_substmt() {
@@ -27030,13 +27050,15 @@ fn bindgen_test_layout_lysc_ext_substmt() {
         )
     );
     assert_eq!(
-        unsafe { ::std::ptr::addr_of!((*ptr).storage) as usize - ptr as usize },
+        unsafe {
+            ::std::ptr::addr_of!((*ptr).storage_p) as usize - ptr as usize
+        },
         8usize,
         concat!(
             "Offset of field: ",
             stringify!(lysc_ext_substmt),
             "::",
-            stringify!(storage)
+            stringify!(storage_p)
         )
     );
 }

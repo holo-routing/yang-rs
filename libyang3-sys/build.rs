@@ -25,7 +25,7 @@ fn main() {
         pregen_bindings.push(env::var("CARGO_MANIFEST_DIR").unwrap());
         pregen_bindings.push("pre-generated-bindings");
         pregen_bindings
-            .push("libyang3-526e3ffd1e93ca5874675b48f4027de6150ce92f.rs");
+            .push("libyang3-03e294d83b610f89e8ba7b2156a80dc0ad534443.rs");
 
         std::fs::copy(&pregen_bindings, &out_file)
             .expect("Unable to copy pre-generated libyang3 bindings");

@@ -577,7 +577,8 @@ impl<'a> DataTree<'a> {
         )
     }
 
-    /// Parse input data as an extension data tree using the given schema extension.
+    /// Parse input data as an extension data tree using the given schema
+    /// extension.
     pub fn parse_ext_string(
         ext: &'a SchemaExtInstance<'a>,
         data: impl AsRef<[u8]>,
@@ -657,8 +658,8 @@ impl<'a> DataTree<'a> {
         DataTree::_parse_op_string(CtxOrExt::C(context), data, format, op)
     }
 
-    /// Parse op data as an extension data tree using the given schema extension.
-    /// Parse input data into an operation data tree.
+    /// Parse op data as an extension data tree using the given schema
+    /// extension. Parse input data into an operation data tree.
     pub fn parse_op_ext_string(
         ext: &'a SchemaExtInstance<'a>,
         data: impl AsRef<[u8]>,

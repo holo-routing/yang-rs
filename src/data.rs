@@ -269,7 +269,11 @@ pub trait Data<'a> {
     /// The expected format of the expression is JSON, meaning the first node in
     /// every path must have its module name as prefix or be the special `*`
     /// value for all the nodes.
-    fn find_path(&'a self, path: &str, output: bool) -> Result<DataNodeRef<'a>> {
+    fn find_path(
+        &'a self,
+        path: &str,
+        output: bool,
+    ) -> Result<DataNodeRef<'a>> {
         let path = CString::new(path).unwrap();
         let mut rnode = std::ptr::null_mut();
         let rnode_ptr = &mut rnode;

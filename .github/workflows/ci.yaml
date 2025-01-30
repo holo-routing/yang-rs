@@ -42,7 +42,7 @@ jobs:
       - name: Run Clippy
         run: cargo clippy
 
-  test:
+  tests_and_coverage_report:
     name: Tests and Coverage Report
     runs-on: ubuntu-latest
     steps:
@@ -60,3 +60,12 @@ jobs:
           files: ./lcov.info
           fail_ci_if_error: false
           token: ${{ secrets.CODECOV_TOKEN }}
+
+  tests_arm:
+    name: Tests (Arm64)
+    runs-on: ubuntu-24.04-arm
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - name: Run tests
+        run: cargo test --features bundled

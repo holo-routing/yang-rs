@@ -1579,8 +1579,14 @@ unsafe impl<'a> Binding<'a> for DataNodeRef<'a> {
 impl<'a> NodeIterable<'a> for DataNodeRef<'a> {
     fn parent(&self) -> Option<DataNodeRef<'a>> {
         // NOTE: can't use lyd_parent() since it's an inline function.
-        let rparent =
-            unsafe { &mut (*(*self.raw).parent).__bindgen_anon_1.node };
+        if self.raw.is_null() {
+            return None;
+        }
+        let parent_inner = unsafe { (*self.raw).parent };
+        if parent_inner.is_null() {
+            return None;
+        }
+        let rparent = unsafe { &mut (*parent_inner).__bindgen_anon_1.node };
         unsafe { DataNodeRef::from_raw_opt(self.tree, rparent) }
     }
 

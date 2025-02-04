@@ -207,6 +207,7 @@ fn create_context() -> Context {
         "ietf-ip",
         "ietf-routing",
         "ietf-isis",
+        "ietf-mpls-ldp",
     ] {
         ctx.load_module(module_name, None, &[])
             .expect("Failed to load module");
@@ -307,10 +308,13 @@ fn data_find_path() {
     let dtree1 = parse_json_data(&ctx, JSON_TREE1);
 
     assert!(dtree1
-        .find_path("/ietf-interfaces:interfaces/interface")
+        .find_path("/ietf-interfaces:interfaces/interface", false)
         .is_err());
     assert!(dtree1
-        .find_path("/ietf-interfaces:interfaces/interface[name='eth/0/0']")
+        .find_path(
+            "/ietf-interfaces:interfaces/interface[name='eth/0/0']",
+            false
+        )
         .is_ok());
 }
 
@@ -387,7 +391,10 @@ fn data_duplicate_subtree() {
     let dtree1 = parse_json_data(&ctx, JSON_TREE1);
 
     let dnode = dtree1
-        .find_path("/ietf-interfaces:interfaces/interface[name='eth/0/0']")
+        .find_path(
+            "/ietf-interfaces:interfaces/interface[name='eth/0/0']",
+            false,
+        )
         .expect("Failed to lookup data");
 
     // Duplicate without parents.
@@ -672,6 +679,7 @@ fn data_iterator_ancestors() {
         dtree1
             .find_path(
                 "/ietf-interfaces:interfaces/interface[name='eth/0/0']/type",
+                false
             )
             .expect("Failed to lookup data")
             .ancestors()
@@ -686,6 +694,7 @@ fn data_iterator_ancestors() {
         dtree1
             .find_path(
                 "/ietf-interfaces:interfaces/interface[name='eth/0/0']/type",
+                false
             )
             .expect("Failed to lookup data")
             .inclusive_ancestors()
@@ -706,7 +715,10 @@ fn data_iterator_siblings() {
 
     assert_eq!(
         dtree1
-            .find_path("/ietf-interfaces:interfaces/interface[name='eth/0/0']")
+            .find_path(
+                "/ietf-interfaces:interfaces/interface[name='eth/0/0']",
+                false
+            )
             .expect("Failed to lookup data")
             .siblings()
             .map(|dnode| dnode.path())
@@ -715,7 +727,10 @@ fn data_iterator_siblings() {
     );
     assert_eq!(
         dtree1
-            .find_path("/ietf-interfaces:interfaces/interface[name='eth/0/0']")
+            .find_path(
+                "/ietf-interfaces:interfaces/interface[name='eth/0/0']",
+                false
+            )
             .expect("Failed to lookup data")
             .inclusive_siblings()
             .map(|dnode| dnode.path())
@@ -734,7 +749,7 @@ fn data_iterator_children() {
 
     assert_eq!(
         dtree1
-            .find_path("/ietf-interfaces:interfaces")
+            .find_path("/ietf-interfaces:interfaces", false)
             .expect("Failed to lookup data")
             .children()
             .map(|dnode| dnode.path())
@@ -754,7 +769,8 @@ fn data_is_default() {
     assert_eq!(
         dtree2
             .find_path(
-                "/ietf-interfaces:interfaces/interface[name='eth/0/0']/enabled"
+                "/ietf-interfaces:interfaces/interface[name='eth/0/0']/enabled",
+                false
             )
             .expect("Failed to lookup data")
             .is_default(),
@@ -763,7 +779,8 @@ fn data_is_default() {
     assert_eq!(
         dtree2
             .find_path(
-                "/ietf-interfaces:interfaces/interface[name='eth/0/2']/enabled"
+                "/ietf-interfaces:interfaces/interface[name='eth/0/2']/enabled",
+                false
             )
             .expect("Failed to lookup data")
             .is_default(),

@@ -98,6 +98,18 @@ pub enum DataOperation {
     /// Instance of a YANG RPC/action request with only "output" data children.
     /// Including all parents in case of an action
     ReplyYang = ffi::lyd_type::LYD_TYPE_REPLY_YANG,
+    /// Complete NETCONF RPC invocation as defined for RPC and action
+    RPCNetconf = ffi::lyd_type::LYD_TYPE_RPC_NETCONF,
+    /// Complete NETCONF notification message as defined for notification
+    NotifNetconf = ffi::lyd_type::LYD_TYPE_NOTIF_NETCONF,
+    /// complete NETCONF RPC reply as defined for RPC and action
+    ReplyNetconf = ffi::lyd_type::LYD_TYPE_REPLY_NETCONF,
+    /// Message-body of a RESTCONF operation input parameters
+    RpcRestconf = ffi::lyd_type::LYD_TYPE_RPC_RESTCONF,
+    /// RESTCONF JSON notification data (ref), to parse a notification in XML, use LYD_TYPE_NOTIF_NETCONF
+    NotifRestconf = ffi::lyd_type::LYD_TYPE_NOTIF_RESTCONF,
+    /// Message-body of a RESTCONF operation output parameters
+    ReplyRestconf = ffi::lyd_type::LYD_TYPE_REPLY_RESTCONF,
 }
 
 bitflags! {

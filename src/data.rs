@@ -1642,6 +1642,42 @@ impl<'a> DataNodeRef<'a> {
         Ok(unsafe { DataNodeRef::from_raw(self.tree, rnode) })
     }
 
+    /// Parse data and add to node
+    pub fn parse_sub_tree(
+        &self,
+        data: impl AsRef<[u8]>,
+        format: DataFormat,
+        parser_options: DataParserFlags,
+        validation_options: DataValidationFlags,
+    ) -> Result<()> {
+        // Create input handler.
+        let cdata = CString::new(data.as_ref()).unwrap();
+        let mut ly_in = std::ptr::null_mut();
+        let ret =
+            unsafe { ffi::ly_in_new_memory(cdata.as_ptr() as _, &mut ly_in) };
+        if ret != ffi::LY_ERR::LY_SUCCESS {
+            return Err(Error::new(self.context()));
+        }
+
+        let ret = unsafe {
+            ffi::lyd_parse_data(
+                self.context().raw,
+                self.raw,
+                ly_in,
+                format as u32,
+                parser_options.bits(),
+                validation_options.bits(),
+                std::ptr::null_mut(),
+            )
+        };
+
+        if ret != ffi::LY_ERR::LY_SUCCESS {
+            return Err(Error::new(self.context()));
+        }
+
+        Ok(())
+    }
+
     /// Remove the data node.
     pub fn remove(&mut self) {
         unsafe { ffi::lyd_unlink_tree(self.raw()) };

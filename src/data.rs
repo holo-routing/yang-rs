@@ -1559,6 +1559,57 @@ impl<'a> DataNodeRef<'a> {
         Ok(())
     }
 
+    pub fn parse_op(
+        &mut self,
+        data: impl AsRef<[u8]>,
+        format: DataFormat,
+        op: DataOperation,
+    ) -> Result<DataNodeRef<'a>> {
+        let mut rnode = std::ptr::null_mut();
+        let rnode_ptr = &mut rnode;
+
+        // Create input handler.
+        let cdata = CString::new(data.as_ref()).unwrap();
+        let mut ly_in = std::ptr::null_mut();
+        let ret =
+            unsafe { ffi::ly_in_new_memory(cdata.as_ptr() as _, &mut ly_in) };
+        if ret != ffi::LY_ERR::LY_SUCCESS {
+            return Err(Error::new(self.context()));
+        }
+
+        match op {
+            DataOperation::RpcRestconf
+            | DataOperation::ReplyRestconf
+            | DataOperation::ReplyNetconf => unsafe {
+                ffi::lyd_parse_op(
+                    self.context().raw,
+                    self.raw,
+                    ly_in,
+                    format as u32,
+                    op as u32,
+                    rnode_ptr,
+                    std::ptr::null_mut(),
+                );
+            },
+            DataOperation::RPCNetconf
+            | DataOperation::NotifNetconf
+            | DataOperation::NotifRestconf => {
+                return Err(Error::other("Use DataTree::parse_op_string to parse Netconf RPC, Notification and Restconf Notification"));
+            }
+            _ => {
+                return Err(Error::other("Operation not supported"));
+            }
+        }
+
+        unsafe { ffi::ly_in_free(ly_in, 0) };
+
+        if ret != ffi::LY_ERR::LY_SUCCESS {
+            return Err(Error::new(self.context()));
+        }
+
+        Ok(unsafe { DataNodeRef::from_raw(self.tree, rnode) })
+    }
+
     /// Remove the data node.
     pub fn remove(&mut self) {
         unsafe { ffi::lyd_unlink_tree(self.raw()) };

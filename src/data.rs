@@ -743,14 +743,14 @@ impl<'a> DataTree<'a> {
         &mut self,
         path: &str,
     ) -> Result<Option<DataNodeRef<'_>>> {
-        self.new_path(path, None, None)
+        self.new_path(path, None, NewValueCreationOptions::empty())
     }
 
     pub fn new_path(
         &mut self,
         path: &str,
         value: Option<&str>,
-        options: Option<NewValueCreationOptions>,
+        options: NewValueCreationOptions,
     ) -> Result<Option<DataNodeRef<'_>>> {
         let path = CString::new(path).unwrap();
         let mut rnode_root = std::ptr::null_mut();
@@ -767,11 +767,6 @@ impl<'a> DataTree<'a> {
             None => (std::ptr::null(), 0),
         };
 
-        let options: u32 = match options {
-            None => 0,
-            Some(option) => option.bits(),
-        };
-
         let ret = unsafe {
             ffi::lyd_new_path2(
                 self.raw(),
@@ -780,7 +775,7 @@ impl<'a> DataTree<'a> {
                 value_ptr as *const c_void,
                 value_len,
                 ffi::LYD_ANYDATA_VALUETYPE::LYD_ANYDATA_STRING,
-                options,
+                options.bits(),
                 rnode_root_ptr,
                 rnode_ptr,
             )
@@ -1031,7 +1026,7 @@ impl<'a> DataTreeOwningRef<'a> {
         context: &'a Context,
         path: &str,
         value: Option<&str>,
-        options: Option<NewValueCreationOptions>,
+        options: NewValueCreationOptions,
     ) -> Result<Self> {
         let mut tree = DataTree::new(context);
         let raw = {

@@ -64,7 +64,7 @@ fn main() -> std::io::Result<()> {
                     .new_path(
                         xpath,
                         *value,
-                        Some(NewValueCreationOptions::NEW_PATH_UPDATE),
+                        NewValueCreationOptions::NEW_PATH_UPDATE,
                     )
                     .expect("Failed to edit data tree");
             }

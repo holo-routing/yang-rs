@@ -98,6 +98,46 @@ pub enum DataOperation {
     /// Instance of a YANG RPC/action request with only "output" data children.
     /// Including all parents in case of an action
     ReplyYang = ffi::lyd_type::LYD_TYPE_REPLY_YANG,
+    /// Complete NETCONF RPC invocation as defined for RPC and action
+    RPCNetconf = ffi::lyd_type::LYD_TYPE_RPC_NETCONF,
+    /// Complete NETCONF notification message as defined for notification
+    NotifNetconf = ffi::lyd_type::LYD_TYPE_NOTIF_NETCONF,
+    /// complete NETCONF RPC reply as defined for RPC and action
+    ReplyNetconf = ffi::lyd_type::LYD_TYPE_REPLY_NETCONF,
+    /// Message-body of a RESTCONF operation input parameters
+    RpcRestconf = ffi::lyd_type::LYD_TYPE_RPC_RESTCONF,
+    /// RESTCONF JSON notification data (ref), to parse a notification in XML, use LYD_TYPE_NOTIF_NETCONF
+    NotifRestconf = ffi::lyd_type::LYD_TYPE_NOTIF_RESTCONF,
+    /// Message-body of a RESTCONF operation output parameters
+    ReplyRestconf = ffi::lyd_type::LYD_TYPE_REPLY_RESTCONF,
+}
+
+bitflags! {
+    /// Various options to change lyd_new_*() behavior. The LYD_NEW_VAL* can be used within any API, others are API specific
+    ///
+    /// Default behavior:
+    /// - the input data nodes or RPC/Action is taken into account
+    /// - the value is being validated with all possible validations, which doesn't require existence of any other data nodes
+    /// - the input value is expected to be in JSON format
+    /// - RPC output schema children are completely ignored in all modules. Input is searched and nodes created normally.
+    ///
+    /// Default behavior specific for lyd_new_path*() functions:
+    /// - if the target node already exists (and is not default), an error is returned.
+    /// - the whole path to the target node is created (with any missing parents) if necessary.
+    /// - during creation of new metadata, the nodes will have default flag set
+    /// - string value is copied and stored internally during any node creation
+    pub struct NewValueCreationOptions: u32 {
+
+        const NEW_ANY_USE_VALUE   = ffi::LYD_NEW_ANY_USE_VALUE;
+        const NEW_META_CLEAR_DFLT = ffi::LYD_NEW_META_CLEAR_DFLT;
+        const NEW_PATH_OPAQ       = ffi::LYD_NEW_PATH_OPAQ;
+        const NEW_PATH_UPDATE     = ffi::LYD_NEW_PATH_UPDATE;
+        const NEW_PATH_WITH_OPAQ  = ffi::LYD_NEW_PATH_WITH_OPAQ;
+        const NEW_VAL_BIN         = ffi::LYD_NEW_VAL_BIN;
+        const NEW_VAL_CANON       = ffi::LYD_NEW_VAL_CANON;
+        const NEW_VAL_OUTPUT      = ffi::LYD_NEW_VAL_OUTPUT;
+        const NEW_VAL_STORE_ONLY  = ffi::LYD_NEW_VAL_STORE_ONLY;
+    }
 }
 
 bitflags! {
@@ -693,15 +733,24 @@ impl<'a> DataTree<'a> {
     /// For key-less lists and state leaf-lists, positional predicates can be
     /// used. If no preciate is used for these nodes, they are always created.
     ///
-    /// The output parameter can be used to change the behavior to ignore
+    /// The options parameter can be used to change the behavior to ignore
     /// RPC/action input schema nodes and use only output ones.
     ///
     /// Returns the last created or modified node (if any).
+    ///
+
+    pub fn new_from_path(
+        &mut self,
+        path: &str,
+    ) -> Result<Option<DataNodeRef<'_>>> {
+        self.new_path(path, None, NewValueCreationOptions::empty())
+    }
+
     pub fn new_path(
         &mut self,
         path: &str,
         value: Option<&str>,
-        output: bool,
+        options: NewValueCreationOptions,
     ) -> Result<Option<DataNodeRef<'_>>> {
         let path = CString::new(path).unwrap();
         let mut rnode_root = std::ptr::null_mut();
@@ -718,11 +767,6 @@ impl<'a> DataTree<'a> {
             None => (std::ptr::null(), 0),
         };
 
-        let mut options = ffi::LYD_NEW_PATH_UPDATE;
-        if output {
-            options |= ffi::LYD_NEW_VAL_OUTPUT;
-        }
-
         let ret = unsafe {
             ffi::lyd_new_path2(
                 self.raw(),
@@ -731,7 +775,7 @@ impl<'a> DataTree<'a> {
                 value_ptr as *const c_void,
                 value_len,
                 ffi::LYD_ANYDATA_VALUETYPE::LYD_ANYDATA_STRING,
-                options,
+                options.bits(),
                 rnode_root_ptr,
                 rnode_ptr,
             )
@@ -974,7 +1018,7 @@ impl<'a> DataTreeOwningRef<'a> {
     /// For key-less lists and state leaf-lists, positional predicates can be
     /// used. If no preciate is used for these nodes, they are always created.
     ///
-    /// The output parameter can be used to change the behavior to ignore
+    /// The options parameter can be used to change the behavior to ignore
     /// RPC/action input schema nodes and use only output ones.
     ///
     /// Returns the last created or modified node (if any).
@@ -982,11 +1026,11 @@ impl<'a> DataTreeOwningRef<'a> {
         context: &'a Context,
         path: &str,
         value: Option<&str>,
-        output: bool,
+        options: NewValueCreationOptions,
     ) -> Result<Self> {
         let mut tree = DataTree::new(context);
         let raw = {
-            match tree.new_path(path, value, output)? {
+            match tree.new_path(path, value, options)? {
                 Some(node) => node.raw,
                 None => tree.find_path(path)?.raw,
             }
@@ -1540,6 +1584,93 @@ impl<'a> DataNodeRef<'a> {
                 std::ptr::null_mut(),
             )
         };
+        if ret != ffi::LY_ERR::LY_SUCCESS {
+            return Err(Error::new(self.context()));
+        }
+
+        Ok(())
+    }
+
+    pub fn parse_op(
+        &mut self,
+        data: impl AsRef<[u8]>,
+        format: DataFormat,
+        op: DataOperation,
+    ) -> Result<DataNodeRef<'a>> {
+        let mut rnode = std::ptr::null_mut();
+        let rnode_ptr = &mut rnode;
+
+        // Create input handler.
+        let cdata = CString::new(data.as_ref()).unwrap();
+        let mut ly_in = std::ptr::null_mut();
+        let ret =
+            unsafe { ffi::ly_in_new_memory(cdata.as_ptr() as _, &mut ly_in) };
+        if ret != ffi::LY_ERR::LY_SUCCESS {
+            return Err(Error::new(self.context()));
+        }
+
+        match op {
+            DataOperation::RpcRestconf
+            | DataOperation::ReplyRestconf
+            | DataOperation::ReplyNetconf => unsafe {
+                ffi::lyd_parse_op(
+                    self.context().raw,
+                    self.raw,
+                    ly_in,
+                    format as u32,
+                    op as u32,
+                    rnode_ptr,
+                    std::ptr::null_mut(),
+                );
+            },
+            DataOperation::RPCNetconf
+            | DataOperation::NotifNetconf
+            | DataOperation::NotifRestconf => {
+                return Err(Error::other("Use DataTree::parse_op_string to parse Netconf RPC, Notification and Restconf Notification"));
+            }
+            _ => {
+                return Err(Error::other("Operation not supported"));
+            }
+        }
+
+        unsafe { ffi::ly_in_free(ly_in, 0) };
+
+        if ret != ffi::LY_ERR::LY_SUCCESS {
+            return Err(Error::new(self.context()));
+        }
+
+        Ok(unsafe { DataNodeRef::from_raw(self.tree, rnode) })
+    }
+
+    /// Parse data and add to node
+    pub fn parse_sub_tree(
+        &self,
+        data: impl AsRef<[u8]>,
+        format: DataFormat,
+        parser_options: DataParserFlags,
+        validation_options: DataValidationFlags,
+    ) -> Result<()> {
+        // Create input handler.
+        let cdata = CString::new(data.as_ref()).unwrap();
+        let mut ly_in = std::ptr::null_mut();
+        let ret =
+            unsafe { ffi::ly_in_new_memory(cdata.as_ptr() as _, &mut ly_in) };
+        if ret != ffi::LY_ERR::LY_SUCCESS {
+            return Err(Error::new(self.context()));
+        }
+
+        let ret = unsafe {
+            ffi::lyd_parse_data(
+                self.context().raw,
+                self.raw,
+                ly_in,
+                format as u32,
+                parser_options.bits(),
+                validation_options.bits(),
+                std::ptr::null_mut(),
+            )
+        };
+
         if ret != ffi::LY_ERR::LY_SUCCESS {
             return Err(Error::new(self.context()));
         }

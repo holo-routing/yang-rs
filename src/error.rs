@@ -41,6 +41,13 @@ impl Error {
             apptag,
         }
     }
+
+    pub fn other(msg: &str) -> Error {
+        Self {
+            msg: Some(msg.to_string()),
+            ..Default::default()
+        }
+    }
 }
 
 impl Default for Error {

@@ -113,6 +113,34 @@ pub enum DataOperation {
 }
 
 bitflags! {
+    /// Various options to change lyd_new_*() behavior. The LYD_NEW_VAL* can be used within any API, others are API specific
+    ///
+    /// Default behavior:
+    /// - the input data nodes or RPC/Action is taken into account
+    /// - the value is being validated with all possible validations, which doesn't require existence of any other data nodes
+    /// - the input value is expected to be in JSON format
+    /// - RPC output schema children are completely ignored in all modules. Input is searched and nodes created normally.
+    ///
+    /// Default behavior specific for lyd_new_path*() functions:
+    /// - if the target node already exists (and is not default), an error is returned.
+    /// - the whole path to the target node is created (with any missing parents) if necessary.
+    /// - during creation of new metadata, the nodes will have default flag set
+    /// - string value is copied and stored internally during any node creation
+    pub struct NewValueCreationOptions: u32 {
+
+        const NEW_ANY_USE_VALUE   = ffi::LYD_NEW_ANY_USE_VALUE;
+        const NEW_META_CLEAR_DFLT = ffi::LYD_NEW_META_CLEAR_DFLT;
+        const NEW_PATH_OPAQ       = ffi::LYD_NEW_PATH_OPAQ;
+        const NEW_PATH_UPDATE     = ffi::LYD_NEW_PATH_UPDATE;
+        const NEW_PATH_WITH_OPAQ  = ffi::LYD_NEW_PATH_WITH_OPAQ;
+        const NEW_VAL_BIN         = ffi::LYD_NEW_VAL_BIN;
+        const NEW_VAL_CANON       = ffi::LYD_NEW_VAL_CANON;
+        const NEW_VAL_OUTPUT      = ffi::LYD_NEW_VAL_OUTPUT;
+        const NEW_VAL_STORE_ONLY  = ffi::LYD_NEW_VAL_STORE_ONLY;
+    }
+}
+
+bitflags! {
     /// Data parser options.
     ///
     /// Various options to change the data tree parsers behavior.
@@ -705,15 +733,24 @@ impl<'a> DataTree<'a> {
     /// For key-less lists and state leaf-lists, positional predicates can be
     /// used. If no preciate is used for these nodes, they are always created.
     ///
-    /// The output parameter can be used to change the behavior to ignore
+    /// The options parameter can be used to change the behavior to ignore
     /// RPC/action input schema nodes and use only output ones.
     ///
     /// Returns the last created or modified node (if any).
+    ///
+
+    pub fn new_from_path(
+        &mut self,
+        path: &str,
+    ) -> Result<Option<DataNodeRef<'_>>> {
+        self.new_path(path, None, None)
+    }
+
     pub fn new_path(
         &mut self,
         path: &str,
         value: Option<&str>,
-        output: bool,
+        options: Option<NewValueCreationOptions>,
     ) -> Result<Option<DataNodeRef<'_>>> {
         let path = CString::new(path).unwrap();
         let mut rnode_root = std::ptr::null_mut();
@@ -730,10 +767,10 @@ impl<'a> DataTree<'a> {
             None => (std::ptr::null(), 0),
         };
 
-        let mut options = ffi::LYD_NEW_PATH_UPDATE;
-        if output {
-            options |= ffi::LYD_NEW_VAL_OUTPUT;
-        }
+        let options: u32 = match options {
+            None => 0,
+            Some(option) => option.bits(),
+        };
 
         let ret = unsafe {
             ffi::lyd_new_path2(
@@ -986,7 +1023,7 @@ impl<'a> DataTreeOwningRef<'a> {
     /// For key-less lists and state leaf-lists, positional predicates can be
     /// used. If no preciate is used for these nodes, they are always created.
     ///
-    /// The output parameter can be used to change the behavior to ignore
+    /// The options parameter can be used to change the behavior to ignore
     /// RPC/action input schema nodes and use only output ones.
     ///
     /// Returns the last created or modified node (if any).
@@ -994,11 +1031,11 @@ impl<'a> DataTreeOwningRef<'a> {
         context: &'a Context,
         path: &str,
         value: Option<&str>,
-        output: bool,
+        options: Option<NewValueCreationOptions>,
     ) -> Result<Self> {
         let mut tree = DataTree::new(context);
         let raw = {
-            match tree.new_path(path, value, output)? {
+            match tree.new_path(path, value, options)? {
                 Some(node) => node.raw,
                 None => tree.find_path(path)?.raw,
             }

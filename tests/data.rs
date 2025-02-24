@@ -3,7 +3,7 @@ use yang3::context::{Context, ContextFlags};
 use yang3::data::{
     Data, DataDiff, DataDiffFlags, DataFormat, DataImplicitFlags,
     DataOperation, DataParserFlags, DataPrinterFlags, DataTree,
-    DataTreeOwningRef, DataValidationFlags,
+    DataTreeOwningRef, DataValidationFlags, NewValueCreationOptions,
 };
 
 static SEARCH_DIR: &str = "./assets/yang/";
@@ -350,7 +350,11 @@ fn data_edit() {
         match change {
             Operation::MODIFY(xpath, value) => {
                 dtree1
-                    .new_path(xpath, *value, false)
+                    .new_path(
+                        xpath,
+                        *value,
+                        Some(NewValueCreationOptions::NEW_PATH_UPDATE),
+                    )
                     .expect("Failed to edit data tree");
             }
             Operation::DELETE(xpath) => {
@@ -445,7 +449,11 @@ fn data_add_implicit() {
     let xpath = "/ietf-routing:routing/control-plane-protocols/control-plane-protocol[type='ietf-isis:isis'][name='main']/ietf-isis:isis/area-address";
     let mut dtree1 = DataTree::new(&ctx);
     dtree1
-        .new_path(xpath, Some("00"), false)
+        .new_path(
+            xpath,
+            Some("00"),
+            Some(NewValueCreationOptions::NEW_PATH_UPDATE),
+        )
         .expect("Failed to edit data tree");
 
     // Original data tree with implicit configuration nodes added.
@@ -605,7 +613,7 @@ fn data_iterator_traverse_action() {
         &ctx,
         "/ietf-routing:routing/ribs/rib[name=\"default\"]/active-route",
         None,
-        false,
+        Some(NewValueCreationOptions::NEW_PATH_UPDATE),
     )
     .expect("Failed to create OP node");
 

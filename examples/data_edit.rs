@@ -2,7 +2,7 @@ use std::fs::File;
 use yang3::context::{Context, ContextFlags};
 use yang3::data::{
     Data, DataFormat, DataParserFlags, DataPrinterFlags, DataTree,
-    DataValidationFlags,
+    DataValidationFlags, NewValueCreationOptions,
 };
 
 static SEARCH_DIR: &str = "./assets/yang/";
@@ -61,7 +61,11 @@ fn main() -> std::io::Result<()> {
         match change {
             Operation::MODIFY(xpath, value) => {
                 dtree
-                    .new_path(xpath, *value, false)
+                    .new_path(
+                        xpath,
+                        *value,
+                        Some(NewValueCreationOptions::NEW_PATH_UPDATE),
+                    )
                     .expect("Failed to edit data tree");
             }
             Operation::DELETE(xpath) => {

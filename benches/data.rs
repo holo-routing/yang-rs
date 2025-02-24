@@ -1,6 +1,8 @@
 use criterion::{criterion_group, criterion_main, BenchmarkId, Criterion};
 use yang3::context::{Context, ContextFlags};
-use yang3::data::{Data, DataDiffFlags, DataTree, DataValidationFlags};
+use yang3::data::{
+    Data, DataDiffFlags, DataTree, DataValidationFlags, NewValueCreationOptions,
+};
 
 static SEARCH_DIR: &str = "./assets/yang/";
 
@@ -16,7 +18,11 @@ fn data_generate(ctx: &Context, interfaces: u32) -> DataTree {
 
         for (xpath, value) in &changes {
             dtree
-                .new_path(xpath, *value, false)
+                .new_path(
+                    xpath,
+                    *value,
+                    Some(NewValueCreationOptions::NEW_PATH_UPDATE),
+                )
                 .expect("Failed to edit data tree");
         }
     }

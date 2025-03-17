@@ -22,7 +22,7 @@ num-derive = "0.4"
 libc = "0.2"
 
 [dev-dependencies]
-criterion = "0.3.3"
+criterion = "0.5.1"
 
 [lints.rust]
 rust_2018_idioms = "warn"

@@ -275,7 +275,7 @@ pub trait Data<'a> {
         let rnode_ptr = &mut rnode;
 
         let ret = unsafe {
-            ffi::lyd_find_path(self.raw(), path.as_ptr(), 0, rnode_ptr)
+            ffi::lyd_find_path(self.raw(), path.as_ptr(), 0u8, rnode_ptr)
         };
         if ret != ffi::LY_ERR::LY_SUCCESS {
             return Err(Error::new(self.context()));
@@ -296,7 +296,7 @@ pub trait Data<'a> {
         let rnode_ptr = &mut rnode;
 
         let ret = unsafe {
-            ffi::lyd_find_path(self.raw(), path.as_ptr(), 1, rnode_ptr)
+            ffi::lyd_find_path(self.raw(), path.as_ptr(), 1u8, rnode_ptr)
         };
         if ret != ffi::LY_ERR::LY_SUCCESS {
             return Err(Error::new(self.context()));

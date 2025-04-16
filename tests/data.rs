@@ -162,6 +162,14 @@ static JSON_RPC1: &str = r###"
           "routing-protocol-instance-name":"main"
         }
     }"###;
+
+static JSON_RPC2_OUTPUT: &str = r###"
+    {
+        "ietf-mpls-ldp:mpls-ldp-clear-peer":{
+          "protocol-name":"test"
+        }
+    }"###;
+
 static JSON_ACTION1: &str = r###"
     {
         "ietf-routing:routing": {
@@ -207,6 +215,7 @@ fn create_context() -> Context {
         "ietf-ip",
         "ietf-routing",
         "ietf-isis",
+        "ietf-mpls-ldp",
     ] {
         ctx.load_module(module_name, None, &[])
             .expect("Failed to load module");
@@ -311,6 +320,22 @@ fn data_find_path() {
         .is_err());
     assert!(dtree1
         .find_path("/ietf-interfaces:interfaces/interface[name='eth/0/0']")
+        .is_ok());
+}
+
+#[test]
+fn data_find_action_output_path() {
+    let ctx = create_context();
+    let dtree1 = parse_json_rpc_reply(&ctx, JSON_ACTION1);
+    let dtree2 = parse_json_rpc_reply(&ctx, JSON_RPC2_OUTPUT);
+
+    assert!(dtree1
+        .find_output_path(
+            "/ietf-routing:routing/ribs/rib[name='default']/active-route"
+        )
+        .is_ok());
+    assert!(dtree2
+        .find_output_path("/ietf-mpls-ldp:mpls-ldp-clear-peer/protocol-name")
         .is_ok());
 }
 

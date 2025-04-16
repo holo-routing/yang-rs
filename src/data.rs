@@ -283,6 +283,27 @@ pub trait Data<'a> {
         Ok(unsafe { DataNodeRef::from_raw(self.tree(), rnode as *mut _) })
     }
 
+    /// Search in the given data for a single node matching the provided XPath and
+    /// is an RPC/ output nodes or in input nodes.
+    ///
+    /// The expected format of the expression is JSON, meaning the first node in
+    /// every path must have its module name as prefix or be the special `*`
+    /// value for all the nodes.
+    fn find_output_path(&'a self, path: &str) -> Result<DataNodeRef<'a>> {
+        let path = CString::new(path).unwrap();
+        let mut rnode = std::ptr::null_mut();
+        let rnode_ptr = &mut rnode;
+
+        let ret = unsafe {
+            ffi::lyd_find_path(self.raw(), path.as_ptr(), 1u8, rnode_ptr)
+        };
+        if ret != ffi::LY_ERR::LY_SUCCESS {
+            return Err(Error::new(self.context()));
+        }
+
+        Ok(unsafe { DataNodeRef::from_raw(self.tree(), rnode as *mut _) })
+    }
+
     /// Print data tree in the specified format.
     #[cfg(not(target_os = "windows"))]
     fn print_file<F: std::os::unix::io::AsRawFd>(

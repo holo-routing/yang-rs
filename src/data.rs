@@ -269,18 +269,34 @@ pub trait Data<'a> {
     /// The expected format of the expression is JSON, meaning the first node in
     /// every path must have its module name as prefix or be the special `*`
     /// value for all the nodes.
-    fn find_path(
-        &'a self,
-        path: &str,
-        output: bool,
-    ) -> Result<DataNodeRef<'a>> {
+    fn find_path(&'a self, path: &str) -> Result<DataNodeRef<'a>> {
         let path = CString::new(path).unwrap();
         let mut rnode = std::ptr::null_mut();
         let rnode_ptr = &mut rnode;
-        let output = if output { 1u8 } else { 0u8 };
 
         let ret = unsafe {
-            ffi::lyd_find_path(self.raw(), path.as_ptr(), output, rnode_ptr)
+            ffi::lyd_find_path(self.raw(), path.as_ptr(), 0, rnode_ptr)
+        };
+        if ret != ffi::LY_ERR::LY_SUCCESS {
+            return Err(Error::new(self.context()));
+        }
+
+        Ok(unsafe { DataNodeRef::from_raw(self.tree(), rnode as *mut _) })
+    }
+
+    /// Search in the given data for a single node matching the provided XPath and
+    /// is an RPC/ output nodes or in input nodes.
+    ///
+    /// The expected format of the expression is JSON, meaning the first node in
+    /// every path must have its module name as prefix or be the special `*`
+    /// value for all the nodes.
+    fn find_output_path(&'a self, path: &str) -> Result<DataNodeRef<'a>> {
+        let path = CString::new(path).unwrap();
+        let mut rnode = std::ptr::null_mut();
+        let rnode_ptr = &mut rnode;
+
+        let ret = unsafe {
+            ffi::lyd_find_path(self.raw(), path.as_ptr(), 1, rnode_ptr)
         };
         if ret != ffi::LY_ERR::LY_SUCCESS {
             return Err(Error::new(self.context()));
@@ -758,7 +774,7 @@ impl<'a> DataTree<'a> {
 
     /// Remove a data node.
     pub fn remove(&mut self, path: &str) -> Result<()> {
-        let dnode = self.find_path(path, false)?;
+        let dnode = self.find_path(path)?;
         unsafe { ffi::lyd_free_tree(dnode.raw) };
         Ok(())
     }
@@ -994,7 +1010,7 @@ impl<'a> DataTreeOwningRef<'a> {
         let raw = {
             match tree.new_path(path, value, output)? {
                 Some(node) => node.raw,
-                None => tree.find_path(path, output)?.raw,
+                None => tree.find_path(path)?.raw,
             }
         };
         Ok(unsafe { DataTreeOwningRef::from_raw(tree, raw) })

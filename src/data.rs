@@ -284,7 +284,7 @@ pub trait Data<'a> {
     }
 
     /// Search in the given data for a single node matching the provided XPath and
-    /// is an RPC/ output nodes or in input nodes.
+    /// is an RPC/action output node.
     ///
     /// The expected format of the expression is JSON, meaning the first node in
     /// every path must have its module name as prefix or be the special `*`

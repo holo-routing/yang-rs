@@ -357,7 +357,7 @@ dependencies = [
 
 [[package]]
 name = "libyang3-sys"
-version = "0.3.0"
+version = "0.4.0"
 dependencies = [
  "bindgen",
  "cc",
@@ -827,7 +827,7 @@ checksum = "589f6da84c646204747d1270a2a5661ea66ed1cced2631d546fdfb155959f9ec"
 
 [[package]]
 name = "yang3"
-version = "0.13.1"
+version = "0.14.0"
 dependencies = [
  "bitflags",
  "criterion",

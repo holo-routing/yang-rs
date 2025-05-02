@@ -28,7 +28,7 @@ For raw FFI bindings for libyang, see [libyang3-sys].
 
 ```toml
 [dependencies]
-yang3 = "0.14"
+yang3 = "0.15"
 ```
 ## Design Goals
 * Provide high-level bindings for libyang using idiomatic Rust

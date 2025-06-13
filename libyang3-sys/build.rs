@@ -6,7 +6,6 @@ fn main() {
     let out_file = dst.join("libyang3.rs");
 
     #[cfg(feature = "bindgen")]
-    #[cfg(not(feature = "bundled"))]
     {
         let mut include_paths = vec![];
         // Add libpcre2 include paths if found in pkg-config
@@ -26,7 +25,9 @@ fn main() {
         for path in &include_paths {
             builder = builder.clang_arg(format!("-I{}", path.display()));
         }
-        let bindings = builder.generate().expect("Unable to generate libyang3 bindings");
+        let bindings = builder
+            .generate()
+            .expect("Unable to generate libyang3 bindings");
         bindings
             .write_to_file(out_file)
             .expect("Couldn't write libyang3 bindings!");
@@ -68,41 +69,13 @@ fn main() {
             "cargo:rustc-link-search=native={}/lib64",
             cmake_dst.display()
         );
-        let mut include_paths = vec![];
-        match pkg_config::Config::new().probe("libpcre2-8") {
-            Ok(lib) => {
-                include_paths = lib.include_paths.clone();
-            }
-            Err(e) => {
-                println!("cargo:warning=failed to find pcre2 library with pkg-config: {}", e);
-                println!("cargo:warning=attempting to link without pkg-config");
-                println!("cargo:rustc-link-lib=pcre2-8");
-            }
+        if let Err(e) = pkg_config::Config::new().probe("libpcre2-8") {
+            println!("cargo:warning=failed to find pcre2 library with pkg-config: {}", e);
+            println!("cargo:warning=attempting to link without pkg-config");
+            println!("cargo:rustc-link-lib=pcre2-8");
         }
         println!("cargo:rustc-link-lib=static=yang");
         println!("cargo:rerun-if-changed=libyang");
-
-        #[cfg(feature = "bindgen")]
-        {
-            // Use the newly compiled libyang code to generate Rust FFI to libyang
-            println!("cargo:rerun-if-changed=wrapper.h");
-            let mut builder = bindgen::Builder::default()
-                .header("wrapper.h")
-                .clang_arg(format!("-I{}/include", cmake_dst.display()))
-                .derive_default(true)
-                .default_enum_style(bindgen::EnumVariation::ModuleConsts);
-
-            // Add libpcre2 include paths if found in pkg-config
-            for include_path in include_paths {
-                builder = builder.clang_arg(format!("-I{}", include_path.display()));
-            }
-
-            let bindings = builder.generate()
-                .expect("Unable to generate libyang3 bindings");
-            bindings
-                .write_to_file(out_file)
-                .expect("Couldn't write libyang3 bindings!");
-        }
     }
     #[cfg(not(feature = "bundled"))]
     {

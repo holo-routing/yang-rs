@@ -24,4 +24,4 @@ default = []
 bindgen = ["dep:bindgen"]
 # Bundle libyang3 C files into a static archive linked to this crate.
 # This removes the libyang3 dynamic link dependency.
-bundled = ["dep:bindgen", "dep:cmake"]
+bundled = ["dep:cmake"]

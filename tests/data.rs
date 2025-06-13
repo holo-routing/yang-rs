@@ -7,6 +7,8 @@ use yang3::data::{
 };
 
 static SEARCH_DIR: &str = "./assets/yang/";
+static YANG_LIBRARY_FILE: &str = "./assets/data/lib.json";
+
 static JSON_TREE1: &str = r###"
     {
         "ietf-interfaces:interfaces":{
@@ -49,6 +51,25 @@ static JSON_TREE2: &str = r###"
             ]
         }
     }"###;
+static JSON_TREE3: &str = r###"
+{
+  "ietf-interfaces:interfaces": {
+    "interface": [
+      {
+        "name": "eth0",
+        "type": "iana-if-type:ethernetCsmacd",
+        "if-index": 1,
+        "admin-status": "up",
+        "oper-status": "up",
+        "statistics": {
+          "discontinuity-time": "2014-07-29T13:43:12Z"
+        }
+      }
+    ]
+  }
+}
+"###;
+
 static JSON_MERGE: &str = r###"
     {
         "ietf-interfaces:interfaces":{
@@ -221,6 +242,18 @@ fn create_context() -> Context {
             .expect("Failed to load module");
     }
 
+    ctx
+}
+
+fn create_yang_library_context() -> Context {
+    // Initialize context.
+    let ctx = Context::new_from_yang_library_file(
+        YANG_LIBRARY_FILE,
+        DataFormat::JSON,
+        SEARCH_DIR,
+        ContextFlags::empty(),
+    )
+    .expect("Failed to create yang library context");
     ctx
 }
 
@@ -794,4 +827,22 @@ fn data_is_default() {
             .is_default(),
         true,
     );
+}
+
+#[test]
+fn data_validate_using_yang_library() {
+    let ctx = create_yang_library_context();
+    let mut dtree1 = parse_json_data(&ctx, JSON_TREE1);
+    let dtree3 = DataTree::parse_string(
+        &ctx,
+        JSON_TREE3,
+        DataFormat::JSON,
+        DataParserFlags::STRICT,
+        DataValidationFlags::PRESENT,
+    );
+
+    // Mandatory node "oper-status" instance does not exist.
+    // (path: /ietf-interfaces:interfaces/interface/oper-status)
+    assert!(dtree1.validate(DataValidationFlags::PRESENT).is_err());
+    assert!(dtree3.is_ok());
 }

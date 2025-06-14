@@ -129,7 +129,7 @@ impl Context {
     }
 
     /// Creates libyang context from a YANG Library
-    /// [RFC 8525](https://datatracker.ietf.org/doc/html/rfc8525)
+    /// [RFC 8525](https://datatracker.ietf.org/doc/html/rfc8525).
     pub fn new_from_yang_library_str<P: AsRef<Path>>(
         yang_library_data: &str,
         library_format: DataFormat,
@@ -175,7 +175,7 @@ impl Context {
     }
 
     /// Creates libyang context from a YANG Library
-    /// [RFC 8525](https://datatracker.ietf.org/doc/html/rfc8525)
+    /// [RFC 8525](https://datatracker.ietf.org/doc/html/rfc8525).
     pub fn new_from_yang_library_file<P: AsRef<Path>>(
         yang_library_file: P,
         library_format: DataFormat,

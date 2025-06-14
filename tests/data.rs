@@ -52,23 +52,22 @@ static JSON_TREE2: &str = r###"
         }
     }"###;
 static JSON_TREE3: &str = r###"
-{
-  "ietf-interfaces:interfaces": {
-    "interface": [
-      {
-        "name": "eth0",
-        "type": "iana-if-type:ethernetCsmacd",
-        "if-index": 1,
-        "admin-status": "up",
-        "oper-status": "up",
-        "statistics": {
-          "discontinuity-time": "2014-07-29T13:43:12Z"
-        }
+    {
+      "ietf-interfaces:interfaces": {
+        "interface": [
+          {
+            "name": "eth0",
+            "type": "iana-if-type:ethernetCsmacd",
+            "if-index": 1,
+            "admin-status": "up",
+            "oper-status": "up",
+            "statistics": {
+              "discontinuity-time": "2014-07-29T13:43:12Z"
+            }
+          }
+        ]
       }
-    ]
-  }
-}
-"###;
+    }"###;
 
 static JSON_MERGE: &str = r###"
     {

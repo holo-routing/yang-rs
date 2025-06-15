@@ -1,10 +1,73 @@
+use std::collections::BTreeSet;
 use yang3::context::{Context, ContextFlags};
+use yang3::data::DataFormat;
 use yang3::iter::IterSchemaFlags;
 use yang3::schema::{
     DataValue, DataValueType, SchemaNodeKind, SchemaPathFormat,
 };
 
 static SEARCH_DIR: &str = "./assets/yang/";
+static YANG_LIBRARY_FILE: &str = "./assets/data/lib.json";
+
+static JSON_YANG_LIBRARY: &str = r###"
+    {
+      "ietf-yang-library:yang-library": {
+        "module-set": [
+          {
+            "name": "complete",
+            "module": [
+              {
+                "name": "iana-if-type",
+                "revision": "2017-01-19",
+                "namespace": "urn:ietf:params:xml:ns:yang:iana-if-type"
+              },
+              {
+                "name": "ietf-interfaces",
+                "revision": "2018-02-20",
+                "namespace": "urn:ietf:params:xml:ns:yang:ietf-interfaces",
+                "feature": [
+                  "arbitrary-names",
+                  "pre-provisioning",
+                  "if-mib"
+                ]
+              }
+            ],
+            "import-only-module": []
+          }
+        ],
+        "schema": [
+          {
+            "name": "complete",
+            "module-set": [
+              "complete"
+            ]
+          }
+        ],
+        "content-id": "34"
+      },
+      "ietf-yang-library:modules-state": {
+        "module-set-id": "34",
+        "module": [
+          {
+            "name": "iana-if-type",
+            "revision": "2017-01-19",
+            "namespace": "urn:ietf:params:xml:ns:yang:iana-if-type",
+            "conformance-type": "implement"
+          },
+          {
+            "name": "ietf-interfaces",
+            "revision": "2018-02-20",
+            "namespace": "urn:ietf:params:xml:ns:yang:ietf-interfaces",
+            "feature": [
+              "arbitrary-names",
+              "pre-provisioning",
+              "if-mib"
+            ],
+            "conformance-type": "implement"
+          }
+        ]
+      }
+    }"###;
 
 fn create_context() -> Context {
     // Initialize context.
@@ -517,4 +580,48 @@ fn ext_yang_data() {
             .collect::<Vec<String>>(),
         vec!["/ietf-restconf:restconf", "/ietf-restconf:restconf/data"]
     );
+}
+
+#[test]
+fn test_create_context_from_yang_library_path() {
+    let ctx = Context::new_from_yang_library_file(
+        YANG_LIBRARY_FILE,
+        DataFormat::JSON,
+        SEARCH_DIR,
+        ContextFlags::empty(),
+    )
+    .expect("Failed to create context");
+
+    let module_names = ctx
+        .modules(true)
+        .map(|m| m.name().to_string())
+        .collect::<BTreeSet<String>>();
+    let expected = BTreeSet::from([
+        "ietf-interfaces".to_string(),
+        "iana-if-type".to_string(),
+    ]);
+
+    assert_eq!(module_names, expected);
+}
+
+#[test]
+fn test_create_context_from_yang_library_str() {
+    let ctx = Context::new_from_yang_library_str(
+        JSON_YANG_LIBRARY,
+        DataFormat::JSON,
+        SEARCH_DIR,
+        ContextFlags::empty(),
+    )
+    .expect("Failed to create context");
+
+    let module_names = ctx
+        .modules(true)
+        .map(|m| m.name().to_string())
+        .collect::<BTreeSet<String>>();
+    let expected = BTreeSet::from([
+        "ietf-interfaces".to_string(),
+        "iana-if-type".to_string(),
+    ]);
+
+    assert_eq!(module_names, expected);
 }

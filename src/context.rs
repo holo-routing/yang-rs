@@ -15,6 +15,7 @@ use std::path::Path;
 use std::slice;
 use std::sync::Once;
 
+use crate::data::DataFormat;
 use crate::error::{Error, Result};
 use crate::iter::{SchemaModules, Set};
 use crate::schema::{SchemaModule, SchemaNode};
@@ -113,6 +114,99 @@ impl Context {
 
         let ret = unsafe {
             ffi::ly_ctx_new(std::ptr::null(), options.bits(), ctx_ptr)
+        };
+        if ret != ffi::LY_ERR::LY_SUCCESS {
+            // Need to construct error structure by hand.
+            return Err(Error {
+                errcode: ret,
+                msg: None,
+                path: None,
+                apptag: None,
+            });
+        }
+
+        Ok(Context { raw: context })
+    }
+
+    /// Creates libyang context from a YANG Library
+    /// [RFC 8525](https://datatracker.ietf.org/doc/html/rfc8525).
+    pub fn new_from_yang_library_str<P: AsRef<Path>>(
+        yang_library_data: &str,
+        library_format: DataFormat,
+        search_dir: P,
+        options: ContextFlags,
+    ) -> Result<Context> {
+        static INIT: Once = Once::new();
+        let mut context = std::ptr::null_mut();
+        let ctx_ptr = &mut context;
+
+        // Initialization routine that is called only once when the first YANG
+        // context is created.
+        INIT.call_once(|| {
+            // Disable automatic logging to stderr in order to give users more
+            // control over the handling of errors.
+            unsafe { ffi::ly_log_options(ffi::LY_LOSTORE_LAST) };
+        });
+
+        let search_dir =
+            CString::new(search_dir.as_ref().to_str().unwrap()).unwrap();
+        let yang_library = CString::new(yang_library_data).unwrap();
+
+        let ret = unsafe {
+            ffi::ly_ctx_new_ylmem(
+                search_dir.as_ptr(),
+                yang_library.as_ptr(),
+                library_format as u32,
+                options.bits() as i32,
+                ctx_ptr,
+            )
+        };
+        if ret != ffi::LY_ERR::LY_SUCCESS {
+            // Need to construct error structure by hand.
+            return Err(Error {
+                errcode: ret,
+                msg: None,
+                path: None,
+                apptag: None,
+            });
+        }
+
+        Ok(Context { raw: context })
+    }
+
+    /// Creates libyang context from a YANG Library
+    /// [RFC 8525](https://datatracker.ietf.org/doc/html/rfc8525).
+    pub fn new_from_yang_library_file<P: AsRef<Path>>(
+        yang_library_file: P,
+        library_format: DataFormat,
+        search_dir: P,
+        options: ContextFlags,
+    ) -> Result<Context> {
+        static INIT: Once = Once::new();
+        let mut context = std::ptr::null_mut();
+        let ctx_ptr = &mut context;
+
+        // Initialization routine that is called only once when the first YANG
+        // context is created.
+        INIT.call_once(|| {
+            // Disable automatic logging to stderr in order to give users more
+            // control over the handling of errors.
+            unsafe { ffi::ly_log_options(ffi::LY_LOSTORE_LAST) };
+        });
+
+        let search_dir =
+            CString::new(search_dir.as_ref().to_str().unwrap()).unwrap();
+        let yang_library =
+            CString::new(yang_library_file.as_ref().to_str().unwrap()).unwrap();
+
+        let ret = unsafe {
+            ffi::ly_ctx_new_ylpath(
+                search_dir.as_ptr(),
+                yang_library.as_ptr(),
+                library_format as u32,
+                options.bits() as i32,
+                ctx_ptr,
+            )
         };
         if ret != ffi::LY_ERR::LY_SUCCESS {
             // Need to construct error structure by hand.

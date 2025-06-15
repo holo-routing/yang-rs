@@ -625,3 +625,12 @@ fn test_create_context_from_yang_library_str() {
 
     assert_eq!(module_names, expected);
 }
+
+#[test]
+fn test_extensions_uncompiled_modules() {
+    let ctx = create_context();
+    // ietf-yang-metadata is an internal module and it's not compiled
+    let module = ctx.get_module_latest("ietf-yang-metadata").unwrap();
+    let extensions = module.extensions().collect::<Vec<_>>();
+    assert_eq!(extensions.len(), 0);
+}

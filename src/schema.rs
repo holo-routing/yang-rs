@@ -414,6 +414,9 @@ impl<'a> SchemaModule<'a> {
     /// Returns an iterator over the list of extension instances.
     pub fn extensions(&self) -> impl Iterator<Item = SchemaExtInstance<'a>> {
         let compiled = unsafe { (*self.raw).compiled };
+        if compiled.is_null() {
+            return Array::new(self.context, std::ptr::null_mut(), 0);
+        }
         let array = unsafe { (*compiled).exts };
         let ptr_size = mem::size_of::<ffi::lysc_ext_instance>();
         Array::new(self.context, array as *mut _, ptr_size)

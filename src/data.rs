@@ -283,8 +283,8 @@ pub trait Data<'a> {
         Ok(unsafe { DataNodeRef::from_raw(self.tree(), rnode as *mut _) })
     }
 
-    /// Search in the given data for a single node matching the provided XPath and
-    /// is an RPC/action output node.
+    /// Search in the given data for a single node matching the provided XPath
+    /// and is an RPC/action output node.
     ///
     /// The expected format of the expression is JSON, meaning the first node in
     /// every path must have its module name as prefix or be the special `*`
@@ -630,10 +630,17 @@ impl<'a> DataTree<'a> {
         };
 
         // Create input handler.
-        let cdata = CString::new(data.as_ref()).unwrap();
+        let cdata;
         let mut ly_in = std::ptr::null_mut();
-        let ret =
-            unsafe { ffi::ly_in_new_memory(cdata.as_ptr() as _, &mut ly_in) };
+        let ret = match format {
+            DataFormat::XML | DataFormat::JSON => unsafe {
+                cdata = CString::new(data.as_ref()).unwrap();
+                ffi::ly_in_new_memory(cdata.as_ptr() as _, &mut ly_in)
+            },
+            DataFormat::LYB => unsafe {
+                ffi::ly_in_new_memory(data.as_ref().as_ptr() as _, &mut ly_in)
+            },
+        };
         if ret != ffi::LY_ERR::LY_SUCCESS {
             return Err(Error::new(context));
         }

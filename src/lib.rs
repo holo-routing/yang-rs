@@ -42,6 +42,7 @@ mod error;
 pub mod context;
 pub mod data;
 pub mod iter;
+pub mod logging;
 pub mod schema;
 pub mod utils;
 

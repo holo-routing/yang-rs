@@ -19,7 +19,7 @@ use crate::data::DataFormat;
 use crate::error::{Error, Result};
 use crate::iter::{SchemaModules, Set};
 use crate::schema::{SchemaModule, SchemaNode};
-use crate::utils::*;
+use crate::{logging, utils::*};
 use libyang3_sys as ffi;
 
 /// Context of the YANG schemas.
@@ -219,6 +219,48 @@ impl Context {
         }
 
         Ok(Context { raw: context })
+    }
+
+    /// Set the log level to [`ffi::LY_LOG_LEVEL::LY_LLDBG`]
+    pub fn set_log_level_trace(&self) {
+        logging::set_log_level_trace();
+    }
+
+    /// Set the log level to [`ffi::LY_LOG_LEVEL::LY_LLVRB`]
+    pub fn set_log_level_debug(&self) {
+        logging::set_log_level_debug();
+    }
+
+    /// Set the log level to [`ffi::LY_LOG_LEVEL::LY_LLWRN`]
+    pub fn set_log_level_warn(&self) {
+        logging::set_log_level_warn();
+    }
+
+    /// Set the log level to [`ffi::LY_LOG_LEVEL::LY_LLERR`]
+    pub fn set_log_level_error(&self) {
+        logging::set_log_level_error();
+    }
+
+    /// Initialize the logging callback.
+    ///
+    /// The callback can only be initialized once.
+    pub fn init_logger<C>(
+        &self,
+        cb: C,
+    ) -> std::result::Result<(), logging::LoggingCallbackAlreadySet>
+    where
+        C: logging::LogCallback,
+    {
+        logging::init_logger(cb)
+    }
+
+    /// Use the a default logger for logging.
+    ///
+    /// The callback can only be initialized once.
+    pub fn init_default_logger(
+        &self,
+    ) -> std::result::Result<(), logging::LoggingCallbackAlreadySet> {
+        self.init_logger(logging::DefaultLogger::default())
     }
 
     /// Returns a mutable raw pointer to the underlying C library representation

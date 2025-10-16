@@ -38,6 +38,13 @@ pub struct SchemaSubmodule<'a> {
     pub(crate) raw: *mut ffi::lysp_submodule,
 }
 
+/// Available YANG schema tree structures representing YANG import.
+#[derive(Clone, Debug)]
+pub struct SchemaImport<'a> {
+    pub(crate) context: &'a Context,
+    pub(crate) raw: *mut ffi::lysp_import,
+}
+
 /// Schema input formats accepted by libyang.
 #[allow(clippy::upper_case_acronyms)]
 #[repr(u32)]
@@ -443,6 +450,17 @@ impl<'a> SchemaModule<'a> {
             self.notifications().flat_map(|snode| snode.traverse());
         data.chain(rpcs).chain(notifications)
     }
+
+    /// Returns an iterator over the list of imports.
+    pub fn imports(&self) -> impl Iterator<Item = SchemaImport<'a>> {
+        let parsed = unsafe { (*self.raw).parsed };
+        if parsed.is_null() {
+            return Array::new(self.context, std::ptr::null_mut(), 0);
+        }
+        let array = unsafe { (*parsed).imports };
+        let ptr_size = mem::size_of::<ffi::lysp_import>();
+        Array::new(self.context, array as *mut _, ptr_size)
+    }
 }
 
 unsafe impl<'a> Binding<'a> for SchemaModule<'a> {
@@ -528,6 +546,51 @@ impl PartialEq for SchemaSubmodule<'_> {
 
 unsafe impl Send for SchemaSubmodule<'_> {}
 unsafe impl Sync for SchemaSubmodule<'_> {}
+
+// ===== impl SchemaImport =====
+
+impl<'a> SchemaImport<'a> {
+    /// Import Module.
+    pub fn module(&self) -> SchemaModule<'_> {
+        let module = unsafe { (*self.raw).module };
+        unsafe { SchemaModule::from_raw(self.context, module) }
+    }
+
+    /// Import module name.
+    pub fn name(&self) -> &str {
+        char_ptr_to_str(unsafe { (*self.raw).name })
+    }
+
+    /// Prefix used to reference definitions from the import module.
+    pub fn prefix(&self) -> &str {
+        char_ptr_to_str(unsafe { (*self.raw).prefix })
+    }
+
+    /// Description of the import.
+    pub fn description(&self) -> Option<&str> {
+        char_ptr_to_opt_str(unsafe { (*self.raw).dsc })
+    }
+
+    /// Cross-reference for the import.
+    pub fn reference(&self) -> Option<&str> {
+        char_ptr_to_opt_str(unsafe { (*self.raw).ref_ })
+    }
+}
+
+unsafe impl<'a> Binding<'a> for SchemaImport<'a> {
+    type CType = ffi::lysp_import;
+    type Container = Context;
+
+    unsafe fn from_raw(
+        context: &'a Context,
+        raw: *mut ffi::lysp_import,
+    ) -> SchemaImport<'a> {
+        SchemaImport { context, raw }
+    }
+}
+
+unsafe impl Send for SchemaImport<'_> {}
+unsafe impl Sync for SchemaImport<'_> {}
 
 // ===== impl SchemaNode =====
 

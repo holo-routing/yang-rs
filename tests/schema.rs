@@ -1,9 +1,11 @@
 use std::collections::BTreeSet;
+use std::path::Path;
 use yang3::context::{Context, ContextFlags};
 use yang3::data::DataFormat;
 use yang3::iter::IterSchemaFlags;
 use yang3::schema::{
-    DataValue, DataValueType, SchemaNodeKind, SchemaPathFormat,
+    DataValue, DataValueType, SchemaInputFormat, SchemaModule, SchemaNodeKind,
+    SchemaPathFormat,
 };
 
 static SEARCH_DIR: &str = "./assets/yang/";
@@ -667,4 +669,23 @@ fn schema_module_imports() {
         .expect("Failed to load module");
     let module_imports: Vec<_> = module.imports().collect();
     assert_eq!(module_imports.len(), 0);
+}
+
+#[test]
+fn test_parse_schema_from_str() {
+    let ctx = create_context();
+    let valid_schema_str = std::fs::read_to_string(
+        Path::new(SEARCH_DIR).join("ietf-routing@2018-01-25.yang"),
+    )
+    .expect("failed to read schema file");
+    let invalid_schema = std::fs::read_to_string(YANG_LIBRARY_FILE)
+        .expect("failed to read data file");
+
+    let valid_module =
+        SchemaModule::parse_string(&ctx, &valid_schema_str, SchemaInputFormat::YANG);
+    let invalid_module =
+        SchemaModule::parse_string(&ctx, &invalid_schema, SchemaInputFormat::YANG);
+
+    assert!(valid_module.is_ok_and(|x| x.name() == "ietf-routing"));
+    assert!(invalid_module.is_err());
 }

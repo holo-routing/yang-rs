@@ -634,3 +634,37 @@ fn test_extensions_uncompiled_modules() {
     let extensions = module.extensions().collect::<Vec<_>>();
     assert_eq!(extensions.len(), 0);
 }
+
+#[test]
+fn schema_module_imports() {
+    let mut ctx = create_context();
+
+    // Test a module that has imports
+    let module = ctx.get_module_latest("ietf-interfaces").unwrap();
+    let imports: Vec<_> = module.imports().collect();
+
+    // ietf-interfaces imports only ietf-yang-types
+    assert_eq!(imports.len(), 1);
+
+    // Test the ietf-yang-types import
+    let yang_types_import = &imports[0];
+    assert_eq!(yang_types_import.name(), "ietf-yang-types");
+    assert_eq!(yang_types_import.prefix(), "yang");
+    assert_eq!(yang_types_import.reference(), None);
+
+    // Test imported module access
+    let imported_module = yang_types_import.module();
+    assert_eq!(imported_module.name(), "ietf-yang-types");
+    assert_eq!(
+        imported_module.namespace(),
+        "urn:ietf:params:xml:ns:yang:ietf-yang-types"
+    );
+    assert_eq!(imported_module.reference(), None);
+
+    // Test a module with no imports (like ietf-restconf)
+    let module = ctx
+        .load_module("ietf-restconf", None, &[])
+        .expect("Failed to load module");
+    let module_imports: Vec<_> = module.imports().collect();
+    assert_eq!(module_imports.len(), 0);
+}

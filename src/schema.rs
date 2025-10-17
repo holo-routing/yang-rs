@@ -461,6 +461,77 @@ impl<'a> SchemaModule<'a> {
         let ptr_size = mem::size_of::<ffi::lysp_import>();
         Array::new(self.context, array as *mut _, ptr_size)
     }
+
+
+    /// Parse a schema module from a string
+    pub fn parse_string(
+        context: &'a Context,
+        data: &str,
+        schema_input_format: SchemaInputFormat,
+    ) -> Result<Self> {
+        let mut raw: *mut ffi::lys_module = std::ptr::null_mut();
+        let data = CString::new(data).unwrap();
+        let ret = unsafe {
+            ffi::lys_parse_mem(
+                context.raw,
+                data.as_ptr(),
+                schema_input_format as u32,
+                &mut raw,
+            )
+        };
+        if ret != ffi::LY_ERR::LY_SUCCESS {
+            return Err(Error::new(context));
+        }
+        Ok(Self { context, raw })
+    }
+
+    /// Parse a schema module from a file
+    #[cfg(not(target_os = "windows"))]
+    pub fn parse_file<F: std::os::unix::io::AsRawFd>(
+        context: &'a Context,
+        fd: F,
+        schema_input_format: SchemaInputFormat,
+    ) -> Result<Self> {
+        let mut raw: *mut ffi::lys_module = std::ptr::null_mut();
+        let ret = unsafe {
+            ffi::lys_parse_fd(
+                context.raw,
+                fd.as_raw_fd(),
+                schema_input_format as u32,
+                &mut raw,
+            )
+        };
+        if ret != ffi::LY_ERR::LY_SUCCESS {
+            return Err(Error::new(context));
+        }
+        Ok(Self { context, raw })
+    }
+
+    /// Parse a schema module from a file
+    #[cfg(target_os = "windows")]
+    pub fn parse_file<F: std::os::unix::io::AsRawFd>(
+        context: &'a Context,
+        file: impl std::os::windows::io::AsRawHandle,
+        schema_input_format: SchemaInputFormat,
+    ) -> Result<Self> {
+        use libc::open_osfhandle;
+        let raw_handle = file.as_raw_handle();
+        let fd = unsafe { open_osfhandle(raw_handle as isize, 0) };
+
+        let mut raw: *mut ffi::lys_module = std::ptr::null_mut();
+        let ret = unsafe {
+            ffi::lys_parse_fd(
+                context.raw,
+                fd.as_raw_fd(),
+                schema_input_format as u32,
+                &mut raw,
+            )
+        };
+        if ret != ffi::LY_ERR::LY_SUCCESS {
+            return Err(Error::new(context));
+        }
+        Ok(Self { context, raw })
+    }
 }
 
 unsafe impl<'a> Binding<'a> for SchemaModule<'a> {

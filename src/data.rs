@@ -630,6 +630,7 @@ impl<'a> DataTree<'a> {
 
     fn _parse_op_string(
         ctx_or_ext: CtxOrExt<'a>,
+        parent: Option<DataNodeRef<'a>>,
         data: impl AsRef<[u8]>,
         format: DataFormat,
         op: DataOperation,
@@ -656,12 +657,17 @@ impl<'a> DataTree<'a> {
         if ret != ffi::LY_ERR::LY_SUCCESS {
             return Err(Error::new(context));
         }
+        let parent_ptr = if let Some(parent) = parent {
+            parent.as_raw()
+        } else {
+            std::ptr::null_mut()
+        };
 
         let ret = unsafe {
             match ctx_or_ext {
                 CtxOrExt::C(c) => ffi::lyd_parse_op(
                     c.raw,
-                    std::ptr::null_mut(),
+                    parent_ptr,
                     ly_in,
                     format as u32,
                     op as u32,
@@ -691,22 +697,30 @@ impl<'a> DataTree<'a> {
     /// Parse YANG data into an operation data tree.
     pub fn parse_op_string(
         context: &'a Context,
+        parent: Option<DataNodeRef<'a>>,
         data: impl AsRef<[u8]>,
         format: DataFormat,
         op: DataOperation,
     ) -> Result<DataTree<'a>> {
-        DataTree::_parse_op_string(CtxOrExt::C(context), data, format, op)
+        DataTree::_parse_op_string(
+            CtxOrExt::C(context),
+            parent,
+            data,
+            format,
+            op,
+        )
     }
 
     /// Parse op data as an extension data tree using the given schema
     /// extension. Parse input data into an operation data tree.
     pub fn parse_op_ext_string(
         ext: &'a SchemaExtInstance<'a>,
+        parent: Option<DataNodeRef<'a>>,
         data: impl AsRef<[u8]>,
         format: DataFormat,
         op: DataOperation,
     ) -> Result<DataTree<'a>> {
-        DataTree::_parse_op_string(CtxOrExt::E(ext), data, format, op)
+        DataTree::_parse_op_string(CtxOrExt::E(ext), parent, data, format, op)
     }
 
     /// Returns a reference to the fist top-level data node, unless the data

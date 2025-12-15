@@ -6,10 +6,10 @@
 [![Build Status][actions-badge]][actions-url]
 [![codecov][codecov-badge]][codecov-url]
 
-[crates-badge]: https://img.shields.io/crates/v/yang3.svg
-[crates-url]: https://crates.io/crates/yang3
-[docs-badge]: https://docs.rs/yang3/badge.svg
-[docs-url]: https://docs.rs/yang3
+[crates-badge]: https://img.shields.io/crates/v/yang4.svg
+[crates-url]: https://crates.io/crates/yang4
+[docs-badge]: https://docs.rs/yang4/badge.svg
+[docs-url]: https://docs.rs/yang4
 [mit-badge]: https://img.shields.io/badge/license-MIT-blue.svg
 [mit-url]: https://github.com/holo-routing/yang-rs/blob/master/LICENSE
 [actions-badge]: https://github.com/holo-routing/yang-rs/workflows/CI/badge.svg
@@ -19,16 +19,16 @@
 
 Rust bindings for the [libyang] library.
 
-For raw FFI bindings for libyang, see [libyang3-sys].
+For raw FFI bindings for libyang, see [libyang4-sys].
 
 [libyang]: https://github.com/CESNET/libyang/
-[libyang3-sys]: ./libyang3-sys
+[libyang4-sys]: ./libyang4-sys
 
 #### Cargo.toml
 
 ```toml
 [dependencies]
-yang3 = "0.19"
+yang4 = "0.1"
 ```
 ## Design Goals
 * Provide high-level bindings for libyang using idiomatic Rust
@@ -49,8 +49,8 @@ A basic example that parses and validates JSON instance data, and then converts
 it to the XML format:
 ```rust,no_run
 use std::fs::File;
-use yang3::context::{Context, ContextFlags};
-use yang3::data::{
+use yang4::context::{Context, ContextFlags};
+use yang4::data::{
     Data, DataFormat, DataParserFlags, DataPrinterFlags, DataTree,
     DataValidationFlags,
 };

@@ -22,7 +22,7 @@ use crate::iter::{
     Traverse,
 };
 use crate::utils::*;
-use libyang3_sys as ffi;
+use libyang4_sys as ffi;
 
 /// Available YANG schema tree structures representing YANG module.
 #[derive(Clone, Debug)]
@@ -912,47 +912,31 @@ impl<'a> SchemaNode<'a> {
     }
 
     /// The default value of the leaf (canonical string representation).
-    pub fn default_value_canonical(&self) -> Option<&str> {
-        let default = unsafe {
-            match self.kind() {
-                SchemaNodeKind::Leaf => {
-                    let rvalue =
-                        (*(self.raw as *const ffi::lysc_node_leaf)).dflt;
-                    if rvalue.is_null() {
-                        return None;
-                    }
-                    let mut canonical = (*rvalue)._canonical;
-                    if canonical.is_null() {
-                        canonical = ffi::lyd_value_get_canonical(
-                            self.context.raw,
-                            rvalue,
-                        )
-                    }
-                    canonical
-                }
-                _ => return None,
-            }
-        };
-
-        char_ptr_to_opt_str(default)
-    }
-
-    /// The default value of the leaf (typed representation).
-    pub fn default_value(&self) -> Option<DataValue> {
-        match self.kind() {
-            SchemaNodeKind::Leaf => {
-                let default = unsafe {
-                    let rvalue =
-                        (*(self.raw as *const ffi::lysc_node_leaf)).dflt;
-                    if rvalue.is_null() {
-                        return None;
-                    }
-                    DataValue::from_raw(self.context, rvalue)
-                };
-                Some(default)
-            }
-            _ => None,
+    pub fn default_value_canonical(&self) -> Result<Option<String>> {
+        if self.kind() != SchemaNodeKind::Leaf {
+            return Ok(None);
         }
+
+        let mut canonical = std::ptr::null();
+        let ret = unsafe {
+            let dflt = (*(self.raw as *const ffi::lysc_node_leaf)).dflt;
+            ffi::lyd_value_validate_dflt(
+                self.raw,
+                dflt.str_,
+                dflt.prefixes,
+                std::ptr::null(),
+                std::ptr::null_mut(),
+                &mut canonical,
+            )
+        };
+        if ret != ffi::LY_ERR::LY_SUCCESS {
+            return Err(Error::new(self.context));
+        }
+        let canonical_string = char_ptr_to_opt_string(canonical, false);
+        unsafe {
+            ffi::lydict_remove(self.context.raw, canonical);
+        };
+        Ok(canonical_string)
     }
 
     /// The default case of the choice.
@@ -1481,7 +1465,7 @@ impl<'a> SchemaExtInstance<'a> {
                 std::ptr::null_mut(),
                 self.raw,
                 path.as_ptr(),
-                value_ptr as *const c_void,
+                value_ptr,
                 options,
                 rnode_ptr,
             )

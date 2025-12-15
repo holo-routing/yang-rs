@@ -1,6 +1,6 @@
 use std::fs::File;
-use yang3::context::{Context, ContextFlags};
-use yang3::data::{
+use yang4::context::{Context, ContextFlags};
+use yang4::data::{
     Data, DataFormat, DataParserFlags, DataTree, DataValidationFlags,
 };
 

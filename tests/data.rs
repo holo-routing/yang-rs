@@ -1,6 +1,6 @@
 use std::collections::BTreeSet;
-use yang3::context::{Context, ContextFlags};
-use yang3::data::{
+use yang4::context::{Context, ContextFlags};
+use yang4::data::{
     Data, DataDiff, DataDiffFlags, DataFormat, DataImplicitFlags,
     DataOperation, DataParserFlags, DataPrinterFlags, DataTree,
     DataTreeOwningRef, DataValidationFlags,
@@ -148,22 +148,42 @@ static JSON_RDIFF: &str = r###"
               "yang:orig-default": false,
               "yang:orig-value": "false"
             }
-          },      {
+          },
+          {
             "@": {
               "yang:operation": "create"
             },
             "name": "eth/0/1",
             "description": "MKT",
+            "@description": {
+              "yang:operation": "create"
+            },
             "type": "iana-if-type:ethernetCsmacd",
-            "enabled": true
-          },      {
+            "@type": {
+              "yang:operation": "create"
+            },
+            "enabled": true,
+            "@enabled": {
+              "yang:operation": "create"
+            }
+          },
+          {
             "@": {
               "yang:operation": "delete"
             },
             "name": "eth/0/2",
             "description": "MGMT",
+            "@description": {
+              "yang:operation": "delete"
+            },
             "type": "iana-if-type:ethernetCsmacd",
-            "enabled": true
+            "@type": {
+              "yang:operation": "delete"
+            },
+            "enabled": true,
+            "@enabled": {
+              "yang:operation": "delete"
+            }
           }
         ]
       }
@@ -283,6 +303,7 @@ fn parse_json_notification<'a>(ctx: &'a Context, string: &str) -> DataTree<'a> {
         &ctx,
         string,
         DataFormat::JSON,
+        DataParserFlags::empty(),
         DataOperation::NotificationYang,
     )
     .expect("Failed to parse YANG RPC")
@@ -293,6 +314,7 @@ fn parse_json_rpc<'a>(ctx: &'a Context, string: &str) -> DataTree<'a> {
         &ctx,
         string,
         DataFormat::JSON,
+        DataParserFlags::empty(),
         DataOperation::RpcYang,
     )
     .expect("Failed to parse YANG RPC")
@@ -303,6 +325,7 @@ fn parse_json_rpc_reply<'a>(ctx: &'a Context, string: &str) -> DataTree<'a> {
         &ctx,
         string,
         DataFormat::JSON,
+        DataParserFlags::empty(),
         DataOperation::ReplyYang,
     )
     .expect("Failed to parse YANG RPC")
@@ -677,6 +700,7 @@ fn data_iterator_traverse_action() {
     }
 }"###,
             DataFormat::JSON,
+            DataParserFlags::empty(),
         )
         .expect("Failed to parse YANG ACTION REPLY");
 

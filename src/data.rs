@@ -21,7 +21,7 @@ use crate::iter::{
 use crate::schema::SchemaExtInstance;
 use crate::schema::{DataValue, SchemaModule, SchemaNode, SchemaNodeKind};
 use crate::utils::*;
-use libyang3_sys as ffi;
+use libyang4_sys as ffi;
 
 /// YANG data tree.
 #[derive(Debug)]
@@ -163,11 +163,11 @@ bitflags! {
     pub struct DataPrinterFlags: u32 {
         /// Flag for printing also the (following) sibling nodes of the data
         /// node.
-        const WITH_SIBLINGS = ffi::LYD_PRINT_WITHSIBLINGS;
+        const WITH_SIBLINGS = ffi::LYD_PRINT_SIBLINGS;
         /// Flag for output without indentation and formatting new lines.
         const SHRINK = ffi::LYD_PRINT_SHRINK;
         /// Preserve empty non-presence containers.
-        const KEEP_EMPTY_CONT = ffi::LYD_PRINT_KEEPEMPTYCONT;
+        const KEEP_EMPTY_CONT = ffi::LYD_PRINT_EMPTY_CONT;
         /// Explicit with-defaults mode. Only the data explicitly being present
         /// in the data tree are printed, so the implicitly added default nodes
         /// are not printed. Note that this is the default value when no WD
@@ -385,20 +385,36 @@ pub trait Data<'a> {
     fn print_bytes(
         &self,
         format: DataFormat,
-        options: DataPrinterFlags,
+        mut options: DataPrinterFlags,
     ) -> Result<Vec<u8>> {
         let mut cstr = std::ptr::null_mut();
         let cstr_ptr = &mut cstr;
+        let mut ly_out = std::ptr::null_mut();
+        let ret = unsafe { ffi::ly_out_new_memory(cstr_ptr, 0, &mut ly_out) };
+        if ret != ffi::LY_ERR::LY_SUCCESS {
+            return Err(Error::new(self.context()));
+        }
 
         let ret = unsafe {
-            ffi::lyd_print_mem(
-                cstr_ptr,
-                self.raw(),
-                format as u32,
-                options.bits(),
-            )
+            if options.contains(DataPrinterFlags::WITH_SIBLINGS) {
+                options.remove(DataPrinterFlags::WITH_SIBLINGS);
+                ffi::lyd_print_all(
+                    ly_out,
+                    self.raw(),
+                    format as u32,
+                    options.bits(),
+                )
+            } else {
+                ffi::lyd_print_tree(
+                    ly_out,
+                    self.raw(),
+                    format as u32,
+                    options.bits(),
+                )
+            }
         };
         if ret != ffi::LY_ERR::LY_SUCCESS {
+            unsafe { ffi::ly_out_free(ly_out, None, 0) };
             return Err(Error::new(self.context()));
         }
 
@@ -413,7 +429,7 @@ pub trait Data<'a> {
             }
             DataFormat::LYB => {
                 // Get the length of the LYB data.
-                let len = unsafe { ffi::lyd_lyb_data_length(cstr) };
+                let len = unsafe { ffi::ly_out_printed(ly_out) };
                 // For the LYB data format, `cstr` isn't null-terminated.
                 // Create a byte slice from the raw parts and convert it to a
                 // vector.
@@ -421,6 +437,9 @@ pub trait Data<'a> {
                     .to_vec()
             }
         };
+
+        unsafe { ffi::ly_out_free(ly_out, None, 0) };
+
         Ok(bytes)
     }
 }
@@ -620,6 +639,7 @@ impl<'a> DataTree<'a> {
         ctx_or_ext: CtxOrExt<'a>,
         data: impl AsRef<[u8]>,
         format: DataFormat,
+        parser_options: DataParserFlags,
         op: DataOperation,
     ) -> Result<DataTree<'a>> {
         let mut rnode = std::ptr::null_mut();
@@ -653,6 +673,7 @@ impl<'a> DataTree<'a> {
                     ly_in,
                     format as u32,
                     op as u32,
+                    parser_options.bits(),
                     rnode_ptr,
                     std::ptr::null_mut(),
                 ),
@@ -662,6 +683,7 @@ impl<'a> DataTree<'a> {
                     ly_in,
                     format as u32,
                     op as u32,
+                    parser_options.bits(),
                     rnode_ptr,
                     std::ptr::null_mut(),
                 ),
@@ -681,9 +703,16 @@ impl<'a> DataTree<'a> {
         context: &'a Context,
         data: impl AsRef<[u8]>,
         format: DataFormat,
+        parser_options: DataParserFlags,
         op: DataOperation,
     ) -> Result<DataTree<'a>> {
-        DataTree::_parse_op_string(CtxOrExt::C(context), data, format, op)
+        DataTree::_parse_op_string(
+            CtxOrExt::C(context),
+            data,
+            format,
+            parser_options,
+            op,
+        )
     }
 
     /// Parse op data as an extension data tree using the given schema
@@ -692,9 +721,16 @@ impl<'a> DataTree<'a> {
         ext: &'a SchemaExtInstance<'a>,
         data: impl AsRef<[u8]>,
         format: DataFormat,
+        parser_options: DataParserFlags,
         op: DataOperation,
     ) -> Result<DataTree<'a>> {
-        DataTree::_parse_op_string(CtxOrExt::E(ext), data, format, op)
+        DataTree::_parse_op_string(
+            CtxOrExt::E(ext),
+            data,
+            format,
+            parser_options,
+            op,
+        )
     }
 
     /// Returns a reference to the fist top-level data node, unless the data
@@ -738,12 +774,12 @@ impl<'a> DataTree<'a> {
         let rnode_ptr = &mut rnode;
         let value_cstr;
 
-        let (value_ptr, value_len) = match value {
+        let value_ptr = match value {
             Some(value) => {
                 value_cstr = CString::new(value).unwrap();
-                (value_cstr.as_ptr(), value.len())
+                value_cstr.as_ptr()
             }
-            None => (std::ptr::null(), 0),
+            None => std::ptr::null(),
         };
 
         let mut options = ffi::LYD_NEW_PATH_UPDATE;
@@ -757,7 +793,7 @@ impl<'a> DataTree<'a> {
                 self.context().raw,
                 path.as_ptr(),
                 value_ptr as *const c_void,
-                value_len,
+                0,
                 ffi::LYD_ANYDATA_VALUETYPE::LYD_ANYDATA_STRING,
                 options,
                 rnode_root_ptr,
@@ -1035,6 +1071,7 @@ impl<'a> DataTreeOwningRef<'a> {
         raw: *mut ffi::lyd_node,
         data: impl AsRef<[u8]>,
         format: DataFormat,
+        parser_options: DataParserFlags,
         op_type: ffi::lyd_type::Type,
         op_node_ptr: *mut *mut ffi::lyd_node,
     ) -> Result<()> {
@@ -1063,6 +1100,7 @@ impl<'a> DataTreeOwningRef<'a> {
                 ly_in,
                 format as u32,
                 op_type,
+                parser_options.bits(),
                 opaque_ptr,
                 op_node_ptr,
             )
@@ -1082,6 +1120,7 @@ impl<'a> DataTreeOwningRef<'a> {
     pub fn parse_netconf_rpc_op(
         context: &'a Context,
         data: impl AsRef<[u8]>,
+        parser_options: DataParserFlags,
     ) -> Result<DataTreeOwningRef<'a>> {
         let mut tree = DataTreeOwningRef {
             tree: DataTree::new(context),
@@ -1093,6 +1132,7 @@ impl<'a> DataTreeOwningRef<'a> {
             std::ptr::null_mut(),
             data,
             DataFormat::XML,
+            parser_options,
             ffi::lyd_type::LYD_TYPE_RPC_NETCONF,
             &mut tree.raw,
         )?;
@@ -1104,12 +1144,14 @@ impl<'a> DataTreeOwningRef<'a> {
     pub fn parse_netconf_reply_op(
         &mut self,
         data: impl AsRef<[u8]>,
+        parser_options: DataParserFlags,
     ) -> Result<()> {
         Self::_parse_op(
             self.tree.context,
             self.raw,
             data,
             DataFormat::XML,
+            parser_options,
             ffi::lyd_type::LYD_TYPE_REPLY_NETCONF,
             std::ptr::null_mut(),
         )
@@ -1119,6 +1161,7 @@ impl<'a> DataTreeOwningRef<'a> {
     pub fn parse_netconf_notif_op(
         context: &'a Context,
         data: impl AsRef<[u8]>,
+        parser_options: DataParserFlags,
     ) -> Result<DataTreeOwningRef<'a>> {
         let mut tree = DataTreeOwningRef {
             tree: DataTree::new(context),
@@ -1130,6 +1173,7 @@ impl<'a> DataTreeOwningRef<'a> {
             std::ptr::null_mut(),
             data,
             DataFormat::XML,
+            parser_options,
             ffi::lyd_type::LYD_TYPE_NOTIF_NETCONF,
             &mut tree.raw,
         )?;
@@ -1142,12 +1186,14 @@ impl<'a> DataTreeOwningRef<'a> {
         &mut self,
         data: impl AsRef<[u8]>,
         format: DataFormat,
+        parser_options: DataParserFlags,
     ) -> Result<()> {
         Self::_parse_op(
             self.tree.context,
             self.raw,
             data,
             format,
+            parser_options,
             ffi::lyd_type::LYD_TYPE_RPC_RESTCONF,
             std::ptr::null_mut(),
         )
@@ -1158,12 +1204,14 @@ impl<'a> DataTreeOwningRef<'a> {
         &mut self,
         data: impl AsRef<[u8]>,
         format: DataFormat,
+        parser_options: DataParserFlags,
     ) -> Result<()> {
         Self::_parse_op(
             self.tree.context,
             self.raw,
             data,
             format,
+            parser_options,
             ffi::lyd_type::LYD_TYPE_REPLY_RESTCONF,
             std::ptr::null_mut(),
         )
@@ -1174,6 +1222,7 @@ impl<'a> DataTreeOwningRef<'a> {
         context: &'a Context,
         data: impl AsRef<[u8]>,
         format: DataFormat,
+        parser_options: DataParserFlags,
     ) -> Result<DataTreeOwningRef<'a>> {
         let mut tree = DataTreeOwningRef {
             tree: DataTree::new(context),
@@ -1186,6 +1235,7 @@ impl<'a> DataTreeOwningRef<'a> {
                 std::ptr::null_mut(),
                 data,
                 DataFormat::XML,
+                parser_options,
                 ffi::lyd_type::LYD_TYPE_NOTIF_NETCONF,
                 &mut tree.raw,
             )?;
@@ -1195,6 +1245,7 @@ impl<'a> DataTreeOwningRef<'a> {
                 std::ptr::null_mut(),
                 data,
                 DataFormat::JSON,
+                parser_options,
                 ffi::lyd_type::LYD_TYPE_NOTIF_RESTCONF,
                 &mut tree.raw,
             )?;
@@ -1514,8 +1565,10 @@ impl<'a> DataNodeRef<'a> {
             .iter()
             .map(|key| CString::new(key.as_ref()).unwrap())
             .collect();
-        let mut keys: Vec<*const c_char> =
-            keys.iter().map(|key| key.as_ptr()).collect();
+        let keys: Vec<*const c_void> = keys
+            .iter()
+            .map(|key| key.as_ptr() as *const c_void)
+            .collect();
 
         let ret = unsafe {
             ffi::lyd_new_list3(
@@ -1524,7 +1577,7 @@ impl<'a> DataNodeRef<'a> {
                     .map(|module| module.as_raw())
                     .unwrap_or(std::ptr::null_mut()),
                 name_cstr.as_ptr(),
-                keys.as_mut_ptr(),
+                keys.as_ptr() as *mut *const c_void,
                 std::ptr::null_mut(),
                 options,
                 rnode_ptr,

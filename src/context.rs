@@ -20,7 +20,7 @@ use crate::error::{Error, Result};
 use crate::iter::{SchemaModules, Set};
 use crate::schema::{SchemaModule, SchemaNode};
 use crate::{logging, utils::*};
-use libyang3_sys as ffi;
+use libyang4_sys as ffi;
 
 /// Context of the YANG schemas.
 ///
@@ -34,9 +34,9 @@ pub struct Context {
 
 bitflags! {
     /// Options to change context behavior.
-    pub struct ContextFlags: u16 {
+    pub struct ContextFlags: u32 {
         /// All the imported modules of the schema being parsed are implemented.
-        const ALL_IMPLEMENTED = ffi::LY_CTX_ALL_IMPLEMENTED as u16;
+        const ALL_IMPLEMENTED = ffi::LY_CTX_ALL_IMPLEMENTED;
 
         /// Implement all imported modules "referenced" from an implemented
         /// module. Normally, leafrefs, augment and deviation targets are
@@ -45,23 +45,23 @@ bitflags! {
         /// any default values. Generally, only if all these modules are
         /// implemented, the explicitly implemented modules can be properly
         /// used and instantiated in data.
-        const REF_IMPLEMENTED = ffi::LY_CTX_REF_IMPLEMENTED as u16;
+        const REF_IMPLEMENTED = ffi::LY_CTX_REF_IMPLEMENTED;
 
         /// Do not internally implement ietf-yang-library module. This option
         /// cannot be changed on existing context.
-        const NO_YANGLIBRARY = ffi::LY_CTX_NO_YANGLIBRARY as u16;
+        const NO_YANGLIBRARY = ffi::LY_CTX_NO_YANGLIBRARY;
 
         /// Do not search for schemas in context's searchdirs neither in current
         /// working directory.
-        const DISABLE_SEARCHDIRS = ffi::LY_CTX_DISABLE_SEARCHDIRS as u16;
+        const DISABLE_SEARCHDIRS = ffi::LY_CTX_DISABLE_SEARCHDIRS;
 
         /// Do not automatically search for schemas in current working
         /// directory, which is by default searched automatically (despite not
         /// recursively).
-        const DISABLE_SEARCHDIR_CWD = ffi::LY_CTX_DISABLE_SEARCHDIR_CWD as u16;
+        const DISABLE_SEARCHDIR_CWD = ffi::LY_CTX_DISABLE_SEARCHDIR_CWD;
 
         /// When searching for schema, prefer searchdirs instead of user callback.
-        const PREFER_SEARCHDIRS = ffi::LY_CTX_PREFER_SEARCHDIRS as u16;
+        const PREFER_SEARCHDIRS = ffi::LY_CTX_PREFER_SEARCHDIRS;
     }
 }
 

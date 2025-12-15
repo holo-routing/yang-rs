@@ -11,7 +11,7 @@ use crate::data::Metadata;
 use crate::schema::{SchemaModule, SchemaNode};
 use crate::utils::Binding;
 use bitflags::bitflags;
-use libyang3_sys as ffi;
+use libyang4_sys as ffi;
 
 /// Common methods used by multiple data and schema node iterators.
 #[doc(hidden)]
@@ -102,7 +102,7 @@ where
 
 /// An iterator over an array of nodes or substatements.
 ///
-/// This is a safe wrapper around libyang3's
+/// This is a safe wrapper around libyang4's
 /// [sized arrays](https://netopeer.liberouter.org/doc/libyang/master/html/howto_structures.html).
 #[derive(Debug)]
 pub struct Array<'a, S: Binding<'a>> {

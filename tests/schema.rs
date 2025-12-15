@@ -1,10 +1,10 @@
 use std::collections::BTreeSet;
 use std::path::Path;
-use yang3::context::{Context, ContextFlags};
-use yang3::data::DataFormat;
-use yang3::iter::IterSchemaFlags;
-use yang3::schema::{
-    DataValue, DataValueType, SchemaInputFormat, SchemaModule, SchemaNodeKind,
+use yang4::context::{Context, ContextFlags};
+use yang4::data::DataFormat;
+use yang4::iter::IterSchemaFlags;
+use yang4::schema::{
+    DataValueType, SchemaInputFormat, SchemaModule, SchemaNodeKind,
     SchemaPathFormat,
 };
 
@@ -476,8 +476,7 @@ fn schema_node_attributes() {
     assert_eq!(snode.is_config(), true);
     assert_eq!(snode.is_state(), false);
     assert_eq!(snode.is_mandatory(), false);
-    assert_eq!(snode.default_value_canonical(), Some("true"));
-    assert_eq!(snode.default_value(), Some(DataValue::Bool(true)));
+    assert_eq!(snode.default_value_canonical(), Ok(Some("true".to_owned())));
     assert_eq!(snode.leaf_type().unwrap().base_type(), DataValueType::Bool);
     assert!(snode.units().is_none());
     assert!(snode.musts().unwrap().count() == 0);

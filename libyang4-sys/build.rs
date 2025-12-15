@@ -3,7 +3,7 @@ use std::path::PathBuf;
 
 fn main() {
     let dst = PathBuf::from(env::var("OUT_DIR").unwrap());
-    let out_file = dst.join("libyang3.rs");
+    let out_file = dst.join("libyang4.rs");
 
     #[cfg(feature = "bindgen")]
     {
@@ -27,10 +27,10 @@ fn main() {
         }
         let bindings = builder
             .generate()
-            .expect("Unable to generate libyang3 bindings");
+            .expect("Unable to generate libyang4 bindings");
         bindings
             .write_to_file(out_file)
-            .expect("Couldn't write libyang3 bindings!");
+            .expect("Couldn't write libyang4 bindings!");
     }
     #[cfg(not(feature = "bindgen"))]
     {
@@ -38,10 +38,10 @@ fn main() {
         pregen_bindings.push(env::var("CARGO_MANIFEST_DIR").unwrap());
         pregen_bindings.push("pre-generated-bindings");
         pregen_bindings
-            .push("libyang3-efe43e3790822a3dc64d7d28db935d03fff8b81f.rs");
+            .push("libyang4-3d07c3a71534a580c3960907da17568eff7e5c64.rs");
 
         std::fs::copy(&pregen_bindings, &out_file)
-            .expect("Unable to copy pre-generated libyang3 bindings");
+            .expect("Unable to copy pre-generated libyang4 bindings");
     }
 
     #[cfg(feature = "bundled")]

@@ -50,11 +50,7 @@ where
             index % 8
         };
         let mask = 1 << bit_index;
-        if val {
-            byte | mask
-        } else {
-            byte & !mask
-        }
+        if val { byte | mask } else { byte & !mask }
     }
     #[inline]
     pub fn set_bit(&mut self, index: usize, val: bool) {
@@ -290,16 +286,6 @@ pub const SIG_ATOMIC_MAX: u32 = 2147483647;
 pub const SIZE_MAX: i32 = -1;
 pub const WINT_MIN: u32 = 0;
 pub const WINT_MAX: u32 = 4294967295;
-pub const LYD_VALUE_FIXED_MEM_SIZE: u32 = 24;
-pub const LYPLG_SUFFIX: &[u8; 4] = b".so\0";
-pub const LYPLG_TYPE_DIR: &[u8; 29] = b"/usr/local/lib/libyang/types\0";
-pub const LYPLG_EXT_DIR: &[u8; 34] = b"/usr/local/lib/libyang/extensions\0";
-pub const LY_LOLOG: u32 = 1;
-pub const LY_LOSTORE: u32 = 2;
-pub const LY_LOSTORE_LAST: u32 = 6;
-pub const LY_LDGDICT: u32 = 1;
-pub const LY_LDGXPATH: u32 = 2;
-pub const LY_LDGDEPSETS: u32 = 4;
 pub const _ARPA_INET_H: u32 = 1;
 pub const _NETINET_IN_H: u32 = 1;
 pub const _SYS_SOCKET_H: u32 = 1;
@@ -708,6 +694,16 @@ pub const IN_CLASSC_HOST: u32 = 255;
 pub const IN_LOOPBACKNET: u32 = 127;
 pub const INET_ADDRSTRLEN: u32 = 16;
 pub const INET6_ADDRSTRLEN: u32 = 46;
+pub const LYD_VALUE_FIXED_MEM_SIZE: u32 = 24;
+pub const LYPLG_SUFFIX: &[u8; 4] = b".so\0";
+pub const LYPLG_TYPE_DIR: &[u8; 29] = b"/usr/local/lib/libyang/types\0";
+pub const LYPLG_EXT_DIR: &[u8; 34] = b"/usr/local/lib/libyang/extensions\0";
+pub const LY_LOLOG: u32 = 1;
+pub const LY_LOSTORE: u32 = 2;
+pub const LY_LOSTORE_LAST: u32 = 6;
+pub const LY_LDGDICT: u32 = 1;
+pub const LY_LDGXPATH: u32 = 2;
+pub const LY_LDGDEPSETS: u32 = 4;
 pub const PCRE2_CODE_UNIT_WIDTH: u32 = 8;
 pub const PCRE2_MAJOR: u32 = 10;
 pub const PCRE2_MINOR: u32 = 39;
@@ -1411,6 +1407,7 @@ pub const LYS_GETNEXT_WITHCASE: u32 = 4;
 pub const LYS_GETNEXT_INTONPCONT: u32 = 8;
 pub const LYS_GETNEXT_OUTPUT: u32 = 16;
 pub const LYS_GETNEXT_WITHSCHEMAMOUNT: u32 = 32;
+pub const LYS_GETNEXT_EXT_XPATH: u32 = 64;
 pub const LYD_NODE_INNER: u32 = 1809;
 pub const LYD_NODE_TERM: u32 = 12;
 pub const LYD_NODE_ANY: u32 = 96;
@@ -1470,16 +1467,19 @@ pub const LY_CTX_PREFER_SEARCHDIRS: u32 = 32;
 pub const LY_CTX_SET_PRIV_PARSED: u32 = 64;
 pub const LY_CTX_EXPLICIT_COMPILE: u32 = 128;
 pub const LY_CTX_ENABLE_IMP_FEATURES: u32 = 256;
-pub const LY_CTX_LEAFREF_EXTENDED: u32 = 512;
-pub const LY_CTX_LEAFREF_LINKING: u32 = 1024;
-pub const LY_CTX_BUILTIN_PLUGINS_ONLY: u32 = 2048;
+pub const LY_CTX_COMPILE_OBSOLETE: u32 = 512;
+pub const LY_CTX_LYB_HASHES: u32 = 1024;
+pub const LY_CTX_LEAFREF_EXTENDED: u32 = 2048;
+pub const LY_CTX_LEAFREF_LINKING: u32 = 4096;
+pub const LY_CTX_BUILTIN_PLUGINS_ONLY: u32 = 8192;
+pub const LY_CTX_STATIC_PLUGINS_ONLY: u32 = 16384;
 pub const _STRING_H: u32 = 1;
 pub const _STRINGS_H: u32 = 1;
 pub const LYD_PARSE_ONLY: u32 = 65536;
 pub const LYD_PARSE_STRICT: u32 = 131072;
 pub const LYD_PARSE_OPAQ: u32 = 262144;
 pub const LYD_PARSE_NO_STATE: u32 = 524288;
-pub const LYD_PARSE_LYB_MOD_UPDATE: u32 = 1048576;
+pub const LYD_PARSE_LYB_SKIP_CTX_CHECK: u32 = 1048576;
 pub const LYD_PARSE_ORDERED: u32 = 2097152;
 pub const LYD_PARSE_SUBTREE: u32 = 4194304;
 pub const LYD_PARSE_WHEN_TRUE: u32 = 8388608;
@@ -1495,7 +1495,7 @@ pub const LYD_VALIDATE_OPERATIONAL: u32 = 8;
 pub const LYD_VALIDATE_NO_DEFAULTS: u32 = 16;
 pub const LYD_VALIDATE_NOT_FINAL: u32 = 32;
 pub const LYD_VALIDATE_OPTS_MASK: u32 = 65535;
-pub const LYPLG_EXT_API_VERSION: u32 = 8;
+pub const LYPLG_EXT_API_VERSION: u32 = 10;
 pub const LY_STMT_NODE_MASK: u32 = 65535;
 pub const LYS_COMPILE_GROUPING: u32 = 1;
 pub const LYS_COMPILE_DISABLED: u32 = 2;
@@ -1505,22 +1505,10 @@ pub const LYS_COMPILE_RPC_INPUT: u32 = 4100;
 pub const LYS_COMPILE_RPC_OUTPUT: u32 = 8196;
 pub const LYS_COMPILE_NOTIFICATION: u32 = 16388;
 pub const LY_PRINT_SHRINK: u32 = 2;
-pub const LY_PATH_BEGIN_ABSOLUTE: u32 = 1;
-pub const LY_PATH_BEGIN_EITHER: u32 = 2;
-pub const LY_PATH_PREFIX_OPTIONAL: u32 = 16;
-pub const LY_PATH_PREFIX_MANDATORY: u32 = 32;
-pub const LY_PATH_PREFIX_FIRST: u32 = 64;
-pub const LY_PATH_PREFIX_STRICT_INHERIT: u32 = 128;
-pub const LY_PATH_PRED_KEYS: u32 = 256;
-pub const LY_PATH_PRED_SIMPLE: u32 = 512;
-pub const LY_PATH_PRED_LEAFREF: u32 = 1024;
-pub const LY_PATH_OPER_INPUT: u32 = 1;
-pub const LY_PATH_OPER_OUTPUT: u32 = 2;
-pub const LY_PATH_TARGET_SINGLE: u32 = 16;
-pub const LY_PATH_TARGET_MANY: u32 = 32;
-pub const LYD_PRINT_WITHSIBLINGS: u32 = 1;
+pub const LYD_PRINT_SIBLINGS: u32 = 1;
 pub const LYD_PRINT_SHRINK: u32 = 2;
-pub const LYD_PRINT_KEEPEMPTYCONT: u32 = 4;
+pub const LYD_PRINT_EMPTY_CONT: u32 = 4;
+pub const LYD_PRINT_EMPTY_LEAF_LIST: u32 = 8;
 pub const LYD_PRINT_WD_MASK: u32 = 240;
 pub const LYD_PRINT_WD_EXPLICIT: u32 = 0;
 pub const LYD_PRINT_WD_TRIM: u32 = 16;
@@ -1621,203 +1609,6 @@ pub type uint_fast32_t = ::std::os::raw::c_ulong;
 pub type uint_fast64_t = ::std::os::raw::c_ulong;
 pub type intmax_t = __intmax_t;
 pub type uintmax_t = __uintmax_t;
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct ly_ctx {
-    _unused: [u8; 0],
-}
-pub type ly_bool = u8;
-pub mod LY_LOG_LEVEL {
-    pub type Type = ::std::os::raw::c_uint;
-    pub const LY_LLERR: Type = 0;
-    pub const LY_LLWRN: Type = 1;
-    pub const LY_LLVRB: Type = 2;
-    pub const LY_LLDBG: Type = 3;
-}
-unsafe extern "C" {
-    pub fn ly_log_level(level: LY_LOG_LEVEL::Type) -> LY_LOG_LEVEL::Type;
-}
-unsafe extern "C" {
-    pub fn ly_log_options(opts: u32) -> u32;
-}
-unsafe extern "C" {
-    pub fn ly_temp_log_options(opts: *mut u32) -> *mut u32;
-}
-unsafe extern "C" {
-    pub fn ly_log_dbg_groups(dbg_groups: u32) -> u32;
-}
-pub type ly_log_clb = ::std::option::Option<
-    unsafe extern "C" fn(
-        level: LY_LOG_LEVEL::Type,
-        msg: *const ::std::os::raw::c_char,
-        data_path: *const ::std::os::raw::c_char,
-        schema_path: *const ::std::os::raw::c_char,
-        line: u64,
-    ),
->;
-unsafe extern "C" {
-    pub fn ly_set_log_clb(clb: ly_log_clb);
-}
-unsafe extern "C" {
-    pub fn ly_get_log_clb() -> ly_log_clb;
-}
-pub mod LY_ERR {
-    pub type Type = ::std::os::raw::c_uint;
-    pub const LY_SUCCESS: Type = 0;
-    pub const LY_EMEM: Type = 1;
-    pub const LY_ESYS: Type = 2;
-    pub const LY_EINVAL: Type = 3;
-    pub const LY_EEXIST: Type = 4;
-    pub const LY_ENOTFOUND: Type = 5;
-    pub const LY_EINT: Type = 6;
-    pub const LY_EVALID: Type = 7;
-    pub const LY_EDENIED: Type = 8;
-    pub const LY_EINCOMPLETE: Type = 9;
-    pub const LY_ERECOMPILE: Type = 10;
-    pub const LY_ENOT: Type = 11;
-    pub const LY_EOTHER: Type = 12;
-    pub const LY_EPLUGIN: Type = 128;
-}
-pub mod LY_VECODE {
-    pub type Type = ::std::os::raw::c_uint;
-    pub const LYVE_SUCCESS: Type = 0;
-    pub const LYVE_SYNTAX: Type = 1;
-    pub const LYVE_SYNTAX_YANG: Type = 2;
-    pub const LYVE_SYNTAX_YIN: Type = 3;
-    pub const LYVE_REFERENCE: Type = 4;
-    pub const LYVE_XPATH: Type = 5;
-    pub const LYVE_SEMANTICS: Type = 6;
-    pub const LYVE_SYNTAX_XML: Type = 7;
-    pub const LYVE_SYNTAX_JSON: Type = 8;
-    pub const LYVE_DATA: Type = 9;
-    pub const LYVE_OTHER: Type = 10;
-}
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct ly_err_item {
-    pub level: LY_LOG_LEVEL::Type,
-    pub err: LY_ERR::Type,
-    pub vecode: LY_VECODE::Type,
-    pub msg: *mut ::std::os::raw::c_char,
-    pub data_path: *mut ::std::os::raw::c_char,
-    pub schema_path: *mut ::std::os::raw::c_char,
-    pub line: u64,
-    pub apptag: *mut ::std::os::raw::c_char,
-    pub next: *mut ly_err_item,
-    pub prev: *mut ly_err_item,
-}
-#[allow(clippy::unnecessary_operation, clippy::identity_op)]
-const _: () = {
-    ["Size of ly_err_item"][::std::mem::size_of::<ly_err_item>() - 72usize];
-    ["Alignment of ly_err_item"]
-        [::std::mem::align_of::<ly_err_item>() - 8usize];
-    ["Offset of field: ly_err_item::level"]
-        [::std::mem::offset_of!(ly_err_item, level) - 0usize];
-    ["Offset of field: ly_err_item::err"]
-        [::std::mem::offset_of!(ly_err_item, err) - 4usize];
-    ["Offset of field: ly_err_item::vecode"]
-        [::std::mem::offset_of!(ly_err_item, vecode) - 8usize];
-    ["Offset of field: ly_err_item::msg"]
-        [::std::mem::offset_of!(ly_err_item, msg) - 16usize];
-    ["Offset of field: ly_err_item::data_path"]
-        [::std::mem::offset_of!(ly_err_item, data_path) - 24usize];
-    ["Offset of field: ly_err_item::schema_path"]
-        [::std::mem::offset_of!(ly_err_item, schema_path) - 32usize];
-    ["Offset of field: ly_err_item::line"]
-        [::std::mem::offset_of!(ly_err_item, line) - 40usize];
-    ["Offset of field: ly_err_item::apptag"]
-        [::std::mem::offset_of!(ly_err_item, apptag) - 48usize];
-    ["Offset of field: ly_err_item::next"]
-        [::std::mem::offset_of!(ly_err_item, next) - 56usize];
-    ["Offset of field: ly_err_item::prev"]
-        [::std::mem::offset_of!(ly_err_item, prev) - 64usize];
-};
-impl Default for ly_err_item {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
-unsafe extern "C" {
-    pub fn ly_strerr(err: LY_ERR::Type) -> *const ::std::os::raw::c_char;
-}
-unsafe extern "C" {
-    pub fn ly_strvecode(
-        vecode: LY_VECODE::Type,
-    ) -> *const ::std::os::raw::c_char;
-}
-unsafe extern "C" {
-    pub fn ly_last_logmsg() -> *const ::std::os::raw::c_char;
-}
-unsafe extern "C" {
-    pub fn ly_err_first(ctx: *const ly_ctx) -> *const ly_err_item;
-}
-unsafe extern "C" {
-    pub fn ly_err_last(ctx: *const ly_ctx) -> *const ly_err_item;
-}
-unsafe extern "C" {
-    pub fn ly_err_print(ctx: *const ly_ctx, eitem: *const ly_err_item);
-}
-unsafe extern "C" {
-    pub fn ly_err_clean(ctx: *mut ly_ctx, eitem: *mut ly_err_item);
-}
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct ly_in {
-    _unused: [u8; 0],
-}
-pub mod LYS_INFORMAT {
-    pub type Type = ::std::os::raw::c_uint;
-    pub const LYS_IN_UNKNOWN: Type = 0;
-    pub const LYS_IN_YANG: Type = 1;
-    pub const LYS_IN_YIN: Type = 3;
-}
-unsafe extern "C" {
-    pub fn lys_parse(
-        ctx: *mut ly_ctx,
-        in_: *mut ly_in,
-        format: LYS_INFORMAT::Type,
-        features: *mut *const ::std::os::raw::c_char,
-        module: *mut *mut lys_module,
-    ) -> LY_ERR::Type;
-}
-unsafe extern "C" {
-    pub fn lys_parse_mem(
-        ctx: *mut ly_ctx,
-        data: *const ::std::os::raw::c_char,
-        format: LYS_INFORMAT::Type,
-        module: *mut *mut lys_module,
-    ) -> LY_ERR::Type;
-}
-unsafe extern "C" {
-    pub fn lys_parse_fd(
-        ctx: *mut ly_ctx,
-        fd: ::std::os::raw::c_int,
-        format: LYS_INFORMAT::Type,
-        module: *mut *mut lys_module,
-    ) -> LY_ERR::Type;
-}
-unsafe extern "C" {
-    pub fn lys_parse_path(
-        ctx: *mut ly_ctx,
-        path: *const ::std::os::raw::c_char,
-        format: LYS_INFORMAT::Type,
-        module: *mut *mut lys_module,
-    ) -> LY_ERR::Type;
-}
-unsafe extern "C" {
-    pub fn lys_search_localfile(
-        searchpaths: *const *const ::std::os::raw::c_char,
-        cwd: ly_bool,
-        name: *const ::std::os::raw::c_char,
-        revision: *const ::std::os::raw::c_char,
-        localfile: *mut *mut ::std::os::raw::c_char,
-        format: *mut LYS_INFORMAT::Type,
-    ) -> LY_ERR::Type;
-}
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct iovec {
@@ -3373,6 +3164,203 @@ unsafe extern "C" {
         __buf: *mut ::std::os::raw::c_char,
     ) -> *mut ::std::os::raw::c_char;
 }
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct ly_ctx {
+    _unused: [u8; 0],
+}
+pub type ly_bool = u8;
+pub mod LY_LOG_LEVEL {
+    pub type Type = ::std::os::raw::c_uint;
+    pub const LY_LLERR: Type = 0;
+    pub const LY_LLWRN: Type = 1;
+    pub const LY_LLVRB: Type = 2;
+    pub const LY_LLDBG: Type = 3;
+}
+unsafe extern "C" {
+    pub fn ly_log_level(level: LY_LOG_LEVEL::Type) -> LY_LOG_LEVEL::Type;
+}
+unsafe extern "C" {
+    pub fn ly_log_options(opts: u32) -> u32;
+}
+unsafe extern "C" {
+    pub fn ly_temp_log_options(opts: *mut u32) -> *mut u32;
+}
+unsafe extern "C" {
+    pub fn ly_log_dbg_groups(dbg_groups: u32) -> u32;
+}
+pub type ly_log_clb = ::std::option::Option<
+    unsafe extern "C" fn(
+        level: LY_LOG_LEVEL::Type,
+        msg: *const ::std::os::raw::c_char,
+        data_path: *const ::std::os::raw::c_char,
+        schema_path: *const ::std::os::raw::c_char,
+        line: u64,
+    ),
+>;
+unsafe extern "C" {
+    pub fn ly_set_log_clb(clb: ly_log_clb);
+}
+unsafe extern "C" {
+    pub fn ly_get_log_clb() -> ly_log_clb;
+}
+pub mod LY_ERR {
+    pub type Type = ::std::os::raw::c_uint;
+    pub const LY_SUCCESS: Type = 0;
+    pub const LY_EMEM: Type = 1;
+    pub const LY_ESYS: Type = 2;
+    pub const LY_EINVAL: Type = 3;
+    pub const LY_EEXIST: Type = 4;
+    pub const LY_ENOTFOUND: Type = 5;
+    pub const LY_EINT: Type = 6;
+    pub const LY_EVALID: Type = 7;
+    pub const LY_EDENIED: Type = 8;
+    pub const LY_EINCOMPLETE: Type = 9;
+    pub const LY_ERECOMPILE: Type = 10;
+    pub const LY_ENOT: Type = 11;
+    pub const LY_EOTHER: Type = 12;
+    pub const LY_EPLUGIN: Type = 128;
+}
+pub mod LY_VECODE {
+    pub type Type = ::std::os::raw::c_uint;
+    pub const LYVE_SUCCESS: Type = 0;
+    pub const LYVE_SYNTAX: Type = 1;
+    pub const LYVE_SYNTAX_YANG: Type = 2;
+    pub const LYVE_SYNTAX_YIN: Type = 3;
+    pub const LYVE_REFERENCE: Type = 4;
+    pub const LYVE_XPATH: Type = 5;
+    pub const LYVE_SEMANTICS: Type = 6;
+    pub const LYVE_SYNTAX_XML: Type = 7;
+    pub const LYVE_SYNTAX_JSON: Type = 8;
+    pub const LYVE_DATA: Type = 9;
+    pub const LYVE_OTHER: Type = 10;
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct ly_err_item {
+    pub level: LY_LOG_LEVEL::Type,
+    pub err: LY_ERR::Type,
+    pub vecode: LY_VECODE::Type,
+    pub msg: *mut ::std::os::raw::c_char,
+    pub data_path: *mut ::std::os::raw::c_char,
+    pub schema_path: *mut ::std::os::raw::c_char,
+    pub line: u64,
+    pub apptag: *mut ::std::os::raw::c_char,
+    pub next: *mut ly_err_item,
+    pub prev: *mut ly_err_item,
+}
+#[allow(clippy::unnecessary_operation, clippy::identity_op)]
+const _: () = {
+    ["Size of ly_err_item"][::std::mem::size_of::<ly_err_item>() - 72usize];
+    ["Alignment of ly_err_item"]
+        [::std::mem::align_of::<ly_err_item>() - 8usize];
+    ["Offset of field: ly_err_item::level"]
+        [::std::mem::offset_of!(ly_err_item, level) - 0usize];
+    ["Offset of field: ly_err_item::err"]
+        [::std::mem::offset_of!(ly_err_item, err) - 4usize];
+    ["Offset of field: ly_err_item::vecode"]
+        [::std::mem::offset_of!(ly_err_item, vecode) - 8usize];
+    ["Offset of field: ly_err_item::msg"]
+        [::std::mem::offset_of!(ly_err_item, msg) - 16usize];
+    ["Offset of field: ly_err_item::data_path"]
+        [::std::mem::offset_of!(ly_err_item, data_path) - 24usize];
+    ["Offset of field: ly_err_item::schema_path"]
+        [::std::mem::offset_of!(ly_err_item, schema_path) - 32usize];
+    ["Offset of field: ly_err_item::line"]
+        [::std::mem::offset_of!(ly_err_item, line) - 40usize];
+    ["Offset of field: ly_err_item::apptag"]
+        [::std::mem::offset_of!(ly_err_item, apptag) - 48usize];
+    ["Offset of field: ly_err_item::next"]
+        [::std::mem::offset_of!(ly_err_item, next) - 56usize];
+    ["Offset of field: ly_err_item::prev"]
+        [::std::mem::offset_of!(ly_err_item, prev) - 64usize];
+};
+impl Default for ly_err_item {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
+unsafe extern "C" {
+    pub fn ly_strerr(err: LY_ERR::Type) -> *const ::std::os::raw::c_char;
+}
+unsafe extern "C" {
+    pub fn ly_strvecode(
+        vecode: LY_VECODE::Type,
+    ) -> *const ::std::os::raw::c_char;
+}
+unsafe extern "C" {
+    pub fn ly_last_logmsg() -> *const ::std::os::raw::c_char;
+}
+unsafe extern "C" {
+    pub fn ly_err_first(ctx: *const ly_ctx) -> *const ly_err_item;
+}
+unsafe extern "C" {
+    pub fn ly_err_last(ctx: *const ly_ctx) -> *const ly_err_item;
+}
+unsafe extern "C" {
+    pub fn ly_err_print(ctx: *const ly_ctx, eitem: *const ly_err_item);
+}
+unsafe extern "C" {
+    pub fn ly_err_clean(ctx: *const ly_ctx, eitem: *mut ly_err_item);
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct ly_in {
+    _unused: [u8; 0],
+}
+pub mod LYS_INFORMAT {
+    pub type Type = ::std::os::raw::c_uint;
+    pub const LYS_IN_UNKNOWN: Type = 0;
+    pub const LYS_IN_YANG: Type = 1;
+    pub const LYS_IN_YIN: Type = 3;
+}
+unsafe extern "C" {
+    pub fn lys_parse(
+        ctx: *mut ly_ctx,
+        in_: *mut ly_in,
+        format: LYS_INFORMAT::Type,
+        features: *mut *const ::std::os::raw::c_char,
+        module: *mut *mut lys_module,
+    ) -> LY_ERR::Type;
+}
+unsafe extern "C" {
+    pub fn lys_parse_mem(
+        ctx: *mut ly_ctx,
+        data: *const ::std::os::raw::c_char,
+        format: LYS_INFORMAT::Type,
+        module: *mut *mut lys_module,
+    ) -> LY_ERR::Type;
+}
+unsafe extern "C" {
+    pub fn lys_parse_fd(
+        ctx: *mut ly_ctx,
+        fd: ::std::os::raw::c_int,
+        format: LYS_INFORMAT::Type,
+        module: *mut *mut lys_module,
+    ) -> LY_ERR::Type;
+}
+unsafe extern "C" {
+    pub fn lys_parse_path(
+        ctx: *mut ly_ctx,
+        path: *const ::std::os::raw::c_char,
+        format: LYS_INFORMAT::Type,
+        module: *mut *mut lys_module,
+    ) -> LY_ERR::Type;
+}
+unsafe extern "C" {
+    pub fn lys_search_localfile(
+        searchpaths: *const *const ::std::os::raw::c_char,
+        cwd: ly_bool,
+        name: *const ::std::os::raw::c_char,
+        revision: *const ::std::os::raw::c_char,
+        localfile: *mut *mut ::std::os::raw::c_char,
+        format: *mut LYS_INFORMAT::Type,
+    ) -> LY_ERR::Type;
+}
 pub type wchar_t = ::std::os::raw::c_int;
 pub type _Float32 = f32;
 pub type _Float64 = f64;
@@ -3431,7 +3419,7 @@ unsafe extern "C" {
 }
 unsafe extern "C" {
     pub fn atoi(__nptr: *const ::std::os::raw::c_char)
-        -> ::std::os::raw::c_int;
+    -> ::std::os::raw::c_int;
 }
 unsafe extern "C" {
     pub fn atol(
@@ -3601,7 +3589,7 @@ unsafe extern "C" {
 }
 unsafe extern "C" {
     pub fn rand_r(__seed: *mut ::std::os::raw::c_uint)
-        -> ::std::os::raw::c_int;
+    -> ::std::os::raw::c_int;
 }
 unsafe extern "C" {
     pub fn drand48() -> f64;
@@ -3887,7 +3875,7 @@ unsafe extern "C" {
 }
 unsafe extern "C" {
     pub fn llabs(__x: ::std::os::raw::c_longlong)
-        -> ::std::os::raw::c_longlong;
+    -> ::std::os::raw::c_longlong;
 }
 unsafe extern "C" {
     pub fn div(
@@ -5322,7 +5310,7 @@ unsafe extern "C" {
 }
 unsafe extern "C" {
     pub fn pcre2_code_copy_16(arg1: *const pcre2_code_16)
-        -> *mut pcre2_code_16;
+    -> *mut pcre2_code_16;
 }
 unsafe extern "C" {
     pub fn pcre2_code_copy_with_tables_16(
@@ -6063,7 +6051,7 @@ unsafe extern "C" {
 }
 unsafe extern "C" {
     pub fn pcre2_code_copy_32(arg1: *const pcre2_code_32)
-        -> *mut pcre2_code_32;
+    -> *mut pcre2_code_32;
 }
 unsafe extern "C" {
     pub fn pcre2_code_copy_with_tables_32(
@@ -7364,6 +7352,11 @@ unsafe extern "C" {
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
+pub struct ly_path {
+    _unused: [u8; 0],
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
 pub struct lyxp_expr {
     _unused: [u8; 0],
 }
@@ -7458,8 +7451,8 @@ pub struct lysp_ext {
     pub dsc: *const ::std::os::raw::c_char,
     pub ref_: *const ::std::os::raw::c_char,
     pub exts: *mut lysp_ext_instance,
+    pub plugin_ref: usize,
     pub flags: u16,
-    pub compiled: *mut lysc_ext,
 }
 #[allow(clippy::unnecessary_operation, clippy::identity_op)]
 const _: () = {
@@ -7475,10 +7468,10 @@ const _: () = {
         [::std::mem::offset_of!(lysp_ext, ref_) - 24usize];
     ["Offset of field: lysp_ext::exts"]
         [::std::mem::offset_of!(lysp_ext, exts) - 32usize];
+    ["Offset of field: lysp_ext::plugin_ref"]
+        [::std::mem::offset_of!(lysp_ext, plugin_ref) - 40usize];
     ["Offset of field: lysp_ext::flags"]
-        [::std::mem::offset_of!(lysp_ext, flags) - 40usize];
-    ["Offset of field: lysp_ext::compiled"]
-        [::std::mem::offset_of!(lysp_ext, compiled) - 48usize];
+        [::std::mem::offset_of!(lysp_ext, flags) - 48usize];
 };
 impl Default for lysp_ext {
     fn default() -> Self {
@@ -10386,7 +10379,7 @@ pub struct lysc_ext {
     pub name: *const ::std::os::raw::c_char,
     pub argname: *const ::std::os::raw::c_char,
     pub exts: *mut lysc_ext_instance,
-    pub plugin: *mut lyplg_ext,
+    pub plugin_ref: usize,
     pub module: *mut lys_module,
     pub flags: u16,
 }
@@ -10400,8 +10393,8 @@ const _: () = {
         [::std::mem::offset_of!(lysc_ext, argname) - 8usize];
     ["Offset of field: lysc_ext::exts"]
         [::std::mem::offset_of!(lysc_ext, exts) - 16usize];
-    ["Offset of field: lysc_ext::plugin"]
-        [::std::mem::offset_of!(lysc_ext, plugin) - 24usize];
+    ["Offset of field: lysc_ext::plugin_ref"]
+        [::std::mem::offset_of!(lysc_ext, plugin_ref) - 24usize];
     ["Offset of field: lysc_ext::module"]
         [::std::mem::offset_of!(lysc_ext, module) - 32usize];
     ["Offset of field: lysc_ext::flags"]
@@ -10652,7 +10645,6 @@ impl Default for lysc_range {
 #[derive(Debug, Copy, Clone)]
 pub struct lysc_pattern {
     pub expr: *const ::std::os::raw::c_char,
-    pub code: *mut pcre2_code_8,
     pub dsc: *const ::std::os::raw::c_char,
     pub ref_: *const ::std::os::raw::c_char,
     pub emsg: *const ::std::os::raw::c_char,
@@ -10664,23 +10656,21 @@ pub struct lysc_pattern {
 }
 #[allow(clippy::unnecessary_operation, clippy::identity_op)]
 const _: () = {
-    ["Size of lysc_pattern"][::std::mem::size_of::<lysc_pattern>() - 64usize];
+    ["Size of lysc_pattern"][::std::mem::size_of::<lysc_pattern>() - 56usize];
     ["Alignment of lysc_pattern"]
         [::std::mem::align_of::<lysc_pattern>() - 8usize];
     ["Offset of field: lysc_pattern::expr"]
         [::std::mem::offset_of!(lysc_pattern, expr) - 0usize];
-    ["Offset of field: lysc_pattern::code"]
-        [::std::mem::offset_of!(lysc_pattern, code) - 8usize];
     ["Offset of field: lysc_pattern::dsc"]
-        [::std::mem::offset_of!(lysc_pattern, dsc) - 16usize];
+        [::std::mem::offset_of!(lysc_pattern, dsc) - 8usize];
     ["Offset of field: lysc_pattern::ref_"]
-        [::std::mem::offset_of!(lysc_pattern, ref_) - 24usize];
+        [::std::mem::offset_of!(lysc_pattern, ref_) - 16usize];
     ["Offset of field: lysc_pattern::emsg"]
-        [::std::mem::offset_of!(lysc_pattern, emsg) - 32usize];
+        [::std::mem::offset_of!(lysc_pattern, emsg) - 24usize];
     ["Offset of field: lysc_pattern::eapptag"]
-        [::std::mem::offset_of!(lysc_pattern, eapptag) - 40usize];
+        [::std::mem::offset_of!(lysc_pattern, eapptag) - 32usize];
     ["Offset of field: lysc_pattern::exts"]
-        [::std::mem::offset_of!(lysc_pattern, exts) - 48usize];
+        [::std::mem::offset_of!(lysc_pattern, exts) - 40usize];
 };
 impl Default for lysc_pattern {
     fn default() -> Self {
@@ -10828,7 +10818,7 @@ impl Default for lysc_must {
 pub struct lysc_type {
     pub name: *const ::std::os::raw::c_char,
     pub exts: *mut lysc_ext_instance,
-    pub plugin: *mut lyplg_type,
+    pub plugin_ref: usize,
     pub basetype: LY_DATA_TYPE::Type,
     pub refcount: u32,
 }
@@ -10840,8 +10830,8 @@ const _: () = {
         [::std::mem::offset_of!(lysc_type, name) - 0usize];
     ["Offset of field: lysc_type::exts"]
         [::std::mem::offset_of!(lysc_type, exts) - 8usize];
-    ["Offset of field: lysc_type::plugin"]
-        [::std::mem::offset_of!(lysc_type, plugin) - 16usize];
+    ["Offset of field: lysc_type::plugin_ref"]
+        [::std::mem::offset_of!(lysc_type, plugin_ref) - 16usize];
     ["Offset of field: lysc_type::basetype"]
         [::std::mem::offset_of!(lysc_type, basetype) - 24usize];
     ["Offset of field: lysc_type::refcount"]
@@ -10861,7 +10851,7 @@ impl Default for lysc_type {
 pub struct lysc_type_num {
     pub name: *const ::std::os::raw::c_char,
     pub exts: *mut lysc_ext_instance,
-    pub plugin: *mut lyplg_type,
+    pub plugin_ref: usize,
     pub basetype: LY_DATA_TYPE::Type,
     pub refcount: u32,
     pub range: *mut lysc_range,
@@ -10875,8 +10865,8 @@ const _: () = {
         [::std::mem::offset_of!(lysc_type_num, name) - 0usize];
     ["Offset of field: lysc_type_num::exts"]
         [::std::mem::offset_of!(lysc_type_num, exts) - 8usize];
-    ["Offset of field: lysc_type_num::plugin"]
-        [::std::mem::offset_of!(lysc_type_num, plugin) - 16usize];
+    ["Offset of field: lysc_type_num::plugin_ref"]
+        [::std::mem::offset_of!(lysc_type_num, plugin_ref) - 16usize];
     ["Offset of field: lysc_type_num::basetype"]
         [::std::mem::offset_of!(lysc_type_num, basetype) - 24usize];
     ["Offset of field: lysc_type_num::refcount"]
@@ -10898,7 +10888,7 @@ impl Default for lysc_type_num {
 pub struct lysc_type_dec {
     pub name: *const ::std::os::raw::c_char,
     pub exts: *mut lysc_ext_instance,
-    pub plugin: *mut lyplg_type,
+    pub plugin_ref: usize,
     pub basetype: LY_DATA_TYPE::Type,
     pub refcount: u32,
     pub fraction_digits: u8,
@@ -10913,8 +10903,8 @@ const _: () = {
         [::std::mem::offset_of!(lysc_type_dec, name) - 0usize];
     ["Offset of field: lysc_type_dec::exts"]
         [::std::mem::offset_of!(lysc_type_dec, exts) - 8usize];
-    ["Offset of field: lysc_type_dec::plugin"]
-        [::std::mem::offset_of!(lysc_type_dec, plugin) - 16usize];
+    ["Offset of field: lysc_type_dec::plugin_ref"]
+        [::std::mem::offset_of!(lysc_type_dec, plugin_ref) - 16usize];
     ["Offset of field: lysc_type_dec::basetype"]
         [::std::mem::offset_of!(lysc_type_dec, basetype) - 24usize];
     ["Offset of field: lysc_type_dec::refcount"]
@@ -10938,7 +10928,7 @@ impl Default for lysc_type_dec {
 pub struct lysc_type_str {
     pub name: *const ::std::os::raw::c_char,
     pub exts: *mut lysc_ext_instance,
-    pub plugin: *mut lyplg_type,
+    pub plugin_ref: usize,
     pub basetype: LY_DATA_TYPE::Type,
     pub refcount: u32,
     pub length: *mut lysc_range,
@@ -10953,8 +10943,8 @@ const _: () = {
         [::std::mem::offset_of!(lysc_type_str, name) - 0usize];
     ["Offset of field: lysc_type_str::exts"]
         [::std::mem::offset_of!(lysc_type_str, exts) - 8usize];
-    ["Offset of field: lysc_type_str::plugin"]
-        [::std::mem::offset_of!(lysc_type_str, plugin) - 16usize];
+    ["Offset of field: lysc_type_str::plugin_ref"]
+        [::std::mem::offset_of!(lysc_type_str, plugin_ref) - 16usize];
     ["Offset of field: lysc_type_str::basetype"]
         [::std::mem::offset_of!(lysc_type_str, basetype) - 24usize];
     ["Offset of field: lysc_type_str::refcount"]
@@ -11048,7 +11038,7 @@ impl Default for lysc_type_bitenum_item {
 pub struct lysc_type_enum {
     pub name: *const ::std::os::raw::c_char,
     pub exts: *mut lysc_ext_instance,
-    pub plugin: *mut lyplg_type,
+    pub plugin_ref: usize,
     pub basetype: LY_DATA_TYPE::Type,
     pub refcount: u32,
     pub enums: *mut lysc_type_bitenum_item,
@@ -11063,8 +11053,8 @@ const _: () = {
         [::std::mem::offset_of!(lysc_type_enum, name) - 0usize];
     ["Offset of field: lysc_type_enum::exts"]
         [::std::mem::offset_of!(lysc_type_enum, exts) - 8usize];
-    ["Offset of field: lysc_type_enum::plugin"]
-        [::std::mem::offset_of!(lysc_type_enum, plugin) - 16usize];
+    ["Offset of field: lysc_type_enum::plugin_ref"]
+        [::std::mem::offset_of!(lysc_type_enum, plugin_ref) - 16usize];
     ["Offset of field: lysc_type_enum::basetype"]
         [::std::mem::offset_of!(lysc_type_enum, basetype) - 24usize];
     ["Offset of field: lysc_type_enum::refcount"]
@@ -11086,7 +11076,7 @@ impl Default for lysc_type_enum {
 pub struct lysc_type_bits {
     pub name: *const ::std::os::raw::c_char,
     pub exts: *mut lysc_ext_instance,
-    pub plugin: *mut lyplg_type,
+    pub plugin_ref: usize,
     pub basetype: LY_DATA_TYPE::Type,
     pub refcount: u32,
     pub bits: *mut lysc_type_bitenum_item,
@@ -11101,8 +11091,8 @@ const _: () = {
         [::std::mem::offset_of!(lysc_type_bits, name) - 0usize];
     ["Offset of field: lysc_type_bits::exts"]
         [::std::mem::offset_of!(lysc_type_bits, exts) - 8usize];
-    ["Offset of field: lysc_type_bits::plugin"]
-        [::std::mem::offset_of!(lysc_type_bits, plugin) - 16usize];
+    ["Offset of field: lysc_type_bits::plugin_ref"]
+        [::std::mem::offset_of!(lysc_type_bits, plugin_ref) - 16usize];
     ["Offset of field: lysc_type_bits::basetype"]
         [::std::mem::offset_of!(lysc_type_bits, basetype) - 24usize];
     ["Offset of field: lysc_type_bits::refcount"]
@@ -11124,7 +11114,7 @@ impl Default for lysc_type_bits {
 pub struct lysc_type_leafref {
     pub name: *const ::std::os::raw::c_char,
     pub exts: *mut lysc_ext_instance,
-    pub plugin: *mut lyplg_type,
+    pub plugin_ref: usize,
     pub basetype: LY_DATA_TYPE::Type,
     pub refcount: u32,
     pub path: *mut lyxp_expr,
@@ -11142,8 +11132,8 @@ const _: () = {
         [::std::mem::offset_of!(lysc_type_leafref, name) - 0usize];
     ["Offset of field: lysc_type_leafref::exts"]
         [::std::mem::offset_of!(lysc_type_leafref, exts) - 8usize];
-    ["Offset of field: lysc_type_leafref::plugin"]
-        [::std::mem::offset_of!(lysc_type_leafref, plugin) - 16usize];
+    ["Offset of field: lysc_type_leafref::plugin_ref"]
+        [::std::mem::offset_of!(lysc_type_leafref, plugin_ref) - 16usize];
     ["Offset of field: lysc_type_leafref::basetype"]
         [::std::mem::offset_of!(lysc_type_leafref, basetype) - 24usize];
     ["Offset of field: lysc_type_leafref::refcount"]
@@ -11171,7 +11161,7 @@ impl Default for lysc_type_leafref {
 pub struct lysc_type_identityref {
     pub name: *const ::std::os::raw::c_char,
     pub exts: *mut lysc_ext_instance,
-    pub plugin: *mut lyplg_type,
+    pub plugin_ref: usize,
     pub basetype: LY_DATA_TYPE::Type,
     pub refcount: u32,
     pub bases: *mut *mut lysc_ident,
@@ -11186,8 +11176,8 @@ const _: () = {
         [::std::mem::offset_of!(lysc_type_identityref, name) - 0usize];
     ["Offset of field: lysc_type_identityref::exts"]
         [::std::mem::offset_of!(lysc_type_identityref, exts) - 8usize];
-    ["Offset of field: lysc_type_identityref::plugin"]
-        [::std::mem::offset_of!(lysc_type_identityref, plugin) - 16usize];
+    ["Offset of field: lysc_type_identityref::plugin_ref"]
+        [::std::mem::offset_of!(lysc_type_identityref, plugin_ref) - 16usize];
     ["Offset of field: lysc_type_identityref::basetype"]
         [::std::mem::offset_of!(lysc_type_identityref, basetype) - 24usize];
     ["Offset of field: lysc_type_identityref::refcount"]
@@ -11209,7 +11199,7 @@ impl Default for lysc_type_identityref {
 pub struct lysc_type_instanceid {
     pub name: *const ::std::os::raw::c_char,
     pub exts: *mut lysc_ext_instance,
-    pub plugin: *mut lyplg_type,
+    pub plugin_ref: usize,
     pub basetype: LY_DATA_TYPE::Type,
     pub refcount: u32,
     pub require_instance: u8,
@@ -11224,8 +11214,8 @@ const _: () = {
         [::std::mem::offset_of!(lysc_type_instanceid, name) - 0usize];
     ["Offset of field: lysc_type_instanceid::exts"]
         [::std::mem::offset_of!(lysc_type_instanceid, exts) - 8usize];
-    ["Offset of field: lysc_type_instanceid::plugin"]
-        [::std::mem::offset_of!(lysc_type_instanceid, plugin) - 16usize];
+    ["Offset of field: lysc_type_instanceid::plugin_ref"]
+        [::std::mem::offset_of!(lysc_type_instanceid, plugin_ref) - 16usize];
     ["Offset of field: lysc_type_instanceid::basetype"]
         [::std::mem::offset_of!(lysc_type_instanceid, basetype) - 24usize];
     ["Offset of field: lysc_type_instanceid::refcount"]
@@ -11249,7 +11239,7 @@ impl Default for lysc_type_instanceid {
 pub struct lysc_type_union {
     pub name: *const ::std::os::raw::c_char,
     pub exts: *mut lysc_ext_instance,
-    pub plugin: *mut lyplg_type,
+    pub plugin_ref: usize,
     pub basetype: LY_DATA_TYPE::Type,
     pub refcount: u32,
     pub types: *mut *mut lysc_type,
@@ -11264,8 +11254,8 @@ const _: () = {
         [::std::mem::offset_of!(lysc_type_union, name) - 0usize];
     ["Offset of field: lysc_type_union::exts"]
         [::std::mem::offset_of!(lysc_type_union, exts) - 8usize];
-    ["Offset of field: lysc_type_union::plugin"]
-        [::std::mem::offset_of!(lysc_type_union, plugin) - 16usize];
+    ["Offset of field: lysc_type_union::plugin_ref"]
+        [::std::mem::offset_of!(lysc_type_union, plugin_ref) - 16usize];
     ["Offset of field: lysc_type_union::basetype"]
         [::std::mem::offset_of!(lysc_type_union, basetype) - 24usize];
     ["Offset of field: lysc_type_union::refcount"]
@@ -11287,7 +11277,7 @@ impl Default for lysc_type_union {
 pub struct lysc_type_bin {
     pub name: *const ::std::os::raw::c_char,
     pub exts: *mut lysc_ext_instance,
-    pub plugin: *mut lyplg_type,
+    pub plugin_ref: usize,
     pub basetype: LY_DATA_TYPE::Type,
     pub refcount: u32,
     pub length: *mut lysc_range,
@@ -11301,8 +11291,8 @@ const _: () = {
         [::std::mem::offset_of!(lysc_type_bin, name) - 0usize];
     ["Offset of field: lysc_type_bin::exts"]
         [::std::mem::offset_of!(lysc_type_bin, exts) - 8usize];
-    ["Offset of field: lysc_type_bin::plugin"]
-        [::std::mem::offset_of!(lysc_type_bin, plugin) - 16usize];
+    ["Offset of field: lysc_type_bin::plugin_ref"]
+        [::std::mem::offset_of!(lysc_type_bin, plugin_ref) - 16usize];
     ["Offset of field: lysc_type_bin::basetype"]
         [::std::mem::offset_of!(lysc_type_bin, basetype) - 24usize];
     ["Offset of field: lysc_type_bin::refcount"]
@@ -12285,6 +12275,30 @@ impl Default for lysc_node_choice {
     }
 }
 #[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct lysc_value {
+    pub str_: *const ::std::os::raw::c_char,
+    pub prefixes: *mut lysc_prefix,
+}
+#[allow(clippy::unnecessary_operation, clippy::identity_op)]
+const _: () = {
+    ["Size of lysc_value"][::std::mem::size_of::<lysc_value>() - 16usize];
+    ["Alignment of lysc_value"][::std::mem::align_of::<lysc_value>() - 8usize];
+    ["Offset of field: lysc_value::str_"]
+        [::std::mem::offset_of!(lysc_value, str_) - 0usize];
+    ["Offset of field: lysc_value::prefixes"]
+        [::std::mem::offset_of!(lysc_value, prefixes) - 8usize];
+};
+impl Default for lysc_value {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
+#[repr(C)]
 #[derive(Copy, Clone)]
 pub struct lysc_node_leaf {
     pub __bindgen_anon_1: lysc_node_leaf__bindgen_ty_1,
@@ -12292,7 +12306,7 @@ pub struct lysc_node_leaf {
     pub when: *mut *mut lysc_when,
     pub type_: *mut lysc_type,
     pub units: *const ::std::os::raw::c_char,
-    pub dflt: *mut lyd_value,
+    pub dflt: lysc_value,
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -12415,7 +12429,7 @@ impl Default for lysc_node_leaf__bindgen_ty_1 {
 #[allow(clippy::unnecessary_operation, clippy::identity_op)]
 const _: () = {
     ["Size of lysc_node_leaf"]
-        [::std::mem::size_of::<lysc_node_leaf>() - 120usize];
+        [::std::mem::size_of::<lysc_node_leaf>() - 128usize];
     ["Alignment of lysc_node_leaf"]
         [::std::mem::align_of::<lysc_node_leaf>() - 8usize];
     ["Offset of field: lysc_node_leaf::musts"]
@@ -12446,7 +12460,7 @@ pub struct lysc_node_leaflist {
     pub when: *mut *mut lysc_when,
     pub type_: *mut lysc_type,
     pub units: *const ::std::os::raw::c_char,
-    pub dflts: *mut *mut lyd_value,
+    pub dflts: *mut lysc_value,
     pub min: u32,
     pub max: u32,
 }
@@ -12914,8 +12928,38 @@ impl Default for lysc_node_anydata {
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
+pub struct lysc_submodule {
+    pub name: *const ::std::os::raw::c_char,
+    pub revision: *const ::std::os::raw::c_char,
+    pub filepath: *const ::std::os::raw::c_char,
+}
+#[allow(clippy::unnecessary_operation, clippy::identity_op)]
+const _: () = {
+    ["Size of lysc_submodule"]
+        [::std::mem::size_of::<lysc_submodule>() - 24usize];
+    ["Alignment of lysc_submodule"]
+        [::std::mem::align_of::<lysc_submodule>() - 8usize];
+    ["Offset of field: lysc_submodule::name"]
+        [::std::mem::offset_of!(lysc_submodule, name) - 0usize];
+    ["Offset of field: lysc_submodule::revision"]
+        [::std::mem::offset_of!(lysc_submodule, revision) - 8usize];
+    ["Offset of field: lysc_submodule::filepath"]
+        [::std::mem::offset_of!(lysc_submodule, filepath) - 16usize];
+};
+impl Default for lysc_submodule {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
 pub struct lysc_module {
     pub mod_: *mut lys_module,
+    pub features: *mut *const ::std::os::raw::c_char,
     pub data: *mut lysc_node,
     pub rpcs: *mut lysc_node_action,
     pub notifs: *mut lysc_node_notif,
@@ -12923,19 +12967,21 @@ pub struct lysc_module {
 }
 #[allow(clippy::unnecessary_operation, clippy::identity_op)]
 const _: () = {
-    ["Size of lysc_module"][::std::mem::size_of::<lysc_module>() - 40usize];
+    ["Size of lysc_module"][::std::mem::size_of::<lysc_module>() - 48usize];
     ["Alignment of lysc_module"]
         [::std::mem::align_of::<lysc_module>() - 8usize];
     ["Offset of field: lysc_module::mod_"]
         [::std::mem::offset_of!(lysc_module, mod_) - 0usize];
+    ["Offset of field: lysc_module::features"]
+        [::std::mem::offset_of!(lysc_module, features) - 8usize];
     ["Offset of field: lysc_module::data"]
-        [::std::mem::offset_of!(lysc_module, data) - 8usize];
+        [::std::mem::offset_of!(lysc_module, data) - 16usize];
     ["Offset of field: lysc_module::rpcs"]
-        [::std::mem::offset_of!(lysc_module, rpcs) - 16usize];
+        [::std::mem::offset_of!(lysc_module, rpcs) - 24usize];
     ["Offset of field: lysc_module::notifs"]
-        [::std::mem::offset_of!(lysc_module, notifs) - 24usize];
+        [::std::mem::offset_of!(lysc_module, notifs) - 32usize];
     ["Offset of field: lysc_module::exts"]
-        [::std::mem::offset_of!(lysc_module, exts) - 32usize];
+        [::std::mem::offset_of!(lysc_module, exts) - 40usize];
 };
 impl Default for lysc_module {
     fn default() -> Self {
@@ -12945,6 +12991,17 @@ impl Default for lysc_module {
             s.assume_init()
         }
     }
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct lyplg_type {
+    _unused: [u8; 0],
+}
+unsafe extern "C" {
+    pub fn lysc_get_type_plugin(plugin_ref: usize) -> *mut lyplg_type;
+}
+unsafe extern "C" {
+    pub fn lysc_get_ext_plugin(plugin_ref: usize) -> *mut lyplg_ext;
 }
 unsafe extern "C" {
     pub fn lysc_data_node(schema: *const lysc_node) -> *const lysc_node;
@@ -12963,7 +13020,7 @@ unsafe extern "C" {
 }
 unsafe extern "C" {
     pub fn lysp_node_actions(node: *const lysp_node)
-        -> *const lysp_node_action;
+    -> *const lysp_node_action;
 }
 unsafe extern "C" {
     pub fn lysp_node_notifs(node: *const lysp_node) -> *const lysp_node_notif;
@@ -12973,7 +13030,7 @@ unsafe extern "C" {
 }
 unsafe extern "C" {
     pub fn lysc_node_actions(node: *const lysc_node)
-        -> *const lysc_node_action;
+    -> *const lysc_node_action;
 }
 unsafe extern "C" {
     pub fn lysc_node_notifs(node: *const lysc_node) -> *const lysc_node_notif;
@@ -13120,16 +13177,20 @@ pub struct lys_module {
     pub ref_: *const ::std::os::raw::c_char,
     pub parsed: *mut lysp_module,
     pub compiled: *mut lysc_module,
+    pub extensions: *mut lysc_ext,
     pub identities: *mut lysc_ident,
+    pub submodules: *mut lysc_submodule,
     pub augmented_by: *mut *mut lys_module,
     pub deviated_by: *mut *mut lys_module,
     pub implemented: ly_bool,
     pub to_compile: ly_bool,
-    pub latest_revision: u8,
+    pub _bitfield_align_1: [u8; 0],
+    pub _bitfield_1: __BindgenBitfieldUnit<[u8; 1usize]>,
+    pub __bindgen_padding_0: [u8; 5usize],
 }
 #[allow(clippy::unnecessary_operation, clippy::identity_op)]
 const _: () = {
-    ["Size of lys_module"][::std::mem::size_of::<lys_module>() - 128usize];
+    ["Size of lys_module"][::std::mem::size_of::<lys_module>() - 144usize];
     ["Alignment of lys_module"][::std::mem::align_of::<lys_module>() - 8usize];
     ["Offset of field: lys_module::ctx"]
         [::std::mem::offset_of!(lys_module, ctx) - 0usize];
@@ -13155,18 +13216,20 @@ const _: () = {
         [::std::mem::offset_of!(lys_module, parsed) - 80usize];
     ["Offset of field: lys_module::compiled"]
         [::std::mem::offset_of!(lys_module, compiled) - 88usize];
+    ["Offset of field: lys_module::extensions"]
+        [::std::mem::offset_of!(lys_module, extensions) - 96usize];
     ["Offset of field: lys_module::identities"]
-        [::std::mem::offset_of!(lys_module, identities) - 96usize];
+        [::std::mem::offset_of!(lys_module, identities) - 104usize];
+    ["Offset of field: lys_module::submodules"]
+        [::std::mem::offset_of!(lys_module, submodules) - 112usize];
     ["Offset of field: lys_module::augmented_by"]
-        [::std::mem::offset_of!(lys_module, augmented_by) - 104usize];
+        [::std::mem::offset_of!(lys_module, augmented_by) - 120usize];
     ["Offset of field: lys_module::deviated_by"]
-        [::std::mem::offset_of!(lys_module, deviated_by) - 112usize];
+        [::std::mem::offset_of!(lys_module, deviated_by) - 128usize];
     ["Offset of field: lys_module::implemented"]
-        [::std::mem::offset_of!(lys_module, implemented) - 120usize];
+        [::std::mem::offset_of!(lys_module, implemented) - 136usize];
     ["Offset of field: lys_module::to_compile"]
-        [::std::mem::offset_of!(lys_module, to_compile) - 121usize];
-    ["Offset of field: lys_module::latest_revision"]
-        [::std::mem::offset_of!(lys_module, latest_revision) - 122usize];
+        [::std::mem::offset_of!(lys_module, to_compile) - 137usize];
 };
 impl Default for lys_module {
     fn default() -> Self {
@@ -13175,6 +13238,100 @@ impl Default for lys_module {
             ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
             s.assume_init()
         }
+    }
+}
+impl lys_module {
+    #[inline]
+    pub fn version(&self) -> u8 {
+        unsafe {
+            ::std::mem::transmute(self._bitfield_1.get(0usize, 2u8) as u8)
+        }
+    }
+    #[inline]
+    pub fn set_version(&mut self, val: u8) {
+        unsafe {
+            let val: u8 = ::std::mem::transmute(val);
+            self._bitfield_1.set(0usize, 2u8, val as u64)
+        }
+    }
+    #[inline]
+    pub unsafe fn version_raw(this: *const Self) -> u8 {
+        unsafe {
+            ::std::mem::transmute(
+                <__BindgenBitfieldUnit<[u8; 1usize]>>::raw_get(
+                    ::std::ptr::addr_of!((*this)._bitfield_1),
+                    0usize,
+                    2u8,
+                ) as u8,
+            )
+        }
+    }
+    #[inline]
+    pub unsafe fn set_version_raw(this: *mut Self, val: u8) {
+        unsafe {
+            let val: u8 = ::std::mem::transmute(val);
+            <__BindgenBitfieldUnit<[u8; 1usize]>>::raw_set(
+                ::std::ptr::addr_of_mut!((*this)._bitfield_1),
+                0usize,
+                2u8,
+                val as u64,
+            )
+        }
+    }
+    #[inline]
+    pub fn latest_revision(&self) -> u8 {
+        unsafe {
+            ::std::mem::transmute(self._bitfield_1.get(2usize, 4u8) as u8)
+        }
+    }
+    #[inline]
+    pub fn set_latest_revision(&mut self, val: u8) {
+        unsafe {
+            let val: u8 = ::std::mem::transmute(val);
+            self._bitfield_1.set(2usize, 4u8, val as u64)
+        }
+    }
+    #[inline]
+    pub unsafe fn latest_revision_raw(this: *const Self) -> u8 {
+        unsafe {
+            ::std::mem::transmute(
+                <__BindgenBitfieldUnit<[u8; 1usize]>>::raw_get(
+                    ::std::ptr::addr_of!((*this)._bitfield_1),
+                    2usize,
+                    4u8,
+                ) as u8,
+            )
+        }
+    }
+    #[inline]
+    pub unsafe fn set_latest_revision_raw(this: *mut Self, val: u8) {
+        unsafe {
+            let val: u8 = ::std::mem::transmute(val);
+            <__BindgenBitfieldUnit<[u8; 1usize]>>::raw_set(
+                ::std::ptr::addr_of_mut!((*this)._bitfield_1),
+                2usize,
+                4u8,
+                val as u64,
+            )
+        }
+    }
+    #[inline]
+    pub fn new_bitfield_1(
+        version: u8,
+        latest_revision: u8,
+    ) -> __BindgenBitfieldUnit<[u8; 1usize]> {
+        let mut __bindgen_bitfield_unit: __BindgenBitfieldUnit<[u8; 1usize]> =
+            Default::default();
+        __bindgen_bitfield_unit.set(0usize, 2u8, {
+            let version: u8 = unsafe { ::std::mem::transmute(version) };
+            version as u64
+        });
+        __bindgen_bitfield_unit.set(2usize, 4u8, {
+            let latest_revision: u8 =
+                unsafe { ::std::mem::transmute(latest_revision) };
+            latest_revision as u64
+        });
+        __bindgen_bitfield_unit
     }
 }
 unsafe extern "C" {
@@ -13246,7 +13403,6 @@ pub mod LYD_ANYDATA_VALUETYPE {
     pub const LYD_ANYDATA_STRING: Type = 1;
     pub const LYD_ANYDATA_XML: Type = 2;
     pub const LYD_ANYDATA_JSON: Type = 3;
-    pub const LYD_ANYDATA_LYB: Type = 4;
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -13346,32 +13502,35 @@ impl Default for lyd_value {
 pub struct lyd_value_union {
     pub value: lyd_value,
     pub original: *mut ::std::os::raw::c_void,
-    pub orig_len: usize,
+    pub orig_size_bits: u32,
     pub hints: u32,
     pub format: LY_VALUE_FORMAT::Type,
     pub prefix_data: *mut ::std::os::raw::c_void,
     pub ctx_node: *const lysc_node,
+    pub top_ext: *const lysc_ext_instance,
 }
 #[allow(clippy::unnecessary_operation, clippy::identity_op)]
 const _: () = {
     ["Size of lyd_value_union"]
-        [::std::mem::size_of::<lyd_value_union>() - 80usize];
+        [::std::mem::size_of::<lyd_value_union>() - 88usize];
     ["Alignment of lyd_value_union"]
         [::std::mem::align_of::<lyd_value_union>() - 8usize];
     ["Offset of field: lyd_value_union::value"]
         [::std::mem::offset_of!(lyd_value_union, value) - 0usize];
     ["Offset of field: lyd_value_union::original"]
         [::std::mem::offset_of!(lyd_value_union, original) - 40usize];
-    ["Offset of field: lyd_value_union::orig_len"]
-        [::std::mem::offset_of!(lyd_value_union, orig_len) - 48usize];
+    ["Offset of field: lyd_value_union::orig_size_bits"]
+        [::std::mem::offset_of!(lyd_value_union, orig_size_bits) - 48usize];
     ["Offset of field: lyd_value_union::hints"]
-        [::std::mem::offset_of!(lyd_value_union, hints) - 56usize];
+        [::std::mem::offset_of!(lyd_value_union, hints) - 52usize];
     ["Offset of field: lyd_value_union::format"]
-        [::std::mem::offset_of!(lyd_value_union, format) - 60usize];
+        [::std::mem::offset_of!(lyd_value_union, format) - 56usize];
     ["Offset of field: lyd_value_union::prefix_data"]
         [::std::mem::offset_of!(lyd_value_union, prefix_data) - 64usize];
     ["Offset of field: lyd_value_union::ctx_node"]
         [::std::mem::offset_of!(lyd_value_union, ctx_node) - 72usize];
+    ["Offset of field: lyd_value_union::top_ext"]
+        [::std::mem::offset_of!(lyd_value_union, top_ext) - 80usize];
 };
 impl Default for lyd_value_union {
     fn default() -> Self {
@@ -13412,7 +13571,7 @@ impl Default for lyd_value_bits {
 #[derive(Debug, Copy, Clone)]
 pub struct lyd_value_binary {
     pub data: *mut ::std::os::raw::c_void,
-    pub size: usize,
+    pub size: u32,
 }
 #[allow(clippy::unnecessary_operation, clippy::identity_op)]
 const _: () = {
@@ -14032,7 +14191,6 @@ pub union lyd_any_value {
     pub str_: *const ::std::os::raw::c_char,
     pub xml: *const ::std::os::raw::c_char,
     pub json: *const ::std::os::raw::c_char,
-    pub mem: *mut ::std::os::raw::c_char,
 }
 #[allow(clippy::unnecessary_operation, clippy::identity_op)]
 const _: () = {
@@ -14047,8 +14205,6 @@ const _: () = {
         [::std::mem::offset_of!(lyd_any_value, xml) - 0usize];
     ["Offset of field: lyd_any_value::json"]
         [::std::mem::offset_of!(lyd_any_value, json) - 0usize];
-    ["Offset of field: lyd_any_value::mem"]
-        [::std::mem::offset_of!(lyd_any_value, mem) - 0usize];
 };
 impl Default for lyd_any_value {
     fn default() -> Self {
@@ -14366,11 +14522,6 @@ unsafe extern "C" {
     pub fn lyd_first_sibling(node: *const lyd_node) -> *mut lyd_node;
 }
 unsafe extern "C" {
-    pub fn lyd_lyb_data_length(
-        data: *const ::std::os::raw::c_char,
-    ) -> ::std::os::raw::c_int;
-}
-unsafe extern "C" {
     pub fn lyd_parse_opaq_error(node: *const lyd_node) -> LY_ERR::Type;
 }
 unsafe extern "C" {
@@ -14448,8 +14599,8 @@ unsafe extern "C" {
         parent: *mut lyd_node,
         module: *const lys_module,
         name: *const ::std::os::raw::c_char,
-        key_values: *mut *const ::std::os::raw::c_char,
-        value_lengths: *mut u32,
+        key_values: *mut *const ::std::os::raw::c_void,
+        value_sizes_bits: *mut u32,
         options: u32,
         node: *mut *mut lyd_node,
     ) -> LY_ERR::Type;
@@ -14470,7 +14621,7 @@ unsafe extern "C" {
         module: *const lys_module,
         name: *const ::std::os::raw::c_char,
         value: *const ::std::os::raw::c_void,
-        value_len: usize,
+        value_size_bits: u32,
         options: u32,
         node: *mut *mut lyd_node,
     ) -> LY_ERR::Type;
@@ -14480,7 +14631,7 @@ unsafe extern "C" {
         ext: *const lysc_ext_instance,
         name: *const ::std::os::raw::c_char,
         value: *const ::std::os::raw::c_void,
-        value_len: usize,
+        value_size_bits: u32,
         options: u32,
         node: *mut *mut lyd_node,
     ) -> LY_ERR::Type;
@@ -14582,7 +14733,7 @@ unsafe extern "C" {
         ctx: *const ly_ctx,
         path: *const ::std::os::raw::c_char,
         value: *const ::std::os::raw::c_void,
-        value_len: usize,
+        value_size_bits: u32,
         value_type: LYD_ANYDATA_VALUETYPE::Type,
         options: u32,
         new_parent: *mut *mut lyd_node,
@@ -14594,7 +14745,7 @@ unsafe extern "C" {
         parent: *mut lyd_node,
         ext: *const lysc_ext_instance,
         path: *const ::std::os::raw::c_char,
-        value: *const ::std::os::raw::c_void,
+        value: *const ::std::os::raw::c_char,
         options: u32,
         node: *mut *mut lyd_node,
     ) -> LY_ERR::Type;
@@ -14632,7 +14783,7 @@ unsafe extern "C" {
     pub fn lyd_change_term_bin(
         term: *mut lyd_node,
         value: *const ::std::os::raw::c_void,
-        value_len: usize,
+        value_size_bits: u32,
     ) -> LY_ERR::Type;
 }
 unsafe extern "C" {
@@ -14701,10 +14852,19 @@ unsafe extern "C" {
 }
 unsafe extern "C" {
     pub fn lyd_value_validate(
-        ctx: *const ly_ctx,
         schema: *const lysc_node,
         value: *const ::std::os::raw::c_char,
-        value_len: usize,
+        value_len: u32,
+        ctx_node: *const lyd_node,
+        realtype: *mut *const lysc_type,
+        canonical: *mut *const ::std::os::raw::c_char,
+    ) -> LY_ERR::Type;
+}
+unsafe extern "C" {
+    pub fn lyd_value_validate_dflt(
+        schema: *const lysc_node,
+        value: *const ::std::os::raw::c_char,
+        prefixes: *mut lysc_prefix,
         ctx_node: *const lyd_node,
         realtype: *mut *const lysc_type,
         canonical: *mut *const ::std::os::raw::c_char,
@@ -14714,7 +14874,7 @@ unsafe extern "C" {
     pub fn lyd_value_compare(
         node: *const lyd_node_term,
         value: *const ::std::os::raw::c_char,
-        value_len: usize,
+        value_len: u32,
     ) -> LY_ERR::Type;
 }
 unsafe extern "C" {
@@ -14912,7 +15072,7 @@ unsafe extern "C" {
         siblings: *const lyd_node,
         schema: *const lysc_node,
         key_or_value: *const ::std::os::raw::c_char,
-        val_len: usize,
+        val_len: u32,
         match_: *mut *mut lyd_node,
     ) -> LY_ERR::Type;
 }
@@ -15097,7 +15257,7 @@ unsafe extern "C" {
 unsafe extern "C" {
     pub fn ly_ctx_new(
         search_dir: *const ::std::os::raw::c_char,
-        options: u16,
+        options: u32,
         new_ctx: *mut *mut ly_ctx,
     ) -> LY_ERR::Type;
 }
@@ -15154,13 +15314,13 @@ unsafe extern "C" {
     ) -> *const *const ::std::os::raw::c_char;
 }
 unsafe extern "C" {
-    pub fn ly_ctx_get_options(ctx: *const ly_ctx) -> u16;
+    pub fn ly_ctx_get_options(ctx: *const ly_ctx) -> u32;
 }
 unsafe extern "C" {
-    pub fn ly_ctx_set_options(ctx: *mut ly_ctx, option: u16) -> LY_ERR::Type;
+    pub fn ly_ctx_set_options(ctx: *mut ly_ctx, option: u32) -> LY_ERR::Type;
 }
 unsafe extern "C" {
-    pub fn ly_ctx_unset_options(ctx: *mut ly_ctx, option: u16) -> LY_ERR::Type;
+    pub fn ly_ctx_unset_options(ctx: *mut ly_ctx, option: u32) -> LY_ERR::Type;
 }
 unsafe extern "C" {
     pub fn ly_ctx_get_change_count(ctx: *const ly_ctx) -> u16;
@@ -15202,6 +15362,7 @@ unsafe extern "C" {
 pub type ly_ext_data_clb = ::std::option::Option<
     unsafe extern "C" fn(
         ext: *const lysc_ext_instance,
+        parent: *const lyd_node,
         user_data: *mut ::std::os::raw::c_void,
         ext_data: *mut *mut ::std::os::raw::c_void,
         ext_data_free: *mut ly_bool,
@@ -15209,7 +15370,7 @@ pub type ly_ext_data_clb = ::std::option::Option<
 >;
 unsafe extern "C" {
     pub fn ly_ctx_set_ext_data_clb(
-        ctx: *mut ly_ctx,
+        ctx: *const ly_ctx,
         clb: ly_ext_data_clb,
         user_data: *mut ::std::os::raw::c_void,
     ) -> ly_ext_data_clb;
@@ -15302,6 +15463,28 @@ unsafe extern "C" {
         content_id_format: *const ::std::os::raw::c_char,
         ...
     ) -> LY_ERR::Type;
+}
+unsafe extern "C" {
+    pub fn ly_ctx_free_parsed(ctx: *mut ly_ctx);
+}
+unsafe extern "C" {
+    pub fn ly_ctx_compiled_size(ctx: *const ly_ctx) -> ::std::os::raw::c_int;
+}
+unsafe extern "C" {
+    pub fn ly_ctx_compiled_print(
+        ctx: *const ly_ctx,
+        mem: *mut ::std::os::raw::c_void,
+        mem_end: *mut *mut ::std::os::raw::c_void,
+    ) -> LY_ERR::Type;
+}
+unsafe extern "C" {
+    pub fn ly_ctx_new_printed(
+        mem: *const ::std::os::raw::c_void,
+        ctx: *mut *mut ly_ctx,
+    ) -> LY_ERR::Type;
+}
+unsafe extern "C" {
+    pub fn ly_ctx_is_printed(ctx: *const ly_ctx) -> ly_bool;
 }
 unsafe extern "C" {
     pub fn ly_ctx_destroy(ctx: *mut ly_ctx);
@@ -15729,6 +15912,9 @@ unsafe extern "C" {
     ) -> LY_ERR::Type;
 }
 unsafe extern "C" {
+    pub fn ly_in_peek(in_: *mut ly_in, peek: *mut u8) -> LY_ERR::Type;
+}
+unsafe extern "C" {
     pub fn ly_in_skip(in_: *mut ly_in, count: usize) -> LY_ERR::Type;
 }
 unsafe extern "C" {
@@ -15803,6 +15989,7 @@ unsafe extern "C" {
         in_: *mut ly_in,
         format: LYD_FORMAT::Type,
         data_type: lyd_type::Type,
+        parse_options: u32,
         tree: *mut *mut lyd_node,
         op: *mut *mut lyd_node,
     ) -> LY_ERR::Type;
@@ -15814,8 +16001,18 @@ unsafe extern "C" {
         in_: *mut ly_in,
         format: LYD_FORMAT::Type,
         data_type: lyd_type::Type,
+        parse_options: u32,
         tree: *mut *mut lyd_node,
         op: *mut *mut lyd_node,
+    ) -> LY_ERR::Type;
+}
+unsafe extern "C" {
+    pub fn lyd_validate_ext(
+        ext_tree: *mut *mut lyd_node,
+        ext: *const lysc_ext_instance,
+        val_opts: u32,
+        dep_tree: *const lyd_node,
+        diff: *mut *mut lyd_node,
     ) -> LY_ERR::Type;
 }
 unsafe extern "C" {
@@ -16055,12 +16252,11 @@ pub struct lysp_ext_instance {
     pub argument: *const ::std::os::raw::c_char,
     pub format: LY_VALUE_FORMAT::Type,
     pub prefix_data: *mut ::std::os::raw::c_void,
-    pub def: *mut lysp_ext,
+    pub plugin_ref: usize,
     pub parent: *mut ::std::os::raw::c_void,
     pub parent_stmt: ly_stmt::Type,
     pub parent_stmt_index: u64,
     pub flags: u16,
-    pub record: *const lyplg_ext_record,
     pub substmts: *mut lysp_ext_substmt,
     pub parsed: *mut ::std::os::raw::c_void,
     pub child: *mut lysp_stmt,
@@ -16069,7 +16265,7 @@ pub struct lysp_ext_instance {
 #[allow(clippy::unnecessary_operation, clippy::identity_op)]
 const _: () = {
     ["Size of lysp_ext_instance"]
-        [::std::mem::size_of::<lysp_ext_instance>() - 112usize];
+        [::std::mem::size_of::<lysp_ext_instance>() - 104usize];
     ["Alignment of lysp_ext_instance"]
         [::std::mem::align_of::<lysp_ext_instance>() - 8usize];
     ["Offset of field: lysp_ext_instance::name"]
@@ -16080,8 +16276,8 @@ const _: () = {
         [::std::mem::offset_of!(lysp_ext_instance, format) - 16usize];
     ["Offset of field: lysp_ext_instance::prefix_data"]
         [::std::mem::offset_of!(lysp_ext_instance, prefix_data) - 24usize];
-    ["Offset of field: lysp_ext_instance::def"]
-        [::std::mem::offset_of!(lysp_ext_instance, def) - 32usize];
+    ["Offset of field: lysp_ext_instance::plugin_ref"]
+        [::std::mem::offset_of!(lysp_ext_instance, plugin_ref) - 32usize];
     ["Offset of field: lysp_ext_instance::parent"]
         [::std::mem::offset_of!(lysp_ext_instance, parent) - 40usize];
     ["Offset of field: lysp_ext_instance::parent_stmt"]
@@ -16092,16 +16288,14 @@ const _: () = {
     ) - 56usize];
     ["Offset of field: lysp_ext_instance::flags"]
         [::std::mem::offset_of!(lysp_ext_instance, flags) - 64usize];
-    ["Offset of field: lysp_ext_instance::record"]
-        [::std::mem::offset_of!(lysp_ext_instance, record) - 72usize];
     ["Offset of field: lysp_ext_instance::substmts"]
-        [::std::mem::offset_of!(lysp_ext_instance, substmts) - 80usize];
+        [::std::mem::offset_of!(lysp_ext_instance, substmts) - 72usize];
     ["Offset of field: lysp_ext_instance::parsed"]
-        [::std::mem::offset_of!(lysp_ext_instance, parsed) - 88usize];
+        [::std::mem::offset_of!(lysp_ext_instance, parsed) - 80usize];
     ["Offset of field: lysp_ext_instance::child"]
-        [::std::mem::offset_of!(lysp_ext_instance, child) - 96usize];
+        [::std::mem::offset_of!(lysp_ext_instance, child) - 88usize];
     ["Offset of field: lysp_ext_instance::exts"]
-        [::std::mem::offset_of!(lysp_ext_instance, exts) - 104usize];
+        [::std::mem::offset_of!(lysp_ext_instance, exts) - 96usize];
 };
 impl Default for lysp_ext_instance {
     fn default() -> Self {
@@ -16260,13 +16454,21 @@ unsafe extern "C" {
 }
 unsafe extern "C" {
     pub fn lyplg_ext_compile_get_pmod(ctx: *const lysc_ctx)
-        -> *mut lysp_module;
+    -> *mut lysp_module;
 }
 unsafe extern "C" {
     pub fn lyplg_ext_compile_extension_instance(
         ctx: *mut lysc_ctx,
         extp: *const lysp_ext_instance,
         ext: *mut lysc_ext_instance,
+        parent: *mut lysc_node,
+    ) -> LY_ERR::Type;
+}
+unsafe extern "C" {
+    pub fn lyplg_ext_compiled_node_augments(
+        ctx: *mut lysc_ctx,
+        ext: *mut lysc_ext_instance,
+        node: *mut lysc_node,
     ) -> LY_ERR::Type;
 }
 pub type lyplg_ext_sprinter_info_clb = ::std::option::Option<
@@ -16368,12 +16570,12 @@ unsafe extern "C" {
         clb: lyplg_ext_sprinter_ptree_override_clb,
     ) -> LY_ERR::Type;
 }
-pub type lyplg_ext_data_node_clb = ::std::option::Option<
+pub type lyplg_ext_data_node_xpath_clb = ::std::option::Option<
     unsafe extern "C" fn(
         ext: *mut lysc_ext_instance,
-        node: *mut lyd_node,
-        validate_options: u32,
-    ) -> LY_ERR::Type,
+        tree: *const lyd_node,
+        node: *mut *const lyd_node,
+    ),
 >;
 pub type lyplg_ext_data_snode_clb = ::std::option::Option<
     unsafe extern "C" fn(
@@ -16381,11 +16583,12 @@ pub type lyplg_ext_data_snode_clb = ::std::option::Option<
         parent: *const lyd_node,
         sparent: *const lysc_node,
         prefix: *const ::std::os::raw::c_char,
-        prefix_len: usize,
+        prefix_len: u32,
         format: LY_VALUE_FORMAT::Type,
         prefix_data: *mut ::std::os::raw::c_void,
         name: *const ::std::os::raw::c_char,
-        name_len: usize,
+        name_len: u32,
+        in_xpath: ly_bool,
         snode: *mut *const lysc_node,
     ) -> LY_ERR::Type,
 >;
@@ -16417,6 +16620,49 @@ unsafe extern "C" {
         substmts: *mut lysc_ext_substmt,
     );
 }
+pub type lyplg_ext_compiled_size_clb = ::std::option::Option<
+    unsafe extern "C" fn(
+        ext: *const lysc_ext_instance,
+        addr_ht: *mut ly_ht,
+    ) -> ::std::os::raw::c_int,
+>;
+unsafe extern "C" {
+    pub fn lyplg_ext_compiled_stmts_storage_size(
+        substmts: *const lysc_ext_substmt,
+        addr_ht: *mut ly_ht,
+    ) -> ::std::os::raw::c_int;
+}
+pub type lyplg_ext_compiled_print_clb = ::std::option::Option<
+    unsafe extern "C" fn(
+        orig_ext: *const lysc_ext_instance,
+        ext: *mut lysc_ext_instance,
+        addr_ht: *mut ly_ht,
+        ptr_set: *mut ly_set,
+        mem: *mut *mut ::std::os::raw::c_void,
+    ) -> LY_ERR::Type,
+>;
+unsafe extern "C" {
+    pub fn lyplg_ext_compiled_stmts_storage_print(
+        orig_substmts: *const lysc_ext_substmt,
+        substmts: *mut lysc_ext_substmt,
+        addr_ht: *mut ly_ht,
+        ptr_set: *mut ly_set,
+        mem: *mut *mut ::std::os::raw::c_void,
+    ) -> LY_ERR::Type;
+}
+unsafe extern "C" {
+    pub fn lyplg_ext_compiled_print_get_addr(
+        addr_ht: *const ly_ht,
+        addr: *const ::std::os::raw::c_void,
+    ) -> *mut ::std::os::raw::c_void;
+}
+unsafe extern "C" {
+    pub fn lyplg_ext_compiled_print_add_addr(
+        addr_ht: *mut ly_ht,
+        orig_addr: *const ::std::os::raw::c_void,
+        addr: *const ::std::os::raw::c_void,
+    ) -> LY_ERR::Type;
+}
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct lyplg_ext {
@@ -16426,15 +16672,17 @@ pub struct lyplg_ext {
     pub printer_info: lyplg_ext_sprinter_info_clb,
     pub printer_ctree: lyplg_ext_sprinter_ctree_clb,
     pub printer_ptree: lyplg_ext_sprinter_ptree_clb,
-    pub node: lyplg_ext_data_node_clb,
+    pub node_xpath: lyplg_ext_data_node_xpath_clb,
     pub snode: lyplg_ext_data_snode_clb,
     pub validate: lyplg_ext_data_validate_clb,
     pub pfree: lyplg_ext_parse_free_clb,
     pub cfree: lyplg_ext_compile_free_clb,
+    pub compiled_size: lyplg_ext_compiled_size_clb,
+    pub compiled_print: lyplg_ext_compiled_print_clb,
 }
 #[allow(clippy::unnecessary_operation, clippy::identity_op)]
 const _: () = {
-    ["Size of lyplg_ext"][::std::mem::size_of::<lyplg_ext>() - 88usize];
+    ["Size of lyplg_ext"][::std::mem::size_of::<lyplg_ext>() - 104usize];
     ["Alignment of lyplg_ext"][::std::mem::align_of::<lyplg_ext>() - 8usize];
     ["Offset of field: lyplg_ext::id"]
         [::std::mem::offset_of!(lyplg_ext, id) - 0usize];
@@ -16448,8 +16696,8 @@ const _: () = {
         [::std::mem::offset_of!(lyplg_ext, printer_ctree) - 32usize];
     ["Offset of field: lyplg_ext::printer_ptree"]
         [::std::mem::offset_of!(lyplg_ext, printer_ptree) - 40usize];
-    ["Offset of field: lyplg_ext::node"]
-        [::std::mem::offset_of!(lyplg_ext, node) - 48usize];
+    ["Offset of field: lyplg_ext::node_xpath"]
+        [::std::mem::offset_of!(lyplg_ext, node_xpath) - 48usize];
     ["Offset of field: lyplg_ext::snode"]
         [::std::mem::offset_of!(lyplg_ext, snode) - 56usize];
     ["Offset of field: lyplg_ext::validate"]
@@ -16458,6 +16706,10 @@ const _: () = {
         [::std::mem::offset_of!(lyplg_ext, pfree) - 72usize];
     ["Offset of field: lyplg_ext::cfree"]
         [::std::mem::offset_of!(lyplg_ext, cfree) - 80usize];
+    ["Offset of field: lyplg_ext::compiled_size"]
+        [::std::mem::offset_of!(lyplg_ext, compiled_size) - 88usize];
+    ["Offset of field: lyplg_ext::compiled_print"]
+        [::std::mem::offset_of!(lyplg_ext, compiled_print) - 96usize];
 };
 impl Default for lyplg_ext {
     fn default() -> Self {
@@ -16479,7 +16731,7 @@ pub struct lyplg_ext_record {
 #[allow(clippy::unnecessary_operation, clippy::identity_op)]
 const _: () = {
     ["Size of lyplg_ext_record"]
-        [::std::mem::size_of::<lyplg_ext_record>() - 112usize];
+        [::std::mem::size_of::<lyplg_ext_record>() - 128usize];
     ["Alignment of lyplg_ext_record"]
         [::std::mem::align_of::<lyplg_ext_record>() - 8usize];
     ["Offset of field: lyplg_ext_record::module"]
@@ -16528,8 +16780,15 @@ unsafe extern "C" {
     pub fn lyplg_ext_get_data(
         ctx: *const ly_ctx,
         ext: *const lysc_ext_instance,
+        parent: *const lyd_node,
         ext_data: *mut *mut ::std::os::raw::c_void,
         ext_data_free: *mut ly_bool,
+    ) -> LY_ERR::Type;
+}
+unsafe extern "C" {
+    pub fn lyplg_ext_set_parent_ctx(
+        ctx: *mut ly_ctx,
+        parent_ctx: *const ly_ctx,
     ) -> LY_ERR::Type;
 }
 unsafe extern "C" {
@@ -16541,14 +16800,32 @@ unsafe extern "C" {
 unsafe extern "C" {
     pub fn lyplg_ext_schema_mount_get_parent_ref(
         ext: *const lysc_ext_instance,
+        parent: *const lyd_node,
         refs: *mut *mut ly_set,
     ) -> LY_ERR::Type;
 }
 unsafe extern "C" {
     pub fn lyplg_ext_schema_mount_create_context(
         ext: *const lysc_ext_instance,
+        parent: *const lyd_node,
         ctx: *mut *mut ly_ctx,
     ) -> LY_ERR::Type;
+}
+unsafe extern "C" {
+    pub fn lyplg_ext_schema_mount_create_shared_context(
+        ext: *mut lysc_ext_instance,
+        ext_data: *const lyd_node,
+    ) -> LY_ERR::Type;
+}
+unsafe extern "C" {
+    pub fn lyplg_ext_schema_mount_destroy_shared_contexts(
+        ext: *mut lysc_ext_instance,
+    );
+}
+unsafe extern "C" {
+    pub fn lyplg_ext_schema_mount_destroy_inline_contexts(
+        ext: *mut lysc_ext_instance,
+    );
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -16615,7 +16892,7 @@ unsafe extern "C" {
 }
 unsafe extern "C" {
     pub fn ly_out_clb(out: *mut ly_out, writeclb: ly_write_clb)
-        -> ly_write_clb;
+    -> ly_write_clb;
 }
 unsafe extern "C" {
     pub fn ly_out_clb_arg(
@@ -16637,7 +16914,7 @@ unsafe extern "C" {
 }
 unsafe extern "C" {
     pub fn ly_out_new_file(f: *mut FILE, out: *mut *mut ly_out)
-        -> LY_ERR::Type;
+    -> LY_ERR::Type;
 }
 unsafe extern "C" {
     pub fn ly_out_file(out: *mut ly_out, f: *mut FILE) -> *mut FILE;
@@ -16689,6 +16966,9 @@ unsafe extern "C" {
     pub fn ly_out_printed(out: *const ly_out) -> usize;
 }
 unsafe extern "C" {
+    pub fn ly_out_printed_total(out: *const ly_out) -> usize;
+}
+unsafe extern "C" {
     pub fn ly_out_free(
         out: *mut ly_out,
         clb_arg_destructor: ::std::option::Option<
@@ -16696,258 +16976,6 @@ unsafe extern "C" {
         >,
         destroy: ly_bool,
     );
-}
-pub mod ly_path_pred_type {
-    pub type Type = ::std::os::raw::c_uint;
-    pub const LY_PATH_PREDTYPE_POSITION: Type = 0;
-    pub const LY_PATH_PREDTYPE_LIST: Type = 1;
-    pub const LY_PATH_PREDTYPE_LEAFLIST: Type = 2;
-    pub const LY_PATH_PREDTYPE_LIST_VAR: Type = 3;
-}
-#[repr(C)]
-#[derive(Copy, Clone)]
-pub struct ly_path_predicate {
-    pub type_: ly_path_pred_type::Type,
-    pub __bindgen_anon_1: ly_path_predicate__bindgen_ty_1,
-}
-#[repr(C)]
-#[derive(Copy, Clone)]
-pub union ly_path_predicate__bindgen_ty_1 {
-    pub position: u64,
-    pub __bindgen_anon_1: ly_path_predicate__bindgen_ty_1__bindgen_ty_1,
-}
-#[repr(C)]
-#[derive(Copy, Clone)]
-pub struct ly_path_predicate__bindgen_ty_1__bindgen_ty_1 {
-    pub key: *const lysc_node,
-    pub __bindgen_anon_1:
-        ly_path_predicate__bindgen_ty_1__bindgen_ty_1__bindgen_ty_1,
-}
-#[repr(C)]
-#[derive(Copy, Clone)]
-pub union ly_path_predicate__bindgen_ty_1__bindgen_ty_1__bindgen_ty_1 {
-    pub value: lyd_value,
-    pub variable: *mut ::std::os::raw::c_char,
-}
-#[allow(clippy::unnecessary_operation, clippy::identity_op)]
-const _: () = {
-    ["Size of ly_path_predicate__bindgen_ty_1__bindgen_ty_1__bindgen_ty_1"]
-        [::std::mem::size_of::<
-            ly_path_predicate__bindgen_ty_1__bindgen_ty_1__bindgen_ty_1,
-        >() - 40usize];
-    [
-        "Alignment of ly_path_predicate__bindgen_ty_1__bindgen_ty_1__bindgen_ty_1",
-    ][::std::mem::align_of::<
-        ly_path_predicate__bindgen_ty_1__bindgen_ty_1__bindgen_ty_1,
-    >() - 8usize];
-    [
-        "Offset of field: ly_path_predicate__bindgen_ty_1__bindgen_ty_1__bindgen_ty_1::value",
-    ][::std::mem::offset_of!(
-        ly_path_predicate__bindgen_ty_1__bindgen_ty_1__bindgen_ty_1,
-        value
-    ) - 0usize];
-    [
-        "Offset of field: ly_path_predicate__bindgen_ty_1__bindgen_ty_1__bindgen_ty_1::variable",
-    ][::std::mem::offset_of!(
-        ly_path_predicate__bindgen_ty_1__bindgen_ty_1__bindgen_ty_1,
-        variable
-    ) - 0usize];
-};
-impl Default for ly_path_predicate__bindgen_ty_1__bindgen_ty_1__bindgen_ty_1 {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
-#[allow(clippy::unnecessary_operation, clippy::identity_op)]
-const _: () = {
-    ["Size of ly_path_predicate__bindgen_ty_1__bindgen_ty_1"]
-        [::std::mem::size_of::<ly_path_predicate__bindgen_ty_1__bindgen_ty_1>(
-        ) - 48usize];
-    ["Alignment of ly_path_predicate__bindgen_ty_1__bindgen_ty_1"]
-        [::std::mem::align_of::<ly_path_predicate__bindgen_ty_1__bindgen_ty_1>(
-        ) - 8usize];
-    ["Offset of field: ly_path_predicate__bindgen_ty_1__bindgen_ty_1::key"][::std::mem::offset_of!(
-        ly_path_predicate__bindgen_ty_1__bindgen_ty_1,
-        key
-    )
-        - 0usize];
-};
-impl Default for ly_path_predicate__bindgen_ty_1__bindgen_ty_1 {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
-#[allow(clippy::unnecessary_operation, clippy::identity_op)]
-const _: () = {
-    ["Size of ly_path_predicate__bindgen_ty_1"]
-        [::std::mem::size_of::<ly_path_predicate__bindgen_ty_1>() - 48usize];
-    ["Alignment of ly_path_predicate__bindgen_ty_1"]
-        [::std::mem::align_of::<ly_path_predicate__bindgen_ty_1>() - 8usize];
-    ["Offset of field: ly_path_predicate__bindgen_ty_1::position"][::std::mem::offset_of!(
-        ly_path_predicate__bindgen_ty_1,
-        position
-    ) - 0usize];
-};
-impl Default for ly_path_predicate__bindgen_ty_1 {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
-#[allow(clippy::unnecessary_operation, clippy::identity_op)]
-const _: () = {
-    ["Size of ly_path_predicate"]
-        [::std::mem::size_of::<ly_path_predicate>() - 56usize];
-    ["Alignment of ly_path_predicate"]
-        [::std::mem::align_of::<ly_path_predicate>() - 8usize];
-    ["Offset of field: ly_path_predicate::type_"]
-        [::std::mem::offset_of!(ly_path_predicate, type_) - 0usize];
-};
-impl Default for ly_path_predicate {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct ly_path {
-    pub node: *const lysc_node,
-    pub ext: *const lysc_ext_instance,
-    pub predicates: *mut ly_path_predicate,
-}
-#[allow(clippy::unnecessary_operation, clippy::identity_op)]
-const _: () = {
-    ["Size of ly_path"][::std::mem::size_of::<ly_path>() - 24usize];
-    ["Alignment of ly_path"][::std::mem::align_of::<ly_path>() - 8usize];
-    ["Offset of field: ly_path::node"]
-        [::std::mem::offset_of!(ly_path, node) - 0usize];
-    ["Offset of field: ly_path::ext"]
-        [::std::mem::offset_of!(ly_path, ext) - 8usize];
-    ["Offset of field: ly_path::predicates"]
-        [::std::mem::offset_of!(ly_path, predicates) - 16usize];
-};
-impl Default for ly_path {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
-unsafe extern "C" {
-    pub fn ly_path_parse(
-        ctx: *const ly_ctx,
-        ctx_node: *const lysc_node,
-        str_path: *const ::std::os::raw::c_char,
-        path_len: usize,
-        lref: ly_bool,
-        begin: u16,
-        prefix: u16,
-        pred: u16,
-        expr: *mut *mut lyxp_expr,
-    ) -> LY_ERR::Type;
-}
-unsafe extern "C" {
-    pub fn ly_path_parse_predicate(
-        ctx: *const ly_ctx,
-        cur_node: *const lysc_node,
-        str_path: *const ::std::os::raw::c_char,
-        path_len: usize,
-        prefix: u16,
-        pred: u16,
-        expr: *mut *mut lyxp_expr,
-    ) -> LY_ERR::Type;
-}
-unsafe extern "C" {
-    pub fn ly_path_compile(
-        ctx: *const ly_ctx,
-        cur_mod: *const lys_module,
-        ctx_node: *const lysc_node,
-        top_ext: *const lysc_ext_instance,
-        expr: *const lyxp_expr,
-        oper: u16,
-        target: u16,
-        limit_access_tree: ly_bool,
-        format: LY_VALUE_FORMAT::Type,
-        prefix_data: *mut ::std::os::raw::c_void,
-        path: *mut *mut ly_path,
-    ) -> LY_ERR::Type;
-}
-unsafe extern "C" {
-    pub fn ly_path_compile_leafref(
-        ctx: *const ly_ctx,
-        ctx_node: *const lysc_node,
-        top_ext: *const lysc_ext_instance,
-        expr: *const lyxp_expr,
-        oper: u16,
-        target: u16,
-        format: LY_VALUE_FORMAT::Type,
-        prefix_data: *mut ::std::os::raw::c_void,
-        path: *mut *mut ly_path,
-    ) -> LY_ERR::Type;
-}
-unsafe extern "C" {
-    pub fn ly_path_compile_predicate(
-        ctx: *const ly_ctx,
-        cur_node: *const lysc_node,
-        cur_mod: *const lys_module,
-        ctx_node: *const lysc_node,
-        expr: *const lyxp_expr,
-        tok_idx: *mut u32,
-        format: LY_VALUE_FORMAT::Type,
-        prefix_data: *mut ::std::os::raw::c_void,
-        predicates: *mut *mut ly_path_predicate,
-    ) -> LY_ERR::Type;
-}
-unsafe extern "C" {
-    pub fn ly_path_eval_partial(
-        path: *const ly_path,
-        start: *const lyd_node,
-        vars: *const lyxp_var,
-        with_opaq: ly_bool,
-        path_idx: *mut u64,
-        match_: *mut *mut lyd_node,
-    ) -> LY_ERR::Type;
-}
-unsafe extern "C" {
-    pub fn ly_path_eval(
-        path: *const ly_path,
-        start: *const lyd_node,
-        vars: *const lyxp_var,
-        match_: *mut *mut lyd_node,
-    ) -> LY_ERR::Type;
-}
-unsafe extern "C" {
-    pub fn ly_path_dup(
-        ctx: *const ly_ctx,
-        path: *const ly_path,
-        dup: *mut *mut ly_path,
-    ) -> LY_ERR::Type;
-}
-unsafe extern "C" {
-    pub fn ly_path_predicates_free(
-        ctx: *const ly_ctx,
-        predicates: *mut ly_path_predicate,
-    );
-}
-unsafe extern "C" {
-    pub fn ly_path_free(path: *mut ly_path);
 }
 unsafe extern "C" {
     pub fn lyd_print_all(
@@ -17273,11 +17301,6 @@ impl Default for __va_list_tag {
             s.assume_init()
         }
     }
-}
-#[repr(C)]
-#[derive(Debug, Default, Copy, Clone)]
-pub struct lyplg_type {
-    pub _address: u8,
 }
 #[repr(C)]
 #[derive(Debug, Default, Copy, Clone)]

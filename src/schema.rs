@@ -918,6 +918,9 @@ impl<'a> SchemaNode<'a> {
                 SchemaNodeKind::Leaf => {
                     let rvalue =
                         (*(self.raw as *const ffi::lysc_node_leaf)).dflt;
+                    if rvalue.is_null() {
+                        return None;
+                    }
                     let mut canonical = (*rvalue)._canonical;
                     if canonical.is_null() {
                         canonical = ffi::lyd_value_get_canonical(

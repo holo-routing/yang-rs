@@ -77,12 +77,7 @@ fn main() {
             println!("cargo:warning=attempting to link without pkg-config");
             println!("cargo:rustc-link-lib=pcre2-8");
         }
-        if let Err(e) = pkg_config::Config::new().probe("libxxhash") {
-            println!("cargo:warning=failed to find xxhash library with pkg-config: {}", e);
-            println!(
-                "cargo:warning=attempting to link xxhash without pkg-config"
-            );
-        }
+        let _ = pkg_config::Config::new().probe("libxxhash");
         println!("cargo:rustc-link-lib=static=yang");
         println!("cargo:rerun-if-changed=libyang");
     }

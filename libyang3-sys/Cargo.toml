@@ -5,7 +5,7 @@ authors = ["Renato Westphal <renato@opensourcerouting.org>"]
 description = "Raw FFI bindings for libyang3"
 keywords = ["yang", "libyang"]
 edition = "2018"
-license = "MIT"
+license = "BSD-3-Clause"
 documentation = "https://docs.rs/libyang3-sys"
 categories = ["external-ffi-bindings"]
 

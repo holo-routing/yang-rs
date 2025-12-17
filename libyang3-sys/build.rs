@@ -12,6 +12,9 @@ fn main() {
         if let Ok(lib) = pkg_config::Config::new().probe("libpcre2-8") {
             include_paths = lib.include_paths.clone();
         }
+        if let Ok(lib) = pkg_config::Config::new().probe("libxxhash") {
+            include_paths.extend(lib.include_paths.clone());
+        }
         // Add libyang include paths if found in pkg-config
         if let Ok(lib) = pkg_config::Config::new().probe("libyang") {
             include_paths.extend(lib.include_paths.clone());
@@ -74,6 +77,7 @@ fn main() {
             println!("cargo:warning=attempting to link without pkg-config");
             println!("cargo:rustc-link-lib=pcre2-8");
         }
+        let _ = pkg_config::Config::new().probe("libxxhash");
         println!("cargo:rustc-link-lib=static=yang");
         println!("cargo:rerun-if-changed=libyang");
     }

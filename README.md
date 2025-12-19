@@ -11,10 +11,10 @@
 [docs-badge]: https://docs.rs/yang4/badge.svg
 [docs-url]: https://docs.rs/yang4
 [mit-badge]: https://img.shields.io/badge/license-MIT-blue.svg
-[mit-url]: https://github.com/holo-routing/yang-rs/blob/master/LICENSE
+[mit-url]: https://github.com/holo-routing/yang-rs/blob/yang4/LICENSE
 [actions-badge]: https://github.com/holo-routing/yang-rs/workflows/CI/badge.svg
-[actions-url]: https://github.com/holo-routing/yang-rs/actions?query=workflow%3ACI+branch%3Amaster
-[codecov-badge]: https://codecov.io/gh/holo-routing/yang-rs/branch/master/graph/badge.svg?token=1KE3JMHG0H
+[actions-url]: https://github.com/holo-routing/yang-rs/actions?query=workflow%3ACI+branch%3Ayang4
+[codecov-badge]: https://codecov.io/gh/holo-routing/yang-rs/branch/yang4/graph/badge.svg?token=1KE3JMHG0H
 [codecov-url]: https://codecov.io/gh/holo-routing/yang-rs
 
 Rust bindings for the [libyang] library.

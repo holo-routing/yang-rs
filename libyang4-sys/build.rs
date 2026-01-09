@@ -54,8 +54,16 @@ fn main() {
                 .args(&["submodule", "update", "--init"])
                 .status();
         }
-        // Run cmake configure and build libyang
+        // Run cmake configure and build pcre2 and libyang
+        let mut pcre2_config = cmake::Config::new("pcre2");
+        pcre2_config.define("BUILD_SHARED_LIBS", "OFF");
+        pcre2_config.define("PCRE2_STATIC_PIC", "ON");
+        pcre2_config.define("PCRE2_SUPPORT_JIT", "OFF");
+        pcre2_config.define("PCRE2_BUILD_TESTS", "OFF");
+        pcre2_config.define("PCRE2_BUILD_PCRE2GREP", "OFF");
+        env::set_var("DEP_PCRE2_ROOT", pcre2_config.build());
         let mut cmake_config = cmake::Config::new("libyang");
+        cmake_config.register_dep("PCRE2");
         cmake_config.define("BUILD_SHARED_LIBS", "OFF"); // Force static linking
         cmake_config.define("ENABLE_TESTS", "OFF");
         cmake_config.define("ENABLE_VALGRIND_TESTS", "OFF");
@@ -69,11 +77,6 @@ fn main() {
             "cargo:rustc-link-search=native={}/lib64",
             cmake_dst.display()
         );
-        if let Err(e) = pkg_config::Config::new().probe("libpcre2-8") {
-            println!("cargo:warning=failed to find pcre2 library with pkg-config: {}", e);
-            println!("cargo:warning=attempting to link without pkg-config");
-            println!("cargo:rustc-link-lib=pcre2-8");
-        }
         println!("cargo:rustc-link-lib=static=yang");
         println!("cargo:rerun-if-changed=libyang");
     }

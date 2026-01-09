@@ -1,3 +1,6 @@
 [submodule "libyang4-sys/libyang"]
 	path = libyang4-sys/libyang
 	url = https://github.com/CESNET/libyang.git
+[submodule "libyang4-sys/pcre2"]
+	path = libyang4-sys/pcre2
+	url = https://github.com/PCRE2Project/pcre2.git

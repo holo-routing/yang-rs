@@ -60,7 +60,6 @@ fn main() {
         cmake_config.define("ENABLE_TESTS", "OFF");
         cmake_config.define("ENABLE_VALGRIND_TESTS", "OFF");
         cmake_config.define("ENABLE_BUILD_TESTS", "OFF");
-        cmake_config.define("CMAKE_BUILD_TYPE", "Release");
         cmake_config.define("CMAKE_POSITION_INDEPENDENT_CODE", "ON");
         let cmake_dst = cmake_config.build();
         println!("cargo:root={}", env::var("OUT_DIR").unwrap());

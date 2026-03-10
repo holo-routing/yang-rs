@@ -4,45 +4,7 @@ use std::path::PathBuf;
 fn main() {
     let dst = PathBuf::from(env::var("OUT_DIR").unwrap());
     let out_file = dst.join("libyang4.rs");
-
-    #[cfg(feature = "bindgen")]
-    {
-        let mut include_paths = vec![];
-        // Add libpcre2 include paths if found in pkg-config
-        if let Ok(lib) = pkg_config::Config::new().probe("libpcre2-8") {
-            include_paths = lib.include_paths.clone();
-        }
-        // Add libyang include paths if found in pkg-config
-        if let Ok(lib) = pkg_config::Config::new().probe("libyang") {
-            include_paths.extend(lib.include_paths.clone());
-        }
-        // Generate Rust FFI to libyang.
-        println!("cargo:rerun-if-changed=wrapper.h");
-        let mut builder = bindgen::Builder::default()
-            .header("wrapper.h")
-            .derive_default(true)
-            .default_enum_style(bindgen::EnumVariation::ModuleConsts);
-        for path in &include_paths {
-            builder = builder.clang_arg(format!("-I{}", path.display()));
-        }
-        let bindings = builder
-            .generate()
-            .expect("Unable to generate libyang4 bindings");
-        bindings
-            .write_to_file(out_file)
-            .expect("Couldn't write libyang4 bindings!");
-    }
-    #[cfg(not(feature = "bindgen"))]
-    {
-        let mut pregen_bindings = PathBuf::new();
-        pregen_bindings.push(env::var("CARGO_MANIFEST_DIR").unwrap());
-        pregen_bindings.push("pre-generated-bindings");
-        pregen_bindings
-            .push("libyang4-3d07c3a71534a580c3960907da17568eff7e5c64.rs");
-
-        std::fs::copy(&pregen_bindings, &out_file)
-            .expect("Unable to copy pre-generated libyang4 bindings");
-    }
+    let mut include_paths: Vec<PathBuf> = vec![];
 
     #[cfg(feature = "bundled")]
     {
@@ -79,16 +41,73 @@ fn main() {
         );
         println!("cargo:rustc-link-lib=static=yang");
         println!("cargo:rerun-if-changed=libyang");
+        include_paths
+            .push(PathBuf::from(format!("{}/include", cmake_dst.display())));
     }
     #[cfg(not(feature = "bundled"))]
     {
-        if let Err(e) = pkg_config::Config::new().probe("libyang") {
-            println!(
+        match pkg_config::Config::new().probe("libpcre2-8") {
+            Ok(lib) => {
+                // Add libpcre2 include paths if found in pkg-config
+                include_paths.extend(lib.include_paths.clone());
+            }
+            Err(e) => {
+                println!(
+                "cargo:warning=failed to find pcre2 library with pkg-config: {}",
+                e
+            );
+                println!(
+                    "cargo:warning=attempting to link pcre2 without pkg-config"
+                );
+                println!("cargo:rustc-link-lib=pcre2");
+            }
+        }
+
+        match pkg_config::Config::new().probe("libyang") {
+            Ok(lib) => {
+                // Add libyang include paths if found in pkg-config
+                include_paths.extend(lib.include_paths.clone());
+            }
+            Err(e) => {
+                println!(
                 "cargo:warning=failed to find yang library with pkg-config: {}",
                 e
             );
-            println!("cargo:warning=attempting to link without pkg-config");
-            println!("cargo:rustc-link-lib=yang");
+                println!(
+                    "cargo:warning=attempting to link yang without pkg-config"
+                );
+                println!("cargo:rustc-link-lib=yang");
+            }
         }
+    }
+
+    #[cfg(feature = "bindgen")]
+    {
+        // Generate Rust FFI to libyang.
+        println!("cargo:rerun-if-changed=wrapper.h");
+        let mut builder = bindgen::Builder::default()
+            .header("wrapper.h")
+            .derive_default(true)
+            .default_enum_style(bindgen::EnumVariation::ModuleConsts);
+        for path in &include_paths {
+            builder = builder.clang_arg(format!("-I{}", path.display()));
+        }
+        let bindings = builder
+            .generate()
+            .expect("Unable to generate libyang4 bindings");
+        bindings
+            .write_to_file(out_file)
+            .expect("Couldn't write libyang4 bindings!");
+    }
+    #[cfg(not(feature = "bindgen"))]
+    {
+        let mut pregen_bindings = PathBuf::new();
+        pregen_bindings.push(env::var("CARGO_MANIFEST_DIR").unwrap());
+        pregen_bindings.push("pre-generated-bindings");
+        pregen_bindings
+            .push("libyang4-3d07c3a71534a580c3960907da17568eff7e5c64.rs");
+
+        std::fs::copy(&pregen_bindings, &out_file)
+            .expect("Unable to copy pre-generated libyang4 bindings");
     }
 }

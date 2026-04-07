@@ -1,19 +1,19 @@
 [package]
-name = "yang4"
+name = "yang5"
 version = "0.1.0"
 authors = ["Renato Westphal <renato@opensourcerouting.org>"]
-description = "libyang4 bindings for Rust"
+description = "libyang5 bindings for Rust"
 keywords = ["yang", "libyang"]
 edition = "2018"
 license = "MIT"
 repository = "https://github.com/holo-routing/yang-rs"
-documentation = "https://docs.rs/yang4"
+documentation = "https://docs.rs/yang5"
 readme = "README.md"
 categories = ["parser-implementations"]
 exclude = ["assets/**"]
 
 [dependencies]
-libyang4-sys = { path = "libyang4-sys", version = "0.1.0" }
+libyang5-sys = { path = "libyang5-sys", version = "0.1.0" }
 bitflags = "2.9"
 num-traits = "0.2"
 num-derive = "0.4"
@@ -38,6 +38,6 @@ name = "data"
 harness = false
 
 [features]
-default = []
-bindgen = ["libyang4-sys/bindgen"]
-bundled = ["libyang4-sys/bundled"]
+default = ["bundled"]
+bindgen = ["libyang5-sys/bindgen"]
+bundled = ["libyang5-sys/bundled"]

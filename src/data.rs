@@ -18,10 +18,9 @@ use crate::error::{Error, Result};
 use crate::iter::{
     Ancestors, MetadataList, NodeIterable, Set, Siblings, Traverse,
 };
-use crate::schema::SchemaExtInstance;
 use crate::schema::{DataValue, SchemaModule, SchemaNode, SchemaNodeKind};
 use crate::utils::*;
-use libyang4_sys as ffi;
+use libyang5_sys as ffi;
 
 /// YANG data tree.
 #[derive(Debug)]
@@ -446,11 +445,6 @@ pub trait Data<'a> {
 
 // ===== impl DataTree =====
 
-enum CtxOrExt<'a> {
-    C(&'a Context),
-    E(&'a SchemaExtInstance<'a>),
-}
-
 impl<'a> DataTree<'a> {
     /// Create new empty data tree.
     pub fn new(context: &'a Context) -> DataTree<'a> {
@@ -540,7 +534,7 @@ impl<'a> DataTree<'a> {
     }
 
     fn _parse_string(
-        ctx_or_ext: CtxOrExt<'a>,
+        context: &'a Context,
         data: impl AsRef<[u8]>,
         format: DataFormat,
         parser_options: DataParserFlags,
@@ -548,10 +542,6 @@ impl<'a> DataTree<'a> {
     ) -> Result<DataTree<'a>> {
         let mut rnode = std::ptr::null_mut();
         let rnode_ptr = &mut rnode;
-        let context = match ctx_or_ext {
-            CtxOrExt::C(c) => c,
-            CtxOrExt::E(e) => e.context,
-        };
 
         // Create input handler.
         let cdata;
@@ -570,26 +560,15 @@ impl<'a> DataTree<'a> {
         }
 
         let ret = unsafe {
-            match ctx_or_ext {
-                CtxOrExt::C(c) => ffi::lyd_parse_data(
-                    c.raw,
-                    std::ptr::null_mut(),
-                    ly_in,
-                    format as u32,
-                    parser_options.bits(),
-                    validation_options.bits(),
-                    rnode_ptr,
-                ),
-                CtxOrExt::E(e) => ffi::lyd_parse_ext_data(
-                    e.raw,
-                    std::ptr::null_mut(),
-                    ly_in,
-                    format as u32,
-                    parser_options.bits(),
-                    validation_options.bits(),
-                    rnode_ptr,
-                ),
-            }
+            ffi::lyd_parse_data(
+                context.raw,
+                std::ptr::null_mut(),
+                ly_in,
+                format as u32,
+                parser_options.bits(),
+                validation_options.bits(),
+                rnode_ptr,
+            )
         };
         unsafe { ffi::ly_in_free(ly_in, 0) };
 
@@ -609,25 +588,7 @@ impl<'a> DataTree<'a> {
         validation_options: DataValidationFlags,
     ) -> Result<DataTree<'a>> {
         DataTree::_parse_string(
-            CtxOrExt::C(context),
-            data,
-            format,
-            parser_options,
-            validation_options,
-        )
-    }
-
-    /// Parse input data as an extension data tree using the given schema
-    /// extension.
-    pub fn parse_ext_string(
-        ext: &'a SchemaExtInstance<'a>,
-        data: impl AsRef<[u8]>,
-        format: DataFormat,
-        parser_options: DataParserFlags,
-        validation_options: DataValidationFlags,
-    ) -> Result<DataTree<'a>> {
-        DataTree::_parse_string(
-            CtxOrExt::E(ext),
+            context,
             data,
             format,
             parser_options,
@@ -636,7 +597,7 @@ impl<'a> DataTree<'a> {
     }
 
     fn _parse_op_string(
-        ctx_or_ext: CtxOrExt<'a>,
+        context: &'a Context,
         data: impl AsRef<[u8]>,
         format: DataFormat,
         parser_options: DataParserFlags,
@@ -644,11 +605,6 @@ impl<'a> DataTree<'a> {
     ) -> Result<DataTree<'a>> {
         let mut rnode = std::ptr::null_mut();
         let rnode_ptr = &mut rnode;
-        let context = match ctx_or_ext {
-            CtxOrExt::C(c) => c,
-            CtxOrExt::E(e) => e.context,
-        };
-
         // Create input handler.
         let cdata;
         let mut ly_in = std::ptr::null_mut();
@@ -666,28 +622,16 @@ impl<'a> DataTree<'a> {
         }
 
         let ret = unsafe {
-            match ctx_or_ext {
-                CtxOrExt::C(c) => ffi::lyd_parse_op(
-                    c.raw,
-                    std::ptr::null_mut(),
-                    ly_in,
-                    format as u32,
-                    op as u32,
-                    parser_options.bits(),
-                    rnode_ptr,
-                    std::ptr::null_mut(),
-                ),
-                CtxOrExt::E(e) => ffi::lyd_parse_ext_op(
-                    e.raw,
-                    std::ptr::null_mut(),
-                    ly_in,
-                    format as u32,
-                    op as u32,
-                    parser_options.bits(),
-                    rnode_ptr,
-                    std::ptr::null_mut(),
-                ),
-            }
+            ffi::lyd_parse_op(
+                context.raw,
+                std::ptr::null_mut(),
+                ly_in,
+                format as u32,
+                op as u32,
+                parser_options.bits(),
+                rnode_ptr,
+                std::ptr::null_mut(),
+            )
         };
         unsafe { ffi::ly_in_free(ly_in, 0) };
 
@@ -706,31 +650,7 @@ impl<'a> DataTree<'a> {
         parser_options: DataParserFlags,
         op: DataOperation,
     ) -> Result<DataTree<'a>> {
-        DataTree::_parse_op_string(
-            CtxOrExt::C(context),
-            data,
-            format,
-            parser_options,
-            op,
-        )
-    }
-
-    /// Parse op data as an extension data tree using the given schema
-    /// extension. Parse input data into an operation data tree.
-    pub fn parse_op_ext_string(
-        ext: &'a SchemaExtInstance<'a>,
-        data: impl AsRef<[u8]>,
-        format: DataFormat,
-        parser_options: DataParserFlags,
-        op: DataOperation,
-    ) -> Result<DataTree<'a>> {
-        DataTree::_parse_op_string(
-            CtxOrExt::E(ext),
-            data,
-            format,
-            parser_options,
-            op,
-        )
+        DataTree::_parse_op_string(context, data, format, parser_options, op)
     }
 
     /// Returns a reference to the fist top-level data node, unless the data
@@ -787,6 +707,8 @@ impl<'a> DataTree<'a> {
             options |= ffi::LYD_NEW_VAL_OUTPUT;
         }
 
+        eprintln!("Options {:b}", options);
+
         let ret = unsafe {
             ffi::lyd_new_path2(
                 self.raw(),
@@ -794,12 +716,13 @@ impl<'a> DataTree<'a> {
                 path.as_ptr(),
                 value_ptr as *const c_void,
                 0,
-                ffi::LYD_ANYDATA_VALUETYPE::LYD_ANYDATA_STRING,
+                ffi::LYD_VALHINT_STRING,
                 options,
                 rnode_root_ptr,
                 rnode_ptr,
             )
         };
+
         if ret != ffi::LY_ERR::LY_SUCCESS {
             return Err(Error::new(self.context()));
         }
@@ -1667,8 +1590,7 @@ impl<'a> NodeIterable<'a> for DataNodeRef<'a> {
         if parent_inner.is_null() {
             return None;
         }
-        let rparent = unsafe { &mut (*parent_inner).__bindgen_anon_1.node };
-        unsafe { DataNodeRef::from_raw_opt(self.tree, rparent) }
+        unsafe { DataNodeRef::from_raw_opt(self.tree, parent_inner) }
     }
 
     fn next_sibling(&self) -> Option<DataNodeRef<'a>> {

@@ -1,6 +1,6 @@
 use criterion::{criterion_group, criterion_main, BenchmarkId, Criterion};
-use yang4::context::{Context, ContextFlags};
-use yang4::data::{Data, DataDiffFlags, DataTree, DataValidationFlags};
+use yang5::context::{Context, ContextFlags};
+use yang5::data::{Data, DataDiffFlags, DataTree, DataValidationFlags};
 
 static SEARCH_DIR: &str = "./assets/yang/";
 

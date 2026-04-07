@@ -20,7 +20,7 @@ use crate::error::{Error, Result};
 use crate::iter::{SchemaModules, Set};
 use crate::schema::{SchemaModule, SchemaNode};
 use crate::{logging, utils::*};
-use libyang4_sys as ffi;
+use libyang5_sys as ffi;
 
 /// Context of the YANG schemas.
 ///

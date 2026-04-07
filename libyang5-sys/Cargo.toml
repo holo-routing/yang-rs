@@ -1,12 +1,12 @@
 [package]
-name = "libyang4-sys"
-version = "0.1.1"
+name = "libyang5-sys"
+version = "0.1.0"
 authors = ["Renato Westphal <renato@opensourcerouting.org>"]
-description = "Raw FFI bindings for libyang4"
+description = "Raw FFI bindings for libyang5"
 keywords = ["yang", "libyang"]
 edition = "2018"
 license = "BSD-3-Clause"
-documentation = "https://docs.rs/libyang4-sys"
+documentation = "https://docs.rs/libyang5-sys"
 categories = ["external-ffi-bindings"]
 
 [dependencies]
@@ -20,8 +20,8 @@ pkg-config = "0.3.32"
 # Use pre-generated FFI bindings
 default = []
 # Generate FFI bindings dynamically.
-# For this to work libyang4 needs to be installed in the system.
+# For this to work libyang5 needs to be installed in the system.
 bindgen = ["dep:bindgen"]
-# Bundle libyang4 C files into a static archive linked to this crate.
-# This removes the libyang4 dynamic link dependency.
+# Bundle libyang5 C files into a static archive linked to this crate.
+# This removes the libyang5 dynamic link dependency.
 bundled = ["dep:cmake"]

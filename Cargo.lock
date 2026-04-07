@@ -414,7 +414,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "libyang4-sys"
+name = "libyang5-sys"
 version = "0.1.0"
 dependencies = [
  "bindgen",
@@ -953,14 +953,14 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "271414315aff87387382ec3d271b52d7ae78726f5d44ac98b4f4030c91880486"
 
 [[package]]
-name = "yang4"
+name = "yang5"
 version = "0.1.0"
 dependencies = [
  "bitflags",
  "criterion",
  "env_logger",
  "libc",
- "libyang4-sys",
+ "libyang5-sys",
  "log",
  "num-derive",
  "num-traits",

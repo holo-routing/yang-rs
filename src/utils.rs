@@ -4,7 +4,7 @@
 // SPDX-License-Identifier: MIT
 //
 
-use libyang4_sys as ffi;
+use libyang5_sys as ffi;
 use std::ffi::CStr;
 use std::os::raw::c_char;
 

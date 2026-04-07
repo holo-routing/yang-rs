@@ -138,6 +138,8 @@ bitflags! {
         const STRICT = ffi::LYD_PARSE_STRICT;
         /// Forbid state data in the parsed data.
         const NO_STATE = ffi::LYD_PARSE_NO_STATE;
+        /// Apply strict parsing rules to anydata nodes.
+        const ANYDATA_STRICT = ffi::LYD_PARSE_ANYDATA_STRICT;
     }
 }
 

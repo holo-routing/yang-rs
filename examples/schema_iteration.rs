@@ -1,5 +1,5 @@
-use yang4::context::{Context, ContextFlags};
-use yang4::schema::SchemaPathFormat;
+use yang5::context::{Context, ContextFlags};
+use yang5::schema::SchemaPathFormat;
 
 static SEARCH_DIR: &str = "./assets/yang/";
 static MODULE_NAME: &str = "ietf-isis";

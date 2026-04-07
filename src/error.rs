@@ -6,12 +6,12 @@
 
 use crate::context::Context;
 use crate::utils::*;
-use libyang4_sys as ffi;
+use libyang5_sys as ffi;
 
-/// A convenience wrapper around `Result` for `yang4::Error`.
+/// A convenience wrapper around `Result` for `yang5::Error`.
 pub type Result<T> = std::result::Result<T, Error>;
 
-/// Enum listing possible errors from yang4.
+/// Enum listing possible errors from yang5.
 #[derive(Debug, Eq, PartialEq)]
 pub struct Error {
     pub errcode: ffi::LY_ERR::Type,

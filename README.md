@@ -6,29 +6,29 @@
 [![Build Status][actions-badge]][actions-url]
 [![codecov][codecov-badge]][codecov-url]
 
-[crates-badge]: https://img.shields.io/crates/v/yang4.svg
-[crates-url]: https://crates.io/crates/yang4
-[docs-badge]: https://docs.rs/yang4/badge.svg
-[docs-url]: https://docs.rs/yang4
+[crates-badge]: https://img.shields.io/crates/v/yang5.svg
+[crates-url]: https://crates.io/crates/yang5
+[docs-badge]: https://docs.rs/yang5/badge.svg
+[docs-url]: https://docs.rs/yang5
 [mit-badge]: https://img.shields.io/badge/license-MIT-blue.svg
-[mit-url]: https://github.com/holo-routing/yang-rs/blob/yang4/LICENSE
+[mit-url]: https://github.com/holo-routing/yang-rs/blob/yang5/LICENSE
 [actions-badge]: https://github.com/holo-routing/yang-rs/workflows/CI/badge.svg
-[actions-url]: https://github.com/holo-routing/yang-rs/actions?query=workflow%3ACI+branch%3Ayang4
-[codecov-badge]: https://codecov.io/gh/holo-routing/yang-rs/branch/yang4/graph/badge.svg?token=1KE3JMHG0H
+[actions-url]: https://github.com/holo-routing/yang-rs/actions?query=workflow%3ACI+branch%3Ayang5
+[codecov-badge]: https://codecov.io/gh/holo-routing/yang-rs/branch/yang5/graph/badge.svg?token=1KE3JMHG0H
 [codecov-url]: https://codecov.io/gh/holo-routing/yang-rs
 
 Rust bindings for the [libyang] library.
 
-For raw FFI bindings for libyang, see [libyang4-sys].
+For raw FFI bindings for libyang, see [libyang5-sys].
 
 [libyang]: https://github.com/CESNET/libyang/
-[libyang4-sys]: ./libyang4-sys
+[libyang5-sys]: ./libyang5-sys
 
 #### Cargo.toml
 
 ```toml
 [dependencies]
-yang4 = "0.1"
+yang5 = "0.1"
 ```
 ## Design Goals
 * Provide high-level bindings for libyang using idiomatic Rust
@@ -49,8 +49,8 @@ A basic example that parses and validates JSON instance data, and then converts
 it to the XML format:
 ```rust,no_run
 use std::fs::File;
-use yang4::context::{Context, ContextFlags};
-use yang4::data::{
+use yang5::context::{Context, ContextFlags};
+use yang5::data::{
     Data, DataFormat, DataParserFlags, DataPrinterFlags, DataTree,
     DataValidationFlags,
 };

@@ -1,5 +1,5 @@
 use log::LevelFilter;
-use yang4::context::{Context, ContextFlags};
+use yang5::context::{Context, ContextFlags};
 
 fn main() {
     env_logger::Builder::new()

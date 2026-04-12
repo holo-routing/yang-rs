@@ -38,6 +38,6 @@ name = "data"
 harness = false
 
 [features]
-default = ["bundled"]
+default = []
 bindgen = ["libyang5-sys/bindgen"]
 bundled = ["libyang5-sys/bundled"]

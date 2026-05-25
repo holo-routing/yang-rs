@@ -709,8 +709,6 @@ impl<'a> DataTree<'a> {
             options |= ffi::LYD_NEW_VAL_OUTPUT;
         }
 
-        eprintln!("Options {:b}", options);
-
         let ret = unsafe {
             ffi::lyd_new_path2(
                 self.raw(),

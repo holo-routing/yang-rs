@@ -1514,15 +1514,22 @@ impl<'a> DataNodeRef<'a> {
     }
 
     /// Create a new term node in the data tree.
+    ///
+    /// If the parent is an RPC or action, setting `output` to `true` creates
+    /// an output data node instead of targeting the input nodes.
     pub fn new_term(
         &mut self,
         module: Option<&SchemaModule<'_>>,
         name: &str,
         value: Option<&str>,
+        output: bool,
     ) -> Result<()> {
         let name_cstr = CString::new(name).unwrap();
         let value_cstr;
-        let options = 0;
+        let mut options = 0;
+        if output {
+            options |= ffi::LYD_NEW_VAL_OUTPUT;
+        }
 
         let value_ptr = match value {
             Some(value) => {

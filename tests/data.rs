@@ -69,6 +69,34 @@ static JSON_TREE3: &str = r###"
       }
     }"###;
 
+static JSON_TREE4_REF: &str = r###"
+    {
+      "ietf-routing:routing": {
+        "control-plane-protocols": {
+          "control-plane-protocol": [
+            {
+              "type": "direct",
+              "name": "main"
+            }
+         ]
+        }
+      }
+    }"###;
+
+static JSON_RESTCONF_RPC1: &str = r###"
+    {
+        "ietf-isis:input":{
+          "routing-protocol-instance-name":"main"
+        }
+    }"###;
+    
+static JSON_RESTCONF_RPC1_INVALID: &str = r###"
+    {
+        "ietf-isis:input":{
+          "routing-protocol-instance-name":"secondary"
+        }
+    }"###;
+
 static JSON_MERGE: &str = r###"
     {
         "ietf-interfaces:interfaces":{
@@ -868,4 +896,36 @@ fn data_validate_using_yang_library() {
     // (path: /ietf-interfaces:interfaces/interface/oper-status)
     assert!(dtree1.validate(DataValidationFlags::PRESENT).is_err());
     assert!(dtree3.is_ok());
+}
+
+#[test]
+fn data_validate_op_input() {
+    let ctx = create_context();
+    let mut tree1 = DataTreeOwningRef::new_path(
+        &ctx,
+        "/ietf-isis:clear-adjacency",
+        None,
+        false,
+    )
+    .expect("Failed to create OP node");
+    tree1.parse_restconf_rpc_op(JSON_RESTCONF_RPC1, DataFormat::JSON, DataParserFlags::STRICT).expect("Failed to load RESTCONF input");
+    let reference_tree = parse_json_data(&ctx, JSON_TREE4_REF);
+
+    assert!(tree1.validate_op(Some(&reference_tree), DataOperation::RpcYang).is_ok());
+}
+
+#[test]
+fn data_validate_op_invalid_input() {
+    let ctx = create_context();
+    let mut tree1 = DataTreeOwningRef::new_path(
+        &ctx,
+        "/ietf-isis:clear-adjacency",
+        None,
+        false,
+    )
+    .expect("Failed to create OP node");
+    tree1.parse_restconf_rpc_op(JSON_RESTCONF_RPC1_INVALID, DataFormat::JSON, DataParserFlags::STRICT).expect("Failed to load RESTCONF input");
+    let reference_tree = parse_json_data(&ctx, JSON_TREE4_REF);
+
+    assert!(tree1.validate_op(Some(&reference_tree), DataOperation::RpcYang).is_err());
 }

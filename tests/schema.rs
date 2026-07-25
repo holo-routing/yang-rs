@@ -642,3 +642,19 @@ fn test_parse_schema_from_str() {
     assert!(valid_module.is_ok_and(|x| x.name() == "ietf-routing"));
     assert!(invalid_module.is_err());
 }
+
+#[test]
+fn test_load_modules() {
+    let mut ctx = Context::new(ContextFlags::NO_YANGLIBRARY)
+        .expect("Failed to create context");
+    ctx.set_searchdir(SEARCH_DIR)
+        .expect("Failed to set YANG search directory");
+    ctx.load_modules(&[
+        ("ietf-interfaces", None, &["pre-provisioning"]),
+        ("ietf-routing", None, &[]),
+    ])
+    .expect("Failed to load modules");
+
+    assert!(ctx.get_module_latest("ietf-interfaces").is_some());
+    assert!(ctx.get_module_latest("ietf-routing").is_some());
+}

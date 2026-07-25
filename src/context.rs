@@ -597,6 +597,53 @@ impl Context {
         Ok(unsafe { SchemaModule::from_raw(self, module as *mut _) })
     }
 
+    /// Load several modules at once, each one specified by its name, optional
+    /// revision and features (see [`Context::load_module`]).
+    ///
+    /// Loading a module normally recompiles the schema trees of the whole
+    /// context, which is wasteful when several modules are loaded in a row.
+    /// This method compiles them only once, after all the modules are loaded.
+    ///
+    /// The operation is atomic: if any module fails to load, none of them is
+    /// added to the context.
+    pub fn load_modules(
+        &mut self,
+        modules: &[(&str, Option<&str>, &[&str])],
+    ) -> Result<()> {
+        // Defer the compilation of the schema trees.
+        let ret = unsafe {
+            ffi::ly_ctx_set_options(self.raw, ffi::LY_CTX_EXPLICIT_COMPILE)
+        };
+        if ret != ffi::LY_ERR::LY_SUCCESS {
+            return Err(Error::new(self));
+        }
+
+        // Load the modules and compile the schema trees.
+        let mut result = Ok(());
+        for (name, revision, features) in modules {
+            if let Err(error) = self.load_module(name, *revision, features) {
+                result = Err(error);
+                break;
+            }
+        }
+        if result.is_ok() {
+            let ret = unsafe { ffi::ly_ctx_compile(self.raw) };
+            if ret != ffi::LY_ERR::LY_SUCCESS {
+                result = Err(Error::new(self));
+            }
+        }
+
+        // Restore the compilation of the schema trees on every context change.
+        let ret = unsafe {
+            ffi::ly_ctx_unset_options(self.raw, ffi::LY_CTX_EXPLICIT_COMPILE)
+        };
+        if ret != ffi::LY_ERR::LY_SUCCESS && result.is_ok() {
+            result = Err(Error::new(self));
+        }
+
+        result
+    }
+
     /// Evaluate an xpath expression on schema nodes.
     pub fn find_xpath(&self, path: &str) -> Result<Set<'_, SchemaNode<'_>>> {
         let path = CString::new(path).unwrap();
@@ -667,6 +714,26 @@ impl EmbeddedModuleKey {
             submod_name,
             submod_rev,
         }
+    }
+
+    /// Returns the module name.
+    pub fn mod_name(&self) -> &'static str {
+        self.mod_name
+    }
+
+    /// Returns the module revision.
+    pub fn mod_rev(&self) -> Option<&'static str> {
+        self.mod_rev
+    }
+
+    /// Returns the submodule name.
+    pub fn submod_name(&self) -> Option<&'static str> {
+        self.submod_name
+    }
+
+    /// Returns the submodule revision.
+    pub fn submod_rev(&self) -> Option<&'static str> {
+        self.submod_rev
     }
 }
 

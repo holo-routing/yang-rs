@@ -19,12 +19,19 @@ num-traits = "0.2"
 num-derive = "0.4"
 log = "0.4"
 
+# WebAssembly has no system libyang to link against, so the bundled feature is
+# enabled automatically there.
+[target.'cfg(target_arch = "wasm32")'.dependencies]
+libyang5-sys = { path = "libyang5-sys", version = "0.1.0", features = ["bundled"] }
+
 [target.'cfg(windows)'.dependencies]
 libc = "0.2"
 
 [dev-dependencies]
-criterion = "0.5.1"
 env_logger = "0.11.8"
+
+[target.'cfg(not(target_arch = "wasm32"))'.dev-dependencies]
+criterion = "0.5.1"
 
 [lints.rust]
 rust_2018_idioms = "warn"

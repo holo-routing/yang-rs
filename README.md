@@ -43,6 +43,10 @@ By default, yang-rs uses pre-generated FFI bindings and uses dynamic linking to 
 * **use_bindgen**: generate new C FFI bindings dynamically instead of using the pre-generated ones. Useful when updating this crate to use newer libyang versions.
   * Additional build requirements: *bindgen 0.68.0*
 
+## WebAssembly
+
+yang-rs builds and runs on `wasm32-wasip1`, with libyang and PCRE2 cross compiled by the WASI SDK. See [WASM.md](WASM.md) for the build and test instructions.
+
 ## Example
 
 A basic example that parses and validates JSON instance data, and then converts

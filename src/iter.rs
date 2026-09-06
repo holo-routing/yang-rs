@@ -347,11 +347,12 @@ where
         ptr_size: usize,
     ) -> Array<'a, S> {
         // Get the number of records in the array (equivalent to
-        // LY_ARRAY_COUNT).
+        // LY_ARRAY_COUNT). It is stored in the LY_ARRAY_COUNT_TYPE preceding
+        // the array, which is a uint64_t regardless of the pointer width.
         let count = if raw.is_null() {
             0
         } else {
-            unsafe { (raw as *const usize).offset(-1).read() }
+            unsafe { (raw as *const u64).offset(-1).read() as usize }
         };
 
         Array {

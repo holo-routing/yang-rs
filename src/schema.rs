@@ -310,7 +310,7 @@ impl<'a> SchemaModule<'a> {
 
     /// Print schema tree in the specified format into a file descriptor.
     #[cfg(not(target_os = "windows"))]
-    pub fn print_file<F: std::os::unix::io::AsRawFd>(
+    pub fn print_file<F: std::os::fd::AsRawFd>(
         &self,
         fd: F,
         format: SchemaOutputFormat,
@@ -486,7 +486,7 @@ impl<'a> SchemaModule<'a> {
 
     /// Parse a schema module from a file
     #[cfg(not(target_os = "windows"))]
-    pub fn parse_file<F: std::os::unix::io::AsRawFd>(
+    pub fn parse_file<F: std::os::fd::AsRawFd>(
         context: &'a Context,
         fd: F,
         schema_input_format: SchemaInputFormat,
@@ -508,7 +508,7 @@ impl<'a> SchemaModule<'a> {
 
     /// Parse a schema module from a file
     #[cfg(target_os = "windows")]
-    pub fn parse_file<F: std::os::unix::io::AsRawFd>(
+    pub fn parse_file<F: std::os::fd::AsRawFd>(
         context: &'a Context,
         file: impl std::os::windows::io::AsRawHandle,
         schema_input_format: SchemaInputFormat,

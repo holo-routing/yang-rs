@@ -307,7 +307,7 @@ pub trait Data<'a> {
 
     /// Print data tree in the specified format.
     #[cfg(not(target_os = "windows"))]
-    fn print_file<F: std::os::unix::io::AsRawFd>(
+    fn print_file<F: std::os::fd::AsRawFd>(
         &self,
         fd: F,
         format: DataFormat,
@@ -475,7 +475,7 @@ impl<'a> DataTree<'a> {
 
     /// Parse (and validate) input data as a YANG data tree.
     #[cfg(not(target_os = "windows"))]
-    pub fn parse_file<F: std::os::unix::io::AsRawFd>(
+    pub fn parse_file<F: std::os::fd::AsRawFd>(
         context: &'a Context,
         fd: F,
         format: DataFormat,

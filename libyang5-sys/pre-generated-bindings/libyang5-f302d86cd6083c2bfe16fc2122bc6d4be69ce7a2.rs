@@ -161,1340 +161,16 @@ where
         }
     }
 }
-pub const __WORDSIZE: u32 = 64;
-pub const __has_safe_buffers: u32 = 1;
-pub const __DARWIN_ONLY_64_BIT_INO_T: u32 = 1;
-pub const __DARWIN_ONLY_UNIX_CONFORMANCE: u32 = 1;
-pub const __DARWIN_ONLY_VERS_1050: u32 = 1;
-pub const __DARWIN_UNIX03: u32 = 1;
-pub const __DARWIN_64_BIT_INO_T: u32 = 1;
-pub const __DARWIN_VERS_1050: u32 = 1;
-pub const __DARWIN_NON_CANCELABLE: u32 = 0;
-pub const __DARWIN_SUF_EXTSN: &[u8; 14] = b"$DARWIN_EXTSN\0";
-pub const __DARWIN_C_ANSI: u32 = 4096;
-pub const __DARWIN_C_FULL: u32 = 900000;
-pub const __DARWIN_C_LEVEL: u32 = 900000;
-pub const __STDC_WANT_LIB_EXT1__: u32 = 1;
-pub const __DARWIN_NO_LONG_LONG: u32 = 0;
-pub const _DARWIN_FEATURE_64_BIT_INODE: u32 = 1;
-pub const _DARWIN_FEATURE_ONLY_64_BIT_INODE: u32 = 1;
-pub const _DARWIN_FEATURE_ONLY_VERS_1050: u32 = 1;
-pub const _DARWIN_FEATURE_ONLY_UNIX_CONFORMANCE: u32 = 1;
-pub const _DARWIN_FEATURE_UNIX_CONFORMANCE: u32 = 3;
-pub const __has_ptrcheck: u32 = 0;
-pub const __has_bounds_safety_attributes: u32 = 0;
-pub const USE_CLANG_TYPES: u32 = 0;
-pub const __PTHREAD_SIZE__: u32 = 8176;
-pub const __PTHREAD_ATTR_SIZE__: u32 = 56;
-pub const __PTHREAD_MUTEXATTR_SIZE__: u32 = 8;
-pub const __PTHREAD_MUTEX_SIZE__: u32 = 56;
-pub const __PTHREAD_CONDATTR_SIZE__: u32 = 8;
-pub const __PTHREAD_COND_SIZE__: u32 = 40;
-pub const __PTHREAD_ONCE_SIZE__: u32 = 8;
-pub const __PTHREAD_RWLOCK_SIZE__: u32 = 192;
-pub const __PTHREAD_RWLOCKATTR_SIZE__: u32 = 16;
-pub const INT8_MAX: u32 = 127;
-pub const INT16_MAX: u32 = 32767;
-pub const INT32_MAX: u32 = 2147483647;
-pub const INT64_MAX: u64 = 9223372036854775807;
-pub const INT8_MIN: i32 = -128;
-pub const INT16_MIN: i32 = -32768;
-pub const INT32_MIN: i32 = -2147483648;
-pub const INT64_MIN: i64 = -9223372036854775808;
-pub const UINT8_MAX: u32 = 255;
-pub const UINT16_MAX: u32 = 65535;
-pub const UINT32_MAX: u32 = 4294967295;
-pub const UINT64_MAX: i32 = -1;
-pub const INT_LEAST8_MIN: i32 = -128;
-pub const INT_LEAST16_MIN: i32 = -32768;
-pub const INT_LEAST32_MIN: i32 = -2147483648;
-pub const INT_LEAST64_MIN: i64 = -9223372036854775808;
-pub const INT_LEAST8_MAX: u32 = 127;
-pub const INT_LEAST16_MAX: u32 = 32767;
-pub const INT_LEAST32_MAX: u32 = 2147483647;
-pub const INT_LEAST64_MAX: u64 = 9223372036854775807;
-pub const UINT_LEAST8_MAX: u32 = 255;
-pub const UINT_LEAST16_MAX: u32 = 65535;
-pub const UINT_LEAST32_MAX: u32 = 4294967295;
-pub const UINT_LEAST64_MAX: i32 = -1;
-pub const INT_FAST8_MIN: i32 = -128;
-pub const INT_FAST16_MIN: i32 = -32768;
-pub const INT_FAST32_MIN: i32 = -2147483648;
-pub const INT_FAST64_MIN: i64 = -9223372036854775808;
-pub const INT_FAST8_MAX: u32 = 127;
-pub const INT_FAST16_MAX: u32 = 32767;
-pub const INT_FAST32_MAX: u32 = 2147483647;
-pub const INT_FAST64_MAX: u64 = 9223372036854775807;
-pub const UINT_FAST8_MAX: u32 = 255;
-pub const UINT_FAST16_MAX: u32 = 65535;
-pub const UINT_FAST32_MAX: u32 = 4294967295;
-pub const UINT_FAST64_MAX: i32 = -1;
-pub const INTPTR_MAX: u64 = 9223372036854775807;
-pub const INTPTR_MIN: i64 = -9223372036854775808;
-pub const UINTPTR_MAX: i32 = -1;
-pub const SIZE_MAX: i32 = -1;
-pub const RSIZE_MAX: i32 = -1;
-pub const WINT_MIN: i32 = -2147483648;
-pub const WINT_MAX: u32 = 2147483647;
-pub const SIG_ATOMIC_MIN: i32 = -2147483648;
-pub const SIG_ATOMIC_MAX: u32 = 2147483647;
-pub const _QUAD_HIGHWORD: u32 = 1;
-pub const _QUAD_LOWWORD: u32 = 0;
-pub const __DARWIN_LITTLE_ENDIAN: u32 = 1234;
-pub const __DARWIN_BIG_ENDIAN: u32 = 4321;
-pub const __DARWIN_PDP_ENDIAN: u32 = 3412;
-pub const LITTLE_ENDIAN: u32 = 1234;
-pub const BIG_ENDIAN: u32 = 4321;
-pub const PDP_ENDIAN: u32 = 3412;
-pub const __DARWIN_BYTE_ORDER: u32 = 1234;
-pub const BYTE_ORDER: u32 = 1234;
-pub const __API_TO_BE_DEPRECATED: u32 = 100000;
-pub const __API_TO_BE_DEPRECATED_MACOS: u32 = 100000;
-pub const __API_TO_BE_DEPRECATED_MACOSAPPLICATIONEXTENSION: u32 = 100000;
-pub const __API_TO_BE_DEPRECATED_IOS: u32 = 100000;
-pub const __API_TO_BE_DEPRECATED_IOSAPPLICATIONEXTENSION: u32 = 100000;
-pub const __API_TO_BE_DEPRECATED_MACCATALYST: u32 = 100000;
-pub const __API_TO_BE_DEPRECATED_MACCATALYSTAPPLICATIONEXTENSION: u32 = 100000;
-pub const __API_TO_BE_DEPRECATED_WATCHOS: u32 = 100000;
-pub const __API_TO_BE_DEPRECATED_WATCHOSAPPLICATIONEXTENSION: u32 = 100000;
-pub const __API_TO_BE_DEPRECATED_TVOS: u32 = 100000;
-pub const __API_TO_BE_DEPRECATED_TVOSAPPLICATIONEXTENSION: u32 = 100000;
-pub const __API_TO_BE_DEPRECATED_DRIVERKIT: u32 = 100000;
-pub const __API_TO_BE_DEPRECATED_VISIONOS: u32 = 100000;
-pub const __API_TO_BE_DEPRECATED_VISIONOSAPPLICATIONEXTENSION: u32 = 100000;
-pub const __API_TO_BE_DEPRECATED_KERNELKIT: u32 = 100000;
-pub const __MAC_10_0: u32 = 1000;
-pub const __MAC_10_1: u32 = 1010;
-pub const __MAC_10_2: u32 = 1020;
-pub const __MAC_10_3: u32 = 1030;
-pub const __MAC_10_4: u32 = 1040;
-pub const __MAC_10_5: u32 = 1050;
-pub const __MAC_10_6: u32 = 1060;
-pub const __MAC_10_7: u32 = 1070;
-pub const __MAC_10_8: u32 = 1080;
-pub const __MAC_10_9: u32 = 1090;
-pub const __MAC_10_10: u32 = 101000;
-pub const __MAC_10_10_2: u32 = 101002;
-pub const __MAC_10_10_3: u32 = 101003;
-pub const __MAC_10_11: u32 = 101100;
-pub const __MAC_10_11_2: u32 = 101102;
-pub const __MAC_10_11_3: u32 = 101103;
-pub const __MAC_10_11_4: u32 = 101104;
-pub const __MAC_10_12: u32 = 101200;
-pub const __MAC_10_12_1: u32 = 101201;
-pub const __MAC_10_12_2: u32 = 101202;
-pub const __MAC_10_12_4: u32 = 101204;
-pub const __MAC_10_13: u32 = 101300;
-pub const __MAC_10_13_1: u32 = 101301;
-pub const __MAC_10_13_2: u32 = 101302;
-pub const __MAC_10_13_4: u32 = 101304;
-pub const __MAC_10_14: u32 = 101400;
-pub const __MAC_10_14_1: u32 = 101401;
-pub const __MAC_10_14_4: u32 = 101404;
-pub const __MAC_10_14_5: u32 = 101405;
-pub const __MAC_10_14_6: u32 = 101406;
-pub const __MAC_10_15: u32 = 101500;
-pub const __MAC_10_15_1: u32 = 101501;
-pub const __MAC_10_15_4: u32 = 101504;
-pub const __MAC_10_16: u32 = 101600;
-pub const __MAC_11_0: u32 = 110000;
-pub const __MAC_11_1: u32 = 110100;
-pub const __MAC_11_3: u32 = 110300;
-pub const __MAC_11_4: u32 = 110400;
-pub const __MAC_11_5: u32 = 110500;
-pub const __MAC_11_6: u32 = 110600;
-pub const __MAC_12_0: u32 = 120000;
-pub const __MAC_12_1: u32 = 120100;
-pub const __MAC_12_2: u32 = 120200;
-pub const __MAC_12_3: u32 = 120300;
-pub const __MAC_12_4: u32 = 120400;
-pub const __MAC_12_5: u32 = 120500;
-pub const __MAC_12_6: u32 = 120600;
-pub const __MAC_12_7: u32 = 120700;
-pub const __MAC_13_0: u32 = 130000;
-pub const __MAC_13_1: u32 = 130100;
-pub const __MAC_13_2: u32 = 130200;
-pub const __MAC_13_3: u32 = 130300;
-pub const __MAC_13_4: u32 = 130400;
-pub const __MAC_13_5: u32 = 130500;
-pub const __MAC_13_6: u32 = 130600;
-pub const __MAC_13_7: u32 = 130700;
-pub const __MAC_14_0: u32 = 140000;
-pub const __MAC_14_1: u32 = 140100;
-pub const __MAC_14_2: u32 = 140200;
-pub const __MAC_14_3: u32 = 140300;
-pub const __MAC_14_4: u32 = 140400;
-pub const __MAC_14_5: u32 = 140500;
-pub const __MAC_14_6: u32 = 140600;
-pub const __MAC_14_7: u32 = 140700;
-pub const __MAC_15_0: u32 = 150000;
-pub const __MAC_15_1: u32 = 150100;
-pub const __MAC_15_2: u32 = 150200;
-pub const __MAC_15_3: u32 = 150300;
-pub const __MAC_15_4: u32 = 150400;
-pub const __MAC_15_5: u32 = 150500;
-pub const __MAC_15_6: u32 = 150600;
-pub const __MAC_16_0: u32 = 160000;
-pub const __MAC_26_0: u32 = 260000;
-pub const __MAC_26_1: u32 = 260100;
-pub const __MAC_26_2: u32 = 260200;
-pub const __MAC_26_3: u32 = 260300;
-pub const __MAC_26_4: u32 = 260400;
-pub const __IPHONE_2_0: u32 = 20000;
-pub const __IPHONE_2_1: u32 = 20100;
-pub const __IPHONE_2_2: u32 = 20200;
-pub const __IPHONE_3_0: u32 = 30000;
-pub const __IPHONE_3_1: u32 = 30100;
-pub const __IPHONE_3_2: u32 = 30200;
-pub const __IPHONE_4_0: u32 = 40000;
-pub const __IPHONE_4_1: u32 = 40100;
-pub const __IPHONE_4_2: u32 = 40200;
-pub const __IPHONE_4_3: u32 = 40300;
-pub const __IPHONE_5_0: u32 = 50000;
-pub const __IPHONE_5_1: u32 = 50100;
-pub const __IPHONE_6_0: u32 = 60000;
-pub const __IPHONE_6_1: u32 = 60100;
-pub const __IPHONE_7_0: u32 = 70000;
-pub const __IPHONE_7_1: u32 = 70100;
-pub const __IPHONE_8_0: u32 = 80000;
-pub const __IPHONE_8_1: u32 = 80100;
-pub const __IPHONE_8_2: u32 = 80200;
-pub const __IPHONE_8_3: u32 = 80300;
-pub const __IPHONE_8_4: u32 = 80400;
-pub const __IPHONE_9_0: u32 = 90000;
-pub const __IPHONE_9_1: u32 = 90100;
-pub const __IPHONE_9_2: u32 = 90200;
-pub const __IPHONE_9_3: u32 = 90300;
-pub const __IPHONE_10_0: u32 = 100000;
-pub const __IPHONE_10_1: u32 = 100100;
-pub const __IPHONE_10_2: u32 = 100200;
-pub const __IPHONE_10_3: u32 = 100300;
-pub const __IPHONE_11_0: u32 = 110000;
-pub const __IPHONE_11_1: u32 = 110100;
-pub const __IPHONE_11_2: u32 = 110200;
-pub const __IPHONE_11_3: u32 = 110300;
-pub const __IPHONE_11_4: u32 = 110400;
-pub const __IPHONE_12_0: u32 = 120000;
-pub const __IPHONE_12_1: u32 = 120100;
-pub const __IPHONE_12_2: u32 = 120200;
-pub const __IPHONE_12_3: u32 = 120300;
-pub const __IPHONE_12_4: u32 = 120400;
-pub const __IPHONE_13_0: u32 = 130000;
-pub const __IPHONE_13_1: u32 = 130100;
-pub const __IPHONE_13_2: u32 = 130200;
-pub const __IPHONE_13_3: u32 = 130300;
-pub const __IPHONE_13_4: u32 = 130400;
-pub const __IPHONE_13_5: u32 = 130500;
-pub const __IPHONE_13_6: u32 = 130600;
-pub const __IPHONE_13_7: u32 = 130700;
-pub const __IPHONE_14_0: u32 = 140000;
-pub const __IPHONE_14_1: u32 = 140100;
-pub const __IPHONE_14_2: u32 = 140200;
-pub const __IPHONE_14_3: u32 = 140300;
-pub const __IPHONE_14_5: u32 = 140500;
-pub const __IPHONE_14_6: u32 = 140600;
-pub const __IPHONE_14_7: u32 = 140700;
-pub const __IPHONE_14_8: u32 = 140800;
-pub const __IPHONE_15_0: u32 = 150000;
-pub const __IPHONE_15_1: u32 = 150100;
-pub const __IPHONE_15_2: u32 = 150200;
-pub const __IPHONE_15_3: u32 = 150300;
-pub const __IPHONE_15_4: u32 = 150400;
-pub const __IPHONE_15_5: u32 = 150500;
-pub const __IPHONE_15_6: u32 = 150600;
-pub const __IPHONE_15_7: u32 = 150700;
-pub const __IPHONE_15_8: u32 = 150800;
-pub const __IPHONE_16_0: u32 = 160000;
-pub const __IPHONE_16_1: u32 = 160100;
-pub const __IPHONE_16_2: u32 = 160200;
-pub const __IPHONE_16_3: u32 = 160300;
-pub const __IPHONE_16_4: u32 = 160400;
-pub const __IPHONE_16_5: u32 = 160500;
-pub const __IPHONE_16_6: u32 = 160600;
-pub const __IPHONE_16_7: u32 = 160700;
-pub const __IPHONE_17_0: u32 = 170000;
-pub const __IPHONE_17_1: u32 = 170100;
-pub const __IPHONE_17_2: u32 = 170200;
-pub const __IPHONE_17_3: u32 = 170300;
-pub const __IPHONE_17_4: u32 = 170400;
-pub const __IPHONE_17_5: u32 = 170500;
-pub const __IPHONE_17_6: u32 = 170600;
-pub const __IPHONE_17_7: u32 = 170700;
-pub const __IPHONE_18_0: u32 = 180000;
-pub const __IPHONE_18_1: u32 = 180100;
-pub const __IPHONE_18_2: u32 = 180200;
-pub const __IPHONE_18_3: u32 = 180300;
-pub const __IPHONE_18_4: u32 = 180400;
-pub const __IPHONE_18_5: u32 = 180500;
-pub const __IPHONE_18_6: u32 = 180600;
-pub const __IPHONE_19_0: u32 = 190000;
-pub const __IPHONE_26_0: u32 = 260000;
-pub const __IPHONE_26_1: u32 = 260100;
-pub const __IPHONE_26_2: u32 = 260200;
-pub const __IPHONE_26_3: u32 = 260300;
-pub const __IPHONE_26_4: u32 = 260400;
-pub const __WATCHOS_1_0: u32 = 10000;
-pub const __WATCHOS_2_0: u32 = 20000;
-pub const __WATCHOS_2_1: u32 = 20100;
-pub const __WATCHOS_2_2: u32 = 20200;
-pub const __WATCHOS_3_0: u32 = 30000;
-pub const __WATCHOS_3_1: u32 = 30100;
-pub const __WATCHOS_3_1_1: u32 = 30101;
-pub const __WATCHOS_3_2: u32 = 30200;
-pub const __WATCHOS_4_0: u32 = 40000;
-pub const __WATCHOS_4_1: u32 = 40100;
-pub const __WATCHOS_4_2: u32 = 40200;
-pub const __WATCHOS_4_3: u32 = 40300;
-pub const __WATCHOS_5_0: u32 = 50000;
-pub const __WATCHOS_5_1: u32 = 50100;
-pub const __WATCHOS_5_2: u32 = 50200;
-pub const __WATCHOS_5_3: u32 = 50300;
-pub const __WATCHOS_6_0: u32 = 60000;
-pub const __WATCHOS_6_1: u32 = 60100;
-pub const __WATCHOS_6_2: u32 = 60200;
-pub const __WATCHOS_7_0: u32 = 70000;
-pub const __WATCHOS_7_1: u32 = 70100;
-pub const __WATCHOS_7_2: u32 = 70200;
-pub const __WATCHOS_7_3: u32 = 70300;
-pub const __WATCHOS_7_4: u32 = 70400;
-pub const __WATCHOS_7_5: u32 = 70500;
-pub const __WATCHOS_7_6: u32 = 70600;
-pub const __WATCHOS_8_0: u32 = 80000;
-pub const __WATCHOS_8_1: u32 = 80100;
-pub const __WATCHOS_8_3: u32 = 80300;
-pub const __WATCHOS_8_4: u32 = 80400;
-pub const __WATCHOS_8_5: u32 = 80500;
-pub const __WATCHOS_8_6: u32 = 80600;
-pub const __WATCHOS_8_7: u32 = 80700;
-pub const __WATCHOS_8_8: u32 = 80800;
-pub const __WATCHOS_9_0: u32 = 90000;
-pub const __WATCHOS_9_1: u32 = 90100;
-pub const __WATCHOS_9_2: u32 = 90200;
-pub const __WATCHOS_9_3: u32 = 90300;
-pub const __WATCHOS_9_4: u32 = 90400;
-pub const __WATCHOS_9_5: u32 = 90500;
-pub const __WATCHOS_9_6: u32 = 90600;
-pub const __WATCHOS_10_0: u32 = 100000;
-pub const __WATCHOS_10_1: u32 = 100100;
-pub const __WATCHOS_10_2: u32 = 100200;
-pub const __WATCHOS_10_3: u32 = 100300;
-pub const __WATCHOS_10_4: u32 = 100400;
-pub const __WATCHOS_10_5: u32 = 100500;
-pub const __WATCHOS_10_6: u32 = 100600;
-pub const __WATCHOS_10_7: u32 = 100700;
-pub const __WATCHOS_11_0: u32 = 110000;
-pub const __WATCHOS_11_1: u32 = 110100;
-pub const __WATCHOS_11_2: u32 = 110200;
-pub const __WATCHOS_11_3: u32 = 110300;
-pub const __WATCHOS_11_4: u32 = 110400;
-pub const __WATCHOS_11_5: u32 = 110500;
-pub const __WATCHOS_11_6: u32 = 110600;
-pub const __WATCHOS_12_0: u32 = 120000;
-pub const __WATCHOS_26_0: u32 = 260000;
-pub const __WATCHOS_26_1: u32 = 260100;
-pub const __WATCHOS_26_2: u32 = 260200;
-pub const __WATCHOS_26_3: u32 = 260300;
-pub const __WATCHOS_26_4: u32 = 260400;
-pub const __TVOS_9_0: u32 = 90000;
-pub const __TVOS_9_1: u32 = 90100;
-pub const __TVOS_9_2: u32 = 90200;
-pub const __TVOS_10_0: u32 = 100000;
-pub const __TVOS_10_0_1: u32 = 100001;
-pub const __TVOS_10_1: u32 = 100100;
-pub const __TVOS_10_2: u32 = 100200;
-pub const __TVOS_11_0: u32 = 110000;
-pub const __TVOS_11_1: u32 = 110100;
-pub const __TVOS_11_2: u32 = 110200;
-pub const __TVOS_11_3: u32 = 110300;
-pub const __TVOS_11_4: u32 = 110400;
-pub const __TVOS_12_0: u32 = 120000;
-pub const __TVOS_12_1: u32 = 120100;
-pub const __TVOS_12_2: u32 = 120200;
-pub const __TVOS_12_3: u32 = 120300;
-pub const __TVOS_12_4: u32 = 120400;
-pub const __TVOS_13_0: u32 = 130000;
-pub const __TVOS_13_2: u32 = 130200;
-pub const __TVOS_13_3: u32 = 130300;
-pub const __TVOS_13_4: u32 = 130400;
-pub const __TVOS_14_0: u32 = 140000;
-pub const __TVOS_14_1: u32 = 140100;
-pub const __TVOS_14_2: u32 = 140200;
-pub const __TVOS_14_3: u32 = 140300;
-pub const __TVOS_14_5: u32 = 140500;
-pub const __TVOS_14_6: u32 = 140600;
-pub const __TVOS_14_7: u32 = 140700;
-pub const __TVOS_15_0: u32 = 150000;
-pub const __TVOS_15_1: u32 = 150100;
-pub const __TVOS_15_2: u32 = 150200;
-pub const __TVOS_15_3: u32 = 150300;
-pub const __TVOS_15_4: u32 = 150400;
-pub const __TVOS_15_5: u32 = 150500;
-pub const __TVOS_15_6: u32 = 150600;
-pub const __TVOS_16_0: u32 = 160000;
-pub const __TVOS_16_1: u32 = 160100;
-pub const __TVOS_16_2: u32 = 160200;
-pub const __TVOS_16_3: u32 = 160300;
-pub const __TVOS_16_4: u32 = 160400;
-pub const __TVOS_16_5: u32 = 160500;
-pub const __TVOS_16_6: u32 = 160600;
-pub const __TVOS_17_0: u32 = 170000;
-pub const __TVOS_17_1: u32 = 170100;
-pub const __TVOS_17_2: u32 = 170200;
-pub const __TVOS_17_3: u32 = 170300;
-pub const __TVOS_17_4: u32 = 170400;
-pub const __TVOS_17_5: u32 = 170500;
-pub const __TVOS_17_6: u32 = 170600;
-pub const __TVOS_18_0: u32 = 180000;
-pub const __TVOS_18_1: u32 = 180100;
-pub const __TVOS_18_2: u32 = 180200;
-pub const __TVOS_18_3: u32 = 180300;
-pub const __TVOS_18_4: u32 = 180400;
-pub const __TVOS_18_5: u32 = 180500;
-pub const __TVOS_18_6: u32 = 180600;
-pub const __TVOS_19_0: u32 = 190000;
-pub const __TVOS_26_0: u32 = 260000;
-pub const __TVOS_26_1: u32 = 260100;
-pub const __TVOS_26_2: u32 = 260200;
-pub const __TVOS_26_3: u32 = 260300;
-pub const __TVOS_26_4: u32 = 260400;
-pub const __BRIDGEOS_2_0: u32 = 20000;
-pub const __BRIDGEOS_3_0: u32 = 30000;
-pub const __BRIDGEOS_3_1: u32 = 30100;
-pub const __BRIDGEOS_3_4: u32 = 30400;
-pub const __BRIDGEOS_4_0: u32 = 40000;
-pub const __BRIDGEOS_4_1: u32 = 40100;
-pub const __BRIDGEOS_5_0: u32 = 50000;
-pub const __BRIDGEOS_5_1: u32 = 50100;
-pub const __BRIDGEOS_5_3: u32 = 50300;
-pub const __BRIDGEOS_6_0: u32 = 60000;
-pub const __BRIDGEOS_6_2: u32 = 60200;
-pub const __BRIDGEOS_6_4: u32 = 60400;
-pub const __BRIDGEOS_6_5: u32 = 60500;
-pub const __BRIDGEOS_6_6: u32 = 60600;
-pub const __BRIDGEOS_7_0: u32 = 70000;
-pub const __BRIDGEOS_7_1: u32 = 70100;
-pub const __BRIDGEOS_7_2: u32 = 70200;
-pub const __BRIDGEOS_7_3: u32 = 70300;
-pub const __BRIDGEOS_7_4: u32 = 70400;
-pub const __BRIDGEOS_7_6: u32 = 70600;
-pub const __BRIDGEOS_8_0: u32 = 80000;
-pub const __BRIDGEOS_8_1: u32 = 80100;
-pub const __BRIDGEOS_8_2: u32 = 80200;
-pub const __BRIDGEOS_8_3: u32 = 80300;
-pub const __BRIDGEOS_8_4: u32 = 80400;
-pub const __BRIDGEOS_8_5: u32 = 80500;
-pub const __BRIDGEOS_8_6: u32 = 80600;
-pub const __BRIDGEOS_9_0: u32 = 90000;
-pub const __BRIDGEOS_9_1: u32 = 90100;
-pub const __BRIDGEOS_9_2: u32 = 90200;
-pub const __BRIDGEOS_9_3: u32 = 90300;
-pub const __BRIDGEOS_9_4: u32 = 90400;
-pub const __BRIDGEOS_9_5: u32 = 90500;
-pub const __BRIDGEOS_9_6: u32 = 90600;
-pub const __BRIDGEOS_10_0: u32 = 100000;
-pub const __BRIDGEOS_10_1: u32 = 100100;
-pub const __BRIDGEOS_10_2: u32 = 100200;
-pub const __BRIDGEOS_10_3: u32 = 100300;
-pub const __BRIDGEOS_10_4: u32 = 100400;
-pub const __DRIVERKIT_19_0: u32 = 190000;
-pub const __DRIVERKIT_20_0: u32 = 200000;
-pub const __DRIVERKIT_21_0: u32 = 210000;
-pub const __DRIVERKIT_22_0: u32 = 220000;
-pub const __DRIVERKIT_22_4: u32 = 220400;
-pub const __DRIVERKIT_22_5: u32 = 220500;
-pub const __DRIVERKIT_22_6: u32 = 220600;
-pub const __DRIVERKIT_23_0: u32 = 230000;
-pub const __DRIVERKIT_23_1: u32 = 230100;
-pub const __DRIVERKIT_23_2: u32 = 230200;
-pub const __DRIVERKIT_23_3: u32 = 230300;
-pub const __DRIVERKIT_23_4: u32 = 230400;
-pub const __DRIVERKIT_23_5: u32 = 230500;
-pub const __DRIVERKIT_23_6: u32 = 230600;
-pub const __DRIVERKIT_24_0: u32 = 240000;
-pub const __DRIVERKIT_24_1: u32 = 240100;
-pub const __DRIVERKIT_24_2: u32 = 240200;
-pub const __DRIVERKIT_24_3: u32 = 240300;
-pub const __DRIVERKIT_24_4: u32 = 240400;
-pub const __DRIVERKIT_24_5: u32 = 240500;
-pub const __DRIVERKIT_24_6: u32 = 240600;
-pub const __DRIVERKIT_25_0: u32 = 250000;
-pub const __DRIVERKIT_25_1: u32 = 250100;
-pub const __DRIVERKIT_25_2: u32 = 250200;
-pub const __DRIVERKIT_25_3: u32 = 250300;
-pub const __DRIVERKIT_25_4: u32 = 250400;
-pub const __VISIONOS_1_0: u32 = 10000;
-pub const __VISIONOS_1_1: u32 = 10100;
-pub const __VISIONOS_1_2: u32 = 10200;
-pub const __VISIONOS_1_3: u32 = 10300;
-pub const __VISIONOS_2_0: u32 = 20000;
-pub const __VISIONOS_2_1: u32 = 20100;
-pub const __VISIONOS_2_2: u32 = 20200;
-pub const __VISIONOS_2_3: u32 = 20300;
-pub const __VISIONOS_2_4: u32 = 20400;
-pub const __VISIONOS_2_5: u32 = 20500;
-pub const __VISIONOS_2_6: u32 = 20600;
-pub const __VISIONOS_3_0: u32 = 30000;
-pub const __VISIONOS_26_0: u32 = 260000;
-pub const __VISIONOS_26_1: u32 = 260100;
-pub const __VISIONOS_26_2: u32 = 260200;
-pub const __VISIONOS_26_3: u32 = 260300;
-pub const __VISIONOS_26_4: u32 = 260400;
-pub const MAC_OS_X_VERSION_10_0: u32 = 1000;
-pub const MAC_OS_X_VERSION_10_1: u32 = 1010;
-pub const MAC_OS_X_VERSION_10_2: u32 = 1020;
-pub const MAC_OS_X_VERSION_10_3: u32 = 1030;
-pub const MAC_OS_X_VERSION_10_4: u32 = 1040;
-pub const MAC_OS_X_VERSION_10_5: u32 = 1050;
-pub const MAC_OS_X_VERSION_10_6: u32 = 1060;
-pub const MAC_OS_X_VERSION_10_7: u32 = 1070;
-pub const MAC_OS_X_VERSION_10_8: u32 = 1080;
-pub const MAC_OS_X_VERSION_10_9: u32 = 1090;
-pub const MAC_OS_X_VERSION_10_10: u32 = 101000;
-pub const MAC_OS_X_VERSION_10_10_2: u32 = 101002;
-pub const MAC_OS_X_VERSION_10_10_3: u32 = 101003;
-pub const MAC_OS_X_VERSION_10_11: u32 = 101100;
-pub const MAC_OS_X_VERSION_10_11_2: u32 = 101102;
-pub const MAC_OS_X_VERSION_10_11_3: u32 = 101103;
-pub const MAC_OS_X_VERSION_10_11_4: u32 = 101104;
-pub const MAC_OS_X_VERSION_10_12: u32 = 101200;
-pub const MAC_OS_X_VERSION_10_12_1: u32 = 101201;
-pub const MAC_OS_X_VERSION_10_12_2: u32 = 101202;
-pub const MAC_OS_X_VERSION_10_12_4: u32 = 101204;
-pub const MAC_OS_X_VERSION_10_13: u32 = 101300;
-pub const MAC_OS_X_VERSION_10_13_1: u32 = 101301;
-pub const MAC_OS_X_VERSION_10_13_2: u32 = 101302;
-pub const MAC_OS_X_VERSION_10_13_4: u32 = 101304;
-pub const MAC_OS_X_VERSION_10_14: u32 = 101400;
-pub const MAC_OS_X_VERSION_10_14_1: u32 = 101401;
-pub const MAC_OS_X_VERSION_10_14_4: u32 = 101404;
-pub const MAC_OS_X_VERSION_10_14_5: u32 = 101405;
-pub const MAC_OS_X_VERSION_10_14_6: u32 = 101406;
-pub const MAC_OS_X_VERSION_10_15: u32 = 101500;
-pub const MAC_OS_X_VERSION_10_15_1: u32 = 101501;
-pub const MAC_OS_X_VERSION_10_15_4: u32 = 101504;
-pub const MAC_OS_X_VERSION_10_16: u32 = 101600;
-pub const MAC_OS_VERSION_11_0: u32 = 110000;
-pub const MAC_OS_VERSION_11_1: u32 = 110100;
-pub const MAC_OS_VERSION_11_3: u32 = 110300;
-pub const MAC_OS_VERSION_11_4: u32 = 110400;
-pub const MAC_OS_VERSION_11_5: u32 = 110500;
-pub const MAC_OS_VERSION_11_6: u32 = 110600;
-pub const MAC_OS_VERSION_12_0: u32 = 120000;
-pub const MAC_OS_VERSION_12_1: u32 = 120100;
-pub const MAC_OS_VERSION_12_2: u32 = 120200;
-pub const MAC_OS_VERSION_12_3: u32 = 120300;
-pub const MAC_OS_VERSION_12_4: u32 = 120400;
-pub const MAC_OS_VERSION_12_5: u32 = 120500;
-pub const MAC_OS_VERSION_12_6: u32 = 120600;
-pub const MAC_OS_VERSION_12_7: u32 = 120700;
-pub const MAC_OS_VERSION_13_0: u32 = 130000;
-pub const MAC_OS_VERSION_13_1: u32 = 130100;
-pub const MAC_OS_VERSION_13_2: u32 = 130200;
-pub const MAC_OS_VERSION_13_3: u32 = 130300;
-pub const MAC_OS_VERSION_13_4: u32 = 130400;
-pub const MAC_OS_VERSION_13_5: u32 = 130500;
-pub const MAC_OS_VERSION_13_6: u32 = 130600;
-pub const MAC_OS_VERSION_13_7: u32 = 130700;
-pub const MAC_OS_VERSION_14_0: u32 = 140000;
-pub const MAC_OS_VERSION_14_1: u32 = 140100;
-pub const MAC_OS_VERSION_14_2: u32 = 140200;
-pub const MAC_OS_VERSION_14_3: u32 = 140300;
-pub const MAC_OS_VERSION_14_4: u32 = 140400;
-pub const MAC_OS_VERSION_14_5: u32 = 140500;
-pub const MAC_OS_VERSION_14_6: u32 = 140600;
-pub const MAC_OS_VERSION_14_7: u32 = 140700;
-pub const MAC_OS_VERSION_15_0: u32 = 150000;
-pub const MAC_OS_VERSION_15_1: u32 = 150100;
-pub const MAC_OS_VERSION_15_2: u32 = 150200;
-pub const MAC_OS_VERSION_15_3: u32 = 150300;
-pub const MAC_OS_VERSION_15_4: u32 = 150400;
-pub const MAC_OS_VERSION_15_5: u32 = 150500;
-pub const MAC_OS_VERSION_15_6: u32 = 150600;
-pub const MAC_OS_VERSION_16_0: u32 = 160000;
-pub const MAC_OS_VERSION_26_0: u32 = 260000;
-pub const MAC_OS_VERSION_26_1: u32 = 260100;
-pub const MAC_OS_VERSION_26_2: u32 = 260200;
-pub const MAC_OS_VERSION_26_3: u32 = 260300;
-pub const MAC_OS_VERSION_26_4: u32 = 260400;
-pub const __AVAILABILITY_VERSIONS_VERSION_HASH: u32 = 93585900;
-pub const __AVAILABILITY_VERSIONS_VERSION_STRING: &[u8; 6] = b"Local\0";
-pub const __AVAILABILITY_FILE: &[u8; 23] = b"AvailabilityVersions.h\0";
-pub const __MAC_OS_X_VERSION_MAX_ALLOWED: u32 = 260400;
-pub const __ENABLE_LEGACY_MAC_AVAILABILITY: u32 = 1;
-pub const USE_CLANG_STDDEF: u32 = 0;
-pub const __DARWIN_FD_SETSIZE: u32 = 1024;
-pub const __DARWIN_NBBY: u32 = 8;
-pub const NBBY: u32 = 8;
-pub const FD_SETSIZE: u32 = 1024;
-pub const KEV_INET_SUBCLASS: u32 = 1;
-pub const KEV_INET_NEW_ADDR: u32 = 1;
-pub const KEV_INET_CHANGED_ADDR: u32 = 2;
-pub const KEV_INET_ADDR_DELETED: u32 = 3;
-pub const KEV_INET_SIFDSTADDR: u32 = 4;
-pub const KEV_INET_SIFBRDADDR: u32 = 5;
-pub const KEV_INET_SIFNETMASK: u32 = 6;
-pub const KEV_INET_ARPCOLLISION: u32 = 7;
-pub const KEV_INET_PORTINUSE: u32 = 8;
-pub const KEV_INET_ARPRTRFAILURE: u32 = 9;
-pub const KEV_INET_ARPRTRALIVE: u32 = 10;
-pub const KEV_DL_SUBCLASS: u32 = 2;
-pub const KEV_DL_SIFFLAGS: u32 = 1;
-pub const KEV_DL_SIFMETRICS: u32 = 2;
-pub const KEV_DL_SIFMTU: u32 = 3;
-pub const KEV_DL_SIFPHYS: u32 = 4;
-pub const KEV_DL_SIFMEDIA: u32 = 5;
-pub const KEV_DL_SIFGENERIC: u32 = 6;
-pub const KEV_DL_ADDMULTI: u32 = 7;
-pub const KEV_DL_DELMULTI: u32 = 8;
-pub const KEV_DL_IF_ATTACHED: u32 = 9;
-pub const KEV_DL_IF_DETACHING: u32 = 10;
-pub const KEV_DL_IF_DETACHED: u32 = 11;
-pub const KEV_DL_LINK_OFF: u32 = 12;
-pub const KEV_DL_LINK_ON: u32 = 13;
-pub const KEV_DL_PROTO_ATTACHED: u32 = 14;
-pub const KEV_DL_PROTO_DETACHED: u32 = 15;
-pub const KEV_DL_LINK_ADDRESS_CHANGED: u32 = 16;
-pub const KEV_DL_WAKEFLAGS_CHANGED: u32 = 17;
-pub const KEV_DL_IF_IDLE_ROUTE_REFCNT: u32 = 18;
-pub const KEV_DL_IFCAP_CHANGED: u32 = 19;
-pub const KEV_DL_LINK_QUALITY_METRIC_CHANGED: u32 = 20;
-pub const KEV_DL_NODE_PRESENCE: u32 = 21;
-pub const KEV_DL_NODE_ABSENCE: u32 = 22;
-pub const KEV_DL_PRIMARY_ELECTED: u32 = 23;
-pub const KEV_DL_ISSUES: u32 = 24;
-pub const KEV_DL_IFDELEGATE_CHANGED: u32 = 25;
-pub const KEV_DL_AWDL_RESTRICTED: u32 = 26;
-pub const KEV_DL_AWDL_UNRESTRICTED: u32 = 27;
-pub const KEV_DL_RRC_STATE_CHANGED: u32 = 28;
-pub const KEV_DL_QOS_MODE_CHANGED: u32 = 29;
-pub const KEV_DL_LOW_POWER_MODE_CHANGED: u32 = 30;
-pub const KEV_INET6_SUBCLASS: u32 = 6;
-pub const KEV_INET6_NEW_USER_ADDR: u32 = 1;
-pub const KEV_INET6_CHANGED_ADDR: u32 = 2;
-pub const KEV_INET6_ADDR_DELETED: u32 = 3;
-pub const KEV_INET6_NEW_LL_ADDR: u32 = 4;
-pub const KEV_INET6_NEW_RTADV_ADDR: u32 = 5;
-pub const KEV_INET6_DEFROUTER: u32 = 6;
-pub const KEV_INET6_REQUEST_NAT64_PREFIX: u32 = 7;
-pub const SOCK_STREAM: u32 = 1;
-pub const SOCK_DGRAM: u32 = 2;
-pub const SOCK_RAW: u32 = 3;
-pub const SOCK_RDM: u32 = 4;
-pub const SOCK_SEQPACKET: u32 = 5;
-pub const SO_DEBUG: u32 = 1;
-pub const SO_ACCEPTCONN: u32 = 2;
-pub const SO_REUSEADDR: u32 = 4;
-pub const SO_KEEPALIVE: u32 = 8;
-pub const SO_DONTROUTE: u32 = 16;
-pub const SO_BROADCAST: u32 = 32;
-pub const SO_USELOOPBACK: u32 = 64;
-pub const SO_LINGER: u32 = 128;
-pub const SO_LINGER_SEC: u32 = 4224;
-pub const SO_OOBINLINE: u32 = 256;
-pub const SO_REUSEPORT: u32 = 512;
-pub const SO_TIMESTAMP: u32 = 1024;
-pub const SO_TIMESTAMP_MONOTONIC: u32 = 2048;
-pub const SO_DONTTRUNC: u32 = 8192;
-pub const SO_WANTMORE: u32 = 16384;
-pub const SO_WANTOOBFLAG: u32 = 32768;
-pub const SO_SNDBUF: u32 = 4097;
-pub const SO_RCVBUF: u32 = 4098;
-pub const SO_SNDLOWAT: u32 = 4099;
-pub const SO_RCVLOWAT: u32 = 4100;
-pub const SO_SNDTIMEO: u32 = 4101;
-pub const SO_RCVTIMEO: u32 = 4102;
-pub const SO_ERROR: u32 = 4103;
-pub const SO_TYPE: u32 = 4104;
-pub const SO_LABEL: u32 = 4112;
-pub const SO_PEERLABEL: u32 = 4113;
-pub const SO_NREAD: u32 = 4128;
-pub const SO_NKE: u32 = 4129;
-pub const SO_NOSIGPIPE: u32 = 4130;
-pub const SO_NOADDRERR: u32 = 4131;
-pub const SO_NWRITE: u32 = 4132;
-pub const SO_REUSESHAREUID: u32 = 4133;
-pub const SO_NOTIFYCONFLICT: u32 = 4134;
-pub const SO_UPCALLCLOSEWAIT: u32 = 4135;
-pub const SO_RANDOMPORT: u32 = 4226;
-pub const SO_NP_EXTENSIONS: u32 = 4227;
-pub const SO_NUMRCVPKT: u32 = 4370;
-pub const SO_NET_SERVICE_TYPE: u32 = 4374;
-pub const SO_NETSVC_MARKING_LEVEL: u32 = 4377;
-pub const SO_RESOLVER_SIGNATURE: u32 = 4401;
-pub const SO_BINDTODEVICE: u32 = 4404;
-pub const NET_SERVICE_TYPE_BE: u32 = 0;
-pub const NET_SERVICE_TYPE_BK: u32 = 1;
-pub const NET_SERVICE_TYPE_SIG: u32 = 2;
-pub const NET_SERVICE_TYPE_VI: u32 = 3;
-pub const NET_SERVICE_TYPE_VO: u32 = 4;
-pub const NET_SERVICE_TYPE_RV: u32 = 5;
-pub const NET_SERVICE_TYPE_AV: u32 = 6;
-pub const NET_SERVICE_TYPE_OAM: u32 = 7;
-pub const NET_SERVICE_TYPE_RD: u32 = 8;
-pub const NETSVC_MRKNG_UNKNOWN: u32 = 0;
-pub const NETSVC_MRKNG_LVL_L2: u32 = 1;
-pub const NETSVC_MRKNG_LVL_L3L2_ALL: u32 = 2;
-pub const NETSVC_MRKNG_LVL_L3L2_BK: u32 = 3;
-pub const SAE_ASSOCID_ANY: u32 = 0;
-pub const SAE_CONNID_ANY: u32 = 0;
-pub const CONNECT_RESUME_ON_READ_WRITE: u32 = 1;
-pub const CONNECT_DATA_IDEMPOTENT: u32 = 2;
-pub const CONNECT_DATA_AUTHENTICATED: u32 = 4;
-pub const SONPX_SETOPTSHUT: u32 = 1;
-pub const SOL_SOCKET: u32 = 65535;
-pub const AF_UNSPEC: u32 = 0;
-pub const AF_UNIX: u32 = 1;
-pub const AF_LOCAL: u32 = 1;
-pub const AF_INET: u32 = 2;
-pub const AF_IMPLINK: u32 = 3;
-pub const AF_PUP: u32 = 4;
-pub const AF_CHAOS: u32 = 5;
-pub const AF_NS: u32 = 6;
-pub const AF_ISO: u32 = 7;
-pub const AF_OSI: u32 = 7;
-pub const AF_ECMA: u32 = 8;
-pub const AF_DATAKIT: u32 = 9;
-pub const AF_CCITT: u32 = 10;
-pub const AF_SNA: u32 = 11;
-pub const AF_DECnet: u32 = 12;
-pub const AF_DLI: u32 = 13;
-pub const AF_LAT: u32 = 14;
-pub const AF_HYLINK: u32 = 15;
-pub const AF_APPLETALK: u32 = 16;
-pub const AF_ROUTE: u32 = 17;
-pub const AF_LINK: u32 = 18;
-pub const pseudo_AF_XTP: u32 = 19;
-pub const AF_COIP: u32 = 20;
-pub const AF_CNT: u32 = 21;
-pub const pseudo_AF_RTIP: u32 = 22;
-pub const AF_IPX: u32 = 23;
-pub const AF_SIP: u32 = 24;
-pub const pseudo_AF_PIP: u32 = 25;
-pub const AF_NDRV: u32 = 27;
-pub const AF_ISDN: u32 = 28;
-pub const AF_E164: u32 = 28;
-pub const pseudo_AF_KEY: u32 = 29;
-pub const AF_INET6: u32 = 30;
-pub const AF_NATM: u32 = 31;
-pub const AF_SYSTEM: u32 = 32;
-pub const AF_NETBIOS: u32 = 33;
-pub const AF_PPP: u32 = 34;
-pub const pseudo_AF_HDRCMPLT: u32 = 35;
-pub const AF_RESERVED_36: u32 = 36;
-pub const AF_IEEE80211: u32 = 37;
-pub const AF_UTUN: u32 = 38;
-pub const AF_VSOCK: u32 = 40;
-pub const AF_MAX: u32 = 41;
-pub const SOCK_MAXADDRLEN: u32 = 255;
-pub const _SS_MAXSIZE: u32 = 128;
-pub const PF_UNSPEC: u32 = 0;
-pub const PF_LOCAL: u32 = 1;
-pub const PF_UNIX: u32 = 1;
-pub const PF_INET: u32 = 2;
-pub const PF_IMPLINK: u32 = 3;
-pub const PF_PUP: u32 = 4;
-pub const PF_CHAOS: u32 = 5;
-pub const PF_NS: u32 = 6;
-pub const PF_ISO: u32 = 7;
-pub const PF_OSI: u32 = 7;
-pub const PF_ECMA: u32 = 8;
-pub const PF_DATAKIT: u32 = 9;
-pub const PF_CCITT: u32 = 10;
-pub const PF_SNA: u32 = 11;
-pub const PF_DECnet: u32 = 12;
-pub const PF_DLI: u32 = 13;
-pub const PF_LAT: u32 = 14;
-pub const PF_HYLINK: u32 = 15;
-pub const PF_APPLETALK: u32 = 16;
-pub const PF_ROUTE: u32 = 17;
-pub const PF_LINK: u32 = 18;
-pub const PF_XTP: u32 = 19;
-pub const PF_COIP: u32 = 20;
-pub const PF_CNT: u32 = 21;
-pub const PF_SIP: u32 = 24;
-pub const PF_IPX: u32 = 23;
-pub const PF_RTIP: u32 = 22;
-pub const PF_PIP: u32 = 25;
-pub const PF_NDRV: u32 = 27;
-pub const PF_ISDN: u32 = 28;
-pub const PF_KEY: u32 = 29;
-pub const PF_INET6: u32 = 30;
-pub const PF_NATM: u32 = 31;
-pub const PF_SYSTEM: u32 = 32;
-pub const PF_NETBIOS: u32 = 33;
-pub const PF_PPP: u32 = 34;
-pub const PF_RESERVED_36: u32 = 36;
-pub const PF_UTUN: u32 = 38;
-pub const PF_VSOCK: u32 = 40;
-pub const PF_MAX: u32 = 41;
-pub const NET_MAXID: u32 = 41;
-pub const NET_RT_DUMP: u32 = 1;
-pub const NET_RT_FLAGS: u32 = 2;
-pub const NET_RT_IFLIST: u32 = 3;
-pub const NET_RT_STAT: u32 = 4;
-pub const NET_RT_TRASH: u32 = 5;
-pub const NET_RT_IFLIST2: u32 = 6;
-pub const NET_RT_DUMP2: u32 = 7;
-pub const NET_RT_FLAGS_PRIV: u32 = 10;
-pub const NET_RT_MAXID: u32 = 11;
-pub const SOMAXCONN: u32 = 128;
-pub const MSG_OOB: u32 = 1;
-pub const MSG_PEEK: u32 = 2;
-pub const MSG_DONTROUTE: u32 = 4;
-pub const MSG_EOR: u32 = 8;
-pub const MSG_TRUNC: u32 = 16;
-pub const MSG_CTRUNC: u32 = 32;
-pub const MSG_WAITALL: u32 = 64;
-pub const MSG_DONTWAIT: u32 = 128;
-pub const MSG_EOF: u32 = 256;
-pub const MSG_WAITSTREAM: u32 = 512;
-pub const MSG_FLUSH: u32 = 1024;
-pub const MSG_HOLD: u32 = 2048;
-pub const MSG_SEND: u32 = 4096;
-pub const MSG_HAVEMORE: u32 = 8192;
-pub const MSG_RCVMORE: u32 = 16384;
-pub const MSG_NEEDSA: u32 = 65536;
-pub const MSG_NOSIGNAL: u32 = 524288;
-pub const SCM_RIGHTS: u32 = 1;
-pub const SCM_TIMESTAMP: u32 = 2;
-pub const SCM_CREDS: u32 = 3;
-pub const SCM_TIMESTAMP_MONOTONIC: u32 = 4;
-pub const SHUT_RD: u32 = 0;
-pub const SHUT_WR: u32 = 1;
-pub const SHUT_RDWR: u32 = 2;
-pub const IPPROTO_IP: u32 = 0;
-pub const IPPROTO_HOPOPTS: u32 = 0;
-pub const IPPROTO_ICMP: u32 = 1;
-pub const IPPROTO_IGMP: u32 = 2;
-pub const IPPROTO_GGP: u32 = 3;
-pub const IPPROTO_IPV4: u32 = 4;
-pub const IPPROTO_IPIP: u32 = 4;
-pub const IPPROTO_TCP: u32 = 6;
-pub const IPPROTO_ST: u32 = 7;
-pub const IPPROTO_EGP: u32 = 8;
-pub const IPPROTO_PIGP: u32 = 9;
-pub const IPPROTO_RCCMON: u32 = 10;
-pub const IPPROTO_NVPII: u32 = 11;
-pub const IPPROTO_PUP: u32 = 12;
-pub const IPPROTO_ARGUS: u32 = 13;
-pub const IPPROTO_EMCON: u32 = 14;
-pub const IPPROTO_XNET: u32 = 15;
-pub const IPPROTO_CHAOS: u32 = 16;
-pub const IPPROTO_UDP: u32 = 17;
-pub const IPPROTO_MUX: u32 = 18;
-pub const IPPROTO_MEAS: u32 = 19;
-pub const IPPROTO_HMP: u32 = 20;
-pub const IPPROTO_PRM: u32 = 21;
-pub const IPPROTO_IDP: u32 = 22;
-pub const IPPROTO_TRUNK1: u32 = 23;
-pub const IPPROTO_TRUNK2: u32 = 24;
-pub const IPPROTO_LEAF1: u32 = 25;
-pub const IPPROTO_LEAF2: u32 = 26;
-pub const IPPROTO_RDP: u32 = 27;
-pub const IPPROTO_IRTP: u32 = 28;
-pub const IPPROTO_TP: u32 = 29;
-pub const IPPROTO_BLT: u32 = 30;
-pub const IPPROTO_NSP: u32 = 31;
-pub const IPPROTO_INP: u32 = 32;
-pub const IPPROTO_SEP: u32 = 33;
-pub const IPPROTO_3PC: u32 = 34;
-pub const IPPROTO_IDPR: u32 = 35;
-pub const IPPROTO_XTP: u32 = 36;
-pub const IPPROTO_DDP: u32 = 37;
-pub const IPPROTO_CMTP: u32 = 38;
-pub const IPPROTO_TPXX: u32 = 39;
-pub const IPPROTO_IL: u32 = 40;
-pub const IPPROTO_IPV6: u32 = 41;
-pub const IPPROTO_SDRP: u32 = 42;
-pub const IPPROTO_ROUTING: u32 = 43;
-pub const IPPROTO_FRAGMENT: u32 = 44;
-pub const IPPROTO_IDRP: u32 = 45;
-pub const IPPROTO_RSVP: u32 = 46;
-pub const IPPROTO_GRE: u32 = 47;
-pub const IPPROTO_MHRP: u32 = 48;
-pub const IPPROTO_BHA: u32 = 49;
-pub const IPPROTO_ESP: u32 = 50;
-pub const IPPROTO_AH: u32 = 51;
-pub const IPPROTO_INLSP: u32 = 52;
-pub const IPPROTO_SWIPE: u32 = 53;
-pub const IPPROTO_NHRP: u32 = 54;
-pub const IPPROTO_ICMPV6: u32 = 58;
-pub const IPPROTO_NONE: u32 = 59;
-pub const IPPROTO_DSTOPTS: u32 = 60;
-pub const IPPROTO_AHIP: u32 = 61;
-pub const IPPROTO_CFTP: u32 = 62;
-pub const IPPROTO_HELLO: u32 = 63;
-pub const IPPROTO_SATEXPAK: u32 = 64;
-pub const IPPROTO_KRYPTOLAN: u32 = 65;
-pub const IPPROTO_RVD: u32 = 66;
-pub const IPPROTO_IPPC: u32 = 67;
-pub const IPPROTO_ADFS: u32 = 68;
-pub const IPPROTO_SATMON: u32 = 69;
-pub const IPPROTO_VISA: u32 = 70;
-pub const IPPROTO_IPCV: u32 = 71;
-pub const IPPROTO_CPNX: u32 = 72;
-pub const IPPROTO_CPHB: u32 = 73;
-pub const IPPROTO_WSN: u32 = 74;
-pub const IPPROTO_PVP: u32 = 75;
-pub const IPPROTO_BRSATMON: u32 = 76;
-pub const IPPROTO_ND: u32 = 77;
-pub const IPPROTO_WBMON: u32 = 78;
-pub const IPPROTO_WBEXPAK: u32 = 79;
-pub const IPPROTO_EON: u32 = 80;
-pub const IPPROTO_VMTP: u32 = 81;
-pub const IPPROTO_SVMTP: u32 = 82;
-pub const IPPROTO_VINES: u32 = 83;
-pub const IPPROTO_TTP: u32 = 84;
-pub const IPPROTO_IGP: u32 = 85;
-pub const IPPROTO_DGP: u32 = 86;
-pub const IPPROTO_TCF: u32 = 87;
-pub const IPPROTO_IGRP: u32 = 88;
-pub const IPPROTO_OSPFIGP: u32 = 89;
-pub const IPPROTO_SRPC: u32 = 90;
-pub const IPPROTO_LARP: u32 = 91;
-pub const IPPROTO_MTP: u32 = 92;
-pub const IPPROTO_AX25: u32 = 93;
-pub const IPPROTO_IPEIP: u32 = 94;
-pub const IPPROTO_MICP: u32 = 95;
-pub const IPPROTO_SCCSP: u32 = 96;
-pub const IPPROTO_ETHERIP: u32 = 97;
-pub const IPPROTO_ENCAP: u32 = 98;
-pub const IPPROTO_APES: u32 = 99;
-pub const IPPROTO_GMTP: u32 = 100;
-pub const IPPROTO_PIM: u32 = 103;
-pub const IPPROTO_IPCOMP: u32 = 108;
-pub const IPPROTO_PGM: u32 = 113;
-pub const IPPROTO_SCTP: u32 = 132;
-pub const IPPROTO_DIVERT: u32 = 254;
-pub const IPPROTO_RAW: u32 = 255;
-pub const IPPROTO_MAX: u32 = 256;
-pub const IPPROTO_DONE: u32 = 257;
-pub const __DARWIN_IPPORT_RESERVED: u32 = 1024;
-pub const IPPORT_RESERVED: u32 = 1024;
-pub const IPPORT_USERRESERVED: u32 = 5000;
-pub const IPPORT_HIFIRSTAUTO: u32 = 49152;
-pub const IPPORT_HILASTAUTO: u32 = 65535;
-pub const IPPORT_RESERVEDSTART: u32 = 600;
-pub const IN_CLASSA_NET: u32 = 4278190080;
-pub const IN_CLASSA_NSHIFT: u32 = 24;
-pub const IN_CLASSA_HOST: u32 = 16777215;
-pub const IN_CLASSA_MAX: u32 = 128;
-pub const IN_CLASSB_NET: u32 = 4294901760;
-pub const IN_CLASSB_NSHIFT: u32 = 16;
-pub const IN_CLASSB_HOST: u32 = 65535;
-pub const IN_CLASSB_MAX: u32 = 65536;
-pub const IN_CLASSC_NET: u32 = 4294967040;
-pub const IN_CLASSC_NSHIFT: u32 = 8;
-pub const IN_CLASSC_HOST: u32 = 255;
-pub const IN_CLASSD_NET: u32 = 4026531840;
-pub const IN_CLASSD_NSHIFT: u32 = 28;
-pub const IN_CLASSD_HOST: u32 = 268435455;
-pub const INADDR_NONE: u32 = 4294967295;
-pub const IN_LOOPBACKNET: u32 = 127;
-pub const INET_ADDRSTRLEN: u32 = 16;
-pub const IP_OPTIONS: u32 = 1;
-pub const IP_HDRINCL: u32 = 2;
-pub const IP_TOS: u32 = 3;
-pub const IP_TTL: u32 = 4;
-pub const IP_RECVOPTS: u32 = 5;
-pub const IP_RECVRETOPTS: u32 = 6;
-pub const IP_RECVDSTADDR: u32 = 7;
-pub const IP_RETOPTS: u32 = 8;
-pub const IP_MULTICAST_IF: u32 = 9;
-pub const IP_MULTICAST_TTL: u32 = 10;
-pub const IP_MULTICAST_LOOP: u32 = 11;
-pub const IP_ADD_MEMBERSHIP: u32 = 12;
-pub const IP_DROP_MEMBERSHIP: u32 = 13;
-pub const IP_MULTICAST_VIF: u32 = 14;
-pub const IP_RSVP_ON: u32 = 15;
-pub const IP_RSVP_OFF: u32 = 16;
-pub const IP_RSVP_VIF_ON: u32 = 17;
-pub const IP_RSVP_VIF_OFF: u32 = 18;
-pub const IP_PORTRANGE: u32 = 19;
-pub const IP_RECVIF: u32 = 20;
-pub const IP_IPSEC_POLICY: u32 = 21;
-pub const IP_FAITH: u32 = 22;
-pub const IP_STRIPHDR: u32 = 23;
-pub const IP_RECVTTL: u32 = 24;
-pub const IP_BOUND_IF: u32 = 25;
-pub const IP_PKTINFO: u32 = 26;
-pub const IP_RECVPKTINFO: u32 = 26;
-pub const IP_RECVTOS: u32 = 27;
-pub const IP_DONTFRAG: u32 = 28;
-pub const IP_FW_ADD: u32 = 40;
-pub const IP_FW_DEL: u32 = 41;
-pub const IP_FW_FLUSH: u32 = 42;
-pub const IP_FW_ZERO: u32 = 43;
-pub const IP_FW_GET: u32 = 44;
-pub const IP_FW_RESETLOG: u32 = 45;
-pub const IP_OLD_FW_ADD: u32 = 50;
-pub const IP_OLD_FW_DEL: u32 = 51;
-pub const IP_OLD_FW_FLUSH: u32 = 52;
-pub const IP_OLD_FW_ZERO: u32 = 53;
-pub const IP_OLD_FW_GET: u32 = 54;
-pub const IP_NAT__XXX: u32 = 55;
-pub const IP_OLD_FW_RESETLOG: u32 = 56;
-pub const IP_DUMMYNET_CONFIGURE: u32 = 60;
-pub const IP_DUMMYNET_DEL: u32 = 61;
-pub const IP_DUMMYNET_FLUSH: u32 = 62;
-pub const IP_DUMMYNET_GET: u32 = 64;
-pub const IP_TRAFFIC_MGT_BACKGROUND: u32 = 65;
-pub const IP_MULTICAST_IFINDEX: u32 = 66;
-pub const IP_ADD_SOURCE_MEMBERSHIP: u32 = 70;
-pub const IP_DROP_SOURCE_MEMBERSHIP: u32 = 71;
-pub const IP_BLOCK_SOURCE: u32 = 72;
-pub const IP_UNBLOCK_SOURCE: u32 = 73;
-pub const IP_MSFILTER: u32 = 74;
-pub const MCAST_JOIN_GROUP: u32 = 80;
-pub const MCAST_LEAVE_GROUP: u32 = 81;
-pub const MCAST_JOIN_SOURCE_GROUP: u32 = 82;
-pub const MCAST_LEAVE_SOURCE_GROUP: u32 = 83;
-pub const MCAST_BLOCK_SOURCE: u32 = 84;
-pub const MCAST_UNBLOCK_SOURCE: u32 = 85;
-pub const IP_DEFAULT_MULTICAST_TTL: u32 = 1;
-pub const IP_DEFAULT_MULTICAST_LOOP: u32 = 1;
-pub const IP_MIN_MEMBERSHIPS: u32 = 31;
-pub const IP_MAX_MEMBERSHIPS: u32 = 4095;
-pub const IP_MAX_GROUP_SRC_FILTER: u32 = 512;
-pub const IP_MAX_SOCK_SRC_FILTER: u32 = 128;
-pub const IP_MAX_SOCK_MUTE_FILTER: u32 = 128;
-pub const MCAST_UNDEFINED: u32 = 0;
-pub const MCAST_INCLUDE: u32 = 1;
-pub const MCAST_EXCLUDE: u32 = 2;
-pub const IP_PORTRANGE_DEFAULT: u32 = 0;
-pub const IP_PORTRANGE_HIGH: u32 = 1;
-pub const IP_PORTRANGE_LOW: u32 = 2;
-pub const IPPROTO_MAXID: u32 = 52;
-pub const IPCTL_FORWARDING: u32 = 1;
-pub const IPCTL_SENDREDIRECTS: u32 = 2;
-pub const IPCTL_DEFTTL: u32 = 3;
-pub const IPCTL_RTEXPIRE: u32 = 5;
-pub const IPCTL_RTMINEXPIRE: u32 = 6;
-pub const IPCTL_RTMAXCACHE: u32 = 7;
-pub const IPCTL_SOURCEROUTE: u32 = 8;
-pub const IPCTL_DIRECTEDBROADCAST: u32 = 9;
-pub const IPCTL_INTRQMAXLEN: u32 = 10;
-pub const IPCTL_INTRQDROPS: u32 = 11;
-pub const IPCTL_STATS: u32 = 12;
-pub const IPCTL_ACCEPTSOURCEROUTE: u32 = 13;
-pub const IPCTL_FASTFORWARDING: u32 = 14;
-pub const IPCTL_KEEPFAITH: u32 = 15;
-pub const IPCTL_GIF_TTL: u32 = 16;
-pub const IPCTL_MAXID: u32 = 17;
-pub const __KAME_VERSION: &[u8; 18] = b"2009/apple-darwin\0";
-pub const IPV6PORT_RESERVED: u32 = 1024;
-pub const IPV6PORT_ANONMIN: u32 = 49152;
-pub const IPV6PORT_ANONMAX: u32 = 65535;
-pub const IPV6PORT_RESERVEDMIN: u32 = 600;
-pub const IPV6PORT_RESERVEDMAX: u32 = 1023;
-pub const INET6_ADDRSTRLEN: u32 = 46;
-pub const __IPV6_ADDR_SCOPE_NODELOCAL: u32 = 1;
-pub const __IPV6_ADDR_SCOPE_INTFACELOCAL: u32 = 1;
-pub const __IPV6_ADDR_SCOPE_LINKLOCAL: u32 = 2;
-pub const __IPV6_ADDR_SCOPE_SITELOCAL: u32 = 5;
-pub const __IPV6_ADDR_SCOPE_ORGLOCAL: u32 = 8;
-pub const __IPV6_ADDR_SCOPE_GLOBAL: u32 = 14;
-pub const IPV6_ADDR_MC_FLAGS_TRANSIENT: u32 = 16;
-pub const IPV6_ADDR_MC_FLAGS_PREFIX: u32 = 32;
-pub const IPV6_ADDR_MC_FLAGS_UNICAST_BASED: u32 = 48;
-pub const IPV6_SOCKOPT_RESERVED1: u32 = 3;
-pub const IPV6_UNICAST_HOPS: u32 = 4;
-pub const IPV6_MULTICAST_IF: u32 = 9;
-pub const IPV6_MULTICAST_HOPS: u32 = 10;
-pub const IPV6_MULTICAST_LOOP: u32 = 11;
-pub const IPV6_JOIN_GROUP: u32 = 12;
-pub const IPV6_LEAVE_GROUP: u32 = 13;
-pub const IPV6_PORTRANGE: u32 = 14;
-pub const ICMP6_FILTER: u32 = 18;
-pub const IPV6_2292PKTINFO: u32 = 19;
-pub const IPV6_2292HOPLIMIT: u32 = 20;
-pub const IPV6_2292NEXTHOP: u32 = 21;
-pub const IPV6_2292HOPOPTS: u32 = 22;
-pub const IPV6_2292DSTOPTS: u32 = 23;
-pub const IPV6_2292RTHDR: u32 = 24;
-pub const IPV6_2292PKTOPTIONS: u32 = 25;
-pub const IPV6_CHECKSUM: u32 = 26;
-pub const IPV6_V6ONLY: u32 = 27;
-pub const IPV6_BINDV6ONLY: u32 = 27;
-pub const IPV6_IPSEC_POLICY: u32 = 28;
-pub const IPV6_FAITH: u32 = 29;
-pub const IPV6_FW_ADD: u32 = 30;
-pub const IPV6_FW_DEL: u32 = 31;
-pub const IPV6_FW_FLUSH: u32 = 32;
-pub const IPV6_FW_ZERO: u32 = 33;
-pub const IPV6_FW_GET: u32 = 34;
-pub const IPV6_RECVTCLASS: u32 = 35;
-pub const IPV6_TCLASS: u32 = 36;
-pub const IPV6_BOUND_IF: u32 = 125;
-pub const IPV6_RTHDR_LOOSE: u32 = 0;
-pub const IPV6_RTHDR_STRICT: u32 = 1;
-pub const IPV6_RTHDR_TYPE_0: u32 = 0;
-pub const IPV6_DEFAULT_MULTICAST_HOPS: u32 = 1;
-pub const IPV6_DEFAULT_MULTICAST_LOOP: u32 = 1;
-pub const IPV6_MIN_MEMBERSHIPS: u32 = 31;
-pub const IPV6_MAX_MEMBERSHIPS: u32 = 4095;
-pub const IPV6_MAX_GROUP_SRC_FILTER: u32 = 512;
-pub const IPV6_MAX_SOCK_SRC_FILTER: u32 = 128;
-pub const IPV6_PORTRANGE_DEFAULT: u32 = 0;
-pub const IPV6_PORTRANGE_HIGH: u32 = 1;
-pub const IPV6_PORTRANGE_LOW: u32 = 2;
-pub const IPV6PROTO_MAXID: u32 = 104;
-pub const IPV6CTL_FORWARDING: u32 = 1;
-pub const IPV6CTL_SENDREDIRECTS: u32 = 2;
-pub const IPV6CTL_DEFHLIM: u32 = 3;
-pub const IPV6CTL_FORWSRCRT: u32 = 5;
-pub const IPV6CTL_STATS: u32 = 6;
-pub const IPV6CTL_MRTSTATS: u32 = 7;
-pub const IPV6CTL_MRTPROTO: u32 = 8;
-pub const IPV6CTL_MAXFRAGPACKETS: u32 = 9;
-pub const IPV6CTL_SOURCECHECK: u32 = 10;
-pub const IPV6CTL_SOURCECHECK_LOGINT: u32 = 11;
-pub const IPV6CTL_ACCEPT_RTADV: u32 = 12;
-pub const IPV6CTL_KEEPFAITH: u32 = 13;
-pub const IPV6CTL_LOG_INTERVAL: u32 = 14;
-pub const IPV6CTL_HDRNESTLIMIT: u32 = 15;
-pub const IPV6CTL_DAD_COUNT: u32 = 16;
-pub const IPV6CTL_AUTO_FLOWLABEL: u32 = 17;
-pub const IPV6CTL_DEFMCASTHLIM: u32 = 18;
-pub const IPV6CTL_GIF_HLIM: u32 = 19;
-pub const IPV6CTL_KAME_VERSION: u32 = 20;
-pub const IPV6CTL_USE_DEPRECATED: u32 = 21;
-pub const IPV6CTL_RR_PRUNE: u32 = 22;
-pub const IPV6CTL_V6ONLY: u32 = 24;
-pub const IPV6CTL_RTEXPIRE: u32 = 25;
-pub const IPV6CTL_RTMINEXPIRE: u32 = 26;
-pub const IPV6CTL_RTMAXCACHE: u32 = 27;
-pub const IPV6CTL_USETEMPADDR: u32 = 32;
-pub const IPV6CTL_TEMPPLTIME: u32 = 33;
-pub const IPV6CTL_TEMPVLTIME: u32 = 34;
-pub const IPV6CTL_AUTO_LINKLOCAL: u32 = 35;
-pub const IPV6CTL_RIP6STATS: u32 = 36;
-pub const IPV6CTL_PREFER_TEMPADDR: u32 = 37;
-pub const IPV6CTL_ADDRCTLPOLICY: u32 = 38;
-pub const IPV6CTL_USE_DEFAULTZONE: u32 = 39;
-pub const IPV6CTL_MAXFRAGS: u32 = 41;
-pub const IPV6CTL_MCAST_PMTU: u32 = 44;
-pub const IPV6CTL_NEIGHBORGCTHRESH: u32 = 46;
-pub const IPV6CTL_MAXIFPREFIXES: u32 = 47;
-pub const IPV6CTL_MAXIFDEFROUTERS: u32 = 48;
-pub const IPV6CTL_MAXDYNROUTES: u32 = 49;
-pub const ICMPV6CTL_ND6_ONLINKNSRFC4861: u32 = 50;
-pub const IPV6CTL_ULA_USETEMPADDR: u32 = 51;
-pub const IPV6CTL_MAXID: u32 = 51;
 pub const LYD_VALUE_FIXED_MEM_SIZE: u32 = 24;
 pub const LYPLG_SUFFIX: &[u8; 4] = b".so\0";
-pub const LYPLG_TYPE_DIR: &[u8; 29] = b"/usr/local/lib/libyang/types\0";
-pub const LYPLG_EXT_DIR: &[u8; 34] = b"/usr/local/lib/libyang/extensions\0";
 pub const LY_LOLOG: u32 = 1;
 pub const LY_LOSTORE: u32 = 2;
 pub const LY_LOSTORE_LAST: u32 = 6;
 pub const LY_LDGDICT: u32 = 1;
 pub const LY_LDGXPATH: u32 = 2;
 pub const LY_LDGDEPSETS: u32 = 4;
-pub const __DARWIN_WCHAR_MIN: i32 = -2147483648;
-pub const _FORTIFY_SOURCE: u32 = 2;
-pub const TIME_UTC: u32 = 1;
-pub const __PRI_8_LENGTH_MODIFIER__: &[u8; 3] = b"hh\0";
-pub const __PRI_64_LENGTH_MODIFIER__: &[u8; 3] = b"ll\0";
-pub const __SCN_64_LENGTH_MODIFIER__: &[u8; 3] = b"ll\0";
-pub const __PRI_MAX_LENGTH_MODIFIER__: &[u8; 2] = b"j\0";
-pub const __SCN_MAX_LENGTH_MODIFIER__: &[u8; 2] = b"j\0";
-pub const PRId8: &[u8; 4] = b"hhd\0";
-pub const PRIi8: &[u8; 4] = b"hhi\0";
-pub const PRIo8: &[u8; 4] = b"hho\0";
-pub const PRIu8: &[u8; 4] = b"hhu\0";
-pub const PRIx8: &[u8; 4] = b"hhx\0";
-pub const PRIX8: &[u8; 4] = b"hhX\0";
-pub const PRId16: &[u8; 3] = b"hd\0";
-pub const PRIi16: &[u8; 3] = b"hi\0";
-pub const PRIo16: &[u8; 3] = b"ho\0";
-pub const PRIu16: &[u8; 3] = b"hu\0";
-pub const PRIx16: &[u8; 3] = b"hx\0";
-pub const PRIX16: &[u8; 3] = b"hX\0";
-pub const PRId32: &[u8; 2] = b"d\0";
-pub const PRIi32: &[u8; 2] = b"i\0";
-pub const PRIo32: &[u8; 2] = b"o\0";
-pub const PRIu32: &[u8; 2] = b"u\0";
-pub const PRIx32: &[u8; 2] = b"x\0";
-pub const PRIX32: &[u8; 2] = b"X\0";
-pub const PRId64: &[u8; 4] = b"lld\0";
-pub const PRIi64: &[u8; 4] = b"lli\0";
-pub const PRIo64: &[u8; 4] = b"llo\0";
-pub const PRIu64: &[u8; 4] = b"llu\0";
-pub const PRIx64: &[u8; 4] = b"llx\0";
-pub const PRIX64: &[u8; 4] = b"llX\0";
-pub const PRIdLEAST8: &[u8; 4] = b"hhd\0";
-pub const PRIiLEAST8: &[u8; 4] = b"hhi\0";
-pub const PRIoLEAST8: &[u8; 4] = b"hho\0";
-pub const PRIuLEAST8: &[u8; 4] = b"hhu\0";
-pub const PRIxLEAST8: &[u8; 4] = b"hhx\0";
-pub const PRIXLEAST8: &[u8; 4] = b"hhX\0";
-pub const PRIdLEAST16: &[u8; 3] = b"hd\0";
-pub const PRIiLEAST16: &[u8; 3] = b"hi\0";
-pub const PRIoLEAST16: &[u8; 3] = b"ho\0";
-pub const PRIuLEAST16: &[u8; 3] = b"hu\0";
-pub const PRIxLEAST16: &[u8; 3] = b"hx\0";
-pub const PRIXLEAST16: &[u8; 3] = b"hX\0";
-pub const PRIdLEAST32: &[u8; 2] = b"d\0";
-pub const PRIiLEAST32: &[u8; 2] = b"i\0";
-pub const PRIoLEAST32: &[u8; 2] = b"o\0";
-pub const PRIuLEAST32: &[u8; 2] = b"u\0";
-pub const PRIxLEAST32: &[u8; 2] = b"x\0";
-pub const PRIXLEAST32: &[u8; 2] = b"X\0";
-pub const PRIdLEAST64: &[u8; 4] = b"lld\0";
-pub const PRIiLEAST64: &[u8; 4] = b"lli\0";
-pub const PRIoLEAST64: &[u8; 4] = b"llo\0";
-pub const PRIuLEAST64: &[u8; 4] = b"llu\0";
-pub const PRIxLEAST64: &[u8; 4] = b"llx\0";
-pub const PRIXLEAST64: &[u8; 4] = b"llX\0";
-pub const PRIdFAST8: &[u8; 4] = b"hhd\0";
-pub const PRIiFAST8: &[u8; 4] = b"hhi\0";
-pub const PRIoFAST8: &[u8; 4] = b"hho\0";
-pub const PRIuFAST8: &[u8; 4] = b"hhu\0";
-pub const PRIxFAST8: &[u8; 4] = b"hhx\0";
-pub const PRIXFAST8: &[u8; 4] = b"hhX\0";
-pub const PRIdFAST16: &[u8; 3] = b"hd\0";
-pub const PRIiFAST16: &[u8; 3] = b"hi\0";
-pub const PRIoFAST16: &[u8; 3] = b"ho\0";
-pub const PRIuFAST16: &[u8; 3] = b"hu\0";
-pub const PRIxFAST16: &[u8; 3] = b"hx\0";
-pub const PRIXFAST16: &[u8; 3] = b"hX\0";
-pub const PRIdFAST32: &[u8; 2] = b"d\0";
-pub const PRIiFAST32: &[u8; 2] = b"i\0";
-pub const PRIoFAST32: &[u8; 2] = b"o\0";
-pub const PRIuFAST32: &[u8; 2] = b"u\0";
-pub const PRIxFAST32: &[u8; 2] = b"x\0";
-pub const PRIXFAST32: &[u8; 2] = b"X\0";
-pub const PRIdFAST64: &[u8; 4] = b"lld\0";
-pub const PRIiFAST64: &[u8; 4] = b"lli\0";
-pub const PRIoFAST64: &[u8; 4] = b"llo\0";
-pub const PRIuFAST64: &[u8; 4] = b"llu\0";
-pub const PRIxFAST64: &[u8; 4] = b"llx\0";
-pub const PRIXFAST64: &[u8; 4] = b"llX\0";
-pub const PRIdPTR: &[u8; 3] = b"ld\0";
-pub const PRIiPTR: &[u8; 3] = b"li\0";
-pub const PRIoPTR: &[u8; 3] = b"lo\0";
-pub const PRIuPTR: &[u8; 3] = b"lu\0";
-pub const PRIxPTR: &[u8; 3] = b"lx\0";
-pub const PRIXPTR: &[u8; 3] = b"lX\0";
-pub const PRIdMAX: &[u8; 3] = b"jd\0";
-pub const PRIiMAX: &[u8; 3] = b"ji\0";
-pub const PRIoMAX: &[u8; 3] = b"jo\0";
-pub const PRIuMAX: &[u8; 3] = b"ju\0";
-pub const PRIxMAX: &[u8; 3] = b"jx\0";
-pub const PRIXMAX: &[u8; 3] = b"jX\0";
-pub const SCNd8: &[u8; 4] = b"hhd\0";
-pub const SCNi8: &[u8; 4] = b"hhi\0";
-pub const SCNo8: &[u8; 4] = b"hho\0";
-pub const SCNu8: &[u8; 4] = b"hhu\0";
-pub const SCNx8: &[u8; 4] = b"hhx\0";
-pub const SCNd16: &[u8; 3] = b"hd\0";
-pub const SCNi16: &[u8; 3] = b"hi\0";
-pub const SCNo16: &[u8; 3] = b"ho\0";
-pub const SCNu16: &[u8; 3] = b"hu\0";
-pub const SCNx16: &[u8; 3] = b"hx\0";
-pub const SCNd32: &[u8; 2] = b"d\0";
-pub const SCNi32: &[u8; 2] = b"i\0";
-pub const SCNo32: &[u8; 2] = b"o\0";
-pub const SCNu32: &[u8; 2] = b"u\0";
-pub const SCNx32: &[u8; 2] = b"x\0";
-pub const SCNd64: &[u8; 4] = b"lld\0";
-pub const SCNi64: &[u8; 4] = b"lli\0";
-pub const SCNo64: &[u8; 4] = b"llo\0";
-pub const SCNu64: &[u8; 4] = b"llu\0";
-pub const SCNx64: &[u8; 4] = b"llx\0";
-pub const SCNdLEAST8: &[u8; 4] = b"hhd\0";
-pub const SCNiLEAST8: &[u8; 4] = b"hhi\0";
-pub const SCNoLEAST8: &[u8; 4] = b"hho\0";
-pub const SCNuLEAST8: &[u8; 4] = b"hhu\0";
-pub const SCNxLEAST8: &[u8; 4] = b"hhx\0";
-pub const SCNdLEAST16: &[u8; 3] = b"hd\0";
-pub const SCNiLEAST16: &[u8; 3] = b"hi\0";
-pub const SCNoLEAST16: &[u8; 3] = b"ho\0";
-pub const SCNuLEAST16: &[u8; 3] = b"hu\0";
-pub const SCNxLEAST16: &[u8; 3] = b"hx\0";
-pub const SCNdLEAST32: &[u8; 2] = b"d\0";
-pub const SCNiLEAST32: &[u8; 2] = b"i\0";
-pub const SCNoLEAST32: &[u8; 2] = b"o\0";
-pub const SCNuLEAST32: &[u8; 2] = b"u\0";
-pub const SCNxLEAST32: &[u8; 2] = b"x\0";
-pub const SCNdLEAST64: &[u8; 4] = b"lld\0";
-pub const SCNiLEAST64: &[u8; 4] = b"lli\0";
-pub const SCNoLEAST64: &[u8; 4] = b"llo\0";
-pub const SCNuLEAST64: &[u8; 4] = b"llu\0";
-pub const SCNxLEAST64: &[u8; 4] = b"llx\0";
-pub const SCNdFAST8: &[u8; 4] = b"hhd\0";
-pub const SCNiFAST8: &[u8; 4] = b"hhi\0";
-pub const SCNoFAST8: &[u8; 4] = b"hho\0";
-pub const SCNuFAST8: &[u8; 4] = b"hhu\0";
-pub const SCNxFAST8: &[u8; 4] = b"hhx\0";
-pub const SCNdFAST16: &[u8; 3] = b"hd\0";
-pub const SCNiFAST16: &[u8; 3] = b"hi\0";
-pub const SCNoFAST16: &[u8; 3] = b"ho\0";
-pub const SCNuFAST16: &[u8; 3] = b"hu\0";
-pub const SCNxFAST16: &[u8; 3] = b"hx\0";
-pub const SCNdFAST32: &[u8; 2] = b"d\0";
-pub const SCNiFAST32: &[u8; 2] = b"i\0";
-pub const SCNoFAST32: &[u8; 2] = b"o\0";
-pub const SCNuFAST32: &[u8; 2] = b"u\0";
-pub const SCNxFAST32: &[u8; 2] = b"x\0";
-pub const SCNdFAST64: &[u8; 4] = b"lld\0";
-pub const SCNiFAST64: &[u8; 4] = b"lli\0";
-pub const SCNoFAST64: &[u8; 4] = b"llo\0";
-pub const SCNuFAST64: &[u8; 4] = b"llu\0";
-pub const SCNxFAST64: &[u8; 4] = b"llx\0";
-pub const SCNdPTR: &[u8; 3] = b"ld\0";
-pub const SCNiPTR: &[u8; 3] = b"li\0";
-pub const SCNoPTR: &[u8; 3] = b"lo\0";
-pub const SCNuPTR: &[u8; 3] = b"lu\0";
-pub const SCNxPTR: &[u8; 3] = b"lx\0";
-pub const SCNdMAX: &[u8; 3] = b"jd\0";
-pub const SCNiMAX: &[u8; 3] = b"ji\0";
-pub const SCNoMAX: &[u8; 3] = b"jo\0";
-pub const SCNuMAX: &[u8; 3] = b"ju\0";
-pub const SCNxMAX: &[u8; 3] = b"jx\0";
-pub const LY_PRI_ARRAY_COUNT_TYPE: &[u8; 4] = b"llu\0";
+pub const LY_PRI_ARRAY_COUNT_TYPE: &[u8; 3] = b"lu\0";
 pub const LY_DATA_TYPE_COUNT: u32 = 20;
-pub const USE_CLANG_STDARG: u32 = 0;
-pub const RENAME_SECLUDE: u32 = 1;
-pub const RENAME_SWAP: u32 = 2;
-pub const RENAME_EXCL: u32 = 4;
-pub const RENAME_RESERVED1: u32 = 8;
-pub const RENAME_NOFOLLOW_ANY: u32 = 16;
-pub const RENAME_RESOLVE_BENEATH: u32 = 32;
-pub const SEEK_SET: u32 = 0;
-pub const SEEK_CUR: u32 = 1;
-pub const SEEK_END: u32 = 2;
-pub const SEEK_HOLE: u32 = 3;
-pub const SEEK_DATA: u32 = 4;
-pub const __SLBF: u32 = 1;
-pub const __SNBF: u32 = 2;
-pub const __SRD: u32 = 4;
-pub const __SWR: u32 = 8;
-pub const __SRW: u32 = 16;
-pub const __SEOF: u32 = 32;
-pub const __SERR: u32 = 64;
-pub const __SMBF: u32 = 128;
-pub const __SAPP: u32 = 256;
-pub const __SSTR: u32 = 512;
-pub const __SOPT: u32 = 1024;
-pub const __SNPT: u32 = 2048;
-pub const __SOFF: u32 = 4096;
-pub const __SMOD: u32 = 8192;
-pub const __SALC: u32 = 16384;
-pub const __SIGN: u32 = 32768;
-pub const _IOFBF: u32 = 0;
-pub const _IOLBF: u32 = 1;
-pub const _IONBF: u32 = 2;
-pub const BUFSIZ: u32 = 1024;
-pub const EOF: i32 = -1;
-pub const FOPEN_MAX: u32 = 20;
-pub const FILENAME_MAX: u32 = 1024;
-pub const P_tmpdir: &[u8; 10] = b"/var/tmp/\0";
-pub const L_tmpnam: u32 = 1024;
-pub const TMP_MAX: u32 = 308915776;
-pub const L_ctermid: u32 = 1024;
-pub const _USE_FORTIFY_LEVEL: u32 = 2;
 pub const LY_REV_SIZE: u32 = 11;
 pub const LYS_UNKNOWN: u32 = 0;
 pub const LYS_CONTAINER: u32 = 1;
@@ -1671,219 +347,6 @@ pub const LYD_VALIDATE_OPERATIONAL: u32 = 8;
 pub const LYD_VALIDATE_NO_DEFAULTS: u32 = 16;
 pub const LYD_VALIDATE_NOT_FINAL: u32 = 32;
 pub const LYD_VALIDATE_OPTS_MASK: u32 = 65535;
-pub const __DARWIN_NSIG: u32 = 32;
-pub const NSIG: u32 = 32;
-pub const _ARM_SIGNAL_: u32 = 1;
-pub const SIGHUP: u32 = 1;
-pub const SIGINT: u32 = 2;
-pub const SIGQUIT: u32 = 3;
-pub const SIGILL: u32 = 4;
-pub const SIGTRAP: u32 = 5;
-pub const SIGABRT: u32 = 6;
-pub const SIGIOT: u32 = 6;
-pub const SIGEMT: u32 = 7;
-pub const SIGFPE: u32 = 8;
-pub const SIGKILL: u32 = 9;
-pub const SIGBUS: u32 = 10;
-pub const SIGSEGV: u32 = 11;
-pub const SIGSYS: u32 = 12;
-pub const SIGPIPE: u32 = 13;
-pub const SIGALRM: u32 = 14;
-pub const SIGTERM: u32 = 15;
-pub const SIGURG: u32 = 16;
-pub const SIGSTOP: u32 = 17;
-pub const SIGTSTP: u32 = 18;
-pub const SIGCONT: u32 = 19;
-pub const SIGCHLD: u32 = 20;
-pub const SIGTTIN: u32 = 21;
-pub const SIGTTOU: u32 = 22;
-pub const SIGIO: u32 = 23;
-pub const SIGXCPU: u32 = 24;
-pub const SIGXFSZ: u32 = 25;
-pub const SIGVTALRM: u32 = 26;
-pub const SIGPROF: u32 = 27;
-pub const SIGWINCH: u32 = 28;
-pub const SIGINFO: u32 = 29;
-pub const SIGUSR1: u32 = 30;
-pub const SIGUSR2: u32 = 31;
-pub const __DARWIN_OPAQUE_ARM_THREAD_STATE64: u32 = 0;
-pub const SIGEV_NONE: u32 = 0;
-pub const SIGEV_SIGNAL: u32 = 1;
-pub const SIGEV_THREAD: u32 = 3;
-pub const SIGEV_KEVENT: u32 = 4;
-pub const ILL_NOOP: u32 = 0;
-pub const ILL_ILLOPC: u32 = 1;
-pub const ILL_ILLTRP: u32 = 2;
-pub const ILL_PRVOPC: u32 = 3;
-pub const ILL_ILLOPN: u32 = 4;
-pub const ILL_ILLADR: u32 = 5;
-pub const ILL_PRVREG: u32 = 6;
-pub const ILL_COPROC: u32 = 7;
-pub const ILL_BADSTK: u32 = 8;
-pub const FPE_NOOP: u32 = 0;
-pub const FPE_FLTDIV: u32 = 1;
-pub const FPE_FLTOVF: u32 = 2;
-pub const FPE_FLTUND: u32 = 3;
-pub const FPE_FLTRES: u32 = 4;
-pub const FPE_FLTINV: u32 = 5;
-pub const FPE_FLTSUB: u32 = 6;
-pub const FPE_INTDIV: u32 = 7;
-pub const FPE_INTOVF: u32 = 8;
-pub const SEGV_NOOP: u32 = 0;
-pub const SEGV_MAPERR: u32 = 1;
-pub const SEGV_ACCERR: u32 = 2;
-pub const BUS_NOOP: u32 = 0;
-pub const BUS_ADRALN: u32 = 1;
-pub const BUS_ADRERR: u32 = 2;
-pub const BUS_OBJERR: u32 = 3;
-pub const TRAP_BRKPT: u32 = 1;
-pub const TRAP_TRACE: u32 = 2;
-pub const CLD_NOOP: u32 = 0;
-pub const CLD_EXITED: u32 = 1;
-pub const CLD_KILLED: u32 = 2;
-pub const CLD_DUMPED: u32 = 3;
-pub const CLD_TRAPPED: u32 = 4;
-pub const CLD_STOPPED: u32 = 5;
-pub const CLD_CONTINUED: u32 = 6;
-pub const POLL_IN: u32 = 1;
-pub const POLL_OUT: u32 = 2;
-pub const POLL_MSG: u32 = 3;
-pub const POLL_ERR: u32 = 4;
-pub const POLL_PRI: u32 = 5;
-pub const POLL_HUP: u32 = 6;
-pub const SA_ONSTACK: u32 = 1;
-pub const SA_RESTART: u32 = 2;
-pub const SA_RESETHAND: u32 = 4;
-pub const SA_NOCLDSTOP: u32 = 8;
-pub const SA_NODEFER: u32 = 16;
-pub const SA_NOCLDWAIT: u32 = 32;
-pub const SA_SIGINFO: u32 = 64;
-pub const SA_USERTRAMP: u32 = 256;
-pub const SA_64REGSET: u32 = 512;
-pub const SA_USERSPACE_MASK: u32 = 127;
-pub const SIG_BLOCK: u32 = 1;
-pub const SIG_UNBLOCK: u32 = 2;
-pub const SIG_SETMASK: u32 = 3;
-pub const SI_USER: u32 = 65537;
-pub const SI_QUEUE: u32 = 65538;
-pub const SI_TIMER: u32 = 65539;
-pub const SI_ASYNCIO: u32 = 65540;
-pub const SI_MESGQ: u32 = 65541;
-pub const SS_ONSTACK: u32 = 1;
-pub const SS_DISABLE: u32 = 4;
-pub const MINSIGSTKSZ: u32 = 32768;
-pub const SIGSTKSZ: u32 = 131072;
-pub const SV_ONSTACK: u32 = 1;
-pub const SV_INTERRUPT: u32 = 2;
-pub const SV_RESETHAND: u32 = 4;
-pub const SV_NODEFER: u32 = 16;
-pub const SV_NOCLDSTOP: u32 = 8;
-pub const SV_SIGINFO: u32 = 64;
-pub const PRIO_PROCESS: u32 = 0;
-pub const PRIO_PGRP: u32 = 1;
-pub const PRIO_USER: u32 = 2;
-pub const PRIO_DARWIN_THREAD: u32 = 3;
-pub const PRIO_DARWIN_PROCESS: u32 = 4;
-pub const PRIO_MIN: i32 = -20;
-pub const PRIO_MAX: u32 = 20;
-pub const PRIO_DARWIN_BG: u32 = 4096;
-pub const PRIO_DARWIN_NONUI: u32 = 4097;
-pub const RUSAGE_SELF: u32 = 0;
-pub const RUSAGE_CHILDREN: i32 = -1;
-pub const RUSAGE_INFO_V0: u32 = 0;
-pub const RUSAGE_INFO_V1: u32 = 1;
-pub const RUSAGE_INFO_V2: u32 = 2;
-pub const RUSAGE_INFO_V3: u32 = 3;
-pub const RUSAGE_INFO_V4: u32 = 4;
-pub const RUSAGE_INFO_V5: u32 = 5;
-pub const RUSAGE_INFO_V6: u32 = 6;
-pub const RUSAGE_INFO_CURRENT: u32 = 6;
-pub const RU_PROC_RUNS_RESLIDE: u32 = 1;
-pub const RLIMIT_CPU: u32 = 0;
-pub const RLIMIT_FSIZE: u32 = 1;
-pub const RLIMIT_DATA: u32 = 2;
-pub const RLIMIT_STACK: u32 = 3;
-pub const RLIMIT_CORE: u32 = 4;
-pub const RLIMIT_AS: u32 = 5;
-pub const RLIMIT_RSS: u32 = 5;
-pub const RLIMIT_MEMLOCK: u32 = 6;
-pub const RLIMIT_NPROC: u32 = 7;
-pub const RLIMIT_NOFILE: u32 = 8;
-pub const RLIM_NLIMITS: u32 = 9;
-pub const _RLIMIT_POSIX_FLAG: u32 = 4096;
-pub const RLIMIT_WAKEUPS_MONITOR: u32 = 1;
-pub const RLIMIT_CPU_USAGE_MONITOR: u32 = 2;
-pub const RLIMIT_THREAD_CPULIMITS: u32 = 3;
-pub const RLIMIT_FOOTPRINT_INTERVAL: u32 = 4;
-pub const WAKEMON_ENABLE: u32 = 1;
-pub const WAKEMON_DISABLE: u32 = 2;
-pub const WAKEMON_GET_PARAMS: u32 = 4;
-pub const WAKEMON_SET_DEFAULTS: u32 = 8;
-pub const WAKEMON_MAKE_FATAL: u32 = 16;
-pub const CPUMON_MAKE_FATAL: u32 = 4096;
-pub const FOOTPRINT_INTERVAL_RESET: u32 = 1;
-pub const IOPOL_TYPE_DISK: u32 = 0;
-pub const IOPOL_TYPE_VFS_ATIME_UPDATES: u32 = 2;
-pub const IOPOL_TYPE_VFS_MATERIALIZE_DATALESS_FILES: u32 = 3;
-pub const IOPOL_TYPE_VFS_STATFS_NO_DATA_VOLUME: u32 = 4;
-pub const IOPOL_TYPE_VFS_TRIGGER_RESOLVE: u32 = 5;
-pub const IOPOL_TYPE_VFS_IGNORE_CONTENT_PROTECTION: u32 = 6;
-pub const IOPOL_TYPE_VFS_IGNORE_PERMISSIONS: u32 = 7;
-pub const IOPOL_TYPE_VFS_SKIP_MTIME_UPDATE: u32 = 8;
-pub const IOPOL_TYPE_VFS_ALLOW_LOW_SPACE_WRITES: u32 = 9;
-pub const IOPOL_TYPE_VFS_DISALLOW_RW_FOR_O_EVTONLY: u32 = 10;
-pub const IOPOL_TYPE_VFS_ENTITLED_RESERVE_ACCESS: u32 = 14;
-pub const IOPOL_SCOPE_PROCESS: u32 = 0;
-pub const IOPOL_SCOPE_THREAD: u32 = 1;
-pub const IOPOL_SCOPE_DARWIN_BG: u32 = 2;
-pub const IOPOL_DEFAULT: u32 = 0;
-pub const IOPOL_IMPORTANT: u32 = 1;
-pub const IOPOL_PASSIVE: u32 = 2;
-pub const IOPOL_THROTTLE: u32 = 3;
-pub const IOPOL_UTILITY: u32 = 4;
-pub const IOPOL_STANDARD: u32 = 5;
-pub const IOPOL_APPLICATION: u32 = 5;
-pub const IOPOL_NORMAL: u32 = 1;
-pub const IOPOL_ATIME_UPDATES_DEFAULT: u32 = 0;
-pub const IOPOL_ATIME_UPDATES_OFF: u32 = 1;
-pub const IOPOL_MATERIALIZE_DATALESS_FILES_DEFAULT: u32 = 0;
-pub const IOPOL_MATERIALIZE_DATALESS_FILES_OFF: u32 = 1;
-pub const IOPOL_MATERIALIZE_DATALESS_FILES_ON: u32 = 2;
-pub const IOPOL_MATERIALIZE_DATALESS_FILES_ORIG: u32 = 4;
-pub const IOPOL_MATERIALIZE_DATALESS_FILES_BASIC_MASK: u32 = 3;
-pub const IOPOL_VFS_STATFS_NO_DATA_VOLUME_DEFAULT: u32 = 0;
-pub const IOPOL_VFS_STATFS_FORCE_NO_DATA_VOLUME: u32 = 1;
-pub const IOPOL_VFS_TRIGGER_RESOLVE_DEFAULT: u32 = 0;
-pub const IOPOL_VFS_TRIGGER_RESOLVE_OFF: u32 = 1;
-pub const IOPOL_VFS_CONTENT_PROTECTION_DEFAULT: u32 = 0;
-pub const IOPOL_VFS_CONTENT_PROTECTION_IGNORE: u32 = 1;
-pub const IOPOL_VFS_IGNORE_PERMISSIONS_OFF: u32 = 0;
-pub const IOPOL_VFS_IGNORE_PERMISSIONS_ON: u32 = 1;
-pub const IOPOL_VFS_SKIP_MTIME_UPDATE_OFF: u32 = 0;
-pub const IOPOL_VFS_SKIP_MTIME_UPDATE_ON: u32 = 1;
-pub const IOPOL_VFS_SKIP_MTIME_UPDATE_IGNORE: u32 = 2;
-pub const IOPOL_VFS_ALLOW_LOW_SPACE_WRITES_OFF: u32 = 0;
-pub const IOPOL_VFS_ALLOW_LOW_SPACE_WRITES_ON: u32 = 1;
-pub const IOPOL_VFS_DISALLOW_RW_FOR_O_EVTONLY_DEFAULT: u32 = 0;
-pub const IOPOL_VFS_DISALLOW_RW_FOR_O_EVTONLY_ON: u32 = 1;
-pub const IOPOL_VFS_NOCACHE_WRITE_FS_BLKSIZE_DEFAULT: u32 = 0;
-pub const IOPOL_VFS_NOCACHE_WRITE_FS_BLKSIZE_ON: u32 = 1;
-pub const IOPOL_VFS_ENTITLED_RESERVE_ACCESS_OFF: u32 = 0;
-pub const IOPOL_VFS_ENTITLED_RESERVE_ACCESS_ON: u32 = 1;
-pub const WNOHANG: u32 = 1;
-pub const WUNTRACED: u32 = 2;
-pub const WCOREFLAG: u32 = 128;
-pub const _WSTOPPED: u32 = 127;
-pub const WEXITED: u32 = 4;
-pub const WSTOPPED: u32 = 8;
-pub const WCONTINUED: u32 = 16;
-pub const WNOWAIT: u32 = 32;
-pub const WAIT_ANY: i32 = -1;
-pub const WAIT_MYPGRP: u32 = 0;
-pub const EXIT_FAILURE: u32 = 1;
-pub const EXIT_SUCCESS: u32 = 0;
-pub const RAND_MAX: u32 = 2147483647;
-pub const _MALLOC_TYPE_MALLOC_BACKDEPLOY_PUBLIC: u32 = 1;
 pub const LYPLG_EXT_API_VERSION: u32 = 12;
 pub const LY_STMT_NODE_MASK: u32 = 65535;
 pub const LYS_COMPILE_GROUPING: u32 = 1;
@@ -1908,853 +371,27 @@ pub const LYD_PRINT_WD_IMPL_TAG: u32 = 128;
 pub const LYD_PRINT_JSON_NO_NESTED_PREFIX: u32 = 256;
 pub const LYS_PRINT_SHRINK: u32 = 2;
 pub const LYS_PRINT_NO_SUBSTMT: u32 = 16;
-pub type int_least8_t = i8;
-pub type int_least16_t = i16;
-pub type int_least32_t = i32;
-pub type int_least64_t = i64;
-pub type uint_least8_t = u8;
-pub type uint_least16_t = u16;
-pub type uint_least32_t = u32;
-pub type uint_least64_t = u64;
-pub type int_fast8_t = i8;
-pub type int_fast16_t = i16;
-pub type int_fast32_t = i32;
-pub type int_fast64_t = i64;
-pub type uint_fast8_t = u8;
-pub type uint_fast16_t = u16;
-pub type uint_fast32_t = u32;
-pub type uint_fast64_t = u64;
-pub type __int8_t = ::std::os::raw::c_schar;
-pub type __uint8_t = ::std::os::raw::c_uchar;
-pub type __int16_t = ::std::os::raw::c_short;
-pub type __uint16_t = ::std::os::raw::c_ushort;
-pub type __int32_t = ::std::os::raw::c_int;
-pub type __uint32_t = ::std::os::raw::c_uint;
-pub type __int64_t = ::std::os::raw::c_longlong;
-pub type __uint64_t = ::std::os::raw::c_ulonglong;
-pub type __darwin_intptr_t = ::std::os::raw::c_long;
-pub type __darwin_natural_t = ::std::os::raw::c_uint;
-pub type __darwin_ct_rune_t = ::std::os::raw::c_int;
-#[repr(C)]
-#[derive(Copy, Clone)]
-pub union __mbstate_t {
-    pub __mbstate8: [::std::os::raw::c_char; 128usize],
-    pub _mbstateL: ::std::os::raw::c_longlong,
-}
-#[allow(clippy::unnecessary_operation, clippy::identity_op)]
-const _: () = {
-    ["Size of __mbstate_t"][::std::mem::size_of::<__mbstate_t>() - 128usize];
-    ["Alignment of __mbstate_t"]
-        [::std::mem::align_of::<__mbstate_t>() - 8usize];
-    ["Offset of field: __mbstate_t::__mbstate8"]
-        [::std::mem::offset_of!(__mbstate_t, __mbstate8) - 0usize];
-    ["Offset of field: __mbstate_t::_mbstateL"]
-        [::std::mem::offset_of!(__mbstate_t, _mbstateL) - 0usize];
-};
-impl Default for __mbstate_t {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
-pub type __darwin_mbstate_t = __mbstate_t;
-pub type __darwin_ptrdiff_t = ::std::os::raw::c_long;
-pub type __darwin_size_t = ::std::os::raw::c_ulong;
-pub type __darwin_va_list = __builtin_va_list;
-pub type __darwin_wchar_t = ::std::os::raw::c_int;
-pub type __darwin_rune_t = __darwin_wchar_t;
-pub type __darwin_wint_t = ::std::os::raw::c_int;
-pub type __darwin_clock_t = ::std::os::raw::c_ulong;
-pub type __darwin_socklen_t = __uint32_t;
-pub type __darwin_ssize_t = ::std::os::raw::c_long;
-pub type __darwin_time_t = ::std::os::raw::c_long;
-pub type __darwin_blkcnt_t = __int64_t;
-pub type __darwin_blksize_t = __int32_t;
-pub type __darwin_dev_t = __int32_t;
-pub type __darwin_fsblkcnt_t = ::std::os::raw::c_uint;
-pub type __darwin_fsfilcnt_t = ::std::os::raw::c_uint;
-pub type __darwin_gid_t = __uint32_t;
-pub type __darwin_id_t = __uint32_t;
-pub type __darwin_ino64_t = __uint64_t;
-pub type __darwin_ino_t = __darwin_ino64_t;
-pub type __darwin_mach_port_name_t = __darwin_natural_t;
-pub type __darwin_mach_port_t = __darwin_mach_port_name_t;
-pub type __darwin_mode_t = __uint16_t;
-pub type __darwin_off_t = __int64_t;
-pub type __darwin_pid_t = __int32_t;
-pub type __darwin_sigset_t = __uint32_t;
-pub type __darwin_suseconds_t = __int32_t;
-pub type __darwin_uid_t = __uint32_t;
-pub type __darwin_useconds_t = __uint32_t;
-pub type __darwin_uuid_t = [::std::os::raw::c_uchar; 16usize];
-pub type __darwin_uuid_string_t = [::std::os::raw::c_char; 37usize];
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct __darwin_pthread_handler_rec {
-    pub __routine: ::std::option::Option<
-        unsafe extern "C" fn(arg1: *mut ::std::os::raw::c_void),
-    >,
-    pub __arg: *mut ::std::os::raw::c_void,
-    pub __next: *mut __darwin_pthread_handler_rec,
-}
-#[allow(clippy::unnecessary_operation, clippy::identity_op)]
-const _: () = {
-    ["Size of __darwin_pthread_handler_rec"]
-        [::std::mem::size_of::<__darwin_pthread_handler_rec>() - 24usize];
-    ["Alignment of __darwin_pthread_handler_rec"]
-        [::std::mem::align_of::<__darwin_pthread_handler_rec>() - 8usize];
-    ["Offset of field: __darwin_pthread_handler_rec::__routine"][::std::mem::offset_of!(
-        __darwin_pthread_handler_rec,
-        __routine
-    ) - 0usize];
-    ["Offset of field: __darwin_pthread_handler_rec::__arg"]
-        [::std::mem::offset_of!(__darwin_pthread_handler_rec, __arg) - 8usize];
-    ["Offset of field: __darwin_pthread_handler_rec::__next"][::std::mem::offset_of!(
-        __darwin_pthread_handler_rec,
-        __next
-    ) - 16usize];
-};
-impl Default for __darwin_pthread_handler_rec {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct _opaque_pthread_attr_t {
-    pub __sig: ::std::os::raw::c_long,
-    pub __opaque: [::std::os::raw::c_char; 56usize],
-}
-#[allow(clippy::unnecessary_operation, clippy::identity_op)]
-const _: () = {
-    ["Size of _opaque_pthread_attr_t"]
-        [::std::mem::size_of::<_opaque_pthread_attr_t>() - 64usize];
-    ["Alignment of _opaque_pthread_attr_t"]
-        [::std::mem::align_of::<_opaque_pthread_attr_t>() - 8usize];
-    ["Offset of field: _opaque_pthread_attr_t::__sig"]
-        [::std::mem::offset_of!(_opaque_pthread_attr_t, __sig) - 0usize];
-    ["Offset of field: _opaque_pthread_attr_t::__opaque"]
-        [::std::mem::offset_of!(_opaque_pthread_attr_t, __opaque) - 8usize];
-};
-impl Default for _opaque_pthread_attr_t {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct _opaque_pthread_cond_t {
-    pub __sig: ::std::os::raw::c_long,
-    pub __opaque: [::std::os::raw::c_char; 40usize],
-}
-#[allow(clippy::unnecessary_operation, clippy::identity_op)]
-const _: () = {
-    ["Size of _opaque_pthread_cond_t"]
-        [::std::mem::size_of::<_opaque_pthread_cond_t>() - 48usize];
-    ["Alignment of _opaque_pthread_cond_t"]
-        [::std::mem::align_of::<_opaque_pthread_cond_t>() - 8usize];
-    ["Offset of field: _opaque_pthread_cond_t::__sig"]
-        [::std::mem::offset_of!(_opaque_pthread_cond_t, __sig) - 0usize];
-    ["Offset of field: _opaque_pthread_cond_t::__opaque"]
-        [::std::mem::offset_of!(_opaque_pthread_cond_t, __opaque) - 8usize];
-};
-impl Default for _opaque_pthread_cond_t {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
+pub type __off_t = ::std::os::raw::c_long;
+pub type __off64_t = ::std::os::raw::c_long;
+pub type __time_t = ::std::os::raw::c_long;
+pub type __syscall_slong_t = ::std::os::raw::c_long;
+pub type time_t = __time_t;
 #[repr(C)]
 #[derive(Debug, Default, Copy, Clone)]
-pub struct _opaque_pthread_condattr_t {
-    pub __sig: ::std::os::raw::c_long,
-    pub __opaque: [::std::os::raw::c_char; 8usize],
+pub struct timespec {
+    pub tv_sec: __time_t,
+    pub tv_nsec: __syscall_slong_t,
 }
 #[allow(clippy::unnecessary_operation, clippy::identity_op)]
 const _: () = {
-    ["Size of _opaque_pthread_condattr_t"]
-        [::std::mem::size_of::<_opaque_pthread_condattr_t>() - 16usize];
-    ["Alignment of _opaque_pthread_condattr_t"]
-        [::std::mem::align_of::<_opaque_pthread_condattr_t>() - 8usize];
-    ["Offset of field: _opaque_pthread_condattr_t::__sig"]
-        [::std::mem::offset_of!(_opaque_pthread_condattr_t, __sig) - 0usize];
-    ["Offset of field: _opaque_pthread_condattr_t::__opaque"]
-        [::std::mem::offset_of!(_opaque_pthread_condattr_t, __opaque) - 8usize];
+    ["Size of timespec"][::std::mem::size_of::<timespec>() - 16usize];
+    ["Alignment of timespec"][::std::mem::align_of::<timespec>() - 8usize];
+    ["Offset of field: timespec::tv_sec"]
+        [::std::mem::offset_of!(timespec, tv_sec) - 0usize];
+    ["Offset of field: timespec::tv_nsec"]
+        [::std::mem::offset_of!(timespec, tv_nsec) - 8usize];
 };
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct _opaque_pthread_mutex_t {
-    pub __sig: ::std::os::raw::c_long,
-    pub __opaque: [::std::os::raw::c_char; 56usize],
-}
-#[allow(clippy::unnecessary_operation, clippy::identity_op)]
-const _: () = {
-    ["Size of _opaque_pthread_mutex_t"]
-        [::std::mem::size_of::<_opaque_pthread_mutex_t>() - 64usize];
-    ["Alignment of _opaque_pthread_mutex_t"]
-        [::std::mem::align_of::<_opaque_pthread_mutex_t>() - 8usize];
-    ["Offset of field: _opaque_pthread_mutex_t::__sig"]
-        [::std::mem::offset_of!(_opaque_pthread_mutex_t, __sig) - 0usize];
-    ["Offset of field: _opaque_pthread_mutex_t::__opaque"]
-        [::std::mem::offset_of!(_opaque_pthread_mutex_t, __opaque) - 8usize];
-};
-impl Default for _opaque_pthread_mutex_t {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
-#[repr(C)]
-#[derive(Debug, Default, Copy, Clone)]
-pub struct _opaque_pthread_mutexattr_t {
-    pub __sig: ::std::os::raw::c_long,
-    pub __opaque: [::std::os::raw::c_char; 8usize],
-}
-#[allow(clippy::unnecessary_operation, clippy::identity_op)]
-const _: () = {
-    ["Size of _opaque_pthread_mutexattr_t"]
-        [::std::mem::size_of::<_opaque_pthread_mutexattr_t>() - 16usize];
-    ["Alignment of _opaque_pthread_mutexattr_t"]
-        [::std::mem::align_of::<_opaque_pthread_mutexattr_t>() - 8usize];
-    ["Offset of field: _opaque_pthread_mutexattr_t::__sig"]
-        [::std::mem::offset_of!(_opaque_pthread_mutexattr_t, __sig) - 0usize];
-    ["Offset of field: _opaque_pthread_mutexattr_t::__opaque"][::std::mem::offset_of!(
-        _opaque_pthread_mutexattr_t,
-        __opaque
-    ) - 8usize];
-};
-#[repr(C)]
-#[derive(Debug, Default, Copy, Clone)]
-pub struct _opaque_pthread_once_t {
-    pub __sig: ::std::os::raw::c_long,
-    pub __opaque: [::std::os::raw::c_char; 8usize],
-}
-#[allow(clippy::unnecessary_operation, clippy::identity_op)]
-const _: () = {
-    ["Size of _opaque_pthread_once_t"]
-        [::std::mem::size_of::<_opaque_pthread_once_t>() - 16usize];
-    ["Alignment of _opaque_pthread_once_t"]
-        [::std::mem::align_of::<_opaque_pthread_once_t>() - 8usize];
-    ["Offset of field: _opaque_pthread_once_t::__sig"]
-        [::std::mem::offset_of!(_opaque_pthread_once_t, __sig) - 0usize];
-    ["Offset of field: _opaque_pthread_once_t::__opaque"]
-        [::std::mem::offset_of!(_opaque_pthread_once_t, __opaque) - 8usize];
-};
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct _opaque_pthread_rwlock_t {
-    pub __sig: ::std::os::raw::c_long,
-    pub __opaque: [::std::os::raw::c_char; 192usize],
-}
-#[allow(clippy::unnecessary_operation, clippy::identity_op)]
-const _: () = {
-    ["Size of _opaque_pthread_rwlock_t"]
-        [::std::mem::size_of::<_opaque_pthread_rwlock_t>() - 200usize];
-    ["Alignment of _opaque_pthread_rwlock_t"]
-        [::std::mem::align_of::<_opaque_pthread_rwlock_t>() - 8usize];
-    ["Offset of field: _opaque_pthread_rwlock_t::__sig"]
-        [::std::mem::offset_of!(_opaque_pthread_rwlock_t, __sig) - 0usize];
-    ["Offset of field: _opaque_pthread_rwlock_t::__opaque"]
-        [::std::mem::offset_of!(_opaque_pthread_rwlock_t, __opaque) - 8usize];
-};
-impl Default for _opaque_pthread_rwlock_t {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
-#[repr(C)]
-#[derive(Debug, Default, Copy, Clone)]
-pub struct _opaque_pthread_rwlockattr_t {
-    pub __sig: ::std::os::raw::c_long,
-    pub __opaque: [::std::os::raw::c_char; 16usize],
-}
-#[allow(clippy::unnecessary_operation, clippy::identity_op)]
-const _: () = {
-    ["Size of _opaque_pthread_rwlockattr_t"]
-        [::std::mem::size_of::<_opaque_pthread_rwlockattr_t>() - 24usize];
-    ["Alignment of _opaque_pthread_rwlockattr_t"]
-        [::std::mem::align_of::<_opaque_pthread_rwlockattr_t>() - 8usize];
-    ["Offset of field: _opaque_pthread_rwlockattr_t::__sig"]
-        [::std::mem::offset_of!(_opaque_pthread_rwlockattr_t, __sig) - 0usize];
-    ["Offset of field: _opaque_pthread_rwlockattr_t::__opaque"][::std::mem::offset_of!(
-        _opaque_pthread_rwlockattr_t,
-        __opaque
-    ) - 8usize];
-};
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct _opaque_pthread_t {
-    pub __sig: ::std::os::raw::c_long,
-    pub __cleanup_stack: *mut __darwin_pthread_handler_rec,
-    pub __opaque: [::std::os::raw::c_char; 8176usize],
-}
-#[allow(clippy::unnecessary_operation, clippy::identity_op)]
-const _: () = {
-    ["Size of _opaque_pthread_t"]
-        [::std::mem::size_of::<_opaque_pthread_t>() - 8192usize];
-    ["Alignment of _opaque_pthread_t"]
-        [::std::mem::align_of::<_opaque_pthread_t>() - 8usize];
-    ["Offset of field: _opaque_pthread_t::__sig"]
-        [::std::mem::offset_of!(_opaque_pthread_t, __sig) - 0usize];
-    ["Offset of field: _opaque_pthread_t::__cleanup_stack"]
-        [::std::mem::offset_of!(_opaque_pthread_t, __cleanup_stack) - 8usize];
-    ["Offset of field: _opaque_pthread_t::__opaque"]
-        [::std::mem::offset_of!(_opaque_pthread_t, __opaque) - 16usize];
-};
-impl Default for _opaque_pthread_t {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
-pub type __darwin_pthread_attr_t = _opaque_pthread_attr_t;
-pub type __darwin_pthread_cond_t = _opaque_pthread_cond_t;
-pub type __darwin_pthread_condattr_t = _opaque_pthread_condattr_t;
-pub type __darwin_pthread_key_t = ::std::os::raw::c_ulong;
-pub type __darwin_pthread_mutex_t = _opaque_pthread_mutex_t;
-pub type __darwin_pthread_mutexattr_t = _opaque_pthread_mutexattr_t;
-pub type __darwin_pthread_once_t = _opaque_pthread_once_t;
-pub type __darwin_pthread_rwlock_t = _opaque_pthread_rwlock_t;
-pub type __darwin_pthread_rwlockattr_t = _opaque_pthread_rwlockattr_t;
-pub type __darwin_pthread_t = *mut _opaque_pthread_t;
-pub type intmax_t = ::std::os::raw::c_long;
-pub type uintmax_t = ::std::os::raw::c_ulong;
-pub type u_int8_t = ::std::os::raw::c_uchar;
-pub type u_int16_t = ::std::os::raw::c_ushort;
-pub type u_int32_t = ::std::os::raw::c_uint;
-pub type u_int64_t = ::std::os::raw::c_ulonglong;
-pub type register_t = i64;
-pub type user_addr_t = u_int64_t;
-pub type user_size_t = u_int64_t;
-pub type user_ssize_t = i64;
-pub type user_long_t = i64;
-pub type user_ulong_t = u_int64_t;
-pub type user_time_t = i64;
-pub type user_off_t = i64;
-pub type syscall_arg_t = u_int64_t;
-pub type in_addr_t = __uint32_t;
-pub type in_port_t = __uint16_t;
-pub type u_char = ::std::os::raw::c_uchar;
-pub type u_short = ::std::os::raw::c_ushort;
-pub type u_int = ::std::os::raw::c_uint;
-pub type u_long = ::std::os::raw::c_ulong;
-pub type ushort = ::std::os::raw::c_ushort;
-pub type uint = ::std::os::raw::c_uint;
-pub type u_quad_t = u_int64_t;
-pub type quad_t = i64;
-pub type qaddr_t = *mut quad_t;
-pub type caddr_t = *mut ::std::os::raw::c_char;
-pub type daddr_t = i32;
-pub type dev_t = __darwin_dev_t;
-pub type fixpt_t = u_int32_t;
-pub type blkcnt_t = __darwin_blkcnt_t;
-pub type blksize_t = __darwin_blksize_t;
-pub type gid_t = __darwin_gid_t;
-pub type ino_t = __darwin_ino_t;
-pub type ino64_t = __darwin_ino64_t;
-pub type key_t = __int32_t;
-pub type mode_t = __darwin_mode_t;
-pub type nlink_t = __uint16_t;
-pub type id_t = __darwin_id_t;
-pub type pid_t = __darwin_pid_t;
-pub type off_t = __darwin_off_t;
-pub type segsz_t = i32;
-pub type swblk_t = i32;
-pub type uid_t = __darwin_uid_t;
-pub type clock_t = __darwin_clock_t;
-pub type time_t = __darwin_time_t;
-pub type useconds_t = __darwin_useconds_t;
-pub type suseconds_t = __darwin_suseconds_t;
-pub type rsize_t = __darwin_size_t;
-pub type errno_t = ::std::os::raw::c_int;
-#[repr(C)]
-#[derive(Debug, Default, Copy, Clone)]
-pub struct fd_set {
-    pub fds_bits: [__int32_t; 32usize],
-}
-#[allow(clippy::unnecessary_operation, clippy::identity_op)]
-const _: () = {
-    ["Size of fd_set"][::std::mem::size_of::<fd_set>() - 128usize];
-    ["Alignment of fd_set"][::std::mem::align_of::<fd_set>() - 4usize];
-    ["Offset of field: fd_set::fds_bits"]
-        [::std::mem::offset_of!(fd_set, fds_bits) - 0usize];
-};
-unsafe extern "C" {
-    pub fn __darwin_check_fd_set_overflow(
-        arg1: ::std::os::raw::c_int,
-        arg2: *const ::std::os::raw::c_void,
-        arg3: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
-}
-pub type fd_mask = __int32_t;
-pub type pthread_attr_t = __darwin_pthread_attr_t;
-pub type pthread_cond_t = __darwin_pthread_cond_t;
-pub type pthread_condattr_t = __darwin_pthread_condattr_t;
-pub type pthread_mutex_t = __darwin_pthread_mutex_t;
-pub type pthread_mutexattr_t = __darwin_pthread_mutexattr_t;
-pub type pthread_once_t = __darwin_pthread_once_t;
-pub type pthread_rwlock_t = __darwin_pthread_rwlock_t;
-pub type pthread_rwlockattr_t = __darwin_pthread_rwlockattr_t;
-pub type pthread_t = __darwin_pthread_t;
-pub type pthread_key_t = __darwin_pthread_key_t;
-pub type fsblkcnt_t = __darwin_fsblkcnt_t;
-pub type fsfilcnt_t = __darwin_fsfilcnt_t;
-pub type sa_family_t = __uint8_t;
-pub type socklen_t = __darwin_socklen_t;
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct iovec {
-    pub iov_base: *mut ::std::os::raw::c_void,
-    pub iov_len: usize,
-}
-#[allow(clippy::unnecessary_operation, clippy::identity_op)]
-const _: () = {
-    ["Size of iovec"][::std::mem::size_of::<iovec>() - 16usize];
-    ["Alignment of iovec"][::std::mem::align_of::<iovec>() - 8usize];
-    ["Offset of field: iovec::iov_base"]
-        [::std::mem::offset_of!(iovec, iov_base) - 0usize];
-    ["Offset of field: iovec::iov_len"]
-        [::std::mem::offset_of!(iovec, iov_len) - 8usize];
-};
-impl Default for iovec {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
-pub type sae_associd_t = __uint32_t;
-pub type sae_connid_t = __uint32_t;
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct sa_endpoints {
-    pub sae_srcif: ::std::os::raw::c_uint,
-    pub sae_srcaddr: *const sockaddr,
-    pub sae_srcaddrlen: socklen_t,
-    pub sae_dstaddr: *const sockaddr,
-    pub sae_dstaddrlen: socklen_t,
-}
-#[allow(clippy::unnecessary_operation, clippy::identity_op)]
-const _: () = {
-    ["Size of sa_endpoints"][::std::mem::size_of::<sa_endpoints>() - 40usize];
-    ["Alignment of sa_endpoints"]
-        [::std::mem::align_of::<sa_endpoints>() - 8usize];
-    ["Offset of field: sa_endpoints::sae_srcif"]
-        [::std::mem::offset_of!(sa_endpoints, sae_srcif) - 0usize];
-    ["Offset of field: sa_endpoints::sae_srcaddr"]
-        [::std::mem::offset_of!(sa_endpoints, sae_srcaddr) - 8usize];
-    ["Offset of field: sa_endpoints::sae_srcaddrlen"]
-        [::std::mem::offset_of!(sa_endpoints, sae_srcaddrlen) - 16usize];
-    ["Offset of field: sa_endpoints::sae_dstaddr"]
-        [::std::mem::offset_of!(sa_endpoints, sae_dstaddr) - 24usize];
-    ["Offset of field: sa_endpoints::sae_dstaddrlen"]
-        [::std::mem::offset_of!(sa_endpoints, sae_dstaddrlen) - 32usize];
-};
-impl Default for sa_endpoints {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
-pub type sa_endpoints_t = sa_endpoints;
-#[repr(C)]
-#[derive(Debug, Default, Copy, Clone)]
-pub struct linger {
-    pub l_onoff: ::std::os::raw::c_int,
-    pub l_linger: ::std::os::raw::c_int,
-}
-#[allow(clippy::unnecessary_operation, clippy::identity_op)]
-const _: () = {
-    ["Size of linger"][::std::mem::size_of::<linger>() - 8usize];
-    ["Alignment of linger"][::std::mem::align_of::<linger>() - 4usize];
-    ["Offset of field: linger::l_onoff"]
-        [::std::mem::offset_of!(linger, l_onoff) - 0usize];
-    ["Offset of field: linger::l_linger"]
-        [::std::mem::offset_of!(linger, l_linger) - 4usize];
-};
-#[repr(C)]
-#[derive(Debug, Default, Copy, Clone)]
-pub struct so_np_extensions {
-    pub npx_flags: u_int32_t,
-    pub npx_mask: u_int32_t,
-}
-#[allow(clippy::unnecessary_operation, clippy::identity_op)]
-const _: () = {
-    ["Size of so_np_extensions"]
-        [::std::mem::size_of::<so_np_extensions>() - 8usize];
-    ["Alignment of so_np_extensions"]
-        [::std::mem::align_of::<so_np_extensions>() - 4usize];
-    ["Offset of field: so_np_extensions::npx_flags"]
-        [::std::mem::offset_of!(so_np_extensions, npx_flags) - 0usize];
-    ["Offset of field: so_np_extensions::npx_mask"]
-        [::std::mem::offset_of!(so_np_extensions, npx_mask) - 4usize];
-};
-#[repr(C)]
-#[derive(Debug, Default, Copy, Clone)]
-pub struct sockaddr {
-    pub sa_len: __uint8_t,
-    pub sa_family: sa_family_t,
-    pub sa_data: [::std::os::raw::c_char; 14usize],
-}
-#[allow(clippy::unnecessary_operation, clippy::identity_op)]
-const _: () = {
-    ["Size of sockaddr"][::std::mem::size_of::<sockaddr>() - 16usize];
-    ["Alignment of sockaddr"][::std::mem::align_of::<sockaddr>() - 1usize];
-    ["Offset of field: sockaddr::sa_len"]
-        [::std::mem::offset_of!(sockaddr, sa_len) - 0usize];
-    ["Offset of field: sockaddr::sa_family"]
-        [::std::mem::offset_of!(sockaddr, sa_family) - 1usize];
-    ["Offset of field: sockaddr::sa_data"]
-        [::std::mem::offset_of!(sockaddr, sa_data) - 2usize];
-};
-#[repr(C)]
-#[derive(Debug, Default, Copy, Clone)]
-pub struct __sockaddr_header {
-    pub sa_len: __uint8_t,
-    pub sa_family: sa_family_t,
-}
-#[allow(clippy::unnecessary_operation, clippy::identity_op)]
-const _: () = {
-    ["Size of __sockaddr_header"]
-        [::std::mem::size_of::<__sockaddr_header>() - 2usize];
-    ["Alignment of __sockaddr_header"]
-        [::std::mem::align_of::<__sockaddr_header>() - 1usize];
-    ["Offset of field: __sockaddr_header::sa_len"]
-        [::std::mem::offset_of!(__sockaddr_header, sa_len) - 0usize];
-    ["Offset of field: __sockaddr_header::sa_family"]
-        [::std::mem::offset_of!(__sockaddr_header, sa_family) - 1usize];
-};
-#[repr(C)]
-#[derive(Debug, Default, Copy, Clone)]
-pub struct sockproto {
-    pub sp_family: __uint16_t,
-    pub sp_protocol: __uint16_t,
-}
-#[allow(clippy::unnecessary_operation, clippy::identity_op)]
-const _: () = {
-    ["Size of sockproto"][::std::mem::size_of::<sockproto>() - 4usize];
-    ["Alignment of sockproto"][::std::mem::align_of::<sockproto>() - 2usize];
-    ["Offset of field: sockproto::sp_family"]
-        [::std::mem::offset_of!(sockproto, sp_family) - 0usize];
-    ["Offset of field: sockproto::sp_protocol"]
-        [::std::mem::offset_of!(sockproto, sp_protocol) - 2usize];
-};
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct sockaddr_storage {
-    pub ss_len: __uint8_t,
-    pub ss_family: sa_family_t,
-    pub __ss_pad1: [::std::os::raw::c_char; 6usize],
-    pub __ss_align: __int64_t,
-    pub __ss_pad2: [::std::os::raw::c_char; 112usize],
-}
-#[allow(clippy::unnecessary_operation, clippy::identity_op)]
-const _: () = {
-    ["Size of sockaddr_storage"]
-        [::std::mem::size_of::<sockaddr_storage>() - 128usize];
-    ["Alignment of sockaddr_storage"]
-        [::std::mem::align_of::<sockaddr_storage>() - 8usize];
-    ["Offset of field: sockaddr_storage::ss_len"]
-        [::std::mem::offset_of!(sockaddr_storage, ss_len) - 0usize];
-    ["Offset of field: sockaddr_storage::ss_family"]
-        [::std::mem::offset_of!(sockaddr_storage, ss_family) - 1usize];
-    ["Offset of field: sockaddr_storage::__ss_pad1"]
-        [::std::mem::offset_of!(sockaddr_storage, __ss_pad1) - 2usize];
-    ["Offset of field: sockaddr_storage::__ss_align"]
-        [::std::mem::offset_of!(sockaddr_storage, __ss_align) - 8usize];
-    ["Offset of field: sockaddr_storage::__ss_pad2"]
-        [::std::mem::offset_of!(sockaddr_storage, __ss_pad2) - 16usize];
-};
-impl Default for sockaddr_storage {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct msghdr {
-    pub msg_name: *mut ::std::os::raw::c_void,
-    pub msg_namelen: socklen_t,
-    pub msg_iov: *mut iovec,
-    pub msg_iovlen: ::std::os::raw::c_int,
-    pub msg_control: *mut ::std::os::raw::c_void,
-    pub msg_controllen: socklen_t,
-    pub msg_flags: ::std::os::raw::c_int,
-}
-#[allow(clippy::unnecessary_operation, clippy::identity_op)]
-const _: () = {
-    ["Size of msghdr"][::std::mem::size_of::<msghdr>() - 48usize];
-    ["Alignment of msghdr"][::std::mem::align_of::<msghdr>() - 8usize];
-    ["Offset of field: msghdr::msg_name"]
-        [::std::mem::offset_of!(msghdr, msg_name) - 0usize];
-    ["Offset of field: msghdr::msg_namelen"]
-        [::std::mem::offset_of!(msghdr, msg_namelen) - 8usize];
-    ["Offset of field: msghdr::msg_iov"]
-        [::std::mem::offset_of!(msghdr, msg_iov) - 16usize];
-    ["Offset of field: msghdr::msg_iovlen"]
-        [::std::mem::offset_of!(msghdr, msg_iovlen) - 24usize];
-    ["Offset of field: msghdr::msg_control"]
-        [::std::mem::offset_of!(msghdr, msg_control) - 32usize];
-    ["Offset of field: msghdr::msg_controllen"]
-        [::std::mem::offset_of!(msghdr, msg_controllen) - 40usize];
-    ["Offset of field: msghdr::msg_flags"]
-        [::std::mem::offset_of!(msghdr, msg_flags) - 44usize];
-};
-impl Default for msghdr {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
-#[repr(C)]
-#[derive(Debug, Default, Copy, Clone)]
-pub struct cmsghdr {
-    pub cmsg_len: socklen_t,
-    pub cmsg_level: ::std::os::raw::c_int,
-    pub cmsg_type: ::std::os::raw::c_int,
-}
-#[allow(clippy::unnecessary_operation, clippy::identity_op)]
-const _: () = {
-    ["Size of cmsghdr"][::std::mem::size_of::<cmsghdr>() - 12usize];
-    ["Alignment of cmsghdr"][::std::mem::align_of::<cmsghdr>() - 4usize];
-    ["Offset of field: cmsghdr::cmsg_len"]
-        [::std::mem::offset_of!(cmsghdr, cmsg_len) - 0usize];
-    ["Offset of field: cmsghdr::cmsg_level"]
-        [::std::mem::offset_of!(cmsghdr, cmsg_level) - 4usize];
-    ["Offset of field: cmsghdr::cmsg_type"]
-        [::std::mem::offset_of!(cmsghdr, cmsg_type) - 8usize];
-};
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct sf_hdtr {
-    pub headers: *mut iovec,
-    pub hdr_cnt: ::std::os::raw::c_int,
-    pub trailers: *mut iovec,
-    pub trl_cnt: ::std::os::raw::c_int,
-}
-#[allow(clippy::unnecessary_operation, clippy::identity_op)]
-const _: () = {
-    ["Size of sf_hdtr"][::std::mem::size_of::<sf_hdtr>() - 32usize];
-    ["Alignment of sf_hdtr"][::std::mem::align_of::<sf_hdtr>() - 8usize];
-    ["Offset of field: sf_hdtr::headers"]
-        [::std::mem::offset_of!(sf_hdtr, headers) - 0usize];
-    ["Offset of field: sf_hdtr::hdr_cnt"]
-        [::std::mem::offset_of!(sf_hdtr, hdr_cnt) - 8usize];
-    ["Offset of field: sf_hdtr::trailers"]
-        [::std::mem::offset_of!(sf_hdtr, trailers) - 16usize];
-    ["Offset of field: sf_hdtr::trl_cnt"]
-        [::std::mem::offset_of!(sf_hdtr, trl_cnt) - 24usize];
-};
-impl Default for sf_hdtr {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
-unsafe extern "C" {
-    pub fn accept(
-        arg1: ::std::os::raw::c_int,
-        arg2: *mut sockaddr,
-        arg3: *mut socklen_t,
-    ) -> ::std::os::raw::c_int;
-}
-unsafe extern "C" {
-    pub fn bind(
-        arg1: ::std::os::raw::c_int,
-        arg2: *const sockaddr,
-        arg3: socklen_t,
-    ) -> ::std::os::raw::c_int;
-}
-unsafe extern "C" {
-    pub fn connect(
-        arg1: ::std::os::raw::c_int,
-        arg2: *const sockaddr,
-        arg3: socklen_t,
-    ) -> ::std::os::raw::c_int;
-}
-unsafe extern "C" {
-    pub fn getpeername(
-        arg1: ::std::os::raw::c_int,
-        arg2: *mut sockaddr,
-        arg3: *mut socklen_t,
-    ) -> ::std::os::raw::c_int;
-}
-unsafe extern "C" {
-    pub fn getsockname(
-        arg1: ::std::os::raw::c_int,
-        arg2: *mut sockaddr,
-        arg3: *mut socklen_t,
-    ) -> ::std::os::raw::c_int;
-}
-unsafe extern "C" {
-    pub fn getsockopt(
-        arg1: ::std::os::raw::c_int,
-        arg2: ::std::os::raw::c_int,
-        arg3: ::std::os::raw::c_int,
-        arg4: *mut ::std::os::raw::c_void,
-        arg5: *mut socklen_t,
-    ) -> ::std::os::raw::c_int;
-}
-unsafe extern "C" {
-    pub fn listen(
-        arg1: ::std::os::raw::c_int,
-        arg2: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
-}
-unsafe extern "C" {
-    pub fn recv(
-        arg1: ::std::os::raw::c_int,
-        arg2: *mut ::std::os::raw::c_void,
-        arg3: usize,
-        arg4: ::std::os::raw::c_int,
-    ) -> isize;
-}
-unsafe extern "C" {
-    pub fn recvfrom(
-        arg1: ::std::os::raw::c_int,
-        arg2: *mut ::std::os::raw::c_void,
-        arg3: usize,
-        arg4: ::std::os::raw::c_int,
-        arg5: *mut sockaddr,
-        arg6: *mut socklen_t,
-    ) -> isize;
-}
-unsafe extern "C" {
-    pub fn recvmsg(
-        arg1: ::std::os::raw::c_int,
-        arg2: *mut msghdr,
-        arg3: ::std::os::raw::c_int,
-    ) -> isize;
-}
-unsafe extern "C" {
-    pub fn send(
-        arg1: ::std::os::raw::c_int,
-        arg2: *const ::std::os::raw::c_void,
-        arg3: usize,
-        arg4: ::std::os::raw::c_int,
-    ) -> isize;
-}
-unsafe extern "C" {
-    pub fn sendmsg(
-        arg1: ::std::os::raw::c_int,
-        arg2: *const msghdr,
-        arg3: ::std::os::raw::c_int,
-    ) -> isize;
-}
-unsafe extern "C" {
-    pub fn sendto(
-        arg1: ::std::os::raw::c_int,
-        arg2: *const ::std::os::raw::c_void,
-        arg3: usize,
-        arg4: ::std::os::raw::c_int,
-        arg5: *const sockaddr,
-        arg6: socklen_t,
-    ) -> isize;
-}
-unsafe extern "C" {
-    pub fn setsockopt(
-        arg1: ::std::os::raw::c_int,
-        arg2: ::std::os::raw::c_int,
-        arg3: ::std::os::raw::c_int,
-        arg4: *const ::std::os::raw::c_void,
-        arg5: socklen_t,
-    ) -> ::std::os::raw::c_int;
-}
-unsafe extern "C" {
-    pub fn shutdown(
-        arg1: ::std::os::raw::c_int,
-        arg2: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
-}
-unsafe extern "C" {
-    pub fn sockatmark(arg1: ::std::os::raw::c_int) -> ::std::os::raw::c_int;
-}
-unsafe extern "C" {
-    pub fn socket(
-        arg1: ::std::os::raw::c_int,
-        arg2: ::std::os::raw::c_int,
-        arg3: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
-}
-unsafe extern "C" {
-    pub fn socketpair(
-        arg1: ::std::os::raw::c_int,
-        arg2: ::std::os::raw::c_int,
-        arg3: ::std::os::raw::c_int,
-        arg4: *mut ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
-}
-unsafe extern "C" {
-    pub fn sendfile(
-        arg1: ::std::os::raw::c_int,
-        arg2: ::std::os::raw::c_int,
-        arg3: off_t,
-        arg4: *mut off_t,
-        arg5: *mut sf_hdtr,
-        arg6: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
-}
-unsafe extern "C" {
-    pub fn pfctlinput(arg1: ::std::os::raw::c_int, arg2: *mut sockaddr);
-}
-unsafe extern "C" {
-    pub fn connectx(
-        arg1: ::std::os::raw::c_int,
-        arg2: *const sa_endpoints_t,
-        arg3: sae_associd_t,
-        arg4: ::std::os::raw::c_uint,
-        arg5: *const iovec,
-        arg6: ::std::os::raw::c_uint,
-        arg7: *mut usize,
-        arg8: *mut sae_connid_t,
-    ) -> ::std::os::raw::c_int;
-}
-unsafe extern "C" {
-    pub fn disconnectx(
-        arg1: ::std::os::raw::c_int,
-        arg2: sae_associd_t,
-        arg3: sae_connid_t,
-    ) -> ::std::os::raw::c_int;
-}
+pub type in_addr_t = u32;
 #[repr(C)]
 #[derive(Debug, Default, Copy, Clone)]
 pub struct in_addr {
@@ -2768,269 +405,16 @@ const _: () = {
         [::std::mem::offset_of!(in_addr, s_addr) - 0usize];
 };
 #[repr(C)]
-#[derive(Debug, Default, Copy, Clone)]
-pub struct sockaddr_in {
-    pub sin_len: __uint8_t,
-    pub sin_family: sa_family_t,
-    pub sin_port: in_port_t,
-    pub sin_addr: in_addr,
-    pub sin_zero: [::std::os::raw::c_char; 8usize],
-}
-#[allow(clippy::unnecessary_operation, clippy::identity_op)]
-const _: () = {
-    ["Size of sockaddr_in"][::std::mem::size_of::<sockaddr_in>() - 16usize];
-    ["Alignment of sockaddr_in"]
-        [::std::mem::align_of::<sockaddr_in>() - 4usize];
-    ["Offset of field: sockaddr_in::sin_len"]
-        [::std::mem::offset_of!(sockaddr_in, sin_len) - 0usize];
-    ["Offset of field: sockaddr_in::sin_family"]
-        [::std::mem::offset_of!(sockaddr_in, sin_family) - 1usize];
-    ["Offset of field: sockaddr_in::sin_port"]
-        [::std::mem::offset_of!(sockaddr_in, sin_port) - 2usize];
-    ["Offset of field: sockaddr_in::sin_addr"]
-        [::std::mem::offset_of!(sockaddr_in, sin_addr) - 4usize];
-    ["Offset of field: sockaddr_in::sin_zero"]
-        [::std::mem::offset_of!(sockaddr_in, sin_zero) - 8usize];
-};
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct ip_opts {
-    pub ip_dst: in_addr,
-    pub ip_opts: [::std::os::raw::c_char; 40usize],
-}
-#[allow(clippy::unnecessary_operation, clippy::identity_op)]
-const _: () = {
-    ["Size of ip_opts"][::std::mem::size_of::<ip_opts>() - 44usize];
-    ["Alignment of ip_opts"][::std::mem::align_of::<ip_opts>() - 4usize];
-    ["Offset of field: ip_opts::ip_dst"]
-        [::std::mem::offset_of!(ip_opts, ip_dst) - 0usize];
-    ["Offset of field: ip_opts::ip_opts"]
-        [::std::mem::offset_of!(ip_opts, ip_opts) - 4usize];
-};
-impl Default for ip_opts {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
-#[repr(C)]
-#[derive(Debug, Default, Copy, Clone)]
-pub struct ip_mreq {
-    pub imr_multiaddr: in_addr,
-    pub imr_interface: in_addr,
-}
-#[allow(clippy::unnecessary_operation, clippy::identity_op)]
-const _: () = {
-    ["Size of ip_mreq"][::std::mem::size_of::<ip_mreq>() - 8usize];
-    ["Alignment of ip_mreq"][::std::mem::align_of::<ip_mreq>() - 4usize];
-    ["Offset of field: ip_mreq::imr_multiaddr"]
-        [::std::mem::offset_of!(ip_mreq, imr_multiaddr) - 0usize];
-    ["Offset of field: ip_mreq::imr_interface"]
-        [::std::mem::offset_of!(ip_mreq, imr_interface) - 4usize];
-};
-#[repr(C)]
-#[derive(Debug, Default, Copy, Clone)]
-pub struct ip_mreqn {
-    pub imr_multiaddr: in_addr,
-    pub imr_address: in_addr,
-    pub imr_ifindex: ::std::os::raw::c_int,
-}
-#[allow(clippy::unnecessary_operation, clippy::identity_op)]
-const _: () = {
-    ["Size of ip_mreqn"][::std::mem::size_of::<ip_mreqn>() - 12usize];
-    ["Alignment of ip_mreqn"][::std::mem::align_of::<ip_mreqn>() - 4usize];
-    ["Offset of field: ip_mreqn::imr_multiaddr"]
-        [::std::mem::offset_of!(ip_mreqn, imr_multiaddr) - 0usize];
-    ["Offset of field: ip_mreqn::imr_address"]
-        [::std::mem::offset_of!(ip_mreqn, imr_address) - 4usize];
-    ["Offset of field: ip_mreqn::imr_ifindex"]
-        [::std::mem::offset_of!(ip_mreqn, imr_ifindex) - 8usize];
-};
-#[repr(C)]
-#[derive(Debug, Default, Copy, Clone)]
-pub struct ip_mreq_source {
-    pub imr_multiaddr: in_addr,
-    pub imr_sourceaddr: in_addr,
-    pub imr_interface: in_addr,
-}
-#[allow(clippy::unnecessary_operation, clippy::identity_op)]
-const _: () = {
-    ["Size of ip_mreq_source"]
-        [::std::mem::size_of::<ip_mreq_source>() - 12usize];
-    ["Alignment of ip_mreq_source"]
-        [::std::mem::align_of::<ip_mreq_source>() - 4usize];
-    ["Offset of field: ip_mreq_source::imr_multiaddr"]
-        [::std::mem::offset_of!(ip_mreq_source, imr_multiaddr) - 0usize];
-    ["Offset of field: ip_mreq_source::imr_sourceaddr"]
-        [::std::mem::offset_of!(ip_mreq_source, imr_sourceaddr) - 4usize];
-    ["Offset of field: ip_mreq_source::imr_interface"]
-        [::std::mem::offset_of!(ip_mreq_source, imr_interface) - 8usize];
-};
-#[repr(C, packed(4))]
-#[derive(Debug, Copy, Clone)]
-pub struct group_req {
-    pub gr_interface: u32,
-    pub gr_group: sockaddr_storage,
-}
-#[allow(clippy::unnecessary_operation, clippy::identity_op)]
-const _: () = {
-    ["Size of group_req"][::std::mem::size_of::<group_req>() - 132usize];
-    ["Alignment of group_req"][::std::mem::align_of::<group_req>() - 4usize];
-    ["Offset of field: group_req::gr_interface"]
-        [::std::mem::offset_of!(group_req, gr_interface) - 0usize];
-    ["Offset of field: group_req::gr_group"]
-        [::std::mem::offset_of!(group_req, gr_group) - 4usize];
-};
-impl Default for group_req {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
-#[repr(C, packed(4))]
-#[derive(Debug, Copy, Clone)]
-pub struct group_source_req {
-    pub gsr_interface: u32,
-    pub gsr_group: sockaddr_storage,
-    pub gsr_source: sockaddr_storage,
-}
-#[allow(clippy::unnecessary_operation, clippy::identity_op)]
-const _: () = {
-    ["Size of group_source_req"]
-        [::std::mem::size_of::<group_source_req>() - 260usize];
-    ["Alignment of group_source_req"]
-        [::std::mem::align_of::<group_source_req>() - 4usize];
-    ["Offset of field: group_source_req::gsr_interface"]
-        [::std::mem::offset_of!(group_source_req, gsr_interface) - 0usize];
-    ["Offset of field: group_source_req::gsr_group"]
-        [::std::mem::offset_of!(group_source_req, gsr_group) - 4usize];
-    ["Offset of field: group_source_req::gsr_source"]
-        [::std::mem::offset_of!(group_source_req, gsr_source) - 132usize];
-};
-impl Default for group_source_req {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
-#[repr(C, packed(4))]
-#[derive(Debug, Copy, Clone)]
-pub struct __msfilterreq {
-    pub msfr_ifindex: u32,
-    pub msfr_fmode: u32,
-    pub msfr_nsrcs: u32,
-    pub __msfr_align: u32,
-    pub msfr_group: sockaddr_storage,
-    pub msfr_srcs: *mut sockaddr_storage,
-}
-#[allow(clippy::unnecessary_operation, clippy::identity_op)]
-const _: () = {
-    ["Size of __msfilterreq"]
-        [::std::mem::size_of::<__msfilterreq>() - 152usize];
-    ["Alignment of __msfilterreq"]
-        [::std::mem::align_of::<__msfilterreq>() - 4usize];
-    ["Offset of field: __msfilterreq::msfr_ifindex"]
-        [::std::mem::offset_of!(__msfilterreq, msfr_ifindex) - 0usize];
-    ["Offset of field: __msfilterreq::msfr_fmode"]
-        [::std::mem::offset_of!(__msfilterreq, msfr_fmode) - 4usize];
-    ["Offset of field: __msfilterreq::msfr_nsrcs"]
-        [::std::mem::offset_of!(__msfilterreq, msfr_nsrcs) - 8usize];
-    ["Offset of field: __msfilterreq::__msfr_align"]
-        [::std::mem::offset_of!(__msfilterreq, __msfr_align) - 12usize];
-    ["Offset of field: __msfilterreq::msfr_group"]
-        [::std::mem::offset_of!(__msfilterreq, msfr_group) - 16usize];
-    ["Offset of field: __msfilterreq::msfr_srcs"]
-        [::std::mem::offset_of!(__msfilterreq, msfr_srcs) - 144usize];
-};
-impl Default for __msfilterreq {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
-unsafe extern "C" {
-    pub fn setipv4sourcefilter(
-        arg1: ::std::os::raw::c_int,
-        arg2: in_addr,
-        arg3: in_addr,
-        arg4: u32,
-        arg5: u32,
-        arg6: *mut in_addr,
-    ) -> ::std::os::raw::c_int;
-}
-unsafe extern "C" {
-    pub fn getipv4sourcefilter(
-        arg1: ::std::os::raw::c_int,
-        arg2: in_addr,
-        arg3: in_addr,
-        arg4: *mut u32,
-        arg5: *mut u32,
-        arg6: *mut in_addr,
-    ) -> ::std::os::raw::c_int;
-}
-unsafe extern "C" {
-    pub fn setsourcefilter(
-        arg1: ::std::os::raw::c_int,
-        arg2: u32,
-        arg3: *mut sockaddr,
-        arg4: socklen_t,
-        arg5: u32,
-        arg6: u32,
-        arg7: *mut sockaddr_storage,
-    ) -> ::std::os::raw::c_int;
-}
-unsafe extern "C" {
-    pub fn getsourcefilter(
-        arg1: ::std::os::raw::c_int,
-        arg2: u32,
-        arg3: *mut sockaddr,
-        arg4: socklen_t,
-        arg5: *mut u32,
-        arg6: *mut u32,
-        arg7: *mut sockaddr_storage,
-    ) -> ::std::os::raw::c_int;
-}
-#[repr(C)]
-#[derive(Debug, Default, Copy, Clone)]
-pub struct in_pktinfo {
-    pub ipi_ifindex: ::std::os::raw::c_uint,
-    pub ipi_spec_dst: in_addr,
-    pub ipi_addr: in_addr,
-}
-#[allow(clippy::unnecessary_operation, clippy::identity_op)]
-const _: () = {
-    ["Size of in_pktinfo"][::std::mem::size_of::<in_pktinfo>() - 12usize];
-    ["Alignment of in_pktinfo"][::std::mem::align_of::<in_pktinfo>() - 4usize];
-    ["Offset of field: in_pktinfo::ipi_ifindex"]
-        [::std::mem::offset_of!(in_pktinfo, ipi_ifindex) - 0usize];
-    ["Offset of field: in_pktinfo::ipi_spec_dst"]
-        [::std::mem::offset_of!(in_pktinfo, ipi_spec_dst) - 4usize];
-    ["Offset of field: in_pktinfo::ipi_addr"]
-        [::std::mem::offset_of!(in_pktinfo, ipi_addr) - 8usize];
-};
-#[repr(C)]
 #[derive(Copy, Clone)]
 pub struct in6_addr {
-    pub __u6_addr: in6_addr__bindgen_ty_1,
+    pub __in6_u: in6_addr__bindgen_ty_1,
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub union in6_addr__bindgen_ty_1 {
-    pub __u6_addr8: [__uint8_t; 16usize],
-    pub __u6_addr16: [__uint16_t; 8usize],
-    pub __u6_addr32: [__uint32_t; 4usize],
+    pub __u6_addr8: [u8; 16usize],
+    pub __u6_addr16: [u16; 8usize],
+    pub __u6_addr32: [u32; 4usize],
 }
 #[allow(clippy::unnecessary_operation, clippy::identity_op)]
 const _: () = {
@@ -3058,8 +442,8 @@ impl Default for in6_addr__bindgen_ty_1 {
 const _: () = {
     ["Size of in6_addr"][::std::mem::size_of::<in6_addr>() - 16usize];
     ["Alignment of in6_addr"][::std::mem::align_of::<in6_addr>() - 4usize];
-    ["Offset of field: in6_addr::__u6_addr"]
-        [::std::mem::offset_of!(in6_addr, __u6_addr) - 0usize];
+    ["Offset of field: in6_addr::__in6_u"]
+        [::std::mem::offset_of!(in6_addr, __in6_u) - 0usize];
 };
 impl Default for in6_addr {
     fn default() -> Self {
@@ -3070,443 +454,43 @@ impl Default for in6_addr {
         }
     }
 }
-pub type in6_addr_t = in6_addr;
-#[repr(C)]
-#[derive(Copy, Clone)]
-pub struct sockaddr_in6 {
-    pub sin6_len: __uint8_t,
-    pub sin6_family: sa_family_t,
-    pub sin6_port: in_port_t,
-    pub sin6_flowinfo: __uint32_t,
-    pub sin6_addr: in6_addr,
-    pub sin6_scope_id: __uint32_t,
-}
-#[allow(clippy::unnecessary_operation, clippy::identity_op)]
-const _: () = {
-    ["Size of sockaddr_in6"][::std::mem::size_of::<sockaddr_in6>() - 28usize];
-    ["Alignment of sockaddr_in6"]
-        [::std::mem::align_of::<sockaddr_in6>() - 4usize];
-    ["Offset of field: sockaddr_in6::sin6_len"]
-        [::std::mem::offset_of!(sockaddr_in6, sin6_len) - 0usize];
-    ["Offset of field: sockaddr_in6::sin6_family"]
-        [::std::mem::offset_of!(sockaddr_in6, sin6_family) - 1usize];
-    ["Offset of field: sockaddr_in6::sin6_port"]
-        [::std::mem::offset_of!(sockaddr_in6, sin6_port) - 2usize];
-    ["Offset of field: sockaddr_in6::sin6_flowinfo"]
-        [::std::mem::offset_of!(sockaddr_in6, sin6_flowinfo) - 4usize];
-    ["Offset of field: sockaddr_in6::sin6_addr"]
-        [::std::mem::offset_of!(sockaddr_in6, sin6_addr) - 8usize];
-    ["Offset of field: sockaddr_in6::sin6_scope_id"]
-        [::std::mem::offset_of!(sockaddr_in6, sin6_scope_id) - 24usize];
-};
-impl Default for sockaddr_in6 {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
-unsafe extern "C" {
-    pub static in6addr_any: in6_addr;
-}
-unsafe extern "C" {
-    pub static in6addr_loopback: in6_addr;
-}
-unsafe extern "C" {
-    pub static in6addr_nodelocal_allnodes: in6_addr;
-}
-unsafe extern "C" {
-    pub static in6addr_linklocal_allnodes: in6_addr;
-}
-unsafe extern "C" {
-    pub static in6addr_linklocal_allrouters: in6_addr;
-}
-unsafe extern "C" {
-    pub static in6addr_linklocal_allv2routers: in6_addr;
-}
-#[repr(C)]
-#[derive(Copy, Clone)]
-pub struct ipv6_mreq {
-    pub ipv6mr_multiaddr: in6_addr,
-    pub ipv6mr_interface: ::std::os::raw::c_uint,
-}
-#[allow(clippy::unnecessary_operation, clippy::identity_op)]
-const _: () = {
-    ["Size of ipv6_mreq"][::std::mem::size_of::<ipv6_mreq>() - 20usize];
-    ["Alignment of ipv6_mreq"][::std::mem::align_of::<ipv6_mreq>() - 4usize];
-    ["Offset of field: ipv6_mreq::ipv6mr_multiaddr"]
-        [::std::mem::offset_of!(ipv6_mreq, ipv6mr_multiaddr) - 0usize];
-    ["Offset of field: ipv6_mreq::ipv6mr_interface"]
-        [::std::mem::offset_of!(ipv6_mreq, ipv6mr_interface) - 16usize];
-};
-impl Default for ipv6_mreq {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
-#[repr(C)]
-#[derive(Copy, Clone)]
-pub struct in6_pktinfo {
-    pub ipi6_addr: in6_addr,
-    pub ipi6_ifindex: ::std::os::raw::c_uint,
-}
-#[allow(clippy::unnecessary_operation, clippy::identity_op)]
-const _: () = {
-    ["Size of in6_pktinfo"][::std::mem::size_of::<in6_pktinfo>() - 20usize];
-    ["Alignment of in6_pktinfo"]
-        [::std::mem::align_of::<in6_pktinfo>() - 4usize];
-    ["Offset of field: in6_pktinfo::ipi6_addr"]
-        [::std::mem::offset_of!(in6_pktinfo, ipi6_addr) - 0usize];
-    ["Offset of field: in6_pktinfo::ipi6_ifindex"]
-        [::std::mem::offset_of!(in6_pktinfo, ipi6_ifindex) - 16usize];
-};
-impl Default for in6_pktinfo {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
-#[repr(C)]
-#[derive(Copy, Clone)]
-pub struct ip6_mtuinfo {
-    pub ip6m_addr: sockaddr_in6,
-    pub ip6m_mtu: u32,
-}
-#[allow(clippy::unnecessary_operation, clippy::identity_op)]
-const _: () = {
-    ["Size of ip6_mtuinfo"][::std::mem::size_of::<ip6_mtuinfo>() - 32usize];
-    ["Alignment of ip6_mtuinfo"]
-        [::std::mem::align_of::<ip6_mtuinfo>() - 4usize];
-    ["Offset of field: ip6_mtuinfo::ip6m_addr"]
-        [::std::mem::offset_of!(ip6_mtuinfo, ip6m_addr) - 0usize];
-    ["Offset of field: ip6_mtuinfo::ip6m_mtu"]
-        [::std::mem::offset_of!(ip6_mtuinfo, ip6m_mtu) - 28usize];
-};
-impl Default for ip6_mtuinfo {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
-unsafe extern "C" {
-    pub fn inet6_option_space(
-        arg1: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
-}
-unsafe extern "C" {
-    pub fn inet6_option_init(
-        arg1: *mut ::std::os::raw::c_void,
-        arg2: *mut *mut cmsghdr,
-        arg3: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
-}
-unsafe extern "C" {
-    pub fn inet6_option_append(
-        arg1: *mut cmsghdr,
-        arg2: *const __uint8_t,
-        arg3: ::std::os::raw::c_int,
-        arg4: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
-}
-unsafe extern "C" {
-    pub fn inet6_option_alloc(
-        arg1: *mut cmsghdr,
-        arg2: ::std::os::raw::c_int,
-        arg3: ::std::os::raw::c_int,
-        arg4: ::std::os::raw::c_int,
-    ) -> *mut __uint8_t;
-}
-unsafe extern "C" {
-    pub fn inet6_option_next(
-        arg1: *const cmsghdr,
-        arg2: *mut *mut __uint8_t,
-    ) -> ::std::os::raw::c_int;
-}
-unsafe extern "C" {
-    pub fn inet6_option_find(
-        arg1: *const cmsghdr,
-        arg2: *mut *mut __uint8_t,
-        arg3: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
-}
-unsafe extern "C" {
-    pub fn inet6_rthdr_space(
-        arg1: ::std::os::raw::c_int,
-        arg2: ::std::os::raw::c_int,
-    ) -> usize;
-}
-unsafe extern "C" {
-    pub fn inet6_rthdr_init(
-        arg1: *mut ::std::os::raw::c_void,
-        arg2: ::std::os::raw::c_int,
-    ) -> *mut cmsghdr;
-}
-unsafe extern "C" {
-    pub fn inet6_rthdr_add(
-        arg1: *mut cmsghdr,
-        arg2: *const in6_addr,
-        arg3: ::std::os::raw::c_uint,
-    ) -> ::std::os::raw::c_int;
-}
-unsafe extern "C" {
-    pub fn inet6_rthdr_lasthop(
-        arg1: *mut cmsghdr,
-        arg2: ::std::os::raw::c_uint,
-    ) -> ::std::os::raw::c_int;
-}
-unsafe extern "C" {
-    pub fn inet6_rthdr_segments(arg1: *const cmsghdr) -> ::std::os::raw::c_int;
-}
-unsafe extern "C" {
-    pub fn inet6_rthdr_getaddr(
-        arg1: *mut cmsghdr,
-        arg2: ::std::os::raw::c_int,
-    ) -> *mut in6_addr;
-}
-unsafe extern "C" {
-    pub fn inet6_rthdr_getflags(
-        arg1: *const cmsghdr,
-        arg2: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
-}
-unsafe extern "C" {
-    pub fn inet6_opt_init(
-        arg1: *mut ::std::os::raw::c_void,
-        arg2: socklen_t,
-    ) -> ::std::os::raw::c_int;
-}
-unsafe extern "C" {
-    pub fn inet6_opt_append(
-        arg1: *mut ::std::os::raw::c_void,
-        arg2: socklen_t,
-        arg3: ::std::os::raw::c_int,
-        arg4: __uint8_t,
-        arg5: socklen_t,
-        arg6: __uint8_t,
-        arg7: *mut *mut ::std::os::raw::c_void,
-    ) -> ::std::os::raw::c_int;
-}
-unsafe extern "C" {
-    pub fn inet6_opt_finish(
-        arg1: *mut ::std::os::raw::c_void,
-        arg2: socklen_t,
-        arg3: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
-}
-unsafe extern "C" {
-    pub fn inet6_opt_set_val(
-        arg1: *mut ::std::os::raw::c_void,
-        arg2: ::std::os::raw::c_int,
-        arg3: *mut ::std::os::raw::c_void,
-        arg4: socklen_t,
-    ) -> ::std::os::raw::c_int;
-}
-unsafe extern "C" {
-    pub fn inet6_opt_next(
-        arg1: *mut ::std::os::raw::c_void,
-        arg2: socklen_t,
-        arg3: ::std::os::raw::c_int,
-        arg4: *mut __uint8_t,
-        arg5: *mut socklen_t,
-        arg6: *mut *mut ::std::os::raw::c_void,
-    ) -> ::std::os::raw::c_int;
-}
-unsafe extern "C" {
-    pub fn inet6_opt_find(
-        arg1: *mut ::std::os::raw::c_void,
-        arg2: socklen_t,
-        arg3: ::std::os::raw::c_int,
-        arg4: __uint8_t,
-        arg5: *mut socklen_t,
-        arg6: *mut *mut ::std::os::raw::c_void,
-    ) -> ::std::os::raw::c_int;
-}
-unsafe extern "C" {
-    pub fn inet6_opt_get_val(
-        arg1: *mut ::std::os::raw::c_void,
-        arg2: ::std::os::raw::c_int,
-        arg3: *mut ::std::os::raw::c_void,
-        arg4: socklen_t,
-    ) -> ::std::os::raw::c_int;
-}
-unsafe extern "C" {
-    pub fn inet6_rth_space(
-        arg1: ::std::os::raw::c_int,
-        arg2: ::std::os::raw::c_int,
-    ) -> socklen_t;
-}
-unsafe extern "C" {
-    pub fn inet6_rth_init(
-        arg1: *mut ::std::os::raw::c_void,
-        arg2: socklen_t,
-        arg3: ::std::os::raw::c_int,
-        arg4: ::std::os::raw::c_int,
-    ) -> *mut ::std::os::raw::c_void;
-}
-unsafe extern "C" {
-    pub fn inet6_rth_add(
-        arg1: *mut ::std::os::raw::c_void,
-        arg2: *const in6_addr,
-    ) -> ::std::os::raw::c_int;
-}
-unsafe extern "C" {
-    pub fn inet6_rth_reverse(
-        arg1: *const ::std::os::raw::c_void,
-        arg2: *mut ::std::os::raw::c_void,
-    ) -> ::std::os::raw::c_int;
-}
-unsafe extern "C" {
-    pub fn inet6_rth_segments(
-        arg1: *const ::std::os::raw::c_void,
-    ) -> ::std::os::raw::c_int;
-}
-unsafe extern "C" {
-    pub fn inet6_rth_getaddr(
-        arg1: *const ::std::os::raw::c_void,
-        arg2: ::std::os::raw::c_int,
-    ) -> *mut in6_addr;
-}
-unsafe extern "C" {
-    pub fn bindresvport(
-        arg1: ::std::os::raw::c_int,
-        arg2: *mut sockaddr_in,
-    ) -> ::std::os::raw::c_int;
-}
-unsafe extern "C" {
-    pub fn bindresvport_sa(
-        arg1: ::std::os::raw::c_int,
-        arg2: *mut sockaddr,
-    ) -> ::std::os::raw::c_int;
-}
-unsafe extern "C" {
-    pub fn inet_addr(arg1: *const ::std::os::raw::c_char) -> in_addr_t;
-}
-unsafe extern "C" {
-    pub fn inet_ntoa(arg1: in_addr) -> *mut ::std::os::raw::c_char;
-}
-unsafe extern "C" {
-    pub fn inet_ntop(
-        arg1: ::std::os::raw::c_int,
-        arg2: *const ::std::os::raw::c_void,
-        arg3: *mut ::std::os::raw::c_char,
-        __size: socklen_t,
-    ) -> *const ::std::os::raw::c_char;
-}
-unsafe extern "C" {
-    pub fn inet_pton(
-        arg1: ::std::os::raw::c_int,
-        arg2: *const ::std::os::raw::c_char,
-        arg3: *mut ::std::os::raw::c_void,
-    ) -> ::std::os::raw::c_int;
-}
-unsafe extern "C" {
-    pub fn ascii2addr(
-        arg1: ::std::os::raw::c_int,
-        arg2: *const ::std::os::raw::c_char,
-        arg3: *mut ::std::os::raw::c_void,
-    ) -> ::std::os::raw::c_int;
-}
-unsafe extern "C" {
-    pub fn addr2ascii(
-        arg1: ::std::os::raw::c_int,
-        arg2: *const ::std::os::raw::c_void,
-        __size: ::std::os::raw::c_int,
-        arg3: *mut ::std::os::raw::c_char,
-    ) -> *mut ::std::os::raw::c_char;
-}
-unsafe extern "C" {
-    pub fn inet_aton(
-        arg1: *const ::std::os::raw::c_char,
-        arg2: *mut in_addr,
-    ) -> ::std::os::raw::c_int;
-}
-unsafe extern "C" {
-    pub fn inet_lnaof(arg1: in_addr) -> in_addr_t;
-}
-unsafe extern "C" {
-    pub fn inet_makeaddr(arg1: in_addr_t, arg2: in_addr_t) -> in_addr;
-}
-unsafe extern "C" {
-    pub fn inet_netof(arg1: in_addr) -> in_addr_t;
-}
-unsafe extern "C" {
-    pub fn inet_network(arg1: *const ::std::os::raw::c_char) -> in_addr_t;
-}
-unsafe extern "C" {
-    pub fn inet_net_ntop(
-        arg1: ::std::os::raw::c_int,
-        arg2: *const ::std::os::raw::c_void,
-        arg3: ::std::os::raw::c_int,
-        arg4: *mut ::std::os::raw::c_char,
-        __size: __darwin_size_t,
-    ) -> *mut ::std::os::raw::c_char;
-}
-unsafe extern "C" {
-    pub fn inet_net_pton(
-        arg1: ::std::os::raw::c_int,
-        arg2: *const ::std::os::raw::c_char,
-        arg3: *mut ::std::os::raw::c_void,
-        __size: __darwin_size_t,
-    ) -> ::std::os::raw::c_int;
-}
-unsafe extern "C" {
-    pub fn inet_neta(
-        arg1: in_addr_t,
-        arg2: *mut ::std::os::raw::c_char,
-        __size: __darwin_size_t,
-    ) -> *mut ::std::os::raw::c_char;
-}
-unsafe extern "C" {
-    pub fn inet_nsap_addr(
-        arg1: *const ::std::os::raw::c_char,
-        arg2: *mut ::std::os::raw::c_uchar,
-        __maxlen: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_uint;
-}
-unsafe extern "C" {
-    pub fn inet_nsap_ntoa(
-        __binlen: ::std::os::raw::c_int,
-        arg1: *const ::std::os::raw::c_uchar,
-        arg2: *mut ::std::os::raw::c_char,
-    ) -> *mut ::std::os::raw::c_char;
-}
+#[doc = " @struct ly_ctx\n @brief libyang context handler."]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct ly_ctx {
     _unused: [u8; 0],
 }
+#[doc = " @brief Type to indicate boolean value.\n\n Do not test for actual value. Instead, handle it as true/false value in condition."]
 pub type ly_bool = u8;
 pub mod LY_LOG_LEVEL {
+    #[doc = " @typedef LY_LOG_LEVEL\n @brief Verbosity levels of the libyang logger."]
     pub type Type = ::std::os::raw::c_uint;
+    #[doc = "< Print only error messages."]
     pub const LY_LLERR: Type = 0;
+    #[doc = "< Print error and warning messages, default value."]
     pub const LY_LLWRN: Type = 1;
+    #[doc = "< Besides errors and warnings, print some other verbose messages."]
     pub const LY_LLVRB: Type = 2;
+    #[doc = "< Print all messages including some development debug messages (be careful,\nwithout subsequently calling ::ly_log_dbg_groups() no debug messages will be printed!)."]
     pub const LY_LLDBG: Type = 3;
 }
 unsafe extern "C" {
+    #[doc = " @brief Set logger verbosity level.\n\n Does not affect the logging callback.\n\n To get the current value, the function must be called twice resetting the level by the received value.\n\n @param[in] level Verbosity level.\n @return Previous verbosity level."]
     pub fn ly_log_level(level: LY_LOG_LEVEL::Type) -> LY_LOG_LEVEL::Type;
 }
 unsafe extern "C" {
+    #[doc = " @brief Set global logger options. Default is #LY_LOLOG | #LY_LOSTORE_LAST.\n\n To get the current value, the function must be called twice resetting the level by the received value.\n\n @param[in] opts Bitfield of @ref logopts.\n @return Previous logger options."]
     pub fn ly_log_options(opts: u32) -> u32;
 }
 unsafe extern "C" {
+    #[doc = " @brief Set temporary thread-safe (thread-specific) logger options overwriting those set by ::ly_log_options().\n\n @param[in] opts Pointer to the temporary @ref logopts. If NULL, restores the effect of global logger options.\n @return Previous temporary options."]
     pub fn ly_temp_log_options(opts: *mut u32) -> *mut u32;
 }
 unsafe extern "C" {
+    #[doc = " @brief Enable specific debugging messages (independent of log level).\n\n To get the current value, the function must be called twice resetting the level by the received value.\n Note: does not have any effect on non-debug (Release) builds\n\n @param[in] dbg_groups Bitfield of enabled debug message groups (see @ref dbggroup).\n @return Previous options bitfield."]
     pub fn ly_log_dbg_groups(dbg_groups: u32) -> u32;
 }
+#[doc = " @brief Logger callback.\n\n @param[in] level Log level of the message.\n @param[in] msg Message.\n @param[in] data_path Optional data path of the related node.\n @param[in] schema_path Optional schema path of the related node.\n @param[in] line Optional related input line."]
 pub type ly_log_clb = ::std::option::Option<
     unsafe extern "C" fn(
         level: LY_LOG_LEVEL::Type,
@@ -3517,57 +501,98 @@ pub type ly_log_clb = ::std::option::Option<
     ),
 >;
 unsafe extern "C" {
+    #[doc = " @brief Set global logger callback.\n\n Is not affected by global log level.\n\n @param[in] clb Logging callback."]
     pub fn ly_set_log_clb(clb: ly_log_clb);
 }
 unsafe extern "C" {
+    #[doc = " @brief Get global logger callback.\n\n @return Logger callback (can be NULL)."]
     pub fn ly_get_log_clb() -> ly_log_clb;
 }
 unsafe extern "C" {
+    #[doc = " @brief Set temporary thread-safe (thread-specific) logger callback ovewriting that set by ::ly_set_log_clb.\n\n Is not affected by global log level.\n\n @param[in] clb Logging callback.\n @return Previous temporary logging callback."]
     pub fn ly_temp_log_clb(clb: ly_log_clb) -> ly_log_clb;
 }
 pub mod LY_ERR {
+    #[doc = " @typedef LY_ERR\n @brief libyang's error codes returned by the libyang functions."]
     pub type Type = ::std::os::raw::c_uint;
+    #[doc = "< no error, not set by functions, included just to complete #LY_ERR enumeration"]
     pub const LY_SUCCESS: Type = 0;
+    #[doc = "< Memory allocation failure"]
     pub const LY_EMEM: Type = 1;
+    #[doc = "< System call failure"]
     pub const LY_ESYS: Type = 2;
+    #[doc = "< Invalid value"]
     pub const LY_EINVAL: Type = 3;
+    #[doc = "< Item already exists"]
     pub const LY_EEXIST: Type = 4;
+    #[doc = "< Item does not exists"]
     pub const LY_ENOTFOUND: Type = 5;
+    #[doc = "< Internal error"]
     pub const LY_EINT: Type = 6;
+    #[doc = "< Validation failure"]
     pub const LY_EVALID: Type = 7;
+    #[doc = "< Operation is not allowed"]
     pub const LY_EDENIED: Type = 8;
+    #[doc = "< The operation did not fail, but for some reason it was not possible to finish it completely.\nAccording to the specific use case, the caller is usually supposed to perform the operation again."]
     pub const LY_EINCOMPLETE: Type = 9;
+    #[doc = "< The operation did not fail, but requires context recompilation before it can be completed.\nAccording to the specific use case, the caller should react appropriately."]
     pub const LY_ERECOMPILE: Type = 10;
+    #[doc = "< Negative result"]
     pub const LY_ENOT: Type = 11;
+    #[doc = "< Unknown error"]
     pub const LY_EOTHER: Type = 12;
+    #[doc = "< Error reported by a plugin - the highest bit in the first byte is set.\nThis value is used ORed with one of the other LY_ERR value and can be simply masked."]
     pub const LY_EPLUGIN: Type = 128;
 }
 pub mod LY_VECODE {
+    #[doc = " @ingroup log\n @typedef LY_VECODE\n @brief libyang's codes of validation error. Whenever ly_errno is set to LY_EVALID, the ly_vecode is also set\n to the appropriate LY_VECODE value."]
     pub type Type = ::std::os::raw::c_uint;
+    #[doc = "< no error"]
     pub const LYVE_SUCCESS: Type = 0;
+    #[doc = "< generic syntax error"]
     pub const LYVE_SYNTAX: Type = 1;
+    #[doc = "< YANG-related syntax error"]
     pub const LYVE_SYNTAX_YANG: Type = 2;
+    #[doc = "< YIN-related syntax error"]
     pub const LYVE_SYNTAX_YIN: Type = 3;
+    #[doc = "< invalid referencing or using an item"]
     pub const LYVE_REFERENCE: Type = 4;
+    #[doc = "< invalid XPath expression"]
     pub const LYVE_XPATH: Type = 5;
+    #[doc = "< generic semantic error"]
     pub const LYVE_SEMANTICS: Type = 6;
+    #[doc = "< XML-related syntax error"]
     pub const LYVE_SYNTAX_XML: Type = 7;
+    #[doc = "< JSON-related syntax error"]
     pub const LYVE_SYNTAX_JSON: Type = 8;
+    #[doc = "< YANG data does not reflect some of the module restrictions"]
     pub const LYVE_DATA: Type = 9;
+    #[doc = "< Unknown error"]
     pub const LYVE_OTHER: Type = 10;
 }
+#[doc = " @brief Libyang full error structure."]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct ly_err_item {
+    #[doc = "< error (message) log level"]
     pub level: LY_LOG_LEVEL::Type,
+    #[doc = "< error code number"]
     pub err: LY_ERR::Type,
+    #[doc = "< validation error code, if any"]
     pub vecode: LY_VECODE::Type,
+    #[doc = "< error message"]
     pub msg: *mut ::std::os::raw::c_char,
+    #[doc = "< error data path related to the error, if any"]
     pub data_path: *mut ::std::os::raw::c_char,
+    #[doc = "< error schema path related to the error, if any"]
     pub schema_path: *mut ::std::os::raw::c_char,
+    #[doc = "< input line the error occured on, if available"]
     pub line: u64,
+    #[doc = "< error-app-tag, if any"]
     pub apptag: *mut ::std::os::raw::c_char,
+    #[doc = "< next error item"]
     pub next: *mut ly_err_item,
+    #[doc = "< previous error item, points to the last item for the ifrst item"]
     pub prev: *mut ly_err_item,
 }
 #[allow(clippy::unnecessary_operation, clippy::identity_op)]
@@ -3606,23 +631,29 @@ impl Default for ly_err_item {
     }
 }
 unsafe extern "C" {
+    #[doc = " @brief Get human-readable error message for an error code.\n\n @param[in] err Error code.\n @return String error message."]
     pub fn ly_strerr(err: LY_ERR::Type) -> *const ::std::os::raw::c_char;
 }
 unsafe extern "C" {
+    #[doc = " @brief Get human-readable error message for a validation error code.\n\n @param[in] vecode Validation error code.\n @return String error message."]
     pub fn ly_strvecode(
         vecode: LY_VECODE::Type,
     ) -> *const ::std::os::raw::c_char;
 }
 unsafe extern "C" {
+    #[doc = " @brief Get the last (thread-specific) full logged error message.\n\n This function is useful for getting errors from functions that do not have any context accessible and includes\n any additional information such as the path or line where the error occurred.\n\n @return Last generated error message."]
     pub fn ly_last_logmsg() -> *const ::std::os::raw::c_char;
 }
 unsafe extern "C" {
+    #[doc = " @brief Get the first (thread, context-specific) generated error structure.\n\n @param[in] ctx Relative context.\n @return First error structure, NULL if none available."]
     pub fn ly_err_first(ctx: *const ly_ctx) -> *const ly_err_item;
 }
 unsafe extern "C" {
+    #[doc = " @brief Get the latest (thread, context-specific) generated error structure.\n\n @param[in] ctx Relative context.\n @return Last error structure, NULL if none available."]
     pub fn ly_err_last(ctx: *const ly_ctx) -> *const ly_err_item;
 }
 unsafe extern "C" {
+    #[doc = " @brief Print the error structure as if just generated.\n\n @param[in] ctx Optional context to store the message in.\n @param[in] eitem Error item structure to print.\n @param[in] lnode Optional data node to log.\n @param[in] snode Optional schema node to log/append to @p lnode."]
     pub fn ly_err_print(
         ctx: *const ly_ctx,
         eitem: *const ly_err_item,
@@ -3631,20 +662,27 @@ unsafe extern "C" {
     );
 }
 unsafe extern "C" {
+    #[doc = " @brief Free error structures from a context.\n\n If @p eitem is not set, free all the error structures.\n\n @param[in] ctx Relative context.\n @param[in] eitem Oldest error structure to remove, optional."]
     pub fn ly_err_clean(ctx: *const ly_ctx, eitem: *mut ly_err_item);
 }
+#[doc = " @struct ly_in\n @brief Parser input structure specifying the type of data input."]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct ly_in {
     _unused: [u8; 0],
 }
 pub mod LYS_INFORMAT {
+    #[doc = " @brief Schema input formats accepted by libyang [parser functions](@ref howtoSchemaParsers)."]
     pub type Type = ::std::os::raw::c_uint;
+    #[doc = "< unknown format, used as return value in case of error"]
     pub const LYS_IN_UNKNOWN: Type = 0;
+    #[doc = "< YANG schema input format"]
     pub const LYS_IN_YANG: Type = 1;
+    #[doc = "< YIN schema input format"]
     pub const LYS_IN_YIN: Type = 3;
 }
 unsafe extern "C" {
+    #[doc = " @brief Load a schema into the specified context.\n\n @param[in] ctx libyang context to use.\n @param[in] in Input handle to provide the dumped module in the specified format.\n @param[in] format Format of the schema to parse. Can be 0 to try to detect format from the input handler.\n @param[in] features Array of features to enable ended with NULL. If NULL, no features are enabled.\n @param[out] module Optional parsed module.\n @return LY_ERR value."]
     pub fn lys_parse(
         ctx: *mut ly_ctx,
         in_: *mut ly_in,
@@ -3654,6 +692,7 @@ unsafe extern "C" {
     ) -> LY_ERR::Type;
 }
 unsafe extern "C" {
+    #[doc = " @brief Load a schema into the specified context.\n\n This function is considered for a simple use, if you have a complex use-case,\n consider use of ::lys_parse() with a standalone input handler.\n\n @param[in] ctx libyang context to use.\n @param[in] data String containing the dumped module in the specified format.\n @param[in] format Format of the schema to parse.\n @param[out] module Optional parsed module.\n @return LY_ERR value."]
     pub fn lys_parse_mem(
         ctx: *mut ly_ctx,
         data: *const ::std::os::raw::c_char,
@@ -3662,6 +701,7 @@ unsafe extern "C" {
     ) -> LY_ERR::Type;
 }
 unsafe extern "C" {
+    #[doc = " @brief Read a schema from file descriptor into the specified context.\n\n @note Current implementation supports only reading data from standard (disk) file, not from sockets, pipes, etc.\n\n This function is considered for a simple use, if you have a complex use-case,\n consider use of ::lys_parse() with a standalone input handler.\n\n @param[in] ctx libyang context to use.\n @param[in] fd File descriptor of a regular file (e.g. sockets are not supported) containing the schema\n            in the specified format.\n @param[in] format Format of the schema to parse.\n @param[out] module Optional parsed module.\n @return LY_ERR value."]
     pub fn lys_parse_fd(
         ctx: *mut ly_ctx,
         fd: ::std::os::raw::c_int,
@@ -3670,6 +710,7 @@ unsafe extern "C" {
     ) -> LY_ERR::Type;
 }
 unsafe extern "C" {
+    #[doc = " @brief Load a schema into the specified context from a file.\n\n This function is considered for a simple use, if you have a complex use-case,\n consider use of ::lys_parse() with a standalone input handler.\n\n @param[in] ctx libyang context to use.\n @param[in] path Path to the file with the module in the specified format.\n @param[in] format Format of the schema to parse.\n @param[out] module Optional parsed module.\n @return LY_ERR value."]
     pub fn lys_parse_path(
         ctx: *mut ly_ctx,
         path: *const ::std::os::raw::c_char,
@@ -3678,6 +719,7 @@ unsafe extern "C" {
     ) -> LY_ERR::Type;
 }
 unsafe extern "C" {
+    #[doc = " @brief Search for the schema file in the specified searchpaths.\n\n @param[in] searchpaths NULL-terminated array of paths to be searched (recursively). Current working\n directory is searched automatically (but non-recursively if not in the provided list). Caller can use\n result of the ::ly_ctx_get_searchdirs().\n @param[in] cwd Flag to implicitly search also in the current working directory (non-recursively).\n @param[in] name Name of the schema to find.\n @param[in] revision Revision of the schema to find. If NULL, the newest found schema filepath is returned.\n @param[out] localfile Mandatory output variable containing absolute path of the found schema. If no schema\n complying the provided restriction is found, NULL is set.\n @param[out] format Optional output variable containing expected format of the schema document according to the\n file suffix.\n @return LY_ERR value (LY_SUCCESS is returned even if the file is not found, then the *localfile is NULL)."]
     pub fn lys_search_localfile(
         searchpaths: *const *const ::std::os::raw::c_char,
         cwd: ly_bool,
@@ -3687,449 +729,186 @@ unsafe extern "C" {
         format: *mut LYS_INFORMAT::Type,
     ) -> LY_ERR::Type;
 }
-pub type wchar_t = ::std::os::raw::c_int;
-pub type max_align_t = f64;
-pub type __darwin_nl_item = ::std::os::raw::c_int;
-pub type __darwin_wctrans_t = ::std::os::raw::c_int;
-pub type __darwin_wctype_t = __uint32_t;
-#[repr(C)]
-#[derive(Debug, Default, Copy, Clone)]
-pub struct timespec {
-    pub tv_sec: __darwin_time_t,
-    pub tv_nsec: ::std::os::raw::c_long,
-}
-#[allow(clippy::unnecessary_operation, clippy::identity_op)]
-const _: () = {
-    ["Size of timespec"][::std::mem::size_of::<timespec>() - 16usize];
-    ["Alignment of timespec"][::std::mem::align_of::<timespec>() - 8usize];
-    ["Offset of field: timespec::tv_sec"]
-        [::std::mem::offset_of!(timespec, tv_sec) - 0usize];
-    ["Offset of field: timespec::tv_nsec"]
-        [::std::mem::offset_of!(timespec, tv_nsec) - 8usize];
-};
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct tm {
-    pub tm_sec: ::std::os::raw::c_int,
-    pub tm_min: ::std::os::raw::c_int,
-    pub tm_hour: ::std::os::raw::c_int,
-    pub tm_mday: ::std::os::raw::c_int,
-    pub tm_mon: ::std::os::raw::c_int,
-    pub tm_year: ::std::os::raw::c_int,
-    pub tm_wday: ::std::os::raw::c_int,
-    pub tm_yday: ::std::os::raw::c_int,
-    pub tm_isdst: ::std::os::raw::c_int,
-    pub tm_gmtoff: ::std::os::raw::c_long,
-    pub tm_zone: *mut ::std::os::raw::c_char,
-}
-#[allow(clippy::unnecessary_operation, clippy::identity_op)]
-const _: () = {
-    ["Size of tm"][::std::mem::size_of::<tm>() - 56usize];
-    ["Alignment of tm"][::std::mem::align_of::<tm>() - 8usize];
-    ["Offset of field: tm::tm_sec"]
-        [::std::mem::offset_of!(tm, tm_sec) - 0usize];
-    ["Offset of field: tm::tm_min"]
-        [::std::mem::offset_of!(tm, tm_min) - 4usize];
-    ["Offset of field: tm::tm_hour"]
-        [::std::mem::offset_of!(tm, tm_hour) - 8usize];
-    ["Offset of field: tm::tm_mday"]
-        [::std::mem::offset_of!(tm, tm_mday) - 12usize];
-    ["Offset of field: tm::tm_mon"]
-        [::std::mem::offset_of!(tm, tm_mon) - 16usize];
-    ["Offset of field: tm::tm_year"]
-        [::std::mem::offset_of!(tm, tm_year) - 20usize];
-    ["Offset of field: tm::tm_wday"]
-        [::std::mem::offset_of!(tm, tm_wday) - 24usize];
-    ["Offset of field: tm::tm_yday"]
-        [::std::mem::offset_of!(tm, tm_yday) - 28usize];
-    ["Offset of field: tm::tm_isdst"]
-        [::std::mem::offset_of!(tm, tm_isdst) - 32usize];
-    ["Offset of field: tm::tm_gmtoff"]
-        [::std::mem::offset_of!(tm, tm_gmtoff) - 40usize];
-    ["Offset of field: tm::tm_zone"]
-        [::std::mem::offset_of!(tm, tm_zone) - 48usize];
-};
-impl Default for tm {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
-unsafe extern "C" {
-    pub static mut tzname: [*mut ::std::os::raw::c_char; 0usize];
-}
-unsafe extern "C" {
-    pub static mut getdate_err: ::std::os::raw::c_int;
-}
-unsafe extern "C" {
-    pub static mut timezone: ::std::os::raw::c_long;
-}
-unsafe extern "C" {
-    pub static mut daylight: ::std::os::raw::c_int;
-}
-unsafe extern "C" {
-    pub fn asctime(arg1: *const tm) -> *mut ::std::os::raw::c_char;
-}
-unsafe extern "C" {
-    pub fn clock() -> clock_t;
-}
-unsafe extern "C" {
-    pub fn ctime(arg1: *const time_t) -> *mut ::std::os::raw::c_char;
-}
-unsafe extern "C" {
-    pub fn difftime(arg1: time_t, arg2: time_t) -> f64;
-}
-unsafe extern "C" {
-    pub fn getdate(arg1: *const ::std::os::raw::c_char) -> *mut tm;
-}
-unsafe extern "C" {
-    pub fn gmtime(arg1: *const time_t) -> *mut tm;
-}
-unsafe extern "C" {
-    pub fn localtime(arg1: *const time_t) -> *mut tm;
-}
-unsafe extern "C" {
-    pub fn mktime(arg1: *mut tm) -> time_t;
-}
-unsafe extern "C" {
-    pub fn strftime(
-        arg1: *mut ::std::os::raw::c_char,
-        __maxsize: usize,
-        arg2: *const ::std::os::raw::c_char,
-        arg3: *const tm,
-    ) -> usize;
-}
-unsafe extern "C" {
-    pub fn strptime(
-        arg1: *const ::std::os::raw::c_char,
-        arg2: *const ::std::os::raw::c_char,
-        arg3: *mut tm,
-    ) -> *mut ::std::os::raw::c_char;
-}
-unsafe extern "C" {
-    pub fn time(arg1: *mut time_t) -> time_t;
-}
-unsafe extern "C" {
-    pub fn tzset();
-}
-unsafe extern "C" {
-    pub fn asctime_r(
-        arg1: *const tm,
-        arg2: *mut ::std::os::raw::c_char,
-    ) -> *mut ::std::os::raw::c_char;
-}
-unsafe extern "C" {
-    pub fn ctime_r(
-        arg1: *const time_t,
-        arg2: *mut ::std::os::raw::c_char,
-    ) -> *mut ::std::os::raw::c_char;
-}
-unsafe extern "C" {
-    pub fn gmtime_r(arg1: *const time_t, arg2: *mut tm) -> *mut tm;
-}
-unsafe extern "C" {
-    pub fn localtime_r(arg1: *const time_t, arg2: *mut tm) -> *mut tm;
-}
-unsafe extern "C" {
-    pub fn posix2time(arg1: time_t) -> time_t;
-}
-unsafe extern "C" {
-    pub fn tzsetwall();
-}
-unsafe extern "C" {
-    pub fn time2posix(arg1: time_t) -> time_t;
-}
-unsafe extern "C" {
-    pub fn timelocal(arg1: *mut tm) -> time_t;
-}
-unsafe extern "C" {
-    pub fn timegm(arg1: *mut tm) -> time_t;
-}
-unsafe extern "C" {
-    pub fn nanosleep(
-        __rqtp: *const timespec,
-        __rmtp: *mut timespec,
-    ) -> ::std::os::raw::c_int;
-}
-pub mod clockid_t {
-    pub type Type = ::std::os::raw::c_uint;
-    pub const _CLOCK_REALTIME: Type = 0;
-    pub const _CLOCK_MONOTONIC: Type = 6;
-    pub const _CLOCK_MONOTONIC_RAW: Type = 4;
-    pub const _CLOCK_MONOTONIC_RAW_APPROX: Type = 5;
-    pub const _CLOCK_UPTIME_RAW: Type = 8;
-    pub const _CLOCK_UPTIME_RAW_APPROX: Type = 9;
-    pub const _CLOCK_PROCESS_CPUTIME_ID: Type = 12;
-    pub const _CLOCK_THREAD_CPUTIME_ID: Type = 16;
-}
-unsafe extern "C" {
-    pub fn clock_getres(
-        __clock_id: clockid_t::Type,
-        __res: *mut timespec,
-    ) -> ::std::os::raw::c_int;
-}
-unsafe extern "C" {
-    pub fn clock_gettime(
-        __clock_id: clockid_t::Type,
-        __tp: *mut timespec,
-    ) -> ::std::os::raw::c_int;
-}
-unsafe extern "C" {
-    pub fn clock_gettime_nsec_np(__clock_id: clockid_t::Type) -> __uint64_t;
-}
-unsafe extern "C" {
-    pub fn clock_settime(
-        __clock_id: clockid_t::Type,
-        __tp: *const timespec,
-    ) -> ::std::os::raw::c_int;
-}
-unsafe extern "C" {
-    pub fn timespec_get(
-        ts: *mut timespec,
-        base: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
-}
-unsafe extern "C" {
-    pub fn imaxabs(j: intmax_t) -> intmax_t;
-}
-#[repr(C)]
-#[derive(Debug, Default, Copy, Clone)]
-pub struct imaxdiv_t {
-    pub quot: intmax_t,
-    pub rem: intmax_t,
-}
-#[allow(clippy::unnecessary_operation, clippy::identity_op)]
-const _: () = {
-    ["Size of imaxdiv_t"][::std::mem::size_of::<imaxdiv_t>() - 16usize];
-    ["Alignment of imaxdiv_t"][::std::mem::align_of::<imaxdiv_t>() - 8usize];
-    ["Offset of field: imaxdiv_t::quot"]
-        [::std::mem::offset_of!(imaxdiv_t, quot) - 0usize];
-    ["Offset of field: imaxdiv_t::rem"]
-        [::std::mem::offset_of!(imaxdiv_t, rem) - 8usize];
-};
-unsafe extern "C" {
-    pub fn imaxdiv(__numer: intmax_t, __denom: intmax_t) -> imaxdiv_t;
-}
-unsafe extern "C" {
-    pub fn strtoimax(
-        __nptr: *const ::std::os::raw::c_char,
-        __endptr: *mut *mut ::std::os::raw::c_char,
-        __base: ::std::os::raw::c_int,
-    ) -> intmax_t;
-}
-unsafe extern "C" {
-    pub fn strtoumax(
-        __nptr: *const ::std::os::raw::c_char,
-        __endptr: *mut *mut ::std::os::raw::c_char,
-        __base: ::std::os::raw::c_int,
-    ) -> uintmax_t;
-}
-unsafe extern "C" {
-    pub fn wcstoimax(
-        __nptr: *const wchar_t,
-        __endptr: *mut *mut wchar_t,
-        __base: ::std::os::raw::c_int,
-    ) -> intmax_t;
-}
-unsafe extern "C" {
-    pub fn wcstoumax(
-        __nptr: *const wchar_t,
-        __endptr: *mut *mut wchar_t,
-        __base: ::std::os::raw::c_int,
-    ) -> uintmax_t;
-}
 pub mod LY_DATA_TYPE {
+    #[doc = " @brief YANG built-in types"]
     pub type Type = ::std::os::raw::c_uint;
+    #[doc = "< Unknown type"]
     pub const LY_TYPE_UNKNOWN: Type = 0;
+    #[doc = "< Any binary data ([RFC 6020 sec 9.8](http://tools.ietf.org/html/rfc6020#section-9.8))"]
     pub const LY_TYPE_BINARY: Type = 1;
+    #[doc = "< 8-bit unsigned integer ([RFC 6020 sec 9.2](http://tools.ietf.org/html/rfc6020#section-9.2))"]
     pub const LY_TYPE_UINT8: Type = 2;
+    #[doc = "< 16-bit unsigned integer ([RFC 6020 sec 9.2](http://tools.ietf.org/html/rfc6020#section-9.2))"]
     pub const LY_TYPE_UINT16: Type = 3;
+    #[doc = "< 32-bit unsigned integer ([RFC 6020 sec 9.2](http://tools.ietf.org/html/rfc6020#section-9.2))"]
     pub const LY_TYPE_UINT32: Type = 4;
+    #[doc = "< 64-bit unsigned integer ([RFC 6020 sec 9.2](http://tools.ietf.org/html/rfc6020#section-9.2))"]
     pub const LY_TYPE_UINT64: Type = 5;
+    #[doc = "< Human-readable string ([RFC 6020 sec 9.4](http://tools.ietf.org/html/rfc6020#section-9.4))"]
     pub const LY_TYPE_STRING: Type = 6;
+    #[doc = "< A set of bits or flags ([RFC 6020 sec 9.7](http://tools.ietf.org/html/rfc6020#section-9.7))"]
     pub const LY_TYPE_BITS: Type = 7;
+    #[doc = "< \"true\" or \"false\" ([RFC 6020 sec 9.5](http://tools.ietf.org/html/rfc6020#section-9.5))"]
     pub const LY_TYPE_BOOL: Type = 8;
+    #[doc = "< 64-bit signed decimal number ([RFC 6020 sec 9.3](http://tools.ietf.org/html/rfc6020#section-9.3))"]
     pub const LY_TYPE_DEC64: Type = 9;
+    #[doc = "< A leaf that does not have any value ([RFC 6020 sec 9.11](http://tools.ietf.org/html/rfc6020#section-9.11))"]
     pub const LY_TYPE_EMPTY: Type = 10;
+    #[doc = "< Enumerated strings ([RFC 6020 sec 9.6](http://tools.ietf.org/html/rfc6020#section-9.6))"]
     pub const LY_TYPE_ENUM: Type = 11;
+    #[doc = "< A reference to an abstract identity ([RFC 6020 sec 9.10](http://tools.ietf.org/html/rfc6020#section-9.10))"]
     pub const LY_TYPE_IDENT: Type = 12;
+    #[doc = "< References a data tree node ([RFC 6020 sec 9.13](http://tools.ietf.org/html/rfc6020#section-9.13))"]
     pub const LY_TYPE_INST: Type = 13;
+    #[doc = "< A reference to a leaf instance ([RFC 6020 sec 9.9](http://tools.ietf.org/html/rfc6020#section-9.9))"]
     pub const LY_TYPE_LEAFREF: Type = 14;
+    #[doc = "< Choice of member types ([RFC 6020 sec 9.12](http://tools.ietf.org/html/rfc6020#section-9.12))"]
     pub const LY_TYPE_UNION: Type = 15;
+    #[doc = "< 8-bit signed integer ([RFC 6020 sec 9.2](http://tools.ietf.org/html/rfc6020#section-9.2))"]
     pub const LY_TYPE_INT8: Type = 16;
+    #[doc = "< 16-bit signed integer ([RFC 6020 sec 9.2](http://tools.ietf.org/html/rfc6020#section-9.2))"]
     pub const LY_TYPE_INT16: Type = 17;
+    #[doc = "< 32-bit signed integer ([RFC 6020 sec 9.2](http://tools.ietf.org/html/rfc6020#section-9.2))"]
     pub const LY_TYPE_INT32: Type = 18;
+    #[doc = "< 64-bit signed integer ([RFC 6020 sec 9.2](http://tools.ietf.org/html/rfc6020#section-9.2))"]
     pub const LY_TYPE_INT64: Type = 19;
 }
 unsafe extern "C" {
+    #[doc = " @brief Stringfield YANG built-in data types"]
     pub static mut ly_data_type2str: [*const ::std::os::raw::c_char; 20usize];
 }
 pub mod LY_VALUE_FORMAT {
+    #[doc = " @brief All kinds of supported value formats and prefix mappings to modules."]
     pub type Type = ::std::os::raw::c_uint;
+    #[doc = "< canonical value, prefix mapping is type-specific"]
     pub const LY_VALUE_CANON: Type = 0;
+    #[doc = "< YANG schema value, prefixes map to YANG import prefixes"]
     pub const LY_VALUE_SCHEMA: Type = 1;
+    #[doc = "< resolved YANG schema value, prefixes map to module structures directly"]
     pub const LY_VALUE_SCHEMA_RESOLVED: Type = 2;
+    #[doc = "< XML data value, prefixes map to XML namespace prefixes"]
     pub const LY_VALUE_XML: Type = 3;
+    #[doc = "< JSON data value, prefixes map to module names"]
     pub const LY_VALUE_JSON: Type = 4;
+    #[doc = "< LYB data binary value, prefix mapping is type-specific (but usually like JSON)"]
     pub const LY_VALUE_LYB: Type = 5;
+    #[doc = "< any data format value, prefixes map to XML namespace prefixes"]
     pub const LY_VALUE_STR_NS: Type = 6;
 }
-pub type va_list = __darwin_va_list;
-unsafe extern "C" {
-    pub fn renameat(
-        arg1: ::std::os::raw::c_int,
-        arg2: *const ::std::os::raw::c_char,
-        arg3: ::std::os::raw::c_int,
-        arg4: *const ::std::os::raw::c_char,
-    ) -> ::std::os::raw::c_int;
-}
-unsafe extern "C" {
-    pub fn renamex_np(
-        arg1: *const ::std::os::raw::c_char,
-        arg2: *const ::std::os::raw::c_char,
-        arg3: ::std::os::raw::c_uint,
-    ) -> ::std::os::raw::c_int;
-}
-unsafe extern "C" {
-    pub fn renameatx_np(
-        arg1: ::std::os::raw::c_int,
-        arg2: *const ::std::os::raw::c_char,
-        arg3: ::std::os::raw::c_int,
-        arg4: *const ::std::os::raw::c_char,
-        arg5: ::std::os::raw::c_uint,
-    ) -> ::std::os::raw::c_int;
-}
-unsafe extern "C" {
-    pub fn printf(
-        arg1: *const ::std::os::raw::c_char,
-        ...
-    ) -> ::std::os::raw::c_int;
-}
-pub type fpos_t = __darwin_off_t;
+pub type FILE = _IO_FILE;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
-pub struct __sbuf {
-    pub _base: *mut ::std::os::raw::c_uchar,
-    pub _size: ::std::os::raw::c_int,
-}
-#[allow(clippy::unnecessary_operation, clippy::identity_op)]
-const _: () = {
-    ["Size of __sbuf"][::std::mem::size_of::<__sbuf>() - 16usize];
-    ["Alignment of __sbuf"][::std::mem::align_of::<__sbuf>() - 8usize];
-    ["Offset of field: __sbuf::_base"]
-        [::std::mem::offset_of!(__sbuf, _base) - 0usize];
-    ["Offset of field: __sbuf::_size"]
-        [::std::mem::offset_of!(__sbuf, _size) - 8usize];
-};
-impl Default for __sbuf {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct __sFILEX {
+pub struct _IO_marker {
     _unused: [u8; 0],
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
-pub struct __sFILE {
-    pub _p: *mut ::std::os::raw::c_uchar,
-    pub _r: ::std::os::raw::c_int,
-    pub _w: ::std::os::raw::c_int,
-    pub _flags: ::std::os::raw::c_short,
-    pub _file: ::std::os::raw::c_short,
-    pub _bf: __sbuf,
-    pub _lbfsize: ::std::os::raw::c_int,
-    pub _cookie: *mut ::std::os::raw::c_void,
-    pub _close: ::std::option::Option<
-        unsafe extern "C" fn(
-            arg1: *mut ::std::os::raw::c_void,
-        ) -> ::std::os::raw::c_int,
-    >,
-    pub _read: ::std::option::Option<
-        unsafe extern "C" fn(
-            arg1: *mut ::std::os::raw::c_void,
-            arg2: *mut ::std::os::raw::c_char,
-            __n: ::std::os::raw::c_int,
-        ) -> ::std::os::raw::c_int,
-    >,
-    pub _seek: ::std::option::Option<
-        unsafe extern "C" fn(
-            arg1: *mut ::std::os::raw::c_void,
-            arg2: fpos_t,
-            arg3: ::std::os::raw::c_int,
-        ) -> fpos_t,
-    >,
-    pub _write: ::std::option::Option<
-        unsafe extern "C" fn(
-            arg1: *mut ::std::os::raw::c_void,
-            arg2: *const ::std::os::raw::c_char,
-            __n: ::std::os::raw::c_int,
-        ) -> ::std::os::raw::c_int,
-    >,
-    pub _ub: __sbuf,
-    pub _extra: *mut __sFILEX,
-    pub _ur: ::std::os::raw::c_int,
-    pub _ubuf: [::std::os::raw::c_uchar; 3usize],
-    pub _nbuf: [::std::os::raw::c_uchar; 1usize],
-    pub _lb: __sbuf,
-    pub _blksize: ::std::os::raw::c_int,
-    pub _offset: fpos_t,
+pub struct _IO_codecvt {
+    _unused: [u8; 0],
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct _IO_wide_data {
+    _unused: [u8; 0],
+}
+pub type _IO_lock_t = ::std::os::raw::c_void;
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct _IO_FILE {
+    pub _flags: ::std::os::raw::c_int,
+    pub _IO_read_ptr: *mut ::std::os::raw::c_char,
+    pub _IO_read_end: *mut ::std::os::raw::c_char,
+    pub _IO_read_base: *mut ::std::os::raw::c_char,
+    pub _IO_write_base: *mut ::std::os::raw::c_char,
+    pub _IO_write_ptr: *mut ::std::os::raw::c_char,
+    pub _IO_write_end: *mut ::std::os::raw::c_char,
+    pub _IO_buf_base: *mut ::std::os::raw::c_char,
+    pub _IO_buf_end: *mut ::std::os::raw::c_char,
+    pub _IO_save_base: *mut ::std::os::raw::c_char,
+    pub _IO_backup_base: *mut ::std::os::raw::c_char,
+    pub _IO_save_end: *mut ::std::os::raw::c_char,
+    pub _markers: *mut _IO_marker,
+    pub _chain: *mut _IO_FILE,
+    pub _fileno: ::std::os::raw::c_int,
+    pub _flags2: ::std::os::raw::c_int,
+    pub _old_offset: __off_t,
+    pub _cur_column: ::std::os::raw::c_ushort,
+    pub _vtable_offset: ::std::os::raw::c_schar,
+    pub _shortbuf: [::std::os::raw::c_char; 1usize],
+    pub _lock: *mut _IO_lock_t,
+    pub _offset: __off64_t,
+    pub _codecvt: *mut _IO_codecvt,
+    pub _wide_data: *mut _IO_wide_data,
+    pub _freeres_list: *mut _IO_FILE,
+    pub _freeres_buf: *mut ::std::os::raw::c_void,
+    pub __pad5: usize,
+    pub _mode: ::std::os::raw::c_int,
+    pub _unused2: [::std::os::raw::c_char; 20usize],
 }
 #[allow(clippy::unnecessary_operation, clippy::identity_op)]
 const _: () = {
-    ["Size of __sFILE"][::std::mem::size_of::<__sFILE>() - 152usize];
-    ["Alignment of __sFILE"][::std::mem::align_of::<__sFILE>() - 8usize];
-    ["Offset of field: __sFILE::_p"]
-        [::std::mem::offset_of!(__sFILE, _p) - 0usize];
-    ["Offset of field: __sFILE::_r"]
-        [::std::mem::offset_of!(__sFILE, _r) - 8usize];
-    ["Offset of field: __sFILE::_w"]
-        [::std::mem::offset_of!(__sFILE, _w) - 12usize];
-    ["Offset of field: __sFILE::_flags"]
-        [::std::mem::offset_of!(__sFILE, _flags) - 16usize];
-    ["Offset of field: __sFILE::_file"]
-        [::std::mem::offset_of!(__sFILE, _file) - 18usize];
-    ["Offset of field: __sFILE::_bf"]
-        [::std::mem::offset_of!(__sFILE, _bf) - 24usize];
-    ["Offset of field: __sFILE::_lbfsize"]
-        [::std::mem::offset_of!(__sFILE, _lbfsize) - 40usize];
-    ["Offset of field: __sFILE::_cookie"]
-        [::std::mem::offset_of!(__sFILE, _cookie) - 48usize];
-    ["Offset of field: __sFILE::_close"]
-        [::std::mem::offset_of!(__sFILE, _close) - 56usize];
-    ["Offset of field: __sFILE::_read"]
-        [::std::mem::offset_of!(__sFILE, _read) - 64usize];
-    ["Offset of field: __sFILE::_seek"]
-        [::std::mem::offset_of!(__sFILE, _seek) - 72usize];
-    ["Offset of field: __sFILE::_write"]
-        [::std::mem::offset_of!(__sFILE, _write) - 80usize];
-    ["Offset of field: __sFILE::_ub"]
-        [::std::mem::offset_of!(__sFILE, _ub) - 88usize];
-    ["Offset of field: __sFILE::_extra"]
-        [::std::mem::offset_of!(__sFILE, _extra) - 104usize];
-    ["Offset of field: __sFILE::_ur"]
-        [::std::mem::offset_of!(__sFILE, _ur) - 112usize];
-    ["Offset of field: __sFILE::_ubuf"]
-        [::std::mem::offset_of!(__sFILE, _ubuf) - 116usize];
-    ["Offset of field: __sFILE::_nbuf"]
-        [::std::mem::offset_of!(__sFILE, _nbuf) - 119usize];
-    ["Offset of field: __sFILE::_lb"]
-        [::std::mem::offset_of!(__sFILE, _lb) - 120usize];
-    ["Offset of field: __sFILE::_blksize"]
-        [::std::mem::offset_of!(__sFILE, _blksize) - 136usize];
-    ["Offset of field: __sFILE::_offset"]
-        [::std::mem::offset_of!(__sFILE, _offset) - 144usize];
+    ["Size of _IO_FILE"][::std::mem::size_of::<_IO_FILE>() - 216usize];
+    ["Alignment of _IO_FILE"][::std::mem::align_of::<_IO_FILE>() - 8usize];
+    ["Offset of field: _IO_FILE::_flags"]
+        [::std::mem::offset_of!(_IO_FILE, _flags) - 0usize];
+    ["Offset of field: _IO_FILE::_IO_read_ptr"]
+        [::std::mem::offset_of!(_IO_FILE, _IO_read_ptr) - 8usize];
+    ["Offset of field: _IO_FILE::_IO_read_end"]
+        [::std::mem::offset_of!(_IO_FILE, _IO_read_end) - 16usize];
+    ["Offset of field: _IO_FILE::_IO_read_base"]
+        [::std::mem::offset_of!(_IO_FILE, _IO_read_base) - 24usize];
+    ["Offset of field: _IO_FILE::_IO_write_base"]
+        [::std::mem::offset_of!(_IO_FILE, _IO_write_base) - 32usize];
+    ["Offset of field: _IO_FILE::_IO_write_ptr"]
+        [::std::mem::offset_of!(_IO_FILE, _IO_write_ptr) - 40usize];
+    ["Offset of field: _IO_FILE::_IO_write_end"]
+        [::std::mem::offset_of!(_IO_FILE, _IO_write_end) - 48usize];
+    ["Offset of field: _IO_FILE::_IO_buf_base"]
+        [::std::mem::offset_of!(_IO_FILE, _IO_buf_base) - 56usize];
+    ["Offset of field: _IO_FILE::_IO_buf_end"]
+        [::std::mem::offset_of!(_IO_FILE, _IO_buf_end) - 64usize];
+    ["Offset of field: _IO_FILE::_IO_save_base"]
+        [::std::mem::offset_of!(_IO_FILE, _IO_save_base) - 72usize];
+    ["Offset of field: _IO_FILE::_IO_backup_base"]
+        [::std::mem::offset_of!(_IO_FILE, _IO_backup_base) - 80usize];
+    ["Offset of field: _IO_FILE::_IO_save_end"]
+        [::std::mem::offset_of!(_IO_FILE, _IO_save_end) - 88usize];
+    ["Offset of field: _IO_FILE::_markers"]
+        [::std::mem::offset_of!(_IO_FILE, _markers) - 96usize];
+    ["Offset of field: _IO_FILE::_chain"]
+        [::std::mem::offset_of!(_IO_FILE, _chain) - 104usize];
+    ["Offset of field: _IO_FILE::_fileno"]
+        [::std::mem::offset_of!(_IO_FILE, _fileno) - 112usize];
+    ["Offset of field: _IO_FILE::_flags2"]
+        [::std::mem::offset_of!(_IO_FILE, _flags2) - 116usize];
+    ["Offset of field: _IO_FILE::_old_offset"]
+        [::std::mem::offset_of!(_IO_FILE, _old_offset) - 120usize];
+    ["Offset of field: _IO_FILE::_cur_column"]
+        [::std::mem::offset_of!(_IO_FILE, _cur_column) - 128usize];
+    ["Offset of field: _IO_FILE::_vtable_offset"]
+        [::std::mem::offset_of!(_IO_FILE, _vtable_offset) - 130usize];
+    ["Offset of field: _IO_FILE::_shortbuf"]
+        [::std::mem::offset_of!(_IO_FILE, _shortbuf) - 131usize];
+    ["Offset of field: _IO_FILE::_lock"]
+        [::std::mem::offset_of!(_IO_FILE, _lock) - 136usize];
+    ["Offset of field: _IO_FILE::_offset"]
+        [::std::mem::offset_of!(_IO_FILE, _offset) - 144usize];
+    ["Offset of field: _IO_FILE::_codecvt"]
+        [::std::mem::offset_of!(_IO_FILE, _codecvt) - 152usize];
+    ["Offset of field: _IO_FILE::_wide_data"]
+        [::std::mem::offset_of!(_IO_FILE, _wide_data) - 160usize];
+    ["Offset of field: _IO_FILE::_freeres_list"]
+        [::std::mem::offset_of!(_IO_FILE, _freeres_list) - 168usize];
+    ["Offset of field: _IO_FILE::_freeres_buf"]
+        [::std::mem::offset_of!(_IO_FILE, _freeres_buf) - 176usize];
+    ["Offset of field: _IO_FILE::__pad5"]
+        [::std::mem::offset_of!(_IO_FILE, __pad5) - 184usize];
+    ["Offset of field: _IO_FILE::_mode"]
+        [::std::mem::offset_of!(_IO_FILE, _mode) - 192usize];
+    ["Offset of field: _IO_FILE::_unused2"]
+        [::std::mem::offset_of!(_IO_FILE, _unused2) - 196usize];
 };
-impl Default for __sFILE {
+impl Default for _IO_FILE {
     fn default() -> Self {
         let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
         unsafe {
@@ -4137,507 +916,6 @@ impl Default for __sFILE {
             s.assume_init()
         }
     }
-}
-pub type FILE = __sFILE;
-unsafe extern "C" {
-    pub static mut __stdinp: *mut FILE;
-}
-unsafe extern "C" {
-    pub static mut __stdoutp: *mut FILE;
-}
-unsafe extern "C" {
-    pub static mut __stderrp: *mut FILE;
-}
-unsafe extern "C" {
-    pub fn clearerr(arg1: *mut FILE);
-}
-unsafe extern "C" {
-    pub fn fclose(arg1: *mut FILE) -> ::std::os::raw::c_int;
-}
-unsafe extern "C" {
-    pub fn feof(arg1: *mut FILE) -> ::std::os::raw::c_int;
-}
-unsafe extern "C" {
-    pub fn ferror(arg1: *mut FILE) -> ::std::os::raw::c_int;
-}
-unsafe extern "C" {
-    pub fn fflush(arg1: *mut FILE) -> ::std::os::raw::c_int;
-}
-unsafe extern "C" {
-    pub fn fgetc(arg1: *mut FILE) -> ::std::os::raw::c_int;
-}
-unsafe extern "C" {
-    pub fn fgetpos(arg1: *mut FILE, arg2: *mut fpos_t)
-    -> ::std::os::raw::c_int;
-}
-unsafe extern "C" {
-    pub fn fgets(
-        arg1: *mut ::std::os::raw::c_char,
-        __size: ::std::os::raw::c_int,
-        arg2: *mut FILE,
-    ) -> *mut ::std::os::raw::c_char;
-}
-unsafe extern "C" {
-    pub fn fopen(
-        __filename: *const ::std::os::raw::c_char,
-        __mode: *const ::std::os::raw::c_char,
-    ) -> *mut FILE;
-}
-unsafe extern "C" {
-    pub fn fprintf(
-        arg1: *mut FILE,
-        arg2: *const ::std::os::raw::c_char,
-        ...
-    ) -> ::std::os::raw::c_int;
-}
-unsafe extern "C" {
-    pub fn fputc(
-        arg1: ::std::os::raw::c_int,
-        arg2: *mut FILE,
-    ) -> ::std::os::raw::c_int;
-}
-unsafe extern "C" {
-    pub fn fputs(
-        arg1: *const ::std::os::raw::c_char,
-        arg2: *mut FILE,
-    ) -> ::std::os::raw::c_int;
-}
-unsafe extern "C" {
-    pub fn fread(
-        __ptr: *mut ::std::os::raw::c_void,
-        __size: ::std::os::raw::c_ulong,
-        __nitems: ::std::os::raw::c_ulong,
-        __stream: *mut FILE,
-    ) -> ::std::os::raw::c_ulong;
-}
-unsafe extern "C" {
-    pub fn freopen(
-        arg1: *const ::std::os::raw::c_char,
-        arg2: *const ::std::os::raw::c_char,
-        arg3: *mut FILE,
-    ) -> *mut FILE;
-}
-unsafe extern "C" {
-    pub fn fscanf(
-        arg1: *mut FILE,
-        arg2: *const ::std::os::raw::c_char,
-        ...
-    ) -> ::std::os::raw::c_int;
-}
-unsafe extern "C" {
-    pub fn fseek(
-        arg1: *mut FILE,
-        arg2: ::std::os::raw::c_long,
-        arg3: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
-}
-unsafe extern "C" {
-    pub fn fsetpos(
-        arg1: *mut FILE,
-        arg2: *const fpos_t,
-    ) -> ::std::os::raw::c_int;
-}
-unsafe extern "C" {
-    pub fn ftell(arg1: *mut FILE) -> ::std::os::raw::c_long;
-}
-unsafe extern "C" {
-    pub fn fwrite(
-        __ptr: *const ::std::os::raw::c_void,
-        __size: ::std::os::raw::c_ulong,
-        __nitems: ::std::os::raw::c_ulong,
-        __stream: *mut FILE,
-    ) -> ::std::os::raw::c_ulong;
-}
-unsafe extern "C" {
-    pub fn getc(arg1: *mut FILE) -> ::std::os::raw::c_int;
-}
-unsafe extern "C" {
-    pub fn getchar() -> ::std::os::raw::c_int;
-}
-unsafe extern "C" {
-    pub fn gets(
-        arg1: *mut ::std::os::raw::c_char,
-    ) -> *mut ::std::os::raw::c_char;
-}
-unsafe extern "C" {
-    pub fn perror(arg1: *const ::std::os::raw::c_char);
-}
-unsafe extern "C" {
-    pub fn putc(
-        arg1: ::std::os::raw::c_int,
-        arg2: *mut FILE,
-    ) -> ::std::os::raw::c_int;
-}
-unsafe extern "C" {
-    pub fn putchar(arg1: ::std::os::raw::c_int) -> ::std::os::raw::c_int;
-}
-unsafe extern "C" {
-    pub fn puts(arg1: *const ::std::os::raw::c_char) -> ::std::os::raw::c_int;
-}
-unsafe extern "C" {
-    pub fn remove(arg1: *const ::std::os::raw::c_char)
-    -> ::std::os::raw::c_int;
-}
-unsafe extern "C" {
-    pub fn rename(
-        __old: *const ::std::os::raw::c_char,
-        __new: *const ::std::os::raw::c_char,
-    ) -> ::std::os::raw::c_int;
-}
-unsafe extern "C" {
-    pub fn rewind(arg1: *mut FILE);
-}
-unsafe extern "C" {
-    pub fn scanf(
-        arg1: *const ::std::os::raw::c_char,
-        ...
-    ) -> ::std::os::raw::c_int;
-}
-unsafe extern "C" {
-    pub fn setbuf(arg1: *mut FILE, arg2: *mut ::std::os::raw::c_char);
-}
-unsafe extern "C" {
-    pub fn setvbuf(
-        arg1: *mut FILE,
-        arg2: *mut ::std::os::raw::c_char,
-        arg3: ::std::os::raw::c_int,
-        __size: usize,
-    ) -> ::std::os::raw::c_int;
-}
-unsafe extern "C" {
-    pub fn sprintf(
-        arg1: *mut ::std::os::raw::c_char,
-        arg2: *const ::std::os::raw::c_char,
-        ...
-    ) -> ::std::os::raw::c_int;
-}
-unsafe extern "C" {
-    pub fn sscanf(
-        arg1: *const ::std::os::raw::c_char,
-        arg2: *const ::std::os::raw::c_char,
-        ...
-    ) -> ::std::os::raw::c_int;
-}
-unsafe extern "C" {
-    pub fn tmpfile() -> *mut FILE;
-}
-unsafe extern "C" {
-    pub fn tmpnam(
-        arg1: *mut ::std::os::raw::c_char,
-    ) -> *mut ::std::os::raw::c_char;
-}
-unsafe extern "C" {
-    pub fn ungetc(
-        arg1: ::std::os::raw::c_int,
-        arg2: *mut FILE,
-    ) -> ::std::os::raw::c_int;
-}
-unsafe extern "C" {
-    pub fn vfprintf(
-        arg1: *mut FILE,
-        arg2: *const ::std::os::raw::c_char,
-        arg3: __builtin_va_list,
-    ) -> ::std::os::raw::c_int;
-}
-unsafe extern "C" {
-    pub fn vprintf(
-        arg1: *const ::std::os::raw::c_char,
-        arg2: __builtin_va_list,
-    ) -> ::std::os::raw::c_int;
-}
-unsafe extern "C" {
-    pub fn vsprintf(
-        arg1: *mut ::std::os::raw::c_char,
-        arg2: *const ::std::os::raw::c_char,
-        arg3: __builtin_va_list,
-    ) -> ::std::os::raw::c_int;
-}
-unsafe extern "C" {
-    pub fn ctermid(
-        arg1: *mut ::std::os::raw::c_char,
-    ) -> *mut ::std::os::raw::c_char;
-}
-unsafe extern "C" {
-    pub fn fdopen(
-        arg1: ::std::os::raw::c_int,
-        arg2: *const ::std::os::raw::c_char,
-    ) -> *mut FILE;
-}
-unsafe extern "C" {
-    pub fn fileno(arg1: *mut FILE) -> ::std::os::raw::c_int;
-}
-unsafe extern "C" {
-    pub fn pclose(arg1: *mut FILE) -> ::std::os::raw::c_int;
-}
-unsafe extern "C" {
-    pub fn popen(
-        arg1: *const ::std::os::raw::c_char,
-        arg2: *const ::std::os::raw::c_char,
-    ) -> *mut FILE;
-}
-unsafe extern "C" {
-    pub fn __srget(arg1: *mut FILE) -> ::std::os::raw::c_int;
-}
-unsafe extern "C" {
-    pub fn __svfscanf(
-        arg1: *mut FILE,
-        arg2: *const ::std::os::raw::c_char,
-        arg3: va_list,
-    ) -> ::std::os::raw::c_int;
-}
-unsafe extern "C" {
-    pub fn __swbuf(
-        arg1: ::std::os::raw::c_int,
-        arg2: *mut FILE,
-    ) -> ::std::os::raw::c_int;
-}
-unsafe extern "C" {
-    pub fn flockfile(arg1: *mut FILE);
-}
-unsafe extern "C" {
-    pub fn ftrylockfile(arg1: *mut FILE) -> ::std::os::raw::c_int;
-}
-unsafe extern "C" {
-    pub fn funlockfile(arg1: *mut FILE);
-}
-unsafe extern "C" {
-    pub fn getc_unlocked(arg1: *mut FILE) -> ::std::os::raw::c_int;
-}
-unsafe extern "C" {
-    pub fn getchar_unlocked() -> ::std::os::raw::c_int;
-}
-unsafe extern "C" {
-    pub fn putc_unlocked(
-        arg1: ::std::os::raw::c_int,
-        arg2: *mut FILE,
-    ) -> ::std::os::raw::c_int;
-}
-unsafe extern "C" {
-    pub fn putchar_unlocked(
-        arg1: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
-}
-unsafe extern "C" {
-    pub fn getw(arg1: *mut FILE) -> ::std::os::raw::c_int;
-}
-unsafe extern "C" {
-    pub fn putw(
-        arg1: ::std::os::raw::c_int,
-        arg2: *mut FILE,
-    ) -> ::std::os::raw::c_int;
-}
-unsafe extern "C" {
-    pub fn tempnam(
-        __dir: *const ::std::os::raw::c_char,
-        __prefix: *const ::std::os::raw::c_char,
-    ) -> *mut ::std::os::raw::c_char;
-}
-unsafe extern "C" {
-    pub fn fseeko(
-        __stream: *mut FILE,
-        __offset: off_t,
-        __whence: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
-}
-unsafe extern "C" {
-    pub fn ftello(__stream: *mut FILE) -> off_t;
-}
-unsafe extern "C" {
-    pub fn snprintf(
-        __str: *mut ::std::os::raw::c_char,
-        __size: ::std::os::raw::c_ulong,
-        __format: *const ::std::os::raw::c_char,
-        ...
-    ) -> ::std::os::raw::c_int;
-}
-unsafe extern "C" {
-    pub fn vfscanf(
-        __stream: *mut FILE,
-        __format: *const ::std::os::raw::c_char,
-        arg1: __builtin_va_list,
-    ) -> ::std::os::raw::c_int;
-}
-unsafe extern "C" {
-    pub fn vscanf(
-        __format: *const ::std::os::raw::c_char,
-        arg1: __builtin_va_list,
-    ) -> ::std::os::raw::c_int;
-}
-unsafe extern "C" {
-    pub fn vsnprintf(
-        __str: *mut ::std::os::raw::c_char,
-        __size: ::std::os::raw::c_ulong,
-        __format: *const ::std::os::raw::c_char,
-        arg1: __builtin_va_list,
-    ) -> ::std::os::raw::c_int;
-}
-unsafe extern "C" {
-    pub fn vsscanf(
-        __str: *const ::std::os::raw::c_char,
-        __format: *const ::std::os::raw::c_char,
-        arg1: __builtin_va_list,
-    ) -> ::std::os::raw::c_int;
-}
-unsafe extern "C" {
-    pub fn dprintf(
-        arg1: ::std::os::raw::c_int,
-        arg2: *const ::std::os::raw::c_char,
-        ...
-    ) -> ::std::os::raw::c_int;
-}
-unsafe extern "C" {
-    pub fn vdprintf(
-        arg1: ::std::os::raw::c_int,
-        arg2: *const ::std::os::raw::c_char,
-        arg3: va_list,
-    ) -> ::std::os::raw::c_int;
-}
-unsafe extern "C" {
-    pub fn getdelim(
-        __linep: *mut *mut ::std::os::raw::c_char,
-        __linecapp: *mut usize,
-        __delimiter: ::std::os::raw::c_int,
-        __stream: *mut FILE,
-    ) -> isize;
-}
-unsafe extern "C" {
-    pub fn getline(
-        __linep: *mut *mut ::std::os::raw::c_char,
-        __linecapp: *mut usize,
-        __stream: *mut FILE,
-    ) -> isize;
-}
-unsafe extern "C" {
-    pub fn fmemopen(
-        __buf: *mut ::std::os::raw::c_void,
-        __size: usize,
-        __mode: *const ::std::os::raw::c_char,
-    ) -> *mut FILE;
-}
-unsafe extern "C" {
-    pub fn open_memstream(
-        __bufp: *mut *mut ::std::os::raw::c_char,
-        __sizep: *mut usize,
-    ) -> *mut FILE;
-}
-unsafe extern "C" {
-    pub static sys_nerr: ::std::os::raw::c_int;
-}
-unsafe extern "C" {
-    pub static sys_errlist: [*const ::std::os::raw::c_char; 0usize];
-}
-unsafe extern "C" {
-    pub fn asprintf(
-        arg1: *mut *mut ::std::os::raw::c_char,
-        arg2: *const ::std::os::raw::c_char,
-        ...
-    ) -> ::std::os::raw::c_int;
-}
-unsafe extern "C" {
-    pub fn ctermid_r(
-        arg1: *mut ::std::os::raw::c_char,
-    ) -> *mut ::std::os::raw::c_char;
-}
-unsafe extern "C" {
-    pub fn fgetln(
-        arg1: *mut FILE,
-        __len: *mut usize,
-    ) -> *mut ::std::os::raw::c_char;
-}
-unsafe extern "C" {
-    pub fn fmtcheck(
-        arg1: *const ::std::os::raw::c_char,
-        arg2: *const ::std::os::raw::c_char,
-    ) -> *const ::std::os::raw::c_char;
-}
-unsafe extern "C" {
-    pub fn fpurge(arg1: *mut FILE) -> ::std::os::raw::c_int;
-}
-unsafe extern "C" {
-    pub fn setbuffer(
-        arg1: *mut FILE,
-        arg2: *mut ::std::os::raw::c_char,
-        __size: ::std::os::raw::c_int,
-    );
-}
-unsafe extern "C" {
-    pub fn setlinebuf(arg1: *mut FILE) -> ::std::os::raw::c_int;
-}
-unsafe extern "C" {
-    pub fn vasprintf(
-        arg1: *mut *mut ::std::os::raw::c_char,
-        arg2: *const ::std::os::raw::c_char,
-        arg3: va_list,
-    ) -> ::std::os::raw::c_int;
-}
-unsafe extern "C" {
-    pub fn funopen(
-        arg1: *const ::std::os::raw::c_void,
-        arg2: ::std::option::Option<
-            unsafe extern "C" fn(
-                arg1: *mut ::std::os::raw::c_void,
-                arg2: *mut ::std::os::raw::c_char,
-                __n: ::std::os::raw::c_int,
-            ) -> ::std::os::raw::c_int,
-        >,
-        arg3: ::std::option::Option<
-            unsafe extern "C" fn(
-                arg1: *mut ::std::os::raw::c_void,
-                arg2: *const ::std::os::raw::c_char,
-                __n: ::std::os::raw::c_int,
-            ) -> ::std::os::raw::c_int,
-        >,
-        arg4: ::std::option::Option<
-            unsafe extern "C" fn(
-                arg1: *mut ::std::os::raw::c_void,
-                arg2: fpos_t,
-                arg3: ::std::os::raw::c_int,
-            ) -> fpos_t,
-        >,
-        arg5: ::std::option::Option<
-            unsafe extern "C" fn(
-                arg1: *mut ::std::os::raw::c_void,
-            ) -> ::std::os::raw::c_int,
-        >,
-    ) -> *mut FILE;
-}
-unsafe extern "C" {
-    pub fn __snprintf_chk(
-        arg1: *mut ::std::os::raw::c_char,
-        __maxlen: usize,
-        arg2: ::std::os::raw::c_int,
-        arg3: usize,
-        arg4: *const ::std::os::raw::c_char,
-        ...
-    ) -> ::std::os::raw::c_int;
-}
-unsafe extern "C" {
-    pub fn __vsnprintf_chk(
-        arg1: *mut ::std::os::raw::c_char,
-        __maxlen: usize,
-        arg2: ::std::os::raw::c_int,
-        arg3: usize,
-        arg4: *const ::std::os::raw::c_char,
-        arg5: va_list,
-    ) -> ::std::os::raw::c_int;
-}
-unsafe extern "C" {
-    pub fn __sprintf_chk(
-        arg1: *mut ::std::os::raw::c_char,
-        arg2: ::std::os::raw::c_int,
-        arg3: usize,
-        arg4: *const ::std::os::raw::c_char,
-        ...
-    ) -> ::std::os::raw::c_int;
-}
-unsafe extern "C" {
-    pub fn __vsprintf_chk(
-        arg1: *mut ::std::os::raw::c_char,
-        arg2: ::std::os::raw::c_int,
-        arg3: usize,
-        arg4: *const ::std::os::raw::c_char,
-        arg5: va_list,
-    ) -> ::std::os::raw::c_int;
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -4649,16 +927,25 @@ pub struct ly_path {
 pub struct lyxp_expr {
     _unused: [u8; 0],
 }
+#[doc = " @brief YANG import-stmt"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct lysp_import {
+    #[doc = "< pointer to the imported module\n(mandatory, but resolved when the referring module is completely parsed)"]
     pub module: *mut lys_module,
+    #[doc = "< name of the imported module (mandatory)"]
     pub name: *const ::std::os::raw::c_char,
+    #[doc = "< prefix for the data from the imported schema (mandatory)"]
     pub prefix: *const ::std::os::raw::c_char,
+    #[doc = "< description"]
     pub dsc: *const ::std::os::raw::c_char,
+    #[doc = "< reference"]
     pub ref_: *const ::std::os::raw::c_char,
+    #[doc = "< list of the extension instances ([sized array](@ref sizedarrays))"]
     pub exts: *mut lysp_ext_instance,
+    #[doc = "< LYS_INTERNAL value (@ref snodeflags)"]
     pub flags: u16,
+    #[doc = "< revision-date of the imported module"]
     pub rev: [::std::os::raw::c_char; 11usize],
 }
 #[allow(clippy::unnecessary_operation, clippy::identity_op)]
@@ -4692,15 +979,23 @@ impl Default for lysp_import {
         }
     }
 }
+#[doc = " @brief YANG include-stmt"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct lysp_include {
+    #[doc = "< pointer to the parsed submodule structure\n(mandatory, but resolved when the referring module is completely parsed)"]
     pub submodule: *mut lysp_submodule,
+    #[doc = "< name of the included submodule (mandatory)"]
     pub name: *const ::std::os::raw::c_char,
+    #[doc = "< description"]
     pub dsc: *const ::std::os::raw::c_char,
+    #[doc = "< reference"]
     pub ref_: *const ::std::os::raw::c_char,
+    #[doc = "< list of the extension instances ([sized array](@ref sizedarrays))"]
     pub exts: *mut lysp_ext_instance,
+    #[doc = "< revision-date of the included submodule"]
     pub rev: [::std::os::raw::c_char; 11usize],
+    #[doc = "< flag to mark includes copied into main module from submodules,\nonly for backward compatibility with YANG 1.0, which does not require the\nmain module to include all submodules."]
     pub injected: ly_bool,
 }
 #[allow(clippy::unnecessary_operation, clippy::identity_op)]
@@ -4732,15 +1027,23 @@ impl Default for lysp_include {
         }
     }
 }
+#[doc = " @brief YANG extension-stmt"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct lysp_ext {
+    #[doc = "< extension name"]
     pub name: *const ::std::os::raw::c_char,
+    #[doc = "< argument name, NULL if not specified"]
     pub argname: *const ::std::os::raw::c_char,
+    #[doc = "< description statement"]
     pub dsc: *const ::std::os::raw::c_char,
+    #[doc = "< reference statement"]
     pub ref_: *const ::std::os::raw::c_char,
+    #[doc = "< list of the extension instances ([sized array](@ref sizedarrays))"]
     pub exts: *mut lysp_ext_instance,
+    #[doc = "< reference to extension plugin, use ::lysc_get_ext_plugin() to get the plugin"]
     pub plugin_ref: usize,
+    #[doc = "< LYS_STATUS_* and LYS_YINELEM_* values (@ref snodeflags)"]
     pub flags: u16,
 }
 #[allow(clippy::unnecessary_operation, clippy::identity_op)]
@@ -4771,16 +1074,25 @@ impl Default for lysp_ext {
         }
     }
 }
+#[doc = " @brief YANG feature-stmt"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct lysp_feature {
+    #[doc = "< feature name (mandatory)"]
     pub name: *const ::std::os::raw::c_char,
+    #[doc = "< list of if-feature expressions ([sized array](@ref sizedarrays))"]
     pub iffeatures: *mut lysp_qname,
+    #[doc = "< compiled if-features"]
     pub iffeatures_c: *mut lysc_iffeature,
+    #[doc = "< list of pointers to other features depending on this one\n([sized array](@ref sizedarrays))"]
     pub depfeatures: *mut *mut lysp_feature,
+    #[doc = "< description statement"]
     pub dsc: *const ::std::os::raw::c_char,
+    #[doc = "< reference statement"]
     pub ref_: *const ::std::os::raw::c_char,
+    #[doc = "< list of the extension instances ([sized array](@ref sizedarrays))"]
     pub exts: *mut lysp_ext_instance,
+    #[doc = "< [schema node flags](@ref snodeflags) - only LYS_STATUS_* values and\nLYS_FENABLED are allowed"]
     pub flags: u16,
 }
 #[allow(clippy::unnecessary_operation, clippy::identity_op)]
@@ -4814,10 +1126,13 @@ impl Default for lysp_feature {
         }
     }
 }
+#[doc = " @brief Compiled YANG if-feature-stmt"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct lysc_iffeature {
+    #[doc = "< 2bits array describing the if-feature expression in prefix format, see @ref ifftokens"]
     pub expr: *mut u8,
+    #[doc = "< array of pointers to the features used in expression ([sized array](@ref sizedarrays))"]
     pub features: *mut *mut lysp_feature,
 }
 #[allow(clippy::unnecessary_operation, clippy::identity_op)]
@@ -4840,11 +1155,15 @@ impl Default for lysc_iffeature {
         }
     }
 }
+#[doc = " @brief Qualified name (optional prefix followed by an identifier)."]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct lysp_qname {
+    #[doc = "< qualified name string"]
     pub str_: *const ::std::os::raw::c_char,
+    #[doc = "< module to resolve any prefixes found in the string, it must be\nstored explicitly because of deviations/refines"]
     pub mod_: *const lysp_module,
+    #[doc = "< [schema node flags](@ref snodeflags) - only LYS_SINGLEQUOTED and\nLYS_DOUBLEQUOTED values allowed"]
     pub flags: u16,
 }
 #[allow(clippy::unnecessary_operation, clippy::identity_op)]
@@ -4867,15 +1186,23 @@ impl Default for lysp_qname {
         }
     }
 }
+#[doc = " @brief YANG identity-stmt"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct lysp_ident {
+    #[doc = "< identity name (mandatory), including possible prefix"]
     pub name: *const ::std::os::raw::c_char,
+    #[doc = "< list of if-feature expressions ([sized array](@ref sizedarrays))"]
     pub iffeatures: *mut lysp_qname,
+    #[doc = "< list of base identifiers ([sized array](@ref sizedarrays))"]
     pub bases: *mut *const ::std::os::raw::c_char,
+    #[doc = "< description statement"]
     pub dsc: *const ::std::os::raw::c_char,
+    #[doc = "< reference statement"]
     pub ref_: *const ::std::os::raw::c_char,
+    #[doc = "< list of the extension instances ([sized array](@ref sizedarrays))"]
     pub exts: *mut lysp_ext_instance,
+    #[doc = "< [schema node flags](@ref snodeflags) - only LYS_STATUS_ values are allowed"]
     pub flags: u16,
 }
 #[allow(clippy::unnecessary_operation, clippy::identity_op)]
@@ -4906,14 +1233,21 @@ impl Default for lysp_ident {
         }
     }
 }
+#[doc = " @brief Covers restrictions: range, length, pattern, must"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct lysp_restr {
+    #[doc = "< The restriction expression/value (mandatory);\nin case of pattern restriction, the first byte has a special meaning:\n0x06 (ACK) for regular match and 0x15 (NACK) for invert-match"]
     pub arg: lysp_qname,
+    #[doc = "< error-message"]
     pub emsg: *const ::std::os::raw::c_char,
+    #[doc = "< error-app-tag value"]
     pub eapptag: *const ::std::os::raw::c_char,
+    #[doc = "< description"]
     pub dsc: *const ::std::os::raw::c_char,
+    #[doc = "< reference"]
     pub ref_: *const ::std::os::raw::c_char,
+    #[doc = "< list of the extension instances ([sized array](@ref sizedarrays))"]
     pub exts: *mut lysp_ext_instance,
 }
 #[allow(clippy::unnecessary_operation, clippy::identity_op)]
@@ -4942,12 +1276,17 @@ impl Default for lysp_restr {
         }
     }
 }
+#[doc = " @brief YANG revision-stmt"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct lysp_revision {
+    #[doc = "< revision date (madatory)"]
     pub date: [::std::os::raw::c_char; 11usize],
+    #[doc = "< description statement"]
     pub dsc: *const ::std::os::raw::c_char,
+    #[doc = "< reference statement"]
     pub ref_: *const ::std::os::raw::c_char,
+    #[doc = "< list of the extension instances ([sized array](@ref sizedarrays))"]
     pub exts: *mut lysp_ext_instance,
 }
 #[allow(clippy::unnecessary_operation, clippy::identity_op)]
@@ -4973,15 +1312,23 @@ impl Default for lysp_revision {
         }
     }
 }
+#[doc = " @brief Enumeration/Bit value definition"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct lysp_type_enum {
+    #[doc = "< name (mandatory)"]
     pub name: *const ::std::os::raw::c_char,
+    #[doc = "< description statement"]
     pub dsc: *const ::std::os::raw::c_char,
+    #[doc = "< reference statement"]
     pub ref_: *const ::std::os::raw::c_char,
+    #[doc = "< enum's value or bit's position"]
     pub value: i64,
+    #[doc = "< list of if-feature expressions ([sized array](@ref sizedarrays))"]
     pub iffeatures: *mut lysp_qname,
+    #[doc = "< list of the extension instances ([sized array](@ref sizedarrays))"]
     pub exts: *mut lysp_ext_instance,
+    #[doc = "< [schema node flags](@ref snodeflags) - only LYS_STATUS_ and LYS_SET_VALUE\nvalues are allowed"]
     pub flags: u16,
 }
 #[allow(clippy::unnecessary_operation, clippy::identity_op)]
@@ -5014,23 +1361,39 @@ impl Default for lysp_type_enum {
         }
     }
 }
+#[doc = " @brief YANG type-stmt\n\n Some of the items in the structure may be mandatory, but it is necessary to resolve the type's base type first"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct lysp_type {
+    #[doc = "< name of the type (mandatory)"]
     pub name: *const ::std::os::raw::c_char,
+    #[doc = "< allowed values range - numerical, decimal64"]
     pub range: *mut lysp_restr,
+    #[doc = "< allowed length of the value - string, binary"]
     pub length: *mut lysp_restr,
+    #[doc = "< list of patterns ([sized array](@ref sizedarrays)) - string"]
     pub patterns: *mut lysp_restr,
+    #[doc = "< list of enum-stmts ([sized array](@ref sizedarrays)) - enum"]
     pub enums: *mut lysp_type_enum,
+    #[doc = "< list of bit-stmts ([sized array](@ref sizedarrays)) - bits"]
     pub bits: *mut lysp_type_enum,
+    #[doc = "< parsed path - leafref"]
     pub path: *mut lyxp_expr,
+    #[doc = "< list of base identifiers ([sized array](@ref sizedarrays)) - identityref"]
     pub bases: *mut *const ::std::os::raw::c_char,
+    #[doc = "< list of sub-types ([sized array](@ref sizedarrays)) - union"]
     pub types: *mut lysp_type,
+    #[doc = "< list of the extension instances ([sized array](@ref sizedarrays))"]
     pub exts: *mut lysp_ext_instance,
+    #[doc = "< (sub)module where the type is defined (needed for deviations)"]
     pub pmod: *const lysp_module,
+    #[doc = "< pointer to the compiled custom type, not used for built-in types"]
     pub compiled: *mut lysc_type,
+    #[doc = "< number of fraction digits - decimal64"]
     pub fraction_digits: u8,
+    #[doc = "< require-instance flag - leafref, instance"]
     pub require_instance: u8,
+    #[doc = "< [schema node flags](@ref spnodeflags)"]
     pub flags: u16,
 }
 #[allow(clippy::unnecessary_operation, clippy::identity_op)]
@@ -5077,16 +1440,25 @@ impl Default for lysp_type {
         }
     }
 }
+#[doc = " @brief YANG typedef-stmt"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct lysp_tpdf {
+    #[doc = "< name of the newly defined type (mandatory)"]
     pub name: *const ::std::os::raw::c_char,
+    #[doc = "< units of the newly defined type"]
     pub units: *const ::std::os::raw::c_char,
+    #[doc = "< default value of the newly defined type, it may or may not be a qualified name"]
     pub dflt: lysp_qname,
+    #[doc = "< description statement"]
     pub dsc: *const ::std::os::raw::c_char,
+    #[doc = "< reference statement"]
     pub ref_: *const ::std::os::raw::c_char,
+    #[doc = "< list of the extension instances ([sized array](@ref sizedarrays))"]
     pub exts: *mut lysp_ext_instance,
+    #[doc = "< base type from which the typedef is derived (mandatory)"]
     pub type_: lysp_type,
+    #[doc = "< [schema node flags](@ref spnodeflags)"]
     pub flags: u16,
 }
 #[allow(clippy::unnecessary_operation, clippy::identity_op)]
@@ -5119,12 +1491,17 @@ impl Default for lysp_tpdf {
         }
     }
 }
+#[doc = " @brief YANG when-stmt"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct lysp_when {
+    #[doc = "< specified condition (mandatory)"]
     pub cond: *const ::std::os::raw::c_char,
+    #[doc = "< description statement"]
     pub dsc: *const ::std::os::raw::c_char,
+    #[doc = "< reference statement"]
     pub ref_: *const ::std::os::raw::c_char,
+    #[doc = "< list of the extension instances ([sized array](@ref sizedarrays))"]
     pub exts: *mut lysp_ext_instance,
 }
 #[allow(clippy::unnecessary_operation, clippy::identity_op)]
@@ -5149,19 +1526,31 @@ impl Default for lysp_when {
         }
     }
 }
+#[doc = " @brief YANG refine-stmt"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct lysp_refine {
+    #[doc = "< target descendant schema nodeid (mandatory)"]
     pub nodeid: *const ::std::os::raw::c_char,
+    #[doc = "< description statement"]
     pub dsc: *const ::std::os::raw::c_char,
+    #[doc = "< reference statement"]
     pub ref_: *const ::std::os::raw::c_char,
+    #[doc = "< list of if-feature expressions ([sized array](@ref sizedarrays))"]
     pub iffeatures: *mut lysp_qname,
+    #[doc = "< list of must restrictions ([sized array](@ref sizedarrays))"]
     pub musts: *mut lysp_restr,
+    #[doc = "< presence description"]
     pub presence: *const ::std::os::raw::c_char,
+    #[doc = "< list of default values ([sized array](@ref sizedarrays))"]
     pub dflts: *mut lysp_qname,
+    #[doc = "< min-elements constraint"]
     pub min: u32,
+    #[doc = "< max-elements constraint, 0 means unbounded"]
     pub max: u32,
+    #[doc = "< list of the extension instances ([sized array](@ref sizedarrays))"]
     pub exts: *mut lysp_ext_instance,
+    #[doc = "< [schema node flags](@ref snodeflags)"]
     pub flags: u16,
 }
 #[allow(clippy::unnecessary_operation, clippy::identity_op)]
@@ -5201,11 +1590,15 @@ impl Default for lysp_refine {
         }
     }
 }
+#[doc = " @brief Generic deviate structure to get type and cast to lysp_deviate_* structure"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct lysp_deviate {
+    #[doc = "< [type](@ref deviatetypes) of the deviate modification"]
     pub mod_: u8,
+    #[doc = "< next deviate structure in the list"]
     pub next: *mut lysp_deviate,
+    #[doc = "< list of the extension instances ([sized array](@ref sizedarrays))"]
     pub exts: *mut lysp_ext_instance,
 }
 #[allow(clippy::unnecessary_operation, clippy::identity_op)]
@@ -5232,15 +1625,25 @@ impl Default for lysp_deviate {
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct lysp_deviate_add {
+    #[doc = "< [type](@ref deviatetypes) of the deviate modification"]
     pub mod_: u8,
+    #[doc = "< next deviate structure in the list"]
     pub next: *mut lysp_deviate,
+    #[doc = "< list of the extension instances ([sized array](@ref sizedarrays))"]
     pub exts: *mut lysp_ext_instance,
+    #[doc = "< units of the values"]
     pub units: *const ::std::os::raw::c_char,
+    #[doc = "< list of must restrictions ([sized array](@ref sizedarrays))"]
     pub musts: *mut lysp_restr,
+    #[doc = "< list of uniques specifications ([sized array](@ref sizedarrays))"]
     pub uniques: *mut lysp_qname,
+    #[doc = "< list of default values ([sized array](@ref sizedarrays))"]
     pub dflts: *mut lysp_qname,
+    #[doc = "< [schema node flags](@ref snodeflags)"]
     pub flags: u16,
+    #[doc = "< min-elements constraint"]
     pub min: u32,
+    #[doc = "< max-elements constraint, 0 means unbounded"]
     pub max: u32,
 }
 #[allow(clippy::unnecessary_operation, clippy::identity_op)]
@@ -5282,12 +1685,19 @@ impl Default for lysp_deviate_add {
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct lysp_deviate_del {
+    #[doc = "< [type](@ref deviatetypes) of the deviate modification"]
     pub mod_: u8,
+    #[doc = "< next deviate structure in the list"]
     pub next: *mut lysp_deviate,
+    #[doc = "< list of the extension instances ([sized array](@ref sizedarrays))"]
     pub exts: *mut lysp_ext_instance,
+    #[doc = "< units of the values"]
     pub units: *const ::std::os::raw::c_char,
+    #[doc = "< list of must restrictions ([sized array](@ref sizedarrays))"]
     pub musts: *mut lysp_restr,
+    #[doc = "< list of uniques specifications ([sized array](@ref sizedarrays))"]
     pub uniques: *mut lysp_qname,
+    #[doc = "< list of default values ([sized array](@ref sizedarrays))"]
     pub dflts: *mut lysp_qname,
 }
 #[allow(clippy::unnecessary_operation, clippy::identity_op)]
@@ -5323,14 +1733,23 @@ impl Default for lysp_deviate_del {
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct lysp_deviate_rpl {
+    #[doc = "< [type](@ref deviatetypes) of the deviate modification"]
     pub mod_: u8,
+    #[doc = "< next deviate structure in the list"]
     pub next: *mut lysp_deviate,
+    #[doc = "< list of the extension instances ([sized array](@ref sizedarrays))"]
     pub exts: *mut lysp_ext_instance,
+    #[doc = "< type of the node"]
     pub type_: *mut lysp_type,
+    #[doc = "< units of the values"]
     pub units: *const ::std::os::raw::c_char,
+    #[doc = "< default value"]
     pub dflt: lysp_qname,
+    #[doc = "< [schema node flags](@ref snodeflags)"]
     pub flags: u16,
+    #[doc = "< min-elements constraint"]
     pub min: u32,
+    #[doc = "< max-elements constraint, 0 means unbounded"]
     pub max: u32,
 }
 #[allow(clippy::unnecessary_operation, clippy::identity_op)]
@@ -5370,10 +1789,15 @@ impl Default for lysp_deviate_rpl {
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct lysp_deviation {
+    #[doc = "< target absolute schema nodeid (mandatory)"]
     pub nodeid: *const ::std::os::raw::c_char,
+    #[doc = "< description statement"]
     pub dsc: *const ::std::os::raw::c_char,
+    #[doc = "< reference statement"]
     pub ref_: *const ::std::os::raw::c_char,
+    #[doc = "< list of deviate specifications (linked list)"]
     pub deviates: *mut lysp_deviate,
+    #[doc = "< list of the extension instances ([sized array](@ref sizedarrays))"]
     pub exts: *mut lysp_ext_instance,
 }
 #[allow(clippy::unnecessary_operation, clippy::identity_op)]
@@ -5402,17 +1826,27 @@ impl Default for lysp_deviation {
         }
     }
 }
+#[doc = " @brief Generic YANG data node"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct lysp_node {
+    #[doc = "< parent node (NULL if this is a top-level node)"]
     pub parent: *mut lysp_node,
+    #[doc = "< [type of the node](@ref schemanodetypes) (mandatory)"]
     pub nodetype: u16,
+    #[doc = "< [schema node flags](@ref snodeflags)"]
     pub flags: u16,
+    #[doc = "< next sibling node (NULL if there is no one)"]
     pub next: *mut lysp_node,
+    #[doc = "< node name (mandatory)"]
     pub name: *const ::std::os::raw::c_char,
+    #[doc = "< description statement"]
     pub dsc: *const ::std::os::raw::c_char,
+    #[doc = "< reference statement"]
     pub ref_: *const ::std::os::raw::c_char,
+    #[doc = "< list of if-feature expressions ([sized array](@ref sizedarrays)),\nmust be qname because of refines"]
     pub iffeatures: *mut lysp_qname,
+    #[doc = "< list of the extension instances ([sized array](@ref sizedarrays))"]
     pub exts: *mut lysp_ext_instance,
 }
 #[allow(clippy::unnecessary_operation, clippy::identity_op)]
@@ -5447,36 +1881,55 @@ impl Default for lysp_node {
         }
     }
 }
+#[doc = " @brief Extension structure of the lysp_node for YANG container"]
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct lysp_node_container {
     pub __bindgen_anon_1: lysp_node_container__bindgen_ty_1,
+    #[doc = "< list of must restrictions ([sized array](@ref sizedarrays))"]
     pub musts: *mut lysp_restr,
+    #[doc = "< when statement"]
     pub when: *mut lysp_when,
+    #[doc = "< presence description"]
     pub presence: *const ::std::os::raw::c_char,
+    #[doc = "< list of typedefs ([sized array](@ref sizedarrays))"]
     pub typedefs: *mut lysp_tpdf,
+    #[doc = "< list of groupings (linked list)"]
     pub groupings: *mut lysp_node_grp,
+    #[doc = "< list of data nodes (linked list)"]
     pub child: *mut lysp_node,
+    #[doc = "< list of actions (linked list)"]
     pub actions: *mut lysp_node_action,
+    #[doc = "< list of notifications (linked list)"]
     pub notifs: *mut lysp_node_notif,
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub union lysp_node_container__bindgen_ty_1 {
+    #[doc = "< implicit cast for the members compatible with ::lysp_node"]
     pub node: lysp_node,
     pub __bindgen_anon_1: lysp_node_container__bindgen_ty_1__bindgen_ty_1,
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct lysp_node_container__bindgen_ty_1__bindgen_ty_1 {
+    #[doc = "< parent node (NULL if this is a top-level node)"]
     pub parent: *mut lysp_node,
+    #[doc = "< LYS_CONTAINER"]
     pub nodetype: u16,
+    #[doc = "< [schema node flags](@ref snodeflags)"]
     pub flags: u16,
+    #[doc = "< pointer to the next sibling node (NULL if there is no one)"]
     pub next: *mut lysp_node,
+    #[doc = "< node name (mandatory)"]
     pub name: *const ::std::os::raw::c_char,
+    #[doc = "< description statement"]
     pub dsc: *const ::std::os::raw::c_char,
+    #[doc = "< reference statement"]
     pub ref_: *const ::std::os::raw::c_char,
+    #[doc = "< list of if-feature expressions ([sized array](@ref sizedarrays))"]
     pub iffeatures: *mut lysp_qname,
+    #[doc = "< list of the extension instances ([sized array](@ref sizedarrays))"]
     pub exts: *mut lysp_ext_instance,
 }
 #[allow(clippy::unnecessary_operation, clippy::identity_op)]
@@ -5601,29 +2054,44 @@ impl Default for lysp_node_container {
 #[derive(Copy, Clone)]
 pub struct lysp_node_leaf {
     pub __bindgen_anon_1: lysp_node_leaf__bindgen_ty_1,
+    #[doc = "< list of must restrictions ([sized array](@ref sizedarrays))"]
     pub musts: *mut lysp_restr,
+    #[doc = "< when statement"]
     pub when: *mut lysp_when,
+    #[doc = "< type of the leaf node (mandatory)"]
     pub type_: lysp_type,
+    #[doc = "< units of the leaf's type"]
     pub units: *const ::std::os::raw::c_char,
+    #[doc = "< default value, it may or may not be a qualified name"]
     pub dflt: lysp_qname,
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub union lysp_node_leaf__bindgen_ty_1 {
+    #[doc = "< implicit cast for the members compatible with ::lysp_node"]
     pub node: lysp_node,
     pub __bindgen_anon_1: lysp_node_leaf__bindgen_ty_1__bindgen_ty_1,
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct lysp_node_leaf__bindgen_ty_1__bindgen_ty_1 {
+    #[doc = "< parent node (NULL if this is a top-level node)"]
     pub parent: *mut lysp_node,
+    #[doc = "< LYS_LEAF"]
     pub nodetype: u16,
+    #[doc = "< [schema node flags](@ref snodeflags)"]
     pub flags: u16,
+    #[doc = "< pointer to the next sibling node (NULL if there is no one)"]
     pub next: *mut lysp_node,
+    #[doc = "< node name (mandatory)"]
     pub name: *const ::std::os::raw::c_char,
+    #[doc = "< description statement"]
     pub dsc: *const ::std::os::raw::c_char,
+    #[doc = "< reference statement"]
     pub ref_: *const ::std::os::raw::c_char,
+    #[doc = "< list of if-feature expressions ([sized array](@ref sizedarrays))"]
     pub iffeatures: *mut lysp_qname,
+    #[doc = "< list of the extension instances ([sized array](@ref sizedarrays))"]
     pub exts: *mut lysp_ext_instance,
 }
 #[allow(clippy::unnecessary_operation, clippy::identity_op)]
@@ -5737,31 +2205,48 @@ impl Default for lysp_node_leaf {
 #[derive(Copy, Clone)]
 pub struct lysp_node_leaflist {
     pub __bindgen_anon_1: lysp_node_leaflist__bindgen_ty_1,
+    #[doc = "< list of must restrictions ([sized array](@ref sizedarrays))"]
     pub musts: *mut lysp_restr,
+    #[doc = "< when statement"]
     pub when: *mut lysp_when,
+    #[doc = "< type of the leaf node (mandatory)"]
     pub type_: lysp_type,
+    #[doc = "< units of the leaf's type"]
     pub units: *const ::std::os::raw::c_char,
+    #[doc = "< list of default values ([sized array](@ref sizedarrays)), they may or\nmay not be qualified names"]
     pub dflts: *mut lysp_qname,
+    #[doc = "< min-elements constraint"]
     pub min: u32,
+    #[doc = "< max-elements constraint, 0 means unbounded"]
     pub max: u32,
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub union lysp_node_leaflist__bindgen_ty_1 {
+    #[doc = "< implicit cast for the members compatible with ::lysp_node"]
     pub node: lysp_node,
     pub __bindgen_anon_1: lysp_node_leaflist__bindgen_ty_1__bindgen_ty_1,
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct lysp_node_leaflist__bindgen_ty_1__bindgen_ty_1 {
+    #[doc = "< parent node (NULL if this is a top-level node)"]
     pub parent: *mut lysp_node,
+    #[doc = "< LYS_LEAFLIST"]
     pub nodetype: u16,
+    #[doc = "< [schema node flags](@ref snodeflags)"]
     pub flags: u16,
+    #[doc = "< pointer to the next sibling node (NULL if there is no one)"]
     pub next: *mut lysp_node,
+    #[doc = "< node name (mandatory)"]
     pub name: *const ::std::os::raw::c_char,
+    #[doc = "< description statement"]
     pub dsc: *const ::std::os::raw::c_char,
+    #[doc = "< reference statement"]
     pub ref_: *const ::std::os::raw::c_char,
+    #[doc = "< list of if-feature expressions ([sized array](@ref sizedarrays))"]
     pub iffeatures: *mut lysp_qname,
+    #[doc = "< list of the extension instances ([sized array](@ref sizedarrays))"]
     pub exts: *mut lysp_ext_instance,
 }
 #[allow(clippy::unnecessary_operation, clippy::identity_op)]
@@ -5883,35 +2368,56 @@ impl Default for lysp_node_leaflist {
 #[derive(Copy, Clone)]
 pub struct lysp_node_list {
     pub __bindgen_anon_1: lysp_node_list__bindgen_ty_1,
+    #[doc = "< list of must restrictions ([sized array](@ref sizedarrays))"]
     pub musts: *mut lysp_restr,
+    #[doc = "< when statement"]
     pub when: *mut lysp_when,
+    #[doc = "< keys specification"]
     pub key: *const ::std::os::raw::c_char,
+    #[doc = "< list of typedefs ([sized array](@ref sizedarrays))"]
     pub typedefs: *mut lysp_tpdf,
+    #[doc = "< list of groupings (linked list)"]
     pub groupings: *mut lysp_node_grp,
+    #[doc = "< list of data nodes (linked list)"]
     pub child: *mut lysp_node,
+    #[doc = "< list of actions (linked list)"]
     pub actions: *mut lysp_node_action,
+    #[doc = "< list of notifications (linked list)"]
     pub notifs: *mut lysp_node_notif,
+    #[doc = "< list of unique specifications ([sized array](@ref sizedarrays))"]
     pub uniques: *mut lysp_qname,
+    #[doc = "< min-elements constraint"]
     pub min: u32,
+    #[doc = "< max-elements constraint, 0 means unbounded"]
     pub max: u32,
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub union lysp_node_list__bindgen_ty_1 {
+    #[doc = "< implicit cast for the members compatible with ::lysp_node"]
     pub node: lysp_node,
     pub __bindgen_anon_1: lysp_node_list__bindgen_ty_1__bindgen_ty_1,
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct lysp_node_list__bindgen_ty_1__bindgen_ty_1 {
+    #[doc = "< parent node (NULL if this is a top-level node)"]
     pub parent: *mut lysp_node,
+    #[doc = "< LYS_LIST"]
     pub nodetype: u16,
+    #[doc = "< [schema node flags](@ref snodeflags)"]
     pub flags: u16,
+    #[doc = "< pointer to the next sibling node (NULL if there is no one)"]
     pub next: *mut lysp_node,
+    #[doc = "< node name (mandatory)"]
     pub name: *const ::std::os::raw::c_char,
+    #[doc = "< description statement"]
     pub dsc: *const ::std::os::raw::c_char,
+    #[doc = "< reference statement"]
     pub ref_: *const ::std::os::raw::c_char,
+    #[doc = "< list of if-feature expressions ([sized array](@ref sizedarrays))"]
     pub iffeatures: *mut lysp_qname,
+    #[doc = "< list of the extension instances ([sized array](@ref sizedarrays))"]
     pub exts: *mut lysp_ext_instance,
 }
 #[allow(clippy::unnecessary_operation, clippy::identity_op)]
@@ -6037,27 +2543,40 @@ impl Default for lysp_node_list {
 #[derive(Copy, Clone)]
 pub struct lysp_node_choice {
     pub __bindgen_anon_1: lysp_node_choice__bindgen_ty_1,
+    #[doc = "< list of data nodes (linked list)"]
     pub child: *mut lysp_node,
+    #[doc = "< when statement"]
     pub when: *mut lysp_when,
+    #[doc = "< default case"]
     pub dflt: lysp_qname,
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub union lysp_node_choice__bindgen_ty_1 {
+    #[doc = "< implicit cast for the members compatible with ::lysp_node"]
     pub node: lysp_node,
     pub __bindgen_anon_1: lysp_node_choice__bindgen_ty_1__bindgen_ty_1,
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct lysp_node_choice__bindgen_ty_1__bindgen_ty_1 {
+    #[doc = "< parent node (NULL if this is a top-level node)"]
     pub parent: *mut lysp_node,
+    #[doc = "< LYS_CHOICE"]
     pub nodetype: u16,
+    #[doc = "< [schema node flags](@ref snodeflags)"]
     pub flags: u16,
+    #[doc = "< pointer to the next sibling node (NULL if there is no one)"]
     pub next: *mut lysp_node,
+    #[doc = "< node name (mandatory)"]
     pub name: *const ::std::os::raw::c_char,
+    #[doc = "< description statement"]
     pub dsc: *const ::std::os::raw::c_char,
+    #[doc = "< reference statement"]
     pub ref_: *const ::std::os::raw::c_char,
+    #[doc = "< list of if-feature expressions ([sized array](@ref sizedarrays))"]
     pub iffeatures: *mut lysp_qname,
+    #[doc = "< list of the extension instances ([sized array](@ref sizedarrays))"]
     pub exts: *mut lysp_ext_instance,
 }
 #[allow(clippy::unnecessary_operation, clippy::identity_op)]
@@ -6168,26 +2687,38 @@ impl Default for lysp_node_choice {
 #[derive(Copy, Clone)]
 pub struct lysp_node_case {
     pub __bindgen_anon_1: lysp_node_case__bindgen_ty_1,
+    #[doc = "< list of data nodes (linked list)"]
     pub child: *mut lysp_node,
+    #[doc = "< when statement"]
     pub when: *mut lysp_when,
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub union lysp_node_case__bindgen_ty_1 {
+    #[doc = "< implicit cast for the members compatible with ::lysp_node"]
     pub node: lysp_node,
     pub __bindgen_anon_1: lysp_node_case__bindgen_ty_1__bindgen_ty_1,
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct lysp_node_case__bindgen_ty_1__bindgen_ty_1 {
+    #[doc = "< parent node (NULL if this is a top-level node)"]
     pub parent: *mut lysp_node,
+    #[doc = "< LYS_CASE"]
     pub nodetype: u16,
+    #[doc = "< [schema node flags](@ref snodeflags)"]
     pub flags: u16,
+    #[doc = "< pointer to the next sibling node (NULL if there is no one)"]
     pub next: *mut lysp_node,
+    #[doc = "< node name (mandatory)"]
     pub name: *const ::std::os::raw::c_char,
+    #[doc = "< description statement"]
     pub dsc: *const ::std::os::raw::c_char,
+    #[doc = "< reference statement"]
     pub ref_: *const ::std::os::raw::c_char,
+    #[doc = "< list of if-feature expressions ([sized array](@ref sizedarrays))"]
     pub iffeatures: *mut lysp_qname,
+    #[doc = "< list of the extension instances ([sized array](@ref sizedarrays))"]
     pub exts: *mut lysp_ext_instance,
 }
 #[allow(clippy::unnecessary_operation, clippy::identity_op)]
@@ -6295,26 +2826,38 @@ impl Default for lysp_node_case {
 #[derive(Copy, Clone)]
 pub struct lysp_node_anydata {
     pub __bindgen_anon_1: lysp_node_anydata__bindgen_ty_1,
+    #[doc = "< list of must restrictions ([sized array](@ref sizedarrays))"]
     pub musts: *mut lysp_restr,
+    #[doc = "< when statement"]
     pub when: *mut lysp_when,
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub union lysp_node_anydata__bindgen_ty_1 {
+    #[doc = "< implicit cast for the members compatible with ::lysp_node"]
     pub node: lysp_node,
     pub __bindgen_anon_1: lysp_node_anydata__bindgen_ty_1__bindgen_ty_1,
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct lysp_node_anydata__bindgen_ty_1__bindgen_ty_1 {
+    #[doc = "< parent node (NULL if this is a top-level node)"]
     pub parent: *mut lysp_node,
+    #[doc = "< LYS_ANYXML or LYS_ANYDATA"]
     pub nodetype: u16,
+    #[doc = "< [schema node flags](@ref snodeflags)"]
     pub flags: u16,
+    #[doc = "< pointer to the next sibling node (NULL if there is no one)"]
     pub next: *mut lysp_node,
+    #[doc = "< node name (mandatory)"]
     pub name: *const ::std::os::raw::c_char,
+    #[doc = "< description statement"]
     pub dsc: *const ::std::os::raw::c_char,
+    #[doc = "< reference statement"]
     pub ref_: *const ::std::os::raw::c_char,
+    #[doc = "< list of if-feature expressions ([sized array](@ref sizedarrays))"]
     pub iffeatures: *mut lysp_qname,
+    #[doc = "< list of the extension instances ([sized array](@ref sizedarrays))"]
     pub exts: *mut lysp_ext_instance,
 }
 #[allow(clippy::unnecessary_operation, clippy::identity_op)]
@@ -6426,27 +2969,40 @@ impl Default for lysp_node_anydata {
 #[derive(Copy, Clone)]
 pub struct lysp_node_uses {
     pub __bindgen_anon_1: lysp_node_uses__bindgen_ty_1,
+    #[doc = "< list of uses's refines ([sized array](@ref sizedarrays))"]
     pub refines: *mut lysp_refine,
+    #[doc = "< list of augments (linked list)"]
     pub augments: *mut lysp_node_augment,
+    #[doc = "< when statement"]
     pub when: *mut lysp_when,
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub union lysp_node_uses__bindgen_ty_1 {
+    #[doc = "< implicit cast for the members compatible with ::lysp_node"]
     pub node: lysp_node,
     pub __bindgen_anon_1: lysp_node_uses__bindgen_ty_1__bindgen_ty_1,
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct lysp_node_uses__bindgen_ty_1__bindgen_ty_1 {
+    #[doc = "< parent node (NULL if this is a top-level node)"]
     pub parent: *mut lysp_node,
+    #[doc = "< LYS_USES"]
     pub nodetype: u16,
+    #[doc = "< [schema node flags](@ref snodeflags)"]
     pub flags: u16,
+    #[doc = "< pointer to the next sibling node (NULL if there is no one)"]
     pub next: *mut lysp_node,
+    #[doc = "< grouping name reference (mandatory)"]
     pub name: *const ::std::os::raw::c_char,
+    #[doc = "< description statement"]
     pub dsc: *const ::std::os::raw::c_char,
+    #[doc = "< reference statement"]
     pub ref_: *const ::std::os::raw::c_char,
+    #[doc = "< list of if-feature expressions ([sized array](@ref sizedarrays))"]
     pub iffeatures: *mut lysp_qname,
+    #[doc = "< list of the extension instances ([sized array](@ref sizedarrays))"]
     pub exts: *mut lysp_ext_instance,
 }
 #[allow(clippy::unnecessary_operation, clippy::identity_op)]
@@ -6552,32 +3108,47 @@ impl Default for lysp_node_uses {
         }
     }
 }
+#[doc = " @brief YANG input-stmt and output-stmt"]
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct lysp_node_action_inout {
     pub __bindgen_anon_1: lysp_node_action_inout__bindgen_ty_1,
+    #[doc = "< list of must restrictions ([sized array](@ref sizedarrays))"]
     pub musts: *mut lysp_restr,
+    #[doc = "< list of typedefs ([sized array](@ref sizedarrays))"]
     pub typedefs: *mut lysp_tpdf,
+    #[doc = "< list of groupings (linked list)"]
     pub groupings: *mut lysp_node_grp,
+    #[doc = "< list of data nodes (linked list)"]
     pub child: *mut lysp_node,
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub union lysp_node_action_inout__bindgen_ty_1 {
+    #[doc = "< implicit cast for the members compatible with ::lysp_node"]
     pub node: lysp_node,
     pub __bindgen_anon_1: lysp_node_action_inout__bindgen_ty_1__bindgen_ty_1,
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct lysp_node_action_inout__bindgen_ty_1__bindgen_ty_1 {
+    #[doc = "< parent node (NULL if this is a top-level node)"]
     pub parent: *mut lysp_node,
+    #[doc = "< LYS_INPUT or LYS_OUTPUT"]
     pub nodetype: u16,
+    #[doc = "< [schema node flags](@ref snodeflags)"]
     pub flags: u16,
+    #[doc = "< NULL"]
     pub next: *mut lysp_node,
+    #[doc = "< empty string"]
     pub name: *const ::std::os::raw::c_char,
+    #[doc = "< ALWAYS NULL, compatibility member with ::lysp_node"]
     pub dsc: *const ::std::os::raw::c_char,
+    #[doc = "< ALWAYS NULL, compatibility member with ::lysp_node"]
     pub ref_: *const ::std::os::raw::c_char,
+    #[doc = "< ALWAYS NULL, compatibility member with ::lysp_node"]
     pub iffeatures: *mut lysp_qname,
+    #[doc = "< list of the extension instances ([sized array](@ref sizedarrays))"]
     pub exts: *mut lysp_ext_instance,
 }
 #[allow(clippy::unnecessary_operation, clippy::identity_op)]
@@ -6700,32 +3271,47 @@ impl Default for lysp_node_action_inout {
         }
     }
 }
+#[doc = " @brief YANG rpc-stmt and action-stmt"]
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct lysp_node_action {
     pub __bindgen_anon_1: lysp_node_action__bindgen_ty_1,
+    #[doc = "< list of typedefs ([sized array](@ref sizedarrays))"]
     pub typedefs: *mut lysp_tpdf,
+    #[doc = "< list of groupings (linked list)"]
     pub groupings: *mut lysp_node_grp,
+    #[doc = "< RPC's/Action's input"]
     pub input: lysp_node_action_inout,
+    #[doc = "< RPC's/Action's output"]
     pub output: lysp_node_action_inout,
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub union lysp_node_action__bindgen_ty_1 {
+    #[doc = "< implicit cast for the members compatible with ::lysp_node"]
     pub node: lysp_node,
     pub __bindgen_anon_1: lysp_node_action__bindgen_ty_1__bindgen_ty_1,
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct lysp_node_action__bindgen_ty_1__bindgen_ty_1 {
+    #[doc = "< parent node (NULL if this is a top-level node)"]
     pub parent: *mut lysp_node,
+    #[doc = "< LYS_RPC or LYS_ACTION"]
     pub nodetype: u16,
+    #[doc = "< [schema node flags](@ref snodeflags)"]
     pub flags: u16,
+    #[doc = "< pointer to the next action (NULL if there is no one)"]
     pub next: *mut lysp_node_action,
+    #[doc = "< grouping name reference (mandatory)"]
     pub name: *const ::std::os::raw::c_char,
+    #[doc = "< description statement"]
     pub dsc: *const ::std::os::raw::c_char,
+    #[doc = "< reference statement"]
     pub ref_: *const ::std::os::raw::c_char,
+    #[doc = "< list of if-feature expressions ([sized array](@ref sizedarrays))"]
     pub iffeatures: *mut lysp_qname,
+    #[doc = "< list of the extension instances ([sized array](@ref sizedarrays))"]
     pub exts: *mut lysp_ext_instance,
 }
 #[allow(clippy::unnecessary_operation, clippy::identity_op)]
@@ -6834,32 +3420,47 @@ impl Default for lysp_node_action {
         }
     }
 }
+#[doc = " @brief YANG notification-stmt"]
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct lysp_node_notif {
     pub __bindgen_anon_1: lysp_node_notif__bindgen_ty_1,
+    #[doc = "< list of must restrictions ([sized array](@ref sizedarrays))"]
     pub musts: *mut lysp_restr,
+    #[doc = "< list of typedefs ([sized array](@ref sizedarrays))"]
     pub typedefs: *mut lysp_tpdf,
+    #[doc = "< list of groupings (linked list)"]
     pub groupings: *mut lysp_node_grp,
+    #[doc = "< list of data nodes (linked list)"]
     pub child: *mut lysp_node,
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub union lysp_node_notif__bindgen_ty_1 {
+    #[doc = "< implicit cast for the members compatible with ::lysp_node"]
     pub node: lysp_node,
     pub __bindgen_anon_1: lysp_node_notif__bindgen_ty_1__bindgen_ty_1,
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct lysp_node_notif__bindgen_ty_1__bindgen_ty_1 {
+    #[doc = "< parent node (NULL if this is a top-level node)"]
     pub parent: *mut lysp_node,
+    #[doc = "< LYS_NOTIF"]
     pub nodetype: u16,
+    #[doc = "< [schema node flags](@ref snodeflags) - only LYS_STATUS_* values are allowed"]
     pub flags: u16,
+    #[doc = "< pointer to the next notification (NULL if there is no one)"]
     pub next: *mut lysp_node_notif,
+    #[doc = "< grouping name reference (mandatory)"]
     pub name: *const ::std::os::raw::c_char,
+    #[doc = "< description statement"]
     pub dsc: *const ::std::os::raw::c_char,
+    #[doc = "< reference statement"]
     pub ref_: *const ::std::os::raw::c_char,
+    #[doc = "< list of if-feature expressions ([sized array](@ref sizedarrays))"]
     pub iffeatures: *mut lysp_qname,
+    #[doc = "< list of the extension instances ([sized array](@ref sizedarrays))"]
     pub exts: *mut lysp_ext_instance,
 }
 #[allow(clippy::unnecessary_operation, clippy::identity_op)]
@@ -6968,33 +3569,49 @@ impl Default for lysp_node_notif {
         }
     }
 }
+#[doc = " @brief YANG grouping-stmt"]
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct lysp_node_grp {
     pub __bindgen_anon_1: lysp_node_grp__bindgen_ty_1,
+    #[doc = "< list of typedefs ([sized array](@ref sizedarrays))"]
     pub typedefs: *mut lysp_tpdf,
+    #[doc = "< list of groupings (linked list)"]
     pub groupings: *mut lysp_node_grp,
+    #[doc = "< list of data nodes (linked list)"]
     pub child: *mut lysp_node,
+    #[doc = "< list of actions (linked list)"]
     pub actions: *mut lysp_node_action,
+    #[doc = "< list of notifications (linked list)"]
     pub notifs: *mut lysp_node_notif,
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub union lysp_node_grp__bindgen_ty_1 {
+    #[doc = "< implicit cast for the members compatible with ::lysp_node"]
     pub node: lysp_node,
     pub __bindgen_anon_1: lysp_node_grp__bindgen_ty_1__bindgen_ty_1,
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct lysp_node_grp__bindgen_ty_1__bindgen_ty_1 {
+    #[doc = "< parent node (NULL if this is a top-level grouping)"]
     pub parent: *mut lysp_node,
+    #[doc = "< LYS_GROUPING"]
     pub nodetype: u16,
+    #[doc = "< [schema node flags](@ref snodeflags) - only LYS_STATUS_* values are allowed"]
     pub flags: u16,
+    #[doc = "< pointer to the next grouping (NULL if there is no one)"]
     pub next: *mut lysp_node_grp,
+    #[doc = "< grouping name (mandatory)"]
     pub name: *const ::std::os::raw::c_char,
+    #[doc = "< description statement"]
     pub dsc: *const ::std::os::raw::c_char,
+    #[doc = "< reference statement"]
     pub ref_: *const ::std::os::raw::c_char,
+    #[doc = "< ALWAYS NULL, compatibility member with ::lysp_node"]
     pub iffeatures: *mut lysp_qname,
+    #[doc = "< list of the extension instances ([sized array](@ref sizedarrays))"]
     pub exts: *mut lysp_ext_instance,
 }
 #[allow(clippy::unnecessary_operation, clippy::identity_op)]
@@ -7104,32 +3721,47 @@ impl Default for lysp_node_grp {
         }
     }
 }
+#[doc = " @brief YANG uses-augment-stmt and augment-stmt (compatible with struct lysp_node )"]
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct lysp_node_augment {
     pub __bindgen_anon_1: lysp_node_augment__bindgen_ty_1,
+    #[doc = "< list of data nodes (linked list)"]
     pub child: *mut lysp_node,
+    #[doc = "< when statement"]
     pub when: *mut lysp_when,
+    #[doc = "< list of actions (linked list)"]
     pub actions: *mut lysp_node_action,
+    #[doc = "< list of notifications (linked list)"]
     pub notifs: *mut lysp_node_notif,
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub union lysp_node_augment__bindgen_ty_1 {
+    #[doc = "< implicit cast for the members compatible with ::lysp_node"]
     pub node: lysp_node,
     pub __bindgen_anon_1: lysp_node_augment__bindgen_ty_1__bindgen_ty_1,
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct lysp_node_augment__bindgen_ty_1__bindgen_ty_1 {
+    #[doc = "< parent node (NULL if this is a top-level augment)"]
     pub parent: *mut lysp_node,
+    #[doc = "< LYS_AUGMENT"]
     pub nodetype: u16,
+    #[doc = "< [schema node flags](@ref snodeflags) - only LYS_STATUS_* values are allowed"]
     pub flags: u16,
+    #[doc = "< pointer to the next augment (NULL if there is no one)"]
     pub next: *mut lysp_node_augment,
+    #[doc = "< target schema nodeid (mandatory) - absolute for global augments, descendant for uses's augments"]
     pub nodeid: *const ::std::os::raw::c_char,
+    #[doc = "< description statement"]
     pub dsc: *const ::std::os::raw::c_char,
+    #[doc = "< reference statement"]
     pub ref_: *const ::std::os::raw::c_char,
+    #[doc = "< list of if-feature expressions ([sized array](@ref sizedarrays))"]
     pub iffeatures: *mut lysp_qname,
+    #[doc = "< list of the extension instances ([sized array](@ref sizedarrays))"]
     pub exts: *mut lysp_ext_instance,
 }
 #[allow(clippy::unnecessary_operation, clippy::identity_op)]
@@ -7242,29 +3874,50 @@ impl Default for lysp_node_augment {
     }
 }
 pub mod LYS_VERSION {
+    #[doc = " @brief supported YANG schema version values"]
     pub type Type = ::std::os::raw::c_uint;
+    #[doc = "< no specific version, YANG 1.0 as default"]
     pub const LYS_VERSION_UNDEF: Type = 0;
+    #[doc = "< YANG 1 (1.0)"]
     pub const LYS_VERSION_1_0: Type = 1;
+    #[doc = "< YANG 1.1"]
     pub const LYS_VERSION_1_1: Type = 2;
 }
+#[doc = " @brief Printable YANG schema tree structure representing YANG module.\n\n Simple structure corresponding to the YANG format. The schema is only syntactically validated."]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct lysp_module {
+    #[doc = "< covering module structure"]
     pub mod_: *mut lys_module,
+    #[doc = "< list of the module revisions ([sized array](@ref sizedarrays)), the first revision\nin the list is always the last (newest) revision of the module"]
     pub revs: *mut lysp_revision,
+    #[doc = "< list of imported modules ([sized array](@ref sizedarrays))"]
     pub imports: *mut lysp_import,
+    #[doc = "< list of included submodules ([sized array](@ref sizedarrays))"]
     pub includes: *mut lysp_include,
+    #[doc = "< list of extension statements ([sized array](@ref sizedarrays))"]
     pub extensions: *mut lysp_ext,
+    #[doc = "< list of feature definitions ([sized array](@ref sizedarrays))"]
     pub features: *mut lysp_feature,
+    #[doc = "< list of identities ([sized array](@ref sizedarrays))"]
     pub identities: *mut lysp_ident,
+    #[doc = "< list of typedefs ([sized array](@ref sizedarrays))"]
     pub typedefs: *mut lysp_tpdf,
+    #[doc = "< list of groupings (linked list)"]
     pub groupings: *mut lysp_node_grp,
+    #[doc = "< list of module's top-level data nodes (linked list)"]
     pub data: *mut lysp_node,
+    #[doc = "< list of augments (linked list)"]
     pub augments: *mut lysp_node_augment,
+    #[doc = "< list of RPCs (linked list)"]
     pub rpcs: *mut lysp_node_action,
+    #[doc = "< list of notifications (linked list)"]
     pub notifs: *mut lysp_node_notif,
+    #[doc = "< list of deviations ([sized array](@ref sizedarrays))"]
     pub deviations: *mut lysp_deviation,
+    #[doc = "< list of the extension instances ([sized array](@ref sizedarrays))"]
     pub exts: *mut lysp_ext_instance,
+    #[doc = "< yang-version (LYS_VERSION values)"]
     pub version: u8,
     pub _bitfield_align_1: [u8; 0],
     pub _bitfield_1: __BindgenBitfieldUnit<[u8; 1usize]>,
@@ -7413,30 +4066,53 @@ impl lysp_module {
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct lysp_submodule {
+    #[doc = "< belongs to parent module (submodule - mandatory)"]
     pub mod_: *mut lys_module,
+    #[doc = "< list of the module revisions ([sized array](@ref sizedarrays)), the first revision\nin the list is always the last (newest) revision of the module"]
     pub revs: *mut lysp_revision,
+    #[doc = "< list of imported modules ([sized array](@ref sizedarrays))"]
     pub imports: *mut lysp_import,
+    #[doc = "< list of included submodules ([sized array](@ref sizedarrays))"]
     pub includes: *mut lysp_include,
+    #[doc = "< list of extension statements ([sized array](@ref sizedarrays))"]
     pub extensions: *mut lysp_ext,
+    #[doc = "< list of feature definitions ([sized array](@ref sizedarrays))"]
     pub features: *mut lysp_feature,
+    #[doc = "< list of identities ([sized array](@ref sizedarrays))"]
     pub identities: *mut lysp_ident,
+    #[doc = "< list of typedefs ([sized array](@ref sizedarrays))"]
     pub typedefs: *mut lysp_tpdf,
+    #[doc = "< list of groupings (linked list)"]
     pub groupings: *mut lysp_node_grp,
+    #[doc = "< list of module's top-level data nodes (linked list)"]
     pub data: *mut lysp_node,
+    #[doc = "< list of augments (linked list)"]
     pub augments: *mut lysp_node_augment,
+    #[doc = "< list of RPCs (linked list)"]
     pub rpcs: *mut lysp_node_action,
+    #[doc = "< list of notifications (linked list)"]
     pub notifs: *mut lysp_node_notif,
+    #[doc = "< list of deviations ([sized array](@ref sizedarrays))"]
     pub deviations: *mut lysp_deviation,
+    #[doc = "< list of the extension instances ([sized array](@ref sizedarrays))"]
     pub exts: *mut lysp_ext_instance,
+    #[doc = "< yang-version (LYS_VERSION values)"]
     pub version: u8,
     pub _bitfield_align_1: [u8; 0],
     pub _bitfield_1: __BindgenBitfieldUnit<[u8; 1usize]>,
+    #[doc = "< name of the module (mandatory)"]
     pub name: *const ::std::os::raw::c_char,
+    #[doc = "< path, if the schema was read from a file, NULL in case of reading from memory"]
     pub filepath: *const ::std::os::raw::c_char,
+    #[doc = "< submodule belongsto prefix of main module (mandatory)"]
     pub prefix: *const ::std::os::raw::c_char,
+    #[doc = "< party/company responsible for the module"]
     pub org: *const ::std::os::raw::c_char,
+    #[doc = "< contact information for the module"]
     pub contact: *const ::std::os::raw::c_char,
+    #[doc = "< description of the module"]
     pub dsc: *const ::std::os::raw::c_char,
+    #[doc = "< cross-reference for the module"]
     pub ref_: *const ::std::os::raw::c_char,
 }
 #[allow(clippy::unnecessary_operation, clippy::identity_op)]
@@ -7637,10 +4313,13 @@ impl lysp_submodule {
         __bindgen_bitfield_unit
     }
 }
+#[doc = " @brief Compiled prefix data pair mapping of prefixes to modules. In case the format is ::LY_VALUE_SCHEMA_RESOLVED,\n the expected prefix data is a sized array of these structures."]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct lysc_prefix {
+    #[doc = "< used prefix"]
     pub prefix: *mut ::std::os::raw::c_char,
+    #[doc = "< mapping to a module"]
     pub mod_: *const lys_module,
 }
 #[allow(clippy::unnecessary_operation, clippy::identity_op)]
@@ -7662,14 +4341,21 @@ impl Default for lysc_prefix {
         }
     }
 }
+#[doc = " @brief Compiled YANG extension-stmt\n\n Note that the compiled extension definition is created only in case the extension is instantiated. It is not available\n from the compiled schema, but from the parsed extension definition which is being searched when an extension instance\n is being compiled."]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct lysc_ext {
+    #[doc = "< extension name"]
     pub name: *const ::std::os::raw::c_char,
+    #[doc = "< argument name, NULL if not specified"]
     pub argname: *const ::std::os::raw::c_char,
+    #[doc = "< list of the extension instances ([sized array](@ref sizedarrays))"]
     pub exts: *mut lysc_ext_instance,
+    #[doc = "< reference to extension plugin, use ::lysc_get_ext_plugin() to get the plugin"]
     pub plugin_ref: usize,
+    #[doc = "< module structure"]
     pub module: *mut lys_module,
+    #[doc = "< LYS_STATUS_* value (@ref snodeflags)"]
     pub flags: u16,
 }
 #[allow(clippy::unnecessary_operation, clippy::identity_op)]
@@ -7698,16 +4384,25 @@ impl Default for lysc_ext {
         }
     }
 }
+#[doc = " @brief YANG when-stmt"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct lysc_when {
+    #[doc = "< XPath when condition"]
     pub cond: *mut lyxp_expr,
+    #[doc = "< context node for evaluating the expression, NULL if the context is root node"]
     pub context: *mut lysc_node,
+    #[doc = "< compiled used prefixes in the condition"]
     pub prefixes: *mut lysc_prefix,
+    #[doc = "< description"]
     pub dsc: *const ::std::os::raw::c_char,
+    #[doc = "< reference"]
     pub ref_: *const ::std::os::raw::c_char,
+    #[doc = "< list of the extension instances ([sized array](@ref sizedarrays))"]
     pub exts: *mut lysc_ext_instance,
+    #[doc = "< reference counter since some of the when statements are shared among several nodes"]
     pub refcount: u32,
+    #[doc = "< [schema node flags](@ref snodeflags) - only LYS_STATUS is allowed"]
     pub flags: u16,
 }
 #[allow(clippy::unnecessary_operation, clippy::identity_op)]
@@ -7740,15 +4435,23 @@ impl Default for lysc_when {
         }
     }
 }
+#[doc = " @brief YANG identity-stmt"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct lysc_ident {
+    #[doc = "< identity name (mandatory, no prefix)"]
     pub name: *const ::std::os::raw::c_char,
+    #[doc = "< description"]
     pub dsc: *const ::std::os::raw::c_char,
+    #[doc = "< reference"]
     pub ref_: *const ::std::os::raw::c_char,
+    #[doc = "< module structure"]
     pub module: *mut lys_module,
+    #[doc = "< list of (pointers to the) derived identities ([sized array](@ref sizedarrays))\nIt also contains references to identities located in unimplemented modules."]
     pub derived: *mut *mut lysc_ident,
+    #[doc = "< list of the extension instances ([sized array](@ref sizedarrays))"]
     pub exts: *mut lysc_ext_instance,
+    #[doc = "< [schema node flags](@ref snodeflags) - only LYS_STATUS_ values are allowed"]
     pub flags: u16,
 }
 #[allow(clippy::unnecessary_operation, clippy::identity_op)]
@@ -7779,10 +4482,13 @@ impl Default for lysc_ident {
         }
     }
 }
+#[doc = " @brief Compiled YANG revision statement"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct lysc_revision {
+    #[doc = "< revision-date (mandatory)"]
     pub date: [::std::os::raw::c_char; 11usize],
+    #[doc = "< list of the extension instances ([sized array](@ref sizedarrays))"]
     pub exts: *mut lysc_ext_instance,
 }
 #[allow(clippy::unnecessary_operation, clippy::identity_op)]
@@ -7807,11 +4513,17 @@ impl Default for lysc_revision {
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct lysc_range {
+    #[doc = "< compiled range expression ([sized array](@ref sizedarrays))"]
     pub parts: *mut lysc_range_lysc_range_part,
+    #[doc = "< description"]
     pub dsc: *const ::std::os::raw::c_char,
+    #[doc = "< reference"]
     pub ref_: *const ::std::os::raw::c_char,
+    #[doc = "< error-message"]
     pub emsg: *const ::std::os::raw::c_char,
+    #[doc = "< error-app-tag value"]
     pub eapptag: *const ::std::os::raw::c_char,
+    #[doc = "< list of the extension instances ([sized array](@ref sizedarrays))"]
     pub exts: *mut lysc_ext_instance,
 }
 #[repr(C)]
@@ -7823,7 +4535,9 @@ pub struct lysc_range_lysc_range_part {
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub union lysc_range_lysc_range_part__bindgen_ty_1 {
+    #[doc = "< for int8, int16, int32, int64 and decimal64 ( >= LY_TYPE_DEC64)"]
     pub min_64: i64,
+    #[doc = "< for uint8, uint16, uint32, uint64, string and binary ( < LY_TYPE_DEC64)"]
     pub min_u64: u64,
 }
 #[allow(clippy::unnecessary_operation, clippy::identity_op)]
@@ -7857,7 +4571,9 @@ impl Default for lysc_range_lysc_range_part__bindgen_ty_1 {
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub union lysc_range_lysc_range_part__bindgen_ty_2 {
+    #[doc = "< for int8, int16, int32, int64 and decimal64 ( >= LY_TYPE_DEC64)"]
     pub max_64: i64,
+    #[doc = "< for uint8, uint16, uint32, uint64, string and binary ( < LY_TYPE_DEC64)"]
     pub max_u64: u64,
 }
 #[allow(clippy::unnecessary_operation, clippy::identity_op)]
@@ -7933,11 +4649,17 @@ impl Default for lysc_range {
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct lysc_pattern {
+    #[doc = "< original, not compiled, regular expression"]
     pub expr: *const ::std::os::raw::c_char,
+    #[doc = "< description"]
     pub dsc: *const ::std::os::raw::c_char,
+    #[doc = "< reference"]
     pub ref_: *const ::std::os::raw::c_char,
+    #[doc = "< error-message"]
     pub emsg: *const ::std::os::raw::c_char,
+    #[doc = "< error-app-tag value"]
     pub eapptag: *const ::std::os::raw::c_char,
+    #[doc = "< list of the extension instances ([sized array](@ref sizedarrays))"]
     pub exts: *mut lysc_ext_instance,
     pub _bitfield_align_1: [u32; 0],
     pub _bitfield_1: __BindgenBitfieldUnit<[u8; 4usize]>,
@@ -8108,12 +4830,19 @@ impl lysc_pattern {
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct lysc_must {
+    #[doc = "< XPath when condition"]
     pub cond: *mut lyxp_expr,
+    #[doc = "< compiled used prefixes in the condition"]
     pub prefixes: *mut lysc_prefix,
+    #[doc = "< description"]
     pub dsc: *const ::std::os::raw::c_char,
+    #[doc = "< reference"]
     pub ref_: *const ::std::os::raw::c_char,
+    #[doc = "< error-message"]
     pub emsg: *const ::std::os::raw::c_char,
+    #[doc = "< error-app-tag value"]
     pub eapptag: *const ::std::os::raw::c_char,
+    #[doc = "< list of the extension instances ([sized array](@ref sizedarrays))"]
     pub exts: *mut lysc_ext_instance,
 }
 #[allow(clippy::unnecessary_operation, clippy::identity_op)]
@@ -8147,10 +4876,15 @@ impl Default for lysc_must {
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct lysc_type {
+    #[doc = "< referenced typedef name (without prefix, if any), NULL for built-in types"]
     pub name: *const ::std::os::raw::c_char,
+    #[doc = "< list of the extension instances ([sized array](@ref sizedarrays))"]
     pub exts: *mut lysc_ext_instance,
+    #[doc = "< reference to type plugin, use ::lysc_get_type_plugin() to get the plugin"]
     pub plugin_ref: usize,
+    #[doc = "< base type of the type"]
     pub basetype: LY_DATA_TYPE::Type,
+    #[doc = "< reference counter for type sharing, it may be accessed concurrently when\ncreating/freeing data node values that reference it (instance-identifier)"]
     pub refcount: u32,
 }
 #[allow(clippy::unnecessary_operation, clippy::identity_op)]
@@ -8180,11 +4914,17 @@ impl Default for lysc_type {
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct lysc_type_num {
+    #[doc = "< referenced typedef name (without prefix, if any), NULL for built-in types"]
     pub name: *const ::std::os::raw::c_char,
+    #[doc = "< list of the extension instances ([sized array](@ref sizedarrays))"]
     pub exts: *mut lysc_ext_instance,
+    #[doc = "< reference to type plugin, use ::lysc_get_type_plugin() to get the plugin"]
     pub plugin_ref: usize,
+    #[doc = "< base type of the type"]
     pub basetype: LY_DATA_TYPE::Type,
+    #[doc = "< reference counter for type sharing"]
     pub refcount: u32,
+    #[doc = "< Optional range limitation"]
     pub range: *mut lysc_range,
 }
 #[allow(clippy::unnecessary_operation, clippy::identity_op)]
@@ -8217,12 +4957,19 @@ impl Default for lysc_type_num {
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct lysc_type_dec {
+    #[doc = "< referenced typedef name (without prefix, if any), NULL for built-in types"]
     pub name: *const ::std::os::raw::c_char,
+    #[doc = "< list of the extension instances ([sized array](@ref sizedarrays))"]
     pub exts: *mut lysc_ext_instance,
+    #[doc = "< reference to type plugin, use ::lysc_get_type_plugin() to get the plugin"]
     pub plugin_ref: usize,
+    #[doc = "< base type of the type"]
     pub basetype: LY_DATA_TYPE::Type,
+    #[doc = "< reference counter for type sharing"]
     pub refcount: u32,
+    #[doc = "< fraction digits specification"]
     pub fraction_digits: u8,
+    #[doc = "< Optional range limitation"]
     pub range: *mut lysc_range,
 }
 #[allow(clippy::unnecessary_operation, clippy::identity_op)]
@@ -8257,12 +5004,19 @@ impl Default for lysc_type_dec {
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct lysc_type_str {
+    #[doc = "< referenced typedef name (without prefix, if any), NULL for built-in types"]
     pub name: *const ::std::os::raw::c_char,
+    #[doc = "< list of the extension instances ([sized array](@ref sizedarrays))"]
     pub exts: *mut lysc_ext_instance,
+    #[doc = "< reference to type plugin, use ::lysc_get_type_plugin() to get the plugin"]
     pub plugin_ref: usize,
+    #[doc = "< base type of the type"]
     pub basetype: LY_DATA_TYPE::Type,
+    #[doc = "< reference counter for type sharing"]
     pub refcount: u32,
+    #[doc = "< optional length limitation"]
     pub length: *mut lysc_range,
+    #[doc = "< optional list of pointers to pattern limitations ([sized array](@ref sizedarrays))"]
     pub patterns: *mut *mut lysc_pattern,
 }
 #[allow(clippy::unnecessary_operation, clippy::identity_op)]
@@ -8297,17 +5051,24 @@ impl Default for lysc_type_str {
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct lysc_type_bitenum_item {
+    #[doc = "< enumeration identifier"]
     pub name: *const ::std::os::raw::c_char,
+    #[doc = "< description"]
     pub dsc: *const ::std::os::raw::c_char,
+    #[doc = "< reference"]
     pub ref_: *const ::std::os::raw::c_char,
+    #[doc = "< list of the extension instances ([sized array](@ref sizedarrays))"]
     pub exts: *mut lysc_ext_instance,
     pub __bindgen_anon_1: lysc_type_bitenum_item__bindgen_ty_1,
+    #[doc = "< [schema node flags](@ref snodeflags) - only LYS_STATUS_ and LYS_IS_ENUM values\nare allowed"]
     pub flags: u16,
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub union lysc_type_bitenum_item__bindgen_ty_1 {
+    #[doc = "< integer value associated with the enumeration"]
     pub value: i32,
+    #[doc = "< non-negative integer value associated with the bit"]
     pub position: u32,
 }
 #[allow(clippy::unnecessary_operation, clippy::identity_op)]
@@ -8367,11 +5128,17 @@ impl Default for lysc_type_bitenum_item {
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct lysc_type_enum {
+    #[doc = "< referenced typedef name (without prefix, if any), NULL for built-in types"]
     pub name: *const ::std::os::raw::c_char,
+    #[doc = "< list of the extension instances ([sized array](@ref sizedarrays))"]
     pub exts: *mut lysc_ext_instance,
+    #[doc = "< reference to type plugin, use ::lysc_get_type_plugin() to get the plugin"]
     pub plugin_ref: usize,
+    #[doc = "< base type of the type"]
     pub basetype: LY_DATA_TYPE::Type,
+    #[doc = "< reference counter for type sharing"]
     pub refcount: u32,
+    #[doc = "< enumerations list ([sized array](@ref sizedarrays)), mandatory (at least 1 item)"]
     pub enums: *mut lysc_type_bitenum_item,
 }
 #[allow(clippy::unnecessary_operation, clippy::identity_op)]
@@ -8405,11 +5172,17 @@ impl Default for lysc_type_enum {
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct lysc_type_bits {
+    #[doc = "< referenced typedef name (without prefix, if any), NULL for built-in types"]
     pub name: *const ::std::os::raw::c_char,
+    #[doc = "< list of the extension instances ([sized array](@ref sizedarrays))"]
     pub exts: *mut lysc_ext_instance,
+    #[doc = "< reference to type plugin, use ::lysc_get_type_plugin() to get the plugin"]
     pub plugin_ref: usize,
+    #[doc = "< base type of the type"]
     pub basetype: LY_DATA_TYPE::Type,
+    #[doc = "< reference counter for type sharing"]
     pub refcount: u32,
+    #[doc = "< bits list ([sized array](@ref sizedarrays)), mandatory (at least 1 item),\nthe items are ordered by their position value."]
     pub bits: *mut lysc_type_bitenum_item,
 }
 #[allow(clippy::unnecessary_operation, clippy::identity_op)]
@@ -8443,14 +5216,23 @@ impl Default for lysc_type_bits {
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct lysc_type_leafref {
+    #[doc = "< referenced typedef name (without prefix, if any), NULL for built-in types"]
     pub name: *const ::std::os::raw::c_char,
+    #[doc = "< list of the extension instances ([sized array](@ref sizedarrays))"]
     pub exts: *mut lysc_ext_instance,
+    #[doc = "< reference to type plugin, use ::lysc_get_type_plugin() to get the plugin"]
     pub plugin_ref: usize,
+    #[doc = "< base type of the type"]
     pub basetype: LY_DATA_TYPE::Type,
+    #[doc = "< reference counter for type sharing"]
     pub refcount: u32,
+    #[doc = "< parsed target path, compiled path cannot be stored because of type sharing"]
     pub path: *mut lyxp_expr,
+    #[doc = "< resolved prefixes used in the path"]
     pub prefixes: *mut lysc_prefix,
+    #[doc = "< pointer to the real (first non-leafref in possible leafrefs chain) type."]
     pub realtype: *mut lysc_type,
+    #[doc = "< require-instance flag"]
     pub require_instance: u8,
 }
 #[allow(clippy::unnecessary_operation, clippy::identity_op)]
@@ -8490,11 +5272,17 @@ impl Default for lysc_type_leafref {
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct lysc_type_identityref {
+    #[doc = "< referenced typedef name (without prefix, if any), NULL for built-in types"]
     pub name: *const ::std::os::raw::c_char,
+    #[doc = "< list of the extension instances ([sized array](@ref sizedarrays))"]
     pub exts: *mut lysc_ext_instance,
+    #[doc = "< reference to type plugin, use ::lysc_get_type_plugin() to get the plugin"]
     pub plugin_ref: usize,
+    #[doc = "< base type of the type"]
     pub basetype: LY_DATA_TYPE::Type,
+    #[doc = "< reference counter for type sharing"]
     pub refcount: u32,
+    #[doc = "< list of pointers to the base identities ([sized array](@ref sizedarrays)),\nmandatory (at least 1 item)"]
     pub bases: *mut *mut lysc_ident,
 }
 #[allow(clippy::unnecessary_operation, clippy::identity_op)]
@@ -8528,11 +5316,17 @@ impl Default for lysc_type_identityref {
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct lysc_type_instanceid {
+    #[doc = "< referenced typedef name (without prefix, if any), NULL for built-in types"]
     pub name: *const ::std::os::raw::c_char,
+    #[doc = "< list of the extension instances ([sized array](@ref sizedarrays))"]
     pub exts: *mut lysc_ext_instance,
+    #[doc = "< reference to type plugin, use ::lysc_get_type_plugin() to get the plugin"]
     pub plugin_ref: usize,
+    #[doc = "< base type of the type"]
     pub basetype: LY_DATA_TYPE::Type,
+    #[doc = "< reference counter for type sharing"]
     pub refcount: u32,
+    #[doc = "< require-instance flag"]
     pub require_instance: u8,
 }
 #[allow(clippy::unnecessary_operation, clippy::identity_op)]
@@ -8568,11 +5362,17 @@ impl Default for lysc_type_instanceid {
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct lysc_type_union {
+    #[doc = "< referenced typedef name (without prefix, if any), NULL for built-in types"]
     pub name: *const ::std::os::raw::c_char,
+    #[doc = "< list of the extension instances ([sized array](@ref sizedarrays))"]
     pub exts: *mut lysc_ext_instance,
+    #[doc = "< reference to type plugin, use ::lysc_get_type_plugin() to get the plugin"]
     pub plugin_ref: usize,
+    #[doc = "< base type of the type"]
     pub basetype: LY_DATA_TYPE::Type,
+    #[doc = "< reference counter for type sharing"]
     pub refcount: u32,
+    #[doc = "< list of types in the union ([sized array](@ref sizedarrays)), mandatory (at least 1 item)"]
     pub types: *mut *mut lysc_type,
 }
 #[allow(clippy::unnecessary_operation, clippy::identity_op)]
@@ -8606,11 +5406,17 @@ impl Default for lysc_type_union {
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct lysc_type_bin {
+    #[doc = "< referenced typedef name (without prefix, if any), NULL for built-in types"]
     pub name: *const ::std::os::raw::c_char,
+    #[doc = "< list of the extension instances ([sized array](@ref sizedarrays))"]
     pub exts: *mut lysc_ext_instance,
+    #[doc = "< reference to type plugin, use ::lysc_get_type_plugin() to get the plugin"]
     pub plugin_ref: usize,
+    #[doc = "< base type of the type"]
     pub basetype: LY_DATA_TYPE::Type,
+    #[doc = "< reference counter for type sharing"]
     pub refcount: u32,
+    #[doc = "< optional length limitation"]
     pub length: *mut lysc_range,
 }
 #[allow(clippy::unnecessary_operation, clippy::identity_op)]
@@ -8640,20 +5446,33 @@ impl Default for lysc_type_bin {
         }
     }
 }
+#[doc = " @brief Compiled YANG data node"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct lysc_node {
+    #[doc = "< [type of the node](@ref schemanodetypes) (mandatory)"]
     pub nodetype: u16,
+    #[doc = "< [schema node flags](@ref snodeflags)"]
     pub flags: u16,
+    #[doc = "< schema hash required for LYB printer/parser"]
     pub hash: [u8; 4usize],
+    #[doc = "< module structure"]
     pub module: *mut lys_module,
+    #[doc = "< parent node (NULL in case of top level node)"]
     pub parent: *mut lysc_node,
+    #[doc = "< next sibling node (NULL if there is no one)"]
     pub next: *mut lysc_node,
+    #[doc = "< pointer to the previous sibling node \\note Note that this pointer is\nnever NULL. If there is no sibling node, pointer points to the node\nitself. In case of the first node, this pointer points to the last\nnode in the list."]
     pub prev: *mut lysc_node,
+    #[doc = "< node name (mandatory)"]
     pub name: *const ::std::os::raw::c_char,
+    #[doc = "< description"]
     pub dsc: *const ::std::os::raw::c_char,
+    #[doc = "< reference"]
     pub ref_: *const ::std::os::raw::c_char,
+    #[doc = "< list of the extension instances ([sized array](@ref sizedarrays))"]
     pub exts: *mut lysc_ext_instance,
+    #[doc = "< private arbitrary user data, not used by libyang unless ::LY_CTX_SET_PRIV_PARSED is set"]
     pub priv_: *mut ::std::os::raw::c_void,
 }
 #[allow(clippy::unnecessary_operation, clippy::identity_op)]
@@ -8698,28 +5517,42 @@ impl Default for lysc_node {
 #[derive(Copy, Clone)]
 pub struct lysc_node_action_inout {
     pub __bindgen_anon_1: lysc_node_action_inout__bindgen_ty_1,
+    #[doc = "< first child node (linked list)"]
     pub child: *mut lysc_node,
+    #[doc = "< list of must restrictions ([sized array](@ref sizedarrays))"]
     pub musts: *mut lysc_must,
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub union lysc_node_action_inout__bindgen_ty_1 {
+    #[doc = "< implicit cast for the members compatible with ::lysc_node"]
     pub node: lysc_node,
     pub __bindgen_anon_1: lysc_node_action_inout__bindgen_ty_1__bindgen_ty_1,
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct lysc_node_action_inout__bindgen_ty_1__bindgen_ty_1 {
+    #[doc = "< LYS_INPUT or LYS_OUTPUT"]
     pub nodetype: u16,
+    #[doc = "< [schema node flags](@ref snodeflags)"]
     pub flags: u16,
+    #[doc = "< schema hash required for LYB printer/parser"]
     pub hash: [u8; 4usize],
+    #[doc = "< module structure"]
     pub module: *mut lys_module,
+    #[doc = "< parent node (NULL in case of top level node)"]
     pub parent: *mut lysc_node,
+    #[doc = "< next sibling node (output node for input, NULL for output)"]
     pub next: *mut lysc_node,
+    #[doc = "< pointer to the previous sibling node (input and output node pointing to each other)"]
     pub prev: *mut lysc_node,
+    #[doc = "< \"input\" or \"output\""]
     pub name: *const ::std::os::raw::c_char,
+    #[doc = "< ALWAYS NULL, compatibility member with ::lysc_node"]
     pub dsc: *const ::std::os::raw::c_char,
+    #[doc = "< ALWAYS NULL, compatibility member with ::lysc_node"]
     pub ref_: *const ::std::os::raw::c_char,
+    #[doc = "< list of the extension instances ([sized array](@ref sizedarrays))"]
     pub exts: *mut lysc_ext_instance,
     pub priv_: *mut ::std::os::raw::c_void,
 }
@@ -8861,29 +5694,44 @@ impl Default for lysc_node_action_inout {
 #[derive(Copy, Clone)]
 pub struct lysc_node_action {
     pub __bindgen_anon_1: lysc_node_action__bindgen_ty_1,
+    #[doc = "< list of pointers to when statements ([sized array](@ref sizedarrays)),\nthe action/RPC nodes do not contain the when statement on their own, but they can\ninherit it from the parent's uses."]
     pub when: *mut *mut lysc_when,
+    #[doc = "< RPC's/action's input"]
     pub input: lysc_node_action_inout,
+    #[doc = "< RPC's/action's output"]
     pub output: lysc_node_action_inout,
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub union lysc_node_action__bindgen_ty_1 {
+    #[doc = "< implicit cast for the members compatible with ::lysc_node"]
     pub node: lysc_node,
     pub __bindgen_anon_1: lysc_node_action__bindgen_ty_1__bindgen_ty_1,
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct lysc_node_action__bindgen_ty_1__bindgen_ty_1 {
+    #[doc = "< LYS_RPC or LYS_ACTION"]
     pub nodetype: u16,
+    #[doc = "< [schema node flags](@ref snodeflags)"]
     pub flags: u16,
+    #[doc = "< schema hash required for LYB printer/parser"]
     pub hash: [u8; 4usize],
+    #[doc = "< module structure"]
     pub module: *mut lys_module,
+    #[doc = "< parent node (NULL in case of top level node - RPC)"]
     pub parent: *mut lysc_node,
+    #[doc = "< next sibling node (NULL if there is no one)"]
     pub next: *mut lysc_node_action,
+    #[doc = "< pointer to the previous sibling node \\note Note that this pointer is\nnever NULL. If there is no sibling node, pointer points to the node\nitself. In case of the first node, this pointer points to the last\nnode in the list."]
     pub prev: *mut lysc_node_action,
+    #[doc = "< action/RPC name (mandatory)"]
     pub name: *const ::std::os::raw::c_char,
+    #[doc = "< description"]
     pub dsc: *const ::std::os::raw::c_char,
+    #[doc = "< reference"]
     pub ref_: *const ::std::os::raw::c_char,
+    #[doc = "< list of the extension instances ([sized array](@ref sizedarrays))"]
     pub exts: *mut lysc_ext_instance,
     pub priv_: *mut ::std::os::raw::c_void,
 }
@@ -9009,29 +5857,44 @@ impl Default for lysc_node_action {
 #[derive(Copy, Clone)]
 pub struct lysc_node_notif {
     pub __bindgen_anon_1: lysc_node_notif__bindgen_ty_1,
+    #[doc = "< first child node (linked list)"]
     pub child: *mut lysc_node,
+    #[doc = "< list of must restrictions ([sized array](@ref sizedarrays))"]
     pub musts: *mut lysc_must,
+    #[doc = "< list of pointers to when statements ([sized array](@ref sizedarrays)),\nthe notification nodes do not contain the when statement on their own, but they can\ninherit it from the parent's uses."]
     pub when: *mut *mut lysc_when,
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub union lysc_node_notif__bindgen_ty_1 {
+    #[doc = "< implicit cast for the members compatible with ::lysc_node"]
     pub node: lysc_node,
     pub __bindgen_anon_1: lysc_node_notif__bindgen_ty_1__bindgen_ty_1,
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct lysc_node_notif__bindgen_ty_1__bindgen_ty_1 {
+    #[doc = "< LYS_NOTIF"]
     pub nodetype: u16,
+    #[doc = "< [schema node flags](@ref snodeflags)"]
     pub flags: u16,
+    #[doc = "< schema hash required for LYB printer/parser"]
     pub hash: [u8; 4usize],
+    #[doc = "< module structure"]
     pub module: *mut lys_module,
+    #[doc = "< parent node (NULL in case of top level node)"]
     pub parent: *mut lysc_node,
+    #[doc = "< next sibling node (NULL if there is no one)"]
     pub next: *mut lysc_node_notif,
+    #[doc = "< pointer to the previous sibling node \\note Note that this pointer is\nnever NULL. If there is no sibling node, pointer points to the node\nitself. In case of the first node, this pointer points to the last\nnode in the list."]
     pub prev: *mut lysc_node_notif,
+    #[doc = "< Notification name (mandatory)"]
     pub name: *const ::std::os::raw::c_char,
+    #[doc = "< description"]
     pub dsc: *const ::std::os::raw::c_char,
+    #[doc = "< reference"]
     pub ref_: *const ::std::os::raw::c_char,
+    #[doc = "< list of the extension instances ([sized array](@ref sizedarrays))"]
     pub exts: *mut lysc_ext_instance,
     pub priv_: *mut ::std::os::raw::c_void,
 }
@@ -9157,32 +6020,50 @@ impl Default for lysc_node_notif {
 #[derive(Copy, Clone)]
 pub struct lysc_node_container {
     pub __bindgen_anon_1: lysc_node_container__bindgen_ty_1,
+    #[doc = "< first child node (linked list)"]
     pub child: *mut lysc_node,
+    #[doc = "< list of must restrictions ([sized array](@ref sizedarrays))"]
     pub musts: *mut lysc_must,
+    #[doc = "< list of pointers to when statements ([sized array](@ref sizedarrays))"]
     pub when: *mut *mut lysc_when,
+    #[doc = "< first of actions nodes (linked list)"]
     pub actions: *mut lysc_node_action,
+    #[doc = "< first of notifications nodes (linked list)"]
     pub notifs: *mut lysc_node_notif,
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub union lysc_node_container__bindgen_ty_1 {
+    #[doc = "< implicit cast for the members compatible with ::lysc_node"]
     pub node: lysc_node,
     pub __bindgen_anon_1: lysc_node_container__bindgen_ty_1__bindgen_ty_1,
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct lysc_node_container__bindgen_ty_1__bindgen_ty_1 {
+    #[doc = "< LYS_CONTAINER"]
     pub nodetype: u16,
+    #[doc = "< [schema node flags](@ref snodeflags)"]
     pub flags: u16,
+    #[doc = "< schema hash required for LYB printer/parser"]
     pub hash: [u8; 4usize],
+    #[doc = "< module structure"]
     pub module: *mut lys_module,
+    #[doc = "< parent node (NULL in case of top level node)"]
     pub parent: *mut lysc_node,
+    #[doc = "< next sibling node (NULL if there is no one)"]
     pub next: *mut lysc_node,
+    #[doc = "< pointer to the previous sibling node \\note Note that this pointer is\nnever NULL. If there is no sibling node, pointer points to the node\nitself. In case of the first node, this pointer points to the last\nnode in the list."]
     pub prev: *mut lysc_node,
+    #[doc = "< node name (mandatory)"]
     pub name: *const ::std::os::raw::c_char,
+    #[doc = "< description"]
     pub dsc: *const ::std::os::raw::c_char,
+    #[doc = "< reference"]
     pub ref_: *const ::std::os::raw::c_char,
+    #[doc = "< list of the extension instances ([sized array](@ref sizedarrays))"]
     pub exts: *mut lysc_ext_instance,
+    #[doc = "< private arbitrary user data, not used by libyang unless ::LY_CTX_SET_PRIV_PARSED is set"]
     pub priv_: *mut ::std::os::raw::c_void,
 }
 #[allow(clippy::unnecessary_operation, clippy::identity_op)]
@@ -9316,29 +6197,44 @@ impl Default for lysc_node_container {
 #[derive(Copy, Clone)]
 pub struct lysc_node_case {
     pub __bindgen_anon_1: lysc_node_case__bindgen_ty_1,
+    #[doc = "< first child node of the case (linked list). Note that all the children of all the sibling cases are linked\neach other as siblings with the parent pointer pointing to appropriate case node."]
     pub child: *mut lysc_node,
+    #[doc = "< list of pointers to when statements ([sized array](@ref sizedarrays))"]
     pub when: *mut *mut lysc_when,
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub union lysc_node_case__bindgen_ty_1 {
+    #[doc = "< implicit cast for the members compatible with ::lysc_node"]
     pub node: lysc_node,
     pub __bindgen_anon_1: lysc_node_case__bindgen_ty_1__bindgen_ty_1,
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct lysc_node_case__bindgen_ty_1__bindgen_ty_1 {
+    #[doc = "< LYS_CASE"]
     pub nodetype: u16,
+    #[doc = "< [schema node flags](@ref snodeflags)"]
     pub flags: u16,
+    #[doc = "< schema hash required for LYB printer/parser, unused"]
     pub hash: [u8; 4usize],
+    #[doc = "< module structure"]
     pub module: *mut lys_module,
+    #[doc = "< parent node (NULL in case of top level node)"]
     pub parent: *mut lysc_node,
+    #[doc = "< next sibling node (NULL if there is no one)"]
     pub next: *mut lysc_node,
+    #[doc = "< pointer to the previous sibling node \\note Note that this pointer is\nnever NULL. If there is no sibling node, pointer points to the node\nitself. In case of the first node, this pointer points to the last\nnode in the list."]
     pub prev: *mut lysc_node,
+    #[doc = "< name of the case, including the implicit case"]
     pub name: *const ::std::os::raw::c_char,
+    #[doc = "< description"]
     pub dsc: *const ::std::os::raw::c_char,
+    #[doc = "< reference"]
     pub ref_: *const ::std::os::raw::c_char,
+    #[doc = "< list of the extension instances ([sized array](@ref sizedarrays))"]
     pub exts: *mut lysc_ext_instance,
+    #[doc = "< private arbitrary user data, not used by libyang unless ::LY_CTX_SET_PRIV_PARSED is set"]
     pub priv_: *mut ::std::os::raw::c_void,
 }
 #[allow(clippy::unnecessary_operation, clippy::identity_op)]
@@ -9461,30 +6357,46 @@ impl Default for lysc_node_case {
 #[derive(Copy, Clone)]
 pub struct lysc_node_choice {
     pub __bindgen_anon_1: lysc_node_choice__bindgen_ty_1,
+    #[doc = "< list of all the cases (linked list)"]
     pub cases: *mut lysc_node_case,
+    #[doc = "< list of pointers to when statements ([sized array](@ref sizedarrays))"]
     pub when: *mut *mut lysc_when,
+    #[doc = "< default case of the choice, only a pointer into the cases array."]
     pub dflt: *mut lysc_node_case,
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub union lysc_node_choice__bindgen_ty_1 {
+    #[doc = "< implicit cast for the members compatible with ::lysc_node"]
     pub node: lysc_node,
     pub __bindgen_anon_1: lysc_node_choice__bindgen_ty_1__bindgen_ty_1,
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct lysc_node_choice__bindgen_ty_1__bindgen_ty_1 {
+    #[doc = "< LYS_CHOICE"]
     pub nodetype: u16,
+    #[doc = "< [schema node flags](@ref snodeflags)"]
     pub flags: u16,
+    #[doc = "< schema hash required for LYB printer/parser, unused"]
     pub hash: [u8; 4usize],
+    #[doc = "< module structure"]
     pub module: *mut lys_module,
+    #[doc = "< parent node (NULL in case of top level node)"]
     pub parent: *mut lysc_node,
+    #[doc = "< next sibling node (NULL if there is no one)"]
     pub next: *mut lysc_node,
+    #[doc = "< pointer to the previous sibling node \\note Note that this pointer is\nnever NULL. If there is no sibling node, pointer points to the node\nitself. In case of the first node, this pointer points to the last\nnode in the list."]
     pub prev: *mut lysc_node,
+    #[doc = "< node name (mandatory)"]
     pub name: *const ::std::os::raw::c_char,
+    #[doc = "< description"]
     pub dsc: *const ::std::os::raw::c_char,
+    #[doc = "< reference"]
     pub ref_: *const ::std::os::raw::c_char,
+    #[doc = "< list of the extension instances ([sized array](@ref sizedarrays))"]
     pub exts: *mut lysc_ext_instance,
+    #[doc = "< private arbitrary user data, not used by libyang unless ::LY_CTX_SET_PRIV_PARSED is set"]
     pub priv_: *mut ::std::os::raw::c_void,
 }
 #[allow(clippy::unnecessary_operation, clippy::identity_op)]
@@ -9608,7 +6520,9 @@ impl Default for lysc_node_choice {
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct lysc_value {
+    #[doc = "< string value"]
     pub str_: *const ::std::os::raw::c_char,
+    #[doc = "< compiled used prefixes in the string value ([sized array](@ref sizedarrays))"]
     pub prefixes: *mut lysc_prefix,
 }
 #[allow(clippy::unnecessary_operation, clippy::identity_op)]
@@ -9633,32 +6547,50 @@ impl Default for lysc_value {
 #[derive(Copy, Clone)]
 pub struct lysc_node_leaf {
     pub __bindgen_anon_1: lysc_node_leaf__bindgen_ty_1,
+    #[doc = "< list of must restrictions ([sized array](@ref sizedarrays))"]
     pub musts: *mut lysc_must,
+    #[doc = "< list of pointers to when statements ([sized array](@ref sizedarrays))"]
     pub when: *mut *mut lysc_when,
+    #[doc = "< type of the leaf node (mandatory)"]
     pub type_: *mut lysc_type,
+    #[doc = "< units of the leaf's type"]
     pub units: *const ::std::os::raw::c_char,
+    #[doc = "< default value, use ::lyd_value_validate_dflt() to get real type and canonical value"]
     pub dflt: lysc_value,
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub union lysc_node_leaf__bindgen_ty_1 {
+    #[doc = "< implicit cast for the members compatible with ::lysc_node"]
     pub node: lysc_node,
     pub __bindgen_anon_1: lysc_node_leaf__bindgen_ty_1__bindgen_ty_1,
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct lysc_node_leaf__bindgen_ty_1__bindgen_ty_1 {
+    #[doc = "< LYS_LEAF"]
     pub nodetype: u16,
+    #[doc = "< [schema node flags](@ref snodeflags)"]
     pub flags: u16,
+    #[doc = "< schema hash required for LYB printer/parser"]
     pub hash: [u8; 4usize],
+    #[doc = "< module structure"]
     pub module: *mut lys_module,
+    #[doc = "< parent node (NULL in case of top level node)"]
     pub parent: *mut lysc_node,
+    #[doc = "< next sibling node (NULL if there is no one)"]
     pub next: *mut lysc_node,
+    #[doc = "< pointer to the previous sibling node \\note Note that this pointer is\nnever NULL. If there is no sibling node, pointer points to the node\nitself. In case of the first node, this pointer points to the last\nnode in the list."]
     pub prev: *mut lysc_node,
+    #[doc = "< node name (mandatory)"]
     pub name: *const ::std::os::raw::c_char,
+    #[doc = "< description"]
     pub dsc: *const ::std::os::raw::c_char,
+    #[doc = "< reference"]
     pub ref_: *const ::std::os::raw::c_char,
+    #[doc = "< list of the extension instances ([sized array](@ref sizedarrays))"]
     pub exts: *mut lysc_ext_instance,
+    #[doc = "< private arbitrary user data, not used by libyang unless ::LY_CTX_SET_PRIV_PARSED is set"]
     pub priv_: *mut ::std::os::raw::c_void,
 }
 #[allow(clippy::unnecessary_operation, clippy::identity_op)]
@@ -9787,34 +6719,54 @@ impl Default for lysc_node_leaf {
 #[derive(Copy, Clone)]
 pub struct lysc_node_leaflist {
     pub __bindgen_anon_1: lysc_node_leaflist__bindgen_ty_1,
+    #[doc = "< list of must restrictions ([sized array](@ref sizedarrays))"]
     pub musts: *mut lysc_must,
+    #[doc = "< list of pointers to when statements ([sized array](@ref sizedarrays))"]
     pub when: *mut *mut lysc_when,
+    #[doc = "< type of the leaf node (mandatory)"]
     pub type_: *mut lysc_type,
+    #[doc = "< units of the leaf's type"]
     pub units: *const ::std::os::raw::c_char,
+    #[doc = "< list ([sized array](@ref sizedarrays)) of default values, use\n::lyd_value_validate_dflt() to get real type and canonical values"]
     pub dflts: *mut lysc_value,
+    #[doc = "< min-elements constraint"]
     pub min: u32,
+    #[doc = "< max-elements constraint"]
     pub max: u32,
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub union lysc_node_leaflist__bindgen_ty_1 {
+    #[doc = "< implicit cast for the members compatible with ::lysc_node"]
     pub node: lysc_node,
     pub __bindgen_anon_1: lysc_node_leaflist__bindgen_ty_1__bindgen_ty_1,
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct lysc_node_leaflist__bindgen_ty_1__bindgen_ty_1 {
+    #[doc = "< LYS_LEAFLIST"]
     pub nodetype: u16,
+    #[doc = "< [schema node flags](@ref snodeflags)"]
     pub flags: u16,
+    #[doc = "< schema hash required for LYB printer/parser"]
     pub hash: [u8; 4usize],
+    #[doc = "< module structure"]
     pub module: *mut lys_module,
+    #[doc = "< parent node (NULL in case of top level node)"]
     pub parent: *mut lysc_node,
+    #[doc = "< next sibling node (NULL if there is no one)"]
     pub next: *mut lysc_node,
+    #[doc = "< pointer to the previous sibling node \\note Note that this pointer is\nnever NULL. If there is no sibling node, pointer points to the node\nitself. In case of the first node, this pointer points to the last\nnode in the list."]
     pub prev: *mut lysc_node,
+    #[doc = "< node name (mandatory)"]
     pub name: *const ::std::os::raw::c_char,
+    #[doc = "< description"]
     pub dsc: *const ::std::os::raw::c_char,
+    #[doc = "< reference"]
     pub ref_: *const ::std::os::raw::c_char,
+    #[doc = "< list of the extension instances ([sized array](@ref sizedarrays))"]
     pub exts: *mut lysc_ext_instance,
+    #[doc = "< private arbitrary user data, not used by libyang unless ::LY_CTX_SET_PRIV_PARSED is set"]
     pub priv_: *mut ::std::os::raw::c_void,
 }
 #[allow(clippy::unnecessary_operation, clippy::identity_op)]
@@ -9950,35 +6902,56 @@ impl Default for lysc_node_leaflist {
 #[derive(Copy, Clone)]
 pub struct lysc_node_list {
     pub __bindgen_anon_1: lysc_node_list__bindgen_ty_1,
+    #[doc = "< first child node (linked list)"]
     pub child: *mut lysc_node,
+    #[doc = "< list of must restrictions ([sized array](@ref sizedarrays))"]
     pub musts: *mut lysc_must,
+    #[doc = "< list of pointers to when statements ([sized array](@ref sizedarrays))"]
     pub when: *mut *mut lysc_when,
+    #[doc = "< first of actions nodes (linked list)"]
     pub actions: *mut lysc_node_action,
+    #[doc = "< first of notifications nodes (linked list)"]
     pub notifs: *mut lysc_node_notif,
+    #[doc = "< list of sized arrays of pointers to the unique nodes ([sized array](@ref sizedarrays))"]
     pub uniques: *mut *mut *mut lysc_node_leaf,
+    #[doc = "< min-elements constraint"]
     pub min: u32,
+    #[doc = "< max-elements constraint"]
     pub max: u32,
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub union lysc_node_list__bindgen_ty_1 {
+    #[doc = "< implicit cast for the members compatible with ::lysc_node"]
     pub node: lysc_node,
     pub __bindgen_anon_1: lysc_node_list__bindgen_ty_1__bindgen_ty_1,
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct lysc_node_list__bindgen_ty_1__bindgen_ty_1 {
+    #[doc = "< LYS_LIST"]
     pub nodetype: u16,
+    #[doc = "< [schema node flags](@ref snodeflags)"]
     pub flags: u16,
+    #[doc = "< schema hash required for LYB printer/parser"]
     pub hash: [u8; 4usize],
+    #[doc = "< module structure"]
     pub module: *mut lys_module,
+    #[doc = "< parent node (NULL in case of top level node)"]
     pub parent: *mut lysc_node,
+    #[doc = "< next sibling node (NULL if there is no one)"]
     pub next: *mut lysc_node,
+    #[doc = "< pointer to the previous sibling node \\note Note that this pointer is\nnever NULL. If there is no sibling node, pointer points to the node\nitself. In case of the first node, this pointer points to the last\nnode in the list."]
     pub prev: *mut lysc_node,
+    #[doc = "< node name (mandatory)"]
     pub name: *const ::std::os::raw::c_char,
+    #[doc = "< description"]
     pub dsc: *const ::std::os::raw::c_char,
+    #[doc = "< reference"]
     pub ref_: *const ::std::os::raw::c_char,
+    #[doc = "< list of the extension instances ([sized array](@ref sizedarrays))"]
     pub exts: *mut lysc_ext_instance,
+    #[doc = "< private arbitrary user data, not used by libyang unless ::LY_CTX_SET_PRIV_PARSED is set"]
     pub priv_: *mut ::std::os::raw::c_void,
 }
 #[allow(clippy::unnecessary_operation, clippy::identity_op)]
@@ -10113,29 +7086,44 @@ impl Default for lysc_node_list {
 #[derive(Copy, Clone)]
 pub struct lysc_node_anydata {
     pub __bindgen_anon_1: lysc_node_anydata__bindgen_ty_1,
+    #[doc = "< list of must restrictions ([sized array](@ref sizedarrays))"]
     pub musts: *mut lysc_must,
+    #[doc = "< list of pointers to when statements ([sized array](@ref sizedarrays))"]
     pub when: *mut *mut lysc_when,
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub union lysc_node_anydata__bindgen_ty_1 {
+    #[doc = "< implicit cast for the members compatible with ::lysc_node"]
     pub node: lysc_node,
     pub __bindgen_anon_1: lysc_node_anydata__bindgen_ty_1__bindgen_ty_1,
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct lysc_node_anydata__bindgen_ty_1__bindgen_ty_1 {
+    #[doc = "< LYS_ANYXML or LYS_ANYDATA"]
     pub nodetype: u16,
+    #[doc = "< [schema node flags](@ref snodeflags)"]
     pub flags: u16,
+    #[doc = "< schema hash required for LYB printer/parser"]
     pub hash: [u8; 4usize],
+    #[doc = "< module structure"]
     pub module: *mut lys_module,
+    #[doc = "< parent node (NULL in case of top level node)"]
     pub parent: *mut lysc_node,
+    #[doc = "< next sibling node (NULL if there is no one)"]
     pub next: *mut lysc_node,
+    #[doc = "< pointer to the previous sibling node \\note Note that this pointer is\nnever NULL. If there is no sibling node, pointer points to the node\nitself. In case of the first node, this pointer points to the last\nnode in the list."]
     pub prev: *mut lysc_node,
+    #[doc = "< node name (mandatory)"]
     pub name: *const ::std::os::raw::c_char,
+    #[doc = "< description"]
     pub dsc: *const ::std::os::raw::c_char,
+    #[doc = "< reference"]
     pub ref_: *const ::std::os::raw::c_char,
+    #[doc = "< list of the extension instances ([sized array](@ref sizedarrays))"]
     pub exts: *mut lysc_ext_instance,
+    #[doc = "< private arbitrary user data, not used by libyang unless ::LY_CTX_SET_PRIV_PARSED is set"]
     pub priv_: *mut ::std::os::raw::c_void,
 }
 #[allow(clippy::unnecessary_operation, clippy::identity_op)]
@@ -10257,11 +7245,15 @@ impl Default for lysc_node_anydata {
         }
     }
 }
+#[doc = " @brief Compiled YANG submodule with only some basic metadata required for generating `ietf-yang-library` data."]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct lysc_submodule {
+    #[doc = "< submodule name"]
     pub name: *const ::std::os::raw::c_char,
+    #[doc = "< submodule revision, if any"]
     pub revision: *const ::std::os::raw::c_char,
+    #[doc = "< submodule file path, if any"]
     pub filepath: *const ::std::os::raw::c_char,
 }
 #[allow(clippy::unnecessary_operation, clippy::identity_op)]
@@ -10286,14 +7278,21 @@ impl Default for lysc_submodule {
         }
     }
 }
+#[doc = " @brief Compiled YANG schema tree structure representing YANG module.\n\n Semantically validated YANG schema tree for data tree parsing.\n Contains only the necessary information for the data validation."]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct lysc_module {
+    #[doc = "< covering module structure"]
     pub mod_: *mut lys_module,
+    #[doc = "< array of all the enabled features ([sized array](@ref sizedarrays)), but\nalso terminated by NULL"]
     pub features: *mut *const ::std::os::raw::c_char,
+    #[doc = "< list of module's top-level data nodes (linked list)"]
     pub data: *mut lysc_node,
+    #[doc = "< first of actions nodes (linked list)"]
     pub rpcs: *mut lysc_node_action,
+    #[doc = "< first of notifications nodes (linked list)"]
     pub notifs: *mut lysc_node_notif,
+    #[doc = "< list of extension instances ([sized array](@ref sizedarrays))"]
     pub exts: *mut lysc_ext_instance,
 }
 #[allow(clippy::unnecessary_operation, clippy::identity_op)]
@@ -10329,62 +7328,80 @@ pub struct lyplg_type {
     _unused: [u8; 0],
 }
 unsafe extern "C" {
+    #[doc = " @brief Get a type plugin.\n\n @param[in] plugin_ref Reference to a type plugin. Either an index in the type plugins\n array (e.g. 1 -> binary type) or a pointer to the user defined plugin. Indexes start at 1.\n @return Type plugin or NULL."]
     pub fn lysc_get_type_plugin(plugin_ref: usize) -> *mut lyplg_type;
 }
 unsafe extern "C" {
+    #[doc = " @brief Get an extension plugin.\n\n @param[in] plugin_ref Reference to an extension plugin. Either an index in the extension plugins\n array (e.g. 1 -> metadata extension) or a pointer to the user defined plugin. Indexes start at 1.\n @return Extension plugin or NULL."]
     pub fn lysc_get_ext_plugin(plugin_ref: usize) -> *mut lyplg_ext;
 }
 unsafe extern "C" {
+    #[doc = " @brief Get nearest @p schema parent (including the node itself) that can be instantiated in data.\n\n @param[in] schema Schema node to get the nearest data node for.\n @return Schema data node, NULL if top-level (in data)."]
     pub fn lysc_data_node(schema: *const lysc_node) -> *const lysc_node;
 }
 unsafe extern "C" {
+    #[doc = " @brief Check whether the schema node data instance existence depends on any when conditions.\n This node and any direct parent choice and case schema nodes are also examined for when conditions.\n\n Be careful, this function is not recursive and checks only conditions that apply to this node directly.\n Meaning if there are any conditions associated with any data parent instance of @p node, they are not returned.\n\n @param[in] node Schema node to examine.\n @return When condition associated with the node data instance, NULL if there is none."]
     pub fn lysc_has_when(node: *const lysc_node) -> *const lysc_when;
 }
 unsafe extern "C" {
+    #[doc = " @brief Get the owner module of the schema node. It is the module of the top-level node. Generally,\n in case of augments it is the target module, recursively, otherwise it is the module where the node is defined.\n\n @param[in] node Schema node to examine.\n @return Module owner of the node."]
     pub fn lysc_owner_module(node: *const lysc_node) -> *const lys_module;
 }
 unsafe extern "C" {
+    #[doc = " @brief Get the groupings linked list of the given (parsed) schema node.\n Decides the node's type and in case it has a groupings array, returns it.\n @param[in] node Node to examine.\n @return The node's groupings linked list if any, NULL otherwise."]
     pub fn lysp_node_groupings(node: *const lysp_node) -> *const lysp_node_grp;
 }
 unsafe extern "C" {
+    #[doc = " @brief Get the typedefs sized array of the given (parsed) schema node.\n Decides the node's type and in case it has a typedefs array, returns it.\n @param[in] node Node to examine.\n @return The node's typedefs sized array if any, NULL otherwise."]
     pub fn lysp_node_typedefs(node: *const lysp_node) -> *const lysp_tpdf;
 }
 unsafe extern "C" {
+    #[doc = " @brief Get the actions/RPCs linked list of the given (parsed) schema node.\n Decides the node's type and in case it has a actions/RPCs array, returns it.\n @param[in] node Node to examine.\n @return The node's actions/RPCs linked list if any, NULL otherwise."]
     pub fn lysp_node_actions(node: *const lysp_node)
     -> *const lysp_node_action;
 }
 unsafe extern "C" {
+    #[doc = " @brief Get the Notifications linked list of the given (parsed) schema node.\n Decides the node's type and in case it has a Notifications array, returns it.\n @param[in] node Node to examine.\n @return The node's Notifications linked list if any, NULL otherwise."]
     pub fn lysp_node_notifs(node: *const lysp_node) -> *const lysp_node_notif;
 }
 unsafe extern "C" {
+    #[doc = " @brief Get the children linked list of the given (parsed) schema node.\n Decides the node's type and in case it has a children list, returns it.\n @param[in] node Node to examine.\n @return The node's children linked list if any, NULL otherwise."]
     pub fn lysp_node_child(node: *const lysp_node) -> *const lysp_node;
 }
 unsafe extern "C" {
+    #[doc = " @brief Get the actions/RPCs linked list of the given (compiled) schema node.\n Decides the node's type and in case it has a actions/RPCs array, returns it.\n @param[in] node Node to examine.\n @return The node's actions/RPCs linked list if any, NULL otherwise."]
     pub fn lysc_node_actions(node: *const lysc_node)
     -> *const lysc_node_action;
 }
 unsafe extern "C" {
+    #[doc = " @brief Get the Notifications linked list of the given (compiled) schema node.\n Decides the node's type and in case it has a Notifications array, returns it.\n @param[in] node Node to examine.\n @return The node's Notifications linked list if any, NULL otherwise."]
     pub fn lysc_node_notifs(node: *const lysc_node) -> *const lysc_node_notif;
 }
 unsafe extern "C" {
+    #[doc = " @brief Get the children linked list of the given (compiled) schema node.\n\n Note that ::LYS_CHOICE has only ::LYS_CASE children.\n Also, ::LYS_RPC and ::LYS_ACTION have the first child ::LYS_INPUT, its sibling is ::LYS_OUTPUT.\n\n @param[in] node Node to examine.\n @return Children linked list if any,\n @return NULL otherwise."]
     pub fn lysc_node_child(node: *const lysc_node) -> *const lysc_node;
 }
 unsafe extern "C" {
+    #[doc = " @brief Get the must statements list if present in the @p node\n\n @param[in] node Node to examine.\n @return Pointer to the list of must restrictions ([sized array](@ref sizedarrays))\n @return NULL if there is no must statement in the node, no matter if it is not even allowed or just present"]
     pub fn lysc_node_musts(node: *const lysc_node) -> *mut lysc_must;
 }
 unsafe extern "C" {
+    #[doc = " @brief Get the when statements list if present in the @p node\n\n @param[in] node Node to examine.\n @return Pointer to the list of pointers to when statements ([sized array](@ref sizedarrays))\n @return NULL if there is no when statement in the node, no matter if it is not even allowed or just present"]
     pub fn lysc_node_when(node: *const lysc_node) -> *mut *mut lysc_when;
 }
 unsafe extern "C" {
+    #[doc = " @brief Get the target node of a leafref node. Function ::lysc_node_lref_targets() should be used instead\n to get all the leafref targets even for a union node.\n\n @param[in] node Leafref node.\n @return Leafref target, NULL on any error."]
     pub fn lysc_node_lref_target(node: *const lysc_node) -> *const lysc_node;
 }
 unsafe extern "C" {
+    #[doc = " @brief Get the target node(s) of a leafref node or union node with leafrefs.\n\n @param[in] node Term node to use.\n @param[out] set Set with all the leafref targets, may be empty if the node is a different type or the targets\n are not found.\n @return LY_SUCCESS on success.\n @return LY_ERR value on error."]
     pub fn lysc_node_lref_targets(
         node: *const lysc_node,
         set: *mut *mut ly_set,
     ) -> LY_ERR::Type;
 }
 unsafe extern "C" {
+    #[doc = " @brief Get all the leafref (or union with leafrefs) nodes that target a specific node.\n\n @param[in] ctx Context to use, may not be set if @p node is.\n @param[in] node Leafref target node to use for matching. If not set, all the leafref nodes are just collected.\n @param[in] match_ancestors If set, @p node is considered a match not only when a leafref targets it directly but\n even when an ancestor (parent) node of @p node is a target of the leafref.\n @param[out] set Set of matching leafref nodes.\n @return LY_SUCCESS on success.\n @return LY_ERR value on error."]
     pub fn lysc_node_lref_backlinks(
         ctx: *const ly_ctx,
         node: *const lysc_node,
@@ -10392,6 +7409,7 @@ unsafe extern "C" {
         set: *mut *mut ly_set,
     ) -> LY_ERR::Type;
 }
+#[doc = " @brief Callback to be called for every schema node in a DFS traversal.\n\n @param[in] node Current node.\n @param[in] data Arbitrary user data.\n @param[out] dfs_continue Set to true if the current subtree should be skipped and continue with siblings instead.\n @return LY_SUCCESS on success,\n @return LY_ERR value to terminate DFS and return this value."]
 pub type lysc_dfs_clb = ::std::option::Option<
     unsafe extern "C" fn(
         node: *mut lysc_node,
@@ -10400,6 +7418,7 @@ pub type lysc_dfs_clb = ::std::option::Option<
     ) -> LY_ERR::Type,
 >;
 unsafe extern "C" {
+    #[doc = " @brief DFS traversal of all the schema nodes in a (sub)tree including any actions and nested notifications.\n\n Node with children, actions, and notifications is traversed in this order:\n 1) each child subtree;\n 2) each action subtree;\n 3) each notification subtree.\n\n For algorithm illustration or traversal with actions and notifications skipped, see ::LYSC_TREE_DFS_BEGIN.\n\n @param[in] root Schema root to fully traverse.\n @param[in] dfs_clb Callback to call for each node.\n @param[in] data Arbitrary user data passed to @p dfs_clb.\n @return LY_SUCCESS on success,\n @return LY_ERR value returned by @p dfs_clb."]
     pub fn lysc_tree_dfs_full(
         root: *const lysc_node,
         dfs_clb: lysc_dfs_clb,
@@ -10407,6 +7426,7 @@ unsafe extern "C" {
     ) -> LY_ERR::Type;
 }
 unsafe extern "C" {
+    #[doc = " @brief DFS traversal of all the schema nodes in a module including RPCs and notifications.\n\n For more details, see ::lysc_tree_dfs_full().\n\n @param[in] mod Module to fully traverse.\n @param[in] dfs_clb Callback to call for each node.\n @param[in] data Arbitrary user data passed to @p dfs_clb.\n @return LY_SUCCESS on success,\n @return LY_ERR value returned by @p dfs_clb."]
     pub fn lysc_module_dfs_full(
         mod_: *const lys_module,
         dfs_clb: lysc_dfs_clb,
@@ -10414,14 +7434,17 @@ unsafe extern "C" {
     ) -> LY_ERR::Type;
 }
 unsafe extern "C" {
+    #[doc = " @brief Get how the if-feature statement currently evaluates.\n\n @param[in] iff Compiled if-feature statement to evaluate.\n @return LY_SUCCESS if the statement evaluates to true,\n @return LY_ENOT if it evaluates to false,\n @return LY_ERR on error."]
     pub fn lysc_iffeature_value(iff: *const lysc_iffeature) -> LY_ERR::Type;
 }
 unsafe extern "C" {
+    #[doc = " @brief Get how the if-feature statement is evaluated for certain identity.\n\n The function can be called even if the identity does not contain\n if-features, in which case ::LY_SUCCESS is returned.\n\n @param[in] ident Compiled identity statement to evaluate.\n @return LY_SUCCESS if the statement evaluates to true,\n @return LY_ENOT if it evaluates to false,\n @return LY_ERR on error."]
     pub fn lys_identity_iffeature_value(
         ident: *const lysc_ident,
     ) -> LY_ERR::Type;
 }
 unsafe extern "C" {
+    #[doc = " @brief Get the next feature in the module or submodules.\n\n @param[in] last Last returned feature.\n @param[in] pmod Parsed module and submodules whose features to iterate over.\n @param[in,out] idx Submodule index, set to 0 on first call.\n @return Next found feature, NULL if the last has already been returned."]
     pub fn lysp_feature_next(
         last: *const lysp_feature,
         pmod: *const lysp_module,
@@ -10429,6 +7452,7 @@ unsafe extern "C" {
     ) -> *mut lysp_feature;
 }
 unsafe extern "C" {
+    #[doc = " @brief Find a module matching a prefix (or a default one).\n\n @param[in] ctx Context to use.\n @param[in] ctx_node Schema context node to use in case of a current (unprefixed) module.\n @param[in] prefix Prefix to resolve, may not be set.\n @param[in] prefix_len Length of @p prefix.\n @param[in] format Format of the prefix.\n @param[in] prefix_data Format-specific data.\n @return Found prefix module;\n @return NULL otherwise."]
     pub fn lys_find_module(
         ctx: *const ly_ctx,
         ctx_node: *const lysc_node,
@@ -10439,6 +7463,7 @@ unsafe extern "C" {
     ) -> *const lys_module;
 }
 unsafe extern "C" {
+    #[doc = " @brief Get next schema (sibling) node element in the schema order that can be instantiated in a data tree.\n Returned node may be from an augment.\n\n ::lys_getnext() is supposed to be called sequentially. In the first call, the @p last parameter is usually NULL\n and function starts returning 1) the first @p parent child (if it is set) or 2) the first top level element of\n @p module. Consequent calls should provide the previously returned node as @p last and the same @p parent and\n @p module parameters.\n\n Without options, the function is used to traverse only the schema nodes that can be paired with corresponding\n data nodes in a data tree. By setting some @p options the behavior can be modified to the extent that\n all the schema nodes are iteratively returned.\n\n This function does not iterate over extension instance schema nodes. Use ::lys_find_child() to get these nodes.\n\n @param[in] last Previously returned schema tree node, or NULL in case of the first call.\n @param[in] parent Parent of the subtree to iterate over. If set, @p module is ignored.\n @param[in] module Module of the top level elements to iterate over. If @p parent is NULL, it must be specified.\n @param[in] options [ORed options](@ref sgetnextflags).\n @return Next schema tree node, NULL in case there are no more."]
     pub fn lys_getnext(
         last: *const lysc_node,
         parent: *const lysc_node,
@@ -10447,6 +7472,7 @@ unsafe extern "C" {
     ) -> *const lysc_node;
 }
 unsafe extern "C" {
+    #[doc = " @brief Get a child node according to the specified criteria.\n\n First searches standard schema nodes and then also extension instances with compiled schema nodes.\n\n @param[in] ctx Context to use.\n @param[in] parent Optional parent of the node to find. If not specified, top-level nodes are searched.\n @param[in] mod Module of the node. If not set, @p mod_name is used.\n @param[in] mod_name Module name of the node to find. If not set, @p mod is used.\n @param[in] mod_len Optional length of @p mod_name if not 0-terminated.\n @param[in] name Name of the node to find.\n @param[in] name_len Optional length of @p name if not 0-terminated.\n @param[in] options [ORed options](@ref sgetnextflags).\n @return Found node if any."]
     pub fn lys_find_child(
         ctx: *const ly_ctx,
         parent: *const lysc_node,
@@ -10459,6 +7485,7 @@ unsafe extern "C" {
     ) -> *const lysc_node;
 }
 unsafe extern "C" {
+    #[doc = " @brief Get all the schema nodes that are required for @p xpath to be evaluated (atoms).\n\n @param[in] ctx libyang context to use. May be NULL if @p ctx_node is set.\n @param[in] ctx_node XPath schema context node. Use NULL for the root node.\n @param[in] xpath Data XPath expression filtering the matching nodes. ::LY_VALUE_JSON prefix format is expected.\n @param[in] options Whether to apply some node access restrictions, see @ref findxpathoptions.\n @param[out] set Set of found atoms (schema nodes).\n @return LY_SUCCESS on success, @p set is returned.\n @return LY_ERR value on error."]
     pub fn lys_find_xpath_atoms(
         ctx: *const ly_ctx,
         ctx_node: *const lysc_node,
@@ -10468,6 +7495,7 @@ unsafe extern "C" {
     ) -> LY_ERR::Type;
 }
 unsafe extern "C" {
+    #[doc = " @brief Get all the schema nodes that are required for @p expr to be evaluated (atoms).\n\n @param[in] ctx_node XPath schema context node. Use NULL for the root node.\n @param[in] cur_mod Current module for the expression (where it was \"instantiated\").\n @param[in] expr Parsed expression to use.\n @param[in] prefixes Sized array of compiled prefixes.\n @param[in] options Whether to apply some node access restrictions, see @ref findxpathoptions.\n @param[out] set Set of found atoms (schema nodes).\n @return LY_SUCCESS on success, @p set is returned.\n @return LY_ERR value on error."]
     pub fn lys_find_expr_atoms(
         ctx_node: *const lysc_node,
         cur_mod: *const lys_module,
@@ -10478,6 +7506,7 @@ unsafe extern "C" {
     ) -> LY_ERR::Type;
 }
 unsafe extern "C" {
+    #[doc = " @brief Evaluate an @p xpath expression on schema nodes.\n\n @param[in] ctx libyang context to use for absolute @p xpath. May be NULL if @p ctx_node is set.\n @param[in] ctx_node XPath schema context node for relative @p xpath. Use NULL for the root node.\n @param[in] xpath Data XPath expression filtering the matching nodes. ::LY_VALUE_JSON prefix format is expected.\n @param[in] options Whether to apply some node access restrictions, see @ref findxpathoptions.\n @param[out] set Set of found schema nodes.\n @return LY_SUCCESS on success, @p set is returned.\n @return LY_ERR value if an error occurred."]
     pub fn lys_find_xpath(
         ctx: *const ly_ctx,
         ctx_node: *const lysc_node,
@@ -10487,12 +7516,14 @@ unsafe extern "C" {
     ) -> LY_ERR::Type;
 }
 unsafe extern "C" {
+    #[doc = " @brief Get all the schema nodes that are required for @p path to be evaluated (atoms).\n\n @param[in] path Compiled path to use.\n @param[out] set Set of found atoms (schema nodes).\n @return LY_SUCCESS on success, @p set is returned.\n @return LY_ERR value on error."]
     pub fn lys_find_lypath_atoms(
         path: *const ly_path,
         set: *mut *mut ly_set,
     ) -> LY_ERR::Type;
 }
 unsafe extern "C" {
+    #[doc = " @brief Get all the schema nodes that are required for @p path to be evaluated (atoms).\n\n @param[in] ctx libyang context to use for absolute @p path. May be NULL if @p ctx_node is set.\n @param[in] ctx_node XPath schema context node for relative @p path. Use NULL for the root node.\n @param[in] path JSON path to examine.\n @param[in] output Search operation output instead of input.\n @param[out] set Set of found atoms (schema nodes).\n @return LY_ERR value on error."]
     pub fn lys_find_path_atoms(
         ctx: *const ly_ctx,
         ctx_node: *const lysc_node,
@@ -10502,6 +7533,7 @@ unsafe extern "C" {
     ) -> LY_ERR::Type;
 }
 unsafe extern "C" {
+    #[doc = " @brief Get a schema node based on the given data path (JSON format, see @ref howtoXPath).\n\n @param[in] ctx libyang context to use for absolute @p path. May be NULL if @p ctx_node is set.\n @param[in] ctx_node XPath schema context node for relative @p path. Use NULL for the root node.\n @param[in] path JSON path of the node to get.\n @param[in] output Search operation output instead of input.\n @return Found schema node or NULL."]
     pub fn lys_find_path(
         ctx: *const ly_ctx,
         ctx_node: *const lysc_node,
@@ -10510,12 +7542,17 @@ unsafe extern "C" {
     ) -> *const lysc_node;
 }
 pub mod LYSC_PATH_TYPE {
+    #[doc = " @brief Types of the different schema paths."]
     pub type Type = ::std::os::raw::c_uint;
+    #[doc = "< Descriptive path format used in log messages"]
     pub const LYSC_PATH_LOG: Type = 0;
+    #[doc = "< Similar to ::LYSC_PATH_LOG except that schema-only nodes (choice, case) are skipped"]
     pub const LYSC_PATH_DATA: Type = 1;
+    #[doc = "< Similar to ::LYSC_PATH_DATA but there are predicates for all list keys added with\n\"%s\" where their values should be so that they can be printed there"]
     pub const LYSC_PATH_DATA_PATTERN: Type = 2;
 }
 unsafe extern "C" {
+    #[doc = " @brief Generate path of the given node in the requested format.\n\n @param[in] node Schema path of this node will be generated.\n @param[in] pathtype Format of the path to generate.\n @param[in,out] buffer Prepared buffer of the @p buflen length to store the generated path.\n                If NULL, memory for the complete path is allocated.\n @param[in] buflen Size of the provided @p buffer.\n @return NULL in case of memory allocation error, path of the node otherwise.\n In case the @p buffer is NULL, the returned string is dynamically allocated and caller is responsible to free it."]
     pub fn lysc_path(
         node: *const lysc_node,
         pathtype: LYSC_PATH_TYPE::Type,
@@ -10523,27 +7560,47 @@ unsafe extern "C" {
         buflen: usize,
     ) -> *mut ::std::os::raw::c_char;
 }
+#[doc = " @brief Available YANG schema tree structures representing YANG module."]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct lys_module {
+    #[doc = "< libyang context of the module (mandatory)"]
     pub ctx: *mut ly_ctx,
+    #[doc = "< name of the module (mandatory)"]
     pub name: *const ::std::os::raw::c_char,
+    #[doc = "< revision of the module (if present)"]
     pub revision: *const ::std::os::raw::c_char,
+    #[doc = "< namespace of the module (module - mandatory)"]
     pub ns: *const ::std::os::raw::c_char,
+    #[doc = "< module prefix or submodule belongsto prefix of main module (mandatory)"]
     pub prefix: *const ::std::os::raw::c_char,
+    #[doc = "< path, if the schema was read from a file, NULL in case of reading from memory"]
     pub filepath: *const ::std::os::raw::c_char,
+    #[doc = "< party/company responsible for the module"]
     pub org: *const ::std::os::raw::c_char,
+    #[doc = "< contact information for the module"]
     pub contact: *const ::std::os::raw::c_char,
+    #[doc = "< description of the module"]
     pub dsc: *const ::std::os::raw::c_char,
+    #[doc = "< cross-reference for the module"]
     pub ref_: *const ::std::os::raw::c_char,
+    #[doc = "< Simply parsed (unresolved) YANG schema tree"]
     pub parsed: *mut lysp_module,
+    #[doc = "< Compiled and fully validated YANG schema tree for data parsing.\nAvailable only for implemented modules."]
     pub compiled: *mut lysc_module,
+    #[doc = "< List of compiled extension statements ([sized array](@ref sizedarrays)),\nfilled even if module not implemented."]
     pub extensions: *mut lysc_ext,
+    #[doc = "< List of compiled identities of the module ([sized array](@ref sizedarrays))\nalso contains the disabled identities when their if-feature(s) are evaluated to \\\"false\\\",\nand also the list is filled even if the module is not implemented.\nThe list is located here because it avoids problems when the module became implemented in\nfuture (no matter if implicitly via augment/deviate or explicitly via\n::lys_set_implemented()). Note that if the module is not implemented (compiled), the\nidentities cannot be instantiated in data (in identityrefs)."]
     pub identities: *mut lysc_ident,
+    #[doc = "< List of all the submodules ([sized array](@ref sizedarrays))"]
     pub submodules: *mut lysc_submodule,
+    #[doc = "< List of modules that augment this module ([sized array](@ref sizedarrays))"]
     pub augmented_by: *mut *mut lys_module,
+    #[doc = "< List of modules that deviate this module ([sized array](@ref sizedarrays))"]
     pub deviated_by: *mut *mut lys_module,
+    #[doc = "< flag if the module is implemented, not just imported"]
     pub implemented: ly_bool,
+    #[doc = "< flag marking a module that was changed but not (re)compiled, see\n::LY_CTX_EXPLICIT_COMPILE."]
     pub to_compile: ly_bool,
     pub _bitfield_align_1: [u8; 0],
     pub _bitfield_1: __BindgenBitfieldUnit<[u8; 1usize]>,
@@ -10696,21 +7753,25 @@ impl lys_module {
     }
 }
 unsafe extern "C" {
+    #[doc = " @brief Get the current real status of the specified feature in the module.\n\n If the feature is enabled, but some of its if-features are false, the feature is considered\n disabled.\n\n @param[in] module Module where the feature is defined.\n @param[in] feature Name of the feature to inspect.\n @return LY_SUCCESS if the feature is enabled,\n @return LY_ENOT if the feature is disabled,\n @return LY_ENOTFOUND if the feature was not found."]
     pub fn lys_feature_value(
         module: *const lys_module,
         feature: *const ::std::os::raw::c_char,
     ) -> LY_ERR::Type;
 }
 unsafe extern "C" {
+    #[doc = " @brief Make the specific module implemented.\n\n If the module is already implemented but with a different set of features, the whole context is recompiled.\n\n @param[in] mod Module to make implemented. It is not an error\n to provide already implemented module, it just does nothing.\n @param[in] features Optional array specifying the enabled features terminated with NULL overriding any previous\n feature setting. The feature string '*' enables all the features and array of length 1 with only the terminating\n NULL explicitly disables all the features. In case the parameter is NULL, the features are untouched - left disabled\n in a newly implemented module or with the current features settings in case the module is already implemented.\n @return LY_SUCCESS on success.\n @return LY_EDENIED in case the context contains some other revision of the same module which is already implemented.\n @return LY_ERR on other errors during module compilation."]
     pub fn lys_set_implemented(
         mod_: *mut lys_module,
         features: *mut *const ::std::os::raw::c_char,
     ) -> LY_ERR::Type;
 }
 unsafe extern "C" {
+    #[doc = " @brief Stringify schema nodetype.\n\n @param[in] nodetype Nodetype to stringify.\n @return Constant string with the name of the node's type."]
     pub fn lys_nodetype2str(nodetype: u16) -> *const ::std::os::raw::c_char;
 }
 unsafe extern "C" {
+    #[doc = " @brief Getter for original XPath expression from a parsed expression.\n\n @param[in] path Parsed expression.\n @return Original string expression."]
     pub fn lyxp_get_expr(
         path: *const lyxp_expr,
     ) -> *const ::std::os::raw::c_char;
@@ -10726,37 +7787,60 @@ pub struct rb_node {
     _unused: [u8; 0],
 }
 pub mod LYD_FORMAT {
+    #[doc = " @brief Data input/output formats supported by libyang [parser](@ref howtoDataParsers) and\n [printer](@ref howtoDataPrinters) functions."]
     pub type Type = ::std::os::raw::c_uint;
+    #[doc = "< unknown data format, invalid value"]
     pub const LYD_UNKNOWN: Type = 0;
+    #[doc = "< XML instance data format"]
     pub const LYD_XML: Type = 1;
+    #[doc = "< JSON instance data format"]
     pub const LYD_JSON: Type = 2;
+    #[doc = "< LYB instance data format"]
     pub const LYD_LYB: Type = 3;
 }
+#[doc = " @brief YANG data representation"]
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct lyd_value {
+    #[doc = "< Should never be accessed directly, instead ::lyd_get_value() and ::lyd_get_meta_value()\nshould be used. Serves as a cache for the canonical value or the JSON\nrepresentation if no canonical value is defined."]
     pub _canonical: *const ::std::os::raw::c_char,
+    #[doc = "< pointer to the real type of the data stored in the value structure. This type can differ from the type\nin the schema node of the data node since the type's store plugin can use other types/plugins for\nstoring data. Speaking about built-in types, this is the case of leafref which stores data as its\ntarget type. In contrast, union type also uses its subtype's callbacks, but inside an internal data\nstored in subvalue member of ::lyd_value structure, so here is the pointer to the union type.\nIn general, this type is used to get free callback for this lyd_value structure, so it must reflect\nthe type used to store data directly in the same lyd_value instance."]
     pub realtype: *const lysc_type,
     pub __bindgen_anon_1: lyd_value__bindgen_ty_1,
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub union lyd_value__bindgen_ty_1 {
+    #[doc = "< 0 as false, 1 as true"]
     pub boolean: i8,
+    #[doc = "< decimal64: value = dec64 / 10^fraction-digits"]
     pub dec64: i64,
+    #[doc = "< 8-bit signed integer"]
     pub int8: i8,
+    #[doc = "< 16-bit signed integer"]
     pub int16: i16,
+    #[doc = "< 32-bit signed integer"]
     pub int32: i32,
+    #[doc = "< 64-bit signed integer"]
     pub int64: i64,
+    #[doc = "< 8-bit unsigned integer"]
     pub uint8: u8,
+    #[doc = "< 16-bit unsigned integer"]
     pub uint16: u16,
+    #[doc = "< 32-bit unsigned integer"]
     pub uint32: u32,
+    #[doc = "< 64-bit unsigned integer"]
     pub uint64: u64,
+    #[doc = "< pointer to the definition of the enumeration value"]
     pub enum_item: *mut lysc_type_bitenum_item,
+    #[doc = "< pointer to the schema definition of the identityref value"]
     pub ident: *mut lysc_ident,
+    #[doc = "< Instance-identifier target path, use ::lyd_find_target() to evaluate\nit on data."]
     pub target: *mut ly_path,
     pub subvalue: *mut lyd_value_union,
+    #[doc = "< pointer to generic data type value stored in dynamic memory"]
     pub dyn_mem: *mut ::std::os::raw::c_void,
+    #[doc = "< fixed-size buffer for a generic data type value"]
     pub fixed_mem: [u8; 24usize],
 }
 #[allow(clippy::unnecessary_operation, clippy::identity_op)]
@@ -10825,15 +7909,23 @@ impl Default for lyd_value {
         }
     }
 }
+#[doc = " @brief Special lyd_value structure for built-in union values.\n\n Represents data with multiple types (union). The ::lyd_value_union.value contains representation according to\n one of the union's types. The ::lyd_value_union.prefix_data provides (possible) mappings from prefixes in\n the original value to YANG modules. These prefixes are necessary to parse original value to the union's subtypes."]
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct lyd_value_union {
+    #[doc = "< representation of the value according to the selected union's subtype\n(stored as ::lyd_value.realtype here)"]
     pub value: lyd_value,
+    #[doc = "< Original value."]
     pub original: *mut ::std::os::raw::c_void,
+    #[doc = "< Original value size in bits."]
     pub orig_size_bits: u64,
+    #[doc = "< [Value hints](@ref lydvalhints) from the parser"]
     pub hints: u32,
+    #[doc = "< Prefix format of the value. However, this information is also used to decide\nwhether a value is valid for the specific format or not on later validations\n(instance-identifier in XML looks different than in JSON)."]
     pub format: LY_VALUE_FORMAT::Type,
+    #[doc = "< Format-specific data for prefix resolution (see ly_resolve_prefix())"]
     pub prefix_data: *mut ::std::os::raw::c_void,
+    #[doc = "< Context schema node."]
     pub ctx_node: *const lysc_node,
 }
 #[allow(clippy::unnecessary_operation, clippy::identity_op)]
@@ -10866,10 +7958,13 @@ impl Default for lyd_value_union {
         }
     }
 }
+#[doc = " @brief Special lyd_value structure for built-in bits values."]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct lyd_value_bits {
+    #[doc = "< bitmap of size ::lyplg_type_bits_bitmap_size(), if its value is\ncast to an integer type of the corresponding size, can be used\ndirectly as a bitmap"]
     pub bitmap: *mut ::std::os::raw::c_char,
+    #[doc = "< list of set pointers to the specification of the set\nbits ([sized array](@ref sizedarrays))"]
     pub items: *mut *mut lysc_type_bitenum_item,
 }
 #[allow(clippy::unnecessary_operation, clippy::identity_op)]
@@ -10892,10 +7987,13 @@ impl Default for lyd_value_bits {
         }
     }
 }
+#[doc = " @brief Special lyd_value structure for built-in binary values."]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct lyd_value_binary {
+    #[doc = "< pointer to the binary value"]
     pub data: *mut ::std::os::raw::c_void,
+    #[doc = "< size of @p data value in bytes"]
     pub size: u32,
 }
 #[allow(clippy::unnecessary_operation, clippy::identity_op)]
@@ -10918,9 +8016,11 @@ impl Default for lyd_value_binary {
         }
     }
 }
+#[doc = " @brief Special lyd_value structure for ietf-inet-types ipv4-address-no-zone values."]
 #[repr(C)]
 #[derive(Debug, Default, Copy, Clone)]
 pub struct lyd_value_ipv4_address_no_zone {
+    #[doc = "< IPv4 address in binary"]
     pub addr: in_addr,
 }
 #[allow(clippy::unnecessary_operation, clippy::identity_op)]
@@ -10932,10 +8032,13 @@ const _: () = {
     ["Offset of field: lyd_value_ipv4_address_no_zone::addr"]
         [::std::mem::offset_of!(lyd_value_ipv4_address_no_zone, addr) - 0usize];
 };
+#[doc = " @brief Special lyd_value structure for ietf-inet-types ipv4-address values."]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct lyd_value_ipv4_address {
+    #[doc = "< IPv4 address in binary"]
     pub addr: in_addr,
+    #[doc = "< Optional address zone"]
     pub zone: *const ::std::os::raw::c_char,
 }
 #[allow(clippy::unnecessary_operation, clippy::identity_op)]
@@ -10958,10 +8061,13 @@ impl Default for lyd_value_ipv4_address {
         }
     }
 }
+#[doc = " @brief Special lyd_value structure for ietf-inet-types ipv4-prefix values."]
 #[repr(C)]
 #[derive(Debug, Default, Copy, Clone)]
 pub struct lyd_value_ipv4_prefix {
+    #[doc = "< IPv4 host address in binary"]
     pub addr: in_addr,
+    #[doc = "< prefix length (0 - 32)"]
     pub prefix: u8,
 }
 #[allow(clippy::unnecessary_operation, clippy::identity_op)]
@@ -10975,9 +8081,11 @@ const _: () = {
     ["Offset of field: lyd_value_ipv4_prefix::prefix"]
         [::std::mem::offset_of!(lyd_value_ipv4_prefix, prefix) - 4usize];
 };
+#[doc = " @brief Special lyd_value structure for ietf-inet-types ipv6-address-no-zone values."]
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct lyd_value_ipv6_address_no_zone {
+    #[doc = "< IPv6 address in binary"]
     pub addr: in6_addr,
 }
 #[allow(clippy::unnecessary_operation, clippy::identity_op)]
@@ -10998,10 +8106,13 @@ impl Default for lyd_value_ipv6_address_no_zone {
         }
     }
 }
+#[doc = " @brief Special lyd_value structure for ietf-inet-types ipv6-address values."]
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct lyd_value_ipv6_address {
+    #[doc = "< IPv6 address in binary"]
     pub addr: in6_addr,
+    #[doc = "< Optional address zone"]
     pub zone: *const ::std::os::raw::c_char,
 }
 #[allow(clippy::unnecessary_operation, clippy::identity_op)]
@@ -11024,10 +8135,13 @@ impl Default for lyd_value_ipv6_address {
         }
     }
 }
+#[doc = " @brief Special lyd_value structure for ietf-inet-types ipv6-prefix values."]
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct lyd_value_ipv6_prefix {
+    #[doc = "< IPv6 host address in binary"]
     pub addr: in6_addr,
+    #[doc = "< prefix length (0 - 128)"]
     pub prefix: u8,
 }
 #[allow(clippy::unnecessary_operation, clippy::identity_op)]
@@ -11050,11 +8164,15 @@ impl Default for lyd_value_ipv6_prefix {
         }
     }
 }
+#[doc = " @brief Special lyd_value structure for ietf-yang-types date-and-time values."]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct lyd_value_date_and_time {
+    #[doc = "< UNIX timestamp"]
     pub time: time_t,
+    #[doc = "< Optional fractions of a second"]
     pub fractions_s: *mut ::std::os::raw::c_char,
+    #[doc = "< Whether the value is in the special Z/-00:00 timezone."]
     pub unknown_tz: ly_bool,
 }
 #[allow(clippy::unnecessary_operation, clippy::identity_op)]
@@ -11079,10 +8197,13 @@ impl Default for lyd_value_date_and_time {
         }
     }
 }
+#[doc = " @brief Special lyd_value structure for ietf-yang-types date values."]
 #[repr(C)]
 #[derive(Debug, Default, Copy, Clone)]
 pub struct lyd_value_date {
+    #[doc = "< UNIX timestamp"]
     pub time: time_t,
+    #[doc = "< Whether the value is in the special Z/-00:00 timezone."]
     pub unknown_tz: ly_bool,
 }
 #[allow(clippy::unnecessary_operation, clippy::identity_op)]
@@ -11096,9 +8217,11 @@ const _: () = {
     ["Offset of field: lyd_value_date::unknown_tz"]
         [::std::mem::offset_of!(lyd_value_date, unknown_tz) - 8usize];
 };
+#[doc = " @brief Special lyd_value structure for ietf-yang-types date-no-zone values."]
 #[repr(C)]
 #[derive(Debug, Default, Copy, Clone)]
 pub struct lyd_value_date_nz {
+    #[doc = "< UNIX timestamp"]
     pub time: time_t,
 }
 #[allow(clippy::unnecessary_operation, clippy::identity_op)]
@@ -11110,11 +8233,15 @@ const _: () = {
     ["Offset of field: lyd_value_date_nz::time"]
         [::std::mem::offset_of!(lyd_value_date_nz, time) - 0usize];
 };
+#[doc = " @brief Special lyd_value structure for ietf-yang-types time values."]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct lyd_value_time {
+    #[doc = "< Timestamp converted into seconds"]
     pub seconds: u32,
+    #[doc = "< Optional fractions of a second"]
     pub fractions_s: *mut ::std::os::raw::c_char,
+    #[doc = "< Whether the value is in the special Z/-00:00 timezone."]
     pub unknown_tz: ly_bool,
 }
 #[allow(clippy::unnecessary_operation, clippy::identity_op)]
@@ -11139,10 +8266,13 @@ impl Default for lyd_value_time {
         }
     }
 }
+#[doc = " @brief Special lyd_value structure for ietf-yang-types time-no-zone values."]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct lyd_value_time_nz {
+    #[doc = "< Timestamp converted into seconds"]
     pub seconds: u32,
+    #[doc = "< Optional fractions of a second"]
     pub fractions_s: *mut ::std::os::raw::c_char,
 }
 #[allow(clippy::unnecessary_operation, clippy::identity_op)]
@@ -11165,6 +8295,7 @@ impl Default for lyd_value_time_nz {
         }
     }
 }
+#[doc = " @brief Special lyd_value structure for ietf-yang-types xpath1.0 values."]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct lyd_value_xpath10 {
@@ -11197,9 +8328,11 @@ impl Default for lyd_value_xpath10 {
         }
     }
 }
+#[doc = " @brief Special lyd_value structure for lyds tree value."]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct lyd_value_lyds_tree {
+    #[doc = "< Root of the Red-black tree."]
     pub rbt: *mut rb_node,
 }
 #[allow(clippy::unnecessary_operation, clippy::identity_op)]
@@ -11220,17 +8353,22 @@ impl Default for lyd_value_lyds_tree {
         }
     }
 }
+#[doc = " @brief Generic prefix and namespace mapping, meaning depends on the format.\n\n The union is used as a reference to the data's module and according to the format, it can be used as a key for\n ::ly_ctx_get_module_implemented_ns() or ::ly_ctx_get_module_implemented(). While the module reference is always present,\n the prefix member can be omitted in case it is not present in the source data as a reference to the default module/namespace."]
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct ly_opaq_name {
+    #[doc = "< node name, without prefix if any was defined"]
     pub name: *const ::std::os::raw::c_char,
+    #[doc = "< identifier used in the qualified name as the prefix, can be NULL"]
     pub prefix: *const ::std::os::raw::c_char,
     pub __bindgen_anon_1: ly_opaq_name__bindgen_ty_1,
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub union ly_opaq_name__bindgen_ty_1 {
+    #[doc = "< format ::LY_VALUE_XML - XML namespace of the node element"]
     pub module_ns: *const ::std::os::raw::c_char,
+    #[doc = "< format ::LY_VALUE_JSON - (inherited) name of the module of the element"]
     pub module_name: *const ::std::os::raw::c_char,
 }
 #[allow(clippy::unnecessary_operation, clippy::identity_op)]
@@ -11276,15 +8414,23 @@ impl Default for ly_opaq_name {
         }
     }
 }
+#[doc = " @brief Generic attribute structure."]
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct lyd_attr {
+    #[doc = "< data node where the attribute is placed"]
     pub parent: *mut lyd_node_opaq,
+    #[doc = "< pointer to the next attribute"]
     pub next: *mut lyd_attr,
+    #[doc = "< attribute name with module information"]
     pub name: ly_opaq_name,
+    #[doc = "< attribute value"]
     pub value: *const ::std::os::raw::c_char,
+    #[doc = "< additional information about from the data source, see the [hints list](@ref lydhints)"]
     pub hints: u32,
+    #[doc = "< format of the attribute and any prefixes, ::LY_VALUE_XML or ::LY_VALUE_JSON"]
     pub format: LY_VALUE_FORMAT::Type,
+    #[doc = "< format-specific prefix data"]
     pub val_prefix_data: *mut ::std::os::raw::c_void,
 }
 #[allow(clippy::unnecessary_operation, clippy::identity_op)]
@@ -11315,16 +8461,25 @@ impl Default for lyd_attr {
         }
     }
 }
+#[doc = " @brief Generic structure for a data node."]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct lyd_node {
+    #[doc = "< hash of this particular node (module name + schema name + key string values if list or\nhashes of all nodes of subtree in case of keyless list). Note that while hash can be\nused to get know that nodes are not equal, it cannot be used to decide that the\nnodes are equal due to possible collisions."]
     pub hash: u32,
+    #[doc = "< [data node flags](@ref dnodeflags)"]
     pub flags: u32,
+    #[doc = "< pointer to the schema definition of this node"]
     pub schema: *const lysc_node,
+    #[doc = "< pointer to the parent node, NULL in case of root node"]
     pub parent: *mut lyd_node,
+    #[doc = "< pointer to the next sibling node (NULL if there is no one)"]
     pub next: *mut lyd_node,
+    #[doc = "< pointer to the previous sibling node \\note Note that this pointer is\nnever NULL. If there is no sibling node, pointer points to the node\nitself. In case of the first node, this pointer points to the last\nnode in the list."]
     pub prev: *mut lyd_node,
+    #[doc = "< pointer to the list of metadata of this node"]
     pub meta: *mut lyd_meta,
+    #[doc = "< private user data, not used by libyang"]
     pub priv_: *mut ::std::os::raw::c_void,
 }
 #[allow(clippy::unnecessary_operation, clippy::identity_op)]
@@ -11357,29 +8512,41 @@ impl Default for lyd_node {
         }
     }
 }
+#[doc = " @brief Data node structure for the inner data tree nodes - containers, lists, RPCs, actions and Notifications."]
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct lyd_node_inner {
     pub __bindgen_anon_1: lyd_node_inner__bindgen_ty_1,
+    #[doc = "< pointer to the first child node."]
     pub child: *mut lyd_node,
+    #[doc = "< hash table with all the direct children (except keys for a list, lists without keys)"]
     pub children_ht: *mut ly_ht,
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub union lyd_node_inner__bindgen_ty_1 {
+    #[doc = "< implicit cast for the members compatible with ::lyd_node"]
     pub node: lyd_node,
     pub __bindgen_anon_1: lyd_node_inner__bindgen_ty_1__bindgen_ty_1,
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct lyd_node_inner__bindgen_ty_1__bindgen_ty_1 {
+    #[doc = "< hash of this particular node (module name + schema name + key string\nvalues if list or hashes of all nodes of subtree in case of keyless\nlist). Note that while hash can be used to get know that nodes are\nnot equal, it cannot be used to decide that the nodes are equal due\nto possible collisions."]
     pub hash: u32,
+    #[doc = "< [data node flags](@ref dnodeflags)"]
     pub flags: u32,
+    #[doc = "< pointer to the schema definition of this node"]
     pub schema: *const lysc_node,
+    #[doc = "< pointer to the parent node, NULL in case of root node"]
     pub parent: *mut lyd_node,
+    #[doc = "< pointer to the next sibling node (NULL if there is no one)"]
     pub next: *mut lyd_node,
+    #[doc = "< pointer to the previous sibling node \\note Note that this pointer is\nnever NULL. If there is no sibling node, pointer points to the node\nitself. In case of the first node, this pointer points to the last\nnode in the list."]
     pub prev: *mut lyd_node,
+    #[doc = "< pointer to the list of metadata of this node"]
     pub meta: *mut lyd_meta,
+    #[doc = "< private user data, not used by libyang"]
     pub priv_: *mut ::std::os::raw::c_void,
 }
 #[allow(clippy::unnecessary_operation, clippy::identity_op)]
@@ -11478,28 +8645,39 @@ impl Default for lyd_node_inner {
         }
     }
 }
+#[doc = " @brief Data node structure for the terminal data tree nodes - leaves and leaf-lists."]
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct lyd_node_term {
     pub __bindgen_anon_1: lyd_node_term__bindgen_ty_1,
+    #[doc = "< node's value representation"]
     pub value: lyd_value,
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub union lyd_node_term__bindgen_ty_1 {
+    #[doc = "< implicit cast for the members compatible with ::lyd_node"]
     pub node: lyd_node,
     pub __bindgen_anon_1: lyd_node_term__bindgen_ty_1__bindgen_ty_1,
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct lyd_node_term__bindgen_ty_1__bindgen_ty_1 {
+    #[doc = "< hash of this particular node (module name + schema name + key string\nvalues if list or hashes of all nodes of subtree in case of keyless\nlist). Note that while hash can be used to get know that nodes are\nnot equal, it cannot be used to decide that the nodes are equal due\nto possible collisions."]
     pub hash: u32,
+    #[doc = "< [data node flags](@ref dnodeflags)"]
     pub flags: u32,
+    #[doc = "< pointer to the schema definition of this node"]
     pub schema: *const lysc_node,
+    #[doc = "< pointer to the parent node, NULL in case of root node"]
     pub parent: *mut lyd_node,
+    #[doc = "< pointer to the next sibling node (NULL if there is no one)"]
     pub next: *mut lyd_node,
+    #[doc = "< pointer to the previous sibling node \\note Note that this pointer is\nnever NULL. If there is no sibling node, pointer points to the node\nitself. In case of the first node, this pointer points to the last\nnode in the list."]
     pub prev: *mut lyd_node,
+    #[doc = "< pointer to the list of metadata of this node"]
     pub meta: *mut lyd_meta,
+    #[doc = "< private user data, not used by libyang"]
     pub priv_: *mut ::std::os::raw::c_void,
 }
 #[allow(clippy::unnecessary_operation, clippy::identity_op)]
@@ -11595,31 +8773,45 @@ impl Default for lyd_node_term {
         }
     }
 }
+#[doc = " @brief Data node structure for the anydata data tree nodes - anydata or anyxml."]
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct lyd_node_any {
     pub __bindgen_anon_1: lyd_node_any__bindgen_ty_1,
+    #[doc = "< pointer to the first child node, if any"]
     pub child: *mut lyd_node,
+    #[doc = "< unused, always NULL"]
     pub children_ht: *mut ly_ht,
+    #[doc = "< pointer to the string value, if any"]
     pub value: *const ::std::os::raw::c_char,
+    #[doc = "< additional value format information, see the [val hints](@ref lydvalhints)\nand [node hints](@ref lydnodehints)"]
     pub hints: u32,
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub union lyd_node_any__bindgen_ty_1 {
+    #[doc = "< implicit cast for the members compatible with ::lyd_node"]
     pub node: lyd_node,
     pub __bindgen_anon_1: lyd_node_any__bindgen_ty_1__bindgen_ty_1,
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct lyd_node_any__bindgen_ty_1__bindgen_ty_1 {
+    #[doc = "< hash of this particular node (module name + schema name + key string\nvalues if list or hashes of all nodes of subtree in case of keyless\nlist). Note that while hash can be used to get know that nodes are\nnot equal, it cannot be used to decide that the nodes are equal due\nto possible collisions."]
     pub hash: u32,
+    #[doc = "< [data node flags](@ref dnodeflags)"]
     pub flags: u32,
+    #[doc = "< pointer to the schema definition of this node"]
     pub schema: *const lysc_node,
+    #[doc = "< pointer to the parent node, NULL in case of root node"]
     pub parent: *mut lyd_node,
+    #[doc = "< pointer to the next sibling node (NULL if there is no one)"]
     pub next: *mut lyd_node,
+    #[doc = "< pointer to the previous sibling node \\note Note that this pointer is\nnever NULL. If there is no sibling node, pointer points to the node\nitself. In case of the first node, this pointer points to the last\nnode in the list."]
     pub prev: *mut lyd_node,
+    #[doc = "< pointer to the list of metadata of this node"]
     pub meta: *mut lyd_meta,
+    #[doc = "< private user data, not used by libyang"]
     pub priv_: *mut ::std::os::raw::c_void,
 }
 #[allow(clippy::unnecessary_operation, clippy::identity_op)]
@@ -11721,35 +8913,53 @@ impl Default for lyd_node_any {
         }
     }
 }
+#[doc = " @brief Data node structure for unparsed (opaque) nodes."]
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct lyd_node_opaq {
     pub __bindgen_anon_1: lyd_node_opaq__bindgen_ty_1,
+    #[doc = "< pointer to the child node (compatible with ::lyd_node_inner)"]
     pub child: *mut lyd_node,
+    #[doc = "< node name with module information"]
     pub name: ly_opaq_name,
+    #[doc = "< original value"]
     pub value: *const ::std::os::raw::c_char,
+    #[doc = "< additional value format information, see the [hints list](@ref lydhints)"]
     pub hints: u32,
+    #[doc = "< format of the node and any prefixes, ::LY_VALUE_XML or ::LY_VALUE_JSON"]
     pub format: LY_VALUE_FORMAT::Type,
+    #[doc = "< format-specific prefix data"]
     pub val_prefix_data: *mut ::std::os::raw::c_void,
+    #[doc = "< pointer to the list of generic attributes of this node"]
     pub attr: *mut lyd_attr,
+    #[doc = "< libyang context"]
     pub ctx: *const ly_ctx,
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub union lyd_node_opaq__bindgen_ty_1 {
+    #[doc = "< implicit cast for the members compatible with ::lyd_node"]
     pub node: lyd_node,
     pub __bindgen_anon_1: lyd_node_opaq__bindgen_ty_1__bindgen_ty_1,
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct lyd_node_opaq__bindgen_ty_1__bindgen_ty_1 {
+    #[doc = "< always 0"]
     pub hash: u32,
+    #[doc = "< always 0"]
     pub flags: u32,
+    #[doc = "< always NULL"]
     pub schema: *const lysc_node,
+    #[doc = "< pointer to the parent node, NULL in case of root node"]
     pub parent: *mut lyd_node,
+    #[doc = "< pointer to the next sibling node (NULL if there is no one)"]
     pub next: *mut lyd_node,
+    #[doc = "< pointer to the previous sibling node \\note Note that this pointer is\nnever NULL. If there is no sibling node, pointer points to the node\nitself. In case of the first node, this pointer points to the last\nnode in the list."]
     pub prev: *mut lyd_node,
+    #[doc = "< always NULL"]
     pub meta: *mut lyd_meta,
+    #[doc = "< private user data, not used by libyang"]
     pub priv_: *mut ::std::os::raw::c_void,
 }
 #[allow(clippy::unnecessary_operation, clippy::identity_op)]
@@ -11860,11 +9070,14 @@ impl Default for lyd_node_opaq {
         }
     }
 }
+#[doc = " @brief Structure of leafref links record."]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct lyd_leafref_links_rec {
     pub node: *const lyd_node_term,
+    #[doc = " pointer to the data node itself"]
     pub leafref_nodes: *mut *const lyd_node_term,
+    #[doc = " list of the leafref pointing to this data node [sized array](@ref sizedarrays)),\nBy default it is empty. It is filled automatically by validation function of\nleafref nodes, which are valid and are not using 'require-instance false;'.\nIt can also be populated based on manual request using\n[link api](@ref lyd_leafref_link_node_tree). Freeing of the resources is\nautomatic."]
     pub target_nodes: *mut *const lyd_node_term,
 }
 #[allow(clippy::unnecessary_operation, clippy::identity_op)]
@@ -11890,33 +9103,42 @@ impl Default for lyd_leafref_links_rec {
     }
 }
 unsafe extern "C" {
+    #[doc = " @brief Get the child pointer of a generic data node but skip its keys in case it is ::LYS_LIST.\n\n Returns the same nodes as ::lyd_child() but skips any keys of a list.\n\n @param[in] node Node to use.\n @return Pointer to the first child node (if any) of the @p node."]
     pub fn lyd_child_no_keys(node: *const lyd_node) -> *mut lyd_node;
 }
 unsafe extern "C" {
+    #[doc = " @brief Get the owner module of the data node. It is the module of the top-level schema node. Generally,\n in case of augments it is the target module, recursively, otherwise it is the module where the data node is defined.\n\n Also works for opaque nodes, if it is possible to resolve the module.\n\n @param[in] node Data node to examine.\n @return Module owner of the node."]
     pub fn lyd_owner_module(node: *const lyd_node) -> *const lys_module;
 }
 unsafe extern "C" {
+    #[doc = " @brief Get the module of a node. Useful mainly for opaque nodes.\n\n @param[in] node Node to examine.\n @return Module of the node."]
     pub fn lyd_node_module(node: *const lyd_node) -> *const lys_module;
 }
 unsafe extern "C" {
+    #[doc = " @brief Check whether a node value equals to its default one.\n\n @param[in] node Term node to test.\n @return false (no, it is not a default node) or true (yes, it is default)"]
     pub fn lyd_is_default(node: *const lyd_node) -> ly_bool;
 }
 unsafe extern "C" {
+    #[doc = " @brief Learn the relative position of a list or leaf-list instance within other instances of the same schema node.\n\n @param[in] instance List or leaf-list instance to get the position of.\n @return 0 on error.\n @return Positive integer of the @p instance position."]
     pub fn lyd_list_pos(instance: *const lyd_node) -> u32;
 }
 unsafe extern "C" {
+    #[doc = " @brief Get the first sibling of the given node.\n\n @param[in] node Node which first sibling is going to be the result.\n @return The first sibling of the given node or the node itself if it is the first child of the parent."]
     pub fn lyd_first_sibling(node: *const lyd_node) -> *mut lyd_node;
 }
 unsafe extern "C" {
+    #[doc = " @brief Check node parsed into an opaque node for the reason (error) why it could not be parsed as data node.\n\n The node is expected to be produced by a parser and must either have no parent or a data node parent (not opaque).\n\n @param[in] node Opaque node to check.\n @return LY_EINVAL if @p node is in some way unexpected (even valid);\n @return LY_ERR value of the reason."]
     pub fn lyd_parse_opaq_error(node: *const lyd_node) -> LY_ERR::Type;
 }
 unsafe extern "C" {
+    #[doc = " @brief Get the (canonical) value of a lyd_value.\n\n Whenever possible, ::lyd_get_value() or ::lyd_get_meta_value() should be used instead.\n\n @param[in] ctx Context for the value\n @param[in] value Value structure to use.\n @return Canonical value."]
     pub fn lyd_value_get_canonical(
         ctx: *const ly_ctx,
         value: *const lyd_value,
     ) -> *const ::std::os::raw::c_char;
 }
 unsafe extern "C" {
+    #[doc = " @brief Get anydata string value.\n\n @param[in] any Anyxml/anydata node to read from.\n @param[in] format Format to use in case the value is a data tree.\n @param[out] value_str String representation of the value.\n @return LY_ERR value."]
     pub fn lyd_any_value_str(
         any: *const lyd_node,
         format: LYD_FORMAT::Type,
@@ -11924,6 +9146,7 @@ unsafe extern "C" {
     ) -> LY_ERR::Type;
 }
 unsafe extern "C" {
+    #[doc = " @brief Copy anydata value from one node to another. Target value is freed first.\n\n Only one of @p child and @p value can be set. If neither is set, @p trg value is only freed.\n\n @param[in,out] trg Target node.\n @param[in] child Data tree source value.\n @param[in] value String source value.\n @param[in] hints String value hints, see [value hints](@ref lydvalhints).\n @return LY_ERR value."]
     pub fn lyd_any_copy_value(
         trg: *mut lyd_node,
         child: *const lyd_node,
@@ -11932,12 +9155,15 @@ unsafe extern "C" {
     ) -> LY_ERR::Type;
 }
 unsafe extern "C" {
+    #[doc = " @brief Get schema node of a data node. Useful especially for opaque nodes.\n\n @param[in] node Data node to use.\n @return Schema node represented by data @p node, NULL if there is none."]
     pub fn lyd_node_schema(node: *const lyd_node) -> *const lysc_node;
 }
 unsafe extern "C" {
+    #[doc = " @brief Check whether metadata are not an instance of internal metadata.\n\n @param[in] meta Metadata to check.\n @return 1 if @p meta are internal.\n @return 0 if @p meta are not internal."]
     pub fn lyd_meta_is_internal(meta: *const lyd_meta) -> ly_bool;
 }
 unsafe extern "C" {
+    #[doc = " @brief Create a new inner node in the data tree.\n\n To create list, use ::lyd_new_list() or ::lyd_new_list2().\n\n @param[in] parent Parent node for the node being created. NULL in case of creating a top level element.\n @param[in] module Module of the node being created. If NULL, @p parent module will be used.\n @param[in] name Schema node name of the new data node. The node can be #LYS_CONTAINER, #LYS_NOTIF, #LYS_RPC, or #LYS_ACTION.\n @param[in] output Flag in case the @p parent is RPC/Action. If value is 0, the input's data nodes of the RPC/Action are\n taken into consideration. Otherwise, the output's data node is going to be created.\n @param[out] node Optional created node.\n @return LY_ERR value."]
     pub fn lyd_new_inner(
         parent: *mut lyd_node,
         module: *const lys_module,
@@ -11947,6 +9173,7 @@ unsafe extern "C" {
     ) -> LY_ERR::Type;
 }
 unsafe extern "C" {
+    #[doc = " @brief Create a new list node in the data tree.\n\n @param[in] parent Parent node for the node being created. NULL in case of creating a top level element.\n @param[in] module Module of the node being created. If NULL, @p parent module will be used.\n @param[in] name Schema node name of the new data node. The node must be #LYS_LIST.\n @param[in] options Bitmask of options, see @ref newvaloptions.\n @param[out] node Optional created node.\n @param[in] ... Ordered key values of the new list instance, all must be set. In case of an instance-identifier\n or identityref value, the JSON format is expected (module names instead of prefixes). No keys are expected for key-less lists.\n @return LY_ERR value."]
     pub fn lyd_new_list(
         parent: *mut lyd_node,
         module: *const lys_module,
@@ -11957,6 +9184,7 @@ unsafe extern "C" {
     ) -> LY_ERR::Type;
 }
 unsafe extern "C" {
+    #[doc = " @brief Create a new list node in the data tree.\n\n @param[in] parent Parent node for the node being created. NULL in case of creating a top level element.\n @param[in] module Module of the node being created. If NULL, @p parent module will be used.\n @param[in] name Schema node name of the new data node. The node must be #LYS_LIST.\n @param[in] keys All key values predicate in the form of \"[key1='val1'][key2='val2']...\", they do not have to be ordered.\n In case of an instance-identifier or identityref value, the JSON format is expected (module names instead of prefixes).\n Use NULL or string of length 0 in case of key-less list.\n @param[in] options Bitmask of options, see @ref newvaloptions.\n @param[out] node Optional created node.\n @return LY_ERR value."]
     pub fn lyd_new_list2(
         parent: *mut lyd_node,
         module: *const lys_module,
@@ -11967,6 +9195,7 @@ unsafe extern "C" {
     ) -> LY_ERR::Type;
 }
 unsafe extern "C" {
+    #[doc = " @brief Create a new list node in the data tree.\n\n @param[in] parent Parent node for the node being created. NULL in case of creating a top level element.\n @param[in] module Module of the node being created. If NULL, @p parent module will be used.\n @param[in] name Schema node name of the new data node. The node must be #LYS_LIST.\n @param[in] key_values Ordered key values of the new list instance, all must be set.\n Use NULL in case of key-less list.\n @param[in] value_sizes_bits Array of size of each @p key_values in bits, may be NULL if @p key_values are 0-terminated strings.\n @param[in] options Bitmask of options, see @ref newvaloptions.\n @param[out] node Optional created node.\n @return LY_ERR value."]
     pub fn lyd_new_list3(
         parent: *mut lyd_node,
         module: *const lys_module,
@@ -11978,6 +9207,7 @@ unsafe extern "C" {
     ) -> LY_ERR::Type;
 }
 unsafe extern "C" {
+    #[doc = " @brief Create a new term node in the data tree.\n\n @param[in] parent Parent node for the node being created. NULL in case of creating a top level element.\n @param[in] module Module of the node being created. If NULL, @p parent module will be used.\n @param[in] name Schema node name of the new data node. The node can be #LYS_LEAF or #LYS_LEAFLIST.\n @param[in] value Value of the node in JSON format unless changed by @p options.\n @param[in] options Bitmask of options, see @ref newvaloptions.\n @param[out] node Optional created node.\n @return LY_ERR value."]
     pub fn lyd_new_term(
         parent: *mut lyd_node,
         module: *const lys_module,
@@ -11988,6 +9218,7 @@ unsafe extern "C" {
     ) -> LY_ERR::Type;
 }
 unsafe extern "C" {
+    #[doc = " @brief Create a new any node in the data tree.\n\n @param[in] parent Parent node for the node being created. NULL in case of creating a top level element.\n @param[in] module Module of the node being created. If NULL, @p parent module will be used.\n @param[in] name Schema node name of the new data node. The node can be #LYS_ANYDATA or #LYS_ANYXML.\n @param[in] child Data tree value of the node, not set if @p value is set.\n @param[in] value String value for the node, not set if @p child is set.\n @param[in] hints String @p value hints (@ref lydvalhints or @ref lydnodehints), if any.\n @param[in] options Bitmask of options, see @ref newvaloptions.\n @param[out] node Optional created node.\n @return LY_ERR value."]
     pub fn lyd_new_any(
         parent: *mut lyd_node,
         module: *const lys_module,
@@ -12000,6 +9231,7 @@ unsafe extern "C" {
     ) -> LY_ERR::Type;
 }
 unsafe extern "C" {
+    #[doc = " @brief Create a new metadata.\n\n @param[in] ctx libyang context.\n @param[in] parent Optional parent node for the metadata being created. Must be set if @p meta is NULL.\n @param[in] module Module of the metadata being created. If NULL, @p name must include module name as the prefix.\n @param[in] name Annotation name of the new metadata. It can include the annotation module as the prefix.\n If the prefix is specified it is always used but if not specified, @p module must be set.\n @param[in] val_str String form of the value of the metadata. In case of an instance-identifier or identityref\n value, the JSON format is expected (module names instead of prefixes).\n @param[in] options Bitmask of options, see @ref newvaloptions.\n @param[out] meta Optional created metadata. Must be set if @p parent is NULL.\n @return LY_ERR value."]
     pub fn lyd_new_meta(
         ctx: *const ly_ctx,
         parent: *mut lyd_node,
@@ -12011,6 +9243,7 @@ unsafe extern "C" {
     ) -> LY_ERR::Type;
 }
 unsafe extern "C" {
+    #[doc = " @brief Create new metadata from an opaque node attribute if possible.\n\n @param[in] ctx libyang context.\n @param[in] parent Optional parent node for the metadata being created. Must be set if @p meta is NULL.\n @param[in] options Bitmask of options, see @ref newvaloptions.\n @param[in] attr Opaque node attribute to parse into metadata.\n @param[out] meta Optional created metadata. Must be set if @p parent is NULL.\n @return LY_SUCCESS on success.\n @return LY_ENOT if the attribute could not be parsed into any metadata.\n @return LY_ERR on error."]
     pub fn lyd_new_meta2(
         ctx: *const ly_ctx,
         parent: *mut lyd_node,
@@ -12020,6 +9253,7 @@ unsafe extern "C" {
     ) -> LY_ERR::Type;
 }
 unsafe extern "C" {
+    #[doc = " @brief Create a new JSON opaque node in the data tree. To create an XML opaque node, use ::lyd_new_opaq2().\n\n @param[in] parent Parent node for the node being created. NULL in case of creating a top level element.\n @param[in] ctx libyang context. If NULL, @p parent context will be used.\n @param[in] name Node name.\n @param[in] value Optional node value.\n @param[in] prefix Optional node prefix, must be equal to @p module_name if set.\n @param[in] module_name Node module name.\n @param[out] node Optional created node.\n @return LY_ERR value."]
     pub fn lyd_new_opaq(
         parent: *mut lyd_node,
         ctx: *const ly_ctx,
@@ -12031,6 +9265,7 @@ unsafe extern "C" {
     ) -> LY_ERR::Type;
 }
 unsafe extern "C" {
+    #[doc = " @brief Create a new XML opaque node in the data tree. To create a JSON opaque node, use ::lyd_new_opaq().\n\n @param[in] parent Parent node for the node being created. NULL in case of creating a top level element.\n @param[in] ctx libyang context. If NULL, @p parent context will be used.\n @param[in] name Node name.\n @param[in] value Optional node value.\n @param[in] prefix Optional node prefix.\n @param[in] module_ns Node module namespace.\n @param[out] node Optional created node.\n @return LY_ERR value."]
     pub fn lyd_new_opaq2(
         parent: *mut lyd_node,
         ctx: *const ly_ctx,
@@ -12042,6 +9277,7 @@ unsafe extern "C" {
     ) -> LY_ERR::Type;
 }
 unsafe extern "C" {
+    #[doc = " @brief Create new JSON attribute for an opaque data node. To create an XML attribute, use ::lyd_new_attr2().\n\n Note that for an attribute to be later resolved as YANG metadata, it needs @p module_nane and a prefix in @p name.\n\n @param[in] parent Parent opaque node for the attribute.\n @param[in] module_name Optional name of the module of the attribute.\n @param[in] name Attribute name with optional prefix, which is a module name. If the prefix is set, it is also stored\n as the explicit module name if @p module_name is not set.\n @param[in] value Optional attribute value.\n @param[out] attr Optional created attribute.\n @return LY_ERR value."]
     pub fn lyd_new_attr(
         parent: *mut lyd_node,
         module_name: *const ::std::os::raw::c_char,
@@ -12051,6 +9287,7 @@ unsafe extern "C" {
     ) -> LY_ERR::Type;
 }
 unsafe extern "C" {
+    #[doc = " @brief Create new XML attribute for an opaque data node. To create a JSON attribute, use ::lyd_new_attr().\n\n Note that for an attribute to be later resolved as YANG metadata, it needs @p module_ns and a prefix in @p name.\n\n @param[in] parent Parent opaque node for the attribute being created.\n @param[in] module_ns Optional namespace of the module of the attribute.\n @param[in] name Attribute name with optional prefix, which is an XML prefix.\n @param[in] value Optional attribute value.\n @param[out] attr Optional created attribute.\n @return LY_ERR value."]
     pub fn lyd_new_attr2(
         parent: *mut lyd_node,
         module_ns: *const ::std::os::raw::c_char,
@@ -12060,6 +9297,7 @@ unsafe extern "C" {
     ) -> LY_ERR::Type;
 }
 unsafe extern "C" {
+    #[doc = " @brief Create a new node in the data tree based on a path. If creating anyxml/anydata nodes, ::lyd_new_path2\n should be used instead, this function expects the value as string.\n\n If @p path points to a list key, the key value from the predicate is used and @p value is ignored.\n Also, if a leaf-list is being created and both a predicate is defined in @p path\n and @p value is set, the predicate is preferred.\n\n For key-less lists, positional predicates must be used (indices starting from 1). For non-configuration leaf-lists\n (or lists) either positional predicate can be used or leaf-list (or key) predicate, when an instance is always\n created at the end. If no predicate is used for these nodes, they are always created.\n\n For anydata nodes, it is possible to directly create its descendants if the @p path continues after the node.\n\n @param[in] parent Data parent to add to/modify, can be NULL. Note that in case a first top-level sibling is used,\n it may no longer be first if @p path is absolute and starts with a non-existing top-level node inserted\n before @p parent. Use ::lyd_first_sibling() to adjust @p parent in these cases.\n @param[in] ctx libyang context, must be set if @p parent is NULL.\n @param[in] path [Path](@ref howtoXPath) to create.\n @param[in] value String value of the new leaf/leaf-list in JSON format. For other node types it should be NULL.\n @param[in] options Bitmask of options, see @ref newvaloptions.\n @param[out] node Optional first created node.\n @return LY_SUCCESS on success.\n @return LY_EEXIST if the final node to create exists (unless ::LYD_NEW_PATH_UPDATE is used).\n @return LY_EINVAL on invalid arguments including invalid @p path.\n @return LY_EVALID on invalid @p value.\n @return LY_ERR on other errors."]
     pub fn lyd_new_path(
         parent: *mut lyd_node,
         ctx: *const ly_ctx,
@@ -12070,6 +9308,7 @@ unsafe extern "C" {
     ) -> LY_ERR::Type;
 }
 unsafe extern "C" {
+    #[doc = " @brief Create a new node in the data tree based on a path. All node types can be created.\n\n Details are mentioned in ::lyd_new_path().\n\n @param[in] parent Data parent to add to/modify, can be NULL. Note that in case a first top-level sibling is used,\n it may no longer be first if @p path is absolute and starts with a non-existing top-level node inserted\n before @p parent. Use ::lyd_first_sibling() to adjust @p parent in these cases.\n @param[in] ctx libyang context, must be set if @p parent is NULL.\n @param[in] path [Path](@ref howtoXPath) to create.\n @param[in] value Value of the new leaf/leaf-list. If creating an anyxml/anydata node, a string value is expected\n but can be a data tree based on @p options. For other node types, it should be NULL.\n @param[in] value_size_bits Size of @p value in bits. Does not have to be set if a 0-terminated string and XML or\n JSON value format. Ignored when creating anyxml/anydata nodes.\n @param[in] any_hints Hints for @p value when creating an anyxml/anydata node. Bitmap of [val hints](@ref lydvalhints)\n and [node hints](@ref lydnodehints).\n @param[in] options Bitmask of options, see @ref newvaloptions.\n @param[out] new_parent Optional first parent node created. If only one node was created, equals to @p new_node.\n @param[out] new_node Optional target node of @p path (the last created node, the list instance in case of a list).\n @return LY_SUCCESS on success.\n @return LY_EEXIST if the final node to create exists (unless ::LYD_NEW_PATH_UPDATE is used).\n @return LY_EINVAL on invalid arguments including invalid @p path.\n @return LY_EVALID on invalid @p value.\n @return LY_ERR on other errors."]
     pub fn lyd_new_path2(
         parent: *mut lyd_node,
         ctx: *const ly_ctx,
@@ -12083,6 +9322,7 @@ unsafe extern "C" {
     ) -> LY_ERR::Type;
 }
 unsafe extern "C" {
+    #[doc = " @brief Add any missing implicit nodes into a data subtree. Default nodes with a false \"when\" are not added.\n\n @param[in] tree Tree to add implicit nodes into.\n @param[in] implicit_options Options for implicit node creation, see @ref implicitoptions.\n @param[out] diff Optional diff with any created nodes.\n @return LY_ERR value."]
     pub fn lyd_new_implicit_tree(
         tree: *mut lyd_node,
         implicit_options: u32,
@@ -12090,6 +9330,7 @@ unsafe extern "C" {
     ) -> LY_ERR::Type;
 }
 unsafe extern "C" {
+    #[doc = " @brief Add any missing implicit nodes. Default nodes with a false \"when\" are not added.\n\n @param[in,out] tree Tree to add implicit nodes into. Note that in case a first top-level sibling is used,\n it may no longer be first if an implicit node was inserted before @p tree. Use ::lyd_first_sibling() to\n adjust @p tree in these cases.\n @param[in] ctx libyang context, must be set only if @p tree is an empty tree.\n @param[in] implicit_options Options for implicit node creation, see @ref implicitoptions.\n @param[out] diff Optional diff with any created nodes.\n @return LY_ERR value."]
     pub fn lyd_new_implicit_all(
         tree: *mut *mut lyd_node,
         ctx: *const ly_ctx,
@@ -12098,6 +9339,7 @@ unsafe extern "C" {
     ) -> LY_ERR::Type;
 }
 unsafe extern "C" {
+    #[doc = " @brief Add any missing implicit nodes of one module. Default nodes with a false \"when\" are not added.\n\n @param[in,out] tree Tree to add implicit nodes into. Note that in case a first top-level sibling is used,\n it may no longer be first if an implicit node was inserted before @p tree. Use ::lyd_first_sibling() to\n adjust @p tree in these cases.\n @param[in] module Module whose implicit nodes to create.\n @param[in] implicit_options Options for implicit node creation, see @ref implicitoptions.\n @param[out] diff Optional diff with any created nodes.\n @return LY_ERR value."]
     pub fn lyd_new_implicit_module(
         tree: *mut *mut lyd_node,
         module: *const lys_module,
@@ -12106,30 +9348,35 @@ unsafe extern "C" {
     ) -> LY_ERR::Type;
 }
 unsafe extern "C" {
+    #[doc = " @brief Change the value of a term (leaf or leaf-list) node to a string value.\n\n Node changed this way is always considered explicitly set, meaning its default flag\n is always cleared.\n\n @param[in] term Term node to change.\n @param[in] val_str New value to set, any prefixes are expected in JSON format.\n @return LY_SUCCESS if value was changed,\n @return LY_EEXIST if value was the same and only the default flag was cleared,\n @return LY_ENOT if the values were equal and no change occurred,\n @return LY_ERR value on other errors."]
     pub fn lyd_change_term(
         term: *mut lyd_node,
         val_str: *const ::std::os::raw::c_char,
     ) -> LY_ERR::Type;
 }
 unsafe extern "C" {
+    #[doc = " @brief Change the value of a term (leaf or leaf-list) node to a canonical string value.\n\n Node changed this way is always considered explicitly set, meaning its default flag\n is always cleared.\n\n @param[in] term Term node to change.\n @param[in] val_str New value to set in canonical (or JSON if no defined) format. If the value is not\n canonical, it may lead to unexpected behavior.\n @return LY_SUCCESS if value was changed,\n @return LY_EEXIST if value was the same and only the default flag was cleared,\n @return LY_ENOT if the values were equal and no change occurred,\n @return LY_ERR value on other errors."]
     pub fn lyd_change_term_canon(
         term: *mut lyd_node,
         val_str: *const ::std::os::raw::c_char,
     ) -> LY_ERR::Type;
 }
 unsafe extern "C" {
+    #[doc = " @brief Change the value of a metadata instance.\n\n @param[in] meta Metadata to change.\n @param[in] val_str New value to set, any prefixes are expected in JSON format.\n @return LY_SUCCESS if value was changed,\n @return LY_ENOT if the values were equal and no change occurred,\n @return LY_ERR value on other errors."]
     pub fn lyd_change_meta(
         meta: *mut lyd_meta,
         val_str: *const ::std::os::raw::c_char,
     ) -> LY_ERR::Type;
 }
 unsafe extern "C" {
+    #[doc = " @brief Insert a child into a parent.\n\n - if the node is part of some other tree, it is automatically unlinked.\n - if the node is the first node of a node list (with no parent), all the subsequent nodes are also inserted.\n\n @param[in] parent Parent node to insert into.\n @param[in] node Node to insert.\n @return LY_SUCCESS on success.\n @return LY_ERR error on error."]
     pub fn lyd_insert_child(
         parent: *mut lyd_node,
         node: *mut lyd_node,
     ) -> LY_ERR::Type;
 }
 unsafe extern "C" {
+    #[doc = " @brief Insert a node into siblings.\n\n - if the node is part of some other tree, it is automatically unlinked.\n - if the node is the first node of a node list (with no parent), all the subsequent nodes are also inserted.\n\n @param[in] sibling Siblings to insert into, can even be NULL.\n @param[in] node Node to insert.\n @param[out] first Optionally return the first sibling after insertion. Can be the address of @p sibling.\n @return LY_SUCCESS on success.\n @return LY_ERR error on error."]
     pub fn lyd_insert_sibling(
         sibling: *mut lyd_node,
         node: *mut lyd_node,
@@ -12137,45 +9384,57 @@ unsafe extern "C" {
     ) -> LY_ERR::Type;
 }
 unsafe extern "C" {
+    #[doc = " @brief Insert a node before another node, can be used only for user-ordered nodes.\n If inserting several siblings, each of them must be inserted individually.\n\n - if the node is part of some other tree, it is automatically unlinked.\n\n @param[in] sibling Sibling node to insert before.\n @param[in] node Node to insert.\n @return LY_SUCCESS on success.\n @return LY_ERR error on error."]
     pub fn lyd_insert_before(
         sibling: *mut lyd_node,
         node: *mut lyd_node,
     ) -> LY_ERR::Type;
 }
 unsafe extern "C" {
+    #[doc = " @brief Insert a node after another node, can be used only for user-ordered nodes.\n If inserting several siblings, each of them must be inserted individually.\n\n - if the node is part of some other tree, it is automatically unlinked.\n\n @param[in] sibling Sibling node to insert after.\n @param[in] node Node to insert.\n @return LY_SUCCESS on success.\n @return LY_ERR error on error."]
     pub fn lyd_insert_after(
         sibling: *mut lyd_node,
         node: *mut lyd_node,
     ) -> LY_ERR::Type;
 }
 unsafe extern "C" {
+    #[doc = " @brief Unlink the specified node with all the following siblings.\n\n @param[in] node Data tree node to be unlinked (together with all the children and following siblings).\n @return LYS_SUCCESS on success.\n @return LY_ERR error on error."]
     pub fn lyd_unlink_siblings(node: *mut lyd_node) -> LY_ERR::Type;
 }
 unsafe extern "C" {
+    #[doc = " @brief Unlink the specified data subtree.\n\n @param[in] node Data tree node to be unlinked (together with all the children).\n @return LYS_SUCCESS on success.\n @return LY_ERR error on error."]
     pub fn lyd_unlink_tree(node: *mut lyd_node) -> LY_ERR::Type;
 }
 unsafe extern "C" {
+    #[doc = " @brief Free all the nodes (even parents of the node) in the data tree.\n\n @param[in] node Any of the nodes inside the tree."]
     pub fn lyd_free_all(node: *mut lyd_node);
 }
 unsafe extern "C" {
+    #[doc = " @brief Free all the sibling nodes (preceding as well as succeeding).\n\n @param[in] node Any of the sibling nodes to free."]
     pub fn lyd_free_siblings(node: *mut lyd_node);
 }
 unsafe extern "C" {
+    #[doc = " @brief Free (and unlink) the specified data (sub)tree.\n\n @param[in] node Root of the (sub)tree to be freed."]
     pub fn lyd_free_tree(node: *mut lyd_node);
 }
 unsafe extern "C" {
+    #[doc = " @brief Free a single metadata instance.\n\n @param[in] meta Metadata to free."]
     pub fn lyd_free_meta_single(meta: *mut lyd_meta);
 }
 unsafe extern "C" {
+    #[doc = " @brief Free the metadata instance with any following instances.\n\n @param[in] meta Metadata to free."]
     pub fn lyd_free_meta_siblings(meta: *mut lyd_meta);
 }
 unsafe extern "C" {
+    #[doc = " @brief Free a single attribute.\n\n @param[in] ctx Context where the attributes were created.\n @param[in] attr Attribute to free."]
     pub fn lyd_free_attr_single(ctx: *const ly_ctx, attr: *mut lyd_attr);
 }
 unsafe extern "C" {
+    #[doc = " @brief Free the attribute with any following attributes.\n\n @param[in] ctx Context where the attributes were created.\n @param[in] attr First attribute to free."]
     pub fn lyd_free_attr_siblings(ctx: *const ly_ctx, attr: *mut lyd_attr);
 }
 unsafe extern "C" {
+    #[doc = " @brief Check type restrictions applicable to the particular leaf/leaf-list with the given string @p value.\n\n The given node is not modified in any way - it is just checked if the @p value can be set to the node.\n\n @param[in] schema Schema node of the @p value.\n @param[in] value String value to be checked, it is expected to be in JSON format.\n @param[in] value_len Length of the given @p value (mandatory).\n @param[in] ctx_node Optional data tree context node for the value (leafref target, instance-identifier).\n If not set and is required for the validation to complete, ::LY_EINCOMPLETE is be returned.\n @param[out] realtype Optional real type of @p value.\n @param[out] canonical Optional canonical value of @p value in the dictionary, needs to be freed using ::lydict_remove().\n @return LY_SUCCESS on success\n @return LY_EINCOMPLETE in case the @p ctx_node is not provided and it was needed to finish the validation\n (e.g. due to require-instance).\n @return LY_ERR value if an error occurred."]
     pub fn lyd_value_validate(
         schema: *const lysc_node,
         value: *const ::std::os::raw::c_char,
@@ -12186,6 +9445,7 @@ unsafe extern "C" {
     ) -> LY_ERR::Type;
 }
 unsafe extern "C" {
+    #[doc = " @brief Check type restrictions applicable to the particular leaf/leaf-list with the given string @p value.\n\n The given node is not modified in any way - it is just checked if the @p value can be set to the node.\n\n @param[in] schema Schema node of the @p value.\n @param[in] value String default value to be checked, in a ::lysc_value.\n @param[in] prefixes Stored prefixes of @p value, in a ::lysc_value.\n @param[in] ctx_node Optional data tree context node for the value (leafref target, instance-identifier).\n If not set and is required for the validation to complete, ::LY_EINCOMPLETE is be returned.\n @param[out] realtype Optional real type of @p value.\n @param[out] canonical Optional canonical value of @p value in the dictionary, needs to be freed using ::lydict_remove().\n @return LY_SUCCESS on success\n @return LY_EINCOMPLETE in case the @p ctx_node is not provided and it was needed to finish the validation\n (e.g. due to require-instance).\n @return LY_ERR value if an error occurred."]
     pub fn lyd_value_validate_dflt(
         schema: *const lysc_node,
         value: *const ::std::os::raw::c_char,
@@ -12196,6 +9456,7 @@ unsafe extern "C" {
     ) -> LY_ERR::Type;
 }
 unsafe extern "C" {
+    #[doc = " @brief Compare the node's value with the given string value. The string value is first validated according to\n the (current) node's type.\n\n @param[in] node Data node to compare.\n @param[in] value String value to be compared. It does not need to be in a canonical form - as part of the process,\n it is validated and canonized if possible. But it is expected to be in JSON format.\n @param[in] value_len Length of the given @p value (mandatory).\n @return LY_SUCCESS on success,\n @return LY_ENOT if the values do not match,\n @return LY_ERR value if an error occurred."]
     pub fn lyd_value_compare(
         node: *const lyd_node_term,
         value: *const ::std::os::raw::c_char,
@@ -12203,6 +9464,7 @@ unsafe extern "C" {
     ) -> LY_ERR::Type;
 }
 unsafe extern "C" {
+    #[doc = " @brief Compare 2 data nodes if they are equivalent.\n\n Works correctly even if @p node1 and @p node2 have different contexts.\n\n @param[in] node1 The first node to compare.\n @param[in] node2 The second node to compare.\n @param[in] options Various @ref datacompareoptions.\n @return LY_SUCCESS if the nodes are equivalent.\n @return LY_ENOT if the nodes are not equivalent."]
     pub fn lyd_compare_single(
         node1: *const lyd_node,
         node2: *const lyd_node,
@@ -12210,6 +9472,7 @@ unsafe extern "C" {
     ) -> LY_ERR::Type;
 }
 unsafe extern "C" {
+    #[doc = " @brief Compare 2 lists of siblings if they are equivalent.\n\n Works correctly even if @p node1 and @p node2 have different contexts.\n\n @param[in] node1 The first sibling list to compare.\n @param[in] node2 The second sibling list to compare.\n @param[in] options Various @ref datacompareoptions.\n @return LY_SUCCESS if all the siblings are equivalent.\n @return LY_ENOT if the siblings are not equivalent."]
     pub fn lyd_compare_siblings(
         node1: *const lyd_node,
         node2: *const lyd_node,
@@ -12217,12 +9480,14 @@ unsafe extern "C" {
     ) -> LY_ERR::Type;
 }
 unsafe extern "C" {
+    #[doc = " @brief Compare 2 metadata.\n\n If @p meta1 and @p meta2 have different contexts, they are never equivalent.\n\n @param[in] meta1 First metadata.\n @param[in] meta2 Second metadata.\n @return LY_SUCCESS if the metadata are equivalent.\n @return LY_ENOT if not."]
     pub fn lyd_compare_meta(
         meta1: *const lyd_meta,
         meta2: *const lyd_meta,
     ) -> LY_ERR::Type;
 }
 unsafe extern "C" {
+    #[doc = " @brief Create a copy of the specified data tree @p node. Schema references are kept the same.\n\n @param[in] node Data tree node to be duplicated.\n @param[in] parent Optional parent node where to connect the duplicated node(s). If set in combination with\n ::LYD_DUP_WITH_PARENTS, the missing parents' chain is duplicated and connected with @p parent.\n @param[in] options Bitmask of options flags, see @ref dupoptions.\n @param[out] dup Optional created copy of the node. Note that in case the parents chain is duplicated for the duplicated\n node(s) (when ::LYD_DUP_WITH_PARENTS used), the first duplicated node is still returned.\n @return LY_ERR value."]
     pub fn lyd_dup_single(
         node: *const lyd_node,
         parent: *mut lyd_node,
@@ -12231,6 +9496,7 @@ unsafe extern "C" {
     ) -> LY_ERR::Type;
 }
 unsafe extern "C" {
+    #[doc = " @brief Create a copy of the specified data tree @p node. Schema references are assigned from @p trg_ctx.\n\n @param[in] node Data tree node to be duplicated.\n @param[in] trg_ctx Target context for duplicated nodes. In case of mixed contexts in @p node subtree or parents\n (schema mount data), this is the context of top-level nodes.\n @param[in] parent Optional parent node where to connect the duplicated node(s). If set in combination with\n ::LYD_DUP_WITH_PARENTS, the missing parents' chain is duplicated and connected with @p parent.\n @param[in] options Bitmask of options flags, see @ref dupoptions.\n @param[out] dup Optional created copy of the node. Note that in case the parents chain is duplicated for the duplicated\n node(s) (when ::LYD_DUP_WITH_PARENTS used), the first duplicated node is still returned.\n @return LY_ERR value."]
     pub fn lyd_dup_single_to_ctx(
         node: *const lyd_node,
         trg_ctx: *const ly_ctx,
@@ -12240,6 +9506,7 @@ unsafe extern "C" {
     ) -> LY_ERR::Type;
 }
 unsafe extern "C" {
+    #[doc = " @brief Create a copy of the specified data tree @p node with any following siblings. Schema references are kept the same.\n\n @param[in] node Data tree node to be duplicated.\n @param[in] parent Optional parent node where to connect the duplicated node(s). If set in combination with\n ::LYD_DUP_WITH_PARENTS, the missing parents' chain is duplicated and connected with @p parent.\n @param[in] options Bitmask of options flags, see @ref dupoptions.\n @param[out] dup Optional created copy of the node. Note that in case the parents chain is duplicated for the duplicated\n node(s) (when ::LYD_DUP_WITH_PARENTS used), the first duplicated node is still returned.\n @return LY_ERR value."]
     pub fn lyd_dup_siblings(
         node: *const lyd_node,
         parent: *mut lyd_node,
@@ -12248,6 +9515,7 @@ unsafe extern "C" {
     ) -> LY_ERR::Type;
 }
 unsafe extern "C" {
+    #[doc = " @brief Create a copy of the specified data tree @p node with any following siblings. Schema references are assigned\n from @p trg_ctx.\n\n @param[in] node Data tree node to be duplicated.\n @param[in] trg_ctx Target context for duplicated nodes. In case of mixed contexts in @p node subtree or parents\n (schema mount data), this is the context of top-level nodes.\n @param[in] parent Optional parent node where to connect the duplicated node(s). If set in combination with\n ::LYD_DUP_WITH_PARENTS, the missing parents' chain is duplicated and connected with @p parent.\n @param[in] options Bitmask of options flags, see @ref dupoptions.\n @param[out] dup Optional created copy of the node. Note that in case the parents chain is duplicated for the duplicated\n node(s) (when ::LYD_DUP_WITH_PARENTS used), the first duplicated node is still returned.\n @return LY_ERR value."]
     pub fn lyd_dup_siblings_to_ctx(
         node: *const lyd_node,
         trg_ctx: *const ly_ctx,
@@ -12257,6 +9525,7 @@ unsafe extern "C" {
     ) -> LY_ERR::Type;
 }
 unsafe extern "C" {
+    #[doc = " @brief Create a copy of the metadata.\n\n @param[in] meta Metadata to copy.\n @param[in] parent Node where to append the new metadata.\n @param[out] dup Optional created metadata copy.\n @return LY_ERR value."]
     pub fn lyd_dup_meta_single(
         meta: *const lyd_meta,
         parent: *mut lyd_node,
@@ -12264,6 +9533,7 @@ unsafe extern "C" {
     ) -> LY_ERR::Type;
 }
 unsafe extern "C" {
+    #[doc = " @brief Merge the source data subtree into the target data tree. Merge may not be complete until validation\n is called on the resulting data tree (data from more cases may be present, default and non-default values).\n\n Example input:\n\n source   (A1) - A2 - A3    target   (B1) - B2 - B3\n           /\\    /\\   /\\              /\\    /\\   /\\\n          ....  .... ....            ....  .... ....\n\n result target  (A1) - B1 - B2 - B3\n                 /\\    /\\   /\\   /\\\n                ....  .... .... ....\n\n @param[in,out] target Target data tree to merge into, must be a top-level tree. Always points to the first sibling.\n @param[in] source Source data tree to merge, must be a top-level tree.\n @param[in] options Bitmask of option flags, see @ref mergeoptions.\n @return LY_SUCCESS on success,\n @return LY_ERR value on error."]
     pub fn lyd_merge_tree(
         target: *mut *mut lyd_node,
         source: *const lyd_node,
@@ -12271,12 +9541,14 @@ unsafe extern "C" {
     ) -> LY_ERR::Type;
 }
 unsafe extern "C" {
+    #[doc = " @brief Merge the source data tree with any following siblings into the target data tree. Merge may not be\n complete until validation called on the resulting data tree (data from more cases may be present, default\n and non-default values).\n\n Example input:\n\n source   (A1) - A2 - A3    target   (B1) - B2 - B3\n           /\\    /\\   /\\              /\\    /\\   /\\\n          ....  .... ....            ....  .... ....\n\n result target  (A1) - A2 - A3 - B1 - B2 - B3\n                 /\\    /\\   /\\   /\\   /\\   /\\\n                ....  .... .... .... .... ....\n\n @param[in,out] target Target data tree to merge into, must be a top-level tree. Always points to the first sibling.\n @param[in] source Source data tree to merge, must be a top-level tree.\n @param[in] options Bitmask of option flags, see @ref mergeoptions.\n @return LY_SUCCESS on success,\n @return LY_ERR value on error."]
     pub fn lyd_merge_siblings(
         target: *mut *mut lyd_node,
         source: *const lyd_node,
         options: u16,
     ) -> LY_ERR::Type;
 }
+#[doc = " @brief Callback for matching merge nodes.\n\n @param[in] trg_node Target data node.\n @param[in] src_node Source data node, is NULL if it was actually duplicated (no target node found) and\n its copy is @p trg_node.\n @param[in] cb_data Arbitrary callback data.\n @return LY_ERR value."]
 pub type lyd_merge_cb = ::std::option::Option<
     unsafe extern "C" fn(
         trg_node: *mut lyd_node,
@@ -12285,6 +9557,7 @@ pub type lyd_merge_cb = ::std::option::Option<
     ) -> LY_ERR::Type,
 >;
 unsafe extern "C" {
+    #[doc = " @brief Merge all the nodes of a module from source data tree into the target data tree. Merge may not be\n complete until validation called on the resulting data tree (data from more cases may be present, default\n and non-default values).\n\n @param[in,out] target Target data tree to merge into, must be a top-level tree. Always points to the first sibling.\n @param[in] source Source data tree to merge, must be a top-level tree.\n @param[in] mod Module, whose source data only to consider, NULL for all modules.\n @param[in] merge_cb Optional merge callback that will be called for every merged node, before merging its descendants.\n If a subtree is being added into target (no matching node found), callback is called only once with the subtree root.\n @param[in] cb_data Arbitrary callback data.\n @param[in] options Bitmask of option flags, see @ref mergeoptions.\n @return LY_SUCCESS on success,\n @return LY_ERR value on error."]
     pub fn lyd_merge_module(
         target: *mut *mut lyd_node,
         source: *const lyd_node,
@@ -12295,6 +9568,7 @@ unsafe extern "C" {
     ) -> LY_ERR::Type;
 }
 unsafe extern "C" {
+    #[doc = " @brief Learn the differences between 2 data trees.\n\n The resulting diff is represented as a data tree with specific metadata from the internal 'yang'\n module. Most importantly, every node has an effective 'operation' metadata. If there is none\n defined on the node, it inherits the operation from the nearest parent. Top-level nodes must\n always have the 'operation' metadata defined. Additional metadata ('orig-default', 'value',\n 'orig-value', 'key', 'orig-key') are used for storing more information about the value in the first\n or the second tree.\n\n The diff tree is completely independent on the @p first and @p second trees, meaning all\n the information about the change is stored in the diff and the trees are not needed.\n\n __!! Caution !!__\n The diff tree should never be validated because it may easily not be valid! For example,\n when data from one case branch are deleted and data from another branch created - data from both\n branches are then stored in the diff tree simultaneously.\n\n @param[in] first First data tree.\n @param[in] second Second data tree.\n @param[in] options Bitmask of options flags, see @ref diffoptions.\n @param[out] diff Generated diff, NULL if there are no differences.\n @return LY_SUCCESS on success,\n @return LY_ERR on error."]
     pub fn lyd_diff_tree(
         first: *const lyd_node,
         second: *const lyd_node,
@@ -12303,6 +9577,7 @@ unsafe extern "C" {
     ) -> LY_ERR::Type;
 }
 unsafe extern "C" {
+    #[doc = " @brief Learn the differences between 2 data trees including all the following siblings.\n\n Details are mentioned in ::lyd_diff_tree().\n\n @param[in] first First data tree.\n @param[in] second Second data tree.\n @param[in] options Bitmask of options flags, see @ref diffoptions.\n @param[out] diff Generated diff, NULL if there are no differences.\n @return LY_SUCCESS on success,\n @return LY_ERR on error."]
     pub fn lyd_diff_siblings(
         first: *const lyd_node,
         second: *const lyd_node,
@@ -12310,6 +9585,7 @@ unsafe extern "C" {
         diff: *mut *mut lyd_node,
     ) -> LY_ERR::Type;
 }
+#[doc = " @brief Callback for diff nodes.\n\n @param[in] diff_node Diff node.\n @param[in] data_node Matching node in data.\n @param[in] cb_data Arbitrary callback data.\n @return LY_ERR value."]
 pub type lyd_diff_cb = ::std::option::Option<
     unsafe extern "C" fn(
         diff_node: *const lyd_node,
@@ -12318,6 +9594,7 @@ pub type lyd_diff_cb = ::std::option::Option<
     ) -> LY_ERR::Type,
 >;
 unsafe extern "C" {
+    #[doc = " @brief Apply the whole diff on a data tree but restrict the operation to one module.\n\n __!! Caution !!__\n If applying a diff that was created __without__ the ::LYD_DIFF_DEFAULTS flag, there may be some duplicate values\n created. Unless the resulting tree is validated (and default values thus consolidated), using it further\n (such as applying another diff) may cause unexpected results or errors.\n\n @param[in,out] data Data to apply the diff on.\n @param[in] diff Diff to apply.\n @param[in] mod Module, whose diff/data only to consider, NULL for all modules.\n @param[in] diff_cb Optional diff callback that will be called for every changed node.\n @param[in] cb_data Arbitrary callback data.\n @return LY_SUCCESS on success,\n @return LY_ERR on error."]
     pub fn lyd_diff_apply_module(
         data: *mut *mut lyd_node,
         diff: *const lyd_node,
@@ -12327,12 +9604,14 @@ unsafe extern "C" {
     ) -> LY_ERR::Type;
 }
 unsafe extern "C" {
+    #[doc = " @brief Apply the whole diff tree on a data tree.\n\n Details are mentioned in ::lyd_diff_apply_module().\n\n @param[in,out] data Data to apply the diff on.\n @param[in] diff Diff to apply.\n @return LY_SUCCESS on success,\n @return LY_ERR on error."]
     pub fn lyd_diff_apply_all(
         data: *mut *mut lyd_node,
         diff: *const lyd_node,
     ) -> LY_ERR::Type;
 }
 unsafe extern "C" {
+    #[doc = " @brief Merge 2 diffs into each other but restrict the operation to one module.\n\n The diffs must be possible to be merged, which is guaranteed only if the source diff was\n created on data that had the target diff applied on them. In other words, this sequence is legal\n\n 1) get diff1 from data1 and data2 -> get data11 from apply diff1 on data1 -> get diff2 from data11 and data3 ->\n    -> get data 33 from apply diff2 on data1\n\n and reusing these diffs\n\n 2) get diff11 from merge diff1 and diff2 -> get data33 from apply diff11 on data1\n\n @param[in,out] diff Target diff to merge into.\n @param[in] src_diff Source diff.\n @param[in] mod Module, whose diff only to consider, NULL for all modules.\n @param[in] diff_cb Optional diff callback that will be called for every merged node. Param @p diff_node is the source\n diff node while @p data_node is the updated target diff node. In case a whole subtree is added, the callback is\n called on the root with @p diff_node being NULL.\n @param[in] cb_data Arbitrary callback data.\n @param[in] options Bitmask of options flags, see @ref diffmergeoptions.\n @return LY_SUCCESS on success,\n @return LY_ERR on error."]
     pub fn lyd_diff_merge_module(
         diff: *mut *mut lyd_node,
         src_diff: *const lyd_node,
@@ -12343,6 +9622,7 @@ unsafe extern "C" {
     ) -> LY_ERR::Type;
 }
 unsafe extern "C" {
+    #[doc = " @brief Merge 2 diff trees into each other.\n\n Details are mentioned in ::lyd_diff_merge_module().\n\n @param[in,out] diff_first Target diff first sibling to merge into.\n @param[in] diff_parent Target diff parent to merge into.\n @param[in] src_sibling Source diff sibling to merge.\n @param[in] diff_cb Optional diff callback that will be called for every merged node. Param @p diff_node is the source\n diff node while @p data_node is the updated target diff node. In case a whole subtree is added, the callback is\n called on the root with @p diff_node being NULL.\n @param[in] cb_data Arbitrary callback data.\n @param[in] options Bitmask of options flags, see @ref diffmergeoptions.\n @return LY_SUCCESS on success,\n @return LY_ERR on error."]
     pub fn lyd_diff_merge_tree(
         diff_first: *mut *mut lyd_node,
         diff_parent: *mut lyd_node,
@@ -12353,6 +9633,7 @@ unsafe extern "C" {
     ) -> LY_ERR::Type;
 }
 unsafe extern "C" {
+    #[doc = " @brief Merge 2 diffs into each other.\n\n Details are mentioned in ::lyd_diff_merge_module().\n\n @param[in,out] diff Target diff to merge into.\n @param[in] src_diff Source diff.\n @param[in] options Bitmask of options flags, see @ref diffmergeoptions.\n @return LY_SUCCESS on success,\n @return LY_ERR on error."]
     pub fn lyd_diff_merge_all(
         diff: *mut *mut lyd_node,
         src_diff: *const lyd_node,
@@ -12360,17 +9641,22 @@ unsafe extern "C" {
     ) -> LY_ERR::Type;
 }
 unsafe extern "C" {
+    #[doc = " @brief Reverse a diff and make the opposite changes. Meaning change create to delete, delete to create,\n or move from place A to B to move from B to A and so on.\n\n @param[in] src_diff Diff to reverse.\n @param[out] diff Reversed diff.\n @return LY_SUCCESS on success.\n @return LY_ERR on error."]
     pub fn lyd_diff_reverse_all(
         src_diff: *const lyd_node,
         diff: *mut *mut lyd_node,
     ) -> LY_ERR::Type;
 }
 pub mod LYD_PATH_TYPE {
+    #[doc = " @brief Types of the different data paths."]
     pub type Type = ::std::os::raw::c_uint;
+    #[doc = "< Generic data path used for logging, node searching (::lyd_find_xpath(), ::lys_find_path()) as well as\ncreating new nodes (::lyd_new_path(), ::lyd_new_path2())."]
     pub const LYD_PATH_STD: Type = 0;
+    #[doc = "< Similar to ::LYD_PATH_STD except there is never a predicate on the last node. While it\ncan be used to search for nodes, do not use it to create new data nodes (lists)."]
     pub const LYD_PATH_STD_NO_LAST_PRED: Type = 1;
 }
 unsafe extern "C" {
+    #[doc = " @brief Generate path of the given node in the requested format.\n\n The path is constructed based on the parent node(s) of this node. When run on a node which is disconnected\n from its parent(s), this function might yield unexpected results such as `/example:b` instead of the expected\n `/example:a/b`.\n\n @param[in] node Data path of this node will be generated.\n @param[in] pathtype Format of the path to generate.\n @param[in,out] buffer Prepared buffer of the @p buflen length to store the generated path.\n                If NULL, memory for the complete path is allocated.\n @param[in] buflen Size of the provided @p buffer.\n @return NULL in case of memory allocation error, path of the node otherwise.\n In case the @p buffer is NULL, the returned string is dynamically allocated and caller is responsible to free it."]
     pub fn lyd_path(
         node: *const lyd_node,
         pathtype: LYD_PATH_TYPE::Type,
@@ -12379,6 +9665,7 @@ unsafe extern "C" {
     ) -> *mut ::std::os::raw::c_char;
 }
 unsafe extern "C" {
+    #[doc = " @brief Find a specific metadata.\n\n @param[in] first First metadata to consider.\n @param[in] module Module of the metadata definition, may be NULL if @p name includes a prefix.\n @param[in] name Name of the metadata to find, may not include a prefix (module name) if @p module is set.\n @return Found metadata,\n @return NULL if not found."]
     pub fn lyd_find_meta(
         first: *const lyd_meta,
         module: *const lys_module,
@@ -12386,6 +9673,7 @@ unsafe extern "C" {
     ) -> *mut lyd_meta;
 }
 unsafe extern "C" {
+    #[doc = " @brief Search in the given siblings (NOT recursively) for the first target instance with the same value.\n Uses hashes - should be used whenever possible for best performance.\n\n @param[in] siblings Siblings to search in including preceding and succeeding nodes.\n @param[in] target Target node to find.\n @param[out] match Can be NULL, otherwise the found data node.\n @return LY_SUCCESS on success, @p match set.\n @return LY_ENOTFOUND if not found, @p match set to NULL.\n @return LY_ERR value if another error occurred."]
     pub fn lyd_find_sibling_first(
         siblings: *const lyd_node,
         target: *const lyd_node,
@@ -12393,6 +9681,7 @@ unsafe extern "C" {
     ) -> LY_ERR::Type;
 }
 unsafe extern "C" {
+    #[doc = " @brief Search in the given siblings for the first schema instance.\n Uses hashes - should be used whenever possible for best performance.\n\n @param[in] siblings Siblings to search in including preceding and succeeding nodes.\n @param[in] schema Schema node of the data node to find.\n @param[in] key_or_value If it is NULL, the first schema node data instance is found. For nodes with many\n instances, it can be set based on the type of @p schema:\n              LYS_LEAFLIST:\n                  Searched instance value.\n              LYS_LIST:\n                  Searched instance key values in the form of \"[key1='val1'][key2='val2']...\".\n                  The keys do not have to be ordered but all of them must be set.\n\n              Note that any explicit values (leaf-list or list key values) will be canonized first\n              before comparison. But values that do not have a canonical value are expected to be in the\n              JSON format!\n @param[in] val_len Optional length of @p key_or_value in case it is not 0-terminated.\n @param[out] match Can be NULL, otherwise the found data node.\n @return LY_SUCCESS on success, @p match set.\n @return LY_ENOTFOUND if not found, @p match set to NULL.\n @return LY_EINVAL if @p schema is a key-less list.\n @return LY_ERR value if another error occurred."]
     pub fn lyd_find_sibling_val(
         siblings: *const lyd_node,
         schema: *const lysc_node,
@@ -12402,6 +9691,7 @@ unsafe extern "C" {
     ) -> LY_ERR::Type;
 }
 unsafe extern "C" {
+    #[doc = " @brief Search the given siblings for all the exact same instances of a specific node instance.\n Uses hashes to whatever extent possible.\n\n @param[in] siblings Siblings to search in including preceding and succeeding nodes.\n @param[in] target Target node instance to find.\n @param[out] set Set with all the found instances. The first item is always the first instance.\n @return LY_SUCCESS on success, @p set returned.\n @return LY_ENOTFOUND if not found, empty @p set returned.\n @return LY_ERR value if another error occurred."]
     pub fn lyd_find_sibling_dup_inst_set(
         siblings: *const lyd_node,
         target: *const lyd_node,
@@ -12409,6 +9699,7 @@ unsafe extern "C" {
     ) -> LY_ERR::Type;
 }
 unsafe extern "C" {
+    #[doc = " @brief Search the given siblings for an opaque node with a specific name.\n\n @param[in] first First sibling to consider.\n @param[in] name Opaque node name to find.\n @param[out] match Can be NULL, otherwise the found data node.\n @return LY_SUCCESS on success, @p match set.\n @return LY_ENOTFOUND if not found, @p match set to NULL.\n @return LY_ERR value is an error occurred."]
     pub fn lyd_find_sibling_opaq_next(
         first: *const lyd_node,
         name: *const ::std::os::raw::c_char,
@@ -12416,6 +9707,7 @@ unsafe extern "C" {
     ) -> LY_ERR::Type;
 }
 unsafe extern "C" {
+    #[doc = " @brief Set a new XPath variable to @p vars.\n\n @param[in,out] vars Pointer to [sized array](@ref sizedarrays) of XPath variables.\n To create a new array, set the @p vars target pointer to NULL.\n Otherwise variable named @p name with a value @p value will be added to the @p vars\n or its value will be changed if the variable is already defined.\n @param[in] name Name of the added/edited variable.\n @param[in] value Value of the variable.\n @return LY_ERR value."]
     pub fn lyxp_vars_set(
         vars: *mut *mut lyxp_var,
         name: *const ::std::os::raw::c_char,
@@ -12423,9 +9715,11 @@ unsafe extern "C" {
     ) -> LY_ERR::Type;
 }
 unsafe extern "C" {
+    #[doc = " @brief Free the XPath variables.\n\n @param[in] vars [Sized array](@ref sizedarrays) of XPath variables."]
     pub fn lyxp_vars_free(vars: *mut lyxp_var);
 }
 unsafe extern "C" {
+    #[doc = " @brief Search in the given data for instances of nodes matching the provided XPath.\n\n If a list instance is being selected with all its key values specified and ordered\n in the form `list[key1=...][key2=...][key3=...]` or a leaf-list instance in the form\n `leaf-list[.=...]`, these instances are found using hashes with constant (*O(1)*) complexity\n (unless they are defined in top-level). Other predicates can still follow the aforementioned ones.\n\n Opaque nodes are part of the evaluation but only those with a matching schema node.\n\n Extension instance data and anyxml/anydata contents are normally traversed and part of the evaluation.\n\n @param[in] ctx_node XPath context node.\n @param[in] xpath [XPath](@ref howtoXPath) to select in JSON format. It must evaluate into a node set.\n @param[out] set Set of found data nodes. In case the result is a number, a string, or a boolean,\n the returned set is empty.\n @return LY_SUCCESS on success, @p set is returned.\n @return LY_ERR value if an error occurred."]
     pub fn lyd_find_xpath(
         ctx_node: *const lyd_node,
         xpath: *const ::std::os::raw::c_char,
@@ -12433,6 +9727,7 @@ unsafe extern "C" {
     ) -> LY_ERR::Type;
 }
 unsafe extern "C" {
+    #[doc = " @brief Search in the given data for instances of nodes matching the provided XPath.\n\n It is ::lyd_find_xpath() with @p vars added.\n\n @param[in] ctx_node XPath context node.\n @param[in] xpath [XPath](@ref howtoXPath) to select in JSON format.\n @param[in] vars [Sized array](@ref sizedarrays) of XPath variables.\n @param[out] set Set of found data nodes. In case the result is a number, a string, or a boolean,\n the returned set is empty.\n @return LY_SUCCESS on success, @p set is returned.\n @return LY_ERR value if an error occurred."]
     pub fn lyd_find_xpath2(
         ctx_node: *const lyd_node,
         xpath: *const ::std::os::raw::c_char,
@@ -12441,6 +9736,7 @@ unsafe extern "C" {
     ) -> LY_ERR::Type;
 }
 unsafe extern "C" {
+    #[doc = " @brief Search in the given data for instances of nodes matching the provided XPath.\n\n It is ::lyd_find_xpath2() with @p tree added so that @p ctx_node may be the root and\n also @p format and @p prefix_data added for expressions in different formats than JSON.\n\n @param[in] ctx_node XPath context node, NULL for the root node.\n @param[in] tree Data tree to evaluate on.\n @param[in] xpath [XPath](@ref howtoXPath) to select with prefixes in @p format.\n @param[in] format Format of any prefixes in @p xpath.\n @param[in] prefix_data Format-specific prefix data.\n @param[in] vars [Sized array](@ref sizedarrays) of XPath variables.\n @param[out] set Set of found data nodes. In case the result is a number, a string, or a boolean,\n the returned set is empty.\n @return LY_SUCCESS on success, @p set is returned.\n @return LY_ERR value if an error occurred."]
     pub fn lyd_find_xpath3(
         ctx_node: *const lyd_node,
         tree: *const lyd_node,
@@ -12452,6 +9748,7 @@ unsafe extern "C" {
     ) -> LY_ERR::Type;
 }
 unsafe extern "C" {
+    #[doc = " @brief Evaluate an XPath on data and return the result converted to boolean.\n\n Optimizations similar as in ::lyd_find_xpath().\n\n @param[in] ctx_node XPath context node.\n @param[in] xpath [XPath](@ref howtoXPath) to select in JSON format.\n @param[out] result Expression result converted to boolean.\n @return LY_SUCCESS on success, @p result is returned.\n @return LY_ERR value if an error occurred."]
     pub fn lyd_eval_xpath(
         ctx_node: *const lyd_node,
         xpath: *const ::std::os::raw::c_char,
@@ -12459,6 +9756,7 @@ unsafe extern "C" {
     ) -> LY_ERR::Type;
 }
 unsafe extern "C" {
+    #[doc = " @brief Evaluate an XPath on data and return the result converted to boolean.\n\n It is ::lyd_eval_xpath() with @p vars added.\n\n @param[in] ctx_node XPath context node.\n @param[in] xpath [XPath](@ref howtoXPath) to select in JSON format.\n @param[in] vars [Sized array](@ref sizedarrays) of XPath variables.\n @param[out] result Expression result converted to boolean.\n @return LY_SUCCESS on success, @p result is returned.\n @return LY_ERR value if an error occurred."]
     pub fn lyd_eval_xpath2(
         ctx_node: *const lyd_node,
         xpath: *const ::std::os::raw::c_char,
@@ -12467,6 +9765,7 @@ unsafe extern "C" {
     ) -> LY_ERR::Type;
 }
 unsafe extern "C" {
+    #[doc = " @brief Evaluate an XPath on data and return the result converted to boolean.\n\n It is ::lyd_eval_xpath2() with @p format and @p prefix_data added for special use-cases.\n\n @param[in] ctx_node XPath context node.\n @param[in] cur_mod Current module of @p xpath, needed for some kinds of @p format.\n @param[in] xpath [XPath](@ref howtoXPath) to select with prefixes in in @p format.\n @param[in] format Format of any prefixes in @p xpath.\n @param[in] prefix_data Format-specific prefix data.\n @param[in] vars [Sized array](@ref sizedarrays) of XPath variables.\n @param[out] result Expression result converted to boolean.\n @return LY_SUCCESS on success, @p result is returned.\n @return LY_ERR value if an error occurred."]
     pub fn lyd_eval_xpath3(
         ctx_node: *const lyd_node,
         cur_mod: *const lys_module,
@@ -12478,13 +9777,19 @@ unsafe extern "C" {
     ) -> LY_ERR::Type;
 }
 pub mod LY_XPATH_TYPE {
+    #[doc = " @brief XPath result type."]
     pub type Type = ::std::os::raw::c_uint;
+    #[doc = "< XPath node set"]
     pub const LY_XPATH_NODE_SET: Type = 0;
+    #[doc = "< XPath string"]
     pub const LY_XPATH_STRING: Type = 1;
+    #[doc = "< XPath number"]
     pub const LY_XPATH_NUMBER: Type = 2;
+    #[doc = "< XPath boolean"]
     pub const LY_XPATH_BOOLEAN: Type = 3;
 }
 unsafe extern "C" {
+    #[doc = " @brief Evaluate an XPath on data and return the result or convert it first to an expected result type.\n\n Either all return type parameters @p node_set, @p string, @p number, and @p boolean with @p ret_type\n are provided or exactly one of @p node_set, @p string, @p number, and @p boolean is provided with @p ret_type\n being obvious and hence optional.\n\n @param[in] ctx_node XPath context node, NULL for the root node.\n @param[in] tree Data tree to evaluate on.\n @param[in] cur_mod Current module of @p xpath, needed for some kinds of @p format.\n @param[in] xpath [XPath](@ref howtoXPath) to select.\n @param[in] format Format of any prefixes in @p xpath.\n @param[in] prefix_data Format-specific prefix data.\n @param[in] vars Optional [sized array](@ref sizedarrays) of XPath variables.\n @param[out] ret_type XPath type of the result selecting which of @p node_set, @p string, @p number, and @p boolean to use.\n @param[out] node_set XPath node set result.\n @param[out] string XPath string result.\n @param[out] number XPath number result.\n @param[out] boolean XPath boolean result.\n @return LY_SUCCESS on success.\n @return LY_ERR value on error."]
     pub fn lyd_eval_xpath4(
         ctx_node: *const lyd_node,
         tree: *const lyd_node,
@@ -12496,11 +9801,12 @@ unsafe extern "C" {
         ret_type: *mut LY_XPATH_TYPE::Type,
         node_set: *mut *mut ly_set,
         string: *mut *mut ::std::os::raw::c_char,
-        number: *mut f64,
+        number: *mut u128,
         boolean: *mut ly_bool,
     ) -> LY_ERR::Type;
 }
 unsafe extern "C" {
+    #[doc = " @brief Evaluate an XPath on data and free all the nodes except the subtrees selected by the expression.\n\n @param[in,out] tree Data tree to evaluate on and trim.\n @param[in] xpath [XPath](@ref howtoXPath) to select in JSON format.\n @param[in] vars Optional [sized array](@ref sizedarrays) of XPath variables.\n @return LY_SUCCESS on success.\n @return LY_ERR value on error."]
     pub fn lyd_trim_xpath(
         tree: *mut *mut lyd_node,
         xpath: *const ::std::os::raw::c_char,
@@ -12508,6 +9814,7 @@ unsafe extern "C" {
     ) -> LY_ERR::Type;
 }
 unsafe extern "C" {
+    #[doc = " @brief Search in given data for a node uniquely identified by a path.\n\n Always works in constant (*O(1)*) complexity. To be exact, it is *O(n)* where *n* is the depth\n of the path used.\n\n Opaque nodes are NEVER found/traversed.\n\n @param[in] ctx_node Path context node.\n @param[in] path [Path](@ref howtoXPath) to find.\n @param[in] output Whether to search in RPC/action output nodes or in input nodes.\n @param[out] match Can be NULL, otherwise the found data node.\n @return LY_SUCCESS on success, @p match is set to the found node.\n @return LY_EINCOMPLETE if only a parent of the node was found, @p match is set to this parent node.\n @return LY_ENOTFOUND if no nodes in the path were found.\n @return LY_ERR on other errors."]
     pub fn lyd_find_path(
         ctx_node: *const lyd_node,
         path: *const ::std::os::raw::c_char,
@@ -12516,6 +9823,7 @@ unsafe extern "C" {
     ) -> LY_ERR::Type;
 }
 unsafe extern "C" {
+    #[doc = " @brief Find the target node of a compiled path (::lyd_value instance-identifier).\n\n @param[in] path Compiled path structure.\n @param[in] tree Data tree to be searched.\n @param[out] match Can be NULL, otherwise the found data node.\n @return LY_SUCCESS on success, @p match is set to the found node.\n @return LY_ENOTFOUND if no match was found.\n @return LY_ERR on other errors."]
     pub fn lyd_find_target(
         path: *const ly_path,
         tree: *const lyd_node,
@@ -12523,12 +9831,15 @@ unsafe extern "C" {
     ) -> LY_ERR::Type;
 }
 unsafe extern "C" {
+    #[doc = " @brief Get current timezone (including DST setting) UTC (GMT) time offset in seconds.\n\n @return Timezone shift in seconds."]
     pub fn ly_time_tz_offset() -> ::std::os::raw::c_int;
 }
 unsafe extern "C" {
+    #[doc = " @brief Get UTC (GMT) timezone offset in seconds at a specific timestamp (including DST setting).\n\n @param[in] time Timestamp to get the offset at.\n @return Timezone shift in seconds."]
     pub fn ly_time_tz_offset_at(time: time_t) -> ::std::os::raw::c_int;
 }
 unsafe extern "C" {
+    #[doc = " @brief Convert date-and-time from string to UNIX timestamp and fractions of a second.\n\n @param[in] value Valid string date-and-time value, the string may continue after the value (be longer).\n @param[out] time UNIX timestamp.\n @param[out] fractions_s Optional fractions of a second, set to NULL if none.\n @return LY_ERR value."]
     pub fn ly_time_str2time(
         value: *const ::std::os::raw::c_char,
         time: *mut time_t,
@@ -12536,6 +9847,7 @@ unsafe extern "C" {
     ) -> LY_ERR::Type;
 }
 unsafe extern "C" {
+    #[doc = " @brief Convert UNIX timestamp and fractions of a second into canonical date-and-time string value.\n\n @param[in] time UNIX timestamp.\n @param[in] fractions_s Fractions of a second, if any.\n @param[out] str String date-and-time value in the local timezone.\n @return LY_ERR value."]
     pub fn ly_time_time2str(
         time: time_t,
         fractions_s: *const ::std::os::raw::c_char,
@@ -12543,27 +9855,32 @@ unsafe extern "C" {
     ) -> LY_ERR::Type;
 }
 unsafe extern "C" {
+    #[doc = " @brief Convert date-and-time from string to timespec.\n\n @param[in] value Valid string date-and-time value, the string may continue after the value (be longer).\n @param[out] ts Timespec.\n @return LY_ERR value."]
     pub fn ly_time_str2ts(
         value: *const ::std::os::raw::c_char,
         ts: *mut timespec,
     ) -> LY_ERR::Type;
 }
 unsafe extern "C" {
+    #[doc = " @brief Convert timespec into date-and-time string value.\n\n @param[in] ts Timespec.\n @param[out] str String date-and-time value in the local timezone.\n @return LY_ERR value."]
     pub fn ly_time_ts2str(
         ts: *const timespec,
         str_: *mut *mut ::std::os::raw::c_char,
     ) -> LY_ERR::Type;
 }
 unsafe extern "C" {
+    #[doc = " @brief Gets the leafref links record for given node\n\n This API requires usage of ::LY_CTX_LEAFREF_LINKING context flag.\n\n @param[in] node The term data node.\n @param[out] record The leafref links record\n @return LY_SUCCESS on success.\n @return LY_ERR value on error."]
     pub fn lyd_leafref_get_links(
         node: *const lyd_node_term,
         record: *mut *const lyd_leafref_links_rec,
     ) -> LY_ERR::Type;
 }
 unsafe extern "C" {
+    #[doc = " @brief Traverse through data tree including root node siblings and adds leafrefs links to the given nodes\n\n This API requires usage of ::LY_CTX_LEAFREF_LINKING context flag.\n\n @param[in] tree The data tree root node.\n @return LY_SUCCESS on success.\n @return LY_ERR value on error."]
     pub fn lyd_leafref_link_node_tree(tree: *const lyd_node) -> LY_ERR::Type;
 }
 unsafe extern "C" {
+    #[doc = " @brief Check a string matches an XML Schema regex used in YANG.\n\n @param[in] ctx Optional context for storing errors.\n @param[in] pattern Regular expression pattern to use.\n @param[in] string String to match.\n @param[in] str_len Length of @p string, may be 0 if string is 0-terminated.\n @param[in,out] pat_comp Optional pointer to pattern code. If set and NULL, it is returned. If set and non-NULL, it is\n used directly for matching instead of compiling @p pattern. Free it using ::ly_pattern_free().\n @return LY_SUCCESS on a match;\n @return LY_ENOT if the string does not match;\n @return LY_ERR on error."]
     pub fn ly_pattern_match(
         ctx: *const ly_ctx,
         pattern: *const ::std::os::raw::c_char,
@@ -12573,6 +9890,7 @@ unsafe extern "C" {
     ) -> LY_ERR::Type;
 }
 unsafe extern "C" {
+    #[doc = " @brief Compile an XML Schema regex pattern prior to matching.\n\n @param[in] ctx Optional context for storing errors.\n @param[in] pattern Regular expression pattern to use.\n @param[out] pat_comp Compiled @p pattern to be used by ::ly_pattern_match(). Free it using ::ly_pattern_free().\n @return LY_SUCCESS on success;\n @return LY_ERR on error."]
     pub fn ly_pattern_compile(
         ctx: *const ly_ctx,
         pattern: *const ::std::os::raw::c_char,
@@ -12580,9 +9898,11 @@ unsafe extern "C" {
     ) -> LY_ERR::Type;
 }
 unsafe extern "C" {
+    #[doc = " @brief Free a compiled XML Schema regex pattern.\n\n @param[in] pat_comp Compiled pattern to free."]
     pub fn ly_pattern_free(pat_comp: *mut ::std::os::raw::c_void);
 }
 unsafe extern "C" {
+    #[doc = " @brief Create libyang context.\n\n Context is used to hold all information about schemas. Usually, the application is supposed\n to work with a single context in which libyang is holding all schemas (and other internal\n information) according to which the data trees will be processed and validated. So, the schema\n trees are tightly connected with the specific context and they are held by the context internally\n - caller does not need to keep pointers to the schemas returned by ::lys_parse(), context knows\n about them. The data trees created with \\b lyd_parse_*() are still connected with the specific context,\n but they are not internally held by the context. The data tree just points and lean on some data\n held by the context (schema tree, string dictionary, etc.). Therefore, in case of data trees, caller\n is supposed to keep pointers returned by the \\b lyd_parse_*() functions and manage the data tree on its own. This\n also affects the number of instances of both tree types. While you can have only one instance of\n specific schema connected with a single context, number of data tree instances is not connected.\n\n @param[in] search_dir Directory (or directories) where libyang will search for the imported or included modules\n and submodules. If no such directory is available, NULL is accepted. Several directories can be specified,\n delimited by colon \":\" (on Windows, use semicolon \";\" instead).\n @param[in] options Context options, see @ref contextoptions.\n @param[out] new_ctx Pointer to the created libyang context if LY_SUCCESS returned.\n @return LY_ERR return value."]
     pub fn ly_ctx_new(
         search_dir: *const ::std::os::raw::c_char,
         options: u32,
@@ -12590,6 +9910,7 @@ unsafe extern "C" {
     ) -> LY_ERR::Type;
 }
 unsafe extern "C" {
+    #[doc = " @brief Create libyang context according to the provided yang-library data in a file.\n\n This function loads the yang-library data from the given path. If you need to pass the data as\n string, use ::::ly_ctx_new_ylmem(). Both functions extend functionality of ::ly_ctx_new() by loading\n modules specified in the ietf-yang-library form into the context being created.\n The preferred tree module revision is 2019-01-04. However, only the first module-set is processed and loaded\n into the context. If there are no matching nodes from this tree, the legacy tree (originally from module revision 2016-04-09)\n is processed. Note, that the modules are loaded the same way as in case of ::ly_ctx_load_module(), so the schema paths in the\n yang-library data are ignored and the modules are loaded from the context's search locations. On the other hand, YANG features\n of the modules are set as specified in the yang-library data.\n To get yang library data from a libyang context, use ::ly_ctx_get_yanglib_data().\n\n @param[in] search_dir Directory where libyang will search for the imported or included modules and submodules.\n If no such directory is available, NULL is accepted.\n @param[in] path Path to the file containing yang-library-data in the specified format\n @param[in] format Format of the data in the provided file.\n @param[in] options Context options, see @ref contextoptions.\n @param[in,out] ctx If *ctx is not NULL, the existing libyang context is modified.  Otherwise, a pointer to a\n newly created context is returned here if LY_SUCCESS.\n @return LY_ERR return value"]
     pub fn ly_ctx_new_ylpath(
         search_dir: *const ::std::os::raw::c_char,
         path: *const ::std::os::raw::c_char,
@@ -12599,6 +9920,7 @@ unsafe extern "C" {
     ) -> LY_ERR::Type;
 }
 unsafe extern "C" {
+    #[doc = " @brief Create libyang context according to the provided yang-library data in a string.\n\n Details in ::ly_ctx_new_ylpath().\n\n @param[in] search_dir Directory where libyang will search for the imported or included modules and submodules.\n If no such directory is available, NULL is accepted.\n @param[in] data String containing yang-library data in the specified format.\n @param[in] format Format of the data in the provided file.\n @param[in] options Context options, see @ref contextoptions.\n @param[in,out] ctx If *ctx is not NULL, the existing libyang context is modified.  Otherwise, a pointer to a\n newly created context is returned here if LY_SUCCESS.\n @return LY_ERR return value"]
     pub fn ly_ctx_new_ylmem(
         search_dir: *const ::std::os::raw::c_char,
         data: *const ::std::os::raw::c_char,
@@ -12608,6 +9930,7 @@ unsafe extern "C" {
     ) -> LY_ERR::Type;
 }
 unsafe extern "C" {
+    #[doc = " @brief Create libyang context according to the provided yang-library data in a data tree.\n\n Details in ::ly_ctx_new_ylpath().\n\n @param[in] search_dir Directory where libyang will search for the imported or included modules and submodules.\n If no such directory is available, NULL is accepted.\n @param[in] tree Data tree pointing to the 'yang-library' data.\n @param[in] options Context options, see @ref contextoptions.\n @param[in,out] ctx If *ctx is not NULL, the existing libyang context is modified.  Otherwise, a pointer to a\n newly created context is returned here if LY_SUCCESS.\n @return LY_ERR return value"]
     pub fn ly_ctx_new_yldata(
         search_dir: *const ::std::os::raw::c_char,
         tree: *const lyd_node,
@@ -12616,52 +9939,64 @@ unsafe extern "C" {
     ) -> LY_ERR::Type;
 }
 unsafe extern "C" {
+    #[doc = " @brief Compile (recompile) the context applying all the performed changes after the last context compilation.\n Should be used only if ::LY_CTX_EXPLICIT_COMPILE option is set, has no effect otherwise.\n\n @param[in] ctx Context to compile.\n @return LY_ERR return value."]
     pub fn ly_ctx_compile(ctx: *mut ly_ctx) -> LY_ERR::Type;
 }
 unsafe extern "C" {
+    #[doc = " @brief Add the search path into libyang context\n\n To reset search paths set in the context, use ::ly_ctx_unset_searchdir() and then\n set search paths again.\n\n @param[in] ctx Context to be modified.\n @param[in] search_dir New search path to add to the current paths previously set in ctx.\n @return LY_ERR return value."]
     pub fn ly_ctx_set_searchdir(
         ctx: *mut ly_ctx,
         search_dir: *const ::std::os::raw::c_char,
     ) -> LY_ERR::Type;
 }
 unsafe extern "C" {
+    #[doc = " @brief Clean the search path(s) from the libyang context\n\n To remove the recently added search path(s), use ::ly_ctx_unset_searchdir_last().\n\n @param[in] ctx Context to be modified.\n @param[in] value Searchdir to be removed, use NULL to remove them all.\n @return LY_ERR return value"]
     pub fn ly_ctx_unset_searchdir(
         ctx: *mut ly_ctx,
         value: *const ::std::os::raw::c_char,
     ) -> LY_ERR::Type;
 }
 unsafe extern "C" {
+    #[doc = " @brief Remove the least recently added search path(s) from the libyang context.\n\n To remove a specific search path by its value, use ::ly_ctx_unset_searchdir().\n\n @param[in] ctx Context to be modified.\n @param[in] count Number of the searchdirs to be removed (starting by the least recently added).\n If the value is higher then the actual number of search paths, all paths are removed and no error is returned.\n Value 0 does not change the search path set.\n @return LY_ERR return value"]
     pub fn ly_ctx_unset_searchdir_last(
         ctx: *mut ly_ctx,
         count: u32,
     ) -> LY_ERR::Type;
 }
 unsafe extern "C" {
+    #[doc = " @brief Get the NULL-terminated list of the search paths in libyang context. Do not modify the result!\n\n @param[in] ctx Context to query.\n @return NULL-terminated list (array) of the search paths, NULL if no searchpath was set.\n Do not modify the provided data in any way!"]
     pub fn ly_ctx_get_searchdirs(
         ctx: *const ly_ctx,
     ) -> *const *const ::std::os::raw::c_char;
 }
 unsafe extern "C" {
+    #[doc = " @brief Get the currently set context's options.\n\n @param[in] ctx Context to query.\n @return Combination of all the currently set context's options, see @ref contextoptions."]
     pub fn ly_ctx_get_options(ctx: *const ly_ctx) -> u32;
 }
 unsafe extern "C" {
+    #[doc = " @brief Set some of the context's options, see @ref contextoptions.\n @param[in] ctx Context to be modified.\n @param[in] option Combination of the context's options to be set, see @ref contextoptions.\n If there is to be a change to ::LY_CTX_SET_PRIV_PARSED, the context will be recompiled\n and all ::lysc_node.priv in the modules will be overwritten, see ::LY_CTX_SET_PRIV_PARSED.\n @return LY_ERR value."]
     pub fn ly_ctx_set_options(ctx: *mut ly_ctx, option: u32) -> LY_ERR::Type;
 }
 unsafe extern "C" {
+    #[doc = " @brief Unset some of the context's options, see @ref contextoptions.\n @param[in] ctx Context to be modified.\n @param[in] option Combination of the context's options to be unset, see @ref contextoptions.\n @return LY_ERR value."]
     pub fn ly_ctx_unset_options(ctx: *mut ly_ctx, option: u32) -> LY_ERR::Type;
 }
 unsafe extern "C" {
+    #[doc = " @brief Get the change count of the context (module set) during its life-time.\n\n @param[in] ctx Context to be examined.\n @return Context change count."]
     pub fn ly_ctx_get_change_count(ctx: *const ly_ctx) -> u16;
 }
 unsafe extern "C" {
+    #[doc = " @brief Get the hash of all the modules in the context. Since order of the modules is significant,\n even when 2 contexts have the same modules but loaded in a different order, the hash will differ.\n\n Modules are added into the context in the order they are loaded in, imports following the modules\n that imported them.\n\n Hash consists of all module names (1), their revisions (2), all enabled features (3), and their\n imported/implemented state (4).\n\n @param[in] ctx Context to be examined.\n @return Context modules hash."]
     pub fn ly_ctx_get_modules_hash(ctx: *const ly_ctx) -> u32;
 }
+#[doc = " @brief Callback for freeing returned module data in #ly_module_imp_clb.\n\n @param[in] module_data Data to free.\n @param[in] user_data User-supplied callback data, same as for #ly_module_imp_clb."]
 pub type ly_module_imp_data_free_clb = ::std::option::Option<
     unsafe extern "C" fn(
         module_data: *mut ::std::os::raw::c_void,
         user_data: *mut ::std::os::raw::c_void,
     ),
 >;
+#[doc = " @brief Callback for retrieving missing included or imported modules in a custom way.\n\n When @p submod_name is provided, the submodule is requested instead of the module (in this case only\n the module name without its revision is provided).\n\n If an @arg free_module_data callback is provided, it will be used later to free the allegedly const data\n which were returned by this callback.\n\n @param[in] mod_name Missing module name.\n @param[in] mod_rev Optional missing module revision. If NULL and submod_name is not provided, the latest revision is\n requested, the parsed module is then marked by the latest_revision flag.\n @param[in] submod_name Optional missing submodule name.\n @param[in] submod_rev Optional missing submodule revision. If NULL and submod_name is provided, the latest revision is\n requested, the parsed submodule is then marked by the latest_revision flag.\n @param[in] user_data User-supplied callback data.\n @param[out] format Format of the returned module data.\n @param[out] module_data Requested module data.\n @param[out] free_module_data Callback for freeing the returned module data. If not set, the data will be left untouched.\n @return LY_ERR value. If the returned value differs from LY_SUCCESS, libyang continue in trying to get the module data\n according to the settings of its mechanism to search for the imported/included schemas."]
 pub type ly_module_imp_clb = ::std::option::Option<
     unsafe extern "C" fn(
         mod_name: *const ::std::os::raw::c_char,
@@ -12675,18 +10010,21 @@ pub type ly_module_imp_clb = ::std::option::Option<
     ) -> LY_ERR::Type,
 >;
 unsafe extern "C" {
+    #[doc = " @brief Get the custom callback for missing import/include module retrieval.\n\n @param[in] ctx Context to read from.\n @param[in] user_data Optional pointer for getting the user-supplied callback data.\n @return Callback or NULL if not set."]
     pub fn ly_ctx_get_module_imp_clb(
         ctx: *const ly_ctx,
         user_data: *mut *mut ::std::os::raw::c_void,
     ) -> ly_module_imp_clb;
 }
 unsafe extern "C" {
+    #[doc = " @brief Set missing include or import module callback. It is meant to be used when the modules\n are not locally available (such as when downloading modules from a NETCONF server), it should\n not be required in other cases.\n\n @param[in] ctx Context that will use this callback.\n @param[in] clb Callback responsible for returning the missing module.\n @param[in] user_data Arbitrary data that will always be passed to the callback @p clb."]
     pub fn ly_ctx_set_module_imp_clb(
         ctx: *mut ly_ctx,
         clb: ly_module_imp_clb,
         user_data: *mut ::std::os::raw::c_void,
     );
 }
+#[doc = " @brief Callback for getting arbitrary run-time data required by an extension instance.\n\n @param[in] ext Compiled extension instance.\n @param[in] parent Data parent node instance of a schema node with @p ext instance. In special cases\n (when not working with data) it can be NULL!\n @param[in] user_data User-supplied callback data.\n @param[out] ext_data Provided extension instance data.\n @param[out] ext_data_free Whether the extension instance should free @p ext_data or not.\n @return LY_ERR value."]
 pub type ly_ext_data_clb = ::std::option::Option<
     unsafe extern "C" fn(
         ext: *const lysc_ext_instance,
@@ -12697,6 +10035,7 @@ pub type ly_ext_data_clb = ::std::option::Option<
     ) -> LY_ERR::Type,
 >;
 unsafe extern "C" {
+    #[doc = " @brief Set callback providing run-time extension instance data. The expected data depend on the extension.\n Data expected by internal extensions:\n\n - *ietf-yang-schema-mount:mount-point* (struct lyd_node \\*\\*ext_data)\\n\n Operational data tree with at least `ietf-yang-library` data describing the mounted schema and\n `ietf-yang-schema-mount` **validated** data describing the specific mount point\n ([ref](https://datatracker.ietf.org/doc/html/rfc8528#section-3.3)).\n\n @param[in] ctx Context that will use this callback.\n @param[in] clb Callback responsible for returning the extension instance data.\n @param[in] user_data Arbitrary data that will always be passed to the callback @p clb."]
     pub fn ly_ctx_set_ext_data_clb(
         ctx: *const ly_ctx,
         clb: ly_ext_data_clb,
@@ -12704,6 +10043,7 @@ unsafe extern "C" {
     ) -> ly_ext_data_clb;
 }
 unsafe extern "C" {
+    #[doc = " @brief Get YANG module of the given name and revision.\n\n @param[in] ctx Context to work in.\n @param[in] name Name of the YANG module to get.\n @param[in] revision Requested revision date of the YANG module to get. If not specified,\n the schema with no revision is returned, if it is present in the context.\n @return Pointer to the YANG module, NULL if no schema in the context follows the name and revision requirements."]
     pub fn ly_ctx_get_module(
         ctx: *const ly_ctx,
         name: *const ::std::os::raw::c_char,
@@ -12711,24 +10051,28 @@ unsafe extern "C" {
     ) -> *mut lys_module;
 }
 unsafe extern "C" {
+    #[doc = " @brief Get the latest revision of the YANG module specified by its name.\n\n YANG modules with no revision are supposed to be the oldest one.\n\n @param[in] ctx Context where to search.\n @param[in] name Name of the YANG module to get.\n @return The latest revision of the specified YANG module in the given context, NULL if no YANG module of the\n given name is present in the context."]
     pub fn ly_ctx_get_module_latest(
         ctx: *const ly_ctx,
         name: *const ::std::os::raw::c_char,
     ) -> *mut lys_module;
 }
 unsafe extern "C" {
+    #[doc = " @brief Get the (only) implemented YANG module specified by its name.\n\n @param[in] ctx Context where to search.\n @param[in] name Name of the YANG module to get.\n @return The only implemented YANG module revision of the given name in the given context. NULL if there is no\n implemented module of the given name."]
     pub fn ly_ctx_get_module_implemented(
         ctx: *const ly_ctx,
         name: *const ::std::os::raw::c_char,
     ) -> *mut lys_module;
 }
 unsafe extern "C" {
+    #[doc = " @brief Iterate over all modules in the given context.\n\n @param[in] ctx Context with the modules.\n @param[in,out] index Index of the next module to get. Value of 0 starts from the beginning.\n The value is updated with each call, so to iterate over all modules the same variable is supposed\n to be used in all calls starting with value 0.\n @return Next context module, NULL if the last was already returned."]
     pub fn ly_ctx_get_module_iter(
         ctx: *const ly_ctx,
         index: *mut u32,
     ) -> *mut lys_module;
 }
 unsafe extern "C" {
+    #[doc = " @brief Get YANG module of the given namespace and revision.\n\n @param[in] ctx Context to work in.\n @param[in] ns Namespace of the YANG module to get.\n @param[in] revision Requested revision date of the YANG module to get. If not specified,\n the schema with no revision is returned, if it is present in the context.\n @return Pointer to the YANG module, NULL if no schema in the context follows the namespace and revision requirements."]
     pub fn ly_ctx_get_module_ns(
         ctx: *const ly_ctx,
         ns: *const ::std::os::raw::c_char,
@@ -12736,18 +10080,21 @@ unsafe extern "C" {
     ) -> *mut lys_module;
 }
 unsafe extern "C" {
+    #[doc = " @brief Get the latest revision of the YANG module specified by its namespace.\n\n YANG modules with no revision are supposed to be the oldest one.\n\n @param[in] ctx Context where to search.\n @param[in] ns Namespace of the YANG module to get.\n @return The latest revision of the specified YANG module in the given context, NULL if no YANG module of the\n given namespace is present in the context."]
     pub fn ly_ctx_get_module_latest_ns(
         ctx: *const ly_ctx,
         ns: *const ::std::os::raw::c_char,
     ) -> *mut lys_module;
 }
 unsafe extern "C" {
+    #[doc = " @brief Get the (only) implemented YANG module specified by its namespace.\n\n @param[in] ctx Context where to search.\n @param[in] ns Namespace of the YANG module to get.\n @return The only implemented YANG module revision of the given namespace in the given context. NULL if there is no\n implemented module of the given namespace."]
     pub fn ly_ctx_get_module_implemented_ns(
         ctx: *const ly_ctx,
         ns: *const ::std::os::raw::c_char,
     ) -> *mut lys_module;
 }
 unsafe extern "C" {
+    #[doc = " @brief Get a specific submodule from context. If its belongs-to module is known, use ::ly_ctx_get_submodule2().\n\n @param[in] ctx libyang context to search in.\n @param[in] submodule Submodule name to find.\n @param[in] revision Revision of the submodule to find, NULL for a submodule without a revision.\n @return Found submodule, NULL if there is none."]
     pub fn ly_ctx_get_submodule(
         ctx: *const ly_ctx,
         submodule: *const ::std::os::raw::c_char,
@@ -12755,12 +10102,14 @@ unsafe extern "C" {
     ) -> *const lysp_submodule;
 }
 unsafe extern "C" {
+    #[doc = " @brief Get the latests revision of a submodule from context. If its belongs-to module is known,\n use ::ly_ctx_get_submodule2_latest().\n\n @param[in] ctx libyang context to search in.\n @param[in] submodule Submodule name to find.\n @return Found submodule, NULL if there is none."]
     pub fn ly_ctx_get_submodule_latest(
         ctx: *const ly_ctx,
         submodule: *const ::std::os::raw::c_char,
     ) -> *const lysp_submodule;
 }
 unsafe extern "C" {
+    #[doc = " @brief Get a specific submodule from a module. If the belongs-to module is not known, use ::ly_ctx_get_submodule().\n\n @param[in] module Belongs-to module to search in.\n @param[in] submodule Submodule name to find.\n @param[in] revision Revision of the submodule to find, NULL for a submodule without a revision.\n @return Found submodule, NULL if there is none."]
     pub fn ly_ctx_get_submodule2(
         module: *const lys_module,
         submodule: *const ::std::os::raw::c_char,
@@ -12768,15 +10117,18 @@ unsafe extern "C" {
     ) -> *const lysp_submodule;
 }
 unsafe extern "C" {
+    #[doc = " @brief Get the latest revision of a submodule from a module. If the belongs-to module is not known,\n use ::ly_ctx_get_submodule_latest().\n\n @param[in] module Belongs-to module to search in.\n @param[in] submodule Submodule name to find.\n @return Found submodule, NULL if there is none."]
     pub fn ly_ctx_get_submodule2_latest(
         module: *const lys_module,
         submodule: *const ::std::os::raw::c_char,
     ) -> *const lysp_submodule;
 }
 unsafe extern "C" {
+    #[doc = " @brief Learn the number of internal modules of a context. Internal modules\n is considered one that was loaded during the context creation.\n\n @param[in] ctx libyang context to examine.\n @return Number of internal modules."]
     pub fn ly_ctx_internal_modules_count(ctx: *const ly_ctx) -> u32;
 }
 unsafe extern "C" {
+    #[doc = " @brief Try to find the module in the searchpaths of @p ctx and load it into it. If custom missing\n module callback is set, it is used instead.\n\n The context itself is searched for the requested module first. If @p revision is not specified\n (the module of the latest revision is requested) and there is implemented revision of the requested\n module in the context, this implemented revision is returned despite there might be a newer revision.\n This behavior is cause by the fact that it is not possible to have multiple implemented revisions of\n the same module in the context.\n\n @param[in] ctx Context to add to.\n @param[in] name Name of the module to load.\n @param[in] revision Optional revision date of the module. If not specified, the latest revision is loaded.\n @param[in] features Optional array of features ended with NULL to be enabled if the module is being implemented.\n The feature string '*' enables all and array of length 1 with only the terminating NULL explicitly disables all\n the features. In case the parameter is NULL, the features are untouched - left disabled in newly loaded module or\n with the current features settings in case the module is already present in the context.\n @return Found module, NULL if not found or some error occurred."]
     pub fn ly_ctx_load_module(
         ctx: *mut ly_ctx,
         name: *const ::std::os::raw::c_char,
@@ -12785,6 +10137,7 @@ unsafe extern "C" {
     ) -> *mut lys_module;
 }
 unsafe extern "C" {
+    #[doc = " @brief Get data of the internal ietf-yang-library module with information about all the loaded modules.\n ietf-yang-library module must be loaded.\n\n Note that \"/ietf-yang-library:yang-library/datastore\" list instances are not created and should be\n appended by the caller. There is a single \"/ietf-yang-library:yang-library/schema\" instance created\n with the key value \"complete\".\n\n If the data identifier can be limited to the existence and changes of this context, the following\n last 2 parameters can be used:\n\n \"%u\" as @p content_id_format and ::ly_ctx_get_change_count() as its parameter;\n \"%u\" as @p content_id_format and ::ly_ctx_get_modules_hash() as its parameter.\n\n @param[in] ctx Context with the modules.\n @param[out] root Generated yang-library data.\n @param[in] content_id_format Format string (printf-like) for the yang-library data identifier, which is\n the \"content_id\" node in the 2019-01-04 revision of ietf-yang-library.\n @param[in] ... Parameters for @p content_id_format.\n @return LY_ERR value"]
     pub fn ly_ctx_get_yanglib_data(
         ctx: *const ly_ctx,
         root: *mut *mut lyd_node,
@@ -12793,12 +10146,15 @@ unsafe extern "C" {
     ) -> LY_ERR::Type;
 }
 unsafe extern "C" {
+    #[doc = " @brief Free all the parsed modules in a context. Any data manipulation will be possible but some schema functionality\n will no longer work.\n\n @param[in] ctx Context with parsed modules to free."]
     pub fn ly_ctx_free_parsed(ctx: *mut ly_ctx);
 }
 unsafe extern "C" {
+    #[doc = " @brief Get the total size a compiled context requires for serialization.\n\n @param[in] ctx Context to use.\n @return Total required size;\n @return -1 on error."]
     pub fn ly_ctx_compiled_size(ctx: *const ly_ctx) -> ::std::os::raw::c_int;
 }
 unsafe extern "C" {
+    #[doc = " @brief Print (serialize) a compiled context (without any parsed modules) into a pre-allocated memory chunk.\n\n @param[in] ctx Compiled context to print.\n @param[in] mem Memory to print to, must be large enough.\n @param[out] mem_end Optional pointer after the printed context.\n @return LY_ERR value."]
     pub fn ly_ctx_compiled_print(
         ctx: *const ly_ctx,
         mem: *mut ::std::os::raw::c_void,
@@ -12806,377 +10162,22 @@ unsafe extern "C" {
     ) -> LY_ERR::Type;
 }
 unsafe extern "C" {
+    #[doc = " @brief Create a (immutable) context that was printed into a memory chunk.\n\n This function allows a given thread to create only one printed context at a particular memory address at any time.\n Another thread, however, may create a separate context at the same address.\n\n @param[in] mem Memory to use.\n @param[out] ctx Created immutable context.\n @return LY_ERR value."]
     pub fn ly_ctx_new_printed(
         mem: *const ::std::os::raw::c_void,
         ctx: *mut *mut ly_ctx,
     ) -> LY_ERR::Type;
 }
 unsafe extern "C" {
+    #[doc = " @brief Check if the context was created from a printed (immutable) context.\n\n @param[in] ctx Context to check.\n @return 1 if the context was created from a printed context, 0 otherwise."]
     pub fn ly_ctx_is_printed(ctx: *const ly_ctx) -> ly_bool;
 }
 unsafe extern "C" {
+    #[doc = " @brief Free all internal structures of the specified context.\n\n The function should be used before terminating the application to destroy\n and free all structures internally used by libyang. If the caller uses\n multiple contexts, the function should be called for each used context.\n\n All instance data are supposed to be freed before destroying the context using ::lyd_free_all(), for example.\n Modules (schemas) are destroyed automatically as part of ::ly_ctx_destroy() call.\n\n Note that the data stored by user into the ::lysc_node.priv pointer are kept\n untouched and the caller is responsible for freeing this private data.\n\n @param[in] ctx Context to destroy."]
     pub fn ly_ctx_destroy(ctx: *mut ly_ctx);
 }
 unsafe extern "C" {
-    pub fn memchr(
-        __s: *const ::std::os::raw::c_void,
-        __c: ::std::os::raw::c_int,
-        __n: ::std::os::raw::c_ulong,
-    ) -> *mut ::std::os::raw::c_void;
-}
-unsafe extern "C" {
-    pub fn memcmp(
-        __s1: *const ::std::os::raw::c_void,
-        __s2: *const ::std::os::raw::c_void,
-        __n: ::std::os::raw::c_ulong,
-    ) -> ::std::os::raw::c_int;
-}
-unsafe extern "C" {
-    pub fn memcpy(
-        __dst: *mut ::std::os::raw::c_void,
-        __src: *const ::std::os::raw::c_void,
-        __n: ::std::os::raw::c_ulong,
-    ) -> *mut ::std::os::raw::c_void;
-}
-unsafe extern "C" {
-    pub fn memmove(
-        __dst: *mut ::std::os::raw::c_void,
-        __src: *const ::std::os::raw::c_void,
-        __len: ::std::os::raw::c_ulong,
-    ) -> *mut ::std::os::raw::c_void;
-}
-unsafe extern "C" {
-    pub fn memset(
-        __b: *mut ::std::os::raw::c_void,
-        __c: ::std::os::raw::c_int,
-        __len: ::std::os::raw::c_ulong,
-    ) -> *mut ::std::os::raw::c_void;
-}
-unsafe extern "C" {
-    pub fn strcat(
-        __s1: *mut ::std::os::raw::c_char,
-        __s2: *const ::std::os::raw::c_char,
-    ) -> *mut ::std::os::raw::c_char;
-}
-unsafe extern "C" {
-    pub fn strchr(
-        __s: *const ::std::os::raw::c_char,
-        __c: ::std::os::raw::c_int,
-    ) -> *mut ::std::os::raw::c_char;
-}
-unsafe extern "C" {
-    pub fn strcmp(
-        __s1: *const ::std::os::raw::c_char,
-        __s2: *const ::std::os::raw::c_char,
-    ) -> ::std::os::raw::c_int;
-}
-unsafe extern "C" {
-    pub fn strcoll(
-        __s1: *const ::std::os::raw::c_char,
-        __s2: *const ::std::os::raw::c_char,
-    ) -> ::std::os::raw::c_int;
-}
-unsafe extern "C" {
-    pub fn strcpy(
-        __dst: *mut ::std::os::raw::c_char,
-        __src: *const ::std::os::raw::c_char,
-    ) -> *mut ::std::os::raw::c_char;
-}
-unsafe extern "C" {
-    pub fn strcspn(
-        __s: *const ::std::os::raw::c_char,
-        __charset: *const ::std::os::raw::c_char,
-    ) -> ::std::os::raw::c_ulong;
-}
-unsafe extern "C" {
-    pub fn strerror(
-        __errnum: ::std::os::raw::c_int,
-    ) -> *mut ::std::os::raw::c_char;
-}
-unsafe extern "C" {
-    pub fn strlen(
-        __s: *const ::std::os::raw::c_char,
-    ) -> ::std::os::raw::c_ulong;
-}
-unsafe extern "C" {
-    pub fn strncat(
-        __s1: *mut ::std::os::raw::c_char,
-        __s2: *const ::std::os::raw::c_char,
-        __n: ::std::os::raw::c_ulong,
-    ) -> *mut ::std::os::raw::c_char;
-}
-unsafe extern "C" {
-    pub fn strncmp(
-        __s1: *const ::std::os::raw::c_char,
-        __s2: *const ::std::os::raw::c_char,
-        __n: ::std::os::raw::c_ulong,
-    ) -> ::std::os::raw::c_int;
-}
-unsafe extern "C" {
-    pub fn strncpy(
-        __dst: *mut ::std::os::raw::c_char,
-        __src: *const ::std::os::raw::c_char,
-        __n: ::std::os::raw::c_ulong,
-    ) -> *mut ::std::os::raw::c_char;
-}
-unsafe extern "C" {
-    pub fn strpbrk(
-        __s: *const ::std::os::raw::c_char,
-        __charset: *const ::std::os::raw::c_char,
-    ) -> *mut ::std::os::raw::c_char;
-}
-unsafe extern "C" {
-    pub fn strrchr(
-        __s: *const ::std::os::raw::c_char,
-        __c: ::std::os::raw::c_int,
-    ) -> *mut ::std::os::raw::c_char;
-}
-unsafe extern "C" {
-    pub fn strspn(
-        __s: *const ::std::os::raw::c_char,
-        __charset: *const ::std::os::raw::c_char,
-    ) -> ::std::os::raw::c_ulong;
-}
-unsafe extern "C" {
-    pub fn strstr(
-        __big: *const ::std::os::raw::c_char,
-        __little: *const ::std::os::raw::c_char,
-    ) -> *mut ::std::os::raw::c_char;
-}
-unsafe extern "C" {
-    pub fn strtok(
-        __str: *mut ::std::os::raw::c_char,
-        __sep: *const ::std::os::raw::c_char,
-    ) -> *mut ::std::os::raw::c_char;
-}
-unsafe extern "C" {
-    pub fn strxfrm(
-        __s1: *mut ::std::os::raw::c_char,
-        __s2: *const ::std::os::raw::c_char,
-        __n: ::std::os::raw::c_ulong,
-    ) -> ::std::os::raw::c_ulong;
-}
-unsafe extern "C" {
-    pub fn strtok_r(
-        __str: *mut ::std::os::raw::c_char,
-        __sep: *const ::std::os::raw::c_char,
-        __lasts: *mut *mut ::std::os::raw::c_char,
-    ) -> *mut ::std::os::raw::c_char;
-}
-unsafe extern "C" {
-    pub fn strerror_r(
-        __errnum: ::std::os::raw::c_int,
-        __strerrbuf: *mut ::std::os::raw::c_char,
-        __buflen: usize,
-    ) -> ::std::os::raw::c_int;
-}
-unsafe extern "C" {
-    pub fn strdup(
-        __s1: *const ::std::os::raw::c_char,
-    ) -> *mut ::std::os::raw::c_char;
-}
-unsafe extern "C" {
-    pub fn memccpy(
-        __dst: *mut ::std::os::raw::c_void,
-        __src: *const ::std::os::raw::c_void,
-        __c: ::std::os::raw::c_int,
-        __n: ::std::os::raw::c_ulong,
-    ) -> *mut ::std::os::raw::c_void;
-}
-unsafe extern "C" {
-    pub fn stpcpy(
-        __dst: *mut ::std::os::raw::c_char,
-        __src: *const ::std::os::raw::c_char,
-    ) -> *mut ::std::os::raw::c_char;
-}
-unsafe extern "C" {
-    pub fn stpncpy(
-        __dst: *mut ::std::os::raw::c_char,
-        __src: *const ::std::os::raw::c_char,
-        __n: ::std::os::raw::c_ulong,
-    ) -> *mut ::std::os::raw::c_char;
-}
-unsafe extern "C" {
-    pub fn strndup(
-        __s1: *const ::std::os::raw::c_char,
-        __n: ::std::os::raw::c_ulong,
-    ) -> *mut ::std::os::raw::c_char;
-}
-unsafe extern "C" {
-    pub fn strnlen(__s1: *const ::std::os::raw::c_char, __n: usize) -> usize;
-}
-unsafe extern "C" {
-    pub fn strsignal(
-        __sig: ::std::os::raw::c_int,
-    ) -> *mut ::std::os::raw::c_char;
-}
-unsafe extern "C" {
-    pub fn memset_s(
-        __s: *mut ::std::os::raw::c_void,
-        __smax: rsize_t,
-        __c: ::std::os::raw::c_int,
-        __n: rsize_t,
-    ) -> errno_t;
-}
-unsafe extern "C" {
-    pub fn memmem(
-        __big: *const ::std::os::raw::c_void,
-        __big_len: usize,
-        __little: *const ::std::os::raw::c_void,
-        __little_len: usize,
-    ) -> *mut ::std::os::raw::c_void;
-}
-unsafe extern "C" {
-    pub fn memset_pattern4(
-        __b: *mut ::std::os::raw::c_void,
-        __pattern4: *const ::std::os::raw::c_void,
-        __len: usize,
-    );
-}
-unsafe extern "C" {
-    pub fn memset_pattern8(
-        __b: *mut ::std::os::raw::c_void,
-        __pattern8: *const ::std::os::raw::c_void,
-        __len: usize,
-    );
-}
-unsafe extern "C" {
-    pub fn memset_pattern16(
-        __b: *mut ::std::os::raw::c_void,
-        __pattern16: *const ::std::os::raw::c_void,
-        __len: usize,
-    );
-}
-unsafe extern "C" {
-    pub fn strcasestr(
-        __big: *const ::std::os::raw::c_char,
-        __little: *const ::std::os::raw::c_char,
-    ) -> *mut ::std::os::raw::c_char;
-}
-unsafe extern "C" {
-    pub fn strchrnul(
-        __s: *const ::std::os::raw::c_char,
-        __c: ::std::os::raw::c_int,
-    ) -> *mut ::std::os::raw::c_char;
-}
-unsafe extern "C" {
-    pub fn strnstr(
-        __big: *const ::std::os::raw::c_char,
-        __little: *const ::std::os::raw::c_char,
-        __len: usize,
-    ) -> *mut ::std::os::raw::c_char;
-}
-unsafe extern "C" {
-    pub fn strlcat(
-        __dst: *mut ::std::os::raw::c_char,
-        __source: *const ::std::os::raw::c_char,
-        __size: ::std::os::raw::c_ulong,
-    ) -> ::std::os::raw::c_ulong;
-}
-unsafe extern "C" {
-    pub fn strlcpy(
-        __dst: *mut ::std::os::raw::c_char,
-        __source: *const ::std::os::raw::c_char,
-        __size: ::std::os::raw::c_ulong,
-    ) -> ::std::os::raw::c_ulong;
-}
-unsafe extern "C" {
-    pub fn strmode(
-        __mode: ::std::os::raw::c_int,
-        __bp: *mut ::std::os::raw::c_char,
-    );
-}
-unsafe extern "C" {
-    pub fn strsep(
-        __stringp: *mut *mut ::std::os::raw::c_char,
-        __delim: *const ::std::os::raw::c_char,
-    ) -> *mut ::std::os::raw::c_char;
-}
-unsafe extern "C" {
-    pub fn swab(
-        arg1: *const ::std::os::raw::c_void,
-        arg2: *mut ::std::os::raw::c_void,
-        __len: isize,
-    );
-}
-unsafe extern "C" {
-    pub fn timingsafe_bcmp(
-        __b1: *const ::std::os::raw::c_void,
-        __b2: *const ::std::os::raw::c_void,
-        __len: usize,
-    ) -> ::std::os::raw::c_int;
-}
-unsafe extern "C" {
-    pub fn strsignal_r(
-        __sig: ::std::os::raw::c_int,
-        __strsignalbuf: *mut ::std::os::raw::c_char,
-        __buflen: usize,
-    ) -> ::std::os::raw::c_int;
-}
-unsafe extern "C" {
-    pub fn bcmp(
-        arg1: *const ::std::os::raw::c_void,
-        arg2: *const ::std::os::raw::c_void,
-        __n: ::std::os::raw::c_ulong,
-    ) -> ::std::os::raw::c_int;
-}
-unsafe extern "C" {
-    pub fn bcopy(
-        arg1: *const ::std::os::raw::c_void,
-        arg2: *mut ::std::os::raw::c_void,
-        __n: ::std::os::raw::c_ulong,
-    );
-}
-unsafe extern "C" {
-    pub fn bzero(
-        arg1: *mut ::std::os::raw::c_void,
-        __n: ::std::os::raw::c_ulong,
-    );
-}
-unsafe extern "C" {
-    pub fn index(
-        arg1: *const ::std::os::raw::c_char,
-        arg2: ::std::os::raw::c_int,
-    ) -> *mut ::std::os::raw::c_char;
-}
-unsafe extern "C" {
-    pub fn rindex(
-        arg1: *const ::std::os::raw::c_char,
-        arg2: ::std::os::raw::c_int,
-    ) -> *mut ::std::os::raw::c_char;
-}
-unsafe extern "C" {
-    pub fn ffs(arg1: ::std::os::raw::c_int) -> ::std::os::raw::c_int;
-}
-unsafe extern "C" {
-    pub fn strcasecmp(
-        arg1: *const ::std::os::raw::c_char,
-        arg2: *const ::std::os::raw::c_char,
-    ) -> ::std::os::raw::c_int;
-}
-unsafe extern "C" {
-    pub fn strncasecmp(
-        arg1: *const ::std::os::raw::c_char,
-        arg2: *const ::std::os::raw::c_char,
-        arg3: ::std::os::raw::c_ulong,
-    ) -> ::std::os::raw::c_int;
-}
-unsafe extern "C" {
-    pub fn ffsl(arg1: ::std::os::raw::c_long) -> ::std::os::raw::c_int;
-}
-unsafe extern "C" {
-    pub fn ffsll(arg1: ::std::os::raw::c_longlong) -> ::std::os::raw::c_int;
-}
-unsafe extern "C" {
-    pub fn fls(arg1: ::std::os::raw::c_int) -> ::std::os::raw::c_int;
-}
-unsafe extern "C" {
-    pub fn flsl(arg1: ::std::os::raw::c_long) -> ::std::os::raw::c_int;
-}
-unsafe extern "C" {
-    pub fn flsll(arg1: ::std::os::raw::c_longlong) -> ::std::os::raw::c_int;
-}
-unsafe extern "C" {
+    #[doc = " @brief Insert string into dictionary. If the string is already present,\n only a reference counter is incremented and no memory allocation is\n performed.\n\n @param[in] ctx libyang context handler\n @param[in] value String to be stored in the dictionary. If NULL, function does nothing.\n @param[in] len Number of bytes to store. The value is not required to be\n NULL terminated string, the len parameter says number of bytes stored in\n dictionary. The specified number of bytes is duplicated and terminating NULL\n byte is added automatically. If \\p len is 0, it is count automatically using strlen().\n @param[out] str_p Optional parameter to get pointer to the string corresponding to the @p value and stored in dictionary.\n @return LY_SUCCESS in case of successful insertion into dictionary, note that the function does not return LY_EEXIST.\n @return LY_EINVAL in case of invalid input parameters.\n @return LY_EMEM in case of memory allocation failure."]
     pub fn lydict_insert(
         ctx: *const ly_ctx,
         value: *const ::std::os::raw::c_char,
@@ -13185,6 +10186,7 @@ unsafe extern "C" {
     ) -> LY_ERR::Type;
 }
 unsafe extern "C" {
+    #[doc = " @brief Insert string into dictionary - zerocopy version. If the string is\n already present, only a reference counter is incremented and no memory\n allocation is performed. This insert function variant avoids duplication of\n specified value - it is inserted into the dictionary directly.\n\n @param[in] ctx libyang context handler\n @param[in] value NULL-terminated string to be stored in the dictionary. If\n the string is not present in dictionary, the pointer is directly used by the\n dictionary. Otherwise, the reference counter is incremented and the value is\n freed. So, after calling the function, caller is supposed to not use the\n value address anymore. If NULL, function does nothing.\n @param[out] str_p Optional parameter to get pointer to the string corresponding to the @p value and stored in dictionary.\n @return LY_SUCCESS in case of successful insertion into dictionary, note that the function does not return LY_EEXIST.\n @return LY_EINVAL in case of invalid input parameters.\n @return LY_EMEM in case of memory allocation failure."]
     pub fn lydict_insert_zc(
         ctx: *const ly_ctx,
         value: *mut ::std::os::raw::c_char,
@@ -13192,12 +10194,14 @@ unsafe extern "C" {
     ) -> LY_ERR::Type;
 }
 unsafe extern "C" {
+    #[doc = " @brief Remove specified string from the dictionary. It decrement reference\n counter for the string and if it is zero, the string itself is freed.\n\n @param[in] ctx libyang context handler\n @param[in] value String to be freed. Note, that not only the string itself\n must match the stored value, but also the address is being compared and the\n counter is decremented only if it matches. If NULL, function does nothing.\n @return LY_SUCCESS if the value was found and removed (or refcount decreased).\n @return LY_ENOTFOUND if the value was not found.\n @return LY_ERR on other errors."]
     pub fn lydict_remove(
         ctx: *const ly_ctx,
         value: *const ::std::os::raw::c_char,
     ) -> LY_ERR::Type;
 }
 unsafe extern "C" {
+    #[doc = " @brief Duplicate string in dictionary. Only a reference counter is incremented.\n\n @param[in] ctx libyang context handler\n @param[in] value NULL-terminated string to be duplicated in the dictionary (reference counter is incremented).\n @param[out] str_p Optional parameter to get pointer to the string corresponding to the @p value and stored in dictionary.\n @return LY_SUCCESS in case the string already exists in the dictionary.\n @return LY_ENOTFOUND in case the string was not found.\n @return LY_ERR on other errors"]
     pub fn lydict_dup(
         ctx: *const ly_ctx,
         value: *const ::std::os::raw::c_char,
@@ -13205,50 +10209,65 @@ unsafe extern "C" {
     ) -> LY_ERR::Type;
 }
 pub mod LY_IN_TYPE {
+    #[doc = " @brief Types of the parser's inputs"]
     pub type Type = ::std::os::raw::c_int;
+    #[doc = "< error value to indicate failure of the functions returning LY_IN_TYPE"]
     pub const LY_IN_ERROR: Type = -1;
+    #[doc = "< file descriptor printer"]
     pub const LY_IN_FD: Type = 0;
+    #[doc = "< FILE stream parser"]
     pub const LY_IN_FILE: Type = 1;
+    #[doc = "< filepath parser"]
     pub const LY_IN_FILEPATH: Type = 2;
+    #[doc = "< memory parser"]
     pub const LY_IN_MEMORY: Type = 3;
 }
 unsafe extern "C" {
+    #[doc = " @brief Get input type of the input handler.\n\n @param[in] in Input handler.\n @return Type of the parser's input."]
     pub fn ly_in_type(in_: *const ly_in) -> LY_IN_TYPE::Type;
 }
 unsafe extern "C" {
+    #[doc = " @brief Reset the input medium to read from its beginning, so the following parser function will read from the object's beginning.\n\n Note that in case the underlying output is not seekable (stream referring a pipe/FIFO/socket or the callback output type),\n nothing actually happens despite the function succeeds. Also note that the medium is not returned to the state it was when\n the handler was created. For example, file is seeked into the offset zero, not to the offset where it was opened when\n ::ly_in_new_file() was called.\n\n @param[in] in Input handler.\n @return LY_SUCCESS in case of success\n @return LY_ESYS in case of failure"]
     pub fn ly_in_reset(in_: *mut ly_in) -> LY_ERR::Type;
 }
 unsafe extern "C" {
+    #[doc = " @brief Create input handler using file descriptor.\n\n @param[in] fd File descriptor to use.\n @param[out] in Created input handler supposed to be passed to different ly*_parse() functions.\n @return LY_SUCCESS in case of success\n @return LY_ERR value in case of failure."]
     pub fn ly_in_new_fd(
         fd: ::std::os::raw::c_int,
         in_: *mut *mut ly_in,
     ) -> LY_ERR::Type;
 }
 unsafe extern "C" {
+    #[doc = " @brief Get or reset file descriptor input handler.\n\n @param[in] in Input handler.\n @param[in] fd Optional value of a new file descriptor for the handler. If -1, only the current file descriptor value is returned.\n @return Previous value of the file descriptor. Note that caller is responsible for closing the returned file descriptor in case of setting new descriptor @p fd.\n @return -1 in case of error when setting up the new file descriptor."]
     pub fn ly_in_fd(
         in_: *mut ly_in,
         fd: ::std::os::raw::c_int,
     ) -> ::std::os::raw::c_int;
 }
 unsafe extern "C" {
+    #[doc = " @brief Create input handler using file stream.\n\n @param[in] f File stream to use.\n @param[out] in Created input handler supposed to be passed to different ly*_parse() functions.\n @return LY_SUCCESS in case of success\n @return LY_ERR value in case of failure."]
     pub fn ly_in_new_file(f: *mut FILE, in_: *mut *mut ly_in) -> LY_ERR::Type;
 }
 unsafe extern "C" {
+    #[doc = " @brief Get or reset file stream input handler.\n\n @param[in] in Input handler.\n @param[in] f Optional new file stream for the handler. If NULL, only the current file stream is returned.\n @return NULL in case of invalid argument or an error when setting up the new input file, original input handler @p in is untouched in this case.\n @return Previous file stream of the handler. Note that caller is responsible for closing the returned stream in case of setting new stream @p f."]
     pub fn ly_in_file(in_: *mut ly_in, f: *mut FILE) -> *mut FILE;
 }
 unsafe extern "C" {
+    #[doc = " @brief Create input handler using memory to read data.\n\n @param[in] str Pointer where to start reading data. The input data are expected to be NULL-terminated.\n Note that in case the destroy argument of ::ly_in_free() is used, the input string is passed to free(),\n so if it is really a static string, do not use the destroy argument!\n @param[out] in Created input handler supposed to be passed to different ly*_parse() functions.\n @return LY_SUCCESS in case of success\n @return LY_ERR value in case of failure."]
     pub fn ly_in_new_memory(
         str_: *const ::std::os::raw::c_char,
         in_: *mut *mut ly_in,
     ) -> LY_ERR::Type;
 }
 unsafe extern "C" {
+    #[doc = " @brief Get or change memory where the data are read from.\n\n @param[in] in Input handler.\n @param[in] str String containing the data to read. The input data are expected to be NULL-terminated.\n Note that in case the destroy argument of ::ly_in_free() is used, the input string is passed to free(),\n so if it is really a static string, do not use the destroy argument!\n @return Previous starting address to read data from. Note that the caller is responsible to free\n the data in case of changing string pointer @p str."]
     pub fn ly_in_memory(
         in_: *mut ly_in,
         str_: *const ::std::os::raw::c_char,
     ) -> *const ::std::os::raw::c_char;
 }
 unsafe extern "C" {
+    #[doc = " @brief Create input handler file of the given filename.\n\n @param[in] filepath Path of the file where to read data.\n @param[in] len Optional number of bytes to use from @p filepath. If 0, the @p filepath is considered to be NULL-terminated and\n the whole string is taken into account.\n @param[out] in Created input handler supposed to be passed to different ly*_parse() functions.\n @return LY_SUCCESS in case of success\n @return LY_ERR value in case of failure."]
     pub fn ly_in_new_filepath(
         filepath: *const ::std::os::raw::c_char,
         len: usize,
@@ -13256,6 +10275,7 @@ unsafe extern "C" {
     ) -> LY_ERR::Type;
 }
 unsafe extern "C" {
+    #[doc = " @brief Get or change the filepath of the file where the parser reads the data.\n\n Note that in case of changing the filepath, the current file is closed and a new one is\n created/opened instead of renaming the previous file. Also note that the previous filepath\n string is returned only in case of not changing it's value.\n\n @param[in] in Input handler.\n @param[in] filepath Optional new filepath for the handler. If and only if NULL, the current filepath string is returned.\n @param[in] len Optional number of bytes to use from @p filepath. If 0, the @p filepath is considered to be NULL-terminated and\n the whole string is taken into account.\n @return Previous filepath string in case the @p filepath argument is NULL.\n @return NULL if changing filepath succeedes and ((void *)-1) otherwise."]
     pub fn ly_in_filepath(
         in_: *mut ly_in,
         filepath: *const ::std::os::raw::c_char,
@@ -13263,12 +10283,15 @@ unsafe extern "C" {
     ) -> *const ::std::os::raw::c_char;
 }
 unsafe extern "C" {
+    #[doc = " @brief Get the number of parsed bytes by the last function.\n\n @param[in] in In structure used.\n @return Number of parsed bytes."]
     pub fn ly_in_parsed(in_: *const ly_in) -> usize;
 }
 unsafe extern "C" {
+    #[doc = " @brief Free the input handler.\n\n @param[in] in Input handler to free.\n @param[in] destroy Flag to free the input data buffer (for LY_IN_MEMORY) or to\n close stream/file descriptor (for LY_IN_FD and LY_IN_FILE)"]
     pub fn ly_in_free(in_: *mut ly_in, destroy: ly_bool);
 }
 unsafe extern "C" {
+    #[doc = " @brief Read bytes from an input.\n\n Does not count new lines, which is expected from the caller who has better idea about\n the content of the read data and can better optimize counting.\n\n @param[in] in Input structure.\n @param[in] buf Destination buffer.\n @param[in] count Number of bytes to read.\n @return LY_SUCCESS on success,\n @return LY_EDENIED on EOF."]
     pub fn ly_in_read(
         in_: *mut ly_in,
         buf: *mut ::std::os::raw::c_void,
@@ -13276,12 +10299,15 @@ unsafe extern "C" {
     ) -> LY_ERR::Type;
 }
 unsafe extern "C" {
+    #[doc = " @brief Peek at the next byte in an input.\n\n The peeked byte is normally read on the next ::ly_in_read() or ::ly_in_skip() call.\n\n @param[in] in Input structure.\n @param[out] peek Peeked character.\n @return LY_SUCCESS on success,\n @return LY_ENOT if a byte has already been peeked but not read;\n @return LY_EDENIED on EOF."]
     pub fn ly_in_peek(in_: *mut ly_in, peek: *mut u8) -> LY_ERR::Type;
 }
 unsafe extern "C" {
+    #[doc = " @brief Just skip bytes in an input.\n\n Does not count new lines, which is expected from the caller who has better idea about\n the content of the skipped data and can better optimize counting.\n\n @param[in] in Input structure.\n @param[in] count Number of bytes to skip.\n @return LY_SUCCESS on success,\n @return LY_EDENIED on EOF."]
     pub fn ly_in_skip(in_: *mut ly_in, count: usize) -> LY_ERR::Type;
 }
 unsafe extern "C" {
+    #[doc = " @brief Parse (and validate) data from the input handler as a YANG data tree.\n\n @param[in] ctx Context to connect with the tree being built here.\n @param[in] parent Optional parent to connect the parsed nodes to. If provided, the data are expected to describe\n a subtree of the YANG module instead of starting at the schema root.\n @param[in] in The input handle to provide the dumped data in the specified @p format to parse (and validate).\n @param[in] format Format of the input data to be parsed. Can be 0 to try to detect format from the input handler.\n @param[in] parse_options Options for parser, see @ref dataparseroptions.\n @param[in] validate_options Options for the validation phase, see @ref datavalidationoptions.\n @param[out] tree Full parsed data tree, note that NULL can be a valid tree. If @p parent is set, the first parsed child.\n @return LY_SUCCESS in case of successful parsing (and validation).\n @return LY_ERR value in case of error. Additional error information can be obtained from the context using ly_err* functions.\n\n When parsing subtrees (i.e., when @p parent is non-NULL), validation is only performed on the newly parsed data.\n This might result in allowing invalid datastore content when the schema contains cross-branch constraints,\n complicated `must` statements, etc. When a full-datastore validation is desirable, parse all subtrees\n first, and then request validation of the complete datastore content."]
     pub fn lyd_parse_data(
         ctx: *const ly_ctx,
         parent: *mut lyd_node,
@@ -13293,6 +10319,7 @@ unsafe extern "C" {
     ) -> LY_ERR::Type;
 }
 unsafe extern "C" {
+    #[doc = " @brief Parse (and validate) input data as a YANG data tree.\n\n Wrapper around ::lyd_parse_data() hiding work with the input handler and some obscure options.\n\n @param[in] ctx Context to connect with the tree being built here.\n @param[in] data The input data in the specified @p format to parse (and validate).\n @param[in] format Format of the input data to be parsed.\n @param[in] parse_options Options for parser, see @ref dataparseroptions.\n @param[in] validate_options Options for the validation phase, see @ref datavalidationoptions.\n @param[out] tree Full parsed data tree, note that NULL can be a valid tree\n @return LY_SUCCESS in case of successful parsing (and validation).\n @return LY_ERR value in case of error. Additional error information can be obtained from the context using ly_err* functions."]
     pub fn lyd_parse_data_mem(
         ctx: *const ly_ctx,
         data: *const ::std::os::raw::c_char,
@@ -13303,6 +10330,7 @@ unsafe extern "C" {
     ) -> LY_ERR::Type;
 }
 unsafe extern "C" {
+    #[doc = " @brief Parse (and validate) input data as a YANG data tree.\n\n Wrapper around ::lyd_parse_data() hiding work with the input handler and some obscure options.\n\n @param[in] ctx Context to connect with the tree being built here.\n @param[in] fd File descriptor of a regular file (e.g. sockets are not supported) containing the input data in the\n specified @p format to parse.\n @param[in] format Format of the input data to be parsed.\n @param[in] parse_options Options for parser, see @ref dataparseroptions.\n @param[in] validate_options Options for the validation phase, see @ref datavalidationoptions.\n @param[out] tree Full parsed data tree, note that NULL can be a valid tree\n @return LY_SUCCESS in case of successful parsing (and validation).\n @return LY_ERR value in case of error. Additional error information can be obtained from the context using ly_err* functions."]
     pub fn lyd_parse_data_fd(
         ctx: *const ly_ctx,
         fd: ::std::os::raw::c_int,
@@ -13313,6 +10341,7 @@ unsafe extern "C" {
     ) -> LY_ERR::Type;
 }
 unsafe extern "C" {
+    #[doc = " @brief Parse (and validate) input data as a YANG data tree.\n\n Wrapper around ::lyd_parse_data() hiding work with the input handler and some obscure options.\n\n @param[in] ctx Context to connect with the tree being built here.\n @param[in] path Path to the file with the input data in the specified @p format to parse (and validate).\n @param[in] format Format of the input data to be parsed. Can be 0 to try to detect format from @p path extension.\n @param[in] parse_options Options for parser, see @ref dataparseroptions.\n @param[in] validate_options Options for the validation phase, see @ref datavalidationoptions.\n @param[out] tree Full parsed data tree, note that NULL can be a valid tree\n @return LY_SUCCESS in case of successful parsing (and validation).\n @return LY_ERR value in case of error. Additional error information can be obtained from the context using ly_err* functions."]
     pub fn lyd_parse_data_path(
         ctx: *const ly_ctx,
         path: *const ::std::os::raw::c_char,
@@ -13323,6 +10352,7 @@ unsafe extern "C" {
     ) -> LY_ERR::Type;
 }
 unsafe extern "C" {
+    #[doc = " @brief Parse data from the input handler as a bare JSON value and connect it to the node parsed from the path.\n\n @param[in] ctx Context to connect with the tree being built here.\n @param[in] path Path to the node so the value in the input handler can be connected to it.\n @param[in] in Input handler with the value in the JSON format.\n @param[in] format Currently only LYD_JSON is supported.\n @param[in] new_val_options Options for new values of the parent node (node to attach the @p in to), see @ref newvaloptions.\n @param[in] parse_options Options for parser, see @ref dataparseroptions.\n @param[in] validate_options Options for the validation phase, see @ref datavalidationoptions.\n @param[out] tree Full parsed data tree, note that NULL can be a valid tree.\n @return LY_SUCCESS in case of successful parsing.\n @return LY_ERR value in case of error. Additional error information can be obtained from the context using ly_err* functions."]
     pub fn lyd_parse_value_fragment(
         ctx: *const ly_ctx,
         path: *const ::std::os::raw::c_char,
@@ -13335,19 +10365,31 @@ unsafe extern "C" {
     ) -> LY_ERR::Type;
 }
 pub mod lyd_type {
+    #[doc = " @ingroup datatree\n @defgroup datatype Data operation type\n\n Operation provided to ::lyd_validate_op() to validate.\n\n The operation cannot be determined automatically since RPC/action and a reply to it share the common top level node\n referencing the RPC/action schema node and may not have any input/output children to use for distinction.\n\n @{"]
     pub type Type = ::std::os::raw::c_uint;
+    #[doc = "< generic YANG instance data"]
     pub const LYD_TYPE_DATA_YANG: Type = 0;
+    #[doc = "< instance of a YANG RPC/action request with only \"input\" data children,\nincluding all parents and optional top-level \"action\" element in case of an action"]
     pub const LYD_TYPE_RPC_YANG: Type = 1;
+    #[doc = "< instance of a YANG notification, including all parents in case of a nested one"]
     pub const LYD_TYPE_NOTIF_YANG: Type = 2;
+    #[doc = "< instance of a YANG RPC/action reply with only \"output\" data children,\nincluding all parents in case of an action"]
     pub const LYD_TYPE_REPLY_YANG: Type = 3;
+    #[doc = "< complete NETCONF RPC invocation as defined for\n[RPC](https://tools.ietf.org/html/rfc7950#section-7.14.4) and\n[action](https://tools.ietf.org/html/rfc7950#section-7.15.2)"]
     pub const LYD_TYPE_RPC_NETCONF: Type = 4;
+    #[doc = "< complete NETCONF notification message as defined for\n[notification](https://tools.ietf.org/html/rfc7950#section-7.16.2)"]
     pub const LYD_TYPE_NOTIF_NETCONF: Type = 5;
+    #[doc = "< complete NETCONF RPC reply as defined for\n[RPC](https://tools.ietf.org/html/rfc7950#section-7.14.4) and\n[action](https://tools.ietf.org/html/rfc7950#section-7.15.2)"]
     pub const LYD_TYPE_REPLY_NETCONF: Type = 6;
+    #[doc = "< message-body of a RESTCONF operation input parameters\n([ref](https://www.rfc-editor.org/rfc/rfc8040.html#section-3.6.1))"]
     pub const LYD_TYPE_RPC_RESTCONF: Type = 7;
+    #[doc = "< RESTCONF JSON notification data\n([ref](https://www.rfc-editor.org/rfc/rfc8040.html#section-6.4)), to parse\na notification in XML, use ::LYD_TYPE_NOTIF_NETCONF"]
     pub const LYD_TYPE_NOTIF_RESTCONF: Type = 8;
+    #[doc = "< message-body of a RESTCONF operation output parameters\n([ref](https://www.rfc-editor.org/rfc/rfc8040.html#section-3.6.2))"]
     pub const LYD_TYPE_REPLY_RESTCONF: Type = 9;
 }
 unsafe extern "C" {
+    #[doc = " @brief Parse YANG data into an operation data tree. Specific parsing flags ::LYD_PARSE_ONLY, ::LYD_PARSE_STRICT and\n no validation flags are used.\n\n At least one of @p parent, @p tree, or @p op must always be set.\n\n Specific @p data_type values have different parameter meaning as follows:\n - ::LYD_TYPE_RPC_NETCONF:\n   - @p parent - must be NULL, the whole RPC is expected;\n   - @p format - must be ::LYD_XML, NETCONF supports only this format;\n   - @p tree - must be provided, all the NETCONF-specific XML envelopes will be returned here as\n               a separate opaque data tree, even if the function fails, this may be returned;\n   - @p op - must be provided, the RPC/action data tree itself will be returned here, pointing to the operation;\n\n - ::LYD_TYPE_NOTIF_NETCONF:\n   - @p parent - must be NULL, the whole notification is expected;\n   - @p format - must be ::LYD_XML, NETCONF supports only this format;\n   - @p tree - must be provided, all the NETCONF-specific XML envelopes will be returned here as\n               a separate opaque data tree, even if the function fails, this may be returned;\n   - @p op - must be provided, the notification data tree itself will be returned here, pointing to the operation;\n\n - ::LYD_TYPE_REPLY_NETCONF:\n   - @p parent - must be set, pointing to the invoked RPC operation (RPC or action) node;\n   - @p format - must be ::LYD_XML, NETCONF supports only this format;\n   - @p tree - must be provided, all the NETCONF-specific XML envelopes will be returned here as\n               a separate opaque data tree, even if the function fails, this may be returned;\n   - @p op - must be NULL, the reply is appended to the RPC;\n   Note that there are 3 kinds of NETCONF replies - ok, error, and data. Only data reply appends any nodes to the RPC.\n\n - ::LYD_TYPE_RPC_RESTCONF:\n   - @p parent - must be set, pointing to the invoked RPC operation (RPC or action) node;\n   - @p format - can be both ::LYD_JSON and ::LYD_XML;\n   - @p tree - must be provided, all the RESTCONF-specific JSON objects will be returned here as\n               a separate opaque data tree, even if the function fails, this may be returned;\n   - @p op - must be NULL, @p parent points to the operation;\n\n - ::LYD_TYPE_NOTIF_RESTCONF:\n   - @p parent - must be NULL, the whole notification is expected;\n   - @p format - must be ::LYD_JSON, XML-formatted notifications are parsed using ::LYD_TYPE_NOTIF_NETCONF;\n   - @p tree - must be provided, all the RESTCONF-specific JSON objects will be returned here as\n               a separate opaque data tree, even if the function fails, this may be returned;\n   - @p op - must be provided, the notification data tree itself will be returned here, pointing to the operation;\n\n - ::LYD_TYPE_REPLY_RESTCONF:\n   - @p parent - must be set, pointing to the invoked RPC operation (RPC or action) node;\n   - @p format - can be both ::LYD_JSON and ::LYD_XML;\n   - @p tree - must be provided, all the RESTCONF-specific JSON objects will be returned here as\n               a separate opaque data tree, even if the function fails, this may be returned;\n   - @p op - must be NULL, @p parent points to the operation;\n   Note that error reply should be parsed as 'yang-data' extension data.\n\n - ::LYD_TYPE_RPC_YANG:\n - ::LYD_TYPE_NOTIF_YANG:\n - ::LYD_TYPE_REPLY_YANG:\n   - all the parameters have their default meaning.\n\n - :: LYD_TYPE_DATA_YANG:\n   - not accepted by the function.\n\n @param[in] ctx libyang context.\n @param[in] parent Optional parent to connect the parsed nodes to.\n @param[in] in Input handle to read the input from.\n @param[in] format Expected format of the data in @p in.\n @param[in] data_type Expected operation to parse (@ref datatype).\n @param[in] parse_options Options for parser are set based on @p data_type but either of ::LYD_PARSE_STRICT and\n ::LYD_PARSE_OPAQ can be added, see @ref dataparseroptions.\n @param[out] tree Optional full parsed data tree. If @p parent is set, set to NULL.\n @param[out] op Optional pointer to the operation (action/RPC/notification) node.\n @return LY_ERR value.\n @return LY_ENOT if @p data_type is a NETCONF message and the root XML element is not the expected one."]
     pub fn lyd_parse_op(
         ctx: *const ly_ctx,
         parent: *mut lyd_node,
@@ -13360,6 +10402,7 @@ unsafe extern "C" {
     ) -> LY_ERR::Type;
 }
 unsafe extern "C" {
+    #[doc = " @brief Validate a data subtree of an extension instance, which is assumed to be a separate data tree independent of\n normal YANG data.\n\n @param[in,out] ext_tree Ext data tree to validate. May be changed by validation, might become NULL.\n @param[in] ext Extension instance whose data to validate.\n @param[in] val_opts Validation options (@ref datavalidationoptions).\n @param[out] diff Optional diff with any changes made by the validation.\n @return LY_SUCCESS on success.\n @return LY_ERR error on error."]
     pub fn lyd_validate_ext(
         ext_tree: *mut *mut lyd_node,
         ext: *const lysc_ext_instance,
@@ -13368,6 +10411,7 @@ unsafe extern "C" {
     ) -> LY_ERR::Type;
 }
 unsafe extern "C" {
+    #[doc = " @brief Fully validate a data tree.\n\n The data tree is modified in-place. As a result of the validation, some data might be removed\n from the tree. In that case, the removed items are freed, not just unlinked.\n\n @param[in,out] tree Data tree to recursively validate. May be changed by validation, might become NULL.\n @param[in] ctx libyang context. Can be NULL if @p tree is set.\n @param[in] val_opts Validation options (@ref datavalidationoptions).\n @param[out] diff Optional diff with any changes made by the validation.\n @return LY_SUCCESS on success.\n @return LY_ERR error on error."]
     pub fn lyd_validate_all(
         tree: *mut *mut lyd_node,
         ctx: *const ly_ctx,
@@ -13376,6 +10420,7 @@ unsafe extern "C" {
     ) -> LY_ERR::Type;
 }
 unsafe extern "C" {
+    #[doc = " @brief Fully validate a data tree of a module.\n\n The data tree is modified in-place. As a result of the validation, some data might be removed\n from the tree. In that case, the removed items are freed, not just unlinked.\n\n If several modules need to be validated, the flag ::LYD_VALIDATE_NOT_FINAL should be used first for validation\n of each module and then ::lyd_validate_module_final() should be called also for each module. Otherwise,\n false-positive validation errors for foreign dependencies may occur.\n\n @param[in,out] tree Data tree to recursively validate. May be changed by validation, might become NULL.\n @param[in] module Module whose data (and schema restrictions) to validate.\n @param[in] val_opts Validation options (@ref datavalidationoptions).\n @param[out] diff Optional diff with any changes made by the validation.\n @return LY_SUCCESS on success.\n @return LY_ERR error on error."]
     pub fn lyd_validate_module(
         tree: *mut *mut lyd_node,
         module: *const lys_module,
@@ -13384,6 +10429,7 @@ unsafe extern "C" {
     ) -> LY_ERR::Type;
 }
 unsafe extern "C" {
+    #[doc = " @brief Finish validation of a module data that have previously been validated with ::LYD_VALIDATE_NOT_FINAL flag.\n\n This final validation will not add or remove any nodes.\n\n @param[in] tree Data tree to recursively validate.\n @param[in] module Module whose data (and schema restrictions) to validate.\n @param[in] val_opts Validation options (@ref datavalidationoptions).\n @return LY_SUCCESS on success.\n @return LY_ERR error on error."]
     pub fn lyd_validate_module_final(
         tree: *mut lyd_node,
         module: *const lys_module,
@@ -13391,6 +10437,7 @@ unsafe extern "C" {
     ) -> LY_ERR::Type;
 }
 unsafe extern "C" {
+    #[doc = " @brief Validate an RPC/action request, reply, or notification. Only the operation data tree (input/output/notif)\n is validate, any parents are ignored.\n\n @param[in,out] op_tree Operation tree with any parents. It can point to the operation itself or any of\n its parents, only the operation subtree is actually validated.\n @param[in] dep_tree Tree to be used for validating references from the operation subtree.\n @param[in] data_type Operation type to validate (only YANG operations are accepted, @ref datatype).\n @param[out] diff Optional diff with any changes made by the validation.\n @return LY_SUCCESS on success.\n @return LY_ERR error on error."]
     pub fn lyd_validate_op(
         op_tree: *mut lyd_node,
         dep_tree: *const lyd_node,
@@ -13404,14 +10451,19 @@ pub struct lyplg_type_record {
     _unused: [u8; 0],
 }
 pub mod LYPLG {
+    #[doc = " @brief Identifiers of the plugin type."]
     pub type Type = ::std::os::raw::c_uint;
+    #[doc = "< Specific type (typedef)"]
     pub const LYPLG_TYPE: Type = 0;
+    #[doc = "< YANG extension"]
     pub const LYPLG_EXTENSION: Type = 1;
 }
 unsafe extern "C" {
+    #[doc = " @brief Manually load a plugin file.\n\n Note, that a plugin can be loaded only if there is at least one context. The loaded plugins are connected with the\n existence of a context. When all the contexts are destroyed, all the plugins are unloaded.\n\n @param[in] pathname Path to the plugin file. It can contain types or extensions plugins, both are accepted and correctly\n loaded.\n\n @return LY_SUCCESS if the file contains valid plugin compatible with the library version.\n @return LY_EDENIED in case there is no context and the plugin cannot be loaded.\n @return LY_EINVAL when pathname is NULL or the plugin contains invalid content for this libyang version.\n @return LY_ESYS when the plugin file cannot be loaded."]
     pub fn lyplg_add(pathname: *const ::std::os::raw::c_char) -> LY_ERR::Type;
 }
 unsafe extern "C" {
+    #[doc = " @brief Manually load extension plugins from memory\n\n Note, that a plugin can be loaded only if there is at least one context. The loaded plugins are connected with the\n existence of a context. When all the contexts are destroyed, all the plugins are unloaded.\n\n @param[in] ctx The context to which the plugin should be associated with. If NULL, the plugin is considered to be shared\n between all existing contexts.\n @param[in] version The version of plugin records.\n @param[in] recs An array of plugin records provided by the plugin implementation. The array must be terminated by a zeroed\n record.\n\n @return LY_SUCCESS if the plugins with compatible version were successfully loaded.\n @return LY_EDENIED in case there is no context and the plugin cannot be loaded.\n @return LY_EINVAL when recs is NULL or the plugin contains invalid content for this libyang version."]
     pub fn lyplg_add_extension_plugin(
         ctx: *mut ly_ctx,
         version: u32,
@@ -13419,3081 +10471,18 @@ unsafe extern "C" {
     ) -> LY_ERR::Type;
 }
 unsafe extern "C" {
+    #[doc = " @brief Manually load type plugins from memory\n\n Note, that a plugin can be loaded only if there is at least one context. The loaded plugins are connected with the\n existence of a context. When all the contexts are destroyed, all the plugins are unloaded.\n\n @param[in] ctx The context to which the plugin should be associated with. If NULL, the plugin is considered to be shared\n between all existing contexts.\n @param[in] version The version of plugin records.\n @param[in] recs An array of plugin records provided by the plugin implementation. The array must be terminated by a zeroed\n record.\n\n @return LY_SUCCESS if the plugins with compatible version were successfully loaded.\n @return LY_EDENIED in case there is no context and the plugin cannot be loaded.\n @return LY_EINVAL when recs is NULL or the plugin contains invalid content for this libyang version."]
     pub fn lyplg_add_type_plugin(
         ctx: *mut ly_ctx,
         version: u32,
         recs: *const lyplg_type_record,
     ) -> LY_ERR::Type;
 }
-pub mod idtype_t {
-    pub type Type = ::std::os::raw::c_uint;
-    pub const P_ALL: Type = 0;
-    pub const P_PID: Type = 1;
-    pub const P_PGID: Type = 2;
-}
-pub type sig_atomic_t = ::std::os::raw::c_int;
-#[repr(C)]
-#[derive(Debug, Default, Copy, Clone)]
-pub struct __darwin_arm_exception_state {
-    pub __exception: __uint32_t,
-    pub __fsr: __uint32_t,
-    pub __far: __uint32_t,
-}
-#[allow(clippy::unnecessary_operation, clippy::identity_op)]
-const _: () = {
-    ["Size of __darwin_arm_exception_state"]
-        [::std::mem::size_of::<__darwin_arm_exception_state>() - 12usize];
-    ["Alignment of __darwin_arm_exception_state"]
-        [::std::mem::align_of::<__darwin_arm_exception_state>() - 4usize];
-    ["Offset of field: __darwin_arm_exception_state::__exception"][::std::mem::offset_of!(
-        __darwin_arm_exception_state,
-        __exception
-    ) - 0usize];
-    ["Offset of field: __darwin_arm_exception_state::__fsr"]
-        [::std::mem::offset_of!(__darwin_arm_exception_state, __fsr) - 4usize];
-    ["Offset of field: __darwin_arm_exception_state::__far"]
-        [::std::mem::offset_of!(__darwin_arm_exception_state, __far) - 8usize];
-};
-#[repr(C)]
-#[derive(Debug, Default, Copy, Clone)]
-pub struct __darwin_arm_exception_state64 {
-    pub __far: __uint64_t,
-    pub __esr: __uint32_t,
-    pub __exception: __uint32_t,
-}
-#[allow(clippy::unnecessary_operation, clippy::identity_op)]
-const _: () = {
-    ["Size of __darwin_arm_exception_state64"]
-        [::std::mem::size_of::<__darwin_arm_exception_state64>() - 16usize];
-    ["Alignment of __darwin_arm_exception_state64"]
-        [::std::mem::align_of::<__darwin_arm_exception_state64>() - 8usize];
-    ["Offset of field: __darwin_arm_exception_state64::__far"][::std::mem::offset_of!(
-        __darwin_arm_exception_state64,
-        __far
-    ) - 0usize];
-    ["Offset of field: __darwin_arm_exception_state64::__esr"][::std::mem::offset_of!(
-        __darwin_arm_exception_state64,
-        __esr
-    ) - 8usize];
-    ["Offset of field: __darwin_arm_exception_state64::__exception"][::std::mem::offset_of!(
-        __darwin_arm_exception_state64,
-        __exception
-    )
-        - 12usize];
-};
-#[repr(C)]
-#[derive(Debug, Default, Copy, Clone)]
-pub struct __darwin_arm_exception_state64_v2 {
-    pub __far: __uint64_t,
-    pub __esr: __uint64_t,
-}
-#[allow(clippy::unnecessary_operation, clippy::identity_op)]
-const _: () = {
-    ["Size of __darwin_arm_exception_state64_v2"]
-        [::std::mem::size_of::<__darwin_arm_exception_state64_v2>() - 16usize];
-    ["Alignment of __darwin_arm_exception_state64_v2"]
-        [::std::mem::align_of::<__darwin_arm_exception_state64_v2>() - 8usize];
-    ["Offset of field: __darwin_arm_exception_state64_v2::__far"][::std::mem::offset_of!(
-        __darwin_arm_exception_state64_v2,
-        __far
-    ) - 0usize];
-    ["Offset of field: __darwin_arm_exception_state64_v2::__esr"][::std::mem::offset_of!(
-        __darwin_arm_exception_state64_v2,
-        __esr
-    ) - 8usize];
-};
-#[repr(C)]
-#[derive(Debug, Default, Copy, Clone)]
-pub struct __darwin_arm_thread_state {
-    pub __r: [__uint32_t; 13usize],
-    pub __sp: __uint32_t,
-    pub __lr: __uint32_t,
-    pub __pc: __uint32_t,
-    pub __cpsr: __uint32_t,
-}
-#[allow(clippy::unnecessary_operation, clippy::identity_op)]
-const _: () = {
-    ["Size of __darwin_arm_thread_state"]
-        [::std::mem::size_of::<__darwin_arm_thread_state>() - 68usize];
-    ["Alignment of __darwin_arm_thread_state"]
-        [::std::mem::align_of::<__darwin_arm_thread_state>() - 4usize];
-    ["Offset of field: __darwin_arm_thread_state::__r"]
-        [::std::mem::offset_of!(__darwin_arm_thread_state, __r) - 0usize];
-    ["Offset of field: __darwin_arm_thread_state::__sp"]
-        [::std::mem::offset_of!(__darwin_arm_thread_state, __sp) - 52usize];
-    ["Offset of field: __darwin_arm_thread_state::__lr"]
-        [::std::mem::offset_of!(__darwin_arm_thread_state, __lr) - 56usize];
-    ["Offset of field: __darwin_arm_thread_state::__pc"]
-        [::std::mem::offset_of!(__darwin_arm_thread_state, __pc) - 60usize];
-    ["Offset of field: __darwin_arm_thread_state::__cpsr"]
-        [::std::mem::offset_of!(__darwin_arm_thread_state, __cpsr) - 64usize];
-};
-#[repr(C)]
-#[derive(Debug, Default, Copy, Clone)]
-pub struct __darwin_arm_thread_state64 {
-    pub __x: [__uint64_t; 29usize],
-    pub __fp: __uint64_t,
-    pub __lr: __uint64_t,
-    pub __sp: __uint64_t,
-    pub __pc: __uint64_t,
-    pub __cpsr: __uint32_t,
-    pub __pad: __uint32_t,
-}
-#[allow(clippy::unnecessary_operation, clippy::identity_op)]
-const _: () = {
-    ["Size of __darwin_arm_thread_state64"]
-        [::std::mem::size_of::<__darwin_arm_thread_state64>() - 272usize];
-    ["Alignment of __darwin_arm_thread_state64"]
-        [::std::mem::align_of::<__darwin_arm_thread_state64>() - 8usize];
-    ["Offset of field: __darwin_arm_thread_state64::__x"]
-        [::std::mem::offset_of!(__darwin_arm_thread_state64, __x) - 0usize];
-    ["Offset of field: __darwin_arm_thread_state64::__fp"]
-        [::std::mem::offset_of!(__darwin_arm_thread_state64, __fp) - 232usize];
-    ["Offset of field: __darwin_arm_thread_state64::__lr"]
-        [::std::mem::offset_of!(__darwin_arm_thread_state64, __lr) - 240usize];
-    ["Offset of field: __darwin_arm_thread_state64::__sp"]
-        [::std::mem::offset_of!(__darwin_arm_thread_state64, __sp) - 248usize];
-    ["Offset of field: __darwin_arm_thread_state64::__pc"]
-        [::std::mem::offset_of!(__darwin_arm_thread_state64, __pc) - 256usize];
-    ["Offset of field: __darwin_arm_thread_state64::__cpsr"][::std::mem::offset_of!(
-        __darwin_arm_thread_state64,
-        __cpsr
-    ) - 264usize];
-    ["Offset of field: __darwin_arm_thread_state64::__pad"]
-        [::std::mem::offset_of!(__darwin_arm_thread_state64, __pad) - 268usize];
-};
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct __darwin_arm_vfp_state {
-    pub __r: [__uint32_t; 64usize],
-    pub __fpscr: __uint32_t,
-}
-#[allow(clippy::unnecessary_operation, clippy::identity_op)]
-const _: () = {
-    ["Size of __darwin_arm_vfp_state"]
-        [::std::mem::size_of::<__darwin_arm_vfp_state>() - 260usize];
-    ["Alignment of __darwin_arm_vfp_state"]
-        [::std::mem::align_of::<__darwin_arm_vfp_state>() - 4usize];
-    ["Offset of field: __darwin_arm_vfp_state::__r"]
-        [::std::mem::offset_of!(__darwin_arm_vfp_state, __r) - 0usize];
-    ["Offset of field: __darwin_arm_vfp_state::__fpscr"]
-        [::std::mem::offset_of!(__darwin_arm_vfp_state, __fpscr) - 256usize];
-};
-impl Default for __darwin_arm_vfp_state {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
-#[repr(C)]
-#[repr(align(16))]
-#[derive(Debug, Default, Copy, Clone)]
-pub struct __darwin_arm_neon_state64 {
-    pub __v: [__uint128_t; 32usize],
-    pub __fpsr: __uint32_t,
-    pub __fpcr: __uint32_t,
-}
-#[allow(clippy::unnecessary_operation, clippy::identity_op)]
-const _: () = {
-    ["Size of __darwin_arm_neon_state64"]
-        [::std::mem::size_of::<__darwin_arm_neon_state64>() - 528usize];
-    ["Alignment of __darwin_arm_neon_state64"]
-        [::std::mem::align_of::<__darwin_arm_neon_state64>() - 16usize];
-    ["Offset of field: __darwin_arm_neon_state64::__v"]
-        [::std::mem::offset_of!(__darwin_arm_neon_state64, __v) - 0usize];
-    ["Offset of field: __darwin_arm_neon_state64::__fpsr"]
-        [::std::mem::offset_of!(__darwin_arm_neon_state64, __fpsr) - 512usize];
-    ["Offset of field: __darwin_arm_neon_state64::__fpcr"]
-        [::std::mem::offset_of!(__darwin_arm_neon_state64, __fpcr) - 516usize];
-};
-#[repr(C)]
-#[repr(align(16))]
-#[derive(Debug, Default, Copy, Clone)]
-pub struct __darwin_arm_neon_state {
-    pub __v: [__uint128_t; 16usize],
-    pub __fpsr: __uint32_t,
-    pub __fpcr: __uint32_t,
-}
-#[allow(clippy::unnecessary_operation, clippy::identity_op)]
-const _: () = {
-    ["Size of __darwin_arm_neon_state"]
-        [::std::mem::size_of::<__darwin_arm_neon_state>() - 272usize];
-    ["Alignment of __darwin_arm_neon_state"]
-        [::std::mem::align_of::<__darwin_arm_neon_state>() - 16usize];
-    ["Offset of field: __darwin_arm_neon_state::__v"]
-        [::std::mem::offset_of!(__darwin_arm_neon_state, __v) - 0usize];
-    ["Offset of field: __darwin_arm_neon_state::__fpsr"]
-        [::std::mem::offset_of!(__darwin_arm_neon_state, __fpsr) - 256usize];
-    ["Offset of field: __darwin_arm_neon_state::__fpcr"]
-        [::std::mem::offset_of!(__darwin_arm_neon_state, __fpcr) - 260usize];
-};
-#[repr(C)]
-#[derive(Debug, Default, Copy, Clone)]
-pub struct __arm_pagein_state {
-    pub __pagein_error: ::std::os::raw::c_int,
-}
-#[allow(clippy::unnecessary_operation, clippy::identity_op)]
-const _: () = {
-    ["Size of __arm_pagein_state"]
-        [::std::mem::size_of::<__arm_pagein_state>() - 4usize];
-    ["Alignment of __arm_pagein_state"]
-        [::std::mem::align_of::<__arm_pagein_state>() - 4usize];
-    ["Offset of field: __arm_pagein_state::__pagein_error"]
-        [::std::mem::offset_of!(__arm_pagein_state, __pagein_error) - 0usize];
-};
-#[repr(C)]
-#[derive(Debug, Default, Copy, Clone)]
-pub struct __darwin_arm_sme_state {
-    pub __svcr: __uint64_t,
-    pub __tpidr2_el0: __uint64_t,
-    pub __svl_b: __uint16_t,
-}
-#[allow(clippy::unnecessary_operation, clippy::identity_op)]
-const _: () = {
-    ["Size of __darwin_arm_sme_state"]
-        [::std::mem::size_of::<__darwin_arm_sme_state>() - 24usize];
-    ["Alignment of __darwin_arm_sme_state"]
-        [::std::mem::align_of::<__darwin_arm_sme_state>() - 8usize];
-    ["Offset of field: __darwin_arm_sme_state::__svcr"]
-        [::std::mem::offset_of!(__darwin_arm_sme_state, __svcr) - 0usize];
-    ["Offset of field: __darwin_arm_sme_state::__tpidr2_el0"]
-        [::std::mem::offset_of!(__darwin_arm_sme_state, __tpidr2_el0) - 8usize];
-    ["Offset of field: __darwin_arm_sme_state::__svl_b"]
-        [::std::mem::offset_of!(__darwin_arm_sme_state, __svl_b) - 16usize];
-};
-#[repr(C)]
-#[repr(align(4))]
-#[derive(Debug, Copy, Clone)]
-pub struct __darwin_arm_sve_z_state {
-    pub __z: [[::std::os::raw::c_char; 256usize]; 16usize],
-}
-#[allow(clippy::unnecessary_operation, clippy::identity_op)]
-const _: () = {
-    ["Size of __darwin_arm_sve_z_state"]
-        [::std::mem::size_of::<__darwin_arm_sve_z_state>() - 4096usize];
-    ["Alignment of __darwin_arm_sve_z_state"]
-        [::std::mem::align_of::<__darwin_arm_sve_z_state>() - 4usize];
-    ["Offset of field: __darwin_arm_sve_z_state::__z"]
-        [::std::mem::offset_of!(__darwin_arm_sve_z_state, __z) - 0usize];
-};
-impl Default for __darwin_arm_sve_z_state {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
-#[repr(C)]
-#[repr(align(4))]
-#[derive(Debug, Default, Copy, Clone)]
-pub struct __darwin_arm_sve_p_state {
-    pub __p: [[::std::os::raw::c_char; 32usize]; 16usize],
-}
-#[allow(clippy::unnecessary_operation, clippy::identity_op)]
-const _: () = {
-    ["Size of __darwin_arm_sve_p_state"]
-        [::std::mem::size_of::<__darwin_arm_sve_p_state>() - 512usize];
-    ["Alignment of __darwin_arm_sve_p_state"]
-        [::std::mem::align_of::<__darwin_arm_sve_p_state>() - 4usize];
-    ["Offset of field: __darwin_arm_sve_p_state::__p"]
-        [::std::mem::offset_of!(__darwin_arm_sve_p_state, __p) - 0usize];
-};
-#[repr(C)]
-#[repr(align(4))]
-#[derive(Debug, Copy, Clone)]
-pub struct __darwin_arm_sme_za_state {
-    pub __za: [::std::os::raw::c_char; 4096usize],
-}
-#[allow(clippy::unnecessary_operation, clippy::identity_op)]
-const _: () = {
-    ["Size of __darwin_arm_sme_za_state"]
-        [::std::mem::size_of::<__darwin_arm_sme_za_state>() - 4096usize];
-    ["Alignment of __darwin_arm_sme_za_state"]
-        [::std::mem::align_of::<__darwin_arm_sme_za_state>() - 4usize];
-    ["Offset of field: __darwin_arm_sme_za_state::__za"]
-        [::std::mem::offset_of!(__darwin_arm_sme_za_state, __za) - 0usize];
-};
-impl Default for __darwin_arm_sme_za_state {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
-#[repr(C)]
-#[repr(align(4))]
-#[derive(Debug, Copy, Clone)]
-pub struct __darwin_arm_sme2_state {
-    pub __zt0: [::std::os::raw::c_char; 64usize],
-}
-#[allow(clippy::unnecessary_operation, clippy::identity_op)]
-const _: () = {
-    ["Size of __darwin_arm_sme2_state"]
-        [::std::mem::size_of::<__darwin_arm_sme2_state>() - 64usize];
-    ["Alignment of __darwin_arm_sme2_state"]
-        [::std::mem::align_of::<__darwin_arm_sme2_state>() - 4usize];
-    ["Offset of field: __darwin_arm_sme2_state::__zt0"]
-        [::std::mem::offset_of!(__darwin_arm_sme2_state, __zt0) - 0usize];
-};
-impl Default for __darwin_arm_sme2_state {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
-#[repr(C)]
-#[derive(Debug, Default, Copy, Clone)]
-pub struct __arm_legacy_debug_state {
-    pub __bvr: [__uint32_t; 16usize],
-    pub __bcr: [__uint32_t; 16usize],
-    pub __wvr: [__uint32_t; 16usize],
-    pub __wcr: [__uint32_t; 16usize],
-}
-#[allow(clippy::unnecessary_operation, clippy::identity_op)]
-const _: () = {
-    ["Size of __arm_legacy_debug_state"]
-        [::std::mem::size_of::<__arm_legacy_debug_state>() - 256usize];
-    ["Alignment of __arm_legacy_debug_state"]
-        [::std::mem::align_of::<__arm_legacy_debug_state>() - 4usize];
-    ["Offset of field: __arm_legacy_debug_state::__bvr"]
-        [::std::mem::offset_of!(__arm_legacy_debug_state, __bvr) - 0usize];
-    ["Offset of field: __arm_legacy_debug_state::__bcr"]
-        [::std::mem::offset_of!(__arm_legacy_debug_state, __bcr) - 64usize];
-    ["Offset of field: __arm_legacy_debug_state::__wvr"]
-        [::std::mem::offset_of!(__arm_legacy_debug_state, __wvr) - 128usize];
-    ["Offset of field: __arm_legacy_debug_state::__wcr"]
-        [::std::mem::offset_of!(__arm_legacy_debug_state, __wcr) - 192usize];
-};
-#[repr(C)]
-#[derive(Debug, Default, Copy, Clone)]
-pub struct __darwin_arm_debug_state32 {
-    pub __bvr: [__uint32_t; 16usize],
-    pub __bcr: [__uint32_t; 16usize],
-    pub __wvr: [__uint32_t; 16usize],
-    pub __wcr: [__uint32_t; 16usize],
-    pub __mdscr_el1: __uint64_t,
-}
-#[allow(clippy::unnecessary_operation, clippy::identity_op)]
-const _: () = {
-    ["Size of __darwin_arm_debug_state32"]
-        [::std::mem::size_of::<__darwin_arm_debug_state32>() - 264usize];
-    ["Alignment of __darwin_arm_debug_state32"]
-        [::std::mem::align_of::<__darwin_arm_debug_state32>() - 8usize];
-    ["Offset of field: __darwin_arm_debug_state32::__bvr"]
-        [::std::mem::offset_of!(__darwin_arm_debug_state32, __bvr) - 0usize];
-    ["Offset of field: __darwin_arm_debug_state32::__bcr"]
-        [::std::mem::offset_of!(__darwin_arm_debug_state32, __bcr) - 64usize];
-    ["Offset of field: __darwin_arm_debug_state32::__wvr"]
-        [::std::mem::offset_of!(__darwin_arm_debug_state32, __wvr) - 128usize];
-    ["Offset of field: __darwin_arm_debug_state32::__wcr"]
-        [::std::mem::offset_of!(__darwin_arm_debug_state32, __wcr) - 192usize];
-    ["Offset of field: __darwin_arm_debug_state32::__mdscr_el1"][::std::mem::offset_of!(
-        __darwin_arm_debug_state32,
-        __mdscr_el1
-    ) - 256usize];
-};
-#[repr(C)]
-#[derive(Debug, Default, Copy, Clone)]
-pub struct __darwin_arm_debug_state64 {
-    pub __bvr: [__uint64_t; 16usize],
-    pub __bcr: [__uint64_t; 16usize],
-    pub __wvr: [__uint64_t; 16usize],
-    pub __wcr: [__uint64_t; 16usize],
-    pub __mdscr_el1: __uint64_t,
-}
-#[allow(clippy::unnecessary_operation, clippy::identity_op)]
-const _: () = {
-    ["Size of __darwin_arm_debug_state64"]
-        [::std::mem::size_of::<__darwin_arm_debug_state64>() - 520usize];
-    ["Alignment of __darwin_arm_debug_state64"]
-        [::std::mem::align_of::<__darwin_arm_debug_state64>() - 8usize];
-    ["Offset of field: __darwin_arm_debug_state64::__bvr"]
-        [::std::mem::offset_of!(__darwin_arm_debug_state64, __bvr) - 0usize];
-    ["Offset of field: __darwin_arm_debug_state64::__bcr"]
-        [::std::mem::offset_of!(__darwin_arm_debug_state64, __bcr) - 128usize];
-    ["Offset of field: __darwin_arm_debug_state64::__wvr"]
-        [::std::mem::offset_of!(__darwin_arm_debug_state64, __wvr) - 256usize];
-    ["Offset of field: __darwin_arm_debug_state64::__wcr"]
-        [::std::mem::offset_of!(__darwin_arm_debug_state64, __wcr) - 384usize];
-    ["Offset of field: __darwin_arm_debug_state64::__mdscr_el1"][::std::mem::offset_of!(
-        __darwin_arm_debug_state64,
-        __mdscr_el1
-    ) - 512usize];
-};
-#[repr(C)]
-#[derive(Debug, Default, Copy, Clone)]
-pub struct __darwin_arm_cpmu_state64 {
-    pub __ctrs: [__uint64_t; 16usize],
-}
-#[allow(clippy::unnecessary_operation, clippy::identity_op)]
-const _: () = {
-    ["Size of __darwin_arm_cpmu_state64"]
-        [::std::mem::size_of::<__darwin_arm_cpmu_state64>() - 128usize];
-    ["Alignment of __darwin_arm_cpmu_state64"]
-        [::std::mem::align_of::<__darwin_arm_cpmu_state64>() - 8usize];
-    ["Offset of field: __darwin_arm_cpmu_state64::__ctrs"]
-        [::std::mem::offset_of!(__darwin_arm_cpmu_state64, __ctrs) - 0usize];
-};
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct __darwin_mcontext32 {
-    pub __es: __darwin_arm_exception_state,
-    pub __ss: __darwin_arm_thread_state,
-    pub __fs: __darwin_arm_vfp_state,
-}
-#[allow(clippy::unnecessary_operation, clippy::identity_op)]
-const _: () = {
-    ["Size of __darwin_mcontext32"]
-        [::std::mem::size_of::<__darwin_mcontext32>() - 340usize];
-    ["Alignment of __darwin_mcontext32"]
-        [::std::mem::align_of::<__darwin_mcontext32>() - 4usize];
-    ["Offset of field: __darwin_mcontext32::__es"]
-        [::std::mem::offset_of!(__darwin_mcontext32, __es) - 0usize];
-    ["Offset of field: __darwin_mcontext32::__ss"]
-        [::std::mem::offset_of!(__darwin_mcontext32, __ss) - 12usize];
-    ["Offset of field: __darwin_mcontext32::__fs"]
-        [::std::mem::offset_of!(__darwin_mcontext32, __fs) - 80usize];
-};
-impl Default for __darwin_mcontext32 {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
-#[repr(C)]
-#[repr(align(16))]
-#[derive(Debug, Default, Copy, Clone)]
-pub struct __darwin_mcontext64 {
-    pub __es: __darwin_arm_exception_state64,
-    pub __ss: __darwin_arm_thread_state64,
-    pub __ns: __darwin_arm_neon_state64,
-}
-#[allow(clippy::unnecessary_operation, clippy::identity_op)]
-const _: () = {
-    ["Size of __darwin_mcontext64"]
-        [::std::mem::size_of::<__darwin_mcontext64>() - 816usize];
-    ["Alignment of __darwin_mcontext64"]
-        [::std::mem::align_of::<__darwin_mcontext64>() - 16usize];
-    ["Offset of field: __darwin_mcontext64::__es"]
-        [::std::mem::offset_of!(__darwin_mcontext64, __es) - 0usize];
-    ["Offset of field: __darwin_mcontext64::__ss"]
-        [::std::mem::offset_of!(__darwin_mcontext64, __ss) - 16usize];
-    ["Offset of field: __darwin_mcontext64::__ns"]
-        [::std::mem::offset_of!(__darwin_mcontext64, __ns) - 288usize];
-};
-pub type mcontext_t = *mut __darwin_mcontext64;
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct __darwin_sigaltstack {
-    pub ss_sp: *mut ::std::os::raw::c_void,
-    pub ss_size: __darwin_size_t,
-    pub ss_flags: ::std::os::raw::c_int,
-}
-#[allow(clippy::unnecessary_operation, clippy::identity_op)]
-const _: () = {
-    ["Size of __darwin_sigaltstack"]
-        [::std::mem::size_of::<__darwin_sigaltstack>() - 24usize];
-    ["Alignment of __darwin_sigaltstack"]
-        [::std::mem::align_of::<__darwin_sigaltstack>() - 8usize];
-    ["Offset of field: __darwin_sigaltstack::ss_sp"]
-        [::std::mem::offset_of!(__darwin_sigaltstack, ss_sp) - 0usize];
-    ["Offset of field: __darwin_sigaltstack::ss_size"]
-        [::std::mem::offset_of!(__darwin_sigaltstack, ss_size) - 8usize];
-    ["Offset of field: __darwin_sigaltstack::ss_flags"]
-        [::std::mem::offset_of!(__darwin_sigaltstack, ss_flags) - 16usize];
-};
-impl Default for __darwin_sigaltstack {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
-pub type stack_t = __darwin_sigaltstack;
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct __darwin_ucontext {
-    pub uc_onstack: ::std::os::raw::c_int,
-    pub uc_sigmask: __darwin_sigset_t,
-    pub uc_stack: __darwin_sigaltstack,
-    pub uc_link: *mut __darwin_ucontext,
-    pub uc_mcsize: __darwin_size_t,
-    pub uc_mcontext: *mut __darwin_mcontext64,
-}
-#[allow(clippy::unnecessary_operation, clippy::identity_op)]
-const _: () = {
-    ["Size of __darwin_ucontext"]
-        [::std::mem::size_of::<__darwin_ucontext>() - 56usize];
-    ["Alignment of __darwin_ucontext"]
-        [::std::mem::align_of::<__darwin_ucontext>() - 8usize];
-    ["Offset of field: __darwin_ucontext::uc_onstack"]
-        [::std::mem::offset_of!(__darwin_ucontext, uc_onstack) - 0usize];
-    ["Offset of field: __darwin_ucontext::uc_sigmask"]
-        [::std::mem::offset_of!(__darwin_ucontext, uc_sigmask) - 4usize];
-    ["Offset of field: __darwin_ucontext::uc_stack"]
-        [::std::mem::offset_of!(__darwin_ucontext, uc_stack) - 8usize];
-    ["Offset of field: __darwin_ucontext::uc_link"]
-        [::std::mem::offset_of!(__darwin_ucontext, uc_link) - 32usize];
-    ["Offset of field: __darwin_ucontext::uc_mcsize"]
-        [::std::mem::offset_of!(__darwin_ucontext, uc_mcsize) - 40usize];
-    ["Offset of field: __darwin_ucontext::uc_mcontext"]
-        [::std::mem::offset_of!(__darwin_ucontext, uc_mcontext) - 48usize];
-};
-impl Default for __darwin_ucontext {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
-pub type ucontext_t = __darwin_ucontext;
-pub type sigset_t = __darwin_sigset_t;
-#[repr(C)]
-#[derive(Copy, Clone)]
-pub union sigval {
-    pub sival_int: ::std::os::raw::c_int,
-    pub sival_ptr: *mut ::std::os::raw::c_void,
-}
-#[allow(clippy::unnecessary_operation, clippy::identity_op)]
-const _: () = {
-    ["Size of sigval"][::std::mem::size_of::<sigval>() - 8usize];
-    ["Alignment of sigval"][::std::mem::align_of::<sigval>() - 8usize];
-    ["Offset of field: sigval::sival_int"]
-        [::std::mem::offset_of!(sigval, sival_int) - 0usize];
-    ["Offset of field: sigval::sival_ptr"]
-        [::std::mem::offset_of!(sigval, sival_ptr) - 0usize];
-};
-impl Default for sigval {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
-#[repr(C)]
-#[derive(Copy, Clone)]
-pub struct sigevent {
-    pub sigev_notify: ::std::os::raw::c_int,
-    pub sigev_signo: ::std::os::raw::c_int,
-    pub sigev_value: sigval,
-    pub sigev_notify_function:
-        ::std::option::Option<unsafe extern "C" fn(arg1: sigval)>,
-    pub sigev_notify_attributes: *mut pthread_attr_t,
-}
-#[allow(clippy::unnecessary_operation, clippy::identity_op)]
-const _: () = {
-    ["Size of sigevent"][::std::mem::size_of::<sigevent>() - 32usize];
-    ["Alignment of sigevent"][::std::mem::align_of::<sigevent>() - 8usize];
-    ["Offset of field: sigevent::sigev_notify"]
-        [::std::mem::offset_of!(sigevent, sigev_notify) - 0usize];
-    ["Offset of field: sigevent::sigev_signo"]
-        [::std::mem::offset_of!(sigevent, sigev_signo) - 4usize];
-    ["Offset of field: sigevent::sigev_value"]
-        [::std::mem::offset_of!(sigevent, sigev_value) - 8usize];
-    ["Offset of field: sigevent::sigev_notify_function"]
-        [::std::mem::offset_of!(sigevent, sigev_notify_function) - 16usize];
-    ["Offset of field: sigevent::sigev_notify_attributes"]
-        [::std::mem::offset_of!(sigevent, sigev_notify_attributes) - 24usize];
-};
-impl Default for sigevent {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
-#[repr(C)]
-#[derive(Copy, Clone)]
-pub struct __siginfo {
-    pub si_signo: ::std::os::raw::c_int,
-    pub si_errno: ::std::os::raw::c_int,
-    pub si_code: ::std::os::raw::c_int,
-    pub si_pid: pid_t,
-    pub si_uid: uid_t,
-    pub si_status: ::std::os::raw::c_int,
-    pub si_addr: *mut ::std::os::raw::c_void,
-    pub si_value: sigval,
-    pub si_band: ::std::os::raw::c_long,
-    pub __pad: [::std::os::raw::c_ulong; 7usize],
-}
-#[allow(clippy::unnecessary_operation, clippy::identity_op)]
-const _: () = {
-    ["Size of __siginfo"][::std::mem::size_of::<__siginfo>() - 104usize];
-    ["Alignment of __siginfo"][::std::mem::align_of::<__siginfo>() - 8usize];
-    ["Offset of field: __siginfo::si_signo"]
-        [::std::mem::offset_of!(__siginfo, si_signo) - 0usize];
-    ["Offset of field: __siginfo::si_errno"]
-        [::std::mem::offset_of!(__siginfo, si_errno) - 4usize];
-    ["Offset of field: __siginfo::si_code"]
-        [::std::mem::offset_of!(__siginfo, si_code) - 8usize];
-    ["Offset of field: __siginfo::si_pid"]
-        [::std::mem::offset_of!(__siginfo, si_pid) - 12usize];
-    ["Offset of field: __siginfo::si_uid"]
-        [::std::mem::offset_of!(__siginfo, si_uid) - 16usize];
-    ["Offset of field: __siginfo::si_status"]
-        [::std::mem::offset_of!(__siginfo, si_status) - 20usize];
-    ["Offset of field: __siginfo::si_addr"]
-        [::std::mem::offset_of!(__siginfo, si_addr) - 24usize];
-    ["Offset of field: __siginfo::si_value"]
-        [::std::mem::offset_of!(__siginfo, si_value) - 32usize];
-    ["Offset of field: __siginfo::si_band"]
-        [::std::mem::offset_of!(__siginfo, si_band) - 40usize];
-    ["Offset of field: __siginfo::__pad"]
-        [::std::mem::offset_of!(__siginfo, __pad) - 48usize];
-};
-impl Default for __siginfo {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
-pub type siginfo_t = __siginfo;
-#[repr(C)]
-#[derive(Copy, Clone)]
-pub union __sigaction_u {
-    pub __sa_handler: ::std::option::Option<
-        unsafe extern "C" fn(arg1: ::std::os::raw::c_int),
-    >,
-    pub __sa_sigaction: ::std::option::Option<
-        unsafe extern "C" fn(
-            arg1: ::std::os::raw::c_int,
-            arg2: *mut __siginfo,
-            arg3: *mut ::std::os::raw::c_void,
-        ),
-    >,
-}
-#[allow(clippy::unnecessary_operation, clippy::identity_op)]
-const _: () = {
-    ["Size of __sigaction_u"][::std::mem::size_of::<__sigaction_u>() - 8usize];
-    ["Alignment of __sigaction_u"]
-        [::std::mem::align_of::<__sigaction_u>() - 8usize];
-    ["Offset of field: __sigaction_u::__sa_handler"]
-        [::std::mem::offset_of!(__sigaction_u, __sa_handler) - 0usize];
-    ["Offset of field: __sigaction_u::__sa_sigaction"]
-        [::std::mem::offset_of!(__sigaction_u, __sa_sigaction) - 0usize];
-};
-impl Default for __sigaction_u {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
-#[repr(C)]
-#[derive(Copy, Clone)]
-pub struct __sigaction {
-    pub __sigaction_u: __sigaction_u,
-    pub sa_tramp: ::std::option::Option<
-        unsafe extern "C" fn(
-            arg1: *mut ::std::os::raw::c_void,
-            arg2: ::std::os::raw::c_int,
-            arg3: ::std::os::raw::c_int,
-            arg4: *mut siginfo_t,
-            arg5: *mut ::std::os::raw::c_void,
-        ),
-    >,
-    pub sa_mask: sigset_t,
-    pub sa_flags: ::std::os::raw::c_int,
-}
-#[allow(clippy::unnecessary_operation, clippy::identity_op)]
-const _: () = {
-    ["Size of __sigaction"][::std::mem::size_of::<__sigaction>() - 24usize];
-    ["Alignment of __sigaction"]
-        [::std::mem::align_of::<__sigaction>() - 8usize];
-    ["Offset of field: __sigaction::__sigaction_u"]
-        [::std::mem::offset_of!(__sigaction, __sigaction_u) - 0usize];
-    ["Offset of field: __sigaction::sa_tramp"]
-        [::std::mem::offset_of!(__sigaction, sa_tramp) - 8usize];
-    ["Offset of field: __sigaction::sa_mask"]
-        [::std::mem::offset_of!(__sigaction, sa_mask) - 16usize];
-    ["Offset of field: __sigaction::sa_flags"]
-        [::std::mem::offset_of!(__sigaction, sa_flags) - 20usize];
-};
-impl Default for __sigaction {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
-#[repr(C)]
-#[derive(Copy, Clone)]
-pub struct sigaction {
-    pub __sigaction_u: __sigaction_u,
-    pub sa_mask: sigset_t,
-    pub sa_flags: ::std::os::raw::c_int,
-}
-#[allow(clippy::unnecessary_operation, clippy::identity_op)]
-const _: () = {
-    ["Size of sigaction"][::std::mem::size_of::<sigaction>() - 16usize];
-    ["Alignment of sigaction"][::std::mem::align_of::<sigaction>() - 8usize];
-    ["Offset of field: sigaction::__sigaction_u"]
-        [::std::mem::offset_of!(sigaction, __sigaction_u) - 0usize];
-    ["Offset of field: sigaction::sa_mask"]
-        [::std::mem::offset_of!(sigaction, sa_mask) - 8usize];
-    ["Offset of field: sigaction::sa_flags"]
-        [::std::mem::offset_of!(sigaction, sa_flags) - 12usize];
-};
-impl Default for sigaction {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
-pub type sig_t =
-    ::std::option::Option<unsafe extern "C" fn(arg1: ::std::os::raw::c_int)>;
-#[repr(C)]
-#[derive(Debug, Default, Copy, Clone)]
-pub struct sigvec {
-    pub sv_handler: ::std::option::Option<
-        unsafe extern "C" fn(arg1: ::std::os::raw::c_int),
-    >,
-    pub sv_mask: ::std::os::raw::c_int,
-    pub sv_flags: ::std::os::raw::c_int,
-}
-#[allow(clippy::unnecessary_operation, clippy::identity_op)]
-const _: () = {
-    ["Size of sigvec"][::std::mem::size_of::<sigvec>() - 16usize];
-    ["Alignment of sigvec"][::std::mem::align_of::<sigvec>() - 8usize];
-    ["Offset of field: sigvec::sv_handler"]
-        [::std::mem::offset_of!(sigvec, sv_handler) - 0usize];
-    ["Offset of field: sigvec::sv_mask"]
-        [::std::mem::offset_of!(sigvec, sv_mask) - 8usize];
-    ["Offset of field: sigvec::sv_flags"]
-        [::std::mem::offset_of!(sigvec, sv_flags) - 12usize];
-};
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct sigstack {
-    pub ss_sp: *mut ::std::os::raw::c_char,
-    pub ss_onstack: ::std::os::raw::c_int,
-}
-#[allow(clippy::unnecessary_operation, clippy::identity_op)]
-const _: () = {
-    ["Size of sigstack"][::std::mem::size_of::<sigstack>() - 16usize];
-    ["Alignment of sigstack"][::std::mem::align_of::<sigstack>() - 8usize];
-    ["Offset of field: sigstack::ss_sp"]
-        [::std::mem::offset_of!(sigstack, ss_sp) - 0usize];
-    ["Offset of field: sigstack::ss_onstack"]
-        [::std::mem::offset_of!(sigstack, ss_onstack) - 8usize];
-};
-impl Default for sigstack {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
-unsafe extern "C" {
-    pub fn signal(
-        arg1: ::std::os::raw::c_int,
-        arg2: ::std::option::Option<
-            unsafe extern "C" fn(arg1: ::std::os::raw::c_int),
-        >,
-    ) -> ::std::option::Option<
-        unsafe extern "C" fn(
-            arg1: ::std::os::raw::c_int,
-            arg2: ::std::option::Option<
-                unsafe extern "C" fn(arg1: ::std::os::raw::c_int),
-            >,
-        ),
-    >;
-}
-#[repr(C)]
-#[derive(Debug, Default, Copy, Clone)]
-pub struct timeval {
-    pub tv_sec: __darwin_time_t,
-    pub tv_usec: __darwin_suseconds_t,
-}
-#[allow(clippy::unnecessary_operation, clippy::identity_op)]
-const _: () = {
-    ["Size of timeval"][::std::mem::size_of::<timeval>() - 16usize];
-    ["Alignment of timeval"][::std::mem::align_of::<timeval>() - 8usize];
-    ["Offset of field: timeval::tv_sec"]
-        [::std::mem::offset_of!(timeval, tv_sec) - 0usize];
-    ["Offset of field: timeval::tv_usec"]
-        [::std::mem::offset_of!(timeval, tv_usec) - 8usize];
-};
-pub type rlim_t = __uint64_t;
-#[repr(C)]
-#[derive(Debug, Default, Copy, Clone)]
-pub struct rusage {
-    pub ru_utime: timeval,
-    pub ru_stime: timeval,
-    pub ru_maxrss: ::std::os::raw::c_long,
-    pub ru_ixrss: ::std::os::raw::c_long,
-    pub ru_idrss: ::std::os::raw::c_long,
-    pub ru_isrss: ::std::os::raw::c_long,
-    pub ru_minflt: ::std::os::raw::c_long,
-    pub ru_majflt: ::std::os::raw::c_long,
-    pub ru_nswap: ::std::os::raw::c_long,
-    pub ru_inblock: ::std::os::raw::c_long,
-    pub ru_oublock: ::std::os::raw::c_long,
-    pub ru_msgsnd: ::std::os::raw::c_long,
-    pub ru_msgrcv: ::std::os::raw::c_long,
-    pub ru_nsignals: ::std::os::raw::c_long,
-    pub ru_nvcsw: ::std::os::raw::c_long,
-    pub ru_nivcsw: ::std::os::raw::c_long,
-}
-#[allow(clippy::unnecessary_operation, clippy::identity_op)]
-const _: () = {
-    ["Size of rusage"][::std::mem::size_of::<rusage>() - 144usize];
-    ["Alignment of rusage"][::std::mem::align_of::<rusage>() - 8usize];
-    ["Offset of field: rusage::ru_utime"]
-        [::std::mem::offset_of!(rusage, ru_utime) - 0usize];
-    ["Offset of field: rusage::ru_stime"]
-        [::std::mem::offset_of!(rusage, ru_stime) - 16usize];
-    ["Offset of field: rusage::ru_maxrss"]
-        [::std::mem::offset_of!(rusage, ru_maxrss) - 32usize];
-    ["Offset of field: rusage::ru_ixrss"]
-        [::std::mem::offset_of!(rusage, ru_ixrss) - 40usize];
-    ["Offset of field: rusage::ru_idrss"]
-        [::std::mem::offset_of!(rusage, ru_idrss) - 48usize];
-    ["Offset of field: rusage::ru_isrss"]
-        [::std::mem::offset_of!(rusage, ru_isrss) - 56usize];
-    ["Offset of field: rusage::ru_minflt"]
-        [::std::mem::offset_of!(rusage, ru_minflt) - 64usize];
-    ["Offset of field: rusage::ru_majflt"]
-        [::std::mem::offset_of!(rusage, ru_majflt) - 72usize];
-    ["Offset of field: rusage::ru_nswap"]
-        [::std::mem::offset_of!(rusage, ru_nswap) - 80usize];
-    ["Offset of field: rusage::ru_inblock"]
-        [::std::mem::offset_of!(rusage, ru_inblock) - 88usize];
-    ["Offset of field: rusage::ru_oublock"]
-        [::std::mem::offset_of!(rusage, ru_oublock) - 96usize];
-    ["Offset of field: rusage::ru_msgsnd"]
-        [::std::mem::offset_of!(rusage, ru_msgsnd) - 104usize];
-    ["Offset of field: rusage::ru_msgrcv"]
-        [::std::mem::offset_of!(rusage, ru_msgrcv) - 112usize];
-    ["Offset of field: rusage::ru_nsignals"]
-        [::std::mem::offset_of!(rusage, ru_nsignals) - 120usize];
-    ["Offset of field: rusage::ru_nvcsw"]
-        [::std::mem::offset_of!(rusage, ru_nvcsw) - 128usize];
-    ["Offset of field: rusage::ru_nivcsw"]
-        [::std::mem::offset_of!(rusage, ru_nivcsw) - 136usize];
-};
-pub type rusage_info_t = *mut ::std::os::raw::c_void;
-#[repr(C)]
-#[derive(Debug, Default, Copy, Clone)]
-pub struct rusage_info_v0 {
-    pub ri_uuid: [u8; 16usize],
-    pub ri_user_time: u64,
-    pub ri_system_time: u64,
-    pub ri_pkg_idle_wkups: u64,
-    pub ri_interrupt_wkups: u64,
-    pub ri_pageins: u64,
-    pub ri_wired_size: u64,
-    pub ri_resident_size: u64,
-    pub ri_phys_footprint: u64,
-    pub ri_proc_start_abstime: u64,
-    pub ri_proc_exit_abstime: u64,
-}
-#[allow(clippy::unnecessary_operation, clippy::identity_op)]
-const _: () = {
-    ["Size of rusage_info_v0"]
-        [::std::mem::size_of::<rusage_info_v0>() - 96usize];
-    ["Alignment of rusage_info_v0"]
-        [::std::mem::align_of::<rusage_info_v0>() - 8usize];
-    ["Offset of field: rusage_info_v0::ri_uuid"]
-        [::std::mem::offset_of!(rusage_info_v0, ri_uuid) - 0usize];
-    ["Offset of field: rusage_info_v0::ri_user_time"]
-        [::std::mem::offset_of!(rusage_info_v0, ri_user_time) - 16usize];
-    ["Offset of field: rusage_info_v0::ri_system_time"]
-        [::std::mem::offset_of!(rusage_info_v0, ri_system_time) - 24usize];
-    ["Offset of field: rusage_info_v0::ri_pkg_idle_wkups"]
-        [::std::mem::offset_of!(rusage_info_v0, ri_pkg_idle_wkups) - 32usize];
-    ["Offset of field: rusage_info_v0::ri_interrupt_wkups"]
-        [::std::mem::offset_of!(rusage_info_v0, ri_interrupt_wkups) - 40usize];
-    ["Offset of field: rusage_info_v0::ri_pageins"]
-        [::std::mem::offset_of!(rusage_info_v0, ri_pageins) - 48usize];
-    ["Offset of field: rusage_info_v0::ri_wired_size"]
-        [::std::mem::offset_of!(rusage_info_v0, ri_wired_size) - 56usize];
-    ["Offset of field: rusage_info_v0::ri_resident_size"]
-        [::std::mem::offset_of!(rusage_info_v0, ri_resident_size) - 64usize];
-    ["Offset of field: rusage_info_v0::ri_phys_footprint"]
-        [::std::mem::offset_of!(rusage_info_v0, ri_phys_footprint) - 72usize];
-    ["Offset of field: rusage_info_v0::ri_proc_start_abstime"][::std::mem::offset_of!(
-        rusage_info_v0,
-        ri_proc_start_abstime
-    ) - 80usize];
-    ["Offset of field: rusage_info_v0::ri_proc_exit_abstime"][::std::mem::offset_of!(
-        rusage_info_v0,
-        ri_proc_exit_abstime
-    ) - 88usize];
-};
-#[repr(C)]
-#[derive(Debug, Default, Copy, Clone)]
-pub struct rusage_info_v1 {
-    pub ri_uuid: [u8; 16usize],
-    pub ri_user_time: u64,
-    pub ri_system_time: u64,
-    pub ri_pkg_idle_wkups: u64,
-    pub ri_interrupt_wkups: u64,
-    pub ri_pageins: u64,
-    pub ri_wired_size: u64,
-    pub ri_resident_size: u64,
-    pub ri_phys_footprint: u64,
-    pub ri_proc_start_abstime: u64,
-    pub ri_proc_exit_abstime: u64,
-    pub ri_child_user_time: u64,
-    pub ri_child_system_time: u64,
-    pub ri_child_pkg_idle_wkups: u64,
-    pub ri_child_interrupt_wkups: u64,
-    pub ri_child_pageins: u64,
-    pub ri_child_elapsed_abstime: u64,
-}
-#[allow(clippy::unnecessary_operation, clippy::identity_op)]
-const _: () = {
-    ["Size of rusage_info_v1"]
-        [::std::mem::size_of::<rusage_info_v1>() - 144usize];
-    ["Alignment of rusage_info_v1"]
-        [::std::mem::align_of::<rusage_info_v1>() - 8usize];
-    ["Offset of field: rusage_info_v1::ri_uuid"]
-        [::std::mem::offset_of!(rusage_info_v1, ri_uuid) - 0usize];
-    ["Offset of field: rusage_info_v1::ri_user_time"]
-        [::std::mem::offset_of!(rusage_info_v1, ri_user_time) - 16usize];
-    ["Offset of field: rusage_info_v1::ri_system_time"]
-        [::std::mem::offset_of!(rusage_info_v1, ri_system_time) - 24usize];
-    ["Offset of field: rusage_info_v1::ri_pkg_idle_wkups"]
-        [::std::mem::offset_of!(rusage_info_v1, ri_pkg_idle_wkups) - 32usize];
-    ["Offset of field: rusage_info_v1::ri_interrupt_wkups"]
-        [::std::mem::offset_of!(rusage_info_v1, ri_interrupt_wkups) - 40usize];
-    ["Offset of field: rusage_info_v1::ri_pageins"]
-        [::std::mem::offset_of!(rusage_info_v1, ri_pageins) - 48usize];
-    ["Offset of field: rusage_info_v1::ri_wired_size"]
-        [::std::mem::offset_of!(rusage_info_v1, ri_wired_size) - 56usize];
-    ["Offset of field: rusage_info_v1::ri_resident_size"]
-        [::std::mem::offset_of!(rusage_info_v1, ri_resident_size) - 64usize];
-    ["Offset of field: rusage_info_v1::ri_phys_footprint"]
-        [::std::mem::offset_of!(rusage_info_v1, ri_phys_footprint) - 72usize];
-    ["Offset of field: rusage_info_v1::ri_proc_start_abstime"][::std::mem::offset_of!(
-        rusage_info_v1,
-        ri_proc_start_abstime
-    ) - 80usize];
-    ["Offset of field: rusage_info_v1::ri_proc_exit_abstime"][::std::mem::offset_of!(
-        rusage_info_v1,
-        ri_proc_exit_abstime
-    ) - 88usize];
-    ["Offset of field: rusage_info_v1::ri_child_user_time"]
-        [::std::mem::offset_of!(rusage_info_v1, ri_child_user_time) - 96usize];
-    ["Offset of field: rusage_info_v1::ri_child_system_time"][::std::mem::offset_of!(
-        rusage_info_v1,
-        ri_child_system_time
-    ) - 104usize];
-    ["Offset of field: rusage_info_v1::ri_child_pkg_idle_wkups"][::std::mem::offset_of!(
-        rusage_info_v1,
-        ri_child_pkg_idle_wkups
-    ) - 112usize];
-    ["Offset of field: rusage_info_v1::ri_child_interrupt_wkups"][::std::mem::offset_of!(
-        rusage_info_v1,
-        ri_child_interrupt_wkups
-    ) - 120usize];
-    ["Offset of field: rusage_info_v1::ri_child_pageins"]
-        [::std::mem::offset_of!(rusage_info_v1, ri_child_pageins) - 128usize];
-    ["Offset of field: rusage_info_v1::ri_child_elapsed_abstime"][::std::mem::offset_of!(
-        rusage_info_v1,
-        ri_child_elapsed_abstime
-    ) - 136usize];
-};
-#[repr(C)]
-#[derive(Debug, Default, Copy, Clone)]
-pub struct rusage_info_v2 {
-    pub ri_uuid: [u8; 16usize],
-    pub ri_user_time: u64,
-    pub ri_system_time: u64,
-    pub ri_pkg_idle_wkups: u64,
-    pub ri_interrupt_wkups: u64,
-    pub ri_pageins: u64,
-    pub ri_wired_size: u64,
-    pub ri_resident_size: u64,
-    pub ri_phys_footprint: u64,
-    pub ri_proc_start_abstime: u64,
-    pub ri_proc_exit_abstime: u64,
-    pub ri_child_user_time: u64,
-    pub ri_child_system_time: u64,
-    pub ri_child_pkg_idle_wkups: u64,
-    pub ri_child_interrupt_wkups: u64,
-    pub ri_child_pageins: u64,
-    pub ri_child_elapsed_abstime: u64,
-    pub ri_diskio_bytesread: u64,
-    pub ri_diskio_byteswritten: u64,
-}
-#[allow(clippy::unnecessary_operation, clippy::identity_op)]
-const _: () = {
-    ["Size of rusage_info_v2"]
-        [::std::mem::size_of::<rusage_info_v2>() - 160usize];
-    ["Alignment of rusage_info_v2"]
-        [::std::mem::align_of::<rusage_info_v2>() - 8usize];
-    ["Offset of field: rusage_info_v2::ri_uuid"]
-        [::std::mem::offset_of!(rusage_info_v2, ri_uuid) - 0usize];
-    ["Offset of field: rusage_info_v2::ri_user_time"]
-        [::std::mem::offset_of!(rusage_info_v2, ri_user_time) - 16usize];
-    ["Offset of field: rusage_info_v2::ri_system_time"]
-        [::std::mem::offset_of!(rusage_info_v2, ri_system_time) - 24usize];
-    ["Offset of field: rusage_info_v2::ri_pkg_idle_wkups"]
-        [::std::mem::offset_of!(rusage_info_v2, ri_pkg_idle_wkups) - 32usize];
-    ["Offset of field: rusage_info_v2::ri_interrupt_wkups"]
-        [::std::mem::offset_of!(rusage_info_v2, ri_interrupt_wkups) - 40usize];
-    ["Offset of field: rusage_info_v2::ri_pageins"]
-        [::std::mem::offset_of!(rusage_info_v2, ri_pageins) - 48usize];
-    ["Offset of field: rusage_info_v2::ri_wired_size"]
-        [::std::mem::offset_of!(rusage_info_v2, ri_wired_size) - 56usize];
-    ["Offset of field: rusage_info_v2::ri_resident_size"]
-        [::std::mem::offset_of!(rusage_info_v2, ri_resident_size) - 64usize];
-    ["Offset of field: rusage_info_v2::ri_phys_footprint"]
-        [::std::mem::offset_of!(rusage_info_v2, ri_phys_footprint) - 72usize];
-    ["Offset of field: rusage_info_v2::ri_proc_start_abstime"][::std::mem::offset_of!(
-        rusage_info_v2,
-        ri_proc_start_abstime
-    ) - 80usize];
-    ["Offset of field: rusage_info_v2::ri_proc_exit_abstime"][::std::mem::offset_of!(
-        rusage_info_v2,
-        ri_proc_exit_abstime
-    ) - 88usize];
-    ["Offset of field: rusage_info_v2::ri_child_user_time"]
-        [::std::mem::offset_of!(rusage_info_v2, ri_child_user_time) - 96usize];
-    ["Offset of field: rusage_info_v2::ri_child_system_time"][::std::mem::offset_of!(
-        rusage_info_v2,
-        ri_child_system_time
-    ) - 104usize];
-    ["Offset of field: rusage_info_v2::ri_child_pkg_idle_wkups"][::std::mem::offset_of!(
-        rusage_info_v2,
-        ri_child_pkg_idle_wkups
-    ) - 112usize];
-    ["Offset of field: rusage_info_v2::ri_child_interrupt_wkups"][::std::mem::offset_of!(
-        rusage_info_v2,
-        ri_child_interrupt_wkups
-    ) - 120usize];
-    ["Offset of field: rusage_info_v2::ri_child_pageins"]
-        [::std::mem::offset_of!(rusage_info_v2, ri_child_pageins) - 128usize];
-    ["Offset of field: rusage_info_v2::ri_child_elapsed_abstime"][::std::mem::offset_of!(
-        rusage_info_v2,
-        ri_child_elapsed_abstime
-    ) - 136usize];
-    ["Offset of field: rusage_info_v2::ri_diskio_bytesread"][::std::mem::offset_of!(
-        rusage_info_v2,
-        ri_diskio_bytesread
-    ) - 144usize];
-    ["Offset of field: rusage_info_v2::ri_diskio_byteswritten"][::std::mem::offset_of!(
-        rusage_info_v2,
-        ri_diskio_byteswritten
-    ) - 152usize];
-};
-#[repr(C)]
-#[derive(Debug, Default, Copy, Clone)]
-pub struct rusage_info_v3 {
-    pub ri_uuid: [u8; 16usize],
-    pub ri_user_time: u64,
-    pub ri_system_time: u64,
-    pub ri_pkg_idle_wkups: u64,
-    pub ri_interrupt_wkups: u64,
-    pub ri_pageins: u64,
-    pub ri_wired_size: u64,
-    pub ri_resident_size: u64,
-    pub ri_phys_footprint: u64,
-    pub ri_proc_start_abstime: u64,
-    pub ri_proc_exit_abstime: u64,
-    pub ri_child_user_time: u64,
-    pub ri_child_system_time: u64,
-    pub ri_child_pkg_idle_wkups: u64,
-    pub ri_child_interrupt_wkups: u64,
-    pub ri_child_pageins: u64,
-    pub ri_child_elapsed_abstime: u64,
-    pub ri_diskio_bytesread: u64,
-    pub ri_diskio_byteswritten: u64,
-    pub ri_cpu_time_qos_default: u64,
-    pub ri_cpu_time_qos_maintenance: u64,
-    pub ri_cpu_time_qos_background: u64,
-    pub ri_cpu_time_qos_utility: u64,
-    pub ri_cpu_time_qos_legacy: u64,
-    pub ri_cpu_time_qos_user_initiated: u64,
-    pub ri_cpu_time_qos_user_interactive: u64,
-    pub ri_billed_system_time: u64,
-    pub ri_serviced_system_time: u64,
-}
-#[allow(clippy::unnecessary_operation, clippy::identity_op)]
-const _: () = {
-    ["Size of rusage_info_v3"]
-        [::std::mem::size_of::<rusage_info_v3>() - 232usize];
-    ["Alignment of rusage_info_v3"]
-        [::std::mem::align_of::<rusage_info_v3>() - 8usize];
-    ["Offset of field: rusage_info_v3::ri_uuid"]
-        [::std::mem::offset_of!(rusage_info_v3, ri_uuid) - 0usize];
-    ["Offset of field: rusage_info_v3::ri_user_time"]
-        [::std::mem::offset_of!(rusage_info_v3, ri_user_time) - 16usize];
-    ["Offset of field: rusage_info_v3::ri_system_time"]
-        [::std::mem::offset_of!(rusage_info_v3, ri_system_time) - 24usize];
-    ["Offset of field: rusage_info_v3::ri_pkg_idle_wkups"]
-        [::std::mem::offset_of!(rusage_info_v3, ri_pkg_idle_wkups) - 32usize];
-    ["Offset of field: rusage_info_v3::ri_interrupt_wkups"]
-        [::std::mem::offset_of!(rusage_info_v3, ri_interrupt_wkups) - 40usize];
-    ["Offset of field: rusage_info_v3::ri_pageins"]
-        [::std::mem::offset_of!(rusage_info_v3, ri_pageins) - 48usize];
-    ["Offset of field: rusage_info_v3::ri_wired_size"]
-        [::std::mem::offset_of!(rusage_info_v3, ri_wired_size) - 56usize];
-    ["Offset of field: rusage_info_v3::ri_resident_size"]
-        [::std::mem::offset_of!(rusage_info_v3, ri_resident_size) - 64usize];
-    ["Offset of field: rusage_info_v3::ri_phys_footprint"]
-        [::std::mem::offset_of!(rusage_info_v3, ri_phys_footprint) - 72usize];
-    ["Offset of field: rusage_info_v3::ri_proc_start_abstime"][::std::mem::offset_of!(
-        rusage_info_v3,
-        ri_proc_start_abstime
-    ) - 80usize];
-    ["Offset of field: rusage_info_v3::ri_proc_exit_abstime"][::std::mem::offset_of!(
-        rusage_info_v3,
-        ri_proc_exit_abstime
-    ) - 88usize];
-    ["Offset of field: rusage_info_v3::ri_child_user_time"]
-        [::std::mem::offset_of!(rusage_info_v3, ri_child_user_time) - 96usize];
-    ["Offset of field: rusage_info_v3::ri_child_system_time"][::std::mem::offset_of!(
-        rusage_info_v3,
-        ri_child_system_time
-    ) - 104usize];
-    ["Offset of field: rusage_info_v3::ri_child_pkg_idle_wkups"][::std::mem::offset_of!(
-        rusage_info_v3,
-        ri_child_pkg_idle_wkups
-    ) - 112usize];
-    ["Offset of field: rusage_info_v3::ri_child_interrupt_wkups"][::std::mem::offset_of!(
-        rusage_info_v3,
-        ri_child_interrupt_wkups
-    ) - 120usize];
-    ["Offset of field: rusage_info_v3::ri_child_pageins"]
-        [::std::mem::offset_of!(rusage_info_v3, ri_child_pageins) - 128usize];
-    ["Offset of field: rusage_info_v3::ri_child_elapsed_abstime"][::std::mem::offset_of!(
-        rusage_info_v3,
-        ri_child_elapsed_abstime
-    ) - 136usize];
-    ["Offset of field: rusage_info_v3::ri_diskio_bytesread"][::std::mem::offset_of!(
-        rusage_info_v3,
-        ri_diskio_bytesread
-    ) - 144usize];
-    ["Offset of field: rusage_info_v3::ri_diskio_byteswritten"][::std::mem::offset_of!(
-        rusage_info_v3,
-        ri_diskio_byteswritten
-    ) - 152usize];
-    ["Offset of field: rusage_info_v3::ri_cpu_time_qos_default"][::std::mem::offset_of!(
-        rusage_info_v3,
-        ri_cpu_time_qos_default
-    ) - 160usize];
-    ["Offset of field: rusage_info_v3::ri_cpu_time_qos_maintenance"][::std::mem::offset_of!(
-        rusage_info_v3,
-        ri_cpu_time_qos_maintenance
-    )
-        - 168usize];
-    ["Offset of field: rusage_info_v3::ri_cpu_time_qos_background"][::std::mem::offset_of!(
-        rusage_info_v3,
-        ri_cpu_time_qos_background
-    )
-        - 176usize];
-    ["Offset of field: rusage_info_v3::ri_cpu_time_qos_utility"][::std::mem::offset_of!(
-        rusage_info_v3,
-        ri_cpu_time_qos_utility
-    ) - 184usize];
-    ["Offset of field: rusage_info_v3::ri_cpu_time_qos_legacy"][::std::mem::offset_of!(
-        rusage_info_v3,
-        ri_cpu_time_qos_legacy
-    ) - 192usize];
-    ["Offset of field: rusage_info_v3::ri_cpu_time_qos_user_initiated"][::std::mem::offset_of!(
-        rusage_info_v3,
-        ri_cpu_time_qos_user_initiated
-    )
-        - 200usize];
-    ["Offset of field: rusage_info_v3::ri_cpu_time_qos_user_interactive"][::std::mem::offset_of!(
-        rusage_info_v3,
-        ri_cpu_time_qos_user_interactive
-    )
-        - 208usize];
-    ["Offset of field: rusage_info_v3::ri_billed_system_time"][::std::mem::offset_of!(
-        rusage_info_v3,
-        ri_billed_system_time
-    ) - 216usize];
-    ["Offset of field: rusage_info_v3::ri_serviced_system_time"][::std::mem::offset_of!(
-        rusage_info_v3,
-        ri_serviced_system_time
-    ) - 224usize];
-};
-#[repr(C)]
-#[derive(Debug, Default, Copy, Clone)]
-pub struct rusage_info_v4 {
-    pub ri_uuid: [u8; 16usize],
-    pub ri_user_time: u64,
-    pub ri_system_time: u64,
-    pub ri_pkg_idle_wkups: u64,
-    pub ri_interrupt_wkups: u64,
-    pub ri_pageins: u64,
-    pub ri_wired_size: u64,
-    pub ri_resident_size: u64,
-    pub ri_phys_footprint: u64,
-    pub ri_proc_start_abstime: u64,
-    pub ri_proc_exit_abstime: u64,
-    pub ri_child_user_time: u64,
-    pub ri_child_system_time: u64,
-    pub ri_child_pkg_idle_wkups: u64,
-    pub ri_child_interrupt_wkups: u64,
-    pub ri_child_pageins: u64,
-    pub ri_child_elapsed_abstime: u64,
-    pub ri_diskio_bytesread: u64,
-    pub ri_diskio_byteswritten: u64,
-    pub ri_cpu_time_qos_default: u64,
-    pub ri_cpu_time_qos_maintenance: u64,
-    pub ri_cpu_time_qos_background: u64,
-    pub ri_cpu_time_qos_utility: u64,
-    pub ri_cpu_time_qos_legacy: u64,
-    pub ri_cpu_time_qos_user_initiated: u64,
-    pub ri_cpu_time_qos_user_interactive: u64,
-    pub ri_billed_system_time: u64,
-    pub ri_serviced_system_time: u64,
-    pub ri_logical_writes: u64,
-    pub ri_lifetime_max_phys_footprint: u64,
-    pub ri_instructions: u64,
-    pub ri_cycles: u64,
-    pub ri_billed_energy: u64,
-    pub ri_serviced_energy: u64,
-    pub ri_interval_max_phys_footprint: u64,
-    pub ri_runnable_time: u64,
-}
-#[allow(clippy::unnecessary_operation, clippy::identity_op)]
-const _: () = {
-    ["Size of rusage_info_v4"]
-        [::std::mem::size_of::<rusage_info_v4>() - 296usize];
-    ["Alignment of rusage_info_v4"]
-        [::std::mem::align_of::<rusage_info_v4>() - 8usize];
-    ["Offset of field: rusage_info_v4::ri_uuid"]
-        [::std::mem::offset_of!(rusage_info_v4, ri_uuid) - 0usize];
-    ["Offset of field: rusage_info_v4::ri_user_time"]
-        [::std::mem::offset_of!(rusage_info_v4, ri_user_time) - 16usize];
-    ["Offset of field: rusage_info_v4::ri_system_time"]
-        [::std::mem::offset_of!(rusage_info_v4, ri_system_time) - 24usize];
-    ["Offset of field: rusage_info_v4::ri_pkg_idle_wkups"]
-        [::std::mem::offset_of!(rusage_info_v4, ri_pkg_idle_wkups) - 32usize];
-    ["Offset of field: rusage_info_v4::ri_interrupt_wkups"]
-        [::std::mem::offset_of!(rusage_info_v4, ri_interrupt_wkups) - 40usize];
-    ["Offset of field: rusage_info_v4::ri_pageins"]
-        [::std::mem::offset_of!(rusage_info_v4, ri_pageins) - 48usize];
-    ["Offset of field: rusage_info_v4::ri_wired_size"]
-        [::std::mem::offset_of!(rusage_info_v4, ri_wired_size) - 56usize];
-    ["Offset of field: rusage_info_v4::ri_resident_size"]
-        [::std::mem::offset_of!(rusage_info_v4, ri_resident_size) - 64usize];
-    ["Offset of field: rusage_info_v4::ri_phys_footprint"]
-        [::std::mem::offset_of!(rusage_info_v4, ri_phys_footprint) - 72usize];
-    ["Offset of field: rusage_info_v4::ri_proc_start_abstime"][::std::mem::offset_of!(
-        rusage_info_v4,
-        ri_proc_start_abstime
-    ) - 80usize];
-    ["Offset of field: rusage_info_v4::ri_proc_exit_abstime"][::std::mem::offset_of!(
-        rusage_info_v4,
-        ri_proc_exit_abstime
-    ) - 88usize];
-    ["Offset of field: rusage_info_v4::ri_child_user_time"]
-        [::std::mem::offset_of!(rusage_info_v4, ri_child_user_time) - 96usize];
-    ["Offset of field: rusage_info_v4::ri_child_system_time"][::std::mem::offset_of!(
-        rusage_info_v4,
-        ri_child_system_time
-    ) - 104usize];
-    ["Offset of field: rusage_info_v4::ri_child_pkg_idle_wkups"][::std::mem::offset_of!(
-        rusage_info_v4,
-        ri_child_pkg_idle_wkups
-    ) - 112usize];
-    ["Offset of field: rusage_info_v4::ri_child_interrupt_wkups"][::std::mem::offset_of!(
-        rusage_info_v4,
-        ri_child_interrupt_wkups
-    ) - 120usize];
-    ["Offset of field: rusage_info_v4::ri_child_pageins"]
-        [::std::mem::offset_of!(rusage_info_v4, ri_child_pageins) - 128usize];
-    ["Offset of field: rusage_info_v4::ri_child_elapsed_abstime"][::std::mem::offset_of!(
-        rusage_info_v4,
-        ri_child_elapsed_abstime
-    ) - 136usize];
-    ["Offset of field: rusage_info_v4::ri_diskio_bytesread"][::std::mem::offset_of!(
-        rusage_info_v4,
-        ri_diskio_bytesread
-    ) - 144usize];
-    ["Offset of field: rusage_info_v4::ri_diskio_byteswritten"][::std::mem::offset_of!(
-        rusage_info_v4,
-        ri_diskio_byteswritten
-    ) - 152usize];
-    ["Offset of field: rusage_info_v4::ri_cpu_time_qos_default"][::std::mem::offset_of!(
-        rusage_info_v4,
-        ri_cpu_time_qos_default
-    ) - 160usize];
-    ["Offset of field: rusage_info_v4::ri_cpu_time_qos_maintenance"][::std::mem::offset_of!(
-        rusage_info_v4,
-        ri_cpu_time_qos_maintenance
-    )
-        - 168usize];
-    ["Offset of field: rusage_info_v4::ri_cpu_time_qos_background"][::std::mem::offset_of!(
-        rusage_info_v4,
-        ri_cpu_time_qos_background
-    )
-        - 176usize];
-    ["Offset of field: rusage_info_v4::ri_cpu_time_qos_utility"][::std::mem::offset_of!(
-        rusage_info_v4,
-        ri_cpu_time_qos_utility
-    ) - 184usize];
-    ["Offset of field: rusage_info_v4::ri_cpu_time_qos_legacy"][::std::mem::offset_of!(
-        rusage_info_v4,
-        ri_cpu_time_qos_legacy
-    ) - 192usize];
-    ["Offset of field: rusage_info_v4::ri_cpu_time_qos_user_initiated"][::std::mem::offset_of!(
-        rusage_info_v4,
-        ri_cpu_time_qos_user_initiated
-    )
-        - 200usize];
-    ["Offset of field: rusage_info_v4::ri_cpu_time_qos_user_interactive"][::std::mem::offset_of!(
-        rusage_info_v4,
-        ri_cpu_time_qos_user_interactive
-    )
-        - 208usize];
-    ["Offset of field: rusage_info_v4::ri_billed_system_time"][::std::mem::offset_of!(
-        rusage_info_v4,
-        ri_billed_system_time
-    ) - 216usize];
-    ["Offset of field: rusage_info_v4::ri_serviced_system_time"][::std::mem::offset_of!(
-        rusage_info_v4,
-        ri_serviced_system_time
-    ) - 224usize];
-    ["Offset of field: rusage_info_v4::ri_logical_writes"]
-        [::std::mem::offset_of!(rusage_info_v4, ri_logical_writes) - 232usize];
-    ["Offset of field: rusage_info_v4::ri_lifetime_max_phys_footprint"][::std::mem::offset_of!(
-        rusage_info_v4,
-        ri_lifetime_max_phys_footprint
-    )
-        - 240usize];
-    ["Offset of field: rusage_info_v4::ri_instructions"]
-        [::std::mem::offset_of!(rusage_info_v4, ri_instructions) - 248usize];
-    ["Offset of field: rusage_info_v4::ri_cycles"]
-        [::std::mem::offset_of!(rusage_info_v4, ri_cycles) - 256usize];
-    ["Offset of field: rusage_info_v4::ri_billed_energy"]
-        [::std::mem::offset_of!(rusage_info_v4, ri_billed_energy) - 264usize];
-    ["Offset of field: rusage_info_v4::ri_serviced_energy"]
-        [::std::mem::offset_of!(rusage_info_v4, ri_serviced_energy) - 272usize];
-    ["Offset of field: rusage_info_v4::ri_interval_max_phys_footprint"][::std::mem::offset_of!(
-        rusage_info_v4,
-        ri_interval_max_phys_footprint
-    )
-        - 280usize];
-    ["Offset of field: rusage_info_v4::ri_runnable_time"]
-        [::std::mem::offset_of!(rusage_info_v4, ri_runnable_time) - 288usize];
-};
-#[repr(C)]
-#[derive(Debug, Default, Copy, Clone)]
-pub struct rusage_info_v5 {
-    pub ri_uuid: [u8; 16usize],
-    pub ri_user_time: u64,
-    pub ri_system_time: u64,
-    pub ri_pkg_idle_wkups: u64,
-    pub ri_interrupt_wkups: u64,
-    pub ri_pageins: u64,
-    pub ri_wired_size: u64,
-    pub ri_resident_size: u64,
-    pub ri_phys_footprint: u64,
-    pub ri_proc_start_abstime: u64,
-    pub ri_proc_exit_abstime: u64,
-    pub ri_child_user_time: u64,
-    pub ri_child_system_time: u64,
-    pub ri_child_pkg_idle_wkups: u64,
-    pub ri_child_interrupt_wkups: u64,
-    pub ri_child_pageins: u64,
-    pub ri_child_elapsed_abstime: u64,
-    pub ri_diskio_bytesread: u64,
-    pub ri_diskio_byteswritten: u64,
-    pub ri_cpu_time_qos_default: u64,
-    pub ri_cpu_time_qos_maintenance: u64,
-    pub ri_cpu_time_qos_background: u64,
-    pub ri_cpu_time_qos_utility: u64,
-    pub ri_cpu_time_qos_legacy: u64,
-    pub ri_cpu_time_qos_user_initiated: u64,
-    pub ri_cpu_time_qos_user_interactive: u64,
-    pub ri_billed_system_time: u64,
-    pub ri_serviced_system_time: u64,
-    pub ri_logical_writes: u64,
-    pub ri_lifetime_max_phys_footprint: u64,
-    pub ri_instructions: u64,
-    pub ri_cycles: u64,
-    pub ri_billed_energy: u64,
-    pub ri_serviced_energy: u64,
-    pub ri_interval_max_phys_footprint: u64,
-    pub ri_runnable_time: u64,
-    pub ri_flags: u64,
-}
-#[allow(clippy::unnecessary_operation, clippy::identity_op)]
-const _: () = {
-    ["Size of rusage_info_v5"]
-        [::std::mem::size_of::<rusage_info_v5>() - 304usize];
-    ["Alignment of rusage_info_v5"]
-        [::std::mem::align_of::<rusage_info_v5>() - 8usize];
-    ["Offset of field: rusage_info_v5::ri_uuid"]
-        [::std::mem::offset_of!(rusage_info_v5, ri_uuid) - 0usize];
-    ["Offset of field: rusage_info_v5::ri_user_time"]
-        [::std::mem::offset_of!(rusage_info_v5, ri_user_time) - 16usize];
-    ["Offset of field: rusage_info_v5::ri_system_time"]
-        [::std::mem::offset_of!(rusage_info_v5, ri_system_time) - 24usize];
-    ["Offset of field: rusage_info_v5::ri_pkg_idle_wkups"]
-        [::std::mem::offset_of!(rusage_info_v5, ri_pkg_idle_wkups) - 32usize];
-    ["Offset of field: rusage_info_v5::ri_interrupt_wkups"]
-        [::std::mem::offset_of!(rusage_info_v5, ri_interrupt_wkups) - 40usize];
-    ["Offset of field: rusage_info_v5::ri_pageins"]
-        [::std::mem::offset_of!(rusage_info_v5, ri_pageins) - 48usize];
-    ["Offset of field: rusage_info_v5::ri_wired_size"]
-        [::std::mem::offset_of!(rusage_info_v5, ri_wired_size) - 56usize];
-    ["Offset of field: rusage_info_v5::ri_resident_size"]
-        [::std::mem::offset_of!(rusage_info_v5, ri_resident_size) - 64usize];
-    ["Offset of field: rusage_info_v5::ri_phys_footprint"]
-        [::std::mem::offset_of!(rusage_info_v5, ri_phys_footprint) - 72usize];
-    ["Offset of field: rusage_info_v5::ri_proc_start_abstime"][::std::mem::offset_of!(
-        rusage_info_v5,
-        ri_proc_start_abstime
-    ) - 80usize];
-    ["Offset of field: rusage_info_v5::ri_proc_exit_abstime"][::std::mem::offset_of!(
-        rusage_info_v5,
-        ri_proc_exit_abstime
-    ) - 88usize];
-    ["Offset of field: rusage_info_v5::ri_child_user_time"]
-        [::std::mem::offset_of!(rusage_info_v5, ri_child_user_time) - 96usize];
-    ["Offset of field: rusage_info_v5::ri_child_system_time"][::std::mem::offset_of!(
-        rusage_info_v5,
-        ri_child_system_time
-    ) - 104usize];
-    ["Offset of field: rusage_info_v5::ri_child_pkg_idle_wkups"][::std::mem::offset_of!(
-        rusage_info_v5,
-        ri_child_pkg_idle_wkups
-    ) - 112usize];
-    ["Offset of field: rusage_info_v5::ri_child_interrupt_wkups"][::std::mem::offset_of!(
-        rusage_info_v5,
-        ri_child_interrupt_wkups
-    ) - 120usize];
-    ["Offset of field: rusage_info_v5::ri_child_pageins"]
-        [::std::mem::offset_of!(rusage_info_v5, ri_child_pageins) - 128usize];
-    ["Offset of field: rusage_info_v5::ri_child_elapsed_abstime"][::std::mem::offset_of!(
-        rusage_info_v5,
-        ri_child_elapsed_abstime
-    ) - 136usize];
-    ["Offset of field: rusage_info_v5::ri_diskio_bytesread"][::std::mem::offset_of!(
-        rusage_info_v5,
-        ri_diskio_bytesread
-    ) - 144usize];
-    ["Offset of field: rusage_info_v5::ri_diskio_byteswritten"][::std::mem::offset_of!(
-        rusage_info_v5,
-        ri_diskio_byteswritten
-    ) - 152usize];
-    ["Offset of field: rusage_info_v5::ri_cpu_time_qos_default"][::std::mem::offset_of!(
-        rusage_info_v5,
-        ri_cpu_time_qos_default
-    ) - 160usize];
-    ["Offset of field: rusage_info_v5::ri_cpu_time_qos_maintenance"][::std::mem::offset_of!(
-        rusage_info_v5,
-        ri_cpu_time_qos_maintenance
-    )
-        - 168usize];
-    ["Offset of field: rusage_info_v5::ri_cpu_time_qos_background"][::std::mem::offset_of!(
-        rusage_info_v5,
-        ri_cpu_time_qos_background
-    )
-        - 176usize];
-    ["Offset of field: rusage_info_v5::ri_cpu_time_qos_utility"][::std::mem::offset_of!(
-        rusage_info_v5,
-        ri_cpu_time_qos_utility
-    ) - 184usize];
-    ["Offset of field: rusage_info_v5::ri_cpu_time_qos_legacy"][::std::mem::offset_of!(
-        rusage_info_v5,
-        ri_cpu_time_qos_legacy
-    ) - 192usize];
-    ["Offset of field: rusage_info_v5::ri_cpu_time_qos_user_initiated"][::std::mem::offset_of!(
-        rusage_info_v5,
-        ri_cpu_time_qos_user_initiated
-    )
-        - 200usize];
-    ["Offset of field: rusage_info_v5::ri_cpu_time_qos_user_interactive"][::std::mem::offset_of!(
-        rusage_info_v5,
-        ri_cpu_time_qos_user_interactive
-    )
-        - 208usize];
-    ["Offset of field: rusage_info_v5::ri_billed_system_time"][::std::mem::offset_of!(
-        rusage_info_v5,
-        ri_billed_system_time
-    ) - 216usize];
-    ["Offset of field: rusage_info_v5::ri_serviced_system_time"][::std::mem::offset_of!(
-        rusage_info_v5,
-        ri_serviced_system_time
-    ) - 224usize];
-    ["Offset of field: rusage_info_v5::ri_logical_writes"]
-        [::std::mem::offset_of!(rusage_info_v5, ri_logical_writes) - 232usize];
-    ["Offset of field: rusage_info_v5::ri_lifetime_max_phys_footprint"][::std::mem::offset_of!(
-        rusage_info_v5,
-        ri_lifetime_max_phys_footprint
-    )
-        - 240usize];
-    ["Offset of field: rusage_info_v5::ri_instructions"]
-        [::std::mem::offset_of!(rusage_info_v5, ri_instructions) - 248usize];
-    ["Offset of field: rusage_info_v5::ri_cycles"]
-        [::std::mem::offset_of!(rusage_info_v5, ri_cycles) - 256usize];
-    ["Offset of field: rusage_info_v5::ri_billed_energy"]
-        [::std::mem::offset_of!(rusage_info_v5, ri_billed_energy) - 264usize];
-    ["Offset of field: rusage_info_v5::ri_serviced_energy"]
-        [::std::mem::offset_of!(rusage_info_v5, ri_serviced_energy) - 272usize];
-    ["Offset of field: rusage_info_v5::ri_interval_max_phys_footprint"][::std::mem::offset_of!(
-        rusage_info_v5,
-        ri_interval_max_phys_footprint
-    )
-        - 280usize];
-    ["Offset of field: rusage_info_v5::ri_runnable_time"]
-        [::std::mem::offset_of!(rusage_info_v5, ri_runnable_time) - 288usize];
-    ["Offset of field: rusage_info_v5::ri_flags"]
-        [::std::mem::offset_of!(rusage_info_v5, ri_flags) - 296usize];
-};
-#[repr(C)]
-#[derive(Debug, Default, Copy, Clone)]
-pub struct rusage_info_v6 {
-    pub ri_uuid: [u8; 16usize],
-    pub ri_user_time: u64,
-    pub ri_system_time: u64,
-    pub ri_pkg_idle_wkups: u64,
-    pub ri_interrupt_wkups: u64,
-    pub ri_pageins: u64,
-    pub ri_wired_size: u64,
-    pub ri_resident_size: u64,
-    pub ri_phys_footprint: u64,
-    pub ri_proc_start_abstime: u64,
-    pub ri_proc_exit_abstime: u64,
-    pub ri_child_user_time: u64,
-    pub ri_child_system_time: u64,
-    pub ri_child_pkg_idle_wkups: u64,
-    pub ri_child_interrupt_wkups: u64,
-    pub ri_child_pageins: u64,
-    pub ri_child_elapsed_abstime: u64,
-    pub ri_diskio_bytesread: u64,
-    pub ri_diskio_byteswritten: u64,
-    pub ri_cpu_time_qos_default: u64,
-    pub ri_cpu_time_qos_maintenance: u64,
-    pub ri_cpu_time_qos_background: u64,
-    pub ri_cpu_time_qos_utility: u64,
-    pub ri_cpu_time_qos_legacy: u64,
-    pub ri_cpu_time_qos_user_initiated: u64,
-    pub ri_cpu_time_qos_user_interactive: u64,
-    pub ri_billed_system_time: u64,
-    pub ri_serviced_system_time: u64,
-    pub ri_logical_writes: u64,
-    pub ri_lifetime_max_phys_footprint: u64,
-    pub ri_instructions: u64,
-    pub ri_cycles: u64,
-    pub ri_billed_energy: u64,
-    pub ri_serviced_energy: u64,
-    pub ri_interval_max_phys_footprint: u64,
-    pub ri_runnable_time: u64,
-    pub ri_flags: u64,
-    pub ri_user_ptime: u64,
-    pub ri_system_ptime: u64,
-    pub ri_pinstructions: u64,
-    pub ri_pcycles: u64,
-    pub ri_energy_nj: u64,
-    pub ri_penergy_nj: u64,
-    pub ri_secure_time_in_system: u64,
-    pub ri_secure_ptime_in_system: u64,
-    pub ri_neural_footprint: u64,
-    pub ri_lifetime_max_neural_footprint: u64,
-    pub ri_interval_max_neural_footprint: u64,
-    pub ri_reserved: [u64; 9usize],
-}
-#[allow(clippy::unnecessary_operation, clippy::identity_op)]
-const _: () = {
-    ["Size of rusage_info_v6"]
-        [::std::mem::size_of::<rusage_info_v6>() - 464usize];
-    ["Alignment of rusage_info_v6"]
-        [::std::mem::align_of::<rusage_info_v6>() - 8usize];
-    ["Offset of field: rusage_info_v6::ri_uuid"]
-        [::std::mem::offset_of!(rusage_info_v6, ri_uuid) - 0usize];
-    ["Offset of field: rusage_info_v6::ri_user_time"]
-        [::std::mem::offset_of!(rusage_info_v6, ri_user_time) - 16usize];
-    ["Offset of field: rusage_info_v6::ri_system_time"]
-        [::std::mem::offset_of!(rusage_info_v6, ri_system_time) - 24usize];
-    ["Offset of field: rusage_info_v6::ri_pkg_idle_wkups"]
-        [::std::mem::offset_of!(rusage_info_v6, ri_pkg_idle_wkups) - 32usize];
-    ["Offset of field: rusage_info_v6::ri_interrupt_wkups"]
-        [::std::mem::offset_of!(rusage_info_v6, ri_interrupt_wkups) - 40usize];
-    ["Offset of field: rusage_info_v6::ri_pageins"]
-        [::std::mem::offset_of!(rusage_info_v6, ri_pageins) - 48usize];
-    ["Offset of field: rusage_info_v6::ri_wired_size"]
-        [::std::mem::offset_of!(rusage_info_v6, ri_wired_size) - 56usize];
-    ["Offset of field: rusage_info_v6::ri_resident_size"]
-        [::std::mem::offset_of!(rusage_info_v6, ri_resident_size) - 64usize];
-    ["Offset of field: rusage_info_v6::ri_phys_footprint"]
-        [::std::mem::offset_of!(rusage_info_v6, ri_phys_footprint) - 72usize];
-    ["Offset of field: rusage_info_v6::ri_proc_start_abstime"][::std::mem::offset_of!(
-        rusage_info_v6,
-        ri_proc_start_abstime
-    ) - 80usize];
-    ["Offset of field: rusage_info_v6::ri_proc_exit_abstime"][::std::mem::offset_of!(
-        rusage_info_v6,
-        ri_proc_exit_abstime
-    ) - 88usize];
-    ["Offset of field: rusage_info_v6::ri_child_user_time"]
-        [::std::mem::offset_of!(rusage_info_v6, ri_child_user_time) - 96usize];
-    ["Offset of field: rusage_info_v6::ri_child_system_time"][::std::mem::offset_of!(
-        rusage_info_v6,
-        ri_child_system_time
-    ) - 104usize];
-    ["Offset of field: rusage_info_v6::ri_child_pkg_idle_wkups"][::std::mem::offset_of!(
-        rusage_info_v6,
-        ri_child_pkg_idle_wkups
-    ) - 112usize];
-    ["Offset of field: rusage_info_v6::ri_child_interrupt_wkups"][::std::mem::offset_of!(
-        rusage_info_v6,
-        ri_child_interrupt_wkups
-    ) - 120usize];
-    ["Offset of field: rusage_info_v6::ri_child_pageins"]
-        [::std::mem::offset_of!(rusage_info_v6, ri_child_pageins) - 128usize];
-    ["Offset of field: rusage_info_v6::ri_child_elapsed_abstime"][::std::mem::offset_of!(
-        rusage_info_v6,
-        ri_child_elapsed_abstime
-    ) - 136usize];
-    ["Offset of field: rusage_info_v6::ri_diskio_bytesread"][::std::mem::offset_of!(
-        rusage_info_v6,
-        ri_diskio_bytesread
-    ) - 144usize];
-    ["Offset of field: rusage_info_v6::ri_diskio_byteswritten"][::std::mem::offset_of!(
-        rusage_info_v6,
-        ri_diskio_byteswritten
-    ) - 152usize];
-    ["Offset of field: rusage_info_v6::ri_cpu_time_qos_default"][::std::mem::offset_of!(
-        rusage_info_v6,
-        ri_cpu_time_qos_default
-    ) - 160usize];
-    ["Offset of field: rusage_info_v6::ri_cpu_time_qos_maintenance"][::std::mem::offset_of!(
-        rusage_info_v6,
-        ri_cpu_time_qos_maintenance
-    )
-        - 168usize];
-    ["Offset of field: rusage_info_v6::ri_cpu_time_qos_background"][::std::mem::offset_of!(
-        rusage_info_v6,
-        ri_cpu_time_qos_background
-    )
-        - 176usize];
-    ["Offset of field: rusage_info_v6::ri_cpu_time_qos_utility"][::std::mem::offset_of!(
-        rusage_info_v6,
-        ri_cpu_time_qos_utility
-    ) - 184usize];
-    ["Offset of field: rusage_info_v6::ri_cpu_time_qos_legacy"][::std::mem::offset_of!(
-        rusage_info_v6,
-        ri_cpu_time_qos_legacy
-    ) - 192usize];
-    ["Offset of field: rusage_info_v6::ri_cpu_time_qos_user_initiated"][::std::mem::offset_of!(
-        rusage_info_v6,
-        ri_cpu_time_qos_user_initiated
-    )
-        - 200usize];
-    ["Offset of field: rusage_info_v6::ri_cpu_time_qos_user_interactive"][::std::mem::offset_of!(
-        rusage_info_v6,
-        ri_cpu_time_qos_user_interactive
-    )
-        - 208usize];
-    ["Offset of field: rusage_info_v6::ri_billed_system_time"][::std::mem::offset_of!(
-        rusage_info_v6,
-        ri_billed_system_time
-    ) - 216usize];
-    ["Offset of field: rusage_info_v6::ri_serviced_system_time"][::std::mem::offset_of!(
-        rusage_info_v6,
-        ri_serviced_system_time
-    ) - 224usize];
-    ["Offset of field: rusage_info_v6::ri_logical_writes"]
-        [::std::mem::offset_of!(rusage_info_v6, ri_logical_writes) - 232usize];
-    ["Offset of field: rusage_info_v6::ri_lifetime_max_phys_footprint"][::std::mem::offset_of!(
-        rusage_info_v6,
-        ri_lifetime_max_phys_footprint
-    )
-        - 240usize];
-    ["Offset of field: rusage_info_v6::ri_instructions"]
-        [::std::mem::offset_of!(rusage_info_v6, ri_instructions) - 248usize];
-    ["Offset of field: rusage_info_v6::ri_cycles"]
-        [::std::mem::offset_of!(rusage_info_v6, ri_cycles) - 256usize];
-    ["Offset of field: rusage_info_v6::ri_billed_energy"]
-        [::std::mem::offset_of!(rusage_info_v6, ri_billed_energy) - 264usize];
-    ["Offset of field: rusage_info_v6::ri_serviced_energy"]
-        [::std::mem::offset_of!(rusage_info_v6, ri_serviced_energy) - 272usize];
-    ["Offset of field: rusage_info_v6::ri_interval_max_phys_footprint"][::std::mem::offset_of!(
-        rusage_info_v6,
-        ri_interval_max_phys_footprint
-    )
-        - 280usize];
-    ["Offset of field: rusage_info_v6::ri_runnable_time"]
-        [::std::mem::offset_of!(rusage_info_v6, ri_runnable_time) - 288usize];
-    ["Offset of field: rusage_info_v6::ri_flags"]
-        [::std::mem::offset_of!(rusage_info_v6, ri_flags) - 296usize];
-    ["Offset of field: rusage_info_v6::ri_user_ptime"]
-        [::std::mem::offset_of!(rusage_info_v6, ri_user_ptime) - 304usize];
-    ["Offset of field: rusage_info_v6::ri_system_ptime"]
-        [::std::mem::offset_of!(rusage_info_v6, ri_system_ptime) - 312usize];
-    ["Offset of field: rusage_info_v6::ri_pinstructions"]
-        [::std::mem::offset_of!(rusage_info_v6, ri_pinstructions) - 320usize];
-    ["Offset of field: rusage_info_v6::ri_pcycles"]
-        [::std::mem::offset_of!(rusage_info_v6, ri_pcycles) - 328usize];
-    ["Offset of field: rusage_info_v6::ri_energy_nj"]
-        [::std::mem::offset_of!(rusage_info_v6, ri_energy_nj) - 336usize];
-    ["Offset of field: rusage_info_v6::ri_penergy_nj"]
-        [::std::mem::offset_of!(rusage_info_v6, ri_penergy_nj) - 344usize];
-    ["Offset of field: rusage_info_v6::ri_secure_time_in_system"][::std::mem::offset_of!(
-        rusage_info_v6,
-        ri_secure_time_in_system
-    ) - 352usize];
-    ["Offset of field: rusage_info_v6::ri_secure_ptime_in_system"][::std::mem::offset_of!(
-        rusage_info_v6,
-        ri_secure_ptime_in_system
-    )
-        - 360usize];
-    ["Offset of field: rusage_info_v6::ri_neural_footprint"][::std::mem::offset_of!(
-        rusage_info_v6,
-        ri_neural_footprint
-    ) - 368usize];
-    ["Offset of field: rusage_info_v6::ri_lifetime_max_neural_footprint"][::std::mem::offset_of!(
-        rusage_info_v6,
-        ri_lifetime_max_neural_footprint
-    )
-        - 376usize];
-    ["Offset of field: rusage_info_v6::ri_interval_max_neural_footprint"][::std::mem::offset_of!(
-        rusage_info_v6,
-        ri_interval_max_neural_footprint
-    )
-        - 384usize];
-    ["Offset of field: rusage_info_v6::ri_reserved"]
-        [::std::mem::offset_of!(rusage_info_v6, ri_reserved) - 392usize];
-};
-pub type rusage_info_current = rusage_info_v6;
-#[repr(C)]
-#[derive(Debug, Default, Copy, Clone)]
-pub struct rlimit {
-    pub rlim_cur: rlim_t,
-    pub rlim_max: rlim_t,
-}
-#[allow(clippy::unnecessary_operation, clippy::identity_op)]
-const _: () = {
-    ["Size of rlimit"][::std::mem::size_of::<rlimit>() - 16usize];
-    ["Alignment of rlimit"][::std::mem::align_of::<rlimit>() - 8usize];
-    ["Offset of field: rlimit::rlim_cur"]
-        [::std::mem::offset_of!(rlimit, rlim_cur) - 0usize];
-    ["Offset of field: rlimit::rlim_max"]
-        [::std::mem::offset_of!(rlimit, rlim_max) - 8usize];
-};
-#[repr(C)]
-#[derive(Debug, Default, Copy, Clone)]
-pub struct proc_rlimit_control_wakeupmon {
-    pub wm_flags: u32,
-    pub wm_rate: i32,
-}
-#[allow(clippy::unnecessary_operation, clippy::identity_op)]
-const _: () = {
-    ["Size of proc_rlimit_control_wakeupmon"]
-        [::std::mem::size_of::<proc_rlimit_control_wakeupmon>() - 8usize];
-    ["Alignment of proc_rlimit_control_wakeupmon"]
-        [::std::mem::align_of::<proc_rlimit_control_wakeupmon>() - 4usize];
-    ["Offset of field: proc_rlimit_control_wakeupmon::wm_flags"][::std::mem::offset_of!(
-        proc_rlimit_control_wakeupmon,
-        wm_flags
-    ) - 0usize];
-    ["Offset of field: proc_rlimit_control_wakeupmon::wm_rate"][::std::mem::offset_of!(
-        proc_rlimit_control_wakeupmon,
-        wm_rate
-    ) - 4usize];
-};
-unsafe extern "C" {
-    pub fn getpriority(
-        arg1: ::std::os::raw::c_int,
-        arg2: id_t,
-    ) -> ::std::os::raw::c_int;
-}
-unsafe extern "C" {
-    pub fn getiopolicy_np(
-        arg1: ::std::os::raw::c_int,
-        arg2: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
-}
-unsafe extern "C" {
-    pub fn getrlimit(
-        arg1: ::std::os::raw::c_int,
-        arg2: *mut rlimit,
-    ) -> ::std::os::raw::c_int;
-}
-unsafe extern "C" {
-    pub fn getrusage(
-        arg1: ::std::os::raw::c_int,
-        arg2: *mut rusage,
-    ) -> ::std::os::raw::c_int;
-}
-unsafe extern "C" {
-    pub fn setpriority(
-        arg1: ::std::os::raw::c_int,
-        arg2: id_t,
-        arg3: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
-}
-unsafe extern "C" {
-    pub fn setiopolicy_np(
-        arg1: ::std::os::raw::c_int,
-        arg2: ::std::os::raw::c_int,
-        arg3: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
-}
-unsafe extern "C" {
-    pub fn setrlimit(
-        arg1: ::std::os::raw::c_int,
-        arg2: *const rlimit,
-    ) -> ::std::os::raw::c_int;
-}
-#[repr(C)]
-#[derive(Copy, Clone)]
-pub union wait {
-    pub w_status: ::std::os::raw::c_int,
-    pub w_T: wait__bindgen_ty_1,
-    pub w_S: wait__bindgen_ty_2,
-}
-#[repr(C)]
-#[repr(align(4))]
-#[derive(Debug, Default, Copy, Clone)]
-pub struct wait__bindgen_ty_1 {
-    pub _bitfield_align_1: [u16; 0],
-    pub _bitfield_1: __BindgenBitfieldUnit<[u8; 4usize]>,
-}
-#[allow(clippy::unnecessary_operation, clippy::identity_op)]
-const _: () = {
-    ["Size of wait__bindgen_ty_1"]
-        [::std::mem::size_of::<wait__bindgen_ty_1>() - 4usize];
-    ["Alignment of wait__bindgen_ty_1"]
-        [::std::mem::align_of::<wait__bindgen_ty_1>() - 4usize];
-};
-impl wait__bindgen_ty_1 {
-    #[inline]
-    pub fn w_Termsig(&self) -> ::std::os::raw::c_uint {
-        unsafe {
-            ::std::mem::transmute(self._bitfield_1.get(0usize, 7u8) as u32)
-        }
-    }
-    #[inline]
-    pub fn set_w_Termsig(&mut self, val: ::std::os::raw::c_uint) {
-        unsafe {
-            let val: u32 = ::std::mem::transmute(val);
-            self._bitfield_1.set(0usize, 7u8, val as u64)
-        }
-    }
-    #[inline]
-    pub unsafe fn w_Termsig_raw(this: *const Self) -> ::std::os::raw::c_uint {
-        unsafe {
-            ::std::mem::transmute(
-                <__BindgenBitfieldUnit<[u8; 4usize]>>::raw_get(
-                    ::std::ptr::addr_of!((*this)._bitfield_1),
-                    0usize,
-                    7u8,
-                ) as u32,
-            )
-        }
-    }
-    #[inline]
-    pub unsafe fn set_w_Termsig_raw(
-        this: *mut Self,
-        val: ::std::os::raw::c_uint,
-    ) {
-        unsafe {
-            let val: u32 = ::std::mem::transmute(val);
-            <__BindgenBitfieldUnit<[u8; 4usize]>>::raw_set(
-                ::std::ptr::addr_of_mut!((*this)._bitfield_1),
-                0usize,
-                7u8,
-                val as u64,
-            )
-        }
-    }
-    #[inline]
-    pub fn w_Coredump(&self) -> ::std::os::raw::c_uint {
-        unsafe {
-            ::std::mem::transmute(self._bitfield_1.get(7usize, 1u8) as u32)
-        }
-    }
-    #[inline]
-    pub fn set_w_Coredump(&mut self, val: ::std::os::raw::c_uint) {
-        unsafe {
-            let val: u32 = ::std::mem::transmute(val);
-            self._bitfield_1.set(7usize, 1u8, val as u64)
-        }
-    }
-    #[inline]
-    pub unsafe fn w_Coredump_raw(this: *const Self) -> ::std::os::raw::c_uint {
-        unsafe {
-            ::std::mem::transmute(
-                <__BindgenBitfieldUnit<[u8; 4usize]>>::raw_get(
-                    ::std::ptr::addr_of!((*this)._bitfield_1),
-                    7usize,
-                    1u8,
-                ) as u32,
-            )
-        }
-    }
-    #[inline]
-    pub unsafe fn set_w_Coredump_raw(
-        this: *mut Self,
-        val: ::std::os::raw::c_uint,
-    ) {
-        unsafe {
-            let val: u32 = ::std::mem::transmute(val);
-            <__BindgenBitfieldUnit<[u8; 4usize]>>::raw_set(
-                ::std::ptr::addr_of_mut!((*this)._bitfield_1),
-                7usize,
-                1u8,
-                val as u64,
-            )
-        }
-    }
-    #[inline]
-    pub fn w_Retcode(&self) -> ::std::os::raw::c_uint {
-        unsafe {
-            ::std::mem::transmute(self._bitfield_1.get(8usize, 8u8) as u32)
-        }
-    }
-    #[inline]
-    pub fn set_w_Retcode(&mut self, val: ::std::os::raw::c_uint) {
-        unsafe {
-            let val: u32 = ::std::mem::transmute(val);
-            self._bitfield_1.set(8usize, 8u8, val as u64)
-        }
-    }
-    #[inline]
-    pub unsafe fn w_Retcode_raw(this: *const Self) -> ::std::os::raw::c_uint {
-        unsafe {
-            ::std::mem::transmute(
-                <__BindgenBitfieldUnit<[u8; 4usize]>>::raw_get(
-                    ::std::ptr::addr_of!((*this)._bitfield_1),
-                    8usize,
-                    8u8,
-                ) as u32,
-            )
-        }
-    }
-    #[inline]
-    pub unsafe fn set_w_Retcode_raw(
-        this: *mut Self,
-        val: ::std::os::raw::c_uint,
-    ) {
-        unsafe {
-            let val: u32 = ::std::mem::transmute(val);
-            <__BindgenBitfieldUnit<[u8; 4usize]>>::raw_set(
-                ::std::ptr::addr_of_mut!((*this)._bitfield_1),
-                8usize,
-                8u8,
-                val as u64,
-            )
-        }
-    }
-    #[inline]
-    pub fn w_Filler(&self) -> ::std::os::raw::c_uint {
-        unsafe {
-            ::std::mem::transmute(self._bitfield_1.get(16usize, 16u8) as u32)
-        }
-    }
-    #[inline]
-    pub fn set_w_Filler(&mut self, val: ::std::os::raw::c_uint) {
-        unsafe {
-            let val: u32 = ::std::mem::transmute(val);
-            self._bitfield_1.set(16usize, 16u8, val as u64)
-        }
-    }
-    #[inline]
-    pub unsafe fn w_Filler_raw(this: *const Self) -> ::std::os::raw::c_uint {
-        unsafe {
-            ::std::mem::transmute(
-                <__BindgenBitfieldUnit<[u8; 4usize]>>::raw_get(
-                    ::std::ptr::addr_of!((*this)._bitfield_1),
-                    16usize,
-                    16u8,
-                ) as u32,
-            )
-        }
-    }
-    #[inline]
-    pub unsafe fn set_w_Filler_raw(
-        this: *mut Self,
-        val: ::std::os::raw::c_uint,
-    ) {
-        unsafe {
-            let val: u32 = ::std::mem::transmute(val);
-            <__BindgenBitfieldUnit<[u8; 4usize]>>::raw_set(
-                ::std::ptr::addr_of_mut!((*this)._bitfield_1),
-                16usize,
-                16u8,
-                val as u64,
-            )
-        }
-    }
-    #[inline]
-    pub fn new_bitfield_1(
-        w_Termsig: ::std::os::raw::c_uint,
-        w_Coredump: ::std::os::raw::c_uint,
-        w_Retcode: ::std::os::raw::c_uint,
-        w_Filler: ::std::os::raw::c_uint,
-    ) -> __BindgenBitfieldUnit<[u8; 4usize]> {
-        let mut __bindgen_bitfield_unit: __BindgenBitfieldUnit<[u8; 4usize]> =
-            Default::default();
-        __bindgen_bitfield_unit.set(0usize, 7u8, {
-            let w_Termsig: u32 = unsafe { ::std::mem::transmute(w_Termsig) };
-            w_Termsig as u64
-        });
-        __bindgen_bitfield_unit.set(7usize, 1u8, {
-            let w_Coredump: u32 = unsafe { ::std::mem::transmute(w_Coredump) };
-            w_Coredump as u64
-        });
-        __bindgen_bitfield_unit.set(8usize, 8u8, {
-            let w_Retcode: u32 = unsafe { ::std::mem::transmute(w_Retcode) };
-            w_Retcode as u64
-        });
-        __bindgen_bitfield_unit.set(16usize, 16u8, {
-            let w_Filler: u32 = unsafe { ::std::mem::transmute(w_Filler) };
-            w_Filler as u64
-        });
-        __bindgen_bitfield_unit
-    }
-}
-#[repr(C)]
-#[repr(align(4))]
-#[derive(Debug, Default, Copy, Clone)]
-pub struct wait__bindgen_ty_2 {
-    pub _bitfield_align_1: [u16; 0],
-    pub _bitfield_1: __BindgenBitfieldUnit<[u8; 4usize]>,
-}
-#[allow(clippy::unnecessary_operation, clippy::identity_op)]
-const _: () = {
-    ["Size of wait__bindgen_ty_2"]
-        [::std::mem::size_of::<wait__bindgen_ty_2>() - 4usize];
-    ["Alignment of wait__bindgen_ty_2"]
-        [::std::mem::align_of::<wait__bindgen_ty_2>() - 4usize];
-};
-impl wait__bindgen_ty_2 {
-    #[inline]
-    pub fn w_Stopval(&self) -> ::std::os::raw::c_uint {
-        unsafe {
-            ::std::mem::transmute(self._bitfield_1.get(0usize, 8u8) as u32)
-        }
-    }
-    #[inline]
-    pub fn set_w_Stopval(&mut self, val: ::std::os::raw::c_uint) {
-        unsafe {
-            let val: u32 = ::std::mem::transmute(val);
-            self._bitfield_1.set(0usize, 8u8, val as u64)
-        }
-    }
-    #[inline]
-    pub unsafe fn w_Stopval_raw(this: *const Self) -> ::std::os::raw::c_uint {
-        unsafe {
-            ::std::mem::transmute(
-                <__BindgenBitfieldUnit<[u8; 4usize]>>::raw_get(
-                    ::std::ptr::addr_of!((*this)._bitfield_1),
-                    0usize,
-                    8u8,
-                ) as u32,
-            )
-        }
-    }
-    #[inline]
-    pub unsafe fn set_w_Stopval_raw(
-        this: *mut Self,
-        val: ::std::os::raw::c_uint,
-    ) {
-        unsafe {
-            let val: u32 = ::std::mem::transmute(val);
-            <__BindgenBitfieldUnit<[u8; 4usize]>>::raw_set(
-                ::std::ptr::addr_of_mut!((*this)._bitfield_1),
-                0usize,
-                8u8,
-                val as u64,
-            )
-        }
-    }
-    #[inline]
-    pub fn w_Stopsig(&self) -> ::std::os::raw::c_uint {
-        unsafe {
-            ::std::mem::transmute(self._bitfield_1.get(8usize, 8u8) as u32)
-        }
-    }
-    #[inline]
-    pub fn set_w_Stopsig(&mut self, val: ::std::os::raw::c_uint) {
-        unsafe {
-            let val: u32 = ::std::mem::transmute(val);
-            self._bitfield_1.set(8usize, 8u8, val as u64)
-        }
-    }
-    #[inline]
-    pub unsafe fn w_Stopsig_raw(this: *const Self) -> ::std::os::raw::c_uint {
-        unsafe {
-            ::std::mem::transmute(
-                <__BindgenBitfieldUnit<[u8; 4usize]>>::raw_get(
-                    ::std::ptr::addr_of!((*this)._bitfield_1),
-                    8usize,
-                    8u8,
-                ) as u32,
-            )
-        }
-    }
-    #[inline]
-    pub unsafe fn set_w_Stopsig_raw(
-        this: *mut Self,
-        val: ::std::os::raw::c_uint,
-    ) {
-        unsafe {
-            let val: u32 = ::std::mem::transmute(val);
-            <__BindgenBitfieldUnit<[u8; 4usize]>>::raw_set(
-                ::std::ptr::addr_of_mut!((*this)._bitfield_1),
-                8usize,
-                8u8,
-                val as u64,
-            )
-        }
-    }
-    #[inline]
-    pub fn w_Filler(&self) -> ::std::os::raw::c_uint {
-        unsafe {
-            ::std::mem::transmute(self._bitfield_1.get(16usize, 16u8) as u32)
-        }
-    }
-    #[inline]
-    pub fn set_w_Filler(&mut self, val: ::std::os::raw::c_uint) {
-        unsafe {
-            let val: u32 = ::std::mem::transmute(val);
-            self._bitfield_1.set(16usize, 16u8, val as u64)
-        }
-    }
-    #[inline]
-    pub unsafe fn w_Filler_raw(this: *const Self) -> ::std::os::raw::c_uint {
-        unsafe {
-            ::std::mem::transmute(
-                <__BindgenBitfieldUnit<[u8; 4usize]>>::raw_get(
-                    ::std::ptr::addr_of!((*this)._bitfield_1),
-                    16usize,
-                    16u8,
-                ) as u32,
-            )
-        }
-    }
-    #[inline]
-    pub unsafe fn set_w_Filler_raw(
-        this: *mut Self,
-        val: ::std::os::raw::c_uint,
-    ) {
-        unsafe {
-            let val: u32 = ::std::mem::transmute(val);
-            <__BindgenBitfieldUnit<[u8; 4usize]>>::raw_set(
-                ::std::ptr::addr_of_mut!((*this)._bitfield_1),
-                16usize,
-                16u8,
-                val as u64,
-            )
-        }
-    }
-    #[inline]
-    pub fn new_bitfield_1(
-        w_Stopval: ::std::os::raw::c_uint,
-        w_Stopsig: ::std::os::raw::c_uint,
-        w_Filler: ::std::os::raw::c_uint,
-    ) -> __BindgenBitfieldUnit<[u8; 4usize]> {
-        let mut __bindgen_bitfield_unit: __BindgenBitfieldUnit<[u8; 4usize]> =
-            Default::default();
-        __bindgen_bitfield_unit.set(0usize, 8u8, {
-            let w_Stopval: u32 = unsafe { ::std::mem::transmute(w_Stopval) };
-            w_Stopval as u64
-        });
-        __bindgen_bitfield_unit.set(8usize, 8u8, {
-            let w_Stopsig: u32 = unsafe { ::std::mem::transmute(w_Stopsig) };
-            w_Stopsig as u64
-        });
-        __bindgen_bitfield_unit.set(16usize, 16u8, {
-            let w_Filler: u32 = unsafe { ::std::mem::transmute(w_Filler) };
-            w_Filler as u64
-        });
-        __bindgen_bitfield_unit
-    }
-}
-#[allow(clippy::unnecessary_operation, clippy::identity_op)]
-const _: () = {
-    ["Size of wait"][::std::mem::size_of::<wait>() - 4usize];
-    ["Alignment of wait"][::std::mem::align_of::<wait>() - 4usize];
-    ["Offset of field: wait::w_status"]
-        [::std::mem::offset_of!(wait, w_status) - 0usize];
-    ["Offset of field: wait::w_T"][::std::mem::offset_of!(wait, w_T) - 0usize];
-    ["Offset of field: wait::w_S"][::std::mem::offset_of!(wait, w_S) - 0usize];
-};
-impl Default for wait {
-    fn default() -> Self {
-        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
-        unsafe {
-            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
-            s.assume_init()
-        }
-    }
-}
-unsafe extern "C" {
-    pub fn wait(arg1: *mut ::std::os::raw::c_int) -> pid_t;
-}
-unsafe extern "C" {
-    pub fn waitpid(
-        arg1: pid_t,
-        arg2: *mut ::std::os::raw::c_int,
-        arg3: ::std::os::raw::c_int,
-    ) -> pid_t;
-}
-unsafe extern "C" {
-    pub fn waitid(
-        arg1: idtype_t::Type,
-        arg2: id_t,
-        arg3: *mut siginfo_t,
-        arg4: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
-}
-unsafe extern "C" {
-    pub fn wait3(
-        arg1: *mut ::std::os::raw::c_int,
-        arg2: ::std::os::raw::c_int,
-        arg3: *mut rusage,
-    ) -> pid_t;
-}
-unsafe extern "C" {
-    pub fn wait4(
-        arg1: pid_t,
-        arg2: *mut ::std::os::raw::c_int,
-        arg3: ::std::os::raw::c_int,
-        arg4: *mut rusage,
-    ) -> pid_t;
-}
-unsafe extern "C" {
-    pub fn alloca(
-        __size: ::std::os::raw::c_ulong,
-    ) -> *mut ::std::os::raw::c_void;
-}
-pub type ct_rune_t = __darwin_ct_rune_t;
-pub type rune_t = __darwin_rune_t;
-#[repr(C)]
-#[derive(Debug, Default, Copy, Clone)]
-pub struct div_t {
-    pub quot: ::std::os::raw::c_int,
-    pub rem: ::std::os::raw::c_int,
-}
-#[allow(clippy::unnecessary_operation, clippy::identity_op)]
-const _: () = {
-    ["Size of div_t"][::std::mem::size_of::<div_t>() - 8usize];
-    ["Alignment of div_t"][::std::mem::align_of::<div_t>() - 4usize];
-    ["Offset of field: div_t::quot"]
-        [::std::mem::offset_of!(div_t, quot) - 0usize];
-    ["Offset of field: div_t::rem"]
-        [::std::mem::offset_of!(div_t, rem) - 4usize];
-};
-#[repr(C)]
-#[derive(Debug, Default, Copy, Clone)]
-pub struct ldiv_t {
-    pub quot: ::std::os::raw::c_long,
-    pub rem: ::std::os::raw::c_long,
-}
-#[allow(clippy::unnecessary_operation, clippy::identity_op)]
-const _: () = {
-    ["Size of ldiv_t"][::std::mem::size_of::<ldiv_t>() - 16usize];
-    ["Alignment of ldiv_t"][::std::mem::align_of::<ldiv_t>() - 8usize];
-    ["Offset of field: ldiv_t::quot"]
-        [::std::mem::offset_of!(ldiv_t, quot) - 0usize];
-    ["Offset of field: ldiv_t::rem"]
-        [::std::mem::offset_of!(ldiv_t, rem) - 8usize];
-};
-#[repr(C)]
-#[derive(Debug, Default, Copy, Clone)]
-pub struct lldiv_t {
-    pub quot: ::std::os::raw::c_longlong,
-    pub rem: ::std::os::raw::c_longlong,
-}
-#[allow(clippy::unnecessary_operation, clippy::identity_op)]
-const _: () = {
-    ["Size of lldiv_t"][::std::mem::size_of::<lldiv_t>() - 16usize];
-    ["Alignment of lldiv_t"][::std::mem::align_of::<lldiv_t>() - 8usize];
-    ["Offset of field: lldiv_t::quot"]
-        [::std::mem::offset_of!(lldiv_t, quot) - 0usize];
-    ["Offset of field: lldiv_t::rem"]
-        [::std::mem::offset_of!(lldiv_t, rem) - 8usize];
-};
-unsafe extern "C" {
-    pub static mut __mb_cur_max: ::std::os::raw::c_int;
-}
-pub type malloc_type_id_t = ::std::os::raw::c_ulonglong;
-unsafe extern "C" {
-    pub fn malloc_type_malloc(
-        size: usize,
-        type_id: malloc_type_id_t,
-    ) -> *mut ::std::os::raw::c_void;
-}
-unsafe extern "C" {
-    pub fn malloc_type_calloc(
-        count: usize,
-        size: usize,
-        type_id: malloc_type_id_t,
-    ) -> *mut ::std::os::raw::c_void;
-}
-unsafe extern "C" {
-    pub fn malloc_type_free(
-        ptr: *mut ::std::os::raw::c_void,
-        type_id: malloc_type_id_t,
-    );
-}
-unsafe extern "C" {
-    pub fn malloc_type_realloc(
-        ptr: *mut ::std::os::raw::c_void,
-        size: usize,
-        type_id: malloc_type_id_t,
-    ) -> *mut ::std::os::raw::c_void;
-}
-unsafe extern "C" {
-    pub fn malloc_type_valloc(
-        size: usize,
-        type_id: malloc_type_id_t,
-    ) -> *mut ::std::os::raw::c_void;
-}
-unsafe extern "C" {
-    pub fn malloc_type_aligned_alloc(
-        alignment: usize,
-        size: usize,
-        type_id: malloc_type_id_t,
-    ) -> *mut ::std::os::raw::c_void;
-}
-unsafe extern "C" {
-    pub fn malloc_type_posix_memalign(
-        memptr: *mut *mut ::std::os::raw::c_void,
-        alignment: usize,
-        size: usize,
-        type_id: malloc_type_id_t,
-    ) -> ::std::os::raw::c_int;
-}
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct _malloc_zone_t {
-    _unused: [u8; 0],
-}
-pub type malloc_zone_t = _malloc_zone_t;
-unsafe extern "C" {
-    pub fn malloc_type_zone_malloc(
-        zone: *mut malloc_zone_t,
-        size: usize,
-        type_id: malloc_type_id_t,
-    ) -> *mut ::std::os::raw::c_void;
-}
-unsafe extern "C" {
-    pub fn malloc_type_zone_calloc(
-        zone: *mut malloc_zone_t,
-        count: usize,
-        size: usize,
-        type_id: malloc_type_id_t,
-    ) -> *mut ::std::os::raw::c_void;
-}
-unsafe extern "C" {
-    pub fn malloc_type_zone_free(
-        zone: *mut malloc_zone_t,
-        ptr: *mut ::std::os::raw::c_void,
-        type_id: malloc_type_id_t,
-    );
-}
-unsafe extern "C" {
-    pub fn malloc_type_zone_realloc(
-        zone: *mut malloc_zone_t,
-        ptr: *mut ::std::os::raw::c_void,
-        size: usize,
-        type_id: malloc_type_id_t,
-    ) -> *mut ::std::os::raw::c_void;
-}
-unsafe extern "C" {
-    pub fn malloc_type_zone_valloc(
-        zone: *mut malloc_zone_t,
-        size: usize,
-        type_id: malloc_type_id_t,
-    ) -> *mut ::std::os::raw::c_void;
-}
-unsafe extern "C" {
-    pub fn malloc_type_zone_memalign(
-        zone: *mut malloc_zone_t,
-        alignment: usize,
-        size: usize,
-        type_id: malloc_type_id_t,
-    ) -> *mut ::std::os::raw::c_void;
-}
-unsafe extern "C" {
-    pub fn malloc(
-        __size: ::std::os::raw::c_ulong,
-    ) -> *mut ::std::os::raw::c_void;
-}
-unsafe extern "C" {
-    pub fn calloc(
-        __count: ::std::os::raw::c_ulong,
-        __size: ::std::os::raw::c_ulong,
-    ) -> *mut ::std::os::raw::c_void;
-}
-unsafe extern "C" {
-    pub fn free(arg1: *mut ::std::os::raw::c_void);
-}
-unsafe extern "C" {
-    pub fn realloc(
-        __ptr: *mut ::std::os::raw::c_void,
-        __size: ::std::os::raw::c_ulong,
-    ) -> *mut ::std::os::raw::c_void;
-}
-unsafe extern "C" {
-    pub fn reallocf(
-        __ptr: *mut ::std::os::raw::c_void,
-        __size: usize,
-    ) -> *mut ::std::os::raw::c_void;
-}
-unsafe extern "C" {
-    pub fn valloc(__size: usize) -> *mut ::std::os::raw::c_void;
-}
-unsafe extern "C" {
-    pub fn aligned_alloc(
-        __alignment: ::std::os::raw::c_ulong,
-        __size: ::std::os::raw::c_ulong,
-    ) -> *mut ::std::os::raw::c_void;
-}
-unsafe extern "C" {
-    pub fn posix_memalign(
-        __memptr: *mut *mut ::std::os::raw::c_void,
-        __alignment: usize,
-        __size: usize,
-    ) -> ::std::os::raw::c_int;
-}
-unsafe extern "C" {
-    pub fn abort() -> !;
-}
-unsafe extern "C" {
-    pub fn abs(arg1: ::std::os::raw::c_int) -> ::std::os::raw::c_int;
-}
-unsafe extern "C" {
-    pub fn atexit(
-        arg1: ::std::option::Option<unsafe extern "C" fn()>,
-    ) -> ::std::os::raw::c_int;
-}
-unsafe extern "C" {
-    pub fn at_quick_exit(
-        arg1: ::std::option::Option<unsafe extern "C" fn()>,
-    ) -> ::std::os::raw::c_int;
-}
-unsafe extern "C" {
-    pub fn atof(arg1: *const ::std::os::raw::c_char) -> f64;
-}
-unsafe extern "C" {
-    pub fn atoi(arg1: *const ::std::os::raw::c_char) -> ::std::os::raw::c_int;
-}
-unsafe extern "C" {
-    pub fn atol(arg1: *const ::std::os::raw::c_char) -> ::std::os::raw::c_long;
-}
-unsafe extern "C" {
-    pub fn atoll(
-        arg1: *const ::std::os::raw::c_char,
-    ) -> ::std::os::raw::c_longlong;
-}
-unsafe extern "C" {
-    pub fn bsearch(
-        __key: *const ::std::os::raw::c_void,
-        __base: *const ::std::os::raw::c_void,
-        __nel: usize,
-        __width: usize,
-        __compar: ::std::option::Option<
-            unsafe extern "C" fn(
-                arg1: *const ::std::os::raw::c_void,
-                arg2: *const ::std::os::raw::c_void,
-            ) -> ::std::os::raw::c_int,
-        >,
-    ) -> *mut ::std::os::raw::c_void;
-}
-unsafe extern "C" {
-    pub fn div(
-        arg1: ::std::os::raw::c_int,
-        arg2: ::std::os::raw::c_int,
-    ) -> div_t;
-}
-unsafe extern "C" {
-    pub fn exit(arg1: ::std::os::raw::c_int) -> !;
-}
-unsafe extern "C" {
-    pub fn getenv(
-        arg1: *const ::std::os::raw::c_char,
-    ) -> *mut ::std::os::raw::c_char;
-}
-unsafe extern "C" {
-    pub fn labs(arg1: ::std::os::raw::c_long) -> ::std::os::raw::c_long;
-}
-unsafe extern "C" {
-    pub fn ldiv(
-        arg1: ::std::os::raw::c_long,
-        arg2: ::std::os::raw::c_long,
-    ) -> ldiv_t;
-}
-unsafe extern "C" {
-    pub fn llabs(
-        arg1: ::std::os::raw::c_longlong,
-    ) -> ::std::os::raw::c_longlong;
-}
-unsafe extern "C" {
-    pub fn lldiv(
-        arg1: ::std::os::raw::c_longlong,
-        arg2: ::std::os::raw::c_longlong,
-    ) -> lldiv_t;
-}
-unsafe extern "C" {
-    pub fn mblen(
-        __s: *const ::std::os::raw::c_char,
-        __n: usize,
-    ) -> ::std::os::raw::c_int;
-}
-unsafe extern "C" {
-    pub fn mbstowcs(
-        arg1: *mut wchar_t,
-        arg2: *const ::std::os::raw::c_char,
-        __n: usize,
-    ) -> usize;
-}
-unsafe extern "C" {
-    pub fn mbtowc(
-        arg1: *mut wchar_t,
-        arg2: *const ::std::os::raw::c_char,
-        __n: usize,
-    ) -> ::std::os::raw::c_int;
-}
-unsafe extern "C" {
-    pub fn qsort(
-        __base: *mut ::std::os::raw::c_void,
-        __nel: usize,
-        __width: usize,
-        __compar: ::std::option::Option<
-            unsafe extern "C" fn(
-                arg1: *const ::std::os::raw::c_void,
-                arg2: *const ::std::os::raw::c_void,
-            ) -> ::std::os::raw::c_int,
-        >,
-    );
-}
-unsafe extern "C" {
-    pub fn quick_exit(arg1: ::std::os::raw::c_int) -> !;
-}
-unsafe extern "C" {
-    pub fn rand() -> ::std::os::raw::c_int;
-}
-unsafe extern "C" {
-    pub fn srand(arg1: ::std::os::raw::c_uint);
-}
-unsafe extern "C" {
-    pub fn strtod(
-        arg1: *const ::std::os::raw::c_char,
-        arg2: *mut *mut ::std::os::raw::c_char,
-    ) -> f64;
-}
-unsafe extern "C" {
-    pub fn strtof(
-        arg1: *const ::std::os::raw::c_char,
-        arg2: *mut *mut ::std::os::raw::c_char,
-    ) -> f32;
-}
-unsafe extern "C" {
-    pub fn strtol(
-        __str: *const ::std::os::raw::c_char,
-        __endptr: *mut *mut ::std::os::raw::c_char,
-        __base: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_long;
-}
-unsafe extern "C" {
-    pub fn strtold(
-        arg1: *const ::std::os::raw::c_char,
-        arg2: *mut *mut ::std::os::raw::c_char,
-    ) -> f64;
-}
-unsafe extern "C" {
-    pub fn strtoll(
-        __str: *const ::std::os::raw::c_char,
-        __endptr: *mut *mut ::std::os::raw::c_char,
-        __base: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_longlong;
-}
-unsafe extern "C" {
-    pub fn strtoul(
-        __str: *const ::std::os::raw::c_char,
-        __endptr: *mut *mut ::std::os::raw::c_char,
-        __base: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_ulong;
-}
-unsafe extern "C" {
-    pub fn strtoull(
-        __str: *const ::std::os::raw::c_char,
-        __endptr: *mut *mut ::std::os::raw::c_char,
-        __base: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_ulonglong;
-}
-unsafe extern "C" {
-    pub fn system(arg1: *const ::std::os::raw::c_char)
-    -> ::std::os::raw::c_int;
-}
-unsafe extern "C" {
-    pub fn wcstombs(
-        arg1: *mut ::std::os::raw::c_char,
-        arg2: *const wchar_t,
-        __n: usize,
-    ) -> usize;
-}
-unsafe extern "C" {
-    pub fn wctomb(
-        arg1: *mut ::std::os::raw::c_char,
-        arg2: wchar_t,
-    ) -> ::std::os::raw::c_int;
-}
-unsafe extern "C" {
-    pub fn _Exit(arg1: ::std::os::raw::c_int) -> !;
-}
-unsafe extern "C" {
-    pub fn a64l(arg1: *const ::std::os::raw::c_char) -> ::std::os::raw::c_long;
-}
-unsafe extern "C" {
-    pub fn drand48() -> f64;
-}
-unsafe extern "C" {
-    pub fn ecvt(
-        arg1: f64,
-        arg2: ::std::os::raw::c_int,
-        arg3: *mut ::std::os::raw::c_int,
-        arg4: *mut ::std::os::raw::c_int,
-    ) -> *mut ::std::os::raw::c_char;
-}
-unsafe extern "C" {
-    pub fn erand48(arg1: *mut ::std::os::raw::c_ushort) -> f64;
-}
-unsafe extern "C" {
-    pub fn fcvt(
-        arg1: f64,
-        arg2: ::std::os::raw::c_int,
-        arg3: *mut ::std::os::raw::c_int,
-        arg4: *mut ::std::os::raw::c_int,
-    ) -> *mut ::std::os::raw::c_char;
-}
-unsafe extern "C" {
-    pub fn gcvt(
-        arg1: f64,
-        arg2: ::std::os::raw::c_int,
-        arg3: *mut ::std::os::raw::c_char,
-    ) -> *mut ::std::os::raw::c_char;
-}
-unsafe extern "C" {
-    pub fn getsubopt(
-        arg1: *mut *mut ::std::os::raw::c_char,
-        arg2: *const *mut ::std::os::raw::c_char,
-        arg3: *mut *mut ::std::os::raw::c_char,
-    ) -> ::std::os::raw::c_int;
-}
-unsafe extern "C" {
-    pub fn grantpt(arg1: ::std::os::raw::c_int) -> ::std::os::raw::c_int;
-}
-unsafe extern "C" {
-    pub fn initstate(
-        arg1: ::std::os::raw::c_uint,
-        arg2: *mut ::std::os::raw::c_char,
-        __size: usize,
-    ) -> *mut ::std::os::raw::c_char;
-}
-unsafe extern "C" {
-    pub fn jrand48(
-        arg1: *mut ::std::os::raw::c_ushort,
-    ) -> ::std::os::raw::c_long;
-}
-unsafe extern "C" {
-    pub fn l64a(arg1: ::std::os::raw::c_long) -> *mut ::std::os::raw::c_char;
-}
-unsafe extern "C" {
-    pub fn lcong48(arg1: *mut ::std::os::raw::c_ushort);
-}
-unsafe extern "C" {
-    pub fn lrand48() -> ::std::os::raw::c_long;
-}
-unsafe extern "C" {
-    pub fn mktemp(
-        arg1: *mut ::std::os::raw::c_char,
-    ) -> *mut ::std::os::raw::c_char;
-}
-unsafe extern "C" {
-    pub fn mkstemp(arg1: *mut ::std::os::raw::c_char) -> ::std::os::raw::c_int;
-}
-unsafe extern "C" {
-    pub fn mrand48() -> ::std::os::raw::c_long;
-}
-unsafe extern "C" {
-    pub fn nrand48(
-        arg1: *mut ::std::os::raw::c_ushort,
-    ) -> ::std::os::raw::c_long;
-}
-unsafe extern "C" {
-    pub fn posix_openpt(arg1: ::std::os::raw::c_int) -> ::std::os::raw::c_int;
-}
-unsafe extern "C" {
-    pub fn ptsname(arg1: ::std::os::raw::c_int) -> *mut ::std::os::raw::c_char;
-}
-unsafe extern "C" {
-    pub fn ptsname_r(
-        fildes: ::std::os::raw::c_int,
-        buffer: *mut ::std::os::raw::c_char,
-        buflen: usize,
-    ) -> ::std::os::raw::c_int;
-}
-unsafe extern "C" {
-    pub fn putenv(arg1: *mut ::std::os::raw::c_char) -> ::std::os::raw::c_int;
-}
-unsafe extern "C" {
-    pub fn random() -> ::std::os::raw::c_long;
-}
-unsafe extern "C" {
-    pub fn rand_r(arg1: *mut ::std::os::raw::c_uint) -> ::std::os::raw::c_int;
-}
-unsafe extern "C" {
-    #[link_name = "\u{1}_realpath$DARWIN_EXTSN"]
-    pub fn realpath(
-        arg1: *const ::std::os::raw::c_char,
-        arg2: *mut ::std::os::raw::c_char,
-    ) -> *mut ::std::os::raw::c_char;
-}
-unsafe extern "C" {
-    pub fn seed48(
-        arg1: *mut ::std::os::raw::c_ushort,
-    ) -> *mut ::std::os::raw::c_ushort;
-}
-unsafe extern "C" {
-    pub fn setenv(
-        __name: *const ::std::os::raw::c_char,
-        __value: *const ::std::os::raw::c_char,
-        __overwrite: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
-}
-unsafe extern "C" {
-    pub fn setkey(arg1: *const ::std::os::raw::c_char);
-}
-unsafe extern "C" {
-    pub fn setstate(
-        arg1: *const ::std::os::raw::c_char,
-    ) -> *mut ::std::os::raw::c_char;
-}
-unsafe extern "C" {
-    pub fn srand48(arg1: ::std::os::raw::c_long);
-}
-unsafe extern "C" {
-    pub fn srandom(arg1: ::std::os::raw::c_uint);
-}
-unsafe extern "C" {
-    pub fn unlockpt(arg1: ::std::os::raw::c_int) -> ::std::os::raw::c_int;
-}
-unsafe extern "C" {
-    pub fn unsetenv(
-        arg1: *const ::std::os::raw::c_char,
-    ) -> ::std::os::raw::c_int;
-}
-unsafe extern "C" {
-    pub fn arc4random() -> u32;
-}
-unsafe extern "C" {
-    pub fn arc4random_addrandom(
-        arg1: *mut ::std::os::raw::c_uchar,
-        __datlen: ::std::os::raw::c_int,
-    );
-}
-unsafe extern "C" {
-    pub fn arc4random_buf(__buf: *mut ::std::os::raw::c_void, __nbytes: usize);
-}
-unsafe extern "C" {
-    pub fn arc4random_stir();
-}
-unsafe extern "C" {
-    pub fn arc4random_uniform(__upper_bound: u32) -> u32;
-}
-unsafe extern "C" {
-    pub fn atexit_b(arg1: *mut ::std::os::raw::c_void)
-    -> ::std::os::raw::c_int;
-}
-unsafe extern "C" {
-    pub fn bsearch_b(
-        __key: *const ::std::os::raw::c_void,
-        __base: *const ::std::os::raw::c_void,
-        __nel: usize,
-        __width: usize,
-        __compar: *mut ::std::os::raw::c_void,
-    ) -> *mut ::std::os::raw::c_void;
-}
-unsafe extern "C" {
-    pub fn cgetcap(
-        arg1: *mut ::std::os::raw::c_char,
-        arg2: *const ::std::os::raw::c_char,
-        arg3: ::std::os::raw::c_int,
-    ) -> *mut ::std::os::raw::c_char;
-}
-unsafe extern "C" {
-    pub fn cgetclose() -> ::std::os::raw::c_int;
-}
-unsafe extern "C" {
-    pub fn cgetent(
-        arg1: *mut *mut ::std::os::raw::c_char,
-        arg2: *mut *mut ::std::os::raw::c_char,
-        arg3: *const ::std::os::raw::c_char,
-    ) -> ::std::os::raw::c_int;
-}
-unsafe extern "C" {
-    pub fn cgetfirst(
-        arg1: *mut *mut ::std::os::raw::c_char,
-        arg2: *mut *mut ::std::os::raw::c_char,
-    ) -> ::std::os::raw::c_int;
-}
-unsafe extern "C" {
-    pub fn cgetmatch(
-        arg1: *const ::std::os::raw::c_char,
-        arg2: *const ::std::os::raw::c_char,
-    ) -> ::std::os::raw::c_int;
-}
-unsafe extern "C" {
-    pub fn cgetnext(
-        arg1: *mut *mut ::std::os::raw::c_char,
-        arg2: *mut *mut ::std::os::raw::c_char,
-    ) -> ::std::os::raw::c_int;
-}
-unsafe extern "C" {
-    pub fn cgetnum(
-        arg1: *mut ::std::os::raw::c_char,
-        arg2: *const ::std::os::raw::c_char,
-        arg3: *mut ::std::os::raw::c_long,
-    ) -> ::std::os::raw::c_int;
-}
-unsafe extern "C" {
-    pub fn cgetset(
-        arg1: *const ::std::os::raw::c_char,
-    ) -> ::std::os::raw::c_int;
-}
-unsafe extern "C" {
-    pub fn cgetstr(
-        arg1: *mut ::std::os::raw::c_char,
-        arg2: *const ::std::os::raw::c_char,
-        arg3: *mut *mut ::std::os::raw::c_char,
-    ) -> ::std::os::raw::c_int;
-}
-unsafe extern "C" {
-    pub fn cgetustr(
-        arg1: *mut ::std::os::raw::c_char,
-        arg2: *const ::std::os::raw::c_char,
-        arg3: *mut *mut ::std::os::raw::c_char,
-    ) -> ::std::os::raw::c_int;
-}
-unsafe extern "C" {
-    pub fn daemon(
-        arg1: ::std::os::raw::c_int,
-        arg2: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
-}
-unsafe extern "C" {
-    pub fn devname(arg1: dev_t, arg2: mode_t) -> *mut ::std::os::raw::c_char;
-}
-unsafe extern "C" {
-    pub fn devname_r(
-        arg1: dev_t,
-        arg2: mode_t,
-        buf: *mut ::std::os::raw::c_char,
-        len: ::std::os::raw::c_int,
-    ) -> *mut ::std::os::raw::c_char;
-}
-unsafe extern "C" {
-    pub fn getbsize(
-        arg1: *mut ::std::os::raw::c_int,
-        arg2: *mut ::std::os::raw::c_long,
-    ) -> *mut ::std::os::raw::c_char;
-}
-unsafe extern "C" {
-    pub fn getloadavg(
-        arg1: *mut f64,
-        __nelem: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
-}
-unsafe extern "C" {
-    pub fn getprogname() -> *const ::std::os::raw::c_char;
-}
-unsafe extern "C" {
-    pub fn setprogname(arg1: *const ::std::os::raw::c_char);
-}
-unsafe extern "C" {
-    pub fn heapsort(
-        __base: *mut ::std::os::raw::c_void,
-        __nel: usize,
-        __width: usize,
-        __compar: ::std::option::Option<
-            unsafe extern "C" fn(
-                arg1: *const ::std::os::raw::c_void,
-                arg2: *const ::std::os::raw::c_void,
-            ) -> ::std::os::raw::c_int,
-        >,
-    ) -> ::std::os::raw::c_int;
-}
-unsafe extern "C" {
-    pub fn heapsort_b(
-        __base: *mut ::std::os::raw::c_void,
-        __nel: usize,
-        __width: usize,
-        __compar: *mut ::std::os::raw::c_void,
-    ) -> ::std::os::raw::c_int;
-}
-unsafe extern "C" {
-    pub fn mergesort(
-        __base: *mut ::std::os::raw::c_void,
-        __nel: usize,
-        __width: usize,
-        __compar: ::std::option::Option<
-            unsafe extern "C" fn(
-                arg1: *const ::std::os::raw::c_void,
-                arg2: *const ::std::os::raw::c_void,
-            ) -> ::std::os::raw::c_int,
-        >,
-    ) -> ::std::os::raw::c_int;
-}
-unsafe extern "C" {
-    pub fn mergesort_b(
-        __base: *mut ::std::os::raw::c_void,
-        __nel: usize,
-        __width: usize,
-        __compar: *mut ::std::os::raw::c_void,
-    ) -> ::std::os::raw::c_int;
-}
-unsafe extern "C" {
-    pub fn psort(
-        __base: *mut ::std::os::raw::c_void,
-        __nel: usize,
-        __width: usize,
-        __compar: ::std::option::Option<
-            unsafe extern "C" fn(
-                arg1: *const ::std::os::raw::c_void,
-                arg2: *const ::std::os::raw::c_void,
-            ) -> ::std::os::raw::c_int,
-        >,
-    );
-}
-unsafe extern "C" {
-    pub fn psort_b(
-        __base: *mut ::std::os::raw::c_void,
-        __nel: usize,
-        __width: usize,
-        __compar: *mut ::std::os::raw::c_void,
-    );
-}
-unsafe extern "C" {
-    pub fn psort_r(
-        __base: *mut ::std::os::raw::c_void,
-        __nel: usize,
-        __width: usize,
-        arg1: *mut ::std::os::raw::c_void,
-        __compar: ::std::option::Option<
-            unsafe extern "C" fn(
-                arg1: *mut ::std::os::raw::c_void,
-                arg2: *const ::std::os::raw::c_void,
-                arg3: *const ::std::os::raw::c_void,
-            ) -> ::std::os::raw::c_int,
-        >,
-    );
-}
-unsafe extern "C" {
-    pub fn qsort_b(
-        __base: *mut ::std::os::raw::c_void,
-        __nel: usize,
-        __width: usize,
-        __compar: *mut ::std::os::raw::c_void,
-    );
-}
-unsafe extern "C" {
-    pub fn qsort_r(
-        __base: *mut ::std::os::raw::c_void,
-        __nel: usize,
-        __width: usize,
-        arg1: *mut ::std::os::raw::c_void,
-        __compar: ::std::option::Option<
-            unsafe extern "C" fn(
-                arg1: *mut ::std::os::raw::c_void,
-                arg2: *const ::std::os::raw::c_void,
-                arg3: *const ::std::os::raw::c_void,
-            ) -> ::std::os::raw::c_int,
-        >,
-    );
-}
-unsafe extern "C" {
-    pub fn radixsort(
-        __base: *mut *const ::std::os::raw::c_uchar,
-        __nel: ::std::os::raw::c_int,
-        __table: *const ::std::os::raw::c_uchar,
-        __endbyte: ::std::os::raw::c_uint,
-    ) -> ::std::os::raw::c_int;
-}
-unsafe extern "C" {
-    pub fn rpmatch(
-        arg1: *const ::std::os::raw::c_char,
-    ) -> ::std::os::raw::c_int;
-}
-unsafe extern "C" {
-    pub fn sradixsort(
-        __base: *mut *const ::std::os::raw::c_uchar,
-        __nel: ::std::os::raw::c_int,
-        __table: *const ::std::os::raw::c_uchar,
-        __endbyte: ::std::os::raw::c_uint,
-    ) -> ::std::os::raw::c_int;
-}
-unsafe extern "C" {
-    pub fn sranddev();
-}
-unsafe extern "C" {
-    pub fn srandomdev();
-}
-unsafe extern "C" {
-    pub fn strtonum(
-        __numstr: *const ::std::os::raw::c_char,
-        __minval: ::std::os::raw::c_longlong,
-        __maxval: ::std::os::raw::c_longlong,
-        __errstrp: *mut *const ::std::os::raw::c_char,
-    ) -> ::std::os::raw::c_longlong;
-}
-unsafe extern "C" {
-    pub fn strtoq(
-        __str: *const ::std::os::raw::c_char,
-        __endptr: *mut *mut ::std::os::raw::c_char,
-        __base: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_longlong;
-}
-unsafe extern "C" {
-    pub fn strtouq(
-        __str: *const ::std::os::raw::c_char,
-        __endptr: *mut *mut ::std::os::raw::c_char,
-        __base: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_ulonglong;
-}
 unsafe extern "C" {
-    pub static mut suboptarg: *mut ::std::os::raw::c_char;
+    pub fn free(__ptr: *mut ::std::os::raw::c_void);
 }
 unsafe extern "C" {
+    #[doc = " @brief Wrapper for realloc() call. The only difference is that if it fails to\n allocate the requested memory, the original memory is freed as well.\n\n @param[in] ptr Memory to reallocate.\n @param[in] size New size of the memory block.\n\n @return Pointer to the new memory, NULL on error."]
     pub fn ly_realloc(
         ptr: *mut ::std::os::raw::c_void,
         size: usize,
@@ -16520,76 +10509,146 @@ pub struct lyspr_tree_ctx {
     _unused: [u8; 0],
 }
 pub mod ly_stmt {
+    #[doc = " @brief List of YANG statements\n\n Their description mentions what types are stored for each statement. Note that extension instance storage\n always stores a pointer to the type, not the type itself."]
     pub type Type = ::std::os::raw::c_uint;
     pub const LY_STMT_NONE: Type = 0;
+    #[doc = "< ::lysp_ext_substmt.storage and ::lysp_ext_instance.parent - `struct lysp_node_notif *`\n::lysc_ext_substmt.storage and ::lysc_ext_instance.parent - `struct lysc_node_notif *`"]
     pub const LY_STMT_NOTIFICATION: Type = 1;
+    #[doc = "< ::lysp_ext_substmt.storage and ::lysp_ext_instance.parent - `struct lysp_node_action_inout *`\n::lysc_ext_substmt.storage and ::lysc_ext_instance.parent - `struct lysc_node_action_inout *`"]
     pub const LY_STMT_INPUT: Type = 2;
+    #[doc = "< ::lysp_ext_substmt.storage and ::lysp_ext_instance.parent - `struct lysp_node_action_inout *`\n::lysc_ext_substmt.storage and ::lysc_ext_instance.parent - `struct lysc_node_action_inout *`"]
     pub const LY_STMT_OUTPUT: Type = 4;
+    #[doc = "< ::lysp_ext_substmt.storage and ::lysp_ext_instance.parent - `struct lysp_node_action *`\n::lysc_ext_substmt.storage and ::lysc_ext_instance.parent - `struct lysc_node_action *`"]
     pub const LY_STMT_ACTION: Type = 8;
+    #[doc = "< ::lysp_ext_substmt.storage and ::lysp_ext_instance.parent - `struct lysp_node_action *`\n::lysc_ext_substmt.storage and ::lysc_ext_instance.parent - `struct lysc_node_action *`"]
     pub const LY_STMT_RPC: Type = 16;
+    #[doc = "< ::lysp_ext_substmt.storage and ::lysp_ext_instance.parent - `struct lysp_node_anydata *`\n::lysc_ext_substmt.storage and ::lysc_ext_instance.parent - `struct lysc_node_anydata *`"]
     pub const LY_STMT_ANYDATA: Type = 32;
+    #[doc = "< ::lysp_ext_substmt.storage and ::lysp_ext_instance.parent - `struct lysp_node_anydata *`\n::lysc_ext_substmt.storage and ::lysc_ext_instance.parent - `struct lysc_node_anydata *`"]
     pub const LY_STMT_ANYXML: Type = 64;
+    #[doc = "< ::lysp_ext_substmt.storage and ::lysp_ext_instance.parent - `struct lysp_node_augment *`\n::lysc_ext_substmt.storage - not compiled\n::lysc_ext_instance.parent - `struct lysc_node *`"]
     pub const LY_STMT_AUGMENT: Type = 128;
+    #[doc = "< ::lysp_ext_substmt.storage and ::lysp_ext_instance.parent - `struct lysp_node_case *`\n::lysc_ext_substmt.storage and ::lysc_ext_instance.parent - `struct lysc_node_case *`"]
     pub const LY_STMT_CASE: Type = 256;
+    #[doc = "< ::lysp_ext_substmt.storage and ::lysp_ext_instance.parent - `struct lysp_node_choice *`\n::lysc_ext_substmt.storage and ::lysc_ext_instance.parent - `struct lysc_node_choice *`"]
     pub const LY_STMT_CHOICE: Type = 512;
+    #[doc = "< ::lysp_ext_substmt.storage and ::lysp_ext_instance.parent - `struct lysp_node_container *`\n::lysc_ext_substmt.storage and ::lysc_ext_instance.parent - `struct lysc_node_container *`"]
     pub const LY_STMT_CONTAINER: Type = 1024;
+    #[doc = "< ::lysp_ext_substmt.storage and ::lysp_ext_instance.parent - `struct lysp_node_grp *`\n::lysc_ext_substmt.storage - not compiled\n::lysc_ext_instance.parent - `struct lysc_node *`"]
     pub const LY_STMT_GROUPING: Type = 2048;
+    #[doc = "< ::lysp_ext_substmt.storage and ::lysp_ext_instance.parent - `struct lysp_node_leaf *`\n::lysc_ext_substmt.storage and ::lysc_ext_instance.parent - `struct lysc_node_leaf *`"]
     pub const LY_STMT_LEAF: Type = 4096;
+    #[doc = "< ::lysp_ext_substmt.storage and ::lysp_ext_instance.parent - `struct lysp_node_leaflist *`\n::lysc_ext_substmt.storage and ::lysc_ext_instance.parent - `struct lysc_node_leaflist *`"]
     pub const LY_STMT_LEAF_LIST: Type = 8192;
+    #[doc = "< ::lysp_ext_substmt.storage and ::lysp_ext_instance.parent - `struct lysp_node_list *`\n::lysc_ext_substmt.storage and ::lysc_ext_instance.parent - `struct lysc_node_list *`"]
     pub const LY_STMT_LIST: Type = 16384;
+    #[doc = "< ::lysp_ext_substmt.storage and ::lysp_ext_instance.parent - `struct lysp_node_uses *`\n::lysc_ext_substmt.storage and ::lysc_ext_instance.parent - `struct lysc_node *`"]
     pub const LY_STMT_USES: Type = 32768;
+    #[doc = "< ::lysp_ext_substmt.storage - `const char *`\n::lysp_ext_instance.parent - `struct lysp_ext *`\n::lysc_ext_substmt.storage - `const char *`\n::lysc_ext_instance.parent - `struct lysc_ext *`"]
     pub const LY_STMT_ARGUMENT: Type = 65536;
+    #[doc = "< ::lysp_ext_substmt.storage and ::lysp_ext_instance.parent - `const char **`[]\n::lysc_ext_substmt.storage - not compiled\n::lysc_ext_instance.parent - `struct lysc_ident *`"]
     pub const LY_STMT_BASE: Type = 131072;
+    #[doc = "< ::lysp_ext_substmt.storage - `const char *`\n::lysp_ext_instance.parent - `struct lysp_submodule *`\n::lysc_ext_substmt.storage - not compiled\n::lysc_ext_instance.parent - `struct lysc_module *`"]
     pub const LY_STMT_BELONGS_TO: Type = 196608;
+    #[doc = "< ::lysp_ext_substmt.storage - `struct lysp_type_enum *`[]\n::lysp_ext_instance.parent - `struct lysp_type_enum *`\n::lysc_ext_substmt.storage - `struct lysc_type_bitenum_item *`[]\n::lysc_ext_instance.parent - `struct lysc_type_bitenum_item *`"]
     pub const LY_STMT_BIT: Type = 262144;
+    #[doc = "< ::lysp_ext_substmt.storage and ::lysp_ext_instance.parent - `uint16_t *`\n::lysc_ext_substmt.storage - `uint16_t *`\n::lysc_ext_instance.parent - `struct lysc_node *`"]
     pub const LY_STMT_CONFIG: Type = 327680;
+    #[doc = "< ::lysp_ext_substmt.storage - `const char *`\n::lysp_ext_instance.parent - `struct lysp_(sub)module *`\n::lysc_ext_substmt.storage - `const char *`\n::lysc_ext_instance.parent - `struct lysc_module *`"]
     pub const LY_STMT_CONTACT: Type = 393216;
+    #[doc = "< ::lysp_ext_substmt.storage and ::lysp_ext_instance.parent - `struct lysp_qname *`\n::lysc_ext_substmt.storage - not compiled\n::lysc_ext_instance.parent - `struct lysc_node *`, `struct lysc_type *` (typedef)"]
     pub const LY_STMT_DEFAULT: Type = 458752;
+    #[doc = "< ::lysp_ext_substmt.storage and ::lysp_ext_instance.parent - `const char *`\n::lysc_ext_substmt.storage - `const char *`\n::lysc_ext_instance.parent - compiled parent statement"]
     pub const LY_STMT_DESCRIPTION: Type = 524288;
+    #[doc = "< ::lysp_ext_substmt.storage - `struct lysp_deviate *`[]\n::lysp_ext_instance.parent - `struct lysp_deviate *`\n::lysc_ext_substmt.storage and ::lysc_ext_instance.parent - not compiled"]
     pub const LY_STMT_DEVIATE: Type = 589824;
+    #[doc = "< ::lysp_ext_substmt.storage - `struct lysp_deviation *`[]\n::lysp_ext_instance.parent - `struct lysp_deviation *`\n::lysc_ext_substmt.storage - not compiled\n::lysc_ext_instance.parent - `struct lysc_node *`"]
     pub const LY_STMT_DEVIATION: Type = 655360;
+    #[doc = "< ::lysp_ext_substmt.storage - `struct lysp_type_enum *`[]\n::lysp_ext_instance.parent - `struct lysp_type_enum *`\n::lysc_ext_substmt.storage - `struct lysc_type_bitenum_item *`[]\n::lysc_ext_instance.parent - `struct lysc_type_bitenum_item *`"]
     pub const LY_STMT_ENUM: Type = 720896;
+    #[doc = "< ::lysp_ext_substmt.storage - `const char *`\n::lysp_ext_instance.parent - `struct lysp_restr *`\n::lysc_ext_substmt.storage - `const char *`\n::lysc_ext_instance.parent - compiled restriction structure"]
     pub const LY_STMT_ERROR_APP_TAG: Type = 786432;
+    #[doc = "< ::lysp_ext_substmt.storage - `const char *`\n::lysp_ext_instance.parent - `struct lysp_restr *`\n::lysc_ext_substmt.storage - `const char *`\n::lysc_ext_instance.parent - compiled restriction structure"]
     pub const LY_STMT_ERROR_MESSAGE: Type = 851968;
+    #[doc = "< ::lysp_ext_substmt.storage - `struct lysp_ext *`[]\n::lysp_ext_instance.parent - `struct lysp_ext *`\n::lysc_ext_substmt.storage - not compiled explicitly\n::lysc_ext_instance.parent - `struct lysc_ext *`"]
     pub const LY_STMT_EXTENSION: Type = 917504;
+    #[doc = "< ::lysp_ext_substmt.storage - `struct lysp_ext_instance *`[]\n::lysc_ext_substmt.storage - `struct lysc_ext_instance *`[]"]
     pub const LY_STMT_EXTENSION_INSTANCE: Type = 983040;
+    #[doc = "< ::lysp_ext_substmt.storage - `struct lysp_feature *`[]\n::lysp_ext_instance.parent - `struct lysp_feature *`\n::lysc_ext_substmt.storage and ::lysc_ext_instance.parent - not compiled"]
     pub const LY_STMT_FEATURE: Type = 1048576;
+    #[doc = "< ::lysp_ext_substmt.storage - `uint8_t *`\n::lysp_ext_instance.parent - `struct lysp_type *`\n::lysc_ext_substmt.storage - `uint8_t *`\n::lysc_ext_instance.parent - `struct lysc_type *`"]
     pub const LY_STMT_FRACTION_DIGITS: Type = 1114112;
+    #[doc = "< ::lysp_ext_substmt.storage - `struct lysp_ident *`[]\n::lysp_ext_instance.parent - `struct lysp_ident *`\n::lysc_ext_substmt.storage - `struct lysc_ident *`[]\n::lysc_ext_instance.parent - `struct lysc_ident *`"]
     pub const LY_STMT_IDENTITY: Type = 1179648;
+    #[doc = "< ::lysp_ext_substmt.storage and ::lysp_ext_instance.parent - `struct lysp_qname *`[]\n::lysc_ext_substmt.storage - no storage, evaluated when compiled\n::lysc_ext_instance.parent - compiled parent statement"]
     pub const LY_STMT_IF_FEATURE: Type = 1245184;
+    #[doc = "< ::lysp_ext_substmt.storage - `struct lysp_import *`[]\n::lysp_ext_instance.parent - `struct lysp_import *`\n::lysc_ext_substmt.storage and ::lysc_ext_instance.parent - not compiled"]
     pub const LY_STMT_IMPORT: Type = 1310720;
+    #[doc = "< ::lysp_ext_substmt.storage - `struct lysp_include *`[]\n::lysp_ext_instance.parent - `struct lysp_include *`\n::lysc_ext_substmt.storage and ::lysc_ext_instance.parent - not compiled"]
     pub const LY_STMT_INCLUDE: Type = 1376256;
+    #[doc = "< ::lysp_ext_substmt.storage - `const char *`\n::lysp_ext_instance.parent - `struct lysp_node_list *`\n::lysc_ext_substmt.storage - `const char *`\n::lysc_ext_instance.parent - `struct lysc_node_list *`"]
     pub const LY_STMT_KEY: Type = 1441792;
+    #[doc = "< ::lysp_ext_substmt.storage and ::lysp_ext_instance.parent - `struct lysp_restr *`\n::lysc_ext_substmt.storage and ::lysc_ext_instance.parent - `struct lysc_range *`"]
     pub const LY_STMT_LENGTH: Type = 1507328;
+    #[doc = "< ::lysp_ext_substmt.storage and ::lysp_ext_instance.parent - `uint16_t *`\n::lysc_ext_substmt.storage - `uint16_t *`\n::lysc_ext_instance.parent - `struct lysc_node *`"]
     pub const LY_STMT_MANDATORY: Type = 1572864;
+    #[doc = "< ::lysp_ext_substmt.storage and ::lysp_ext_instance.parent - `uint32_t *`\n::lysc_ext_substmt.storage - `uint32_t *`\n::lysc_ext_instance.parent - `struct lysc_node_list *`"]
     pub const LY_STMT_MAX_ELEMENTS: Type = 1638400;
+    #[doc = "< ::lysp_ext_substmt.storage and ::lysp_ext_instance.parent - `uint32_t *`\n::lysc_ext_substmt.storage - `uint32_t *`\n::lysc_ext_instance.parent - `struct lysc_node_list *`"]
     pub const LY_STMT_MIN_ELEMENTS: Type = 1703936;
+    #[doc = "< ::lysp_ext_substmt.storage - `const char *`\n::lysp_ext_instance.parent - `struct lysp_restr *`\n::lysc_ext_substmt.storage - `const char *`\n::lysc_ext_instance.parent - `struct lysc_pattern *`"]
     pub const LY_STMT_MODIFIER: Type = 1769472;
+    #[doc = "< ::lysp_ext_substmt.storage and ::lysp_ext_instance.parent - `struct lysp_module *`\n::lysc_ext_substmt.storage - not compiled\n::lysc_ext_instance.parent - `struct lysc_module *`"]
     pub const LY_STMT_MODULE: Type = 1835008;
+    #[doc = "< ::lysp_ext_substmt.storage - `struct lysp_restr *`[]\n::lysp_ext_instance.parent - `struct lysp_restr *`\n::lysc_ext_substmt.storage - `struct lysc_must *`[]\n::lysc_ext_instance.parent - `struct lysc_must *`"]
     pub const LY_STMT_MUST: Type = 1900544;
+    #[doc = "< ::lysp_ext_substmt.storage - `const char *`\n::lysp_ext_instance.parent - `struct lysp_module *`\n::lysc_ext_substmt.storage - `const char *`\n::lysc_ext_instance.parent - `struct lysc_module *`"]
     pub const LY_STMT_NAMESPACE: Type = 1966080;
+    #[doc = "< ::lysp_ext_substmt.storage - `uint16_t *`\n::lysp_ext_instance.parent - `struct lysp_node *`\n::lysc_ext_substmt.storage - `uint16_t *`\n::lysc_ext_instance.parent - `struct lysc_node *`"]
     pub const LY_STMT_ORDERED_BY: Type = 2031616;
+    #[doc = "< ::lysp_ext_substmt.storage - `const char *`\n::lysp_ext_instance.parent - `struct lysp_(sub)module *`\n::lysc_ext_substmt.storage - `const char *`\n::lysc_ext_instance.parent - `struct lysc_module *`"]
     pub const LY_STMT_ORGANIZATION: Type = 2097152;
+    #[doc = "< ::lysp_ext_substmt.storage - `struct lyxp_expr *`\n::lysp_ext_instance.parent - `struct lysp_type *`\n::lysc_ext_substmt.storage - not compiled\n::lysc_ext_instance.parent - `struct lysc_type *`"]
     pub const LY_STMT_PATH: Type = 2162688;
+    #[doc = "< ::lysp_ext_substmt.storage - `struct lysp_restr *`[]\n::lysp_ext_instance.parent - `struct lysp_restr *`\n::lysc_ext_substmt.storage - `struct lysc_pattern **`[]\n::lysc_ext_instance.parent - `struct lysc_pattern *`"]
     pub const LY_STMT_PATTERN: Type = 2228224;
+    #[doc = "< ::lysp_ext_substmt.storage - `int64_t *`\n::lysp_ext_instance.parent - `struct lysp_type_enum *`\n::lysc_ext_substmt.storage - `int64_t *`\n::lysc_ext_instance.parent - `struct lysc_type_bitenum_item *`"]
     pub const LY_STMT_POSITION: Type = 2293760;
+    #[doc = "< ::lysp_ext_substmt.storage and ::lysp_ext_instance.parent - `const char *`\n::lysc_ext_substmt.storage - not compiled\n::lysc_ext_instance.parent - `struct lysc_module *`"]
     pub const LY_STMT_PREFIX: Type = 2359296;
+    #[doc = "< ::lysp_ext_substmt.storage and ::lysp_ext_instance.parent - `const char *`\n::lysc_ext_substmt.storage - `const char *`\n::lysc_ext_instance.parent - `struct lysc_node_container *`"]
     pub const LY_STMT_PRESENCE: Type = 2424832;
+    #[doc = "< ::lysp_ext_substmt.storage and ::lysp_ext_instance.parent - `struct lysp_restr *`\n::lysc_ext_substmt.storage and ::lysc_ext_instance.parent - `struct lysc_range *`"]
     pub const LY_STMT_RANGE: Type = 2490368;
+    #[doc = "< ::lysp_ext_substmt.storage and ::lysp_ext_instance.parent - `const char *`\n::lysc_ext_substmt.storage - `const char *`\n::lysc_ext_instance.parent - compiled parent statement"]
     pub const LY_STMT_REFERENCE: Type = 2555904;
+    #[doc = "< ::lysp_ext_substmt.storage - `struct lysp_refine *`[]\n::lysp_ext_instance.parent - `struct lysp_refine *`\n::lysc_ext_substmt.storage - not compiled\n::lysc_ext_instance.parent - `struct lysc_node *`"]
     pub const LY_STMT_REFINE: Type = 2621440;
+    #[doc = "< ::lysp_ext_substmt.storage - `uint8_t *`\n::lysp_ext_instance.parent - `struct lysp_type *`\n::lysc_ext_substmt.storage - `uint8_t *`\n::lysc_ext_instance.parent - `struct lysc_type *`"]
     pub const LY_STMT_REQUIRE_INSTANCE: Type = 2686976;
+    #[doc = "< ::lysp_ext_substmt.storage - `struct lysp_revision *`[]\n::lysp_ext_instance.parent - `struct lysp_revision *`\n::lysc_ext_substmt.storage and ::lysc_ext_instance.parent - not compiled"]
     pub const LY_STMT_REVISION: Type = 2752512;
+    #[doc = "< ::lysp_ext_substmt.storage and ::lysp_ext_instance.parent - `const char *`\n::lysc_ext_substmt.storage and ::lysc_ext_instance.parent - not compiled"]
     pub const LY_STMT_REVISION_DATE: Type = 2818048;
+    #[doc = "< ::lysp_ext_substmt.storage and ::lysp_ext_instance.parent - `uint16_t *`\n::lysc_ext_substmt.storage - `uint16_t *`\n::lysc_ext_instance.parent - compiled parent statement"]
     pub const LY_STMT_STATUS: Type = 2883584;
+    #[doc = "< ::lysp_ext_substmt.storage and ::lysp_ext_instance.parent - `struct lysp_submodule *`\n::lysc_ext_substmt.storage - not compiled\n::lysc_ext_instance.parent - `struct lysc_module *`"]
     pub const LY_STMT_SUBMODULE: Type = 2949120;
+    #[doc = "< ::lysp_ext_substmt.storage and ::lysp_ext_instance.parent - `struct lysp_type *`\n::lysc_ext_substmt.storage and ::lysc_ext_instance.parent - `struct lysc_type *`"]
     pub const LY_STMT_TYPE: Type = 3014656;
+    #[doc = "< ::lysp_ext_substmt.storage - `struct lysp_tpdf *`[]\n::lysp_ext_instance.parent - `struct lysp_tpdf *`\n::lysc_ext_substmt.storage - not compiled\n::lysc_ext_instance.parent - `struct lysc_type *`"]
     pub const LY_STMT_TYPEDEF: Type = 3080192;
+    #[doc = "< ::lysp_ext_substmt.storage and ::lysp_ext_instance.parent - `struct lysp_qname *`[]\n::lysc_ext_substmt.storage - not compiled\n::lysc_ext_instance.parent - `struct lysc_node_list *`"]
     pub const LY_STMT_UNIQUE: Type = 3145728;
+    #[doc = "< ::lysp_ext_substmt.storage and ::lysp_ext_instance.parent - `const char *`\n::lysc_ext_substmt.storage - `const char *`\n::lysc_ext_instance.parent - `struct lysc_node *`, `struct lysc_type *` (typedef)"]
     pub const LY_STMT_UNITS: Type = 3211264;
+    #[doc = "< ::lysp_ext_substmt.storage - `int64_t *`\n::lysp_ext_instance.parent - `struct lysp_type_enum *`\n::lysc_ext_substmt.storage - `int64_t *`\n::lysc_ext_instance.parent - `struct lysc_type_bitenum_item *`"]
     pub const LY_STMT_VALUE: Type = 3276800;
+    #[doc = "< ::lysp_ext_substmt.storage and ::lysp_ext_instance.parent - `struct lysp_when *`\n::lysc_ext_substmt.storage and ::lysc_ext_instance.parent - `struct lysc_when *`"]
     pub const LY_STMT_WHEN: Type = 3342336;
+    #[doc = "< ::lysp_ext_substmt.storage - `uint8_t *`\n::lysp_ext_instance.parent - `struct lysp_(sub)module *`\n::lysc_ext_substmt.storage - not compiled\n::lysc_ext_instance.parent - `struct lysc_module *`"]
     pub const LY_STMT_YANG_VERSION: Type = 3407872;
+    #[doc = "< ::lysp_ext_substmt.storage - `uint16_t *`\n::lysp_ext_instance.parent - `struct lysp_ext *`\n::lysc_ext_substmt.storage - not compiled\n::lysc_ext_instance.parent - `struct lysc_ext *`"]
     pub const LY_STMT_YIN_ELEMENT: Type = 3473408;
     pub const LY_STMT_SYNTAX_SEMICOLON: Type = 3473409;
     pub const LY_STMT_SYNTAX_LEFT_BRACE: Type = 3473410;
@@ -16597,16 +10656,25 @@ pub mod ly_stmt {
     pub const LY_STMT_ARG_TEXT: Type = 3473412;
     pub const LY_STMT_ARG_VALUE: Type = 3473413;
 }
+#[doc = " @brief Structure representing a generic parsed YANG substatement in an extension instance."]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct lysp_stmt {
+    #[doc = "< identifier of the statement"]
     pub stmt: *const ::std::os::raw::c_char,
+    #[doc = "< statement's argument"]
     pub arg: *const ::std::os::raw::c_char,
+    #[doc = "< prefix format of the identifier/argument (::LY_VALUE_XML is YIN format)"]
     pub format: LY_VALUE_FORMAT::Type,
+    #[doc = "< Format-specific data for prefix resolution (see ly_resolve_prefix())"]
     pub prefix_data: *mut ::std::os::raw::c_void,
+    #[doc = "< link to the next statement"]
     pub next: *mut lysp_stmt,
+    #[doc = "< list of the statement's substatements (linked list)"]
     pub child: *mut lysp_stmt,
+    #[doc = "< statement flags, can be set to LYS_YIN_ATTR"]
     pub flags: u16,
+    #[doc = "< numeric respresentation of the stmt value"]
     pub kw: ly_stmt::Type,
 }
 #[allow(clippy::unnecessary_operation, clippy::identity_op)]
@@ -16639,10 +10707,13 @@ impl Default for lysp_stmt {
         }
     }
 }
+#[doc = " @brief Structure representing a parsed known YANG substatement in an extension instance."]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct lysp_ext_substmt {
+    #[doc = "< parsed substatement"]
     pub stmt: ly_stmt::Type,
+    #[doc = "< pointer to the parsed storage of the statement according to the specific\nlys_ext_substmt::stmt"]
     pub storage_p: *mut *mut ::std::os::raw::c_void,
 }
 #[allow(clippy::unnecessary_operation, clippy::identity_op)]
@@ -16665,21 +10736,35 @@ impl Default for lysp_ext_substmt {
         }
     }
 }
+#[doc = " @brief YANG extension parsed instance."]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct lysp_ext_instance {
+    #[doc = "< extension identifier, including possible prefix"]
     pub name: *const ::std::os::raw::c_char,
+    #[doc = "< optional value of the extension's argument"]
     pub argument: *const ::std::os::raw::c_char,
+    #[doc = "< prefix format of the extension name/argument (::LY_VALUE_XML is YIN format)"]
     pub format: LY_VALUE_FORMAT::Type,
+    #[doc = "< format-specific data for prefix resolution (see ly_resolve_prefix())"]
     pub prefix_data: *mut ::std::os::raw::c_void,
+    #[doc = "< reference to extension plugin, use ::lysc_get_ext_plugin() to get the plugin"]
     pub plugin_ref: usize,
+    #[doc = "< pointer to the parent statement holding the extension instance(s), use\n::lysp_ext_instance#parent_stmt to access the value/structure"]
     pub parent: *mut ::std::os::raw::c_void,
+    #[doc = "< type of the parent statement"]
     pub parent_stmt: ly_stmt::Type,
+    #[doc = "< index of the stamenet in case the parent does not point to the parent\nstatement directly and it is an array"]
     pub parent_stmt_index: u64,
+    #[doc = "< ::LYS_INTERNAL value and ::LYS_SINGLEQUOTED or ::LYS_DOUBLEQUOTED\ndescribing the argument (@ref snodeflags)"]
     pub flags: u16,
+    #[doc = "< list of supported known YANG statements with the pointer to their\nparsed data ([sized array](@ref sizedarrays))"]
     pub substmts: *mut lysp_ext_substmt,
+    #[doc = "< private plugin parsed data"]
     pub parsed: *mut ::std::os::raw::c_void,
+    #[doc = "< list of generic (unknown) YANG statements"]
     pub child: *mut lysp_stmt,
+    #[doc = "< list of the extension instances ([sized array](@ref sizedarrays))"]
     pub exts: *mut lysp_ext_instance,
 }
 #[allow(clippy::unnecessary_operation, clippy::identity_op)]
@@ -16726,10 +10811,13 @@ impl Default for lysp_ext_instance {
         }
     }
 }
+#[doc = " @brief Structure representing a compiled known YANG substatement in an extension instance."]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct lysc_ext_substmt {
+    #[doc = "< compiled substatement"]
     pub stmt: ly_stmt::Type,
+    #[doc = "< pointer to the compiled storage of the statement according to the specific\nlys_ext_substmt::stmt"]
     pub storage_p: *mut *mut ::std::os::raw::c_void,
 }
 #[allow(clippy::unnecessary_operation, clippy::identity_op)]
@@ -16752,17 +10840,27 @@ impl Default for lysc_ext_substmt {
         }
     }
 }
+#[doc = " @brief YANG extension compiled instance."]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct lysc_ext_instance {
+    #[doc = "< pointer to the extension definition"]
     pub def: *mut lysc_ext,
+    #[doc = "< optional value of the extension's argument"]
     pub argument: *const ::std::os::raw::c_char,
+    #[doc = "< module where the extension instantiated is defined"]
     pub module: *mut lys_module,
+    #[doc = "< list of the extension instances ([sized array](@ref sizedarrays))"]
     pub exts: *mut lysc_ext_instance,
+    #[doc = "< pointer to the parent element holding the extension instance(s), use\n::lysc_ext_instance#parent_stmt to access the value/structure"]
     pub parent: *mut ::std::os::raw::c_void,
+    #[doc = "< type of the parent statement"]
     pub parent_stmt: ly_stmt::Type,
+    #[doc = "< index of the stamenet in case the parent does not point to the parent\nstatement directly and it is an array"]
     pub parent_stmt_index: u64,
+    #[doc = "< list of supported known YANG statements with the pointer to their\ncompiled data ([sized array](@ref sizedarrays))"]
     pub substmts: *mut lysc_ext_substmt,
+    #[doc = "< private plugin compiled data"]
     pub compiled: *mut ::std::os::raw::c_void,
 }
 #[allow(clippy::unnecessary_operation, clippy::identity_op)]
@@ -16801,6 +10899,7 @@ impl Default for lysc_ext_instance {
         }
     }
 }
+#[doc = " @brief Callback for parsing extension instance substatements.\n\n All known YANG substatements can easily be parsed using ::lyplg_ext_parse_extension_instance.\n\n @param[in] pctx Parse context.\n @param[in,out] ext Parsed extension instance data.\n @return LY_SUCCESS on success.\n @return LY_ENOT if the extension instance is not supported and should be removed.\n @return LY_ERR error on error."]
 pub type lyplg_ext_parse_clb = ::std::option::Option<
     unsafe extern "C" fn(
         pctx: *mut lysp_ctx,
@@ -16808,6 +10907,7 @@ pub type lyplg_ext_parse_clb = ::std::option::Option<
     ) -> LY_ERR::Type,
 >;
 unsafe extern "C" {
+    #[doc = " @brief Log a message from an extension plugin using the parsed extension instance.\n\n @param[in] pctx Parse context to use.\n @param[in] ext Parsed extensiopn instance.\n @param[in] level Log message level (error, warning, etc.)\n @param[in] err Error type code.\n @param[in] format Format string to print.\n @param[in] ... Format variable parameters."]
     pub fn lyplg_ext_parse_log(
         pctx: *const lysp_ctx,
         ext: *const lysp_ext_instance,
@@ -16818,16 +10918,19 @@ unsafe extern "C" {
     );
 }
 unsafe extern "C" {
+    #[doc = " @brief Get current parsed module from a parse context.\n\n @param[in] pctx Parse context.\n @return Current (local) parse mod."]
     pub fn lyplg_ext_parse_get_cur_pmod(
         pctx: *const lysp_ctx,
     ) -> *const lysp_module;
 }
 unsafe extern "C" {
+    #[doc = " @brief Parse substatements of an extension instance.\n\n Uses standard libyang schema compiler to transform YANG statements into the parsed schema structures. The plugins are\n supposed to use this function when the extension instance's substatements can be parsed in a standard way.\n\n @param[in] pctx Parse context.\n @param[in,out] ext Parsed extension instance with the prepared ::lysp_ext_instance.substmts array, which will be\n updated by storing the parsed data.\n @return LY_SUCCESS on success.\n @return LY_ERR error on error."]
     pub fn lyplg_ext_parse_extension_instance(
         pctx: *mut lysp_ctx,
         ext: *mut lysp_ext_instance,
     ) -> LY_ERR::Type;
 }
+#[doc = " @brief Callback to compile extension from the lysp_ext_instance to the lysc_ext_instance. The later structure is generally prepared\n and only the extension specific data are supposed to be added (if any).\n\n The parsed generic statements can be processed by the callback on its own or the ::lyplg_ext_compile_extension_instance()\n function can be used to let the compilation to libyang following the standard rules for processing the YANG statements.\n\n @param[in] cctx Current compile context.\n @param[in] extp Parsed extension instance data.\n @param[in,out] ext Prepared compiled extension instance structure where an addition, extension-specific, data are\n supposed to be placed for later use (data validation or use of external tool).\n @return LY_SUCCESS in case of success.\n @return LY_ENOT in case the extension instance is not supported and should be removed.\n @return LY_ERR error on error."]
 pub type lyplg_ext_compile_clb = ::std::option::Option<
     unsafe extern "C" fn(
         cctx: *mut lysc_ctx,
@@ -16836,6 +10939,7 @@ pub type lyplg_ext_compile_clb = ::std::option::Option<
     ) -> LY_ERR::Type,
 >;
 unsafe extern "C" {
+    #[doc = " @brief Log a message from an extension plugin using the compiled extension instance.\n\n @param[in] cctx Optional compile context to generate the path from.\n @param[in] ext Compiled extension instance.\n @param[in] level Log message level (error, warning, etc.)\n @param[in] err Error type code.\n @param[in] format Format string to print."]
     pub fn lyplg_ext_compile_log(
         cctx: *const lysc_ctx,
         ext: *const lysc_ext_instance,
@@ -16846,6 +10950,7 @@ unsafe extern "C" {
     );
 }
 unsafe extern "C" {
+    #[doc = " @brief Log a message from an extension plugin using the compiled extension instance with an explicit error path.\n\n @param[in] path Log error schema path to use.\n @param[in] ext Compiled extension instance.\n @param[in] level Log message level (error, warning, etc.)\n @param[in] err Error type code.\n @param[in] format Format string to print."]
     pub fn lyplg_ext_compile_log_path(
         path: *const ::std::os::raw::c_char,
         ext: *const lysc_ext_instance,
@@ -16856,27 +10961,33 @@ unsafe extern "C" {
     );
 }
 unsafe extern "C" {
+    #[doc = " @brief Log a message from an extension plugin using the compiled extension instance and a generated error item.\n\n @param[in] eitem Error item to log.\n @param[in] ext Compiled extension instance."]
     pub fn lyplg_ext_compile_log_err(
         eitem: *const ly_err_item,
         ext: *const lysc_ext_instance,
     );
 }
 unsafe extern "C" {
+    #[doc = " @brief YANG schema compilation context getter for libyang context.\n\n @param[in] ctx YANG schema compilation context.\n @return libyang context connected with the compilation context."]
     pub fn lyplg_ext_compile_get_ctx(ctx: *const lysc_ctx) -> *mut ly_ctx;
 }
 unsafe extern "C" {
+    #[doc = " @brief YANG schema compilation context getter for compilation options.\n\n @param[in] ctx YANG schema compilation context.\n @return pointer to the compilation options to allow modifying them with @ref scflags values."]
     pub fn lyplg_ext_compile_get_options(ctx: *const lysc_ctx) -> *mut u32;
 }
 unsafe extern "C" {
+    #[doc = " @brief YANG schema compilation context getter for current module.\n\n @param[in] ctx YANG schema compilation context.\n @return current module."]
     pub fn lyplg_ext_compile_get_cur_mod(
         ctx: *const lysc_ctx,
     ) -> *const lys_module;
 }
 unsafe extern "C" {
+    #[doc = " @brief YANG schema compilation context getter for currently processed module.\n\n @param[in] ctx YANG schema compilation context.\n @return Currently processed module."]
     pub fn lyplg_ext_compile_get_pmod(ctx: *const lysc_ctx)
     -> *mut lysp_module;
 }
 unsafe extern "C" {
+    #[doc = " @brief Compile substatements of an extension instance.\n\n Uses standard libyang schema compiler to transform YANG statements into the compiled schema structures. The plugins are\n supposed to use this function when the extension instance's substatements are supposed to be compiled in a standard way\n (or if just the @ref scflags are enough to modify the compilation process).\n\n @param[in] ctx Compile context.\n @param[in] extp Parsed representation of the extension instance being processed.\n @param[in,out] ext Compiled extension instance with the prepared ::lysc_ext_instance.substmts array, which will be updated\n by storing the compiled data.\n @param[in] parent Optional parent of all the compiled schema nodes.\n @return LY_SUCCESS on success.\n @return LY_EVALID if compilation of the substatements fails.\n @return LY_ENOT if the extension is disabled (by if-feature) and should be ignored."]
     pub fn lyplg_ext_compile_extension_instance(
         ctx: *mut lysc_ctx,
         extp: *const lysp_ext_instance,
@@ -16885,12 +10996,14 @@ unsafe extern "C" {
     ) -> LY_ERR::Type;
 }
 unsafe extern "C" {
+    #[doc = " @brief Compile augments for a specific node in an extension instance.\n\n May be useful for cases when there are virtual nodes that cannot be compiled using\n ::lyplg_ext_compile_extension_instance().\n\n @param[in] ctx Compile context.\n @param[in] ext Compiled extension instance.\n @param[in,out] node Compiled schema node to apply any matching augments for.\n @return LY_ERR value."]
     pub fn lyplg_ext_compiled_node_augments(
         ctx: *mut lysc_ctx,
         ext: *mut lysc_ext_instance,
         node: *mut lysc_node,
     ) -> LY_ERR::Type;
 }
+#[doc = " @brief Callback to print the compiled extension instance's private data in the INFO format.\n\n @param[in] ctx YANG printer context to provide output handler and other information for printing.\n @param[in] ext The compiled extension instance, mainly to access the extensions.\n @param[in,out] flag Flag to be shared with the caller regarding the opening brackets - 0 if the '{' not yet printed,\n 1 otherwise.\n @return LY_SUCCESS when everything was fine, other LY_ERR values in case of failure"]
 pub type lyplg_ext_sprinter_info_clb = ::std::option::Option<
     unsafe extern "C" fn(
         ctx: *mut lyspr_ctx,
@@ -16898,27 +11011,33 @@ pub type lyplg_ext_sprinter_info_clb = ::std::option::Option<
         flag: *mut ly_bool,
     ) -> LY_ERR::Type,
 >;
+#[doc = " @struct ly_out\n @brief Printer output structure specifying the type of data output."]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct ly_out {
     _unused: [u8; 0],
 }
 unsafe extern "C" {
+    #[doc = " @brief YANG printer context getter for output handler.\n\n @param[in] ctx YANG printer context.\n @return Output handler where the data are being printed. Note that the address of the handler pointer in the context is\n returned to allow to modify the handler."]
     pub fn lyplg_ext_print_get_out(ctx: *const lyspr_ctx) -> *mut *mut ly_out;
 }
 unsafe extern "C" {
+    #[doc = " @brief YANG printer context getter for printer options.\n\n @param[in] ctx YANG printer context.\n @return pointer to the printer options to allow modifying them with @ref schemaprinterflags values."]
     pub fn lyplg_ext_print_get_options(ctx: *const lyspr_ctx) -> *mut u32;
 }
 unsafe extern "C" {
+    #[doc = " @brief YANG printer context getter for printer indentation level.\n\n @param[in] ctx YANG printer context.\n @return pointer to the printer's indentation level to allow modifying its value."]
     pub fn lyplg_ext_print_get_level(ctx: *const lyspr_ctx) -> *mut u16;
 }
 unsafe extern "C" {
+    #[doc = " @brief Print substatements of an extension instance in info format (compiled YANG).\n\n Generic function to access YANG printer functions from the extension plugins (::lyplg_ext_sprinter_info_clb).\n\n @param[in] ctx YANG printer context to provide output handler and other information for printing.\n @param[in] ext The compiled extension instance to access the extensions and substatements data.\n @param[in,out] flag Flag to be shared with the caller regarding the opening brackets - 0 if the '{' not yet printed,\n 1 otherwise."]
     pub fn lyplg_ext_print_info_extension_instance(
         ctx: *mut lyspr_ctx,
         ext: *const lysc_ext_instance,
         flag: *mut ly_bool,
     );
 }
+#[doc = " @brief Callback for getting the first child data node of an XPath document root of the extension instance.\n\n @param[in] ext Compiled extension instance.\n @param[in] cur_node Current (original context) node.\n @param[out] node First XPath document root child node, if any."]
 pub type lyplg_ext_node_xpath_clb = ::std::option::Option<
     unsafe extern "C" fn(
         ext: *mut lysc_ext_instance,
@@ -16926,6 +11045,7 @@ pub type lyplg_ext_node_xpath_clb = ::std::option::Option<
         node: *mut *const lyd_node,
     ),
 >;
+#[doc = " @brief Callback for getting the first child schema node of an XPath document root of the extension instance.\n\n @param[in] ext Compiled extension instance.\n @param[in] prefix Node prefix, if any.\n @param[in] prefix_len Length of @p prefix.\n @param[in] format Format of @p prefix.\n @param[in] prefix_data Format-specific prefix data.\n @param[in] name Node name.\n @param[in] name_len Length of @p name.\n @param[out] snode First XPath document root child schema node, if any."]
 pub type lyplg_ext_snode_xpath_clb = ::std::option::Option<
     unsafe extern "C" fn(
         ext: *mut lysc_ext_instance,
@@ -16938,6 +11058,7 @@ pub type lyplg_ext_snode_xpath_clb = ::std::option::Option<
         snode: *mut *const lysc_node,
     ) -> LY_ERR::Type,
 >;
+#[doc = " @brief Callback for getting a schema node for new YANG instance data described by an extension instance.\n\n If this callback is defined, ::lyplg_ext_data_validate_clb must also be defined for validating the data node subtrees\n parsed using this callback.\n\n 1) Schema nodes are compiled and connected to each other:\n    - this callback is NOT called;\n    - storage of a data-def-stmt is retrieved from the ext-inst and the nodes connected to it.\n\n 2) YANG instance data is being parsed:\n    - this callback is called;\n    - schema node that can be instantiated in data should be returned (matching any set parameters);\n    - if this callback is not defined, the same process as in 1) is used.\n\n @param[in] ext Compiled extension instance.\n @param[in] parent Parsed parent data node.\n @param[in] sparent Schema parent node.\n @param[in] prefix Node prefix, if any.\n @param[in] prefix_len Length of @p prefix.\n @param[in] format Format of @p prefix.\n @param[in] prefix_data Format-specific prefix data.\n @param[in] name Node name.\n @param[in] name_len Length of @p name.\n @param[out] snode Schema node to use for parsing the node.\n @return LY_SUCCESS on success.\n @return LY_ENOT if the data are not described by @p ext.\n @return LY_ERR on error."]
 pub type lyplg_ext_data_snode_clb = ::std::option::Option<
     unsafe extern "C" fn(
         ext: *mut lysc_ext_instance,
@@ -16952,6 +11073,7 @@ pub type lyplg_ext_data_snode_clb = ::std::option::Option<
         snode: *mut *const lysc_node,
     ) -> LY_ERR::Type,
 >;
+#[doc = " @brief Callback for validating parsed YANG instance data described by an extension instance.\n\n This callback is called in 2 distinct cases:\n 1) For data nodes created by ::lyplg_ext_data_snode_clb with @p node flag ::LYD_EXT set. If this callback is\n    defined, the whole subtree is validated by this callback;\n 2) For any data nodes whose a) schema node or b) their type has the extension instance. These nodes are also always\n    validated according to the standard YANG node validation rules.\n\n @param[in] ext Compiled extension instance.\n @param[in] node Node/subtree to validate.\n @param[in] dep_tree Tree to be used for validating references from the operation subtree, if operation.\n @param[in] data_type Validated data type, can be ::LYD_TYPE_DATA_YANG, ::LYD_TYPE_RPC_YANG, ::LYD_TYPE_NOTIF_YANG,\n or ::LYD_TYPE_REPLY_YANG.\n @param[in] val_opts Validation options, see @ref datavalidationoptions.\n @param[out] diff Optional diff with any changes made by the validation.\n @return LY_SUCCESS on success.\n @return LY_ENOT if @p node are not data matching this extension instance.\n @return LY_ERR on error."]
 pub type lyplg_ext_data_validate_clb = ::std::option::Option<
     unsafe extern "C" fn(
         ext: *mut lysc_ext_instance,
@@ -16962,24 +11084,29 @@ pub type lyplg_ext_data_validate_clb = ::std::option::Option<
         diff: *mut *mut lyd_node,
     ) -> LY_ERR::Type,
 >;
+#[doc = " @brief Callback to free the extension-specific data created by its parsing.\n\n @param[in] ctx libyang context.\n @param[in,out] ext Parsed extension structure to free."]
 pub type lyplg_ext_parse_free_clb = ::std::option::Option<
     unsafe extern "C" fn(ctx: *const ly_ctx, ext: *mut lysp_ext_instance),
 >;
 unsafe extern "C" {
+    #[doc = " @brief Free the extension instance's data parsed with ::lyplg_ext_parse_extension_instance().\n\n @param[in] ctx libyang context\n @param[in] substmts Extension instance substatements to free."]
     pub fn lyplg_ext_pfree_instance_substatements(
         ctx: *const ly_ctx,
         substmts: *mut lysp_ext_substmt,
     );
 }
+#[doc = " @brief Callback to free the extension-specific data created by its compilation.\n\n @param[in] ctx libyang context.\n @param[in,out] ext Compiled extension structure to free."]
 pub type lyplg_ext_compile_free_clb = ::std::option::Option<
     unsafe extern "C" fn(ctx: *const ly_ctx, ext: *mut lysc_ext_instance),
 >;
 unsafe extern "C" {
+    #[doc = " @brief Free the extension instance's data compiled with ::lyplg_ext_compile_extension_instance().\n\n @param[in] ctx libyang context\n @param[in] substmts Extension instance substatements to free."]
     pub fn lyplg_ext_cfree_instance_substatements(
         ctx: *const ly_ctx,
         substmts: *mut lysc_ext_substmt,
     );
 }
+#[doc = " @brief Callback to return the size of the custom compiled structure and substmts array. If there are none, do not\n define this callback.\n\n @param[in] ext Compiled extension structure.\n @param[in,out] addr_ht Hash table with addresses of shared structures that were already accounted for, can be added to.\n @return Total size of the custom compiled structures and the substmts array. Always use ::LY_CTXP_MEM_SIZE when\n adding to the size for correct alignment.\n @return -1 on error."]
 pub type lyplg_ext_compiled_size_clb = ::std::option::Option<
     unsafe extern "C" fn(
         ext: *const lysc_ext_instance,
@@ -16987,11 +11114,13 @@ pub type lyplg_ext_compiled_size_clb = ::std::option::Option<
     ) -> ::std::os::raw::c_int,
 >;
 unsafe extern "C" {
+    #[doc = " @brief Get the size of the compiled substatements storage.\n\n @param[in] substmts Compiled extension instance substatements array.\n @param[in,out] addr_ht Hash table with addresses of shared structures that were already accounted for, can be added to.\n @return Total size of the subtmts storage;\n @return -1 on error."]
     pub fn lyplg_ext_compiled_stmts_storage_size(
         substmts: *const lysc_ext_substmt,
         addr_ht: *mut ly_ht,
     ) -> ::std::os::raw::c_int;
 }
+#[doc = " @brief Callback to print (serialize) the custom compiled structure and substmts array storage.\n\n @param[in] orig_ext Compiled extension structure to print.\n @param[in,out] ext Printed extension structure to modify.\n @param[in,out] mem Memory chunk of the size returned by ::lyplg_ext_compiled_size_clb() to print into, is moved\n after all the printed data. Always use ::LY_CTXP_MEM_SIZE when moving @p mem for correct alignment.\n @param[in,out] ptr_set Set with pointers to set to printed addresses.\n @param[in,out] addr_ht Hash table with pairs of addresses of shared structures to be printed and their printed\n addresses, can be added to.\n @return LY_SUCCESS on success.\n @return LY_ERR on error."]
 pub type lyplg_ext_compiled_print_clb = ::std::option::Option<
     unsafe extern "C" fn(
         orig_ext: *const lysc_ext_instance,
@@ -17002,6 +11131,7 @@ pub type lyplg_ext_compiled_print_clb = ::std::option::Option<
     ) -> LY_ERR::Type,
 >;
 unsafe extern "C" {
+    #[doc = " @brief Print the substatements array storage and assign it to the serialized extension instance substatements array.\n\n @param[in] orig_substmts Extension instance substatements to print.\n @param[in,out] substmts Serialized extension structure substatements whose storage to modify.\n @param[in,out] addr_ht Hash table with pairs of addresses of shared structures to be printed and their printed\n addresses, can be added to.\n @param[in,out] ptr_set Set with pointers to set to printed addresses.\n @param[in,out] mem Memory chunk to print into, is moved after all the printed data.\n @return LY_SUCCESS on success;\n @return LY_ERR on error."]
     pub fn lyplg_ext_compiled_stmts_storage_print(
         orig_substmts: *const lysc_ext_substmt,
         substmts: *mut lysc_ext_substmt,
@@ -17011,32 +11141,47 @@ unsafe extern "C" {
     ) -> LY_ERR::Type;
 }
 unsafe extern "C" {
+    #[doc = " @brief Get the printed address of a shared structure, in case it has already been printed.\n\n @param[in] addr_ht Hash table with all the printed addresses of shared structures.\n @param[in] addr Address of the original shared structure to be printed.\n @return Address of the printed shared structure;\n @return NULL if the address was not found."]
     pub fn lyplg_ext_compiled_print_get_addr(
         addr_ht: *const ly_ht,
         addr: *const ::std::os::raw::c_void,
     ) -> *mut ::std::os::raw::c_void;
 }
 unsafe extern "C" {
+    #[doc = " @brief Add a printed address of a shared structure to be reused by later prints.\n\n @param[in,out] addr_ht Hash table with pairs of addresses of shared structures to be printed and their printed\n addresses, is added to.\n @param[in] orig_addr Address of the original shared structure that was printed.\n @param[in] addr Address of the printed structure to be reused.\n @return LY_SUCCESS on success;\n @return LY_ERR on error."]
     pub fn lyplg_ext_compiled_print_add_addr(
         addr_ht: *mut ly_ht,
         orig_addr: *const ::std::os::raw::c_void,
         addr: *const ::std::os::raw::c_void,
     ) -> LY_ERR::Type;
 }
+#[doc = " @brief Extension plugin implementing various aspects of a YANG extension.\n\n Every plugin should have at least either ::parse() or ::compile() callback defined but other than that **all**\n the callbacks are **optional**."]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct lyplg_ext {
+    #[doc = "< plugin identification (mainly for distinguish incompatible versions\nof the plugins for external tools)"]
     pub id: *const ::std::os::raw::c_char,
+    #[doc = "< callback to parse the extension instance substatements"]
     pub parse: lyplg_ext_parse_clb,
+    #[doc = "< callback to compile extension instance from the parsed data"]
     pub compile: lyplg_ext_compile_clb,
+    #[doc = "< callback to print the compiled content (info format)"]
     pub printer_info: lyplg_ext_sprinter_info_clb,
+    #[doc = "< callback to get first XPath document root data child node"]
     pub node_xpath: lyplg_ext_node_xpath_clb,
+    #[doc = "< callback to get first XPath document root schema child node"]
     pub snode_xpath: lyplg_ext_snode_xpath_clb,
+    #[doc = "< callback to get schema node in various use-cases"]
     pub snode: lyplg_ext_data_snode_clb,
+    #[doc = "< callback to validate parsed data instances"]
     pub validate: lyplg_ext_data_validate_clb,
+    #[doc = "< free the extension-specific data created by its parsing"]
     pub pfree: lyplg_ext_parse_free_clb,
+    #[doc = "< free the extension-specific data created by its compilation"]
     pub cfree: lyplg_ext_compile_free_clb,
+    #[doc = "< callback to get size of the custom compiled structure and substmts"]
     pub compiled_size: lyplg_ext_compiled_size_clb,
+    #[doc = "< callback to print the compiled structure into a pre-allocated\nmemory chunk"]
     pub compiled_print: lyplg_ext_compiled_print_clb,
 }
 #[allow(clippy::unnecessary_operation, clippy::identity_op)]
@@ -17080,9 +11225,13 @@ impl Default for lyplg_ext {
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct lyplg_ext_record {
+    #[doc = "< name of the module where the extension is defined"]
     pub module: *const ::std::os::raw::c_char,
+    #[doc = "< optional module revision - if not specified, the plugin applies to any revision,\nwhich is not an optimal approach due to a possible future revisions of the module.\nInstead, there should be defined multiple items in the plugins list, each with the\ndifferent revision, but all with the same pointer to the plugin functions. The\nonly valid use case for the NULL revision is the case the module has no revision."]
     pub revision: *const ::std::os::raw::c_char,
+    #[doc = "< YANG name of the extension"]
     pub name: *const ::std::os::raw::c_char,
+    #[doc = "< data to utilize plugin implementation"]
     pub plugin: lyplg_ext,
 }
 #[allow(clippy::unnecessary_operation, clippy::identity_op)]
@@ -17110,14 +11259,17 @@ impl Default for lyplg_ext_record {
     }
 }
 unsafe extern "C" {
+    #[doc = " @brief Stringify statement identifier.\n\n @param[in] stmt The statement identifier to stringify.\n @return Constant string representation of the given @p stmt."]
     pub fn lyplg_ext_stmt2str(
         stmt: ly_stmt::Type,
     ) -> *const ::std::os::raw::c_char;
 }
 unsafe extern "C" {
+    #[doc = " @brief Convert nodetype to statement identifier\n\n @param[in] nodetype Nodetype to convert.\n @return Statement identifier representing the given @p nodetype."]
     pub fn lyplg_ext_nodetype2stmt(nodetype: u16) -> ly_stmt::Type;
 }
 unsafe extern "C" {
+    #[doc = " @brief Get compiled ext instance storage for a specific statement.\n\n @param[in] ext Compiled ext instance.\n @param[in] stmt Compiled statement. Can be a mask when the first match is returned, it is expected the storage is\n the same for all the masked statements.\n @param[in] storage_size Size of the value at @p storage address (dereferenced).\n @param[out] storage Compiled ext instance substatement storage, NULL if was not compiled.\n @return LY_SUCCESS on success.\n @return LY_ENOT if the substatement is not supported."]
     pub fn lyplg_ext_get_storage(
         ext: *const lysc_ext_instance,
         stmt: ::std::os::raw::c_int,
@@ -17126,6 +11278,7 @@ unsafe extern "C" {
     ) -> LY_ERR::Type;
 }
 unsafe extern "C" {
+    #[doc = " @brief Get parsed ext instance storage for a specific statement.\n\n @param[in] ext Compiled ext instance.\n @param[in] stmt Parsed statement. Can be a mask when the first match is returned, it is expected the storage is\n the same for all the masked statements.\n @param[in] storage_size Size of the value at @p storage address (dereferenced).\n @param[out] storage Parsed ext instance substatement storage, NULL if was not parsed.\n @return LY_SUCCESS on success.\n @return LY_ENOT if the substatement is not supported."]
     pub fn lyplg_ext_parsed_get_storage(
         ext: *const lysc_ext_instance,
         stmt: ::std::os::raw::c_int,
@@ -17134,6 +11287,7 @@ unsafe extern "C" {
     ) -> LY_ERR::Type;
 }
 unsafe extern "C" {
+    #[doc = " @brief Get specific run-time extension instance data from a callback set by ::ly_ctx_set_ext_data_clb().\n\n @param[in] ctx Context with the callback.\n @param[in] ext Compiled extension instance.\n @param[in] parent Data parent node instance of a schema node with @p ext instance.\n @param[out] ext_data Provided extension instance data.\n @param[out] ext_data_free Whether the extension instance should free @p ext_data or not.\n @return LY_SUCCESS on success.\n @return LY_ERR on error."]
     pub fn lyplg_ext_get_data(
         ctx: *const ly_ctx,
         ext: *const lysc_ext_instance,
@@ -17143,12 +11297,14 @@ unsafe extern "C" {
     ) -> LY_ERR::Type;
 }
 unsafe extern "C" {
+    #[doc = " @brief Set parent context of a context. Errors and callbacks of the parent context will then always be used.\n\n @param[in] ctx Context to change.\n @param[in] parent_ctx Parent context to set.\n @return LY_SUCCESS on success.\n @return LY_ERR on error."]
     pub fn lyplg_ext_set_parent_ctx(
         ctx: *mut ly_ctx,
         parent_ctx: *const ly_ctx,
     ) -> LY_ERR::Type;
 }
 unsafe extern "C" {
+    #[doc = " @brief Expand parent-reference xpath expressions\n\n @param[in] ext Context allocated for extension.\n @param[in] parent Data parent node instance of a schema node with @p ext instance.\n @param[out] refs Set of schema node matching parent-reference XPaths.\n @return LY_ERR value."]
     pub fn lyplg_ext_schema_mount_get_parent_ref(
         ext: *const lysc_ext_instance,
         parent: *const lyd_node,
@@ -17156,6 +11312,7 @@ unsafe extern "C" {
     ) -> LY_ERR::Type;
 }
 unsafe extern "C" {
+    #[doc = " @brief Allocate a new context for a particular instance of the yangmnt:mount-point extension.\n Caller is responsible for **freeing** the created context.\n\n @param[in] ext Compiled extension instance.\n @param[in] parent Data parent node instance of a schema node with @p ext instance.\n @param[out] ctx Context with modules loaded from the list found in the extension data.\n @return LY_ERR value."]
     pub fn lyplg_ext_schema_mount_create_context(
         ext: *const lysc_ext_instance,
         parent: *const lyd_node,
@@ -17163,28 +11320,37 @@ unsafe extern "C" {
     ) -> LY_ERR::Type;
 }
 unsafe extern "C" {
+    #[doc = " @brief Create a shared schema mount context for a schema mount point.\n\n Does nothing if the mount point is not shared or if the context already exists.\n\n For printed contexts (read-only), all shared contexts must be created beforehand\n by calling this function as they cannot be created once the context is printed.\n\n @param[in] ext Compiled extension instance of a schema mount point.\n @param[in] ext_data ietf-yang-schema-mount and ietf-yang-library YANG data for the @p ext mount point.\n @return LY_ENOT if @p ext mount point data was not found in @p ext_data, other LY_ERR value otherwise."]
     pub fn lyplg_ext_schema_mount_create_shared_context(
         ext: *mut lysc_ext_instance,
         ext_data: *const lyd_node,
     ) -> LY_ERR::Type;
 }
 unsafe extern "C" {
+    #[doc = " @brief Destroy all the shared schema mount contexts for a given libyang context.\n\n For standard contexts this is done automatically when the context is destroyed.\n\n For printed contexts (read-only), all shared contexts must be destroyed\n by calling this function as otherwise they will be lost once the original context is destroyed.\n\n @param[in] ext Compiled extension instance of a schema mount point. All the shared schema mount\n contexts that belong to the same libyang context as @p ext will be destroyed."]
     pub fn lyplg_ext_schema_mount_destroy_shared_contexts(
         ext: *mut lysc_ext_instance,
     );
 }
 unsafe extern "C" {
+    #[doc = " @brief Destroy all the inline contexts for a given libyang context.\n\n For standard contexts this is done automatically when the context is destroyed.\n Useful when using a long-lived libyang context for cleaning up memory after completing\n operations with schema mount extension data that require inline contexts.\n\n Inline contexts are currently not supported in printed contexts.\n\n @param[in] ext Compiled extension instance of a schema mount point. All the inline schema mount\n contexts that belong to the same libyang context as @p ext will be destroyed."]
     pub fn lyplg_ext_schema_mount_destroy_inline_contexts(
         ext: *mut lysc_ext_instance,
     );
 }
+#[doc = " @brief Metadata structure.\n\n The structure provides information about metadata of a data element. Such attributes must map to\n annotations as specified in RFC 7952. The only exception is the filter type (in NETCONF get operations)\n and edit-config's operation attributes. In XML, they are represented as standard XML attributes. In JSON,\n they are represented as JSON elements starting with the '@' character (for more information, see the\n YANG metadata RFC.\n"]
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct lyd_meta {
+    #[doc = "< data node where the metadata is placed"]
     pub parent: *mut lyd_node,
+    #[doc = "< pointer to the next metadata of the same element"]
     pub next: *mut lyd_meta,
+    #[doc = "< pointer to the annotation's definition"]
     pub annotation: *mut lysc_ext_instance,
+    #[doc = "< metadata name"]
     pub name: *const ::std::os::raw::c_char,
+    #[doc = "< metadata value representation"]
     pub value: lyd_value,
 }
 #[allow(clippy::unnecessary_operation, clippy::identity_op)]
@@ -17212,21 +11378,32 @@ impl Default for lyd_meta {
     }
 }
 pub mod LY_OUT_TYPE {
+    #[doc = " @brief Types of the printer's output"]
     pub type Type = ::std::os::raw::c_int;
+    #[doc = "< error value to indicate failure of the functions returning LY_OUT_TYPE"]
     pub const LY_OUT_ERROR: Type = -1;
+    #[doc = "< file descriptor printer"]
     pub const LY_OUT_FD: Type = 0;
+    #[doc = "< internal replacement for LY_OUT_FD in case vdprintf() is not available"]
     pub const LY_OUT_FDSTREAM: Type = 1;
+    #[doc = "< FILE stream printer"]
     pub const LY_OUT_FILE: Type = 2;
+    #[doc = "< filepath printer"]
     pub const LY_OUT_FILEPATH: Type = 3;
+    #[doc = "< memory printer"]
     pub const LY_OUT_MEMORY: Type = 4;
+    #[doc = "< callback printer"]
     pub const LY_OUT_CALLBACK: Type = 5;
 }
 unsafe extern "C" {
+    #[doc = " @brief Get output type of the printer handler.\n\n @param[in] out Printer handler.\n @return Type of the printer's output."]
     pub fn ly_out_type(out: *const ly_out) -> LY_OUT_TYPE::Type;
 }
 unsafe extern "C" {
+    #[doc = " @brief Reset the output medium to write from its beginning, so the following printer function will rewrite the current data\n instead of appending.\n\n Note that in case the underlying output is not seekable (stream referring a pipe/FIFO/socket or the callback output type),\n nothing actually happens despite the function succeeds. Also note that the medium is not returned to the state it was when\n the handler was created. For example, file is seeked into the offset zero and truncated, the content from the time it was opened with\n ::ly_out_new_file() is not restored.\n\n @param[in] out Printer handler.\n @return LY_SUCCESS in case of success\n @return LY_ESYS in case of failure"]
     pub fn ly_out_reset(out: *mut ly_out) -> LY_ERR::Type;
 }
+#[doc = " @brief Generic write callback for data printed by libyang.\n\n @param[in] user_data Optional caller-specific argument.\n @param[in] buf Data to write.\n @param[in] count Number of bytes to write.\n @return Number of printed bytes.\n @return Negative value in case of error."]
 pub type ly_write_clb = ::std::option::Option<
     unsafe extern "C" fn(
         user_data: *mut ::std::os::raw::c_void,
@@ -17235,6 +11412,7 @@ pub type ly_write_clb = ::std::option::Option<
     ) -> isize,
 >;
 unsafe extern "C" {
+    #[doc = " @brief Create printer handler using callback printer function.\n\n @param[in] writeclb Pointer to the printer callback function writing the data (see write(2)).\n @param[in] user_data Optional caller-specific argument to be passed to the @p writeclb callback.\n @param[out] out Created printer handler supposed to be passed to different ly*_print() functions.\n @return LY_SUCCESS in case of success\n @return LY_EMEM in case allocating the @p out handler fails."]
     pub fn ly_out_new_clb(
         writeclb: ly_write_clb,
         user_data: *mut ::std::os::raw::c_void,
@@ -17242,35 +11420,42 @@ unsafe extern "C" {
     ) -> LY_ERR::Type;
 }
 unsafe extern "C" {
+    #[doc = " @brief Get or reset callback function associated with a callback printer handler.\n\n @param[in] out Printer handler.\n @param[in] writeclb Optional argument providing a new printer callback function for the handler. If NULL, only the current\n printer callback is returned.\n @return Previous printer callback."]
     pub fn ly_out_clb(out: *mut ly_out, writeclb: ly_write_clb)
     -> ly_write_clb;
 }
 unsafe extern "C" {
+    #[doc = " @brief Get or reset callback function's argument associated with a callback printer handler.\n\n @param[in] out Printer handler.\n @param[in] arg caller-specific argument to be passed to the callback function associated with the printer handler.\n If NULL, only the current file descriptor value is returned.\n @return The previous callback argument."]
     pub fn ly_out_clb_arg(
         out: *mut ly_out,
         arg: *mut ::std::os::raw::c_void,
     ) -> *mut ::std::os::raw::c_void;
 }
 unsafe extern "C" {
+    #[doc = " @brief Create printer handler using file descriptor.\n\n @param[in] fd File descriptor to use.\n @param[out] out Created printer handler supposed to be passed to different ly*_print() functions.\n @return LY_SUCCESS in case of success\n @return LY_ERR value in case of failure."]
     pub fn ly_out_new_fd(
         fd: ::std::os::raw::c_int,
         out: *mut *mut ly_out,
     ) -> LY_ERR::Type;
 }
 unsafe extern "C" {
+    #[doc = " @brief Get or reset file descriptor printer handler.\n\n @param[in] out Printer handler.\n @param[in] fd Optional value of a new file descriptor for the handler. If -1, only the current file descriptor value is returned.\n @return Previous value of the file descriptor. Note that caller is responsible for closing the returned file descriptor in case of setting new descriptor @p fd.\n @return -1 in case of error when setting up the new file descriptor."]
     pub fn ly_out_fd(
         out: *mut ly_out,
         fd: ::std::os::raw::c_int,
     ) -> ::std::os::raw::c_int;
 }
 unsafe extern "C" {
+    #[doc = " @brief Create printer handler using file stream.\n\n @param[in] f File stream to use.\n @param[out] out Created printer handler supposed to be passed to different ly*_print() functions.\n @return LY_SUCCESS in case of success\n @return LY_ERR value in case of failure."]
     pub fn ly_out_new_file(f: *mut FILE, out: *mut *mut ly_out)
     -> LY_ERR::Type;
 }
 unsafe extern "C" {
+    #[doc = " @brief Get or reset file stream printer handler.\n\n @param[in] out Printer handler.\n @param[in] f Optional new file stream for the handler. If NULL, only the current file stream is returned.\n @return Previous file stream of the handler. Note that caller is responsible for closing the returned stream in case of setting new stream @p f."]
     pub fn ly_out_file(out: *mut ly_out, f: *mut FILE) -> *mut FILE;
 }
 unsafe extern "C" {
+    #[doc = " @brief Create printer handler using memory to dump data.\n\n @param[in] strp Pointer to store the resulting data. If it points to a pointer to an allocated buffer and\n @p size of the buffer is set, the buffer is used (and extended if needed) to store the printed data.\n @param[in] size Size of the buffer provided via @p strp. In case it is 0, the buffer for the printed data\n is newly allocated even if @p strp points to a pointer to an existing buffer.\n @param[out] out Created printer handler supposed to be passed to different ly*_print() functions.\n @return LY_SUCCESS in case of success\n @return LY_ERR value in case of failure."]
     pub fn ly_out_new_memory(
         strp: *mut *mut ::std::os::raw::c_char,
         size: usize,
@@ -17278,6 +11463,7 @@ unsafe extern "C" {
     ) -> LY_ERR::Type;
 }
 unsafe extern "C" {
+    #[doc = " @brief Get or change memory where the data are dumped.\n\n @param[in] out Printer handler.\n @param[in] strp Optional new string pointer to store the resulting data, same rules as in ::ly_out_new_memory() are applied.\n @param[in] size Size of the buffer provided via @p strp. In case it is 0, the buffer for the printed data\n is newly allocated even if @p strp points to a pointer to an existing buffer. In case the @p strp is NULL, this\n parameter is ignored.\n @return Previous dumped data. Note that the caller is responsible to free the data in case of changing string pointer @p strp."]
     pub fn ly_out_memory(
         out: *mut ly_out,
         strp: *mut *mut ::std::os::raw::c_char,
@@ -17285,18 +11471,21 @@ unsafe extern "C" {
     ) -> *mut ::std::os::raw::c_char;
 }
 unsafe extern "C" {
+    #[doc = " @brief Create printer handler file of the given filename.\n\n @param[in] filepath Path of the file where to write data.\n @param[out] out Created printer handler supposed to be passed to different ly*_print() functions.\n @return NULL in case of error.\n @return Created printer handler supposed to be passed to different ly*_print_*() functions."]
     pub fn ly_out_new_filepath(
         filepath: *const ::std::os::raw::c_char,
         out: *mut *mut ly_out,
     ) -> LY_ERR::Type;
 }
 unsafe extern "C" {
+    #[doc = " @brief Get or change the filepath of the file where the printer prints the data.\n\n Note that in case of changing the filepath, the current file is closed and a new one is\n created/opened instead of renaming the previous file. Also note that the previous filepath\n string is returned only in case of not changing it's value.\n\n @param[in] out Printer handler.\n @param[in] filepath Optional new filepath for the handler. If and only if NULL, the current filepath string is returned.\n @return Previous filepath string in case the @p filepath argument is NULL.\n @return NULL if changing filepath succeeds and ((void *)-1) otherwise."]
     pub fn ly_out_filepath(
         out: *mut ly_out,
         filepath: *const ::std::os::raw::c_char,
     ) -> *const ::std::os::raw::c_char;
 }
 unsafe extern "C" {
+    #[doc = " @brief Generic printer of the given format string into the specified output.\n\n Alternatively, ::ly_write() can be used.\n\n @param[in] out Output specification.\n @param[in] format Format string to be printed.\n @return LY_ERR value, get number of the printed bytes using ::ly_out_printed."]
     pub fn ly_print(
         out: *mut ly_out,
         format: *const ::std::os::raw::c_char,
@@ -17304,9 +11493,11 @@ unsafe extern "C" {
     ) -> LY_ERR::Type;
 }
 unsafe extern "C" {
+    #[doc = " @brief Flush the output from any internal buffers and clean any auxiliary data.\n @param[in] out Output specification."]
     pub fn ly_print_flush(out: *mut ly_out);
 }
 unsafe extern "C" {
+    #[doc = " @brief Generic printer of the given string buffer into the specified output.\n\n Alternatively, ::ly_print() can be used.\n\n @param[in] out Output specification.\n @param[in] buf Memory buffer with the data to print.\n @param[in] len Length of the data to print in the @p buf.\n @return LY_ERR value, get number of the printed bytes using ::ly_out_printed."]
     pub fn ly_write(
         out: *mut ly_out,
         buf: *const ::std::os::raw::c_char,
@@ -17314,12 +11505,15 @@ unsafe extern "C" {
     ) -> LY_ERR::Type;
 }
 unsafe extern "C" {
+    #[doc = " @brief Get the number of printed bytes by the last function.\n\n @param[in] out Out structure used.\n @return Number of printed bytes."]
     pub fn ly_out_printed(out: *const ly_out) -> usize;
 }
 unsafe extern "C" {
+    #[doc = " @brief Get the total number of printed bytes of this out structure.\n\n @param[in] out Out structure used.\n @return Number of printed bytes."]
     pub fn ly_out_printed_total(out: *const ly_out) -> usize;
 }
 unsafe extern "C" {
+    #[doc = " @brief Free the printer handler.\n @param[in] out Printer handler to free.\n @param[in] clb_arg_destructor Freeing function for printer callback (LY_OUT_CALLBACK) argument.\n @param[in] destroy Flag to free allocated buffer (for LY_OUT_MEMORY) or to\n close stream/file descriptor (for LY_OUT_FD, LY_OUT_FDSTREAM and LY_OUT_FILE)"]
     pub fn ly_out_free(
         out: *mut ly_out,
         clb_arg_destructor: ::std::option::Option<
@@ -17329,6 +11523,7 @@ unsafe extern "C" {
     );
 }
 unsafe extern "C" {
+    #[doc = " @brief Print the whole data tree of the root, including all the siblings.\n\n @param[in] out Printer handler for a specific output. Use ly_out_*() functions to create and free the handler.\n @param[in] root The root element of the tree to print, can be any sibling.\n @param[in] format Output format.\n @param[in] options [Data printer flags](@ref dataprinterflags) except ::LYD_PRINT_WITHSIBLINGS.\n @return LY_ERR value."]
     pub fn lyd_print_all(
         out: *mut ly_out,
         root: *const lyd_node,
@@ -17337,6 +11532,7 @@ unsafe extern "C" {
     ) -> LY_ERR::Type;
 }
 unsafe extern "C" {
+    #[doc = " @brief Print the selected data subtree.\n\n @param[in] out Printer handler for a specific output. Use ly_out_*() functions to create and free the handler.\n @param[in] root The root element of the subtree to print.\n @param[in] format Output format.\n @param[in] options [Data printer flags](@ref dataprinterflags) except ::LYD_PRINT_WITHSIBLINGS.\n @return LY_ERR value."]
     pub fn lyd_print_tree(
         out: *mut ly_out,
         root: *const lyd_node,
@@ -17345,6 +11541,7 @@ unsafe extern "C" {
     ) -> LY_ERR::Type;
 }
 unsafe extern "C" {
+    #[doc = " @brief Print data tree in the specified format.\n\n @param[out] strp Pointer to store the resulting dump.\n @param[in] root The root element of the (sub)tree to print.\n @param[in] format Output format.\n @param[in] options [Data printer flags](@ref dataprinterflags).\n @return LY_ERR value."]
     pub fn lyd_print_mem(
         strp: *mut *mut ::std::os::raw::c_char,
         root: *const lyd_node,
@@ -17353,6 +11550,7 @@ unsafe extern "C" {
     ) -> LY_ERR::Type;
 }
 unsafe extern "C" {
+    #[doc = " @brief Print data tree in the specified format.\n\n @param[in] fd File descriptor where to print the data.\n @param[in] root The root element of the (sub)tree to print.\n @param[in] format Output format.\n @param[in] options [Data printer flags](@ref dataprinterflags).\n @return LY_ERR value."]
     pub fn lyd_print_fd(
         fd: ::std::os::raw::c_int,
         root: *const lyd_node,
@@ -17361,6 +11559,7 @@ unsafe extern "C" {
     ) -> LY_ERR::Type;
 }
 unsafe extern "C" {
+    #[doc = " @brief Print data tree in the specified format.\n\n @param[in] f File stream where to print the data.\n @param[in] root The root element of the (sub)tree to print.\n @param[in] format Output format.\n @param[in] options [Data printer flags](@ref dataprinterflags).\n @return LY_ERR value."]
     pub fn lyd_print_file(
         f: *mut FILE,
         root: *const lyd_node,
@@ -17369,6 +11568,7 @@ unsafe extern "C" {
     ) -> LY_ERR::Type;
 }
 unsafe extern "C" {
+    #[doc = " @brief Print data tree in the specified format.\n\n @param[in] path File path where to print the data.\n @param[in] root The root element of the (sub)tree to print.\n @param[in] format Output format.\n @param[in] options [Data printer flags](@ref dataprinterflags).\n @return LY_ERR value."]
     pub fn lyd_print_path(
         path: *const ::std::os::raw::c_char,
         root: *const lyd_node,
@@ -17377,6 +11577,7 @@ unsafe extern "C" {
     ) -> LY_ERR::Type;
 }
 unsafe extern "C" {
+    #[doc = " @brief Print data tree in the specified format.\n\n @param[in] writeclb Callback function to write the data (see write(1)).\n @param[in] user_data Optional caller-specific argument to be passed to the \\p writeclb callback.\n @param[in] root The root element of the (sub)tree to print.\n @param[in] format Output format.\n @param[in] options [Data printer flags](@ref dataprinterflags).\n @return LY_ERR value."]
     pub fn lyd_print_clb(
         writeclb: ly_write_clb,
         user_data: *mut ::std::os::raw::c_void,
@@ -17386,23 +11587,32 @@ unsafe extern "C" {
     ) -> LY_ERR::Type;
 }
 unsafe extern "C" {
+    #[doc = " @brief Check whether the node should be printed based on the printing options.\n\n @param[in] node Node to check.\n @param[in] options [Data printer flags](@ref dataprinterflags).\n @return 0 if not,\n @return non-0 if should be printed."]
     pub fn lyd_node_should_print(
         node: *const lyd_node,
         options: u32,
     ) -> ly_bool;
 }
 unsafe extern "C" {
+    #[doc = " @brief Check whether the metadata should be printed.\n\n @param[in] meta Metadata to check.\n @return 0 if not,\n @return non-0 if should be printed."]
     pub fn lyd_metadata_should_print(meta: *const lyd_meta) -> ly_bool;
 }
 pub mod LYS_OUTFORMAT {
+    #[doc = " @brief Schema output formats accepted by libyang [printer functions](@ref howtoSchemaPrinters)."]
     pub type Type = ::std::os::raw::c_uint;
+    #[doc = "< unknown format, used as return value in case of error"]
     pub const LYS_OUT_UNKNOWN: Type = 0;
+    #[doc = "< YANG schema output format"]
     pub const LYS_OUT_YANG: Type = 1;
+    #[doc = "< YANG schema output format of the compiled schema tree"]
     pub const LYS_OUT_YANG_COMPILED: Type = 2;
+    #[doc = "< YIN schema output format"]
     pub const LYS_OUT_YIN: Type = 3;
+    #[doc = "< Tree schema output format"]
     pub const LYS_OUT_TREE: Type = 4;
 }
 unsafe extern "C" {
+    #[doc = " @brief Schema module printer.\n\n @param[in] out Printer handler for a specific output. Use ly_out_*() functions to create and free the handler.\n @param[in] module Main module with the parsed schema to print.\n @param[in] format Output format.\n @param[in] line_length Maximum characters to be printed on a line, 0 for unlimited. Only for #LYS_OUT_TREE printer.\n @param[in] options Schema output options (see @ref schemaprinterflags).\n @return LY_ERR value."]
     pub fn lys_print_module(
         out: *mut ly_out,
         module: *const lys_module,
@@ -17412,6 +11622,7 @@ unsafe extern "C" {
     ) -> LY_ERR::Type;
 }
 unsafe extern "C" {
+    #[doc = " @brief Schema submodule printer.\n\n @param[in] out Printer handler for a specific output. Use ly_out_*() functions to create and free the handler.\n @param[in] submodule Parsed submodule to print.\n @param[in] format Output format (LYS_OUT_YANG_COMPILED is not supported).\n @param[in] line_length Maximum characters to be printed on a line, 0 for unlimited. Only for #LYS_OUT_TREE printer.\n @param[in] options Schema output options (see @ref schemaprinterflags).\n @return LY_ERR value."]
     pub fn lys_print_submodule(
         out: *mut ly_out,
         submodule: *const lysp_submodule,
@@ -17421,6 +11632,7 @@ unsafe extern "C" {
     ) -> LY_ERR::Type;
 }
 unsafe extern "C" {
+    #[doc = " @brief Print schema tree in the specified format into a memory block.\n It is up to caller to free the returned string by free().\n\n This is just a wrapper around ::lys_print_module() for simple use cases.\n In case of a complex use cases, use lys_print with ly_out output handler.\n\n @param[out] strp Pointer to store the resulting dump.\n @param[in] module Schema tree to print.\n @param[in] format Schema output format.\n @param[in] options Schema output options (see @ref schemaprinterflags).\n @return LY_ERR value."]
     pub fn lys_print_mem(
         strp: *mut *mut ::std::os::raw::c_char,
         module: *const lys_module,
@@ -17429,6 +11641,7 @@ unsafe extern "C" {
     ) -> LY_ERR::Type;
 }
 unsafe extern "C" {
+    #[doc = " @brief Print schema tree in the specified format into a file descriptor.\n\n This is just a wrapper around ::lys_print_module() for simple use cases.\n In case of a complex use cases, use lys_print with ly_out output handler.\n\n @param[in] fd File descriptor where to print the data.\n @param[in] module Schema tree to print.\n @param[in] format Schema output format.\n @param[in] options Schema output options (see @ref schemaprinterflags).\n @return LY_ERR value."]
     pub fn lys_print_fd(
         fd: ::std::os::raw::c_int,
         module: *const lys_module,
@@ -17437,6 +11650,7 @@ unsafe extern "C" {
     ) -> LY_ERR::Type;
 }
 unsafe extern "C" {
+    #[doc = " @brief Print schema tree in the specified format into a file stream.\n\n This is just a wrapper around ::lys_print_module() for simple use cases.\n In case of a complex use cases, use lys_print with ly_out output handler.\n\n @param[in] module Schema tree to print.\n @param[in] f File stream where to print the schema.\n @param[in] format Schema output format.\n @param[in] options Schema output options (see @ref schemaprinterflags).\n @return LY_ERR value."]
     pub fn lys_print_file(
         f: *mut FILE,
         module: *const lys_module,
@@ -17445,6 +11659,7 @@ unsafe extern "C" {
     ) -> LY_ERR::Type;
 }
 unsafe extern "C" {
+    #[doc = " @brief Print schema tree in the specified format into a file.\n\n This is just a wrapper around ::lys_print_module() for simple use cases.\n In case of a complex use cases, use lys_print with ly_out output handler.\n\n @param[in] path File where to print the schema.\n @param[in] module Schema tree to print.\n @param[in] format Schema output format.\n @param[in] options Schema output options (see @ref schemaprinterflags).\n @return LY_ERR value."]
     pub fn lys_print_path(
         path: *const ::std::os::raw::c_char,
         module: *const lys_module,
@@ -17453,6 +11668,7 @@ unsafe extern "C" {
     ) -> LY_ERR::Type;
 }
 unsafe extern "C" {
+    #[doc = " @brief Print schema tree in the specified format using a provided callback.\n\n This is just a wrapper around ::lys_print_module() for simple use cases.\n In case of a complex use cases, use lys_print with ly_out output handler.\n\n @param[in] module Schema tree to print.\n @param[in] writeclb Callback function to write the data (see write(1)).\n @param[in] user_data Optional caller-specific argument to be passed to the \\p writeclb callback.\n @param[in] format Schema output format.\n @param[in] options Schema output options (see @ref schemaprinterflags).\n @return LY_ERR value."]
     pub fn lys_print_clb(
         writeclb: ly_write_clb,
         user_data: *mut ::std::os::raw::c_void,
@@ -17462,6 +11678,7 @@ unsafe extern "C" {
     ) -> LY_ERR::Type;
 }
 unsafe extern "C" {
+    #[doc = " @brief Schema node printer.\n\n @param[in] out Printer handler for a specific output. Use ly_out_*() functions to create and free the handler.\n @param[in] node Schema node to print.\n @param[in] format Output format.\n @param[in] line_length Maximum characters to be printed on a line, 0 for unlimited. Only for #LYS_OUT_TREE printer.\n @param[in] options Schema output options (see @ref schemaprinterflags).\n @return LY_ERR value."]
     pub fn lys_print_node(
         out: *mut ly_out,
         node: *const lysc_node,
@@ -17470,18 +11687,24 @@ unsafe extern "C" {
         options: u32,
     ) -> LY_ERR::Type;
 }
+#[doc = " @brief Structure to hold a set of (not necessary somehow connected) objects. Usually used for lyd_node,\n ::lysp_node or ::lysc_node objects, but it is not limited to them. Caller is supposed to not mix the type of objects\n added to the set and according to its knowledge about the set content, it can access objects via the members\n of the set union.\n\n Until ::ly_set_rm() or ::ly_set_rm_index() is used, the set keeps the order of the inserted items as they\n were added into the set, so the first added item is on array index 0.\n\n To free the structure, use ::ly_set_free() function, to manipulate with the structure, use other\n ly_set_* functions."]
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct ly_set {
+    #[doc = "< allocated size of the set array"]
     pub size: u32,
+    #[doc = "< number of elements in (used size of) the set array"]
     pub count: u32,
     pub __bindgen_anon_1: ly_set__bindgen_ty_1,
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub union ly_set__bindgen_ty_1 {
+    #[doc = "< set array of data nodes"]
     pub dnodes: *mut *mut lyd_node,
+    #[doc = "< set array of schema nodes"]
     pub snodes: *mut *mut lysc_node,
+    #[doc = "< set array of generic object pointers"]
     pub objs: *mut *mut ::std::os::raw::c_void,
 }
 #[allow(clippy::unnecessary_operation, clippy::identity_op)]
@@ -17525,9 +11748,11 @@ impl Default for ly_set {
     }
 }
 unsafe extern "C" {
+    #[doc = " @brief Create and initiate new ::ly_set structure.\n\n @param[out] set_p Pointer to store the created ::ly_set structure.\n @return LY_SUCCESS on success.\n @return LY_EINVAL in case of NULL @p set parameter.\n @return LY_EMEM in case of memory allocation failure."]
     pub fn ly_set_new(set_p: *mut *mut ly_set) -> LY_ERR::Type;
 }
 unsafe extern "C" {
+    #[doc = " @brief Duplicate the existing set.\n\n @param[in] set Original set to duplicate\n @param[in] duplicator Optional pointer to function that duplicates the objects stored\n in the original set. If not provided, the new set points to the exact same objects as\n the original set.\n @param[out] newset_p Pointer to return the duplication of the original set.\n @return LY_SUCCESS in case the data were successfully duplicated.\n @return LY_EMEM in case of memory allocation failure.\n @return LY_EINVAL in case of invalid parameters."]
     pub fn ly_set_dup(
         set: *const ly_set,
         duplicator: ::std::option::Option<
@@ -17539,6 +11764,7 @@ unsafe extern "C" {
     ) -> LY_ERR::Type;
 }
 unsafe extern "C" {
+    #[doc = " @brief Add an object into the set\n\n @param[in] set Set where the @p object will be added.\n @param[in] object Object to be added into the @p set;\n @param[in] list flag to handle set as a list (without checking for (ignoring) duplicit items)\n @param[out] index_p Optional pointer to return index of the added @p object. Usually it is the last index (::ly_set::count - 1),\n but in case the duplicities are checked and the object is already in the set, the @p object is not added and index of the\n already present object is returned.\n @return LY_SUCCESS in case of success\n @return LY_EINVAL in case of invalid input parameters.\n @return LY_EMEM in case of memory allocation failure."]
     pub fn ly_set_add(
         set: *mut ly_set,
         object: *const ::std::os::raw::c_void,
@@ -17547,6 +11773,7 @@ unsafe extern "C" {
     ) -> LY_ERR::Type;
 }
 unsafe extern "C" {
+    #[doc = " @brief Add all objects from @p src to @p trg.\n\n Since it is a set, the function checks for duplicities.\n\n @param[in] trg Target (result) set.\n @param[in] src Source set.\n @param[in] list flag to handle set as a list (without checking for (ignoring) duplicit items)\n @param[in] duplicator Optional pointer to function that duplicates the objects being added\n from @p src into @p trg set. If not provided, the @p trg set will point to the exact same\n objects as the @p src set.\n @return LY_SUCCESS in case of success\n @return LY_EINVAL in case of invalid input parameters.\n @return LY_EMEM in case of memory allocation failure."]
     pub fn ly_set_merge(
         trg: *mut ly_set,
         src: *const ly_set,
@@ -17559,6 +11786,7 @@ unsafe extern "C" {
     ) -> LY_ERR::Type;
 }
 unsafe extern "C" {
+    #[doc = " @brief Learn whether the set contains the specified object.\n\n @param[in] set Set to explore.\n @param[in] object Object to be found in the set.\n @param[out] index_p Optional pointer to return index of the searched @p object.\n @return Boolean value whether the @p object was found in the @p set."]
     pub fn ly_set_contains(
         set: *const ly_set,
         object: *const ::std::os::raw::c_void,
@@ -17566,6 +11794,7 @@ unsafe extern "C" {
     ) -> ly_bool;
 }
 unsafe extern "C" {
+    #[doc = " @brief Remove all objects from the set, but keep the set container for further use.\n\n @param[in] set Set to clean.\n @param[in] destructor Optional function to free the objects in the set."]
     pub fn ly_set_clean(
         set: *mut ly_set,
         destructor: ::std::option::Option<
@@ -17574,6 +11803,7 @@ unsafe extern "C" {
     );
 }
 unsafe extern "C" {
+    #[doc = " @brief Remove an object from the set.\n\n Note that after removing the object from a set, indexes of other objects in the set can change\n (the last object is placed instead of the removed object).\n\n @param[in] set Set from which to remove.\n @param[in] object The object to be removed from the @p set.\n @param[in] destructor Optional function to free the objects being removed.\n @return LY_ERR return value."]
     pub fn ly_set_rm(
         set: *mut ly_set,
         object: *mut ::std::os::raw::c_void,
@@ -17583,6 +11813,7 @@ unsafe extern "C" {
     ) -> LY_ERR::Type;
 }
 unsafe extern "C" {
+    #[doc = " @brief Remove an object on the specific set index.\n\n Note that after removing the object from a set, indexes of other nodes in the set can change\n (the last object is placed instead of the removed object).\n\n @param[in] set Set from which to remove.\n @param[in] index Index of the object to remove in the @p set.\n @param[in] destructor Optional function to free the objects being removed.\n @return LY_ERR return value."]
     pub fn ly_set_rm_index(
         set: *mut ly_set,
         index: u32,
@@ -17592,6 +11823,7 @@ unsafe extern "C" {
     ) -> LY_ERR::Type;
 }
 unsafe extern "C" {
+    #[doc = " @brief Remove an object on the specific set index.\n\n Unlike ::ly_set_rm_index(), this function moves all the items following the removed one.\n\n @param[in] set Set from which to remove.\n @param[in] index Index of the object to remove in the @p set.\n @param[in] destructor Optional function to free the objects being removed.\n @return LY_ERR return value."]
     pub fn ly_set_rm_index_ordered(
         set: *mut ly_set,
         index: u32,
@@ -17601,6 +11833,7 @@ unsafe extern "C" {
     ) -> LY_ERR::Type;
 }
 unsafe extern "C" {
+    #[doc = " @brief Free the ::ly_set data. If the destructor is not provided, it frees only the set structure\n content, not the referred data.\n\n @param[in] set The set to be freed.\n @param[in] destructor Optional function to free the objects in the set."]
     pub fn ly_set_free(
         set: *mut ly_set,
         destructor: ::std::option::Option<
@@ -17609,6 +11842,7 @@ unsafe extern "C" {
     );
 }
 unsafe extern "C" {
+    #[doc = " @brief Alternative to the ::ly_set_free() for static ::ly_set objects - in contrast to ::ly_set_free()\n it does not free the provided ::ly_set object.\n\n @param[in] set The set to be erased.\n @param[in] destructor Optional function to free the objects in the set."]
     pub fn ly_set_erase(
         set: *mut ly_set,
         destructor: ::std::option::Option<
@@ -17616,10 +11850,9 @@ unsafe extern "C" {
         >,
     );
 }
-pub type __builtin_va_list = *mut ::std::os::raw::c_char;
+#[doc = "< hash table with all the direct children (except keys for a list, lists without keys)"]
 #[repr(C)]
 #[derive(Debug, Default, Copy, Clone)]
 pub struct ly_ht {
     pub _address: u8,
 }
-pub type __uint128_t = u128;

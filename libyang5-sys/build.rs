@@ -21,7 +21,16 @@ fn main() {
         let mut builder = bindgen::Builder::default()
             .header("wrapper.h")
             .derive_default(true)
-            .default_enum_style(bindgen::EnumVariation::ModuleConsts);
+            .default_enum_style(bindgen::EnumVariation::ModuleConsts)
+            // Bind libyang's own declarations, plus the free() its callers
+            // need to release the strings it hands out.
+            .allowlist_file(".*/libyang/.*\\.h")
+            .allowlist_function("free")
+            // Plugin directories baked in by libyang's own build. They are of
+            // no use from Rust, and keeping them would tie the pre-generated
+            // bindings to the machine they were generated on.
+            .blocklist_item("LYPLG_TYPE_DIR")
+            .blocklist_item("LYPLG_EXT_DIR");
         for path in &include_paths {
             builder = builder.clang_arg(format!("-I{}", path.display()));
         }

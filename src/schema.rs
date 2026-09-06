@@ -1040,7 +1040,7 @@ impl<'a> SchemaNode<'a> {
     /// Array of when statements.
     pub fn whens(&self) -> Array<'_, SchemaStmtWhen<'_>> {
         let array = unsafe { ffi::lysc_node_when(self.raw) };
-        let ptr_size = mem::size_of::<ffi::lysc_when>();
+        let ptr_size = mem::size_of::<*mut ffi::lysc_when>();
         Array::new(self.context, array as *mut _, ptr_size)
     }
 

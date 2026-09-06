@@ -739,8 +739,13 @@ impl<'a> DataTree<'a> {
 
     /// Remove a data node.
     pub fn remove(&mut self, path: &str) -> Result<()> {
-        let dnode = self.find_path(path)?;
-        unsafe { ffi::lyd_free_tree(dnode.raw) };
+        let raw = self.find_path(path)?.raw;
+        // Re-anchor before freeing: `lyd_free_tree()` unlinks and frees `raw`,
+        // so reading `(*raw).next` afterwards would itself be a use-after-free.
+        if raw == self.raw {
+            self.raw = unsafe { (*raw).next };
+        }
+        unsafe { ffi::lyd_free_tree(raw) };
         Ok(())
     }
 

@@ -1181,6 +1181,28 @@ impl<'a> DataTreeOwningRef<'a> {
         unsafe { tree.tree.reroot(tree.raw) };
         Ok(tree)
     }
+
+    /// Validate RPC input against an optional reference tree. 
+    pub fn validate_op(&mut self, ref_tree: Option<&DataTree<'_>>, op: DataOperation) -> Result<()> {
+        
+        let ref_raw = ref_tree.map(|t| t.raw).unwrap_or(std::ptr::null_mut());
+
+        let ret = unsafe {
+            ffi::lyd_validate_op(
+                self.raw,
+                ref_raw,
+                op as u32,
+                std::ptr::null_mut(),
+            )
+        };
+
+        if ret != ffi::LY_ERR::LY_SUCCESS {
+            return Err(Error::new(self.context()));
+        }
+        
+        Ok(())
+    }
+
 }
 
 impl<'a> From<DataTree<'a>> for DataTreeOwningRef<'a> {

@@ -51,6 +51,10 @@ module yang-rs-test {
     leaf big {
       type uint64;
     }
+    leaf timeout {
+      type uint16;
+      default "30";
+    }
     leaf ratio {
       type decimal64 {
         fraction-digits 2;

@@ -853,6 +853,40 @@ fn data_is_default() {
 }
 
 #[test]
+fn data_is_implicit() {
+    let mut ctx = Context::new(ContextFlags::NO_YANGLIBRARY)
+        .expect("Failed to create context");
+    ctx.set_searchdir(SEARCH_DIR)
+        .expect("Failed to set YANG search directory");
+    ctx.load_module("yang-rs-test", None, &[])
+        .expect("Failed to load module");
+
+    // Validation adds the default nodes.
+    let mut dtree = DataTree::new(&ctx);
+    dtree
+        .new_path("/yang-rs-test:types/name", Some("abc"), false)
+        .expect("Failed to edit data tree");
+    dtree
+        .validate(DataValidationFlags::PRESENT)
+        .expect("Failed to validate data tree");
+    let dnode = dtree
+        .find_path("/yang-rs-test:types/timeout")
+        .expect("Failed to lookup data");
+    assert!(dnode.is_implicit());
+    assert!(dnode.is_default());
+
+    // Explicitly configured default values.
+    dtree
+        .new_path("/yang-rs-test:types/timeout", Some("30"), false)
+        .expect("Failed to edit data tree");
+    let dnode = dtree
+        .find_path("/yang-rs-test:types/timeout")
+        .expect("Failed to lookup data");
+    assert!(!dnode.is_implicit());
+    assert!(dnode.is_default());
+}
+
+#[test]
 fn data_validate_using_yang_library() {
     let ctx = create_yang_library_context();
     let mut dtree1 = parse_json_data(&ctx, JSON_TREE1);

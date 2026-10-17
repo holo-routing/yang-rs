@@ -1330,6 +1330,14 @@ impl<'a> DataNodeRef<'a> {
         }
     }
 
+    /// Returns whether the node was created implicitly, holding its default
+    /// value, as opposed to configured explicitly (even if with the default
+    /// value, which `is_default()` doesn't tell apart).
+    pub fn is_implicit(&self) -> bool {
+        let flags = unsafe { (*self.raw).flags };
+        flags & ffi::LYD_DEFAULT != 0
+    }
+
     /// Check whether a node value equals to its default one.
     pub fn is_default(&self) -> bool {
         match self.schema().kind() {

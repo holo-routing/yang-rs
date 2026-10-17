@@ -1,5 +1,6 @@
 use std::collections::BTreeSet;
 use std::path::Path;
+use std::sync::{Arc, Mutex};
 use yang5::context::{Context, ContextFlags};
 use yang5::data::DataFormat;
 use yang5::iter::IterSchemaFlags;
@@ -921,6 +922,51 @@ fn test_parse_schema_from_str() {
 
     assert!(valid_module.is_ok_and(|x| x.name() == "ietf-routing"));
     assert!(invalid_module.is_err());
+}
+
+#[test]
+fn context_module_importer() {
+    let mut ctx = Context::new(
+        ContextFlags::NO_YANGLIBRARY | ContextFlags::DISABLE_SEARCHDIR_CWD,
+    )
+    .expect("Failed to create context");
+    let requests = Arc::new(Mutex::new(vec![]));
+    let requests_cb = requests.clone();
+    ctx.set_module_importer(move |request| {
+        requests_cb
+            .lock()
+            .unwrap()
+            .push(request.module_name.to_owned());
+        match request.module_name {
+            "yang-rs-test" => std::fs::read_to_string(
+                Path::new(SEARCH_DIR).join("yang-rs-test.yang"),
+            )
+            .ok()
+            .map(|data| (SchemaInputFormat::YANG, data)),
+            _ => None,
+        }
+    });
+    ctx.load_module("yang-rs-test", None, &[])
+        .expect("Failed to load module");
+    assert!(ctx.load_module("missing", None, &[]).is_err());
+    let requests = requests.lock().unwrap().clone();
+    assert!(requests.contains(&"yang-rs-test".to_owned()));
+    assert!(requests.contains(&"missing".to_owned()));
+
+    // Panics are contained.
+    ctx.set_module_importer(|_| panic!("importer panic"));
+    assert!(ctx.load_module("other", None, &[]).is_err());
+
+    // The closure is freed when replaced.
+    let token = Arc::new(());
+    let token_cb = token.clone();
+    ctx.set_module_importer(move |_| {
+        let _ = &token_cb;
+        None
+    });
+    assert_eq!(Arc::strong_count(&token), 2);
+    ctx.unset_embedded_modules();
+    assert_eq!(Arc::strong_count(&token), 1);
 }
 
 #[test]

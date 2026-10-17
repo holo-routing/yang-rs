@@ -13,12 +13,12 @@ use std::mem::ManuallyDrop;
 use std::os::raw::{c_char, c_void};
 use std::path::Path;
 use std::slice;
-use std::sync::Once;
+use std::sync::{Mutex, Once};
 
 use crate::data::DataFormat;
 use crate::error::{Error, Result};
 use crate::iter::{SchemaModules, Set};
-use crate::schema::{SchemaModule, SchemaNode};
+use crate::schema::{SchemaInputFormat, SchemaModule, SchemaNode};
 use crate::{logging, utils::*};
 use libyang5_sys as ffi;
 
@@ -27,10 +27,30 @@ use libyang5_sys as ffi;
 /// [Official C documentation]
 ///
 /// [Official C documentation]: https://netopeer.liberouter.org/doc/libyang/master/html/howto_context.html
-#[derive(Debug, PartialEq)]
 pub struct Context {
     pub(crate) raw: *mut ffi::ly_ctx,
+    // Closure retrieving missing modules, which libyang may call as long as
+    // the context exists.
+    importer: Option<Box<Mutex<ModuleImporter>>>,
 }
+
+/// Module (or submodule) missing from the context, requested from the closure
+/// set with `Context::set_module_importer()`.
+#[derive(Clone, Copy, Debug)]
+pub struct ModuleImportRequest<'a> {
+    pub module_name: &'a str,
+    /// Requested module revision, if not the latest one.
+    pub module_revision: Option<&'a str>,
+    /// Requested submodule of the module, if any.
+    pub submodule_name: Option<&'a str>,
+    /// Requested submodule revision, if not the latest one.
+    pub submodule_revision: Option<&'a str>,
+}
+
+type ModuleImporter = Box<
+    dyn FnMut(&ModuleImportRequest<'_>) -> Option<(SchemaInputFormat, String)>
+        + Send,
+>;
 
 bitflags! {
     /// Options to change context behavior.
@@ -125,7 +145,10 @@ impl Context {
             });
         }
 
-        Ok(Context { raw: context })
+        Ok(Context {
+            raw: context,
+            importer: None,
+        })
     }
 
     /// Creates libyang context from a YANG Library
@@ -171,7 +194,10 @@ impl Context {
             });
         }
 
-        Ok(Context { raw: context })
+        Ok(Context {
+            raw: context,
+            importer: None,
+        })
     }
 
     /// Creates libyang context from a YANG Library
@@ -218,7 +244,10 @@ impl Context {
             });
         }
 
-        Ok(Context { raw: context })
+        Ok(Context {
+            raw: context,
+            importer: None,
+        })
     }
 
     /// Set the log level to [`ffi::LY_LOG_LEVEL::LY_LLDBG`]
@@ -339,6 +368,7 @@ impl Context {
                 modules as *const _ as *mut c_void,
             )
         };
+        self.importer = None;
     }
 
     /// Remove all embedded modules from the libyang context.
@@ -346,6 +376,40 @@ impl Context {
         unsafe {
             ffi::ly_ctx_set_module_imp_clb(self.raw, None, std::ptr::null_mut())
         };
+        self.importer = None;
+    }
+
+    /// Set a closure retrieving the modules (or submodules) that are missing
+    /// from the context when loading them, or when loaded modules import or
+    /// include them, such as by downloading them from a server. The closure
+    /// returns the module's data and its format, or None if the module isn't
+    /// available.
+    ///
+    /// The closure is called before looking in the search directories, which
+    /// are only used if it returns None. With
+    /// `ContextFlags::PREFER_SEARCHDIRS`, it's only called for the modules
+    /// not found in them.
+    ///
+    /// The closure replaces any embedded modules or callback set earlier. It
+    /// can be removed with `unset_embedded_modules()`.
+    pub fn set_module_importer<F>(&mut self, importer: F)
+    where
+        F: FnMut(
+                &ModuleImportRequest<'_>,
+            ) -> Option<(SchemaInputFormat, String)>
+            + Send
+            + 'static,
+    {
+        let importer: Box<Mutex<ModuleImporter>> =
+            Box::new(Mutex::new(Box::new(importer)));
+        unsafe {
+            ffi::ly_ctx_set_module_imp_clb(
+                self.raw,
+                Some(module_importer_cb),
+                &*importer as *const _ as *mut c_void,
+            )
+        };
+        self.importer = Some(importer);
     }
 
     /// Set missing include or import module callback. It is meant to be used
@@ -364,6 +428,7 @@ impl Context {
                 user_data,
             )
         };
+        self.importer = None;
     }
 
     /// Get the currently set context's options.
@@ -690,6 +755,18 @@ impl Context {
     }
 }
 
+impl std::fmt::Debug for Context {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.debug_struct("Context").field("raw", &self.raw).finish()
+    }
+}
+
+impl PartialEq for Context {
+    fn eq(&self, other: &Context) -> bool {
+        self.raw == other.raw
+    }
+}
+
 unsafe impl Send for Context {}
 unsafe impl Sync for Context {}
 
@@ -742,7 +819,10 @@ unsafe impl<'a> Binding<'a> for Context {
     type Container = ();
 
     unsafe fn from_raw(_: &'a Self::Container, raw: *mut Self::CType) -> Self {
-        Self { raw }
+        Self {
+            raw,
+            importer: None,
+        }
     }
 }
 
@@ -801,4 +881,76 @@ unsafe extern "C" fn ly_module_import_cb(
     }
 
     ffi::LY_ERR::LY_ENOTFOUND
+}
+
+// Module import callback calling the closure set with
+// `Context::set_module_importer()`.
+unsafe extern "C" fn module_importer_cb(
+    mod_name: *const c_char,
+    mod_rev: *const c_char,
+    submod_name: *const c_char,
+    submod_rev: *const c_char,
+    user_data: *mut c_void,
+    format: *mut ffi::LYS_INFORMAT::Type,
+    module_data: *mut *const c_char,
+    free_module_data: *mut ffi::ly_module_imp_data_free_clb,
+) -> ffi::LY_ERR::Type {
+    let opt_str = |ptr: *const c_char| -> Option<Option<&str>> {
+        if ptr.is_null() {
+            return Some(None);
+        }
+        unsafe { std::ffi::CStr::from_ptr(ptr) }
+            .to_str()
+            .ok()
+            .map(Some)
+    };
+    let (
+        Some(Some(module_name)),
+        Some(module_revision),
+        Some(submodule_name),
+        Some(submodule_revision),
+    ) = (
+        opt_str(mod_name),
+        opt_str(mod_rev),
+        opt_str(submod_name),
+        opt_str(submod_rev),
+    )
+    else {
+        return ffi::LY_ERR::LY_ENOTFOUND;
+    };
+    let request = ModuleImportRequest {
+        module_name,
+        module_revision,
+        submodule_name,
+        submodule_revision,
+    };
+
+    let importer = unsafe { &*(user_data as *const Mutex<ModuleImporter>) };
+    let Ok(mut importer) = importer.lock() else {
+        return ffi::LY_ERR::LY_ENOTFOUND;
+    };
+    // Panics must not unwind into libyang.
+    let result = std::panic::catch_unwind(std::panic::AssertUnwindSafe(|| {
+        importer(&request)
+    }));
+    let Ok(Some((input_format, data))) = result else {
+        return ffi::LY_ERR::LY_ENOTFOUND;
+    };
+    let Ok(data) = CString::new(data) else {
+        return ffi::LY_ERR::LY_ENOTFOUND;
+    };
+    unsafe {
+        *format = input_format as ffi::LYS_INFORMAT::Type;
+        *module_data = data.into_raw();
+        *free_module_data = Some(free_module_data_cb);
+    }
+    ffi::LY_ERR::LY_SUCCESS
+}
+
+// Frees the module data returned by `module_importer_cb()`.
+unsafe extern "C" fn free_module_data_cb(
+    module_data: *mut c_void,
+    _user_data: *mut c_void,
+) {
+    drop(unsafe { CString::from_raw(module_data as *mut c_char) });
 }

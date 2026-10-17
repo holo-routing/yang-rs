@@ -886,6 +886,92 @@ fn data_is_implicit() {
     assert!(dnode.is_default());
 }
 
+fn create_test_context() -> Context {
+    let mut ctx = Context::new(ContextFlags::NO_YANGLIBRARY)
+        .expect("Failed to create context");
+    ctx.set_searchdir(SEARCH_DIR)
+        .expect("Failed to set YANG search directory");
+    ctx.load_module("yang-rs-test", None, &[])
+        .expect("Failed to load module");
+    ctx
+}
+
+#[test]
+fn data_must_evaluation() {
+    let ctx = create_test_context();
+    let snode = ctx.find_path("/yang-rs-test:constraints/limit").unwrap();
+    let musts = snode.musts().unwrap().collect::<Vec<_>>();
+
+    let evaluate = |limit, max| {
+        let mut dtree = DataTree::new(&ctx);
+        dtree
+            .new_path("/yang-rs-test:constraints/limit", Some(limit), false)
+            .unwrap();
+        dtree
+            .new_path("/yang-rs-test:constraints/max", Some(max), false)
+            .unwrap();
+        let dnode = dtree.find_path("/yang-rs-test:constraints/limit").unwrap();
+        musts
+            .iter()
+            .map(|must| must.evaluate(&dnode).unwrap())
+            .collect::<Vec<_>>()
+    };
+    assert_eq!(evaluate("60", "100"), [false, true]);
+    assert_eq!(evaluate("10", "5"), [true, false]);
+}
+
+#[test]
+fn data_eval_when() {
+    let ctx = create_test_context();
+    let ospf = ctx.find_path("/yang-rs-test:constraints/ospf").unwrap();
+    let burst = ctx.find_path("/yang-rs-test:constraints/burst").unwrap();
+    let advanced = ctx.find_path("/yang-rs-test:advanced").unwrap();
+    let top_burst = ctx.find_path("/yang-rs-test:top-burst").unwrap();
+    let parent = Some("/yang-rs-test:constraints");
+    let print = |dtree: &DataTree<'_>| {
+        dtree
+            .print_string(DataFormat::JSON, DataPrinterFlags::WITH_SIBLINGS)
+            .unwrap()
+    };
+
+    let mut dtree = DataTree::new(&ctx);
+    dtree
+        .new_path("/yang-rs-test:constraints/level", Some("low"), false)
+        .unwrap();
+    let before = print(&dtree);
+    assert!(!dtree.eval_when(parent, &ospf).unwrap());
+    assert!(!dtree.eval_when(parent, &burst).unwrap());
+    assert!(!dtree.eval_when(None, &advanced).unwrap());
+    assert!(!dtree.eval_when(None, &top_burst).unwrap());
+    // The data tree is left untouched.
+    assert_eq!(print(&dtree), before);
+
+    dtree
+        .new_path("/yang-rs-test:constraints/protocol", Some("ospfv2"), false)
+        .unwrap();
+    dtree
+        .new_path("/yang-rs-test:constraints/level", Some("high"), false)
+        .unwrap();
+    assert!(dtree.eval_when(parent, &ospf).unwrap());
+    assert!(dtree.eval_when(parent, &burst).unwrap());
+    assert!(dtree.eval_when(None, &advanced).unwrap());
+    assert!(dtree.eval_when(None, &top_burst).unwrap());
+
+    // Nodes without conditions, and missing parents.
+    let level = ctx.find_path("/yang-rs-test:constraints/level").unwrap();
+    assert!(dtree.eval_when(parent, &level).unwrap());
+    assert!(dtree.eval_when(Some("/yang-rs-test:types"), &ospf).is_err());
+    assert!(dtree
+        .eval_when(Some("/yang-rs-test:types"), &level)
+        .is_err());
+
+    // Top-level nodes of empty data trees.
+    let mut dtree = DataTree::new(&ctx);
+    assert!(!dtree.eval_when(None, &advanced).unwrap());
+    assert!(!dtree.eval_when(None, &top_burst).unwrap());
+    assert!(dtree.reference().is_none());
+}
+
 #[test]
 fn data_validate_using_yang_library() {
     let ctx = create_yang_library_context();

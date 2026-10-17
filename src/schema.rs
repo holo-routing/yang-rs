@@ -15,6 +15,7 @@ use std::os::raw::{c_char, c_void};
 use std::slice;
 
 use crate::context::Context;
+use crate::data::{Data, DataNodeRef};
 use crate::error::{Error, Result};
 use crate::iter::{
     Ancestors, Array, Getnext, IterSchemaFlags, NodeIterable, Set, Siblings,
@@ -115,15 +116,15 @@ pub enum SchemaNodeKind {
 /// YANG must substatement.
 #[derive(Clone, Debug)]
 pub struct SchemaStmtMust<'a> {
+    context: &'a Context,
     raw: *mut ffi::lysc_must,
-    _marker: std::marker::PhantomData<&'a Context>,
 }
 
 /// YANG when substatement.
 #[derive(Clone, Debug)]
 pub struct SchemaStmtWhen<'a> {
+    context: &'a Context,
     raw: *mut ffi::lysc_when,
-    _marker: std::marker::PhantomData<&'a Context>,
 }
 
 /// YANG leaf(-list) type.
@@ -1133,14 +1134,14 @@ impl<'a> SchemaNode<'a> {
     }
 
     /// Array of must restrictions.
-    pub fn musts(&self) -> Option<Array<'_, SchemaStmtMust<'_>>> {
+    pub fn musts(&self) -> Option<Array<'a, SchemaStmtMust<'a>>> {
         let array = unsafe { ffi::lysc_node_musts(self.raw) };
         let ptr_size = mem::size_of::<ffi::lysc_must>();
         Some(Array::new(self.context, array as *mut _, ptr_size))
     }
 
     /// Array of when statements.
-    pub fn whens(&self) -> Array<'_, SchemaStmtWhen<'_>> {
+    pub fn whens(&self) -> Array<'a, SchemaStmtWhen<'a>> {
         let array = unsafe { ffi::lysc_node_when(self.raw) };
         let ptr_size = mem::size_of::<*mut ffi::lysc_when>();
         Array::new(self.context, array as *mut _, ptr_size)
@@ -1369,13 +1370,62 @@ unsafe impl Sync for SchemaNode<'_> {}
 
 // ===== impl SchemaStmtMust =====
 
-impl SchemaStmtMust<'_> {
-    // TODO: XPath condition
-
+impl<'a> SchemaStmtMust<'a> {
     /// Returns a mutable raw pointer to the underlying C library representation
     /// of the must statement.
     pub fn as_raw(&self) -> *mut ffi::lysc_must {
         self.raw
+    }
+
+    /// XPath condition.
+    pub fn condition(&self) -> &str {
+        char_ptr_to_str(unsafe { ffi::lyxp_get_expr((*self.raw).cond) })
+    }
+
+    /// Evaluates the condition for a data node, an instance of the schema
+    /// node the constraint belongs to.
+    pub fn evaluate(&self, dnode: &DataNodeRef<'_>) -> Result<bool> {
+        let module = dnode.schema().module().raw;
+        unsafe {
+            eval_condition(
+                self.context,
+                dnode.raw(),
+                data_root(dnode.raw()),
+                module,
+                (*self.raw).cond,
+                (*self.raw).prefixes,
+            )
+        }
+    }
+
+    /// Returns the schema nodes accessed by the condition, when evaluated for
+    /// the given schema node, the one the constraint belongs to.
+    pub fn atoms(&self, snode: &SchemaNode<'_>) -> Result<Vec<SchemaNode<'a>>> {
+        let mut set = std::ptr::null_mut();
+        let ret = unsafe {
+            ffi::lys_find_expr_atoms(
+                snode.raw,
+                snode.module().raw,
+                (*self.raw).cond,
+                (*self.raw).prefixes,
+                0,
+                &mut set,
+            )
+        };
+        if ret != ffi::LY_ERR::LY_SUCCESS {
+            return Err(Error::new(self.context));
+        }
+        let atoms = unsafe {
+            let count = (*set).count as usize;
+            let snodes = (*set).__bindgen_anon_1.snodes;
+            (0..count)
+                .map(|index| {
+                    SchemaNode::from_raw(self.context, *snodes.add(index))
+                })
+                .collect()
+        };
+        unsafe { ffi::ly_set_free(set, None) };
+        Ok(atoms)
     }
 
     /// description substatement.
@@ -1404,13 +1454,10 @@ unsafe impl<'a> Binding<'a> for SchemaStmtMust<'a> {
     type Container = Context;
 
     unsafe fn from_raw(
-        _context: &'a Context,
+        context: &'a Context,
         raw: *mut ffi::lysc_must,
     ) -> SchemaStmtMust<'a> {
-        SchemaStmtMust {
-            raw,
-            _marker: std::marker::PhantomData,
-        }
+        SchemaStmtMust { context, raw }
     }
 }
 
@@ -1419,13 +1466,25 @@ unsafe impl Sync for SchemaStmtMust<'_> {}
 
 // ===== impl SchemaStmtWhen =====
 
-impl SchemaStmtWhen<'_> {
-    // TODO: XPath condition
-
+impl<'a> SchemaStmtWhen<'a> {
     /// Returns a mutable raw pointer to the underlying C library representation
     /// of the when statement.
     pub fn as_raw(&self) -> *mut ffi::lysc_when {
         self.raw
+    }
+
+    /// XPath condition.
+    pub fn condition(&self) -> &str {
+        char_ptr_to_str(unsafe { ffi::lyxp_get_expr((*self.raw).cond) })
+    }
+
+    /// Schema node of the context node of the condition: the node the
+    /// statement belongs to, the closest data node containing a choice or
+    /// case, or the target of an augment. None for top-level nodes of
+    /// choices, cases and augments.
+    pub fn context_node(&self) -> Option<SchemaNode<'a>> {
+        let context = unsafe { (*self.raw).context };
+        unsafe { SchemaNode::from_raw_opt(self.context, context) }
     }
 
     /// description substatement.
@@ -1444,14 +1503,11 @@ unsafe impl<'a> Binding<'a> for SchemaStmtWhen<'a> {
     type Container = Context;
 
     unsafe fn from_raw(
-        _context: &'a Context,
+        context: &'a Context,
         raw: *mut *mut ffi::lysc_when,
     ) -> SchemaStmtWhen<'a> {
         let raw = unsafe { *raw };
-        SchemaStmtWhen {
-            raw,
-            _marker: std::marker::PhantomData,
-        }
+        SchemaStmtWhen { context, raw }
     }
 }
 
@@ -2039,5 +2095,50 @@ impl DataValue {
                 DataValue::Other(char_ptr_to_string(canonical, false))
             }
         }
+    }
+}
+
+// ===== helper functions =====
+
+/// Evaluates a compiled condition (of a must or when statement) to a boolean.
+pub(crate) unsafe fn eval_condition(
+    context: &Context,
+    ctx_node: *mut ffi::lyd_node,
+    root: *mut ffi::lyd_node,
+    module: *mut ffi::lys_module,
+    cond: *mut ffi::lyxp_expr,
+    prefixes: *mut ffi::lysc_prefix,
+) -> Result<bool> {
+    let mut result = 0;
+    let ret = unsafe {
+        ffi::lyd_eval_xpath4(
+            ctx_node,
+            root,
+            module,
+            ffi::lyxp_get_expr(cond),
+            ffi::LY_VALUE_FORMAT::LY_VALUE_SCHEMA_RESOLVED,
+            prefixes as *mut c_void,
+            std::ptr::null(),
+            std::ptr::null_mut(),
+            std::ptr::null_mut(),
+            std::ptr::null_mut(),
+            std::ptr::null_mut(),
+            &mut result,
+        )
+    };
+    if ret != ffi::LY_ERR::LY_SUCCESS {
+        return Err(Error::new(context));
+    }
+    Ok(result != 0)
+}
+
+/// Returns the first top-level node of the data tree holding a node.
+pub(crate) unsafe fn data_root(node: *mut ffi::lyd_node) -> *mut ffi::lyd_node {
+    unsafe {
+        let mut node = node;
+        while !(*node).parent.is_null() {
+            node = (*node).parent as *mut _;
+        }
+        ffi::lyd_first_sibling(node)
     }
 }

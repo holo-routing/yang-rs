@@ -138,4 +138,59 @@ module yang-rs-test {
       }
     }
   }
+
+  container constraints {
+    leaf protocol {
+      type identityref {
+        base routing-protocol;
+      }
+    }
+    leaf level {
+      type enumeration {
+        enum low;
+        enum high;
+      }
+    }
+    leaf limit {
+      type uint8;
+      must ". <= 50" {
+        error-message
+          "Too high.";
+      }
+      must ". < ../max";
+    }
+    leaf max {
+      type uint8;
+    }
+    container ospf {
+      when "derived-from-or-self(../protocol, 't:ospf')";
+      leaf area {
+        type uint32;
+      }
+    }
+    choice mode {
+      case fast {
+        when "level = 'high'";
+        leaf burst {
+          type uint8;
+        }
+      }
+    }
+  }
+
+  container advanced {
+    when "/t:constraints/t:level = 'high'";
+    leaf enabled {
+      type boolean;
+    }
+  }
+
+  choice top-mode {
+    case top-fast {
+      when "t:constraints/t:level = 'high'";
+      leaf top-burst {
+        type uint8;
+      }
+    }
+  }
 }

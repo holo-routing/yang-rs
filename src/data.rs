@@ -18,7 +18,9 @@ use crate::error::{Error, Result};
 use crate::iter::{
     Ancestors, MetadataList, NodeIterable, Set, Siblings, Traverse,
 };
-use crate::schema::{DataValue, SchemaModule, SchemaNode, SchemaNodeKind};
+use crate::schema::{
+    eval_condition, DataValue, SchemaModule, SchemaNode, SchemaNodeKind,
+};
 use crate::utils::*;
 use libyang5_sys as ffi;
 
@@ -735,6 +737,134 @@ impl<'a> DataTree<'a> {
         }
 
         Ok(unsafe { DataNodeRef::from_raw_opt(self.tree(), rnode) })
+    }
+
+    /// Evaluates the "when" conditions that apply to a schema node (its own,
+    /// and those of the choices and cases containing it) for an instance of
+    /// the node, whether it exists or not.
+    ///
+    /// `parent_path` is the path of the data node holding the instance, or
+    /// None for top-level nodes. An error is returned if that data node
+    /// doesn't exist, or isn't an instance of the schema node's data parent,
+    /// even if there are no conditions to evaluate.
+    ///
+    /// Like libyang does when validating new nodes, the conditions are
+    /// evaluated on a dummy node temporarily added to the data tree. Unlike
+    /// validation, which hides state data from the conditions of configuration
+    /// nodes, they can access the whole data tree, so the result may differ if
+    /// it holds both.
+    pub fn eval_when(
+        &mut self,
+        parent_path: Option<&str>,
+        snode: &SchemaNode<'_>,
+    ) -> Result<bool> {
+        let parent = match parent_path {
+            Some(path) => self.find_path(path)?.raw,
+            None => std::ptr::null_mut(),
+        };
+
+        // libyang doesn't check where the dummy node is added: under an
+        // unrelated node the conditions would be evaluated in the wrong place,
+        // and under a leaf its value would be overwritten.
+        let data_parent = unsafe { ffi::lysc_data_node((*snode.raw).parent) };
+        let parent_schema = if parent.is_null() {
+            std::ptr::null()
+        } else {
+            unsafe { (*parent).schema }
+        };
+        if parent_schema != data_parent {
+            return Err(Error {
+                errcode: ffi::LY_ERR::LY_EINVAL,
+                msg: Some(format!(
+                    "Invalid parent for schema node \"{}\".",
+                    snode.name()
+                )),
+                ..Default::default()
+            });
+        }
+
+        let mut conditions = vec![];
+        for node in snode.inclusive_ancestors() {
+            if node != *snode && !node.is_schema_only() {
+                break;
+            }
+            for when in node.whens() {
+                conditions.push((node.module().raw, when));
+            }
+        }
+        if conditions.is_empty() {
+            return Ok(true);
+        }
+
+        let dummy = self.new_dummy(parent, snode)?;
+        let result =
+            conditions
+                .into_iter()
+                .try_fold(true, |result, (module, when)| {
+                    if !result {
+                        return Ok(false);
+                    }
+                    // The context node of the condition is the dummy node or
+                    // its parent, which is null at the top level.
+                    let ctx_node = match when.context_node() {
+                        Some(context) if context == *snode => dummy,
+                        _ => parent,
+                    };
+                    unsafe {
+                        eval_condition(
+                            self.context,
+                            ctx_node,
+                            self.raw,
+                            module,
+                            (*when.as_raw()).cond,
+                            (*when.as_raw()).prefixes,
+                        )
+                    }
+                });
+
+        // Remove the dummy node.
+        if self.raw == dummy {
+            self.raw = unsafe { (*dummy).next };
+        }
+        unsafe { ffi::lyd_free_tree(dummy) };
+        result
+    }
+
+    // Creates a dummy (opaque) instance of a schema node under the given
+    // parent, or at the top level.
+    fn new_dummy(
+        &mut self,
+        parent: *mut ffi::lyd_node,
+        snode: &SchemaNode<'_>,
+    ) -> Result<*mut ffi::lyd_node> {
+        let name = CString::new(snode.name()).unwrap();
+        let module = CString::new(snode.module().name()).unwrap();
+        let mut dummy = std::ptr::null_mut();
+        let ret = unsafe {
+            ffi::lyd_new_opaq(
+                parent,
+                self.context.raw,
+                name.as_ptr(),
+                std::ptr::null(),
+                std::ptr::null(),
+                module.as_ptr(),
+                &mut dummy,
+            )
+        };
+        if ret != ffi::LY_ERR::LY_SUCCESS {
+            return Err(Error::new(self.context));
+        }
+        if parent.is_null() {
+            let mut first = std::ptr::null_mut();
+            let ret =
+                unsafe { ffi::lyd_insert_sibling(self.raw, dummy, &mut first) };
+            if ret != ffi::LY_ERR::LY_SUCCESS {
+                unsafe { ffi::lyd_free_tree(dummy) };
+                return Err(Error::new(self.context));
+            }
+            self.raw = first;
+        }
+        Ok(dummy)
     }
 
     /// Remove a data node.

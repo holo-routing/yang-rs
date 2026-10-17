@@ -5,7 +5,7 @@ use yang5::data::DataFormat;
 use yang5::iter::IterSchemaFlags;
 use yang5::schema::{
     DataValueType, SchemaInputFormat, SchemaModule, SchemaNodeKind,
-    SchemaPathFormat,
+    SchemaPathFormat, SchemaStmtMust,
 };
 
 static SEARCH_DIR: &str = "./assets/yang/";
@@ -666,6 +666,49 @@ fn schema_node_leafref_targets() {
         ["/yang-rs-test:types/counter"]
     );
     assert!(paths("/yang-rs-test:types/name").is_empty());
+}
+
+#[test]
+fn schema_must_and_when_statements() {
+    let ctx = create_test_context();
+
+    let snode = ctx.find_path("/yang-rs-test:constraints/limit").unwrap();
+    let musts = snode.musts().unwrap().collect::<Vec<_>>();
+    assert_eq!(musts.len(), 2);
+    assert_eq!(musts[0].condition(), ". <= 50");
+    assert_eq!(musts[0].error_msg(), Some("Too high."));
+    assert_eq!(musts[1].condition(), ". < ../max");
+
+    // Nodes accessed by the conditions.
+    let atoms = |must: &SchemaStmtMust<'_>| {
+        must.atoms(&snode)
+            .unwrap()
+            .iter()
+            .map(|atom| atom.path(SchemaPathFormat::DATA))
+            .collect::<BTreeSet<_>>()
+    };
+    assert_eq!(
+        atoms(&musts[0]),
+        BTreeSet::from(["/yang-rs-test:constraints/limit".to_owned()])
+    );
+    assert!(atoms(&musts[1]).contains("/yang-rs-test:constraints/max"));
+
+    // Context nodes of "when" conditions.
+    let snode = ctx.find_path("/yang-rs-test:constraints/ospf").unwrap();
+    let when = snode.whens().next().unwrap();
+    assert_eq!(
+        when.condition(),
+        "derived-from-or-self(../protocol, 't:ospf')"
+    );
+    assert_eq!(when.context_node(), Some(snode.clone()));
+    let snode = ctx.find_path("/yang-rs-test:constraints/burst").unwrap();
+    let case = snode.ancestors().next().unwrap();
+    let when = case.whens().next().unwrap();
+    assert_eq!(when.condition(), "level = 'high'");
+    assert_eq!(
+        when.context_node().unwrap().path(SchemaPathFormat::DATA),
+        "/yang-rs-test:constraints"
+    );
 }
 
 #[test]

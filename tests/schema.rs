@@ -598,6 +598,77 @@ fn schema_leaf_type_restrictions() {
 }
 
 #[test]
+fn schema_node_validate_value() {
+    let ctx = create_test_context();
+
+    let snode = ctx.find_path("/yang-rs-test:types/name").unwrap();
+    assert!(snode.validate_value("abc").is_ok());
+    assert!(snode.validate_value("ab1").is_err());
+    let error = snode.validate_value("xyz").unwrap_err();
+    assert_eq!(error.msg.as_deref(), Some("Can't start with x."));
+    assert!(snode.validate_value("a\0b").is_err());
+
+    let snode = ctx.find_path("/yang-rs-test:types/counter").unwrap();
+    assert!(snode.validate_value("5").is_ok());
+    let error = snode.validate_value("0").unwrap_err();
+    assert_eq!(error.msg.as_deref(), Some("Out of range."));
+
+    // Leafrefs are checked against their real type only.
+    let snode = ctx.find_path("/yang-rs-test:types/peer").unwrap();
+    assert!(snode.validate_value("abc").is_ok());
+    assert!(snode.validate_value("ab1").is_err());
+
+    let snode = ctx.find_path("/yang-rs-test:types/codes").unwrap();
+    assert!(snode.validate_value("5").is_ok());
+    assert!(snode.validate_value("abc").is_err());
+
+    // Other kinds of nodes (case, choice and container) hold no values.
+    let snode = ctx.find_path("/yang-rs-test:types/text").unwrap();
+    let kinds = snode
+        .ancestors()
+        .map(|ancestor| {
+            let error = ancestor.validate_value("5").unwrap_err();
+            assert_eq!(
+                error.msg.as_deref(),
+                Some("Schema node isn't a leaf(-list).")
+            );
+            ancestor.kind()
+        })
+        .collect::<Vec<_>>();
+    assert_eq!(
+        kinds,
+        [
+            SchemaNodeKind::Case,
+            SchemaNodeKind::Choice,
+            SchemaNodeKind::Container
+        ]
+    );
+}
+
+#[test]
+fn schema_node_leafref_targets() {
+    let ctx = create_test_context();
+
+    let paths = |path: &str| {
+        ctx.find_path(path)
+            .unwrap()
+            .leafref_targets()
+            .iter()
+            .map(|snode| snode.path(SchemaPathFormat::DATA))
+            .collect::<Vec<_>>()
+    };
+    assert_eq!(
+        paths("/yang-rs-test:types/peer"),
+        ["/yang-rs-test:types/name"]
+    );
+    assert_eq!(
+        paths("/yang-rs-test:types/limit"),
+        ["/yang-rs-test:types/counter"]
+    );
+    assert!(paths("/yang-rs-test:types/name").is_empty());
+}
+
+#[test]
 fn schema_identities() {
     let ctx = create_test_context();
 

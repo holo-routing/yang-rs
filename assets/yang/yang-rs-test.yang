@@ -108,5 +108,30 @@ module yang-rs-test {
         }
       }
     }
+    leaf-list codes {
+      type uint8;
+    }
+    choice format {
+      case plain {
+        leaf text {
+          type string;
+        }
+      }
+    }
+    leaf peer {
+      type leafref {
+        path "../name";
+      }
+    }
+    leaf limit {
+      type union {
+        type leafref {
+          path "../counter";
+        }
+        type enumeration {
+          enum none;
+        }
+      }
+    }
   }
 }

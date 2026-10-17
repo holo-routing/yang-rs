@@ -1012,6 +1012,68 @@ impl<'a> SchemaNode<'a> {
         Some(ltype)
     }
 
+    /// Validates a value of the leaf(-list), checking it against its type. An
+    /// error is returned for any other kind of node.
+    ///
+    /// Values whose validity depends on other data (leafref and
+    /// instance-identifier values) are only checked against their real
+    /// type.
+    pub fn validate_value(&self, value: &str) -> Result<()> {
+        // libyang assumes the node is a leaf(-list), without checking it.
+        if !matches!(
+            self.kind(),
+            SchemaNodeKind::Leaf | SchemaNodeKind::LeafList
+        ) {
+            return Err(Error {
+                errcode: ffi::LY_ERR::LY_EINVAL,
+                msg: Some("Schema node isn't a leaf(-list).".to_owned()),
+                ..Default::default()
+            });
+        }
+        let Ok(value_cstr) = CString::new(value) else {
+            return Err(Error {
+                errcode: ffi::LY_ERR::LY_EINVAL,
+                msg: Some("Invalid character in value.".to_owned()),
+                ..Default::default()
+            });
+        };
+        let ret = unsafe {
+            ffi::lyd_value_validate(
+                self.raw,
+                value_cstr.as_ptr(),
+                value.len() as u32,
+                std::ptr::null(),
+                std::ptr::null_mut(),
+                std::ptr::null_mut(),
+            )
+        };
+        match ret {
+            ffi::LY_ERR::LY_SUCCESS | ffi::LY_ERR::LY_EINCOMPLETE => Ok(()),
+            _ => Err(Error::new(self.context)),
+        }
+    }
+
+    /// Returns the target nodes of a leafref leaf(-list), including those of
+    /// the leafref members of a union type.
+    pub fn leafref_targets(&self) -> Vec<SchemaNode<'a>> {
+        let mut set = std::ptr::null_mut();
+        let ret = unsafe { ffi::lysc_node_lref_targets(self.raw, &mut set) };
+        if ret != ffi::LY_ERR::LY_SUCCESS || set.is_null() {
+            return vec![];
+        }
+        let targets = unsafe {
+            let count = (*set).count as usize;
+            let snodes = (*set).__bindgen_anon_1.snodes;
+            (0..count)
+                .map(|index| {
+                    SchemaNode::from_raw(self.context, *snodes.add(index))
+                })
+                .collect()
+        };
+        unsafe { ffi::ly_set_free(set, None) };
+        targets
+    }
+
     /// Units of the leaf(-list)'s type.
     pub fn units(&self) -> Option<&str> {
         let units = unsafe {

@@ -916,10 +916,13 @@ impl<'a> SchemaNode<'a> {
         if self.kind() != SchemaNodeKind::Leaf {
             return Ok(None);
         }
+        let dflt = unsafe { (*(self.raw as *const ffi::lysc_node_leaf)).dflt };
+        if dflt.str_.is_null() {
+            return Ok(None);
+        }
 
         let mut canonical = std::ptr::null();
         let ret = unsafe {
-            let dflt = (*(self.raw as *const ffi::lysc_node_leaf)).dflt;
             ffi::lyd_value_validate_dflt(
                 self.raw,
                 dflt.str_,

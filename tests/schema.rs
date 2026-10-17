@@ -463,6 +463,26 @@ fn schema_iterator_top_level_nodes() {
 }
 
 #[test]
+fn schema_node_default_value() {
+    let ctx = create_context();
+
+    let snode = ctx
+        .find_path("/ietf-interfaces:interfaces/interface/enabled")
+        .expect("Failed to lookup schema node");
+    assert_eq!(snode.default_value_canonical(), Ok(Some("true".to_owned())));
+
+    // Leaves without a default value.
+    let snode = ctx
+        .find_path("/ietf-interfaces:interfaces/interface/description")
+        .expect("Failed to lookup schema node");
+    assert_eq!(snode.default_value_canonical(), Ok(None));
+    let snode = ctx
+        .find_path("/ietf-interfaces:interfaces/interface/type")
+        .expect("Failed to lookup schema node");
+    assert_eq!(snode.default_value_canonical(), Ok(None));
+}
+
+#[test]
 fn schema_node_attributes() {
     let ctx = create_context();
 

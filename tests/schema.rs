@@ -93,6 +93,16 @@ fn create_context() -> Context {
     ctx
 }
 
+fn create_test_context() -> Context {
+    let mut ctx = Context::new(ContextFlags::NO_YANGLIBRARY)
+        .expect("Failed to create context");
+    ctx.set_searchdir(SEARCH_DIR)
+        .expect("Failed to set YANG search directory");
+    ctx.load_module("yang-rs-test", None, &[])
+        .expect("Failed to load module");
+    ctx
+}
+
 #[test]
 fn schema_feature_value() {
     let ctx = create_context();
@@ -480,6 +490,142 @@ fn schema_node_default_value() {
         .find_path("/ietf-interfaces:interfaces/interface/type")
         .expect("Failed to lookup schema node");
     assert_eq!(snode.default_value_canonical(), Ok(None));
+}
+
+#[test]
+fn schema_leaf_type_restrictions() {
+    let ctx = create_test_context();
+
+    // Ranges.
+    let snode = ctx.find_path("/yang-rs-test:types/counter").unwrap();
+    let ltype = snode.leaf_type().unwrap();
+    let range = ltype.range().unwrap();
+    assert_eq!(range.intervals(), [(-10, -1), (1, 10)]);
+    assert_eq!(range.error_msg(), Some("Out of range."));
+    assert!(ltype.length().is_none());
+    assert_eq!(ltype.fraction_digits(), None);
+    let snode = ctx.find_path("/yang-rs-test:types/big").unwrap();
+    assert!(snode.leaf_type().unwrap().range().is_none());
+    let snode = ctx.find_path("/yang-rs-test:types/ratio").unwrap();
+    let ltype = snode.leaf_type().unwrap();
+    assert_eq!(ltype.fraction_digits(), Some(2));
+    assert_eq!(ltype.range().unwrap().intervals(), [(50, 10000)]);
+
+    // Lengths and patterns.
+    let snode = ctx.find_path("/yang-rs-test:types/name").unwrap();
+    let ltype = snode.leaf_type().unwrap();
+    assert_eq!(ltype.length().unwrap().intervals(), [(1, 8)]);
+    assert!(ltype.range().is_none());
+    let patterns = ltype
+        .patterns()
+        .map(|pattern| {
+            (
+                pattern.expr().to_owned(),
+                pattern.is_inverted(),
+                pattern.error_msg().map(str::to_owned),
+            )
+        })
+        .collect::<Vec<_>>();
+    assert_eq!(
+        patterns,
+        [
+            ("[a-z]+".to_owned(), false, None),
+            (
+                "x.*".to_owned(),
+                true,
+                Some("Can't start with x.".to_owned())
+            ),
+        ]
+    );
+    let snode = ctx.find_path("/yang-rs-test:types/data").unwrap();
+    let ltype = snode.leaf_type().unwrap();
+    assert_eq!(ltype.length().unwrap().intervals(), [(4, 4)]);
+    assert_eq!(ltype.patterns().count(), 0);
+
+    // Enumerations and bits.
+    let snode = ctx.find_path("/yang-rs-test:types/level").unwrap();
+    let ltype = snode.leaf_type().unwrap();
+    let enums = ltype
+        .enums()
+        .map(|item| {
+            (
+                item.name().to_owned(),
+                item.value(),
+                item.description().map(str::to_owned),
+                item.is_status_deprecated(),
+            )
+        })
+        .collect::<Vec<_>>();
+    assert_eq!(
+        enums,
+        [
+            ("low".to_owned(), 1, Some("Low level.".to_owned()), false),
+            ("high".to_owned(), 10, None, true),
+        ]
+    );
+    assert_eq!(ltype.bits().count(), 0);
+    let snode = ctx.find_path("/yang-rs-test:types/flags").unwrap();
+    let ltype = snode.leaf_type().unwrap();
+    let bits = ltype
+        .bits()
+        .map(|item| {
+            (
+                item.name().to_owned(),
+                item.position(),
+                item.description().map(str::to_owned),
+            )
+        })
+        .collect::<Vec<_>>();
+    assert_eq!(
+        bits,
+        [
+            ("up".to_owned(), 0, None),
+            ("down".to_owned(), 3, Some("Down.".to_owned())),
+        ]
+    );
+    assert_eq!(ltype.enums().count(), 0);
+
+    // Unions.
+    let snode = ctx.find_path("/yang-rs-test:types/mixed").unwrap();
+    let ltype = snode.leaf_type().unwrap();
+    let members = ltype.union_types().collect::<Vec<_>>();
+    assert_eq!(members.len(), 2);
+    assert_eq!(members[0].base_type(), DataValueType::Uint8);
+    assert_eq!(members[0].typedef_name().as_deref(), Some("percent"));
+    assert_eq!(members[0].range().unwrap().intervals(), [(0, 100)]);
+    assert_eq!(members[1].base_type(), DataValueType::Enum);
+    assert_eq!(members[1].enums().next().unwrap().name(), "auto");
+}
+
+#[test]
+fn schema_identities() {
+    let ctx = create_test_context();
+
+    let snode = ctx.find_path("/yang-rs-test:types/protocol").unwrap();
+    let ltype = snode.leaf_type().unwrap();
+    let bases = ltype.identity_bases().collect::<Vec<_>>();
+    assert_eq!(bases.len(), 1);
+    let base = &bases[0];
+    assert_eq!(base.name(), "routing-protocol");
+    assert_eq!(base.module().name(), "yang-rs-test");
+
+    let mut derived = base.derived().collect::<Vec<_>>();
+    derived.sort_by(|a, b| a.name().cmp(b.name()));
+    assert_eq!(
+        derived.iter().map(|ident| ident.name()).collect::<Vec<_>>(),
+        ["ospf", "rip"]
+    );
+    let ospf = &derived[0];
+    assert_eq!(ospf.description(), Some("OSPF."));
+    assert!(ospf.is_enabled());
+    assert!(!ospf.is_status_deprecated());
+    assert_eq!(ospf.derived().count(), 2);
+
+    // Identities disabled by "if-feature".
+    let rip = &derived[1];
+    assert!(!rip.is_enabled());
+    assert!(rip.is_status_deprecated());
+    assert_ne!(ospf, rip);
 }
 
 #[test]

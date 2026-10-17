@@ -9,7 +9,7 @@
 use crate::context::Context;
 use crate::data::Metadata;
 use crate::schema::{SchemaModule, SchemaNode};
-use crate::utils::Binding;
+use crate::utils::{ly_array_count, Binding};
 use bitflags::bitflags;
 use libyang5_sys as ffi;
 
@@ -341,19 +341,15 @@ impl<'a, S> Array<'a, S>
 where
     S: Binding<'a>,
 {
+    // Like the iterator itself, this reads through the raw pointer, which
+    // must reference a valid libyang array (or be null).
+    #[allow(clippy::not_unsafe_ptr_arg_deref)]
     pub fn new(
         context: &'a Context,
         raw: *mut S::CType,
         ptr_size: usize,
     ) -> Array<'a, S> {
-        // Get the number of records in the array (equivalent to
-        // LY_ARRAY_COUNT). It is stored in the LY_ARRAY_COUNT_TYPE preceding
-        // the array, which is a uint64_t regardless of the pointer width.
-        let count = if raw.is_null() {
-            0
-        } else {
-            unsafe { (raw as *const u64).offset(-1).read() as usize }
-        };
+        let count = unsafe { ly_array_count(raw) };
 
         Array {
             context,

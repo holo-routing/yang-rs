@@ -1,0 +1,112 @@
+module yang-rs-test {
+  yang-version 1.1;
+  namespace "urn:yang-rs:test";
+  prefix t;
+
+  description
+    "Module exercising the schema APIs of yang-rs.";
+
+  feature extra;
+
+  identity protocol;
+
+  identity routing-protocol {
+    base protocol;
+  }
+
+  identity ospf {
+    base routing-protocol;
+    description
+      "OSPF.";
+  }
+
+  identity ospfv2 {
+    base ospf;
+  }
+
+  identity ospfv3 {
+    base ospf;
+  }
+
+  identity rip {
+    if-feature extra;
+    base routing-protocol;
+    status deprecated;
+  }
+
+  typedef percent {
+    type uint8 {
+      range "0..100";
+    }
+  }
+
+  container types {
+    leaf counter {
+      type int16 {
+        range "-10..-1 | 1..10" {
+          error-message "Out of range.";
+        }
+      }
+    }
+    leaf big {
+      type uint64;
+    }
+    leaf ratio {
+      type decimal64 {
+        fraction-digits 2;
+        range "0.5..100";
+      }
+    }
+    leaf name {
+      type string {
+        length "1..8";
+        pattern '[a-z]+';
+        pattern 'x.*' {
+          modifier invert-match;
+          error-message "Can't start with x.";
+        }
+      }
+    }
+    leaf data {
+      type binary {
+        length "4";
+      }
+    }
+    leaf level {
+      type enumeration {
+        enum low {
+          value 1;
+          description
+            "Low level.";
+        }
+        enum high {
+          value 10;
+          status deprecated;
+        }
+      }
+    }
+    leaf flags {
+      type bits {
+        bit up;
+        bit down {
+          position 3;
+          description
+            "Down.";
+        }
+      }
+    }
+    leaf protocol {
+      type identityref {
+        base routing-protocol;
+      }
+    }
+    leaf mixed {
+      type union {
+        type percent;
+        type enumeration {
+          enum auto;
+        }
+      }
+    }
+  }
+}

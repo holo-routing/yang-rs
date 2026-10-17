@@ -44,6 +44,26 @@ pub(crate) fn char_ptr_to_opt_str<'a>(c_str: *const c_char) -> Option<&'a str> {
     }
 }
 
+/// Returns the number of items of a libyang sized array (LY_ARRAY), which
+/// may be null (equivalent to LY_ARRAY_COUNT).
+///
+/// The number is stored in the LY_ARRAY_COUNT_TYPE preceding the array, which
+/// is a uint64_t regardless of the pointer width.
+pub(crate) unsafe fn ly_array_count<T>(array: *const T) -> usize {
+    if array.is_null() {
+        return 0;
+    }
+    unsafe { (array as *const u64).offset(-1).read() as usize }
+}
+
+/// Returns the items of a libyang sized array (LY_ARRAY), which may be null.
+pub(crate) unsafe fn ly_array<'a, T>(array: *const T) -> &'a [T] {
+    if array.is_null() {
+        return &[];
+    }
+    unsafe { std::slice::from_raw_parts(array, ly_array_count(array)) }
+}
+
 /// A trait implemented by all types that can be created from a raw C pointer
 /// and a generic container type.
 pub unsafe trait Binding<'a>

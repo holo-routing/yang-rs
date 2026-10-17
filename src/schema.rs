@@ -133,6 +133,43 @@ pub struct SchemaLeafType<'a> {
     raw: *mut ffi::lysc_type,
 }
 
+/// Range restriction of an integer or decimal64 type, or length restriction
+/// of a string or binary type.
+#[derive(Clone, Debug)]
+pub struct SchemaRange<'a> {
+    raw: *mut ffi::lysc_range,
+    unsigned: bool,
+    _marker: std::marker::PhantomData<&'a Context>,
+}
+
+/// Pattern restriction of a string type.
+#[derive(Clone, Debug)]
+pub struct SchemaPattern<'a> {
+    raw: *mut ffi::lysc_pattern,
+    _marker: std::marker::PhantomData<&'a Context>,
+}
+
+/// Member of an enumeration type.
+#[derive(Clone, Debug)]
+pub struct SchemaEnum<'a> {
+    raw: *mut ffi::lysc_type_bitenum_item,
+    _marker: std::marker::PhantomData<&'a Context>,
+}
+
+/// Member of a bits type.
+#[derive(Clone, Debug)]
+pub struct SchemaBit<'a> {
+    raw: *mut ffi::lysc_type_bitenum_item,
+    _marker: std::marker::PhantomData<&'a Context>,
+}
+
+/// YANG identity.
+#[derive(Clone, Debug)]
+pub struct SchemaIdentity<'a> {
+    context: &'a Context,
+    raw: *mut ffi::lysc_ident,
+}
+
 /// YANG extension instance.
 #[derive(Clone, Debug)]
 pub struct SchemaExtInstance {
@@ -1361,7 +1398,7 @@ unsafe impl Sync for SchemaStmtWhen<'_> {}
 
 // ===== impl SchemaLeafType =====
 
-impl SchemaLeafType<'_> {
+impl<'a> SchemaLeafType<'a> {
     /// Returns a mutable raw pointer to the underlying C library representation
     /// of the leaf type.
     pub fn as_raw(&self) -> *mut ffi::lysc_type {
@@ -1393,6 +1430,131 @@ impl SchemaLeafType<'_> {
             unsafe { SchemaLeafType::from_raw(self.context, real_type) };
         Some(ltype)
     }
+
+    /// Returns the range restriction of an integer or decimal64 type, if any.
+    pub fn range(&self) -> Option<SchemaRange<'a>> {
+        let (raw, unsigned) = unsafe {
+            match self.base_type() {
+                DataValueType::Int8
+                | DataValueType::Int16
+                | DataValueType::Int32
+                | DataValueType::Int64 => {
+                    ((*(self.raw as *const ffi::lysc_type_num)).range, false)
+                }
+                DataValueType::Uint8
+                | DataValueType::Uint16
+                | DataValueType::Uint32
+                | DataValueType::Uint64 => {
+                    ((*(self.raw as *const ffi::lysc_type_num)).range, true)
+                }
+                DataValueType::Dec64 => {
+                    ((*(self.raw as *const ffi::lysc_type_dec)).range, false)
+                }
+                _ => return None,
+            }
+        };
+        SchemaRange::new(raw, unsigned)
+    }
+
+    /// Returns the length restriction of a string or binary type, if any.
+    pub fn length(&self) -> Option<SchemaRange<'a>> {
+        let raw = unsafe {
+            match self.base_type() {
+                DataValueType::String => {
+                    (*(self.raw as *const ffi::lysc_type_str)).length
+                }
+                DataValueType::Binary => {
+                    (*(self.raw as *const ffi::lysc_type_bin)).length
+                }
+                _ => return None,
+            }
+        };
+        SchemaRange::new(raw, true)
+    }
+
+    /// Returns the number of fraction digits of a decimal64 type.
+    pub fn fraction_digits(&self) -> Option<u8> {
+        if self.base_type() != DataValueType::Dec64 {
+            return None;
+        }
+        let dec = self.raw as *const ffi::lysc_type_dec;
+        Some(unsafe { (*dec).fraction_digits })
+    }
+
+    /// Returns the pattern restrictions of a string type.
+    pub fn patterns(&self) -> impl Iterator<Item = SchemaPattern<'a>> + 'a {
+        let patterns = match self.base_type() {
+            DataValueType::String => unsafe {
+                (*(self.raw as *const ffi::lysc_type_str)).patterns
+            },
+            _ => std::ptr::null_mut(),
+        };
+        let context = self.context;
+        unsafe { ly_array(patterns) }
+            .iter()
+            .map(move |pattern| unsafe {
+                SchemaPattern::from_raw(context, *pattern)
+            })
+    }
+
+    /// Returns the members of an enumeration type.
+    pub fn enums(&self) -> impl Iterator<Item = SchemaEnum<'a>> + 'a {
+        let enums = match self.base_type() {
+            DataValueType::Enum => unsafe {
+                (*(self.raw as *const ffi::lysc_type_enum)).enums
+            },
+            _ => std::ptr::null_mut(),
+        };
+        let context = self.context;
+        unsafe { ly_array(enums) }.iter().map(move |item| unsafe {
+            SchemaEnum::from_raw(context, item as *const _ as *mut _)
+        })
+    }
+
+    /// Returns the members of a bits type.
+    pub fn bits(&self) -> impl Iterator<Item = SchemaBit<'a>> + 'a {
+        let bits = match self.base_type() {
+            DataValueType::Bits => unsafe {
+                (*(self.raw as *const ffi::lysc_type_bits)).bits
+            },
+            _ => std::ptr::null_mut(),
+        };
+        let context = self.context;
+        unsafe { ly_array(bits) }.iter().map(move |item| unsafe {
+            SchemaBit::from_raw(context, item as *const _ as *mut _)
+        })
+    }
+
+    /// Returns the base identities of an identityref type. Its values are the
+    /// identities derived from all of them.
+    pub fn identity_bases(
+        &self,
+    ) -> impl Iterator<Item = SchemaIdentity<'a>> + 'a {
+        let bases = match self.base_type() {
+            DataValueType::IdentityRef => unsafe {
+                (*(self.raw as *const ffi::lysc_type_identityref)).bases
+            },
+            _ => std::ptr::null_mut(),
+        };
+        let context = self.context;
+        unsafe { ly_array(bases) }.iter().map(move |base| unsafe {
+            SchemaIdentity::from_raw(context, *base)
+        })
+    }
+
+    /// Returns the member types of a union type.
+    pub fn union_types(&self) -> impl Iterator<Item = SchemaLeafType<'a>> + 'a {
+        let types = match self.base_type() {
+            DataValueType::Union => unsafe {
+                (*(self.raw as *const ffi::lysc_type_union)).types
+            },
+            _ => std::ptr::null_mut(),
+        };
+        let context = self.context;
+        unsafe { ly_array(types) }.iter().map(move |ltype| unsafe {
+            SchemaLeafType::from_raw(context, *ltype)
+        })
+    }
 }
 
 unsafe impl<'a> Binding<'a> for SchemaLeafType<'a> {
@@ -1409,6 +1571,327 @@ unsafe impl<'a> Binding<'a> for SchemaLeafType<'a> {
 
 unsafe impl Send for SchemaLeafType<'_> {}
 unsafe impl Sync for SchemaLeafType<'_> {}
+
+// ===== impl SchemaRange =====
+
+impl<'a> SchemaRange<'a> {
+    fn new(
+        raw: *mut ffi::lysc_range,
+        unsigned: bool,
+    ) -> Option<SchemaRange<'a>> {
+        (!raw.is_null()).then_some(SchemaRange {
+            raw,
+            unsigned,
+            _marker: std::marker::PhantomData,
+        })
+    }
+
+    /// Returns a mutable raw pointer to the underlying C library representation
+    /// of the range.
+    pub fn as_raw(&self) -> *mut ffi::lysc_range {
+        self.raw
+    }
+
+    /// Returns the intervals allowed by the restriction, in ascending order.
+    ///
+    /// The bounds of signed and unsigned 64-bit types alike fit in `i128`.
+    /// The bounds of decimal64 types are scaled by 10^fraction-digits, as
+    /// libyang stores them.
+    pub fn intervals(&self) -> Vec<(i128, i128)> {
+        let parts = unsafe { ly_array((*self.raw).parts) };
+        parts
+            .iter()
+            .map(|part| unsafe {
+                match self.unsigned {
+                    true => (
+                        part.__bindgen_anon_1.min_u64 as i128,
+                        part.__bindgen_anon_2.max_u64 as i128,
+                    ),
+                    false => (
+                        part.__bindgen_anon_1.min_64 as i128,
+                        part.__bindgen_anon_2.max_64 as i128,
+                    ),
+                }
+            })
+            .collect()
+    }
+
+    /// description substatement.
+    pub fn description(&self) -> Option<&str> {
+        char_ptr_to_opt_str(unsafe { (*self.raw).dsc })
+    }
+
+    /// reference substatement.
+    pub fn reference(&self) -> Option<&str> {
+        char_ptr_to_opt_str(unsafe { (*self.raw).ref_ })
+    }
+
+    /// error-message substatement.
+    pub fn error_msg(&self) -> Option<&str> {
+        char_ptr_to_opt_str(unsafe { (*self.raw).emsg })
+    }
+
+    /// error-app-tag substatement.
+    pub fn error_apptag(&self) -> Option<&str> {
+        char_ptr_to_opt_str(unsafe { (*self.raw).eapptag })
+    }
+}
+
+unsafe impl Send for SchemaRange<'_> {}
+unsafe impl Sync for SchemaRange<'_> {}
+
+// ===== impl SchemaPattern =====
+
+impl SchemaPattern<'_> {
+    /// Returns a mutable raw pointer to the underlying C library representation
+    /// of the pattern.
+    pub fn as_raw(&self) -> *mut ffi::lysc_pattern {
+        self.raw
+    }
+
+    /// Returns the regular expression, in the XML Schema syntax.
+    pub fn expr(&self) -> &str {
+        char_ptr_to_str(unsafe { (*self.raw).expr })
+    }
+
+    /// Returns whether the pattern has the "invert-match" modifier, so that
+    /// values must not match it.
+    pub fn is_inverted(&self) -> bool {
+        unsafe { (*self.raw).inverted() != 0 }
+    }
+
+    /// description substatement.
+    pub fn description(&self) -> Option<&str> {
+        char_ptr_to_opt_str(unsafe { (*self.raw).dsc })
+    }
+
+    /// reference substatement.
+    pub fn reference(&self) -> Option<&str> {
+        char_ptr_to_opt_str(unsafe { (*self.raw).ref_ })
+    }
+
+    /// error-message substatement.
+    pub fn error_msg(&self) -> Option<&str> {
+        char_ptr_to_opt_str(unsafe { (*self.raw).emsg })
+    }
+
+    /// error-app-tag substatement.
+    pub fn error_apptag(&self) -> Option<&str> {
+        char_ptr_to_opt_str(unsafe { (*self.raw).eapptag })
+    }
+}
+
+unsafe impl<'a> Binding<'a> for SchemaPattern<'a> {
+    type CType = ffi::lysc_pattern;
+    type Container = Context;
+
+    unsafe fn from_raw(
+        _context: &'a Context,
+        raw: *mut ffi::lysc_pattern,
+    ) -> SchemaPattern<'a> {
+        SchemaPattern {
+            raw,
+            _marker: std::marker::PhantomData,
+        }
+    }
+}
+
+unsafe impl Send for SchemaPattern<'_> {}
+unsafe impl Sync for SchemaPattern<'_> {}
+
+// ===== impl SchemaEnum =====
+
+impl SchemaEnum<'_> {
+    /// Returns a mutable raw pointer to the underlying C library representation
+    /// of the enumeration member.
+    pub fn as_raw(&self) -> *mut ffi::lysc_type_bitenum_item {
+        self.raw
+    }
+
+    /// Name of the member.
+    pub fn name(&self) -> &str {
+        char_ptr_to_str(unsafe { (*self.raw).name })
+    }
+
+    /// Value of the member.
+    pub fn value(&self) -> i32 {
+        unsafe { (*self.raw).__bindgen_anon_1.value }
+    }
+
+    /// description substatement.
+    pub fn description(&self) -> Option<&str> {
+        char_ptr_to_opt_str(unsafe { (*self.raw).dsc })
+    }
+
+    /// reference substatement.
+    pub fn reference(&self) -> Option<&str> {
+        char_ptr_to_opt_str(unsafe { (*self.raw).ref_ })
+    }
+
+    /// Returns whether the member's status is "deprecated".
+    pub fn is_status_deprecated(&self) -> bool {
+        unsafe { (*self.raw).flags as u32 & ffi::LYS_STATUS_DEPRC != 0 }
+    }
+
+    /// Returns whether the member's status is "obsolete".
+    pub fn is_status_obsolete(&self) -> bool {
+        unsafe { (*self.raw).flags as u32 & ffi::LYS_STATUS_OBSLT != 0 }
+    }
+}
+
+unsafe impl<'a> Binding<'a> for SchemaEnum<'a> {
+    type CType = ffi::lysc_type_bitenum_item;
+    type Container = Context;
+
+    unsafe fn from_raw(
+        _context: &'a Context,
+        raw: *mut ffi::lysc_type_bitenum_item,
+    ) -> SchemaEnum<'a> {
+        SchemaEnum {
+            raw,
+            _marker: std::marker::PhantomData,
+        }
+    }
+}
+
+unsafe impl Send for SchemaEnum<'_> {}
+unsafe impl Sync for SchemaEnum<'_> {}
+
+// ===== impl SchemaBit =====
+
+impl SchemaBit<'_> {
+    /// Returns a mutable raw pointer to the underlying C library representation
+    /// of the bits member.
+    pub fn as_raw(&self) -> *mut ffi::lysc_type_bitenum_item {
+        self.raw
+    }
+
+    /// Name of the member.
+    pub fn name(&self) -> &str {
+        char_ptr_to_str(unsafe { (*self.raw).name })
+    }
+
+    /// Position of the member.
+    pub fn position(&self) -> u32 {
+        unsafe { (*self.raw).__bindgen_anon_1.position }
+    }
+
+    /// description substatement.
+    pub fn description(&self) -> Option<&str> {
+        char_ptr_to_opt_str(unsafe { (*self.raw).dsc })
+    }
+
+    /// reference substatement.
+    pub fn reference(&self) -> Option<&str> {
+        char_ptr_to_opt_str(unsafe { (*self.raw).ref_ })
+    }
+
+    /// Returns whether the member's status is "deprecated".
+    pub fn is_status_deprecated(&self) -> bool {
+        unsafe { (*self.raw).flags as u32 & ffi::LYS_STATUS_DEPRC != 0 }
+    }
+
+    /// Returns whether the member's status is "obsolete".
+    pub fn is_status_obsolete(&self) -> bool {
+        unsafe { (*self.raw).flags as u32 & ffi::LYS_STATUS_OBSLT != 0 }
+    }
+}
+
+unsafe impl<'a> Binding<'a> for SchemaBit<'a> {
+    type CType = ffi::lysc_type_bitenum_item;
+    type Container = Context;
+
+    unsafe fn from_raw(
+        _context: &'a Context,
+        raw: *mut ffi::lysc_type_bitenum_item,
+    ) -> SchemaBit<'a> {
+        SchemaBit {
+            raw,
+            _marker: std::marker::PhantomData,
+        }
+    }
+}
+
+unsafe impl Send for SchemaBit<'_> {}
+unsafe impl Sync for SchemaBit<'_> {}
+
+// ===== impl SchemaIdentity =====
+
+impl<'a> SchemaIdentity<'a> {
+    /// Returns a mutable raw pointer to the underlying C library representation
+    /// of the identity.
+    pub fn as_raw(&self) -> *mut ffi::lysc_ident {
+        self.raw
+    }
+
+    /// Name of the identity.
+    pub fn name(&self) -> &str {
+        char_ptr_to_str(unsafe { (*self.raw).name })
+    }
+
+    /// Module defining the identity.
+    pub fn module(&self) -> SchemaModule<'a> {
+        let module = unsafe { (*self.raw).module };
+        unsafe { SchemaModule::from_raw(self.context, module) }
+    }
+
+    /// description substatement.
+    pub fn description(&self) -> Option<&str> {
+        char_ptr_to_opt_str(unsafe { (*self.raw).dsc })
+    }
+
+    /// reference substatement.
+    pub fn reference(&self) -> Option<&str> {
+        char_ptr_to_opt_str(unsafe { (*self.raw).ref_ })
+    }
+
+    /// Returns the identities derived directly from this one.
+    pub fn derived(&self) -> impl Iterator<Item = SchemaIdentity<'a>> + 'a {
+        let context = self.context;
+        unsafe { ly_array((*self.raw).derived) }.iter().map(
+            move |ident| unsafe { SchemaIdentity::from_raw(context, *ident) },
+        )
+    }
+
+    /// Returns whether the identity's "if-feature" statements, if any, are
+    /// satisfied by the enabled features. Disabled identities can't be used
+    /// as values.
+    pub fn is_enabled(&self) -> bool {
+        let ret = unsafe { ffi::lys_identity_iffeature_value(self.raw) };
+        ret == ffi::LY_ERR::LY_SUCCESS
+    }
+
+    /// Returns whether the identity's status is "deprecated".
+    pub fn is_status_deprecated(&self) -> bool {
+        unsafe { (*self.raw).flags as u32 & ffi::LYS_STATUS_DEPRC != 0 }
+    }
+
+    /// Returns whether the identity's status is "obsolete".
+    pub fn is_status_obsolete(&self) -> bool {
+        unsafe { (*self.raw).flags as u32 & ffi::LYS_STATUS_OBSLT != 0 }
+    }
+}
+
+impl PartialEq for SchemaIdentity<'_> {
+    fn eq(&self, other: &SchemaIdentity<'_>) -> bool {
+        self.raw == other.raw
+    }
+}
+
+unsafe impl<'a> Binding<'a> for SchemaIdentity<'a> {
+    type CType = ffi::lysc_ident;
+    type Container = Context;
+
+    unsafe fn from_raw(
+        context: &'a Context,
+        raw: *mut ffi::lysc_ident,
+    ) -> SchemaIdentity<'a> {
+        SchemaIdentity { context, raw }
+    }
+}
+
+unsafe impl Send for SchemaIdentity<'_> {}
+unsafe impl Sync for SchemaIdentity<'_> {}
 
 // ===== impl SchemaExtInstance =====
 

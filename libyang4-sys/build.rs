@@ -48,6 +48,8 @@ fn main() {
     {
         use std::path::Path;
         use std::process::Command;
+
+        let out_dir = env::var("OUT_DIR").unwrap();
         // Initialize the libyang submodule if necessary.
         if !Path::new("libyang/.git").exists() {
             let _ = Command::new("git")
@@ -64,7 +66,8 @@ fn main() {
         cmake_config.define("CMAKE_POSITION_INDEPENDENT_CODE", "ON");
         cmake_config.define("CMAKE_DISABLE_FIND_PACKAGE_XXHash", "TRUE");
         let cmake_dst = cmake_config.build();
-        println!("cargo:root={}", env::var("OUT_DIR").unwrap());
+        println!("cargo:root={}", out_dir);
+        println!("cargo:include={}/include", cmake_dst.display());
         println!("cargo:rustc-link-search=native={}/lib", cmake_dst.display());
         println!(
             "cargo:rustc-link-search=native={}/lib64",

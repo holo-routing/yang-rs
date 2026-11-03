@@ -6,6 +6,7 @@ description = "Raw FFI bindings for libyang4"
 keywords = ["yang", "libyang"]
 edition = "2018"
 license = "BSD-3-Clause"
+links = "yang"
 documentation = "https://docs.rs/libyang4-sys"
 categories = ["external-ffi-bindings"]
 

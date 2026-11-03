@@ -488,7 +488,7 @@ dependencies = [
 
 [[package]]
 name = "libyang5-sys"
-version = "0.2.0"
+version = "0.3.0"
 dependencies = [
  "bindgen",
  "cmake",
@@ -949,7 +949,7 @@ dependencies = [
 
 [[package]]
 name = "yang5"
-version = "0.4.0"
+version = "0.5.0"
 dependencies = [
  "bitflags 2.13.2",
  "criterion",

@@ -39,9 +39,11 @@ yang5 = "0.4"
 ## Feature flags
 By default, yang-rs uses pre-generated FFI bindings and uses dynamic linking to load libyang. The following feature flags, however, can be used to change that behavior:
 * **bundled**: instructs cargo to download and build libyang from the sources. The resulting objects are grouped into a static archive linked to this crate. This feature can be used when having a libyang dynamic link dependency isn't desirable.
-  * Additional build requirements: *cc 1.0*, *cmake 0.1*, a C compiler and CMake.
-* **use_bindgen**: generate new C FFI bindings dynamically instead of using the pre-generated ones. Useful when updating this crate to use newer libyang versions.
-  * Additional build requirements: *bindgen 0.68.0*
+  * Additional crates: *cmake*
+  * Additional system requirements: a C compiler and CMake
+* **bindgen**: generate new C FFI bindings dynamically instead of using the pre-generated ones. Useful when updating this crate to use newer libyang versions.
+  * Additional crates: *bindgen*
+  * Additional system requirements: libclang
 
 ## WebAssembly
 

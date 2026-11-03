@@ -60,7 +60,6 @@ fn main() {
         cmake_config.define("ENABLE_TESTS", "OFF");
         cmake_config.define("ENABLE_VALGRIND_TESTS", "OFF");
         cmake_config.define("ENABLE_BUILD_TESTS", "OFF");
-        cmake_config.define("CMAKE_BUILD_TYPE", "Release");
         cmake_config.define("CMAKE_POSITION_INDEPENDENT_CODE", "ON");
         cmake_config.define("CMAKE_DISABLE_FIND_PACKAGE_XXHash", "TRUE");
         let cmake_dst = cmake_config.build();

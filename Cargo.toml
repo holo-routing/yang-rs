@@ -14,9 +14,9 @@ exclude = ["assets/**"]
 
 [dependencies]
 libyang5-sys = { path = "libyang5-sys", version = "0.2.0" }
-bitflags = "2.9"
+bitflags = "2.13"
 num-traits = "0.2"
-num-derive = "0.4"
+num-derive = "0.5"
 log = "0.4"
 
 # WebAssembly has no system libyang to link against, so the bundled feature is
@@ -28,10 +28,10 @@ libyang5-sys = { path = "libyang5-sys", version = "0.2.0", features = ["bundled"
 libc = "0.2"
 
 [dev-dependencies]
-env_logger = "0.11.8"
+env_logger = "0.11.11"
 
 [target.'cfg(not(target_arch = "wasm32"))'.dev-dependencies]
-criterion = "0.5.1"
+criterion = "0.8.2"
 
 [lints.rust]
 rust_2018_idioms = "warn"

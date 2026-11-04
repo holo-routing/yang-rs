@@ -1400,32 +1400,16 @@ impl<'a> SchemaStmtMust<'a> {
 
     /// Returns the schema nodes accessed by the condition, when evaluated for
     /// the given schema node, the one the constraint belongs to.
-    pub fn atoms(&self, snode: &SchemaNode<'_>) -> Result<Vec<SchemaNode<'a>>> {
-        let mut set = std::ptr::null_mut();
-        let ret = unsafe {
-            ffi::lys_find_expr_atoms(
+    pub fn atoms(&self, snode: &SchemaNode<'a>) -> Result<Vec<SchemaNode<'a>>> {
+        unsafe {
+            expr_atoms(
+                self.context,
                 snode.raw,
-                snode.module().raw,
+                snode,
                 (*self.raw).cond,
                 (*self.raw).prefixes,
-                0,
-                &mut set,
             )
-        };
-        if ret != ffi::LY_ERR::LY_SUCCESS {
-            return Err(Error::new(self.context));
         }
-        let atoms = unsafe {
-            let count = (*set).count as usize;
-            let snodes = (*set).__bindgen_anon_1.snodes;
-            (0..count)
-                .map(|index| {
-                    SchemaNode::from_raw(self.context, *snodes.add(index))
-                })
-                .collect()
-        };
-        unsafe { ffi::ly_set_free(set, None) };
-        Ok(atoms)
     }
 
     /// description substatement.
@@ -1485,6 +1469,24 @@ impl<'a> SchemaStmtWhen<'a> {
     pub fn context_node(&self) -> Option<SchemaNode<'a>> {
         let context = unsafe { (*self.raw).context };
         unsafe { SchemaNode::from_raw_opt(self.context, context) }
+    }
+
+    /// Returns the schema nodes accessed by the condition, when evaluated for
+    /// the given schema node, one of those the statement belongs to.
+    ///
+    /// The condition is evaluated from its context node. The schema node gives
+    /// the module its unprefixed names belong to, which isn't necessarily the
+    /// module of the context node (e.g. in an augment of another module).
+    pub fn atoms(&self, snode: &SchemaNode<'a>) -> Result<Vec<SchemaNode<'a>>> {
+        unsafe {
+            expr_atoms(
+                self.context,
+                (*self.raw).context,
+                snode,
+                (*self.raw).cond,
+                (*self.raw).prefixes,
+            )
+        }
     }
 
     /// description substatement.
@@ -2130,6 +2132,48 @@ pub(crate) unsafe fn eval_condition(
         return Err(Error::new(context));
     }
     Ok(result != 0)
+}
+
+/// Returns the schema nodes accessed by a compiled condition (of a must or when
+/// statement) of the given schema node. A null context node stands for the root
+/// node.
+unsafe fn expr_atoms<'a>(
+    context: &'a Context,
+    ctx_node: *const ffi::lysc_node,
+    snode: &SchemaNode<'a>,
+    cond: *const ffi::lyxp_expr,
+    prefixes: *const ffi::lysc_prefix,
+) -> Result<Vec<SchemaNode<'a>>> {
+    // Without this option, libyang looks up the children of an RPC or action
+    // in its input, even for conditions of nodes in its output.
+    let options = if snode.check_flag(ffi::LYS_IS_OUTPUT) {
+        ffi::LYS_FIND_XP_OUTPUT
+    } else {
+        0
+    };
+    let mut set = std::ptr::null_mut();
+    let ret = unsafe {
+        ffi::lys_find_expr_atoms(
+            ctx_node,
+            snode.module().raw,
+            cond,
+            prefixes,
+            options,
+            &mut set,
+        )
+    };
+    if ret != ffi::LY_ERR::LY_SUCCESS {
+        return Err(Error::new(context));
+    }
+    let atoms = unsafe {
+        let count = (*set).count as usize;
+        let snodes = (*set).__bindgen_anon_1.snodes;
+        (0..count)
+            .map(|index| SchemaNode::from_raw(context, *snodes.add(index)))
+            .collect()
+    };
+    unsafe { ffi::ly_set_free(set, None) };
+    Ok(atoms)
 }
 
 /// Returns the first top-level node of the data tree holding a node.

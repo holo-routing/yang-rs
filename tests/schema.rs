@@ -5,7 +5,7 @@ use yang5::context::{Context, ContextFlags};
 use yang5::data::DataFormat;
 use yang5::iter::IterSchemaFlags;
 use yang5::schema::{
-    DataValueType, SchemaInputFormat, SchemaModule, SchemaNodeKind,
+    DataValueType, SchemaInputFormat, SchemaModule, SchemaNode, SchemaNodeKind,
     SchemaPathFormat, SchemaStmtMust,
 };
 
@@ -92,6 +92,17 @@ fn create_context() -> Context {
         .expect("Failed to load module");
 
     ctx
+}
+
+// Returns the paths of the nodes accessed by the first "when" condition of a
+// schema node.
+fn when_atoms(snode: &SchemaNode<'_>) -> BTreeSet<String> {
+    let when = snode.whens().next().unwrap();
+    when.atoms(snode)
+        .unwrap()
+        .iter()
+        .map(|atom| atom.path(SchemaPathFormat::DATA))
+        .collect()
 }
 
 fn create_test_context() -> Context {
@@ -709,6 +720,171 @@ fn schema_must_and_when_statements() {
     assert_eq!(
         when.context_node().unwrap().path(SchemaPathFormat::DATA),
         "/yang-rs-test:constraints"
+    );
+
+    // Nodes accessed by "when" conditions, from each kind of context node: the
+    // node itself, the closest data node containing a case, and the root.
+    let snode = ctx.find_path("/yang-rs-test:constraints/ospf").unwrap();
+    assert_eq!(
+        when_atoms(&snode),
+        BTreeSet::from([
+            "/yang-rs-test:constraints".to_owned(),
+            "/yang-rs-test:constraints/protocol".to_owned(),
+        ])
+    );
+    assert_eq!(
+        when_atoms(&case),
+        BTreeSet::from(["/yang-rs-test:constraints/level".to_owned()])
+    );
+    let snode = ctx.find_path("/yang-rs-test:top-burst").unwrap();
+    let case = snode.ancestors().next().unwrap();
+    assert_eq!(case.whens().next().unwrap().context_node(), None);
+    assert_eq!(
+        when_atoms(&case),
+        BTreeSet::from([
+            "/yang-rs-test:constraints".to_owned(),
+            "/yang-rs-test:constraints/level".to_owned(),
+        ])
+    );
+}
+
+#[test]
+fn schema_when_atoms_in_augments() {
+    let ctx = create_test_context();
+
+    // The context node of the condition belongs to another module, so nothing
+    // but the augmenting node tells what the unprefixed name refers to.
+    SchemaModule::parse_string(
+        &ctx,
+        r#"
+        module yang-rs-test-augment {
+          yang-version 1.1;
+          namespace "urn:yang-rs-test-augment";
+          prefix a;
+
+          import yang-rs-test {
+            prefix t;
+          }
+
+          augment "/t:constraints" {
+            leaf mode {
+              type string;
+            }
+          }
+          augment "/t:constraints" {
+            when "mode = 'on'";
+            leaf flag {
+              type boolean;
+            }
+          }
+        }
+        "#,
+        SchemaInputFormat::YANG,
+    )
+    .expect("Failed to parse module");
+
+    let snode = ctx
+        .find_path("/yang-rs-test:constraints/yang-rs-test-augment:flag")
+        .unwrap();
+    let when = snode.whens().next().unwrap();
+    assert_eq!(when.context_node().unwrap().module().name(), "yang-rs-test");
+    assert!(when_atoms(&snode)
+        .contains("/yang-rs-test:constraints/yang-rs-test-augment:mode"));
+}
+
+#[test]
+fn schema_atoms_in_rpc_output() {
+    let ctx = create_test_context();
+
+    // The input and the output have a leaf of the same name, so the atoms tell
+    // which of the two a condition was evaluated against.
+    SchemaModule::parse_string(
+        &ctx,
+        r#"
+        module yang-rs-test-rpc {
+          yang-version 1.1;
+          namespace "urn:yang-rs-test-rpc";
+          prefix r;
+
+          rpc run {
+            input {
+              leaf mode {
+                type string;
+              }
+              leaf in-flag {
+                when "../mode = 'on'";
+                must "../mode = 'on'";
+                type boolean;
+              }
+            }
+            output {
+              leaf mode {
+                type string;
+              }
+              leaf out-flag {
+                when "../mode = 'on'";
+                must "../mode = 'on'";
+                type boolean;
+              }
+              anyxml out-any {
+                when "../mode = 'on'";
+              }
+            }
+          }
+        }
+        "#,
+        SchemaInputFormat::YANG,
+    )
+    .expect("Failed to parse module");
+
+    // The paths of the input and output nodes only differ in this format.
+    fn log_paths(atoms: Vec<SchemaNode<'_>>) -> BTreeSet<String> {
+        atoms
+            .iter()
+            .map(|atom| atom.path(SchemaPathFormat::LOG))
+            .collect()
+    }
+    let expected = |leaf: &str| {
+        BTreeSet::from([
+            "/yang-rs-test-rpc:run".to_owned(),
+            format!("/yang-rs-test-rpc:run/{}", leaf),
+        ])
+    };
+
+    let rpc = ctx.find_path("/yang-rs-test-rpc:run").unwrap();
+    let (mut input, _) = rpc.input().unwrap();
+    let (output, _) = rpc.output().unwrap();
+    let output = output.collect::<Vec<_>>();
+
+    let snode = input.find(|snode| snode.name() == "in-flag").unwrap();
+    let when = snode.whens().next().unwrap();
+    let must = snode.musts().unwrap().next().unwrap();
+    assert_eq!(
+        log_paths(when.atoms(&snode).unwrap()),
+        expected("input/mode")
+    );
+    assert_eq!(
+        log_paths(must.atoms(&snode).unwrap()),
+        expected("input/mode")
+    );
+
+    let snode = output.iter().find(|s| s.name() == "out-flag").unwrap();
+    let when = snode.whens().next().unwrap();
+    let must = snode.musts().unwrap().next().unwrap();
+    assert_eq!(
+        log_paths(when.atoms(snode).unwrap()),
+        expected("output/mode")
+    );
+    assert_eq!(
+        log_paths(must.atoms(snode).unwrap()),
+        expected("output/mode")
+    );
+
+    let snode = output.iter().find(|s| s.name() == "out-any").unwrap();
+    let when = snode.whens().next().unwrap();
+    assert_eq!(
+        log_paths(when.atoms(snode).unwrap()),
+        expected("output/mode")
     );
 }
 

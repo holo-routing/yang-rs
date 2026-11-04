@@ -1352,7 +1352,7 @@ impl<'a> DataNodeRef<'a> {
     }
 
     /// Schema definition of this node.
-    pub fn schema(&self) -> SchemaNode<'_> {
+    pub fn schema(&self) -> SchemaNode<'a> {
         let raw = unsafe { (*self.raw).schema };
         unsafe { SchemaNode::from_raw(self.context(), raw as *mut _) }
     }
@@ -1360,7 +1360,7 @@ impl<'a> DataNodeRef<'a> {
     /// Get the owner module of the data node. It is the module of the top-level
     /// schema node. Generally, in case of augments it is the target module,
     /// recursively, otherwise it is the module where the data node is defined.
-    pub fn owner_module(&self) -> SchemaModule<'_> {
+    pub fn owner_module(&self) -> SchemaModule<'a> {
         let module = unsafe { ffi::lyd_owner_module(self.raw()) };
         unsafe { SchemaModule::from_raw(self.context(), module as *mut _) }
     }

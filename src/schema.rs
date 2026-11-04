@@ -34,7 +34,7 @@ pub struct SchemaModule<'a> {
 /// Available YANG schema tree structures representing YANG submodule.
 #[derive(Clone, Debug)]
 pub struct SchemaSubmodule<'a> {
-    pub(crate) module: &'a SchemaModule<'a>,
+    pub(crate) module: SchemaModule<'a>,
     pub(crate) raw: *mut ffi::lysp_submodule,
 }
 
@@ -307,7 +307,7 @@ impl<'a> SchemaModule<'a> {
         &self,
         name: &str,
         revision: Option<&str>,
-    ) -> Option<SchemaSubmodule<'_>> {
+    ) -> Option<SchemaSubmodule<'a>> {
         let name = CString::new(name).unwrap();
         let revision_cstr;
 
@@ -325,7 +325,10 @@ impl<'a> SchemaModule<'a> {
             return None;
         }
 
-        Some(unsafe { SchemaSubmodule::from_raw(self, module as _) })
+        Some(SchemaSubmodule {
+            module: self.clone(),
+            raw: module as _,
+        })
     }
 
     /// Get the latest revision of the YANG submodule specified by its name.
@@ -334,7 +337,7 @@ impl<'a> SchemaModule<'a> {
     pub fn get_submodule_latest(
         &self,
         name: &str,
-    ) -> Option<SchemaSubmodule<'_>> {
+    ) -> Option<SchemaSubmodule<'a>> {
         let name = CString::new(name).unwrap();
         let module = unsafe {
             ffi::ly_ctx_get_submodule2_latest(self.raw, name.as_ptr())
@@ -343,7 +346,10 @@ impl<'a> SchemaModule<'a> {
             return None;
         }
 
-        Some(unsafe { SchemaSubmodule::from_raw(self, module as _) })
+        Some(SchemaSubmodule {
+            module: self.clone(),
+            raw: module as _,
+        })
     }
 
     /// Print schema tree in the specified format into a file descriptor.
@@ -642,7 +648,10 @@ unsafe impl<'a> Binding<'a> for SchemaSubmodule<'a> {
         module: &'a SchemaModule<'a>,
         raw: *mut ffi::lysp_submodule,
     ) -> SchemaSubmodule<'a> {
-        SchemaSubmodule { module, raw }
+        SchemaSubmodule {
+            module: module.clone(),
+            raw,
+        }
     }
 }
 
@@ -659,7 +668,7 @@ unsafe impl Sync for SchemaSubmodule<'_> {}
 
 impl<'a> SchemaImport<'a> {
     /// Import Module.
-    pub fn module(&self) -> SchemaModule<'_> {
+    pub fn module(&self) -> SchemaModule<'a> {
         let module = unsafe { (*self.raw).module };
         unsafe { SchemaModule::from_raw(self.context, module) }
     }
@@ -716,7 +725,7 @@ impl<'a> SchemaNode<'a> {
     }
 
     /// Schema node module.
-    pub fn module(&self) -> SchemaModule<'_> {
+    pub fn module(&self) -> SchemaModule<'a> {
         let module = unsafe { (*self.raw).module };
         unsafe { SchemaModule::from_raw(self.context, module) }
     }
@@ -757,7 +766,7 @@ impl<'a> SchemaNode<'a> {
     }
 
     /// Evaluate an xpath expression on the node.
-    pub fn find_xpath(&self, xpath: &str) -> Result<Set<'_, SchemaNode<'_>>> {
+    pub fn find_xpath(&self, xpath: &str) -> Result<Set<'a, SchemaNode<'a>>> {
         let xpath = CString::new(xpath).unwrap();
         let mut set = std::ptr::null_mut();
         let set_ptr = &mut set;
@@ -788,7 +797,7 @@ impl<'a> SchemaNode<'a> {
     }
 
     /// Get a schema node based on the given data path (JSON format).
-    pub fn find_path(&self, path: &str) -> Result<SchemaNode<'_>> {
+    pub fn find_path(&self, path: &str) -> Result<SchemaNode<'a>> {
         let path = CString::new(path).unwrap();
 
         let rnode = unsafe {
@@ -981,7 +990,7 @@ impl<'a> SchemaNode<'a> {
     }
 
     /// The default case of the choice.
-    pub fn default_case(&self) -> Option<SchemaNode<'_>> {
+    pub fn default_case(&self) -> Option<SchemaNode<'a>> {
         let default = unsafe {
             match self.kind() {
                 SchemaNodeKind::Choice => {
@@ -997,7 +1006,7 @@ impl<'a> SchemaNode<'a> {
     // TODO: list of leaf-list default values.
 
     /// Type of the leaf(-list) node.
-    pub fn leaf_type(&self) -> Option<SchemaLeafType<'_>> {
+    pub fn leaf_type(&self) -> Option<SchemaLeafType<'a>> {
         let raw = unsafe {
             match self.kind() {
                 SchemaNodeKind::Leaf => {
@@ -1190,7 +1199,7 @@ impl<'a> SchemaNode<'a> {
     /// * Input's list of must restrictions.
     pub fn input(
         &self,
-    ) -> Option<(Siblings<'_, SchemaNode<'_>>, Array<'_, SchemaStmtMust<'_>>)>
+    ) -> Option<(Siblings<'a, SchemaNode<'a>>, Array<'a, SchemaStmtMust<'a>>)>
     {
         match self.kind {
             SchemaNodeKind::Rpc | SchemaNodeKind::Action => {
@@ -1215,7 +1224,7 @@ impl<'a> SchemaNode<'a> {
     /// * Output's list of must restrictions.
     pub fn output(
         &self,
-    ) -> Option<(Siblings<'_, SchemaNode<'_>>, Array<'_, SchemaStmtMust<'_>>)>
+    ) -> Option<(Siblings<'a, SchemaNode<'a>>, Array<'a, SchemaStmtMust<'a>>)>
     {
         match self.kind {
             SchemaNodeKind::Rpc | SchemaNodeKind::Action => {
@@ -1539,7 +1548,7 @@ impl<'a> SchemaLeafType<'a> {
 
     /// Returns the real type of the leafref, corresponding to the first
     /// non-leafref in a possible chain of leafrefs.
-    pub fn leafref_real_type(&self) -> Option<SchemaLeafType<'_>> {
+    pub fn leafref_real_type(&self) -> Option<SchemaLeafType<'a>> {
         if self.base_type() != DataValueType::LeafRef {
             return None;
         }

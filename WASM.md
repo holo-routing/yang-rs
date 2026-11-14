@@ -9,6 +9,8 @@ export PCRE2_LIBRARY=/path/to/pcre2/lib/libpcre2-8.a
 cargo build --target wasm32-wasip1
 ```
 
+The SDK has to carry the wasi-libc that the Rust toolchain's std expects: the build puts the SDK's libraries on the link path, so the program is linked against the SDK's `libc.a` rather than the one Rust ships. Since Rust 1.100, std keeps its thread locals on `wasm32-wasip1` in pthread keys ([rust-lang/rust#163809]), which takes WASI SDK 34 or later: with an older SDK, a program hangs, spinning in `__pthread_key_delete`, the first time it takes a thread local, as `std::thread::current()` does.
+
 PCRE2 has to be cross compiled beforehand, with the JIT turned off as it has no WebAssembly support:
 
 ```sh
@@ -23,3 +25,4 @@ CARGO_TARGET_WASM32_WASIP1_RUNNER="wasmtime run --dir ." cargo test --target was
 ```
 
 [WASI SDK]: https://github.com/WebAssembly/wasi-sdk
+[rust-lang/rust#163809]: https://github.com/rust-lang/rust/pull/163809

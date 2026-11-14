@@ -37,6 +37,18 @@ fn wasi_clang_include(sdk: &std::path::Path) -> PathBuf {
     }
 }
 
+// Whether the WASI SDK ships the pthread functions of wasi-libc's
+// single-threaded build as a library of their own, libwasi-emulated-pthread,
+// as WASI SDK 25 does. WASI SDK 34 has no such library, its libc providing
+// them itself.
+#[allow(dead_code)]
+fn wasi_emulated_pthread(sdk: &std::path::Path, target: &str) -> bool {
+    sdk.join("share/wasi-sysroot/lib")
+        .join(target)
+        .join("libwasi-emulated-pthread.a")
+        .exists()
+}
+
 fn main() {
     let dst = PathBuf::from(env::var("OUT_DIR").unwrap());
     let out_file = dst.join("libyang5.rs");
@@ -95,18 +107,27 @@ fn main() {
 
             // libyang only ever takes mutexes and rwlocks, both of which
             // wasi-libc implements for real in its single-threaded build.
-            // _WASI_EMULATED_PTHREAD is needed solely to satisfy CMake's
-            // FindThreads probe, which insists on pthread_create, join,
-            // cancel and exit.
-            cmake_config.define(
-                "CMAKE_C_FLAGS",
-                format!(
-                    "-D_WASI_EMULATED_PTHREAD -include {}",
-                    compat.display()
-                ),
-            );
-            cmake_config
-                .define("CMAKE_EXE_LINKER_FLAGS", "-lwasi-emulated-pthread");
+            // libwasi-emulated-pthread, where the SDK has one, is needed
+            // solely to satisfy CMake's FindThreads probe, which insists on
+            // pthread_create, join, cancel and exit.
+            if wasi_emulated_pthread(&sdk, &target) {
+                cmake_config.define(
+                    "CMAKE_C_FLAGS",
+                    format!(
+                        "-D_WASI_EMULATED_PTHREAD -include {}",
+                        compat.display()
+                    ),
+                );
+                cmake_config.define(
+                    "CMAKE_EXE_LINKER_FLAGS",
+                    "-lwasi-emulated-pthread",
+                );
+            } else {
+                cmake_config.define(
+                    "CMAKE_C_FLAGS",
+                    format!("-include {}", compat.display()),
+                );
+            }
 
             // pkg-config cannot find a cross-compiled PCRE2, so its location
             // has to be given explicitly.
@@ -154,16 +175,16 @@ fn main() {
         }
         println!("cargo:rustc-link-lib=static=yang");
         if wasm {
+            let sdk = wasi_sdk();
             let target = env::var("TARGET").unwrap();
             println!(
                 "cargo:rustc-link-search=native={}",
-                wasi_sdk()
-                    .join("share/wasi-sysroot/lib")
-                    .join(&target)
-                    .display()
+                sdk.join("share/wasi-sysroot/lib").join(&target).display()
             );
             println!("cargo:rustc-link-lib=static=c-printscan-long-double");
-            println!("cargo:rustc-link-lib=static=wasi-emulated-pthread");
+            if wasi_emulated_pthread(&sdk, &target) {
+                println!("cargo:rustc-link-lib=static=wasi-emulated-pthread");
+            }
         }
         println!("cargo:rerun-if-changed=libyang");
     }
